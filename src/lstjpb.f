@@ -18,7 +18,7 @@ C> jump/link table.
 C>
 C> @param[in] NODE - integer: jump/link table index of entry to begin
 C> searching backwards from
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays
+C> @param[in] LUN - integer: file ID
 C> @param[in] JBTYP - character*(*): type of node for which to search
 C>
 C> @return - integer: index of first node of type jbtyp found by

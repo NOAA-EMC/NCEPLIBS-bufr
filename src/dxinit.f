@@ -8,7 +8,7 @@ C> (in module @ref moda_tababd) holding the DX BUFR table, then
 C> initialize the table with apriori Table B and D entries
 C> (optional).
 C>
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID
 C> @param[in] IOI - integer: switch:
 C> - 0 do not initialize the table with apriori Table B and D entries.
 C> - else initialize the table with apriori Table B and D entries.

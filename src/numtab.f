@@ -11,8 +11,7 @@ C>
 C> For an description of the WMO bit-wise representation of the FXY
 C> value, see ifxy().
 C>
-C> @param[in] LUN - integer: Internal I/O stream index associated
-C> with DX BUFR tables.
+C> @param[in] LUN - integer: file ID associated with DX BUFR tables.
 C> @param[in] IDN - integer: WMO bit-wise representation of FXY value
 C> for descriptor.
 C> @param[out] NEMO - character*(*): Mnemonic associated with IDN.

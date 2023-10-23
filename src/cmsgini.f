@@ -5,7 +5,7 @@ C> @author Woollen @date 2002-05-14
 
 C> Initialize a new BUFR message for output in compressed format.
 C>
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C> @param[out] MESG - integer(*): BUFR message.
 C> @param[in] SUBSET - character*8: Table A mnemonic for type of BUFR message being written.
 C> @param[in] IDATE - integer: date-time stored within Section 1 of BUFR message being written,

@@ -13,7 +13,7 @@ C> of events found.
 C>
 C> @param[in] NODE - integer: jump/link table index of node for which
 C>                   to return stacked values
-C> @param[in] LUN  - integer: I/O stream index into internal memory arrays
+C> @param[in] LUN  - integer: file ID
 C> @param[in] INV1 - integer: Starting index of the portion of the subset
 C>                   buffer in which to look for stack values
 C> @param[in] INV2 - integer: ending index of the portion of the subset

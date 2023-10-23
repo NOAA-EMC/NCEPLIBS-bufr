@@ -6,8 +6,7 @@ C> @author J. Woollen @date 1994-01-06
 C> Return information about a Table D descriptor
 C> from the internal DX BUFR tables.
 C>
-C> @param[in] LUN - integer: Internal I/O stream index associated
-C>                   with DX BUFR tables
+C> @param[in] LUN - integer: file ID associated with DX BUFR tables
 C> @param[in] ITAB - integer: Positional index of descriptor within
 C>                    internal Table D
 C> @param[out] NSEQ - integer: Number of child mnemonics for descriptor

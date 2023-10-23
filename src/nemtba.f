@@ -12,8 +12,7 @@ C> it calls
 C> subroutine bort() if the descriptor is not found in Table A,
 C> whereas nemtbax() will return an INOD value of 0 in such cases.
 C>
-C> @param[in] LUN - integer: Internal I/O stream index associated
-C>                  with DX BUFR tables
+C> @param[in] LUN - integer: file ID associated with DX BUFR tables
 C> @param[in] NEMO - character*(*): Mnemonic for Table A descriptor
 C> @param[out] MTYP - integer: Message type corresponding to NEMO
 C> @param[out] MSBT - integer: Message subtype corresponding to NEMO

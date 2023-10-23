@@ -8,7 +8,7 @@ C> BUFR message in mbay(1,lun), then use the BUFR master tables
 C> to generate the necessary information for those descriptors within
 C> the internal BUFR table arrays.
 C>
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID
 C>
 C> @author J. Ator @date 2009-03-23
         SUBROUTINE READS3 ( LUN )

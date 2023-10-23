@@ -16,10 +16,8 @@ C> subroutine bort().
 C>
 C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file
 C>                    associated with output unit.
-C> @param[in] LIN - integer: I/O stream index into internal memory arrays
-C>                  for input unit
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays
-C>                  for output unit.
+C> @param[in] LIN - integer: file ID for input unit
+C> @param[in] LUN - integer: file ID for output unit
 C> @param[in] IBYT - integer: length (in bytes) of data subset
 C>
 C> @author Woollen @date 1994-01-06

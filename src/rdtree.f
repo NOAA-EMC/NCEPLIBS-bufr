@@ -8,7 +8,7 @@ C> uncompressed message buffer (array mbay in module @ref moda_bitbuf) and
 C> stores the result within the internal array val(*,lun)
 C> in module @ref moda_usrint.
 C>
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID
 C> @param[out] IRET - integer: return code:
 C> - 0 normal return
 C> - -1 An error occurred, possibly due to a corrupt subset in the input message.

@@ -7,7 +7,7 @@ C> Compute the complete length of the delayed
 C> replication sequence beginning at index N of a data subset.
 C>
 C> @param[in] N - integer: index to start of delayed replication sequence.
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID
 C>
 C> @return complete length of delayed replication sequence within data subset.
 C>

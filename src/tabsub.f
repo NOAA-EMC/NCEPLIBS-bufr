@@ -7,7 +7,7 @@ C> Build and store the entire jump/link tree
 C> (including recursively resolving all "child" mnemonics) for a Table A
 C> mnemonic within the internal jump/link table.
 C>
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C> @param[in] NEMO - character*8: Table A mnemonic.
 C>
 C> @author Woollen @date 1994-01-06

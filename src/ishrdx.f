@@ -8,10 +8,8 @@ C> Check whether the same
 C> [DX BUFR Table](@ref dfbftab) is being shared between two
 C> Fortran logical units.
 C>
-C> @param[in]  LUD     -- integer: Internal I/O stream index associated
-C>                        with first BUFR file
-C> @param[in]  LUN     -- integer: Internal I/O stream index associated
-C>                        with second BUFR file
+C> @param[in]  LUD     -- integer: file ID for first BUFR file
+C> @param[in]  LUN     -- integer: file ID for second BUFR file
 C> @returns ishrdx     -- integer: Flag indicating whether the same
 C>                        DX BUFR table is being shared between the
 C>                        BUFR file associated with LUD and the BUFR
@@ -27,7 +25,7 @@ C> @author J. Ator @date 2009-06-18
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C     Note that, for any I/O stream index value LUx, the MTAB(*,LUx)
+C     Note that, for any file ID LUx, the MTAB(*,LUx)
 C     array contains pointer indices into the internal jump/link table
 C     for each of the Table A mnemonics that is currently defined for
 C     that LUx value.  Thus, if all of these indices are identical for

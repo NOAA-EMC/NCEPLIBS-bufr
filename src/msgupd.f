@@ -15,9 +15,8 @@ C> count > 65530 will be written into its own one-subset message.
 C> if the current subset is larger than the maximum message length,
 C> then the subset is discarded and a diagnostic is printed.
 C>
-C> @param[in] LUNIT - integer: fortran logical unit number for BUFR file.
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays
-C> (associated with file connected to logical unit LUNIT).
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.
+C> @param[in] LUN - integer: file ID associated with LUNIT
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE MSGUPD(LUNIT,LUN)

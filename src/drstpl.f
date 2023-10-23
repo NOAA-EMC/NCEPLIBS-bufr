@@ -14,7 +14,7 @@ C> appears in the subset buffer, and in doing so it will also return
 C> a new value for inv2.
 C>
 C> @param[in] INOD - integer: jump/link table index of mnemonic to look for.
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C> @param[in] INV1 - integer: starting index of the portion of the subset
 C> buffer currently being processed by ufbrw().
 C> @param[inout] INV2 - integer:

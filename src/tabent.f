@@ -6,7 +6,7 @@ C> @author Woollen @date 1994-01-06
 C> Build and store an entry for a Table B or
 C> Table D mnemonic within the internal jump/link table.
 C>
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C> @param[in] NEMO - character*8: Table B or D mnemonic to store in jump/link table.
 C> @param[in] TAB - character*1: internal BUFR table array ('B' or 'D') in which NEMO is defined.
 C> @param[in] ITAB - integer: positional index of NEMO within TAB.

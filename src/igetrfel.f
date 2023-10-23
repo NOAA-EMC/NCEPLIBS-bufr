@@ -12,7 +12,7 @@ C> factor, bit width and reference values internally to match those
 C> of the referenced element.
 C>
 C> @param[in] N - integer: subset element.
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C>
 C> @return Subset element referenced by element N within the same subset.
 C> - 0 input element does not refer to a previous element, or referenced

@@ -9,7 +9,7 @@ C> UTAG within the current overall subset definition, starting from
 C> parameter #(NIN) within the subset.  The subroutine searches forward
 C> from NIN if NUTAG is positive or else backward if NUTAG is negative.
 C>
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID
 C> @param[in] UTAG - character*(*): mnemonic.
 C> @param[in] NUTAG - integer: ordinal occurrence of UTAG to search for within
 C>     the overall subset definition, counting from parameter #(NIN) within the subset.

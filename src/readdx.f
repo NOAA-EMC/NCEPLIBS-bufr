@@ -22,8 +22,7 @@ C> file indicated by LUNIT, until the file is closed with closbf().
 C>
 C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file
 C> being read, written, initialized or appended.
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays
-C> (associated with file connected to logical unit LUNIT)
+C> @param[in] LUN - integer: file ID associated with LUNIT
 C> @param[in] LUNDX - integer: Fortran logical unit number
 C> containing dictionary table information to be used in reading/
 C> writing from/to LUNIT (depending on the case); may be

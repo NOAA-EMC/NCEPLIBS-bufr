@@ -5,7 +5,7 @@ C> @author Ator @date 2009-03-23
 C> Store a new entry within internal BUFR Table A.
 C>
 C> @param[in] N - integer: storage index into internal Table A.
-C> @param[in] LUN - integer: I/O stream index into internal Table A.
+C> @param[in] LUN - integer: file ID.
 C> @param[in] NUMB - character*6: FXY number for new Table A entry (in format FXXYYY).
 C> @param[in] NEMO - character*8: mnemonic corresponding to NUMB.
 C> @param[in] CELSQ - character*55: sequence description corresponding to NUMB.

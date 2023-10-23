@@ -19,7 +19,7 @@ C> LUNIT and LUN values remain linked to each other for as
 C> long as the file is connected to the software.
 C>
 C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file
-C> @param[in] LUN - integer: Internal I/O stream index associated with LUNIT
+C> @param[in] LUN - integer: file ID associated with LUNIT
 C> @param[in] IL - integer: File status update option
 C>  - 0 Disconnect LUNIT from the software
 C>  - 1 Connect LUNIT to the software for output operations
@@ -75,7 +75,7 @@ C  -----
 900   WRITE(BORT_STR,'("BUFRLIB: WTSTAT - INVALID UNIT NUMBER PASSED '//
      . ' INTO FIRST ARGUMENT (INPUT) (=",I3,")")') LUNIT
       CALL BORT(BORT_STR)
-901   WRITE(BORT_STR,'("BUFRLIB: WTSTAT - INVALID I/O STREAM INDEX '//
+901   WRITE(BORT_STR,'("BUFRLIB: WTSTAT - INVALID FILE ID '//
      . 'PASSED INTO SECOND ARGUMENT (INPUT) (=",I3,")")') LUN
       CALL BORT(BORT_STR)
 902   WRITE(BORT_STR,'("BUFRLIB: WTSTAT - INVALID LOGICAL UNIT STATUS'//

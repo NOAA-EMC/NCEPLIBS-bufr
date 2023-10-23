@@ -12,10 +12,8 @@ C> Note that two different logical units can have identical DX BUFR
 C> Table information associated with them even if they aren't actually
 C> sharing the same DX BUFR table.
 C>
-C> @param[in]  LUD     -- integer: Internal I/O stream index associated
-C>                        with first BUFR file
-C> @param[in]  LUN     -- integer: Internal I/O stream index associated
-C>                        with second BUFR file
+C> @param[in]  LUD     -- integer: file ID for first BUFR file
+C> @param[in]  LUN     -- integer: file ID for second BUFR file
 C> @returns icmpdx     -- integer: Flag indicating whether the
 C>                        BUFR file associated with LUD and the BUFR
 C>                        file associated with LUN have the same DX

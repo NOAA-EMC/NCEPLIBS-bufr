@@ -7,7 +7,7 @@ C> Store internal information in
 C> module @ref moda_bitmaps if the input element is part of a bitmap.
 C>
 C> @param[in] N - integer: subset element.
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C>
 C> @author J. Ator @date 2016-05-27
         SUBROUTINE STRBTM ( N, LUN )

@@ -5,7 +5,7 @@ C> @author J. Woollen @date 1994-01-06
 
 C> Build the entire internal jump/link table within module @ref moda_tables,
 C> using all of the internal BUFR table array information
-C> from module @ref moda_tababd for all of the internal I/O streams that are
+C> from module @ref moda_tababd for all of the file IDs that are
 C> currently defined to the library in module @ref moda_stbfr.
 C>
 C> The entire jump/link table will always be completely reconstructed
@@ -14,9 +14,9 @@ C> BUFR table arrays already existed there at the time of the previous
 C> call to this subroutine, because there may have been other events
 C> that have taken place since the previous call to this subroutine and
 C> which haven't yet been reflected within the internal jump/link table.
-C> For example, an I/O stream may have recently been unlinked from the
+C> For example, a file ID may have recently been unlinked from the
 C> library via an internal call to subroutine closbf(), or the DX BUFR
-C> tables associated with an I/O stream may have changed.
+C> tables associated with a file ID may have changed.
 C>
 C> @author J. Woollen @date 1994-01-06
 

@@ -13,7 +13,7 @@ C> Table B array TABB(*,LUN) in module @ref moda_tababd.
 C>
 C> @param[in] CARD - character*80: mnemonic definition card that was read
 C> from a user-supplied DX BUFR table.
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE ELEMDX(CARD,LUN)

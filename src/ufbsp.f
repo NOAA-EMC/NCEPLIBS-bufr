@@ -21,7 +21,7 @@ C> subroutine ufbstp() differs from subroutine ufbrep(), and therefore
 C> how this subroutine differs from subroutine ufbrp(), see the
 C> discussion in [DX BUFR Tables](@ref ufbsubs).
 C>
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C> @param[inout] USR - real*8(*,*): Data values
 C> @param[in] I1 - integer: length of first dimension of USR.
 C> @param[in] I2 - integer: length of second dimension of USR.

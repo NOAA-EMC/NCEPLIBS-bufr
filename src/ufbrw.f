@@ -14,7 +14,7 @@ C> This subroutine should never be directly called by an application
 C> program; instead, an application program should directly call ufbint()
 C> which will internally call this subroutine.
 C>
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C> @param[inout] USR - real*8(*,*): Data values
 C> @param[in] I1 - integer: length of first dimension of USR.
 C> @param[in] I2 - integer: length of second dimension of USR.

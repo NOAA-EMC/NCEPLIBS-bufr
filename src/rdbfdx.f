@@ -19,9 +19,8 @@ C> cpdxmm(), except that cpdxmm() writes to the internal memory
 C> arrays in module @ref moda_msgmem, for use with a file of BUFR messages that
 C> is being read and stored into internal memory via subroutine ufbmem().
 C>
-C> @param[in] LUNIT - integer: fortran logical unit number for BUFR file.
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
-C> (associated with file connected to logical unit LUNIT).
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.
+C> @param[in] LUN - integer: file ID associated with LUNIT
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE RDBFDX(LUNIT,LUN)

@@ -6,10 +6,8 @@ C> @author Woollen @date 1994-01-06
 C> Copy all of the DX BUFR table information from
 C> one unit to another within internal memory.
 C>
-C> @param[in] LUD - integer: I/O stream index into internal memory
-C>                  arrays for input unit.
-C> @param[in] LUN - integer: I/O stream index into internal memory
-C>                  arrays for output unit.
+C> @param[in] LUD - integer: file ID for input unit
+C> @param[in] LUN - integer: file ID for output unit
 C>
 C> @author Woollen @date 1994-01-06
 
