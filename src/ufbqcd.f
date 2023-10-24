@@ -5,7 +5,7 @@ C>
 C> @author J. Woollen @date 1994-01-06
 
 C> Given a mnemonic associated with a category 63 Table D
-C> descriptor from an NCEP prepbufr file, this subroutine returns the
+C> descriptor from an NCEP prepbufr file, return the
 C> corresponding event program code.
 C>
 C> The event program code is equivalent to the Y value of the

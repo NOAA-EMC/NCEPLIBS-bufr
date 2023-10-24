@@ -3,9 +3,7 @@ C> @brief Encode an integer value within a character string.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Encode an integer value within a character string.
-C>
-C> This subroutine encodes an integer value within a specified
+C> Encode an integer value within a specified
 C> number of bytes of a character string, up to a maximum of 8
 C> bytes.
 C>

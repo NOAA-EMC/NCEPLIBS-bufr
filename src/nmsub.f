@@ -3,9 +3,9 @@ C> @brief Get the number of data subsets from a BUFR message.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This function returns the total number of data subsets available
+C> Return the total number of data subsets available
 C> within the BUFR message that was most recently opened for reading
-C> via a call to one of the other
+C> via a call to one of the
 C> [message-reading subroutines](@ref hierarchy)
 C> for a specified Fortran logical unit.
 C>

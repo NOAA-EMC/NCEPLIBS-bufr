@@ -4,9 +4,9 @@ C> previously opened for writing.
 C>
 C> @author J. Woollen, D. Keyser @date 1994-01-06
 
-C> This subroutine closes the BUFR message that is currently open for
+C> Close the BUFR message that is currently open for
 C> writing within internal arrays associated with logical unit
-C> ABS(LUNIN), and it then writes the message to that logical unit.
+C> ABS(LUNIN), then write the message to that logical unit.
 C>
 C> Logical unit ABS(LUNIN) should have already been opened for output
 C> operations via a previous call to subroutine openbf().

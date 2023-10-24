@@ -3,11 +3,11 @@ C> @brief Decode an integer value from an integer array.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine decodes an integer value from within a specified
+C> Decode an integer value from within a specified
 C> number of bits of an integer array, starting at the bit
 C> immediately after a specified bit within the array.
 C>
-C> It is similar to subroutine upbb(), except that here IBIT is
+C> This subroutine is similar to subroutine upbb(), except that here IBIT is
 C> both an input and an output argument, and the overall order
 C> of the arguments is different.
 C>

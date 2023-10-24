@@ -4,15 +4,15 @@ C> BUFR tables
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine searches for a descriptor within Table A of the
+C> Search for a descriptor within Table A of the
 C> internal DX BUFR tables.
 C>
-C> It is similar to subroutine nemtbax(), except that it calls
+C> This subroutine is similar to subroutine nemtbax(), except that
+C> it calls
 C> subroutine bort() if the descriptor is not found in Table A,
 C> whereas nemtbax() will return an INOD value of 0 in such cases.
 C>
-C> @param[in] LUN - integer: Internal I/O stream index associated
-C>                  with DX BUFR tables
+C> @param[in] LUN - integer: file ID associated with DX BUFR tables
 C> @param[in] NEMO - character*(*): Mnemonic for Table A descriptor
 C> @param[out] MTYP - integer: Message type corresponding to NEMO
 C> @param[out] MSBT - integer: Message subtype corresponding to NEMO

@@ -3,9 +3,7 @@ C> @brief Read one or more data values from a data subset.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> Read one or more data values from a data subset.
-C>
-C> This subroutine unpacks and returns the values for one-dimensional
+C> Unpacks and return the values for one-dimensional
 C> descriptors in the input string without advancing the subset pointer.
 C>
 C> @param[in] LUNIT - integer: fortran logical unit number for BUFR file.

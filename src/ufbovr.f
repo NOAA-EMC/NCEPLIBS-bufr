@@ -3,14 +3,14 @@ C> @brief Overwrite one or more data values within a data subset.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine writes over specified values which exist
+C> Overwrite specified values which exist
 C> in current internal BUFR subset arrays in a file open for output.
 C> The data values correspond to mnemonics which are part of a
 C> delayed-replication sequence, or for which there is no replication
-C> at all. Either BUFR archive library subroutine openmg() or openmb()
+C> at all. Either subroutine openmg() or openmb()
 C> must have been previously called to open and initialize a BUFR
-C> message within memory for this lunit. In addition, BUFR archive
-C> library subroutine writsb() or invmrg() must have been called to
+C> message within memory for this lunit. In addition,
+C> subroutine writsb() or invmrg() must have been called to
 C> store data in the internal output subset arrays.
 C>
 C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.

@@ -4,7 +4,7 @@ C> when writing BUFR messages.
 C>
 C> @author J. Ator @date 2009-03-23
 
-C> This subroutine is used to specify a tank receipt time to be
+C> Specify a tank receipt time to be
 C> included within Section 1 of all BUFR messages output by future calls
 C> to [message-writing subroutines](@ref hierarchy) and
 C> [subset-writing subroutines](@ref hierarchy).
@@ -25,7 +25,7 @@ C>
 C> @remarks
 C> - Tank receipt time is an NCEP extension to Section 1 of the
 C> [official WMO BUFR regulations](@ref manual).
-C> However, it's encoded by the BUFRLIB software in such a way that
+C> However, it's encoded by the NCEPLIBS-bufr software in such a way that
 C> its inclusion within an output BUFR message is still fully
 C> compliant with the regulations.
 C>

@@ -4,7 +4,7 @@ C> Fortran language arrays.
 C>
 C> @author J. Ator @date 2014-12-04
 
-C> This subroutine frees any memory that was dynamically allocated
+C> Free all memory that was dynamically allocated
 C> during a previous call to subroutine arallocf().
 C>
 C> @author J. Ator @date 2014-12-04

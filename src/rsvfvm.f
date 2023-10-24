@@ -3,9 +3,9 @@ C> @brief Process a "following value" mnemonic.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine steps through the "following value"
+C> Step through the "following value"
 C> mnemonic NEM1 and, for each "." character encountered (except for
-C> the initial one), overwrites it with the next corresponding
+C> the initial one), overwrite it with the next corresponding
 C> character from NEM2.
 C>
 C> For example:

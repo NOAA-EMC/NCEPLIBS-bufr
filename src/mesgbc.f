@@ -1,9 +1,8 @@
 C> @file
 C> @brief Get information about a BUFR message
 
-C> This subroutine examines a BUFR message and returns both the
-C> message type (from Section 1) and message compression indicator
-C> (from Section 3).
+C> Return the message type (from Section 1) and message compression
+C> indicator (from Section 3) of a BUFR message.
 C>
 C> @author D. Keyser @date 2003-11-04
 C>

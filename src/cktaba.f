@@ -4,11 +4,11 @@ C> BUFR message.
 C>
 C> @author Woollen @date 2000-09-19
 
-C> This subroutine parses the Table A mnemonic and date
-C> out of Section 1 of a BUFR message that was previously read from lun
+C> Return the Table A mnemonic and date
+C> from Section 1 of a BUFR message that was previously read from LUN
 C> using one of the [message-reading subroutines](@ref hierarchy).
 C>
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C> @param[out] SUBSET - character*8: Table A mnemonic
 C>                      - returned as a string of all blank characters
 C>                        if IRET is equal to 11 (see below) and if Section 3

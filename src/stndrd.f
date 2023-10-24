@@ -3,6 +3,8 @@ C> @brief Standardize a BUFR message.
 C>
 C> @author J. Ator @date 2004-08-18
 
+C> Standardize a BUFR message.
+C>
 C> This subroutine performs the same function as subroutine stdmsg(),
 C> except that it operates on a BUFR message passed in via a memory array
 C> and returns its output via a separate memory array,

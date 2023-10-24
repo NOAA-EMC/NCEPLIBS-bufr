@@ -4,7 +4,7 @@ C> message.
 C>
 C> @author J. Ator @date 2005-11-29
 
-C> Read a specified value from within Section 0 or 1 of a BUFR message.
+C> Return a specified value from within Section 0 or 1 of a BUFR message.
 C>
 C> This function will work on any BUFR message encoded using BUFR
 C> edition 2, 3, or 4. It is similar to function iupbs01(), except

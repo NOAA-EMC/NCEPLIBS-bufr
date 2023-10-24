@@ -4,7 +4,7 @@ C> setting of a specified bit within a flag table.
 C>
 C> @author J. Ator @date 2005-11-29
 
-C> This function computes the numerical value equivalent to the
+C> Compute the numerical value equivalent to the
 C> setting of bit #(IBIT) within a flag table of NBITS bits.
 C>
 C> If the computation fails for any reason, then the function

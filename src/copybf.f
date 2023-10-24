@@ -3,8 +3,7 @@ C> @brief Copy an entire BUFR file.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine copies an entire BUFR file from one Fortran
-C> logical unit to another.
+C> Copy an entire BUFR file from one Fortran logical unit to another.
 C>
 C> @param[in] LUNIN   -- integer: Fortran logical unit number for
 C>                       source BUFR file

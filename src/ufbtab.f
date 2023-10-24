@@ -4,8 +4,8 @@ C> BUFR file
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine reads through every data subset in a BUFR file
-C> and returns one or more specified data values from each subset.
+C> Read through every data subset in a BUFR file
+C> and return one or more specified data values from each subset.
 C>
 C> This provides a useful way to scan the ranges of one or more
 C> specified data values across all of the data subsets within an
@@ -124,9 +124,9 @@ C  --------------------
       ISUB = 0
       IACC = IAC
 
-C  CHECK FOR COUNT SUBSET ONLY OPTION (RETURNING THE BUFRLIB'S GLOBAL
-C   VALUE FOR MISSING IN OUTPUT ARRAY) INDICATED BY NEGATIVE UNIT
-C  ------------------------------------------------------------------
+C  CHECK FOR COUNT SUBSET ONLY OPTION (RETURNING THE GLOBAL
+C  VALUE FOR MISSING IN OUTPUT ARRAY) INDICATED BY NEGATIVE UNIT
+C  -------------------------------------------------------------
 
       LUNIT = ABS(LUNIN)
       JUST_COUNT = LUNIN.LT.LUNIT
@@ -155,9 +155,9 @@ C  ---------------------------------------------------------------------
 
       IAC = 1
 
-C  SET THE OUTPUT ARRAY VALUES TO THE BUFRLIB'S GLOBAL VALUE FOR
-C   MISSING (BMISS)
-C  -------------------------------------------------------------
+C  SET THE OUTPUT ARRAY VALUES TO THE GLOBAL VALUE FOR
+C  MISSING (BMISS)
+C  ---------------------------------------------------
 
       DO J=1,I2
       DO I=1,I1

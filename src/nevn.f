@@ -4,7 +4,7 @@ C> of the current data subset.
 C>
 C> @author J. Woollen @date 2003-11-04
 
-C> This function looks for all stacked data events for a
+C> Search for all stacked data events for a
 C> specified data value and level within the portion of the current
 C> subset buffer bounded by the indices INV1 and INV2.  All such
 C> events are accumulated and returned to the calling program within
@@ -13,7 +13,7 @@ C> of events found.
 C>
 C> @param[in] NODE - integer: jump/link table index of node for which
 C>                   to return stacked values
-C> @param[in] LUN  - integer: I/O stream index into internal memory arrays
+C> @param[in] LUN  - integer: file ID
 C> @param[in] INV1 - integer: Starting index of the portion of the subset
 C>                   buffer in which to look for stack values
 C> @param[in] INV2 - integer: ending index of the portion of the subset

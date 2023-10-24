@@ -3,7 +3,7 @@ C> @brief Copy a BUFR data subset.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This function calls BUFRLIB subroutine copysb() and passes
+C> Call subroutine copysb() and pass
 C> back its return code as the function value.
 C>
 C> @param[in] LUNIN   -- integer: Fortran logical unit number for

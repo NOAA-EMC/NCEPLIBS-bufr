@@ -5,11 +5,8 @@
 
 !> Decode an integer from a character string.
 !>
-!> This subroutine decodes an integer from a character string.  The
-!> string may contain leading or trailing blanks, but otherwise should
-!> contain only digits and an (optional) leading sign ('+' or '-')
-!> character. 
-!>
+!> The string may contain leading or trailing blanks, but otherwise should
+!> contain only digits and an (optional) leading sign ('+' or '-') character. 
 !> If the string is empty or contains all blank characters, then num
 !> is returned with a value of 0.
 !>

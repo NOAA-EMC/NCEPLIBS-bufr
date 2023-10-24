@@ -779,7 +779,7 @@ module bufr_c2f_interface
     !> Wraps numtbd() subroutine.
     !>
     !> @param lun - File ID.
-    !> @param idn - Bit-wise representation of FXY value.
+    !> @param idn - WMO bit-wise representation of FXY value.
     !> @param nemo - Mnemonic.
     !> @param nemo_str_len - Length of nemo string.
     !> @param tab - Type of internal DX BUFR table ('B', or 'D').

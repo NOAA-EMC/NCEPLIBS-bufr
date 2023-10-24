@@ -3,18 +3,19 @@ C> @brief Write a compressed BUFR data subset.
 C>
 C> @author Woollen @date 2002-05-14
 
-C> This subroutine packs up the current subset within memory
+C> Pack up the current subset within memory
 C> (array ibay in module @ref moda_bitbuf), storing it for compression.
-C> It then tries to add it to the compressed BUFR message that is
-C> currently open within memory for abs(lunix) (array mgwa). If the
+C> Then try to add it to the compressed BUFR message that is
+C> currently open within memory for ABS(LUNIX) (array mgwa). If the
 C> subset will not fit into the currently open message, then that
 C> compressed message is flushed to lunix and a new one is created in
 C> order to hold the current subset (still stored for compression).
+C>
 C> This subroutine performs functions similar to NCEPLIBS-bufr
 C> subroutine msgupd() except that it acts on compressed bufr messages.
 C>
-C> @param[in] lunix - integer: absolute value is fortran logical unit
-C> number for bufr file (if lunix is less than zero, this is a "flush"
+C> @param[in] LUNIX - integer: absolute value is Fortran logical unit
+C> number for BUFR file (if LUNIX is less than zero, this is a "flush"
 C> call and the buffer must be cleared out)
 C>
 C> @author Woollen @date 2002-05-14
@@ -388,8 +389,8 @@ C  EXITS
 C  -----
 
 100   RETURN
-900   WRITE(BORT_STR,'("BUFRLIB: WRCMPS - I/O STREAM INDEX FOR THIS '//
-     . 'CALL (",I3,") .NE. I/O STREAM INDEX FOR INITIAL CALL (",I3,")'//
+900   WRITE(BORT_STR,'("BUFRLIB: WRCMPS - FILE ID FOR THIS '//
+     . 'CALL (",I3,") .NE. FILE ID FOR INITIAL CALL (",I3,")'//
      . ' - UNIT NUMBER NOW IS",I4)') LUN,LUNC,LUNIX
       CALL BORT(BORT_STR)
 901   WRITE(BORT_STR,'("BUFRLIB: WRCMPS - NO. OF ELEMENTS IN THE '//

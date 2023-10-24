@@ -4,7 +4,7 @@ C> read from a BUFR message.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This function checks whether there are any more data subsets
+C> Check whether there are any more data subsets
 C> available to be read from within the BUFR message that is
 C> open for reading via the most recent call to any of the
 C> [message-reading subroutines](@ref hierarchy) for a specified

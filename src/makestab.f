@@ -3,9 +3,9 @@ C> @brief Build the internal jump/link table.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine constructs the internal jump/link table within
-C> module tables, using all of the internal BUFR table array information
-C> from module @ref moda_tababd for all of the internal I/O streams that are
+C> Build the entire internal jump/link table within module @ref moda_tables,
+C> using all of the internal BUFR table array information
+C> from module @ref moda_tababd for all of the file IDs that are
 C> currently defined to the library in module @ref moda_stbfr.
 C>
 C> The entire jump/link table will always be completely reconstructed
@@ -14,9 +14,9 @@ C> BUFR table arrays already existed there at the time of the previous
 C> call to this subroutine, because there may have been other events
 C> that have taken place since the previous call to this subroutine and
 C> which haven't yet been reflected within the internal jump/link table.
-C> For example, an I/O stream may have recently been unlinked from the
+C> For example, a file ID may have recently been unlinked from the
 C> library via an internal call to subroutine closbf(), or the DX BUFR
-C> tables associated with an I/O stream may have changed.
+C> tables associated with a file ID may have changed.
 C>
 C> @author J. Woollen @date 1994-01-06
 
@@ -79,7 +79,7 @@ C                              last call to this subroutine
         XTAB(LUN) = .FALSE.
         IF(IOLUN(LUN).EQ.0) THEN
 
-C          Logical unit IOLUN(LUN) is not defined to the BUFRLIB.
+C          Logical unit IOLUN(LUN) is not defined to NCEPLIBS-bufr.
 
            LUS(LUN) = 0
         ELSE IF(MTAB(1,LUN).EQ.0) THEN
@@ -124,7 +124,7 @@ C              so again.
 
 C          Logical unit IOLUN(LUN) is sharing table information with
 C          logical unit IOLUN(LUS(LUN)), so make sure that the latter
-C          unit is still defined to the BUFRLIB.
+C          unit is still defined to NCEPLIBS-bufr.
 
            IF(IOLUN(LUS(LUN)).EQ.0) THEN
              LUS(LUN) = 0

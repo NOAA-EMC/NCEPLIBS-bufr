@@ -3,11 +3,11 @@ C> @brief Decode an 8-byte integer value from an integer array.
 C>
 C> @author J. Woollen @date 2022-05-06
 
-C> This subroutine decodes an 8-byte integer value from within a
+C> Decode an 8-byte integer value from within a
 C> specified number of bits of an integer array, starting at the bit
 C> immediately after a specified bit within the array.
 C>
-C> It is similar to subroutine up8(), except that here IBIT is
+C> This subroutine is similar to subroutine up8(), except that here IBIT is
 C> only an input argument, and the overall order of the arguments
 C> is different.
 C>

@@ -4,21 +4,21 @@ C> for a node of a specified type.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This function searches backwards, beginning from a given
-C> node within the jump/link table, until it finds the most recent
-C> node of type jbtyp. The internal jmpb array is used to jump
+C> Search backwards, beginning from a given
+C> node within the jump/link table, until finding the most recent
+C> node of type jbtyp.  The internal jmpb array is used to jump
 C> backwards within the jump/link table, and the function returns
-C> the table index of the found node. If the input node itself is
+C> the table index of the found node.  If the input node itself is
 C> of type jbtyp, then the function simply returns the index of that
 C> same node.
 C>
-C> @note See tabsub() for an
+C> @note See module @ref moda_tables for an
 C> explanation of the various node types present within an internal
 C> jump/link table.
 C>
 C> @param[in] NODE - integer: jump/link table index of entry to begin
 C> searching backwards from
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays
+C> @param[in] LUN - integer: file ID
 C> @param[in] JBTYP - character*(*): type of node for which to search
 C>
 C> @return - integer: index of first node of type jbtyp found by

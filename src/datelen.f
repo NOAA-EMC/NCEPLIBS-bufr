@@ -3,13 +3,13 @@ C> @brief Specify format of Section 1 date-time when reading
 C> BUFR messages.
 C> @author J. Woollen @date 1998-07-08
 
-C> This subroutine is used to specify the format of Section 1
+C> Specify the format of Section 1
 C> date-time values that will be output by future calls to
-C> any of the BUFRLIB [message-reading subroutines](@ref hierarchy).
+C> any of the NCEPLIBS-bufr [message-reading subroutines](@ref hierarchy).
 C>
 C> This subroutine can be called at any time from within the
 C> application program, and the specified value for LEN will remain
-C> in effect for all future calls to any of the BUFRLIB subroutines
+C> in effect for all future calls to any of the NCEPLIBS-bufr subroutines
 C> which read BUFR messages, unless a subsequent call is made to this
 C> subroutine to reset the value of LEN again.  If this subroutine is
 C> never called, a default value of 8 is used for LEN, as set within

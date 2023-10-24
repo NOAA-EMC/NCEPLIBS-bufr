@@ -3,10 +3,8 @@ C> @brief Check whether a descriptor is WMO-standard.
 C>
 C> @author J. Ator @date 2004-08-18
 
-C> Check whether a descriptor is WMO-standard.
-C>
 C> Given the WMO bit-wise representation of an FXY value for a descriptor,
-C> this function determines whether the descriptor is WMO-standard.
+C> check whether the descriptor is WMO-standard.
 C>
 C> If a descriptor is not WMO-standard, then by definition it is a
 C> local descriptor.

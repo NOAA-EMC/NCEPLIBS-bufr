@@ -3,8 +3,7 @@ C> @brief Copy a BUFR data subset.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine copies a BUFR data subset from one Fortran logical
-C> unit to another.
+C> Copy a BUFR data subset from one Fortran logical unit to another.
 C>
 C> Logical unit LUNIN should have already been opened for input
 C> operations via a previous call to subroutine openbf(), and a BUFR
@@ -15,7 +14,7 @@ C>
 C> Logical unit LUNOT should have already been opened for output
 C> operations via a previous call to subroutine openbf(), and a BUFR
 C> message should already be open for output within internal arrays
-C> via a previous call to one of the BUFRLIB
+C> via a previous call to one of the NCEPLIBS-bufr
 C> [message-writing subroutines](@ref hierarchy).
 C>
 C> The compression status of the data subset (i.e. compressed or

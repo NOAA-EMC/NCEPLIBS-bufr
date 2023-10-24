@@ -3,8 +3,7 @@ C> @brief Store or restore parameters associated with a BUFR file.
 C>
 C> @author Woollen @date 2003-11-04
 
-C> This subroutine, depending on the value of ISR, will
-C> either:
+C> Depending on the value of ISR, either:
 C> - store the current parameters associated with a BUFR file
 C> connected to LUNIT (read/write pointers, etc.), set the file status
 C> to read, then rewind the BUFR file and position it such that the
@@ -19,11 +18,11 @@ C> a BUFR file which is in the midst of being read from or written to
 C> by an application program.  Note that, for any given BUFR file, a call
 C> to this subroutine with ISR = 0 must precede a call to this same
 C> subroutine with ISR = 1.  An application program might first
-C> call this subroutine with ISR = 0, then call either BUFR archive
-C> library subroutine rdmgsb() or ufbinx() to get info from a subset, then
+C> call this subroutine with ISR = 0, then call either
+C> subroutine rdmgsb() or ufbinx() to get info from a subset, then
 C> call this routine again with ISR = 1 to restore the pointers in the
 C> BUFR file to their original location.  For example, this subroutine is
-C> called internally by BUFR archive library subroutine ufbtab() whenever
+C> called internally by subroutine ufbtab() whenever
 C> the BUFR file it is acting upon is already open for input or output.
 C>
 C> @param[in] LUNIT - integer: fortran logical unit number for BUFR file.

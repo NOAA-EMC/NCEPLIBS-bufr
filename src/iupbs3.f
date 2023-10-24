@@ -3,8 +3,7 @@ C> @brief Read a data value from Section 3 of a BUFR message.
 C>
 C> @author J. Ator @date 2009-03-23
 
-C> This function returns a specified value from within Section 3
-C> of a BUFR message.
+C> Return a specified value from within Section 3 of a BUFR message.
 C>
 C> @remarks
 C> The start of the BUFR message (i.e. the string 'BUFR') must be

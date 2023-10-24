@@ -4,15 +4,15 @@ C> a previous element within the same subset via an internal bitmap.
 C>
 C> @author J Ator @date 2016-05-27
 
-C> This function checks whether the input element refers to
+C> Check whether the input element refers to
 C> a previous element within the same subset via an internal bitmap.
-C> If so, then the referenced element is returned. In addition, if
-C> the input element is a 2-XX-255 marker operator, its scale factor,
-C> bit width and reference value are set internally to match those
+C> If so, then return the referenced element. In addition, if
+C> the input element is a 2-XX-255 marker operator, then set its scale
+C> factor, bit width and reference values internally to match those
 C> of the referenced element.
 C>
 C> @param[in] N - integer: subset element.
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C>
 C> @return Subset element referenced by element N within the same subset.
 C> - 0 input element does not refer to a previous element, or referenced

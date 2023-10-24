@@ -3,15 +3,13 @@ C> @brief Store a master Code/Flag table entry into internal memory.
 C>
 C> @author J. Ator @date 2017-11-02
 
-C> Store a master Code/Flag table entry into internal memory.
-C>
-C> This subroutine reads an entire entry from a previously-opened
-C> ASCII master Code/Flag table file and stores it into an
-C> internal memory structure.
+C> Read an entire entry from a previously-opened
+C> ASCII master Code/Flag table file, then store the information
+C> into an internal memory structure.
 C>
 C> @param[in] LUNT   - integer: Fortran logical unit number for
 C> ASCII file containing Code/Flag table information.
-C> @param[in] IFXYN  - integer: Bit-wise representation of FXY number.
+C> @param[in] IFXYN  - integer: WMO bit-wise representation of FXY number.
 C>
 C> @author J. Ator @date 2017-11-02
         SUBROUTINE SNTBFE ( LUNT, IFXYN )

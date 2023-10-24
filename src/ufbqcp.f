@@ -4,13 +4,9 @@ C> code from an NCEP prepbufr file.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Get the Table D mnemonic associated with an event program
-C> code from an NCEP prepbufr file.
-C>
 C> Given an event program code, which is equivalent to the Y value
 C> of a category 63 Table D descriptor from an NCEP
-C> prepbufr file, this subroutine returns the corresponding
-C> mnemonic.
+C> prepbufr file, return the corresponding mnemonic.
 C>
 C> Logical unit LUNIT should have already been opened via a previous
 C> call to subroutine openbf().

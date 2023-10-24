@@ -3,7 +3,7 @@ C> @brief Read the section lengths of a BUFR message.
 C>
 C> @author J. Ator @date 2005-11-29
 
-C> This subroutine reads the lengths of all of the individual
+C> Return the lengths of all of the individual
 C> sections of a given BUFR message, up to a specified point in
 C> the message.
 C>

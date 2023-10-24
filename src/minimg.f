@@ -3,7 +3,7 @@ C> @brief Write a minutes value into Section 1 of a BUFR message.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine writes a minutes value into Section 1 of the BUFR
+C> Write a minutes value into Section 1 of the BUFR
 C> message that was most recently opened for writing via a call to
 C> one of the [message-writing subroutines](@ref hierarchy) for a
 C> specified Fortran logical unit.

@@ -4,7 +4,7 @@ C> one packed binary array to another.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine copies a specified number of bytes from
+C> Copy a specified number of bytes from
 C> one packed binary array to another.
 C>
 C> @param[in] IB1 - integer: packed input binary array.

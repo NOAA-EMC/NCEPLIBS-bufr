@@ -4,7 +4,7 @@ C> from one BUFR file to another.
 C>
 C> @author J. Ator @date 2009-06-26
 
-C> This function determines whether a BUFR message, or a data subset
+C> Check whether a BUFR message, or a data subset
 C> from within a BUFR message, can be copied from one Fortran logical
 C> unit to another.
 C>

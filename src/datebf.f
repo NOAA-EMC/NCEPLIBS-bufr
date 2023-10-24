@@ -3,7 +3,7 @@ C> @brief Read the Section 1 date-time from the first data message
 C> of a BUFR file.
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine reads and returns the Section 1 date-time from
+C> Read and return the Section 1 date-time from
 C> the first data message of a BUFR file, bypassing any messages
 C> at the beginning of the file which may contain embedded DX BUFR
 C> table information.
@@ -27,7 +27,6 @@ C>                        recent call to subroutine datelen()
 C>
 C> Logical unit LUNIT must already be associated with a filename
 C> on the local system, typically via a Fortran "OPEN" statement.
-C>
 C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE DATEBF(LUNIT,MEAR,MMON,MDAY,MOUR,IDATE)

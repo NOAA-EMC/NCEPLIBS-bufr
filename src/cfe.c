@@ -14,13 +14,13 @@
  *  Structure to store a master Code/Flag table entry.
  */
 struct code_flag_entry {
-    /** Bit-wise representation of FXY number to which this entry belongs. */
+    /** WMO bit-wise representation of FXY number to which this entry belongs. */
     int iffxyn;
     /** Code figure or bit number. */
     int ifval;
     /** Meaning corresponding to ifval. */
     char ifmeaning[MAX_MEANING_LEN+1];
-    /** Bit-wise representation of FXY number upon which this entry is
+    /** WMO bit-wise representation of FXY number upon which this entry is
      *  dependent, if any.  Set to (-1) if no dependency.
      */
     int iffxynd;
@@ -44,11 +44,8 @@ int mxmtbf;
 int nmtf;
 
 /**
- *  Initialize memory for internal storage of master Code/Flag table entries.
- *
- *  This function initializes the internal memory structure
- *  for storage of master Code/Flag table entries, including
- *  dynamically allocating space for this structure if needed.
+ *  Initialize memory for internal storage of master Code/Flag table entries,
+ *  including dynamically allocating memory space if needed.
  *
  *  @author J. Ator  @date 2017-11-03
 */
@@ -76,8 +73,7 @@ inittbf(void)
 /**
  * Free all dynamically-allocated memory for internal storage of master Code/Flag table entries.
  *
- * This function frees any memory that was dynamically allocated
- * during a previous call to function inittbf().
+ * This memory would have been dynamically allocated during a previous call to function inittbf().
  *
  * @author J. Ator @date 2017-11-03
  */
@@ -92,9 +88,7 @@ dlloctbf(void)
 /**
  * Define a comparison between two master Code/Flag table entries.
  *
- * This function defines a comparison between two entries within the
- * internal memory structure for storage of master Code/Flag table
- * entries.  The comparison is used by the intrinsic C functions
+ * The comparison is used by the intrinsic C functions
  * qsort and bsearch, and it differs from the the comparison in
  * function cmpstia2() because it compares all of the iffxyn, ifval,
  * iffxynd and ifvald components of the structure, whereas
@@ -137,9 +131,7 @@ cmpstia1(const void *pe1, const void *pe2)
 /**
  * Define a comparison between two master Code/Flag table entries.
  *
- * This function defines a comparison between two entries within the
- * internal memory structure for storage of master Code/Flag table
- * entries.  The comparison is used by the intrinsic C function
+ * The comparison is used by the intrinsic C function
  * bsearch, and it differs from the the comparison in
  * function cmpstia1() because it only compares the iffxyn and ifval
  * components of the structure, whereas cmpstia1() compares all of
@@ -172,15 +164,12 @@ cmpstia2(const void *pe1, const void *pe2)
 /**
  * Store a new master Code/Flag table entry.
  *
- * This function adds a new entry to the internal memory structure for storage of
- * master Code/Flag table entries.
- *
- * @param ifxyn - Bit-wise representation of FXY number for which ival is a defined
+ * @param ifxyn - WMO bit-wise representation of FXY number for which ival is a defined
  * code or flag table entry.
  * @param ival  - Code figure or bit number.
  * @param meaning - Meaning associated with ifxyn and ival.
  * @param lmeaning - Length (in bytes) of meaning.
- * @param idfxy - Bit-wise representation of FXY number upon which ifxyn and ival
+ * @param idfxy - WMO bit-wise representation of FXY number upon which ifxyn and ival
  * depend (if any), or else set to a value of (-1).
  * @param idval - Code figure or bit number associated with idfxy and upon which ifxyn
  * and ival depend (if any), or else set to (-1) whenever idfxy is also set to (-1).
@@ -213,10 +202,7 @@ strtbfe(int ifxyn, int ival, char *meaning, int lmeaning, int idfxy, int idval)
 }
 
 /**
- * Sort entries within the master Code/Flag table.
- *
- * This function sorts the entries within the internal memory
- * structure for storage of master Code/Flag table entries, in
+ * Sort entries within the master Code/Flag table, in
  * preparation for future searches using function srchtbf().
  *
  * @author J. Ator @date 2017-11-16
@@ -231,10 +217,10 @@ sorttbf(void)
 /**
  * Search for a specified master Code/Flag table entry.
  *
- * This function searches for a specified FXY number and associated
+ * The search is based on a specified FXY number and associated
  * value (code figure or bit number) within the internal memory
- * structure for storage of master Code/Flag table entries, and if
- * found returns the associated meaning as a character string.
+ * structure for storage of master Code/Flag table entries.  If found,
+ * the associated meaning is returned as a character string.
  *
  * The search may optionally include a specified second FXY number
  * and associated value upon which the first FXY number and its
@@ -243,17 +229,17 @@ sorttbf(void)
  * originating center for which the sub-center in question is a
  * member.
  *
- * @param ifxyi - Bit-wise representation of FXY number to search for.
+ * @param ifxyi - WMO bit-wise representation of FXY number to search for.
  * @param ivali - Value (code figure or bit number) associated with ifxyi.
  * @param ifxyd - Dependence indicator:
- * - On input, ifxyd[0] is set to the bit-wise representation of the FXY
+ * - On input, ifxyd[0] is set to the WMO bit-wise representation of the FXY
  * number upon which ifxyi and ivali depend, or else set to (-1) if ifxyi
  * and ivali do not depend on the value associated with any other FXY number.
  * - On output, if the initial search of the master Code/Flag table was
  * unsuccessful, <b>and</b> if ifxyd[0] and ivald were both set to (-1) on
  * input, <b>and</b> if a second search of the table determines that the
  * meaning of ifxyi and ivali indeed depends on one or more other FXY numbers,
- * then the bit-wise representations of those FXY numbers are returned within
+ * then the WMO bit-wise representations of those FXY numbers are returned within
  * the first iret elements of ifxyd.
  * @param ivald - Value (code figure or bit number) associated with the FXY
  * number in ifxyd[0]; set to (-1) whenever ifxyd[0] is also set to (-1).
@@ -269,7 +255,7 @@ sorttbf(void)
  * - -1 = Meaning not found.
  * - >0 = Meaning not found, <b>and</b> ifxyd[0] and ivald were both set to (-1)
  * on input, <b>and</b> the meaning of ifxyi and ivali depends on the the value
- * associated with one of the FXY numbers whose bit-wise representation is
+ * associated with one of the FXY numbers whose WMO bit-wise representation is
  * stored in the first iret elements of ifxyd.
  *
  * @author J. Ator  @date 2018-01-11

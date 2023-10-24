@@ -3,7 +3,7 @@ C> @brief Check the validity of an FXY value
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This function checks the input character string to determine
+C> Check the input character string to determine
 C> whether it contains a valid FXY (descriptor) value.
 C>
 C> @param[in] NUMB - character*6: FXY value to be checked.

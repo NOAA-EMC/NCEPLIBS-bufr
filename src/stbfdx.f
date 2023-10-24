@@ -3,11 +3,10 @@ C> @brief Store a DX BUFR tables message into internal arrays.
 C>
 C> @author J Ator @date 2009-03-23
 
-C> This subroutine copies a DX BUFR tables message
-C> from the input array mesg into the internal memory arrays in
+C> Copy a DX BUFR tables message into the internal memory arrays in
 C> module @ref moda_tababd.
 C>
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID
 C> @param[in] MESG - integer(*): DX BUFR tables message
 C>
 C> @author J. Ator @date 2009-03-23

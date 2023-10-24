@@ -2,12 +2,10 @@ C> @file
 C> @brief Log two error messages and abort application program.
 C> @author D. Keyser @date 2003-11-04
 
-C> Log two error messages and abort application program.
+C> Call subroutine errwrt() to log two error messages,
+C> then call subroutine bort_exit() to abort the application program.
 C>
-C> This subroutine calls subroutine errwrt() to log two error messages,
-C> then calls subroutine bort_exit() to abort the application program.
-C>
-C> It is similar to subroutine bort(), except that bort() logs
+C> This subroutine is similar to subroutine bort(), except that bort() logs
 C> one error message instead of two.
 C>
 C> @param[in] STR1 - character*(*): First error message

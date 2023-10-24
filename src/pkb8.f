@@ -3,7 +3,7 @@ C> @brief Encode an 8-byte integer value within an integer array.
 C>
 C> @author J. Woollen @date 2022-05-06
 
-C> This subroutine encodes an 8-byte integer value within a specified
+C> Encode an 8-byte integer value within a specified
 C> number of bits of an integer array, starting at the bit
 C> immediately after a specified bit within the array.
 C>

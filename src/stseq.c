@@ -85,7 +85,7 @@ nummtb(int *idn, char *tab, int *ipt)
  * Store information about a standard Table D descriptor within
  * internal DX BUFR tables.
  *
- * Given the bit-wise (integer) representation of a WMO-standard
+ * Given the WMO bit-wise (integer) representation of a standard
  * Table D descriptor, this subroutine uses the master BUFR tables
  * to store all of the necessary information for that descriptor
  * within the internal DX BUFR tables.  Any child descriptors which
@@ -97,7 +97,7 @@ nummtb(int *idn, char *tab, int *ipt)
  * master table; used internally to keep track of which sequence names have
  * already been defined, and thereby avoid contention within the internal
  * DX BUFR Table D.
- * @param idn - WMO bit-wise representation of FXY value for WMO-standard
+ * @param idn - WMO bit-wise representation of FXY value for standard
  * Table D descriptor
  * @param nemo - Mnemonic corresponding to idn.
  * @param cseq - Description corresponding to idn.
@@ -265,8 +265,8 @@ stseq(int lun, int *irepct, int idn, char *nemo,
                     memset(&rpseq[ilen], (int) cblk, 55 - ilen);
 /*
 **                  Note that 49152 = 3*(2**14), so subtracting 49152 in the
-**                  following statement changes a Table D bit-wise FXY value into
-**                  a Table B bit-wise FXY value.
+**                  following statement changes a WMO Table D bit-wise FXY value into
+**                  a WMO Table B bit-wise FXY value.
 */
                     pkint = (igettdi_f(lun) - 49152);
                     cadn30_f(pkint, adn2, FXY_STR_LEN+1);

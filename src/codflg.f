@@ -4,7 +4,7 @@ C> master BUFR tables.
 C>
 C> @author J. Ator @date 2017-10-13
 
-C> This subroutine is used to specify whether or not code and flag
+C> Specify whether or not code and flag
 C> table information should be included during all future reads of
 C> master BUFR tables.
 C>

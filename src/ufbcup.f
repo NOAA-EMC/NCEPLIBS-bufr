@@ -3,9 +3,7 @@ C> @brief Copy unique elements of a data subset.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> Copy unique elements of a data subset.
-C>
-C> This subroutine makes one copy of each unique element in an input
+C> Copy each unique element in an input
 C> subset buffer into the identical mnemonic slot in the output subset
 C> buffer.
 C>

@@ -3,7 +3,7 @@ C> @brief Read one data value from a data subset.
 C>
 C> @author J. Ator @date 2012-09-12
 
-C> This function can be used to read a data value corresponding to
+C> Read a data value corresponding to
 C> a specific occurrence of a mnemonic within a data subset, based on
 C> its position relative to a different mnemonic within the subset.
 C>
@@ -43,7 +43,7 @@ C> The current placeholder value for "missing" data can be determined
 C> via a separate call to function getbmiss().
 C>
 C> Before calling this function, a BUFR data subset should already be
-C> open for reading via a previous call to one of the BUFRLIB
+C> open for reading via a previous call to one of the NCEPLIBS-bufr
 C> [subset-reading subroutines](@ref hierarchy).
 C>
 C> @author J. Ator @date 2012-09-12

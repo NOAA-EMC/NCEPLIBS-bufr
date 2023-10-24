@@ -3,9 +3,7 @@ C> @brief Get information about a descriptor, based on the mnemonic.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Get information about a descriptor, based on the mnemonic.
-C>
-C> This subroutine returns information about a descriptor from the
+C> Return information about a descriptor from the
 C> internal DX BUFR tables, based on the mnemonic associated with
 C> that descriptor.
 C>

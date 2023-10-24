@@ -3,8 +3,8 @@ C> @brief Read master Table B information from local file system.
 C>
 C> @author J. Ator @date 2007-01-19
 
-C> This subroutine reads master Table B information from two separate
-C> ASCII files (one standard and one local) and then merges the
+C> Read master Table B information from two separate
+C> ASCII files (one standard and one local) and then merge the
 C> output into a single set of arrays.
 C>
 C> Each of the two ASCII files must already be individually sorted
@@ -34,7 +34,7 @@ C>                      - This value is read from the local ASCII
 C>                        file.
 C> @param[out] NMTBB -- integer: Number of entries in merged output
 C>                      arrays
-C> @param[out] IMFXYN -- integer(*): Merged array containing bit-wise
+C> @param[out] IMFXYN -- integer(*): Merged array containing WMO bit-wise
 C>                       representations of FXY numbers
 C> @param[out] CMSCL -- character*4(*): Merged array containing
 C>                      scale factors

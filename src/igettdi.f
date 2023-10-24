@@ -4,12 +4,9 @@ C> current master table, or reset the index.
 C>
 C> @author Ator @date 2009-03-23
 
-C> Get the next usable Table D index for the
-C> current master table, or reset the index.
-C>
-C> Depending on the value of the input flag, this function
-C> either returns the next usable scratch Table D index for the
-C> current master table or else resets the index back to its
+C> Depending on the value of the input flag, 
+C> either return the next usable scratch Table D index for the
+C> current master table, or else reset the index back to its
 C> minimum value.
 C>
 C> @param[in] IFLAG - integer:

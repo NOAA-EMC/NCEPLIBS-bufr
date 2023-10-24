@@ -3,7 +3,7 @@ C> @brief Check whether a data subset will fit within a BUFR message
 C>
 C> @author J. Ator @date 2009-03-23
 
-C> This function determines whether the current data subset in the
+C> Check whether the current data subset in the
 C> internal arrays will fit within the current BUFR message in the
 C> internal arrays, based on the prescribed maximum size of a BUFR
 C> message and the allowance of some extra "wiggle room" that may

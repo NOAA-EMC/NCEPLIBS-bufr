@@ -3,9 +3,9 @@ C> @brief Get Table B and Table D information from the internal DX BUFR
 C> tables
 C> @author J. Ator @date 2005-11-29
 
-C> This subroutine reads Table B and Table D information from the
+C> Read Table B and Table D information from the
 C> internal DX BUFR tables for a specified Fortran logical unit, then
-C> returns this information in a pre-defined ASCII format.
+C> return this information in a pre-defined ASCII format.
 C>
 C> @param[in] LUNIT -- integer: Fortran logical unit number for BUFR file
 C> @param[in] ITAB  -- integer: Dimensioned size of TABDB array; used

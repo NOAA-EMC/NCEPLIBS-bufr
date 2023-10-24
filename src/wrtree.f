@@ -3,10 +3,8 @@ C> @brief Pack a BUFR data subset.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Pack a BUFR data subset.
-C>
-C> This subroutine converts user numbers from the val array into scaled
-C> integers and packs them into bit strings in the ibay array.
+C> Convert user numbers from the val array into scaled
+C> integers and then pack them into bit strings in the ibay array.
 C>
 C> @param[in] lun - integer: file ID.
 C>
@@ -87,7 +85,7 @@ C              packing the field as a character string.
 C              The value is not "missing", so pack the equivalenced
 C              character string.  Note that a maximum of 8 characters
 C              will be packed here, so a separate subsequent call to
-C              BUFR archive library subroutine WRITLC will be needed to
+C              subroutine writlc() will be needed to
 C              fully encode any string longer than 8 characters.
 
                CALL PKC(CVAL,NCR,IBAY,IBIT)

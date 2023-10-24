@@ -4,7 +4,7 @@ C> by applying the proper scale and reference values.
 C>
 C> @author J. Ator @date 2012-03-02
 
-C> This function packs a real*8 user value into a BUFR
+C> Pack a real*8 user value into a BUFR
 C> integer by applying the proper scale and reference values.
 C> Normally the scale and reference values are obtained from index
 C> node of the internal jump/link table arrays isc(*) and irf(*);

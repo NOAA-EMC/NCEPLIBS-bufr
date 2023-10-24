@@ -4,8 +4,10 @@ C> needed to encode an integer as a string.
 C>
 C> @author Ator @date 2009-03-23
 
-C> This function computes and returns the number of characters
-C> needed to encode the input integer NUM as a string. It does not
+C> Compute and return the number of characters
+C> needed to encode the input integer NUM as a string.
+C>
+C> This function does not
 C> actually encode the string but rather only figures out the required
 C> size. NUM must be an integer in the range of 0 to 99999.
 C>

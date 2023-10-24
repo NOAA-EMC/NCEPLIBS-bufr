@@ -3,13 +3,13 @@ C> @brief Define a customized placeholder value for "missing" data.
 C>
 C> @author J. Woollen @date 2012-09-15
 
-C> This subroutine allows the user to specify a customized value to
+C> Specify a customized value to
 C> represent "missing" data when reading from or writing to BUFR files.
 C>
 C> This subroutine can be called at any time from within an
 C> application program, and the value XMISS will then be treated as
 C> "missing" when reading or writing BUFR data during all future
-C> calls to any of the other BUFRLIB
+C> calls to any of the other NCEPLIBS-bufr
 C> [values-reading subroutines](@ref hierarchy) or
 C> [values-writing subroutines](@ref hierarchy).
 C> Otherwise, if this subroutine is never called, a default

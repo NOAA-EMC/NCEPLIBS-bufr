@@ -6,7 +6,7 @@
 # These are the kinds of tests we're going to build and run.
 list(APPEND test_kinds 4 8 d)
 
-# Fetch test data from: https://ftp.emc.ncep.noaa.gov/static_files/public/bufr.tar
+# Fetch test data from: https://ftp.emc.ncep.noaa.gov/static_files/public
 set(BUFR_URL "https://ftp.emc.ncep.noaa.gov/static_files/public")
 if(${PROJECT_VERSION} VERSION_GREATER_EQUAL 11.6.0)
   set(BUFR_TAR "bufr-11.6.0.tgz")

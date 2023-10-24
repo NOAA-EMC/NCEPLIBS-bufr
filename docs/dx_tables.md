@@ -312,8 +312,7 @@ within the definition of the Table D sequence mnemonic OBSEQ as well
 as each occurrence of HINC within the definition of the Table A
 mnemonic NC002007. This indicator is called an <i>operator</i>, and
 readers more familiar with the details of BUFR will no doubt recognize
-it from Table C of the [official WMO master BUFR tables](@ref
-wmomstab).
+it from Table C of the [official WMO master BUFR tables](@ref wmomstab).
 
 <br>
 

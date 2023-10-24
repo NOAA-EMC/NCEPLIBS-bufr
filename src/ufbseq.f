@@ -4,9 +4,9 @@ C> a data subset.
 C>
 C> @authors J. Woollen @authors J. Ator @date 2000-09-19
 
-C> This subroutine reads or writes an entire sequence of data values
+C> Reads or write an entire sequence of data values
 C> from or to the BUFR data subset that is currently open within the
-C> BUFRLIB internal arrays.  The direction of the data transfer is
+C> NCEPLIBS_bufr internal arrays.  The direction of the data transfer is
 C> determined by the context of ABS(LUNIN):
 C> - If ABS(LUNIN) points to a file that was previously opened for
 C>   input using subroutine openbf(), then data values are read from
@@ -53,7 +53,7 @@ C> relevant DX or master BUFR table, without any scale or reference
 C> values applied.  Specifically, this means that, when writing
 C> data values into an output subset, the user only needs to store each
 C> respective value into USR using the units specified within the table,
-C> and the BUFRLIB software will take care of any necessary scaling or
+C> and the NCEPLIBS-bufr software will take care of any necessary scaling or
 C> referencing of the value before it is actually encoded into BUFR.
 C> Conversely, when reading data values from an input subset, the
 C> values returned in USR are already de-scaled and de-referenced and,

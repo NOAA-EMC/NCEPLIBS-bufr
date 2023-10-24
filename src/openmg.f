@@ -4,7 +4,7 @@ C> previously opened for writing.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine opens and initializes a new BUFR message within
+C> Opens and initialize a new BUFR message within
 C> internal arrays, for eventual output to logical unit LUNIT.
 C>
 C> Logical unit LUNIT should have already been opened for output

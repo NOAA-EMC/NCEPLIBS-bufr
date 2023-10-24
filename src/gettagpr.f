@@ -4,7 +4,7 @@ C> Table D mnemonic.
 C>
 C> @author J. Ator @date 2012-09-12
 
-C> This subroutine returns the Table D mnemonic corresponding to the
+C> Return the Table D mnemonic corresponding to the
 C> parent sequence of a specified Table B or Table D mnemonic within
 C> a data subset definition.
 C>
@@ -23,7 +23,7 @@ C>                      - 0 = normal return
 C>                      - -1 = TAGPR could not be found, or some
 C>                            other error occurred
 C>
-C> A data subset must already be in scope within the BUFRLIB
+C> A data subset must already be in scope within the NCEPLIBS-bufr
 C> internal arrays for LUNIT, either via a previous call to one
 C> of the [subset-reading subroutines](@ref hierarchy)
 C> (when reading BUFR data subsets) or via a previous call to one

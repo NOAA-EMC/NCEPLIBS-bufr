@@ -4,9 +4,9 @@ C> a BUFR file.
 C>
 C> @author J. Woollen @date 1995-11-22
 
-C> This subroutine repositions the file pointer to the beginning of a
+C> Reposition the file pointer to the beginning of a
 C> specified data subset within a specified message of a BUFR file,
-C> then reads that data subset into internal arrays so that it can be
+C> then read that data subset into internal arrays so that it can be
 C> further processed via subsequent calls to any of the
 C> [values-reading subroutines](@ref hierarchy).
 C>

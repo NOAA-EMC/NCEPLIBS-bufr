@@ -3,19 +3,19 @@ C> @brief Check whether a string is in the string cache.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine checks to see if a user-specified character
-c> string is in the string cache (arrays in common blocks /stcach/ and
-c> /stords/). If it is not in the cache, it must call the bufr
-c> archive library parsing subroutine parusr() to perform the task of
-c> separating and checking the individual "pieces" (i.e., mnemonics)
-c> so that it can then be added to the cache. If it is already in the
-c> cache, then this extra work does not need to be performed. The
-c> mnemonic string cache is a performance enhancing device which saves
-c> time when the same mnemonic strings are encountered in a user
-c> program, over and over again (the typical scenario).
+C> Check to see if a user-specified character
+C> string is in the string cache (arrays in common blocks /stcach/ and
+C> /stords/). If it is not in the cache, call
+C> subroutine parusr() to perform the task of
+C> separating and checking the individual "pieces" (i.e., mnemonics)
+C> so that it can then be added to the cache.
+C>
+C> The mnemonic string cache is a performance enhancing device which saves
+C> time when the same mnemonic strings are repeatedly encountered within
+C> an application program.
 C>
 C> @param[in] STR - character*(*): string of blank-separated mnemonics.
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C> @param[out] I1 - integer: a number greater than or equal to the number
 C> of blank-separated mnemonics in STR.
 C> @param[in] IO - integer: status indicator for BUFR file associated

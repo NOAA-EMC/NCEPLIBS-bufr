@@ -3,12 +3,12 @@ C> @brief Initialize the internal arrays which contain the DX BUFR table.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine initializes the internal arrays
-C> (in module @ref moda_tababd) holding the DX BUFR table. It then
-C> initializes the table with apriori Table B and D entries
+C> Initialize the internal arrays
+C> (in module @ref moda_tababd) holding the DX BUFR table, then
+C> initialize the table with apriori Table B and D entries
 C> (optional).
 C>
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID
 C> @param[in] IOI - integer: switch:
 C> - 0 do not initialize the table with apriori Table B and D entries.
 C> - else initialize the table with apriori Table B and D entries.

@@ -3,14 +3,12 @@ C> @brief Decode the sequence information from a Table D mnemonic definition.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> Decode the sequence information from a Table D mnemonic definition.
-C>
-C> This subroutine decodes the Table D sequence information
+C> Decode the Table D sequence information
 C> from a mnemonic definition card that was previously read from a
-C> user-supplied DX BUFR table in character format by rdusdx().
-C> These are then added to the
-C> already-existing entry for that mnemonic (built in rdusdx()) within
-C> the internal BUFR Table D array tabd(*,lun) in module @ref moda_tababd.
+C> user-supplied DX BUFR table in character format by subroutine rdusdx(),
+C> then add this information to the
+C> already-existing entry for that mnemonic within
+C> the internal BUFR Table D arrays in module @ref moda_tababd.
 C>
 C> @param[in] CARD - character*80: mnemonic definition card that was read
 C> from a user-supplied DX BUFR table.

@@ -3,11 +3,9 @@ C> @brief Read the next compressed BUFR data subset into internal arrays.
 C>
 C> @author Woollen @date 2000-09-19
 
-C> Read the next compressed BUFR data subset into internal arrays.
-C>
-C> This subroutine uncompresses and unpacks the next subset
+C> Uncompress and unpack the next subset
 C> from the internal compressed message buffer (array mbay in module
-C> @ref moda_bitbuf) and stores the unpacked subset within the internal
+C> @ref moda_bitbuf) and store the result within the internal
 C> array val(*,lun) in module @ref moda_usrint.
 C>
 C> @param[in] LUN - integer: File ID.
@@ -106,10 +104,10 @@ C        This is a numeric element.
 
 C        This is a character element.  If there are more than 8
 C        characters, then only the first 8 will be unpacked by this
-C        routine, and a separate subsequent call to BUFR archive library
-C        subroutine READLC will be required to unpack the remainder of
+C        routine, and a separate subsequent call to
+C        subroutine readlc() will be required to unpack the remainder of
 C        the string.  In this case, pointers will be saved within
-C        COMMON /RLCCMN/ for later use within READLC.
+C        COMMON /RLCCMN/ for later use within readlc().
 
 C        Unpack the local reference value.
 

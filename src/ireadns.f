@@ -4,10 +4,7 @@ C> previously opened for reading.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Read the next data subset from a BUFR file that was
-C> previously opened for reading.
-C>
-C> This function calls BUFRLIB subroutine readns() and passes
+C> Call subroutine readns() and pass
 C> back its return code as the function value.
 C>
 C> The use of this function allows the return code from readns() to be

@@ -1,10 +1,10 @@
 C> @file
-C> @brief Connect a new file to the BUFRLIB software, and read
+C> @brief Connect a new file to the library, and read
 C> the entire file contents into internal arrays.
 C>
 C> @author J. Woollen @date 2012-01-26
 
-C> Connect a new file to the BUFRLIB software
+C> Connect a new file to the NCEPLIBS-bufr software
 C> for input operations, then read the entire file contents into
 C> internal arrays so that any of the individual BUFR messages can
 C> later be accessed from memory, instead of having to read them one

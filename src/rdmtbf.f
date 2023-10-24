@@ -3,8 +3,8 @@ C> @brief Read master Code/Flag table information from local file system.
 C>
 C> @author J. Ator @date 2017-10-17
 
-C> This subroutine reads master Code/Flag table information from two
-C> separate ASCII files (one standard and one local) and then merges the
+C> Read master Code/Flag table information from two
+C> separate ASCII files (one standard and one local) and then merge the
 C> output into a single set of arrays.
 C>
 C> Each of the two ASCII files must already be individually sorted

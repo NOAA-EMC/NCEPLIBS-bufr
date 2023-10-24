@@ -24,13 +24,13 @@ C> contiguous portion of the subset buffer up to and including the
 C> entire subset buffer itself. For the purposes of these "window
 C> operator" subroutines, a window essentially consists of all of the
 C> elements within a particular delayed replication group, since such
-C> groups effectively define the dimensions within a bufr subset for
-C> the BUFR archive library subroutines such as ufbint(), ufbin3(), etc.
-C> which read/write individual data values. A bufr subset with no
+C> groups effectively define the dimensions within a BUFR subset for
+C> subroutines such as ufbint(), ufbin3(), etc.
+C> which read/write individual data values. A BUFR subset with no
 C> delayed replication groups is considered to have only one
 C> dimension, and therefore only one "window" which spans the entire
 C> subset. On the other hand, each delayed replication sequence
-C> within a bufr subset consists of some number of "windows", which
+C> within a BUFR subset consists of some number of "windows", which
 C> are a de-facto second dimension of the subset and where the number
 C> of windows is the delayed descriptor replication factor (i.e. the
 C> number of iterations) of the sequence. If nested delayed
@@ -38,7 +38,7 @@ C> replication is used, then there may be three or more dimensions
 C> within the subset.
 C>
 C> @param[in] NODE - integer: jump/link table index of mnemonic to look for.
-C> @param[in] LUN - integer: i/o stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C> @param[out] IWIN - integer: starting index of the current window iteration which contains node
 C>                    - 0 = not found or no more iterations available.
 C> @param[out] JWIN - integer: ending index of the current window iteration which contains node.

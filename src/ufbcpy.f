@@ -3,12 +3,10 @@ C> @brief Copy a BUFR data subset.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Copy a BUFR data subset.
-C>
-C> This subroutine copies a BUFR data subset from one Fortran logical
+C> Copy a BUFR data subset from one Fortran logical
 C> unit to another.
 C>
-C> It is similar to subroutine copysb(), except that here a
+C> This subroutine is similar to subroutine copysb(), except that here a
 C> BUFR data subset should have already been read into internal arrays
 C> for logical unit LUBIN via a previous call to one of the
 C> [subset-reading subroutines](@ref hierarchy), whereas copysb()

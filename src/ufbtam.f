@@ -4,8 +4,8 @@ C> internal arrays
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> This subroutine reads through every data subset in internal arrays
-C> and returns one or more specified data values from each subset.
+C> Read through every data subset in internal arrays
+C> and return one or more specified data values from each subset.
 C>
 C> This provides a useful way to scan the ranges of one or more
 C> specified data values across all of the data subsets in the

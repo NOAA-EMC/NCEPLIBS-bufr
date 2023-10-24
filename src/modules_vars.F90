@@ -3,7 +3,7 @@
 !>
 !> @author J. Ator @date 2023-02-10
 
-!> This module declares and initializes the BMISS variable.
+!> Declare and initialize the BMISS variable.
 !>
 !> @author J. Ator @date 2021-03-24
 module modv_bmiss
@@ -13,7 +13,7 @@ module modv_bmiss
   real*8, public :: BMISS = 10E10_8
 end module modv_bmiss
 
-!> This module declares and initializes the IFOPBF variable.
+!> Declare and initialize the IFOPBF variable.
 !>
 !> @author J. Ator @date 2015-03-03
 module modv_ifopbf
@@ -24,7 +24,7 @@ module modv_ifopbf
   integer, public :: IFOPBF = 0
 end module modv_ifopbf
 
-!> This module declares and initializes the IM8B variable.
+!> Declare and initialize the IM8B variable.
 !>
 !> @author J. Woollen @date 2022-08-04
 module modv_im8b
@@ -39,7 +39,7 @@ module modv_im8b
   logical, public :: IM8B = .false.
 end module modv_im8b
 
-!> This module declares and initializes the MAXCD variable.
+!> Declare and initialize the MAXCD variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_maxcd
@@ -54,7 +54,7 @@ module modv_maxcd
   integer, public :: MAXCD = 250
 end module modv_maxcd
 
-!> This module declares and initializes the MAXJL variable.
+!> Declare and initialize the MAXJL variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_maxjl
@@ -66,7 +66,7 @@ module modv_maxjl
   integer :: MAXJL = 96000
 end module modv_maxjl
 
-!> This module declares and initializes the MAXMEM variable.
+!> Declare and initialize the MAXMEM variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_maxmem
@@ -79,7 +79,7 @@ module modv_maxmem
   integer :: MAXMEM = 50000000
 end module modv_maxmem
 
-!> This module declares and initializes the MAXMSG variable.
+!> Declare and initialize the MAXMSG variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_maxmsg
@@ -92,7 +92,7 @@ module modv_maxmsg
   integer :: MAXMSG = 200000
 end module modv_maxmsg
 
-!> This module declares and initializes the MAXNC variable.
+!> Declare and initialize the MAXNC variable.
 !>
 !> @author J. Ator @date 2021-03-24
 module modv_maxnc
@@ -100,7 +100,7 @@ module modv_maxnc
   integer, parameter, public :: MAXNC = 600
 end module modv_maxnc
 
-!> This module declares and initializes the MAXSS variable.
+!> Declare and initialize the MAXSS variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_maxss
@@ -113,7 +113,7 @@ module modv_maxss
   integer :: MAXSS = 120000
 end module modv_maxss
 
-!> This module declares and initializes the MAXTBA variable.
+!> Declare and initialize the MAXTBA variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_maxtba
@@ -126,7 +126,7 @@ module modv_maxtba
   integer :: MAXTBA = 150
 end module modv_maxtba
 
-!> This module declares and initializes the MAXTBB variable.
+!> Declare and initialize the MAXTBB variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_maxtbb
@@ -139,7 +139,7 @@ module modv_maxtbb
   integer :: MAXTBB = 500
 end module modv_maxtbb
 
-!> This module declares and initializes the MAXTBD variable.
+!> Declare and initialize the MAXTBD variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_maxtbd
@@ -152,7 +152,7 @@ module modv_maxtbd
   integer :: MAXTBD = 500
 end module modv_maxtbd
 
-!> This module declares and initializes the MXBTM variable.
+!> Declare and initialize the MXBTM variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_mxbtm
@@ -164,7 +164,7 @@ module modv_mxbtm
   integer :: MXBTM = 5
 end module modv_mxbtm
 
-!> This module declares and initializes the MXBTMSE variable.
+!> Declare and initialize the MXBTMSE variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_mxbtmse
@@ -176,7 +176,7 @@ module modv_mxbtmse
   integer :: MXBTMSE = 500
 end module modv_mxbtmse
 
-!> This module declares and initializes the MXCDV variable.
+!> Declare and initialize the MXCDV variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_mxcdv
@@ -189,7 +189,7 @@ module modv_mxcdv
   integer :: MXCDV = 3000
 end module modv_mxcdv
 
-!> This module declares and initializes the MXCNEM variable.
+!> Declare and initialize the MXCNEM variable.
 !>
 !> @author J. Ator @date 2021-03-24
 module modv_mxcnem
@@ -198,7 +198,7 @@ module modv_mxcnem
   integer, parameter, public :: MXCNEM = 450
 end module modv_mxcnem
 
-!> This module declares and initializes the MXCSB variable.
+!> Declare and initialize the MXCSB variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_mxcsb
@@ -211,7 +211,7 @@ module modv_mxcsb
   integer :: MXCSB = 4000
 end module modv_mxcsb
 
-!> This module declares and initializes the MXDXTS variable.
+!> Declare and initialize the MXDXTS variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_mxdxts
@@ -224,7 +224,7 @@ module modv_mxdxts
   integer :: MXDXTS = 200
 end module modv_mxdxts
 
-!> This module declares and initializes the MXH4WLC variable.
+!> Declare and initialize the MXH4WLC variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_mxh4wlc
@@ -234,7 +234,7 @@ module modv_mxh4wlc
   integer :: MXH4WLC = 10
 end module modv_mxh4wlc
 
-!> This module declares and initializes the MXLCC variable.
+!> Declare and initialize the MXLCC variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_mxlcc
@@ -248,7 +248,7 @@ module modv_mxlcc
   integer :: MXLCC = 32
 end module modv_mxlcc
 
-!> This module declares and initializes the MXMSGL variable.
+!> Declare and initialize the MXMSGL variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_mxmsgl
@@ -263,7 +263,7 @@ module modv_mxmsgl
   integer :: MXMSGLD4
 end module modv_mxmsgl
 
-!> This module declares and initializes the MXMTBB variable.
+!> Declare and initialize the MXMTBB variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_mxmtbb
@@ -275,7 +275,7 @@ module modv_mxmtbb
   integer :: MXMTBB = 4000
 end module modv_mxmtbb
 
-!> This module declares and initializes the MXMTBD variable.
+!> Declare and initialize the MXMTBD variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_mxmtbd
@@ -287,7 +287,7 @@ module modv_mxmtbd
   integer :: MXMTBD = 1000
 end module modv_mxmtbd
 
-!> This module declares and initializes the MXMTBF variable.
+!> Declare and initialize the MXMTBF variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_mxmtbf
@@ -303,7 +303,7 @@ module modv_mxmtbf
   integer :: MXMTBF = 25000
 end module modv_mxmtbf
 
-!> This module declares and initializes the MXNAF variable.
+!> Declare and initialize the MXNAF variable.
 !>
 !> @author J. Ator @date 2021-03-24
 module modv_mxnaf
@@ -312,7 +312,7 @@ module modv_mxnaf
   integer, parameter, public :: MXNAF = 4
 end module modv_mxnaf
 
-!> This module declares and initializes the MXNRV variable.
+!> Declare and initialize the MXNRV variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_mxnrv
@@ -325,7 +325,7 @@ module modv_mxnrv
   integer :: MXNRV = 15
 end module modv_mxnrv
 
-!> This module declares and initializes the MXRST variable.
+!> Declare and initialize the MXRST variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_mxrst
@@ -338,7 +338,7 @@ module modv_mxrst
   integer :: MXRST = 50
 end module modv_mxrst
 
-!> This module declares and initializes the MXS01V variable.
+!> Declare and initialize the MXS01V variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_mxs01v
@@ -352,7 +352,7 @@ module modv_mxs01v
   integer :: MXS01V = 10
 end module modv_mxs01v
 
-!> This module declares and initializes the MXS variable.
+!> Declare and initialize the MXS variable.
 !>
 !> @author J. Ator @date 2021-03-30
 module modv_mxs
@@ -360,7 +360,7 @@ module modv_mxs
   integer, parameter, public :: MXS = 1000
 end module modv_mxs
 
-!> This module declares and initializes the MXTAMC variable.
+!> Declare and initialize the MXTAMC variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_mxtamc
@@ -374,7 +374,7 @@ module modv_mxtamc
   integer :: MXTAMC = 15
 end module modv_mxtamc
 
-!> This module declares and initializes the MXTCO variable.
+!> Declare and initialize the MXTCO variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_mxtco
@@ -388,7 +388,7 @@ module modv_mxtco
   integer :: MXTCO = 30
 end module modv_mxtco
 
-!> This module declares and initializes the NFILES variable.
+!> Declare and initialize the NFILES variable.
 !>
 !> @author J. Ator @date 2014-12-10
 module modv_nfiles

@@ -2,9 +2,7 @@ C> @file
 C> @brief Store a new entry within the internal BUFR Table B or D.
 C> @author Ator @date 2009-03-23
 
-C> Store a new entry within the internal BUFR Table B or D.
-C>
-C> This subroutine stores a new entry within internal BUFR
+C> Store a new entry within internal BUFR
 C> Table B or D, depending on the value of NUMB.
 C>
 C> @param[in] N - integer: storage index into internal Table B or D.

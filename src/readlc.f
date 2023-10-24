@@ -28,7 +28,7 @@ C> instead of 'LSTID#1'.
 C>
 C> @remarks
 C> - Character strings which are 8 bytes or less in length can be read
-C> using the real*8 USR array within a call to one of the BUFRLIB
+C> using the real*8 USR array within a call to one of the NCEPLIBS-bufr
 C> [values-reading subroutines](@ref hierarchy) and then converting the
 C> corresponding real*8 value to character format within the
 C> application program.

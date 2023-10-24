@@ -3,7 +3,7 @@ C> @brief Read/write one or more data values from/to a data subset.
 C>
 C> @author J. Woollen @date 1999-11-18
 
-C> This subroutine writes or reads specified values to or
+C> Write or read specified values to or
 C> from the current BUFR data subset within internal arrays, with the
 C> direction of the data transfer determined by the context of IO.
 C> The data values correspond to internal arrays representing parsed
@@ -21,7 +21,7 @@ C> subroutine ufbstp() differs from subroutine ufbrep(), and therefore
 C> how this subroutine differs from subroutine ufbrp(), see the
 C> discussion in [DX BUFR Tables](@ref ufbsubs).
 C>
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C> @param[inout] USR - real*8(*,*): Data values
 C> @param[in] I1 - integer: length of first dimension of USR.
 C> @param[in] I2 - integer: length of second dimension of USR.

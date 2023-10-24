@@ -3,8 +3,8 @@ C> @brief Write an uncompressed BUFR data subset.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine packs up the current subset within memory
-C> (array ibay in module @ref moda_bitbuf) and then tries to add it to
+C> Pack up the current subset within memory
+C> (array ibay in module @ref moda_bitbuf), then try to add it to
 C> the BUFR message that is currently open within memory for LUNIT
 C> (array mbay in module @ref moda_bitbuf). If the subset will not fit
 C> into the currently open message, or if the subset byte count exceeds
@@ -15,9 +15,8 @@ C> count > 65530 will be written into its own one-subset message.
 C> if the current subset is larger than the maximum message length,
 C> then the subset is discarded and a diagnostic is printed.
 C>
-C> @param[in] LUNIT - integer: fortran logical unit number for BUFR file.
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays
-C> (associated with file connected to logical unit LUNIT).
+C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.
+C> @param[in] LUN - integer: file ID associated with LUNIT
 C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE MSGUPD(LUNIT,LUN)

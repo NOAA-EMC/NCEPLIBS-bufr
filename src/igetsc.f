@@ -4,12 +4,9 @@ C> processing of a file.
 C>
 C> @author J. Ator @date 2010-05-11
 
-C> Check for an abnormal status code associated with the
-C> processing of a file.
-C>
-C> This function returns a status code associated with any file that
+C> Return a status code associated with any file that
 C> was previously opened via a call to subroutine openbf(), so that
-C> the application program can check whether the BUFRLIB software
+C> the application program can check whether the NCEPLIBS-bufr software
 C> encountered any specific problems while processing the file.
 C>
 C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file.

@@ -4,17 +4,14 @@ C> local file system.
 C>
 C> @author J. Ator @date 2009-03-23
 
-C> Check whether master BUFR tables need to be read from the local
-C> file system.
-C>
-C> This function checks the most recent BUFR message that was read
+C> Check the most recent BUFR message that was read
 C> via a call to one of the
-C> [message-reading subroutines](@ref hierarchy) and determines
+C> [message-reading subroutines](@ref hierarchy) and determine
 C> whether the appropriate corresponding BUFR master tables have
 C> already been read into internal memory.
 C>
-C> If not, then it opens the appropriate master BUFR tables on the
-C> local file system and reads the contents into internal
+C> If not, then open the appropriate master BUFR tables on the
+C> local file system and read the contents into internal
 C> memory, clearing any previous master BUFR table information that
 C> may have previously been stored there.
 C>

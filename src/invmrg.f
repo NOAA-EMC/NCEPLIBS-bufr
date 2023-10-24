@@ -3,7 +3,7 @@ C> @brief Merge parts of data subsets
 C>
 C> @author J. Woollen @date 1996-10-09
 
-C> This subroutine merges parts of data subsets which have duplicate
+C> Merge parts of data subsets which have duplicate
 C> space and time coordinates but different or unique observational data.
 C>
 C> @param[in] LUBFI   -- integer: Fortran logical unit number for input

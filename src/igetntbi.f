@@ -4,11 +4,10 @@ C> DX BUFR table
 C>
 C> @author J. Ator @date 2009-03-23
 
-C> This function returns the next available index for storing an
+C> Return the next available index for storing an
 C> entry within a specified internal DX BUFR table.
 C>
-C> @param[in]  LUN   -- integer: Internal I/O stream index associated
-C>                      with BUFR file
+C> @param[in]  LUN   -- integer: file ID
 C> @param[in]  CTB   -- character: Type of internal DX BUFR table for
 C>                      which to return the next available index
 C>                        - 'A' = Table A

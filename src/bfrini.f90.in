@@ -2,8 +2,8 @@
 !> @brief Initialize global variables and arrays within internal memory.
 !> @authors J. Woollen J. Ator @date 1994-01-06
 
-!> This subroutine initializes numerous global variables and arrays
-!> within internal modules and COMMON blocks throughout the BUFRLIB
+!> Initialize numerous global variables and arrays
+!> within internal modules and COMMON blocks throughout the NCEPLIBS-bufr
 !> software.
 !>
 !> This subroutine isn't normally called directly by any application

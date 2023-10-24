@@ -3,7 +3,7 @@ C> @brief Search for a specified mnemonic within unexpanded sequences
 C> of the internal jump/link table.
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine is called by subroutine
+C> This subroutine is called internally by subroutine
 C> ufbrw() whenever it can't find a mnemonic it wants to write within the
 C> current subset buffer. It looks for the mnemonic within any
 C> unexpanded "drs" (stack) or "drb" (1-bit delayed replication)
@@ -14,7 +14,7 @@ C> appears in the subset buffer, and in doing so it will also return
 C> a new value for inv2.
 C>
 C> @param[in] INOD - integer: jump/link table index of mnemonic to look for.
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays.
+C> @param[in] LUN - integer: file ID.
 C> @param[in] INV1 - integer: starting index of the portion of the subset
 C> buffer currently being processed by ufbrw().
 C> @param[inout] INV2 - integer:

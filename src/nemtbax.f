@@ -4,15 +4,14 @@ C> BUFR tables
 C>
 C> @author J. Woollen @date 1999-11-18
 
-C> This subroutine searches for a descriptor within Table A of the
+C> Search for a descriptor within Table A of the
 C> internal DX BUFR tables.
 C>
-C> It is similar to subroutine nemtba(), except it returns an INOD
-C> value of 0 if the descriptor is not found in Table A, whereas
+C> This subroutine is similar to subroutine nemtba(), except it returns
+C> an INOD value of 0 if the descriptor is not found in Table A, whereas
 C> nemtba() will call subroutine bort() in such cases.
 C>
-C> @param[in] LUN - integer: Internal I/O stream index associated
-C>                   with DX BUFR tables
+C> @param[in] LUN - integer: file ID associated with DX BUFR tables
 C> @param[in] NEMO - character*(*): Mnemonic for Table A descriptor
 C> @param[out] MTYP - integer: Message type corresponding to NEMO
 C> @param[out] MSBT - integer: Message subtype corresponding to NEMO

@@ -3,9 +3,9 @@ C> @brief Decode the meaning of a numerical value from a code or flag table
 C>
 C> @author J. Ator @date 2018-01-11
 
-C> This subroutine searches for a specified Table B mnemonic and associated
+C> Search for a specified Table B mnemonic and associated
 C> value (code figure or bit number) within the master Code/Flag tables,
-C> and if found returns the associated meaning as a character string.
+C> and if found return the associated meaning as a character string.
 C>
 C> @param[in]  LUNIT   -- integer: Fortran logical unit number for
 C>                        BUFR file
@@ -64,7 +64,7 @@ C> calling this subroutine, in order to ensure that master Code/Flag
 C> tables have been read into internal memory.
 C>
 C> This subroutine can be called at any time after a BUFR message
-C> has been read into internal arrays by one of the BUFRLIB
+C> has been read into internal arrays by one of the NCEPLIBS-bufr
 C> [message-reading subroutines](@ref hierarchy), and it
 C> can be called for any code or flag table mnemonic defined within that
 C> particular message.  In most cases, this means that the mnemonic must

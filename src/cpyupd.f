@@ -1,11 +1,10 @@
 C> @file
 C> @brief Copy a BUFR data subset.
-C> pointers.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> This subroutine copies a BUFR data subset from one unit
-C> to another within internal memory and resets the pointers.
+C> Copy a BUFR data subset from one unit
+C> to another within internal memory and reset the pointers.
 C> If the subset will not fit into the output message, or
 C> if the subset byte count exceeds 65530 (sufficiently close to the
 C> 16-bit byte counter upper limit of 65535), then that message is
@@ -17,10 +16,8 @@ C> subroutine bort().
 C>
 C> @param[in] LUNIT - integer: Fortran logical unit number for BUFR file
 C>                    associated with output unit.
-C> @param[in] LIN - integer: I/O stream index into internal memory arrays
-C>                  for input unit
-C> @param[in] LUN - integer: I/O stream index into internal memory arrays
-C>                  for output unit.
+C> @param[in] LIN - integer: file ID for input unit
+C> @param[in] LUN - integer: file ID for output unit
 C> @param[in] IBYT - integer: length (in bytes) of data subset
 C>
 C> @author Woollen @date 1994-01-06

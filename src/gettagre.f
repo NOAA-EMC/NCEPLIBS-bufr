@@ -4,9 +4,9 @@ C> Table B mnemonic via an internal bitmap.
 C>
 C> @author J. Ator @date 2016-06-07
 
-C> This subroutine determines whether a specified Table B mnemonic
+C> Check whether a specified Table B mnemonic
 C> references another Table B mnemonic within the same data subset
-C> via an internal bitmap, and if so returns the referenced
+C> via an internal bitmap, and if so return the referenced
 C> mnemonic and its location within the subset.
 C>
 C> @param[in] LUNIT  -- integer: Fortran logical unit number for
@@ -26,7 +26,7 @@ C>                      - 0 = normal return
 C>                      - -1 = TAGRE could not be found, or some
 C>                             other error occurred
 C>
-C> A data subset must already be in scope within the BUFRLIB
+C> A data subset must already be in scope within the NCEPLIBS-bufr
 C> internal arrays for LUNIT, either via a previous call to one
 C> of the [subset-reading subroutines](@ref hierarchy)
 C> (when reading BUFR data subsets) or via a previous call to one

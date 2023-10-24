@@ -3,9 +3,7 @@ C> @brief Decode an integer value from an integer array.
 C>
 C> @author J. Woollen @date 1994-01-06
 
-C> Decode an integer value from an integer array.
-C>
-C> This function decodes an integer value from within a specified
+C> Decode an integer value from within a specified
 C> number of bits of an integer array, starting with the first
 C> bit of a specified byte of the array.
 C>
