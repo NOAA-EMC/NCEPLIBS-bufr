@@ -55,6 +55,20 @@ program outtest4
 
   character cmgtag*8, smid*9, dummystr*9
 
+  real cpu_time_start, cpu_time_end, cpu_secs
+  real*8 wall_secs
+  integer*8 wall_ctr_start, wall_ctr_end, wall_ctr_numpersec, wall_ctr_max, wall_ctr_total
+
+  ! Start the program timings.
+
+  call system_clock ( count_rate = wall_ctr_numpersec, count_max = wall_ctr_max )
+  print *, 'wall_ctr_numpersec, wall_ctr_max = ', wall_ctr_numpersec, wall_ctr_max
+  call system_clock ( count = wall_ctr_start )
+  print *, 'wall_ctr_start = ', wall_ctr_start
+
+  call cpu_time ( cpu_time_start )
+  print *, 'cpu_time_start = ', cpu_time_start
+
   print *, 'Testing writing OUT_4 using OPENBF IO = NODX and IO = QUIET, and using STRCPT, WRDXTB and WRITSA'
 
 #ifdef KIND_8
@@ -249,5 +263,19 @@ program outtest4
   call atrcpt(mgbf, lmgbf, mgbf2)
   ilenb = iupbs01(mgbf2, 'LENM')
   IF (ilenb-ilena .ne. 6) stop 20
+
+  ! End the program timings and check the results.
+
+  call system_clock ( count = wall_ctr_end )
+  print *, 'wall_ctr_end = ', wall_ctr_end
+  wall_ctr_total = wall_ctr_end - wall_ctr_start
+  if ( wall_ctr_total < 0 ) wall_ctr_total = wall_ctr_total + wall_ctr_max
+  wall_secs = real( wall_ctr_total, 8 ) / real( wall_ctr_numpersec, 8 )
+  print '("wall_secs = ",f8.3)', wall_secs
+
+  call cpu_time ( cpu_time_end )
+  print *, 'cpu_time_end = ', cpu_time_end
+  cpu_secs = cpu_time_end - cpu_time_start
+  print '("cpu_secs = ",f8.3)', cpu_secs
 
 end program outtest4
