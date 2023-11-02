@@ -36,16 +36,19 @@ C> @author J. Woollen @date 2022-05-06
 !----------------------------------------------------------------------
 !----------------------------------------------------------------------
 
-      if(nbits<0 ) call bort('BUFRLIB: UPB8 - nbits < zero !!!!!')
-      if(nbits>64) then
+      if(nbits<0) then
+         call bort('BUFRLIB: UPB8 - nbits < zero !!!!!')
+      elseif(nbits<=32) then
+         jbit=ibit; ival=0
+         call upb(ival,nbits,ibay,jbit)
+         nval=ival
+      elseif(nbits<=64) then
+         jbit=ibit; nvals=0
+         call upb(nvals(2),max(nbits-nbitw,0),ibay,jbit)
+         call upb(nvals(1),min(nbitw,nbits  ),ibay,jbit)
+         nval=nval8
+      else
          nval=0
-         return
       endif
-
-      jbit=ibit
-      nvals=0
-      call upb(nvals(2),max(nbits-nbitw,0),ibay,jbit)
-      call upb(nvals(1),min(nbitw,nbits  ),ibay,jbit)
-      nval=nval8
 
       end subroutine
