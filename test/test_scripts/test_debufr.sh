@@ -69,5 +69,10 @@ args_10="-t ../tables -p MXMSGL=40000"
 ../utils/debufr ${args_10} testfiles/data/debufr_3 > ${outfile_10}
 [[ ${?} -eq 0 || `grep -c "READERME - INPUT BUFR MESSAGE LENGTH.*LARGER THAN LIMIT" ${outfile_10}` -ne 1 ]] && exit 10
 
+# Test #11, for unwriteable output directory.
+outfile_11=testrun/debufr_11.out
+../utils/debufr -o /BUFRLIB_DUMMY_DIRECTORY/BUFRLIB_DUMMY testfiles/data/debufr_1 > ${outfile_11}
+[[ ${?} -eq 0 || `egrep -c "Error: Cannot write output file" ${outfile_11}` -ne 1 ]] && exit 11
+
 # Success!
 exit 0
