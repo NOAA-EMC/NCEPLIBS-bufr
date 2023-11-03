@@ -51,7 +51,7 @@ outfile_6=testrun/debufr_6.out
 # Test #7, for -v option.
 outfile_7=testrun/debufr_7.out
 ../utils/debufr -v > ${outfile_7}
-[[ ${?} -ne 0 || `grep -c "This is debufr v.* built with NCEPLIBS-bufr" ${outfile_7}` -ne 1 ]] && exit 7
+[[ ${?} -ne 0 || `grep -c "This is the debufr utility, built with NCEPLIBS-bufr" ${outfile_7}` -ne 1 ]] && exit 7
 
 # Test #8, for -h option.
 outfile_8=testrun/debufr_8.out
