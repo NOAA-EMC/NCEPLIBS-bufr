@@ -61,7 +61,7 @@ outfile_8=testrun/debufr_8.out
 # Test #9, for non-existent DX tables file.
 outfile_9=testrun/debufr_9.out
 ../utils/debufr -t. -f BUFRLIB_DUMMY testfiles/data/debufr_1 > ${outfile_9}
-[[ ${?} -ne 0 || `egrep -c "Error: Could not find file" ${outfile_9}` -ne 1 ]] && exit 9
+[[ ${?} -ne 0 || `grep -c "Error: Could not find file" ${outfile_9}` -ne 1 ]] && exit 9
 
 # Test #10, which should call NCEPLIBS-bufr subroutine bort from within subroutine readerme.
 outfile_10=debufr_10.debufr.out
@@ -72,7 +72,7 @@ args_10="-t ../tables -p MXMSGL=40000"
 # Test #11, for unwriteable output directory.
 outfile_11=testrun/debufr_11.out
 ../utils/debufr -o /BUFRLIB_DUMMY_DIRECTORY/BUFRLIB_DUMMY testfiles/data/debufr_1 > ${outfile_11}
-[[ ${?} -eq 0 || `egrep -c "Error: Cannot write output file" ${outfile_11}` -ne 1 ]] && exit 11
+[[ ${?} -eq 0 || `grep -c "ERROR: Cannot write output file" ${outfile_11}` -ne 1 ]] && exit 11
 
 # Success!
 exit 0
