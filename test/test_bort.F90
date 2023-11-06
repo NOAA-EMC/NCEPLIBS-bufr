@@ -40,6 +40,7 @@ program test_bort
   integer iyr, imo, idy, ihr, imi
   integer jdate1(5), jdump1(5)
   integer lmsgt, msgt(100), msgl
+  integer*8 nval
 
   integer*4 isize, iupm, iupvs01, isetprm, nmsub
 
@@ -220,6 +221,26 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(11, 'IN', 11)
         call dumpbf(11, jdate1, jdump1) 
+     endif
+  elseif (sub_name .eq. 'elemdx') then
+     open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
+     if (ios .ne. 0) stop 3
+     call openbf(11, 'IN', 11)
+     if (test_case .eq. '1') then
+        card = '| RCPTIM   |    2 |           0 |  16 | DEGREES KELVIN           |-------------|'
+        call elemdx(card,1)
+     elseif (test_case .eq. '2') then
+        card = '| MXTM     |    2 |           0 |  16 |                          |-------------|'
+        call elemdx(card,1)
+     elseif (test_case .eq. '3') then
+        card = '| MXTM     |   2A |           0 |  16 | DEGREES KELVIN           |-------------|'
+        call elemdx(card,1)
+     elseif (test_case .eq. '4') then
+        card = '| MXTM     |    2 |       -15@0 |  16 | DEGREES KELVIN           |-------------|'
+        call elemdx(card,1)
+     elseif (test_case .eq. '5') then
+        card = '| MXTM     |    2 |           0 |  1x | DEGREES KELVIN           |-------------|'
+        call elemdx(card,1)
      endif
   elseif (sub_name .eq. 'idn30') then
      if (test_case .eq. '1') then
@@ -1028,6 +1049,10 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(12, 'OUT', 10)
         call ufdump(11, 12)
+     endif
+  elseif (sub_name .eq. 'upb8') then
+     if (test_case .eq. '1') then
+        call upb8(nval, -1, ibit, ibay)
      endif
   elseif (sub_name .eq. 'upftbv') then
      if (test_case .eq. '1') then
