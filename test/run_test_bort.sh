@@ -103,6 +103,14 @@ for kind in "4" "d"; do
     # Check nemtba().
     (./test_bort_$kind nemtba 1) && exit 1
 
+    # Check nemtbb().
+    (./test_bort_$kind nemtbb 1) && exit 1
+    (./test_bort_$kind nemtbb 2) && exit 1
+    (./test_bort_$kind nemtbb 3) && exit 1
+
+    # Check nemtbd().
+    (./test_bort_$kind nemtbd 1) && exit 1
+
     # Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384.
     # Check nemtbb().
     #(./test_bort_$kind nemtbb 1) && exit 1
