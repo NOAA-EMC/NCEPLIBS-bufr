@@ -79,7 +79,7 @@ endif()
 list(APPEND kinds "4")
 
 # Set common to the package compiler flags
-if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
+if(CMAKE_C_COMPILER_ID MATCHES "^(Intel|IntelLLVM)$")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -traceback")
   set(CMAKE_C_FLAGS_DEBUG "-O0")
   set(CMAKE_C_FLAGS_RELEASE "-O3")
@@ -90,7 +90,7 @@ elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU)$")
 endif()
 
 # Even if we only build _4 version of the library, we still need the _8 and _d flags when building the test codes
-if(CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel)$")
+if(CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel|IntelLLVM)$")
   set(fortran_8_flags "-r8 -i8")
   set(fortran_d_flags "-r8")
   set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -g -traceback")
