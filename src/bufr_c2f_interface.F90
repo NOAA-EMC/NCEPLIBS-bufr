@@ -941,7 +941,7 @@ module bufr_c2f_interface
       integer(c_int) :: ires
       integer :: ibfms
 
-      ires = ibfms(int(r8val))
+      ires = ibfms(int(r8val,kind=8))
     end function ibfms_c
 
     !> Decode an integer from a character string.
