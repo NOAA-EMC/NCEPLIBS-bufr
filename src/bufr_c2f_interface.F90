@@ -172,7 +172,7 @@ module bufr_c2f_interface
       character(len=25) :: f_subset
       integer :: ireadmg
 
-      ires = ireadmg(bufr_unit, f_subset, iddate)
+      ires = ireadmg(int(bufr_unit), f_subset, iddate)
 
       if (ires == 0) then
         call copy_f_c_str(f_subset, c_subset, int(subset_str_len))
@@ -194,7 +194,7 @@ module bufr_c2f_interface
       integer(c_int) :: ires
       integer :: ireadsb
 
-      ires = ireadsb(bufr_unit)
+      ires = ireadsb(int(bufr_unit))
     end function ireadsb_c
 
     !> Read/write one or more data values from/to a data subset.
@@ -678,8 +678,7 @@ module bufr_c2f_interface
       integer(c_int), value, intent(in) :: ipval
       integer(c_int) :: ires
       integer :: isetprm
-
-      ires = isetprm(c_f_string(cprmnm),ipval)
+      ires = isetprm(c_f_string(cprmnm),int(ipval))
     end function isetprm_c
 
     !> Define a customized maximum length for output BUFR messages.
@@ -750,7 +749,7 @@ module bufr_c2f_interface
 
       table_type_f(1:1) = table_type(1)(1:1)
 
-      ires = igetntbi(lun, table_type_f)
+      ires = igetntbi(int(lun), table_type_f)
     end function igetntbi_c
 
     !> Decode the scale factor, reference value, bit width, and units from a Table B
@@ -921,7 +920,7 @@ module bufr_c2f_interface
       character(len=25) :: f_subset
       integer :: ireadns
 
-      ires = ireadns(bufr_unit, f_subset, iddate)
+      ires = ireadns(int(bufr_unit), f_subset, iddate)
 
       if (ires == 0) then
         call copy_f_c_str(f_subset, c_subset, subset_str_len)
@@ -942,7 +941,7 @@ module bufr_c2f_interface
       integer(c_int) :: ires
       integer :: ibfms
 
-      ires = ibfms(r8val)
+      ires = ibfms(int(r8val))
     end function ibfms_c
 
     !> Decode an integer from a character string.
@@ -1007,7 +1006,7 @@ module bufr_c2f_interface
       integer(c_int) :: ires
       integer :: igettdi
 
-      ires = igettdi(iflag)
+      ires = igettdi(int(iflag))
     end function igettdi_c
 
     !> Store information about a child mnemonic within the internal arrays.
