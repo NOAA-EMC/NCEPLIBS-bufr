@@ -1,85 +1,59 @@
 # This is the cmake build file for the python directory of the
 # NCEPLIBS-bufr project.
 #
-# Rahul Mahajan
+# Alex Richert, Rahul Mahajan
 
-configure_file(setup.py.in setup.py @ONLY)
-
-file( COPY ncepbufr utils DESTINATION . )
-
-# Library installation directory
 set(_PYVER "${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}")
-set(_lib_dir "${CMAKE_CURRENT_BINARY_DIR}/site-packages")
-set(_bin_root "${CMAKE_CURRENT_BINARY_DIR}/bin")
 
-# Build the extension module for use in install tree
+file( COPY ncepbufr DESTINATION . )
 add_custom_target(python_mod ALL)
 add_dependencies(python_mod bufr_4)
 
-if( NOT \$ENV{DESTDIR} STREQUAL \"\" )
-    set( __root \"--root=\$ENV{DESTDIR}\" )
-endif()
 add_custom_command(
-    TARGET python_mod
-    COMMAND ${Python3_EXECUTABLE} setup.py install
-        \${__root}
-        --install-scripts=${_bin_root}
-        --install-lib=${_lib_dir}
-        --record=${CMAKE_BINARY_DIR}/extra_install.txt
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    DEPENDS setup.py.in
+  TARGET python_mod
+  POST_BUILD
+  COMMAND ${Python3_EXECUTABLE}  -m "numpy.f2py"
+                   -c "${CMAKE_CURRENT_SOURCE_DIR}/_bufrlib.pyf"
+                   -m _bufrlib
+                   -L${CMAKE_BINARY_DIR}/src
+                   -lbufr_4
+  DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/_bufrlib.pyf"
+)
+
+install(
+  DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/ncepbufr
+  DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR}/python${_PYVER}/site-packages
+)
+install(
+  DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/
+  DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR}/python${_PYVER}/site-packages
+  FILES_MATCHING
+  PATTERN "_bufrlib*.so"
+  PATTERN "CMakeFiles" EXCLUDE
+)
+install(
+  PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/utils/prepbufr2nc
+  DESTINATION ${CMAKE_INSTALL_FULL_BINDIR}
 )
 
 if(ENABLE_DOCS)
   # Uses pdoc (https://github.com/BurntSushi/pdoc)
   find_program(PDOC_EXECUTABLE pdoc REQUIRED)
   add_custom_target(python_docs ALL
-    ${CMAKE_COMMAND} -E env PYTHONPATH=${_lib_dir}:$ENV{PYTHONPATH}
+    ${CMAKE_COMMAND} -E env PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{PYTHONPATH}
     ${PDOC_EXECUTABLE} -o ../docs/html/python ./ncepbufr
   )
   add_dependencies(python_docs doc python_mod)
 endif()
 
-install(DIRECTORY ${_lib_dir} DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR}/python${_PYVER})
-install(PROGRAMS ${_bin_root}/prepbufr2nc DESTINATION ${CMAKE_INSTALL_FULL_BINDIR})
-
 # Add tests
-add_test(NAME test_pyncepbufr_checkpoint
-         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_checkpoint.py
-         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
-list(APPEND _python_tests test_pyncepbufr_checkpoint)
-
-add_test(NAME test_pyncepbufr_gps
-         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_gps.py
-         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
-list(APPEND _python_tests test_pyncepbufr_gps)
-
-add_test(NAME test_pyncepbufr_prepbufr
-         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_prepbufr.py
-         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
-list(APPEND _python_tests test_pyncepbufr_prepbufr)
-
-add_test(NAME test_pyncepbufr_rad
-         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_rad.py
-         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
-list(APPEND _python_tests test_pyncepbufr_rad)
-
-add_test(NAME test_pyncepbufr_satwnd
-         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_satwnd.py
-         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
-list(APPEND _python_tests test_pyncepbufr_satwnd)
-
-add_test(NAME test_pyncepbufr_write
-         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_write.py
-         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
-list(APPEND _python_tests test_pyncepbufr_write)
-
-add_test(NAME test_pyncepbufr_test
-         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test.py
-         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles)
-list(APPEND _python_tests test_pyncepbufr_test)
-
-foreach(_test ${_python_tests})
-  set_tests_properties(${_test}
-    PROPERTIES ENVIRONMENT "PYTHONPATH=${_lib_dir}:$ENV{PYTHONPATH}")
+set(pytest_list checkpoint gps misc prepbufr rad satwnd write)
+foreach(pytestname ${pytest_list})
+  add_test(
+    NAME test_pyncepbufr_${pytestname}
+    COMMAND
+      ${CMAKE_COMMAND} -E env PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{PYTHONPATH}
+      ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_${pytestname}.py
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles
+  )
 endforeach()
