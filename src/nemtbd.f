@@ -49,14 +49,11 @@ C> @author J. Woollen @date 1994-01-06
       CHARACTER*6   ADN30,CLEMON
       CHARACTER*1   TAB
       DIMENSION     NEMS(*),IRPS(*),KNTS(*)
-      LOGICAL       REP
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
       IF(ITAB.LE.0 .OR. ITAB.GT.NTBD(LUN)) GOTO 900
-
-      REP  = .FALSE.
 
 C  CLEAR THE RETURN VALUES
 C  -----------------------
@@ -76,9 +73,6 @@ C  -----------------------
       IDSC = IDND(ITAB,LUN)
       CALL UPTDD(ITAB,LUN,0,NDSC)
 
-      IF(IDSC.LT.IFXY('300000')) GOTO 901
-      IF(IDSC.GT.IFXY('363255')) GOTO 901
-
 C     Loop through each child mnemonic.
 
 c  .... DK: What happens here if NDSC=0 ?
@@ -88,8 +82,6 @@ c  .... DK: What happens here if NDSC=0 ?
 c  .... get NEMT from IDSC
       CALL NUMTAB(LUN,IDSC,NEMT,TAB,IRET)
       IF(TAB.EQ.'R') THEN
-         IF(REP) GOTO 904
-         REP = .TRUE.
          IF(IRET.LT.0) THEN
 
 C           F=1 regular (i.e. non-delayed) replication.
@@ -106,15 +98,11 @@ C           Delayed replication.
 
 C            Replication factor.
 
-         IF(.NOT.REP) GOTO 904
          IRPS(NSEQ+1) = IRET
-         REP = .FALSE.
       ELSEIF(TAB.EQ.'D'.OR.TAB.EQ.'C') THEN
-         REP = .FALSE.
          NSEQ = NSEQ+1
          NEMS(NSEQ) = NEMT
       ELSEIF(TAB.EQ.'B') THEN
-         REP = .FALSE.
          NSEQ = NSEQ+1
          IF((NEMT(1:1).EQ.'.').AND.(J.LT.NDSC)) THEN
 
@@ -124,7 +112,6 @@ C            This is a "following value" mnemonic.
 c  .... get NEMF from IDSC
             CALL NUMTAB(LUN,IDSC,NEMF,TAB,IRET)
             CALL RSVFVM(NEMT,NEMF)
-            IF(TAB.NE.'B') GOTO 906
          ENDIF
          NEMS(NSEQ) = NEMT
       ELSE
@@ -139,23 +126,12 @@ C  -----
 900   WRITE(BORT_STR,'("BUFRLIB: NEMTBD - ITAB (",I7,") NOT FOUND IN '//
      . 'TABLE D")') ITAB
       CALL BORT(BORT_STR)
-901   WRITE(BORT_STR,'("BUFRLIB: NEMTBD - INTEGER REPRESENTATION OF '//
-     . 'DESCRIPTOR FOR TABLE D MNEMONIC ",A," (",I7,") IS OUTSIDE '//
-     . 'RANGE 0-65535 (65535 -> 3-63-255)")') NEMO,IDSC
-      CALL BORT(BORT_STR)
 903   WRITE(BORT_STR,'("BUFRLIB: NEMTBD - THERE ARE MORE THAN '//
      . '(",I4,") DESCRIPTORS (THE LIMIT) IN TABLE D SEQUENCE '//
      . 'MNEMONIC ",A)') MAXCD, NEMO
       CALL BORT(BORT_STR)
-904   WRITE(BORT_STR,'("BUFRLIB: NEMTBD - REPLICATOR IS OUT OF ORDER '//
-     . 'IN TABLE D SEQUENCE MNEMONIC ",A)') NEMO
-      CALL BORT(BORT_STR)
 905   CLEMON = ADN30(IDSC,6)
       WRITE(BORT_STR,'("BUFRLIB: NEMTBD - UNRECOGNIZED DESCRIPTOR '//
      . '",A," IN TABLE D SEQUENCE MNEMONIC ",A)') CLEMON,NEMO
-      CALL BORT(BORT_STR)
-906   WRITE(BORT_STR,'("BUFRLIB: NEMTBD - A ''FOLLOWING VALUE'' '//
-     . 'MNEMONIC (",A,") IS FROM TABLE ",A,", IT MUST BE FROM TABLE B'//
-     . '")') NEMF,TAB
       CALL BORT(BORT_STR)
       END
