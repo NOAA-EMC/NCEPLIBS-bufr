@@ -12,7 +12,15 @@ add_dependencies(python_mod bufr_4)
 add_custom_command(
   TARGET python_mod
   POST_BUILD
-  COMMAND ${Python3_EXECUTABLE}  -m "numpy.f2py"
+  COMMAND ${CMAKE_COMMAND} -E rm -f "${CMAKE_CURRENT_BINARY_DIR}/_bufrlib.cpython-*.so"
+)
+
+find_program(F2PY_EXECUTABLE NAMES f2py3 f2py)
+
+add_custom_command(
+  TARGET python_mod
+  POST_BUILD
+  COMMAND ${F2PY_EXECUTABLE} --verbose
                    -c "${CMAKE_CURRENT_SOURCE_DIR}/_bufrlib.pyf"
                    -m _bufrlib
                    -L${CMAKE_BINARY_DIR}/src
