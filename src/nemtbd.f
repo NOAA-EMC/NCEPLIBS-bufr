@@ -46,7 +46,6 @@ C> @author J. Woollen @date 1994-01-06
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   NEMO,NEMS,NEMT,NEMF
-      CHARACTER*6   ADN30
       CHARACTER*1   TAB
       DIMENSION     NEMS(*),IRPS(*),KNTS(*)
 
