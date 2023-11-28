@@ -31,7 +31,6 @@ jobs:
         pip3 install netCDF4
         pip3 install meson
         pip3 install ninja
-        pip3 install protobuf==3.19.4
         sudo ln -sf /usr/local/bin/gfortran-11 /usr/local/bin/gfortran
 
     - name: checkout-bufr
@@ -57,6 +56,9 @@ jobs:
 
     - name: test-bufr
       run: |
+        otool -L /Users/runner/work/NCEPLIBS-bufr/NCEPLIBS-bufr/bufr/build/python/_bufrlib.cpython-312-darwin.so
+        echo =====
+        nm /Users/runner/work/NCEPLIBS-bufr/NCEPLIBS-bufr/bufr/build/install/lib/libbufr_4.a | head -100
         cd bufr/build
         ctest --verbose --output-on-failure --rerun-failed
 
