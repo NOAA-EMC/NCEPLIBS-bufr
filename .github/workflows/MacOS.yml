@@ -42,6 +42,7 @@ jobs:
 
     - name: build-bufr
       run: |
+        python3 -c "import sys, numpy; print(numpy.__version__); print(sys.version)"
         cd bufr
         mkdir build 
         cd build
