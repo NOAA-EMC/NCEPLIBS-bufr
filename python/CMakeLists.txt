@@ -21,12 +21,10 @@ add_custom_command(
   TARGET python_mod
   POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E env
-                   LDFLAGS=-L${CMAKE_BINARY_DIR}/src LIBS=-lbufr_4
+                   LDFLAGS=-L${CMAKE_BINARY_DIR}/src/libbufr_4.a
                    ${F2PY_EXECUTABLE} --verbose
                    -c "${CMAKE_CURRENT_SOURCE_DIR}/_bufrlib.pyf"
                    -m _bufrlib
-                   -L${CMAKE_BINARY_DIR}/src
-                   -lbufr_4
   DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/_bufrlib.pyf"
 )
 
