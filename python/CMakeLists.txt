@@ -20,7 +20,7 @@ find_program(F2PY_EXECUTABLE NAMES f2py3 f2py)
 add_custom_command(
   TARGET python_mod
   POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E env CC=gcc-11 ${F2PY_EXECUTABLE} --verbose
+  COMMAND ${F2PY_EXECUTABLE} --verbose
                    -c "${CMAKE_CURRENT_SOURCE_DIR}/_bufrlib.pyf"
                    -m _bufrlib
                    -L${CMAKE_BINARY_DIR}/src
