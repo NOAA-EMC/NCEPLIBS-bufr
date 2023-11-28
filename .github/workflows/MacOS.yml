@@ -20,16 +20,17 @@ jobs:
 
     steps:
 
-    - name: Set up Python 3.11
+    - name: Set up Python 3.12
       uses: actions/setup-python@v4
       with:
-        python-version: 3.11
+        python-version: 3.12
     
     - name: install-deps
       run: |
         pip3 install numpy
         pip3 install netCDF4
-        pip3 install protobuf
+        pip3 install meson
+        pip3 install ninja
         sudo ln -sf /usr/local/bin/gfortran-11 /usr/local/bin/gfortran
 
     - name: checkout-bufr
