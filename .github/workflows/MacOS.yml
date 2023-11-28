@@ -19,11 +19,6 @@ jobs:
       FC: gfortran-11
 
     steps:
-
-    - name: Set up Python 3.12
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.12
     
     - name: install-deps
       run: |
@@ -56,9 +51,7 @@ jobs:
 
     - name: test-bufr
       run: |
-        otool -L /Users/runner/work/NCEPLIBS-bufr/NCEPLIBS-bufr/bufr/build/python/_bufrlib.cpython-312-darwin.so
-        echo =====
-        nm /Users/runner/work/NCEPLIBS-bufr/NCEPLIBS-bufr/bufr/build/install/lib/libbufr_4.a | head -100
+        nm /Users/runner/work/NCEPLIBS-bufr/NCEPLIBS-bufr/bufr/build/python/_bufrlib.cpython-312-darwin.so
         cd bufr/build
         ctest --verbose --output-on-failure --rerun-failed
 
