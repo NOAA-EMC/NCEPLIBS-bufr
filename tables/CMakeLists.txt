@@ -5,7 +5,7 @@
 
 # This is the list of tables.
 foreach(type "TableB" "TableD" "CodeFlag")
-  foreach(version RANGE 13 40)
+  foreach(version RANGE 13 41)
     list(APPEND bufr_tables bufrtab.${type}_STD_0_${version})
   endforeach()
   list(APPEND bufr_tables bufrtab.${type}_LOC_0_7_1)
