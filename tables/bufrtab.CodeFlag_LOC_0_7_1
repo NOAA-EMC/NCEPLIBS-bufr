@@ -1,7 +1,7 @@
 Table F LOC |  0 | 7 |  1
 #
 # Local BUFR Table CODE/FLAG, Master Table 0, Originating Center 7, Version 1
-# This file was generated: 2023/05/30 19:03:19
+# This file was generated: 2023/11/30 16:42:09
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -4561,6 +4561,7 @@ Table F LOC |  0 | 7 |  1
               | 21 > | Profiles of atmospheric constituents concentrations
               | 25 > | Climatological observations from fixed-land stations (CLIMAT TEMP)
               | 26 > | Climatological observations from ships (CLIMAT TEMP SHIP)
+              | 40 > | MW temperature/humidity sounding
            | 0-55-020=3
               | 0 > | Temperature (SATEM)
               | 1 > | TIROS (TOVS)
@@ -4704,6 +4705,7 @@ Table F LOC |  0 | 7 |  1
               | 104 > | Surface marine CMAN (BUFR)
               | 113 > | Surface marine ship (BUFR)
               | 120 > | Surface marine saildrone (BUFR)
+              | 121 > | Surface marine SOFAR (BUFR)
            | 0-55-020=2
               | 1 > | Rawinsonde - fixed land
               | 2 > | Rawinsonde - mobil land
