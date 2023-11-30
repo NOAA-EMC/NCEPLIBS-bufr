@@ -3,12 +3,12 @@ C> @brief Read DX BUFR table information into internal arrays.
 C>
 C> @author Woollen @date 1994-01-06
 
-C> Initialize modules @ref moda_tababd and @ref
-C> moda_msgcwd with DX BUFR (dictionary) tables. These tables are needed
+C> Initialize modules @ref moda_tababd and @ref moda_msgcwd with
+C> DX BUFR (dictionary) tables. These tables are needed
 C> to read, write, initialize or append a BUFR file.
 C>
 C> The modules are initialized from either:
-C> 1. an external, user-supplied BURF dictionary table file (i.e., a
+C> 1. an external, user-supplied BUFR dictionary table file (i.e., a
 C> BUFR mnemonic table), or
 C> 2. the BUFR file indicated by LUNIT, or
 C> 3. another currently opened BUFR file.

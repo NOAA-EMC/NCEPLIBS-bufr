@@ -119,7 +119,7 @@ int main( int argc, char *argv[] ) {
         switch ( ch ) {
             case 'v':
                 bvers_f( bvstr, VERS_STR_LEN+1 );
-                printf( "This is xbfmg v4.0.0, built with NCEPLIBS-bufr v%s\n", bvstr );
+                printf( "This is the xbfmg utility, built with NCEPLIBS-bufr v%s\n", bvstr );
                 return 0;
             case 'g':
                 save_GTSbull = 1;
