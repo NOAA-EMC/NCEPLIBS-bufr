@@ -18,7 +18,7 @@ program test_bort
   character*30 char_30
   character*8 tags(5)
   character*4 char_4(1)
-  character*8 char_8(1), char_val_8
+  character*8 char_8(1), char_val_8, nems(20)
   character*12 char_12(1)
   character*24 char_24(1)
   character*85 char_85
@@ -33,13 +33,15 @@ program test_bort
   character*80 card
   integer ibay(1), ibit, subset, jdate
   integer mtyp, msbt, inod
-!  character*28 unit
-!  integer iscl, iref, nseq
+  character*28 unit
+  integer iscl, iref
   integer ierr
   integer mear, mmon, mday, mour, idate
   integer iyr, imo, idy, ihr, imi
   integer jdate1(5), jdump1(5)
   integer lmsgt, msgt(100), msgl
+  integer nseq, irps(20), knts(20)
+  integer*8 nval
 
   integer*4 isize, iupm, iupvs01, isetprm, nmsub
 
@@ -221,6 +223,26 @@ program test_bort
         call openbf(11, 'IN', 11)
         call dumpbf(11, jdate1, jdump1) 
      endif
+  elseif (sub_name .eq. 'elemdx') then
+     open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
+     if (ios .ne. 0) stop 3
+     call openbf(11, 'IN', 11)
+     if (test_case .eq. '1') then
+        card = '| RCPTIM   |    2 |           0 |  16 | DEGREES KELVIN           |-------------|'
+        call elemdx(card,1)
+     elseif (test_case .eq. '2') then
+        card = '| MXTM     |    2 |           0 |  16 |                          |-------------|'
+        call elemdx(card,1)
+     elseif (test_case .eq. '3') then
+        card = '| MXTM     |   2A |           0 |  16 | DEGREES KELVIN           |-------------|'
+        call elemdx(card,1)
+     elseif (test_case .eq. '4') then
+        card = '| MXTM     |    2 |       -15@0 |  16 | DEGREES KELVIN           |-------------|'
+        call elemdx(card,1)
+     elseif (test_case .eq. '5') then
+        card = '| MXTM     |    2 |           0 |  1x | DEGREES KELVIN           |-------------|'
+        call elemdx(card,1)
+     endif
   elseif (sub_name .eq. 'idn30') then
      if (test_case .eq. '1') then
         idn30_val = idn30(adn30_val_5, 6)
@@ -290,16 +312,72 @@ program test_bort
         call openbf(11, 'IN', 11)
         call nemtba(11, 'SPOCK', mtyp, msbt, inod)
      endif
-     ! Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384.
-     ! elseif (sub_name .eq. 'nemtbb') then
-     !    if (test_case .eq. '1') then
-     !       call nemtbb(0, -1, unit, iscl, iref, ibit) 
-     !    endif
-     ! Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384.     
-     ! elseif (sub_name .eq. 'nemtbd') then
-     !    if (test_case .eq. '1') then
-     !       call nemtbd(0, -1, nseq, char_8, int_1d, int_1d)
-     !    endif
+  elseif (sub_name .eq. 'nemtbb') then
+     open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+     if (ios .ne. 0) stop 3
+     if (test_case .eq. '1') then
+       open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+       if (ios .ne. 0) stop 3
+       card = '| NC007200 | A54124 | MTYPE 007-200                                            |'
+       write (12,'(A)') card
+       card = '| YEAR     | 004001 | YEAR                                                     |'
+       write (12,'(A)') card
+       card = '| NC007200 | YEAR                                                              |'
+       write (12,'(A)') card
+       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+       write (12,'(A)') card
+       close (12)
+       open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+       call openbf(11, 'OUT', 12)
+       call nemtbb(1,-1,unit,iscl,iref,ibit)
+     elseif (test_case .eq. '2') then
+       open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+       if (ios .ne. 0) stop 3
+       card = '| NC007200 | A54124 | MTYPE 007-200                                            |'
+       write (12,'(A)') card
+       card = '| STMID    | 001025 | STORM IDENTIFIER                                         |'
+       write (12,'(A)') card
+       card = '| NC007200 | STMID                                                             |'
+       write (12,'(A)') card
+       card = '| STMID    |    0 |           0 |  26 | CCITT IA5                |-------------|'
+       write (12,'(A)') card
+       close (12)
+       open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+       call openbf(11, 'OUT', 12)
+     elseif (test_case .eq. '3') then
+       open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+       if (ios .ne. 0) stop 3
+       card = '| NC007200 | A54124 | MTYPE 007-200                                            |'
+       write (12,'(A)') card
+       card = '| YEAR     | 004001 | YEAR                                                     |'
+       write (12,'(A)') card
+       card = '| NC007200 | YEAR                                                              |'
+       write (12,'(A)') card
+       card = '| YEAR     |    0 |           0 |  33 | YEAR                     |-------------|'
+       write (12,'(A)') card
+       close (12)
+       open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+       call openbf(11, 'OUT', 12)
+     endif
+  elseif (sub_name .eq. 'nemtbd') then
+     open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+     if (ios .ne. 0) stop 3
+     if (test_case .eq. '1') then
+       open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+       if (ios .ne. 0) stop 3
+       card = '| NC007200 | A54124 | MTYPE 007-200                                            |'
+       write (12,'(A)') card
+       card = '| YEAR     | 004001 | YEAR                                                     |'
+       write (12,'(A)') card
+       card = '| NC007200 | YEAR                                                              |'
+       write (12,'(A)') card
+       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+       write (12,'(A)') card
+       close (12)
+       open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+       call openbf(11, 'OUT', 12)
+       call nemtbd(1,-1,nseq,nems,irps,knts)
+     endif
   elseif (sub_name .eq. 'nenubd') then
      open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
      if (ios .ne. 0) stop 3
@@ -1028,6 +1106,10 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(12, 'OUT', 10)
         call ufdump(11, 12)
+     endif
+  elseif (sub_name .eq. 'upb8') then
+     if (test_case .eq. '1') then
+        call upb8(nval, -1, ibit, ibay)
      endif
   elseif (sub_name .eq. 'upftbv') then
      if (test_case .eq. '1') then

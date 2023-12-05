@@ -64,6 +64,13 @@ for kind in "4" "d"; do
     # Check dumpbf().
     (./test_bort_$kind dumpbf 1) && exit 1
     
+    # Check elemdx().
+    (./test_bort_$kind elemdx 1) && exit 1
+    (./test_bort_$kind elemdx 2) && exit 1
+    (./test_bort_$kind elemdx 3) && exit 1
+    (./test_bort_$kind elemdx 4) && exit 1
+    (./test_bort_$kind elemdx 5) && exit 1
+
     # Check idn30().
     (./test_bort_$kind idn30 1) && exit 1
     (./test_bort_$kind idn30 2) && exit 1
@@ -95,6 +102,14 @@ for kind in "4" "d"; do
 
     # Check nemtba().
     (./test_bort_$kind nemtba 1) && exit 1
+
+    # Check nemtbb().
+    (./test_bort_$kind nemtbb 1) && exit 1
+    (./test_bort_$kind nemtbb 2) && exit 1
+    (./test_bort_$kind nemtbb 3) && exit 1
+
+    # Check nemtbd().
+    (./test_bort_$kind nemtbd 1) && exit 1
 
     # Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384.
     # Check nemtbb().
@@ -323,6 +338,9 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufdump 1) && exit 1
     (./test_bort_$kind ufdump 2) && exit 1
     (./test_bort_$kind ufdump 3) && exit 1
+
+    # Check upb8().
+    (./test_bort_$kind upb8 1) && exit 1
 
     # Check upftbv().
     (./test_bort_$kind upftbv 1) && exit 1

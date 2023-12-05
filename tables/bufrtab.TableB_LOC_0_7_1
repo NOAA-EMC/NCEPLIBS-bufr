@@ -1,7 +1,7 @@
 Table B LOC |  0 | 7 |  1
 #
 # Local BUFR Table B, Master Table 0, Originating Center 7, Version 1
-# This file was generated: 2022/11/08 16:34:17
+# This file was generated: 2023/11/30 16:42:09
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME
@@ -406,11 +406,11 @@ Table B LOC |  0 | 7 |  1
   0-33-217 |   0 |           0 |   3 | Code table        | RFLG     ;     ; SSM/I rain flag (derived wind product quality indicator)
   0-33-218 |   0 |           0 |   4 | Code table        | QMST     ;     ; SDMEDIT quality mark for sea-surface temperature
   0-33-219 |   0 |           0 |   8 | Flag table        | MQCF     ;     ; MODS "QC results" flag
-  0-33-220 |   0 |           0 |   8 | CCITT IA5         | QCD      ;     ; FSL "QC data" flag
-  0-33-221 |   0 |           0 |  11 | Flag table        | QCA      ;     ; FSL "QC applied" flag for surface data
-  0-33-222 |   0 |           0 |  11 | Flag table        | QCR      ;     ; FSL "QC results" flag for surface data
-  0-33-223 |   0 |           0 |  13 | Flag table        | QCAU     ;     ; FSL "QC applied" flag for upper air data
-  0-33-224 |   0 |           0 |  13 | Flag table        | QCRU     ;     ; FSL "QC results" flag for upper air data
+  0-33-220 |   0 |           0 |   8 | CCITT IA5         | QCD      ;     ; MADIS "QC data" flag
+  0-33-221 |   0 |           0 |  11 | Flag table        | QCA      ;     ; MADIS "QC applied" flag for surface data
+  0-33-222 |   0 |           0 |  11 | Flag table        | QCR      ;     ; MADIS "QC results" flag for surface data
+  0-33-223 |   0 |           0 |  13 | Flag table        | QCAU     ;     ; MADIS "QC applied" flag for upper air data
+  0-33-224 |   0 |           0 |  13 | Flag table        | QCRU     ;     ; MADIS "QC results" flag for upper air data
   0-33-225 |   0 |           0 |   4 | Code table        | DINT     ;     ; FSL decoding correction indicator
   0-33-226 |   0 |           0 |   2 | Code table        | LINT     ;     ; FSL location interpolation indicator
   0-33-227 |   0 |           0 |   2 | Code table        | TINT     ;     ; FSL time interpolation indicator
@@ -423,7 +423,7 @@ Table B LOC |  0 | 7 |  1
   0-33-234 |   0 |           0 |  24 | Flag table        | OPQF     ;     ; Advanced Microwave Scanning Radiometer (AMSR)-E Level 2 ocean product quality flag
   0-33-235 |   0 |           0 |   5 | Code table        | TOQC     ;     ; Ozone Monitoring Instrument (OMI) total ozone quality code
   0-33-236 |   0 |           0 |  13 | Flag table        | TOQF     ;     ; Ozone Monitoring Instrument (OMI) total ozone quality flag
-  0-33-237 |   0 |           0 |   5 | Code table        | QCSS     ;     ; FSL "QC applied" flag for surface sensor status
+  0-33-237 |   0 |           0 |   5 | Code table        | QCSS     ;     ; MADIS "QC applied" flag for surface sensor status
   0-33-238 |   0 |           0 |   6 | Code table        | QCCHEK   ;     ; Data quality check indicator
   0-33-239 |   0 |           0 |   3 | Code table        | QCTSP    ;     ; Quality control indicator for temperature/salinity profile
   0-33-240 |   0 |           0 |   3 | Code table        | QCCUR    ;     ; Quality control indicator for current profile
