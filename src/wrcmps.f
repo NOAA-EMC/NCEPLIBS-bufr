@@ -177,7 +177,7 @@ C        SO KMIS(I) WILL STORE:
 C          .FALSE. IF ALL SUCH VALUES ARE NON-"MISSING"
 C          .TRUE. OTHERWISE
 
-         IMISS = 2**IWID(I)-1
+         IMISS = 2_8**IWID(I)-1
          IF(ICOL.EQ.1) THEN
             KMIN(I) = IMISS
             KMAX(I) = 0
