@@ -43,40 +43,46 @@ args_5="-b -o ${outfile_5}"
 ../utils/debufr ${args_5} testfiles/data/debufr_4 && cmp -s ${outfile_5} testfiles/testoutput/debufr_5.out
 [[ ${?} -ne 0 ]] && exit 5
 
+# Test #6, reading debufr_6 file using master tables.
+outfile_6=testrun/debufr_6.out
+args_6="-t ../tables -o ${outfile_6}"
+../utils/debufr ${args_6} testfiles/data/debufr_6 && cmp -s ${outfile_6} testfiles/testoutput/debufr_6.out
+[[ ${?} -ne 0 ]] && exit 6
+
 # We expect some of the following tests may return a non-zero exit code, but we don't want
 # to immediately exit the script when that happens.
 set +e
 
-# Test #6, for wrong number of arguments.
-outfile_6=testrun/debufr_6.out
-../utils/debufr > ${outfile_6}
-[[ ${?} -eq 0 || `grep -c "ERROR: You must specify an input BUFR file to be decoded" ${outfile_6}` -ne 1 ]] && exit 6
-
-# Test #7, for -v option.
+# Test #7, for wrong number of arguments.
 outfile_7=testrun/debufr_7.out
-../utils/debufr -v > ${outfile_7}
-[[ ${?} -ne 0 || `grep -c "This is the debufr utility, built with NCEPLIBS-bufr" ${outfile_7}` -ne 1 ]] && exit 7
+../utils/debufr > ${outfile_7}
+[[ ${?} -eq 0 || `grep -c "ERROR: You must specify an input BUFR file to be decoded" ${outfile_7}` -ne 1 ]] && exit 7
 
-# Test #8, for -h option.
+# Test #8, for -v option.
 outfile_8=testrun/debufr_8.out
-../utils/debufr -h > ${outfile_8}
-[[ ${?} -ne 0 || `egrep -c "(ABSTRACT|USAGE|WHERE):" ${outfile_8}` -ne 3 ]] && exit 8
+../utils/debufr -v > ${outfile_8}
+[[ ${?} -ne 0 || `grep -c "This is the debufr utility, built with NCEPLIBS-bufr" ${outfile_8}` -ne 1 ]] && exit 8
 
-# Test #9, for non-existent DX tables file.
+# Test #9, for -h option.
 outfile_9=testrun/debufr_9.out
-../utils/debufr -t. -f BUFRLIB_DUMMY testfiles/data/debufr_1 > ${outfile_9}
-[[ ${?} -ne 0 || `grep -c "Error: Could not find file" ${outfile_9}` -ne 1 ]] && exit 9
+../utils/debufr -h > ${outfile_9}
+[[ ${?} -ne 0 || `egrep -c "(ABSTRACT|USAGE|WHERE):" ${outfile_9}` -ne 3 ]] && exit 9
 
-# Test #10, which should call NCEPLIBS-bufr subroutine bort from within subroutine readerme.
-outfile_10=debufr_10.debufr.out
-args_10="-t ../tables -p MXMSGL=40000"
-../utils/debufr ${args_10} testfiles/data/debufr_3 > ${outfile_10}
-[[ ${?} -eq 0 || `grep -c "READERME - INPUT BUFR MESSAGE LENGTH.*LARGER THAN LIMIT" ${outfile_10}` -ne 1 ]] && exit 10
+# Test #10, for non-existent DX tables file.
+outfile_10=testrun/debufr_10.out
+../utils/debufr -t. -f BUFRLIB_DUMMY testfiles/data/debufr_1 > ${outfile_10}
+[[ ${?} -ne 0 || `grep -c "Error: Could not find file" ${outfile_10}` -ne 1 ]] && exit 10
 
-# Test #11, for unwriteable output directory.
+# Test #11, which should call NCEPLIBS-bufr subroutine bort from within subroutine readerme.
 outfile_11=testrun/debufr_11.out
-../utils/debufr -o /BUFRLIB_DUMMY_DIRECTORY/BUFRLIB_DUMMY testfiles/data/debufr_1 > ${outfile_11}
-[[ ${?} -eq 0 || `grep -c "ERROR: Cannot write output file" ${outfile_11}` -ne 1 ]] && exit 11
+args_11="-t ../tables -p MXMSGL=40000"
+../utils/debufr ${args_11} testfiles/data/debufr_3 > ${outfile_11}
+[[ ${?} -eq 0 || `grep -c "READERME - INPUT BUFR MESSAGE LENGTH.*LARGER THAN LIMIT" ${outfile_11}` -ne 1 ]] && exit 11
+
+# Test #12, for unwriteable output directory.
+outfile_12=testrun/debufr_12.out
+../utils/debufr -o /BUFRLIB_DUMMY_DIRECTORY/BUFRLIB_DUMMY testfiles/data/debufr_1 > ${outfile_12}
+[[ ${?} -eq 0 || `grep -c "ERROR: Cannot write output file" ${outfile_12}` -ne 1 ]] && exit 12
 
 # Success!
 exit 0

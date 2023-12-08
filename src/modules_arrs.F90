@@ -170,6 +170,8 @@ module moda_comprx
   integer(8), allocatable :: KMIN(:)
   !> Maximum of each data value across all data subsets in message.
   integer(8), allocatable :: KMAX(:)
+  !> "Missing" value used when compressing non-character data values.
+  integer(8) :: IMISS
   !> "Missing" values flag. Set to .true. if at least one occurrence
   !> of this data value is "missing" within any data subset of the
   !> message. Otherwise set to .false.
