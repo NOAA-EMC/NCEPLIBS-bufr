@@ -15,9 +15,13 @@ args_1="-t ../tables -o ${outfile_1}"
 ../utils/debufr ${args_1} testfiles/data/debufr_1 && cmp -s ${outfile_1} testfiles/testoutput/debufr_1.out
 [[ ${?} -ne 0 ]] && exit 1
 
-# Test #2, reading debufr_2 file using a separate DX table file.
+# Test #2, reading debufr_2 file using a separate DX table file and a superficially-long tables directory string.
 outfile_2=testrun/debufr_2.out
-args_2="-t testfiles/data -f bufrtab.031 -c -o ${outfile_2}"
+ltdstr=testfiles/data
+for ii in {1..8}; do
+  ltdstr+=/../../testfiles/data
+done
+args_2="-t ${ltdstr} -f bufrtab.031 -c -o ${outfile_2}"
 ../utils/debufr ${args_2} testfiles/data/debufr_2 && cmp -s ${outfile_2} testfiles/testoutput/debufr_2.out
 [[ ${?} -ne 0 ]] && exit 2
 

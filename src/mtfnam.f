@@ -33,7 +33,7 @@ C> @author Ator @date 2017-10-16
 
         CHARACTER*16    TBLTYP2
         CHARACTER*20    FMTF
-        CHARACTER*100   MTDIR
+        CHARACTER*240   MTDIR
         CHARACTER*128   BORT_STR
         LOGICAL         FOUND
 
