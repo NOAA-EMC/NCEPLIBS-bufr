@@ -174,7 +174,7 @@ int main( int argc, char *argv[ ] ) {
     char forcemt = 'N';
     char cfms = 'Y';
     char io = 'r';
-    char tbldir_default[500] =
+    char tbldir_default[240] =
             "@MASTER_TABLE_DIR_C@";
     char bvstr[VERS_STR_LEN+1];
 
