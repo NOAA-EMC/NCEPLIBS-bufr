@@ -88,7 +88,7 @@ C*        Use the local table from NCEP.
      .             '_LOC_0_7_1'
           IF ( IPRT .GE. 2 ) THEN
             CALL ERRWRT('Local ' // TBLTYP2(1:LTBT) //
-     .                  'not found, so using:')
+     .                  ' not found, so using:')
             CALL ERRWRT(LOCFIL)
           ENDIF
           INQUIRE ( FILE = LOCFIL, EXIST = FOUND )
