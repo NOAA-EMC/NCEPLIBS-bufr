@@ -93,6 +93,10 @@ for kind in "4" "d"; do
     (./test_bort_$kind iupvs01 2) && exit 1
     (./test_bort_$kind iupvs01 3) && exit 1
     
+    # Check lstjpb().
+    (./test_bort_$kind lstjpb 1) && exit 1
+    (./test_bort_$kind lstjpb 2) && exit 1
+
     # Check mtfnam().
     (./test_bort_$kind mtfnam 1) && exit 1
     # For the next test, we need to temporarily create a dummy placeholder file

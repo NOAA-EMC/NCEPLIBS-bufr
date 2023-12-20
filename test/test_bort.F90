@@ -297,6 +297,20 @@ program test_bort
         call openbf(11, 'IN', 10)
         iret = iupvs01(11, 'LENM')
      endif
+  elseif (sub_name .eq. 'lstjpb') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call readmg(11, char_val_8, jdate, iret)
+        call lstjpb(-1, 1, 'DRP')
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call readmg(11, char_val_8, jdate, iret)
+        call lstjpb(10000, 1, 'DRP')
+     endif
   elseif (sub_name .eq. 'mtfnam') then
      if (test_case .eq. '1') then
         call mtinfo('../tables', 80, 81)
