@@ -9,7 +9,7 @@
 !
 ! Ed Hartnett 3/12/23
 program test_bort
-  use bufrlib
+  use bufr_interface
   implicit none
   integer iret, jret, iunit, iqcd
   ! integer i1
