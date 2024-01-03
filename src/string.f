@@ -16,7 +16,7 @@ C> an application program.
 C>
 C> @param[in] STR - character*(*): string of blank-separated mnemonics.
 C> @param[in] LUN - integer: file ID.
-C> @param[out] I1 - integer: a number greater than or equal to the number
+C> @param[in] I1 - integer: a number greater than or equal to the number
 C> of blank-separated mnemonics in STR.
 C> @param[in] IO - integer: status indicator for BUFR file associated
 C> with LUN:

@@ -26,6 +26,7 @@ program test_bort
   character*5 adn30_val_5
   real*8 real_1d(1)
   real*8 real_2d(1,1)
+  real*8 real_2d_3x1(3,1)
   integer idn30, idn30_val
   integer :: num_args, len, stat, ios, u
   character(len=32) :: sub_name, test_case
@@ -93,6 +94,21 @@ program test_bort
   elseif (sub_name .eq. 'bvers') then
      if (test_case .eq. '1') then
         call bvers(char_short)
+     endif
+  elseif (sub_name .eq. 'chekstab') then
+     open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+     if (ios .ne. 0) stop 3
+     if (test_case .eq. '1') then
+       open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+       if (ios .ne. 0) stop 3
+       card = '| YEAR     | 004001 | YEAR                                                     |'
+       write (12,'(A)') card
+       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+       write (12,'(A)') card
+       close (12)
+       open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+       call openbf(11, 'OUT', 12)
+       call chekstab(1)
      endif
   elseif (sub_name .eq. 'closmg') then
      if (test_case .eq. '1') then
@@ -770,12 +786,93 @@ program test_bort
      if (test_case .eq. '1') then
         call strcpt('W', 1960, 12, 15, 12, 0)
      endif
-  ! Next test commented out until
-  ! https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384 is resolved.
-  ! elseif (sub_name .eq. 'string') then if (test_case .eq. '1') then
-  ! call
-  ! STRING('0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789',
-  ! & 1, i1, 0) endif
+  elseif (sub_name .eq. 'string') then
+     open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
+     if (ios .ne. 0) stop 3
+     call openbf(11, 'IN', 11)
+     if (test_case .eq. '1') then
+       call string('012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789', 1, 1, 0)
+     elseif (test_case .eq. '2') then
+       call readns(11, char_val_8, jdate, iret)
+       call ufbint(11, real_2d_3x1, 3, 1, iret, 'YEAR MNTH DAYS')
+       call string('YEAR MNTH DAYS', 1, 2, 0)
+     endif
+  elseif (sub_name .eq. 'tabsub') then
+     open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+     if (ios .ne. 0) stop 3
+     card = '| NC007200 | A54124 | MTYPE 007-200                                            |'
+     write (12,'(A)') card
+     if (test_case .eq. '1') then
+     elseif (test_case .eq. '2') then
+       card = '| YEAR     | 004001 | YEAR                                                     |'
+       write (12,'(A)') card
+       card = '| NC007200 | 201129 YEAR                                                       |'
+       write (12,'(A)') card
+       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+       write (12,'(A)') card
+     elseif (test_case .eq. '3') then
+       card = '| YEAR     | 004001 | YEAR                                                     |'
+       write (12,'(A)') card
+       card = '| NC007200 | 202129 YEAR                                                       |'
+       write (12,'(A)') card
+       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+       write (12,'(A)') card
+     elseif (test_case .eq. '4') then
+       card = '| YEAR     | 004001 | YEAR                                                     |'
+       write (12,'(A)') card
+       card = '| NC007200 | 207002 YEAR                                                       |'
+       write (12,'(A)') card
+       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+       write (12,'(A)') card
+     elseif (test_case .eq. '5') then
+       card = '| YEAR     | 004001 | YEAR                                                     |'
+       write (12,'(A)') card
+       card = '| NC007200 | 208024 YEAR                                                       |'
+       write (12,'(A)') card
+       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+       write (12,'(A)') card
+     elseif (test_case .eq. '6') then
+       card = '| YEAR     | 004001 | YEAR                                                     |'
+       write (12,'(A)') card
+       card = '| NC007200 | 201129 201133 YEAR                                                |'
+       write (12,'(A)') card
+       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+       write (12,'(A)') card
+     elseif (test_case .eq. '7') then
+       card = '| YEAR     | 004001 | YEAR                                                     |'
+       write (12,'(A)') card
+       card = '| NC007200 | 202129 202133 YEAR                                                |'
+       write (12,'(A)') card
+       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+       write (12,'(A)') card
+       close (12)
+       open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+       call openbf(11, 'OUT', 12)
+     elseif (test_case .eq. '8') then
+       card = '| YEAR     | 004001 | YEAR                                                     |'
+       write (12,'(A)') card
+       card = '| NC007200 | 203012 YEAR 203006                                                |'
+       write (12,'(A)') card
+       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+       write (12,'(A)') card
+     elseif (test_case .eq. '9') then
+       card = '| YEAR     | 004001 | YEAR                                                     |'
+       write (12,'(A)') card
+       card = '| NC007200 | 203012 YEAR                                                       |'
+       write (12,'(A)') card
+       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+       write (12,'(A)') card
+     elseif (test_case .eq. '10') then
+       card = '| YEAR     | 004001 | YEAR                                                     |'
+       write (12,'(A)') card
+       card = '| NC007200 | 203000 YEAR                                                       |'
+       write (12,'(A)') card
+       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+       write (12,'(A)') card
+     endif
+     close (12)
+     open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+     call openbf(11, 'OUT', 12)
   elseif (sub_name .eq. 'ufbcnt') then
      if (test_case .eq. '1') then
         call openbf(12, 'FIRST', 11)
