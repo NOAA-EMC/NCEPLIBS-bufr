@@ -31,7 +31,7 @@ subroutine errwrt(str)
 end subroutine errwrt
 
 program intest10
-  use bufrlib
+  use bufr_interface
   use Share_errstr_intest10
 
   implicit none

@@ -29,6 +29,9 @@ for kind in "4" "d"; do
     # Check bvers().
     (./test_bort_$kind bvers 1) && exit 1
 
+    # Check chekstab().
+    (./test_bort_$kind chekstab 1) && exit 1
+
     # Check closmg().
     (./test_bort_$kind closmg 1) && exit 1
     (./test_bort_$kind closmg 2) && exit 1
@@ -93,6 +96,10 @@ for kind in "4" "d"; do
     (./test_bort_$kind iupvs01 2) && exit 1
     (./test_bort_$kind iupvs01 3) && exit 1
     
+    # Check lstjpb().
+    (./test_bort_$kind lstjpb 1) && exit 1
+    (./test_bort_$kind lstjpb 2) && exit 1
+
     # Check mtfnam().
     (./test_bort_$kind mtfnam 1) && exit 1
     # For the next test, we need to temporarily create a dummy placeholder file
@@ -238,11 +245,21 @@ for kind in "4" "d"; do
     # Check strcpt().
     (./test_bort_$kind strcpt 1) && exit 1
 
-    # Commented out until https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384
-    # is resolved.
     # Check string().
-    #./test_bort_$kind string 1
-    #[ $? != 1 ] &&  exit 1
+    (./test_bort_$kind string 1) && exit 1
+    (./test_bort_$kind string 2) && exit 1
+
+    # Check tabsub().
+    (./test_bort_$kind tabsub 1) && exit 1
+    (./test_bort_$kind tabsub 2) && exit 1
+    (./test_bort_$kind tabsub 3) && exit 1
+    (./test_bort_$kind tabsub 4) && exit 1
+    (./test_bort_$kind tabsub 5) && exit 1
+    (./test_bort_$kind tabsub 6) && exit 1
+    (./test_bort_$kind tabsub 7) && exit 1
+    (./test_bort_$kind tabsub 8) && exit 1
+    (./test_bort_$kind tabsub 9) && exit 1
+    (./test_bort_$kind tabsub 10) && exit 1
 
     # Check ufbcnt().
     (./test_bort_$kind ufbcnt 1) && exit 1
