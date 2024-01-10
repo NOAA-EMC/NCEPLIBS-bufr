@@ -62,7 +62,8 @@ C               This line contains a list of dependencies.
 C               Parse the list of FXY numbers.
 
                 CALL PARSTR ( CDSTR(1), ADSC, 10, NIDFXY, ',', .FALSE. )
-                IF ( NIDFXY .EQ. 0 ) THEN
+                IF ( ( NIDFXY .EQ. 0 ) .OR. ( ( NIDFXY .EQ. 1 ) .AND.
+     +                   ( ADSC(1) .EQ. ' ' ) ) ) THEN
                   BORT_STR2 = '        HAS BAD DEPENDENCY LIST (FXY)'
                   GOTO 900
                 ENDIF
@@ -77,13 +78,18 @@ C               Parse the list of FXY numbers.
 C               Parse the list of values.
 
                 CALL PARSTR ( CDSTR(2), CVAL, 25, NIDVAL, ',', .FALSE. )
-                IF ( NIDVAL .EQ. 0 ) THEN
+                IF ( ( NIDVAL .EQ. 0 ) .OR. ( ( NIDVAL .EQ. 1 ) .AND.
+     +                   ( CVAL(1) .EQ. ' ' ) ) ) THEN
                   BORT_STR2 = '        HAS BAD DEPENDENCY LIST (VAL)'
                   GOTO 900
                 ENDIF
                 DO II = 1, NIDVAL
                   CVAL(II) = ADJUSTL( CVAL(II) )
                   CALL STRNUM ( CVAL(II), IVAL, IER )
+                  IF ( IER .NE. 0 ) THEN
+                    BORT_STR2 = '        HAS BAD DEPENDENCY (VAL)'
+                    GOTO 900
+                  ENDIF
                   IDVAL(II) = IVAL
                 ENDDO
 

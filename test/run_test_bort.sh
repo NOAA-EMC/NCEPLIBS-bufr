@@ -96,6 +96,9 @@ for kind in "4" "d"; do
     (./test_bort_$kind iupvs01 2) && exit 1
     (./test_bort_$kind iupvs01 3) && exit 1
     
+    # Check jstnum().
+    (./test_bort_$kind jstnum 1) && exit 1
+
     # Check lstjpb().
     (./test_bort_$kind lstjpb 1) && exit 1
     (./test_bort_$kind lstjpb 2) && exit 1
@@ -228,8 +231,29 @@ for kind in "4" "d"; do
     (./test_bort_$kind status 1) && exit 1
     (./test_bort_$kind status 2) && exit 1
 
+    # Check sntbbe().
+    (./test_bort_$kind sntbbe 1) && exit 1
+    (./test_bort_$kind sntbbe 2) && exit 1
+    (./test_bort_$kind sntbbe 3) && exit 1
+    (./test_bort_$kind sntbbe 4) && exit 1
+    (./test_bort_$kind sntbbe 5) && exit 1
+    (./test_bort_$kind sntbbe 6) && exit 1
+
     # Check sntbde().
     (./test_bort_$kind sntbde 1) && exit 1
+    (./test_bort_$kind sntbde 2) && exit 1
+    (./test_bort_$kind sntbde 3) && exit 1
+    (./test_bort_$kind sntbde 4) && exit 1
+    (./test_bort_$kind sntbde 5) && exit 1
+
+    # Check sntbfe().
+    (./test_bort_$kind sntbfe 1) && exit 1
+    (./test_bort_$kind sntbfe 2) && exit 1
+    (./test_bort_$kind sntbfe 3) && exit 1
+    (./test_bort_$kind sntbfe 4) && exit 1
+    (./test_bort_$kind sntbfe 5) && exit 1
+    (./test_bort_$kind sntbfe 6) && exit 1
+    (./test_bort_$kind sntbfe 7) && exit 1
 
     # Check stdmsg().
     (./test_bort_$kind stdmsg 1) && exit 1

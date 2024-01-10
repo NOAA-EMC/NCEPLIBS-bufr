@@ -14,6 +14,7 @@ program test_bort
   integer iret, jret, iunit, iqcd
   ! integer i1
   integer int_1d(1), int_1d_2(1)
+  character char_1
   character*2 char_short
   character*30 char_30
   character*8 tags(5)
@@ -312,6 +313,11 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(11, 'IN', 10)
         iret = iupvs01(11, 'LENM')
+     endif
+  elseif (sub_name .eq. 'jstnum') then
+     if (test_case .eq. '1') then
+        char_val_8 = '        '
+        call jstnum(char_val_8,char_1,iret)
      endif
   elseif (sub_name .eq. 'lstjpb') then
      if (test_case .eq. '1') then
@@ -738,11 +744,103 @@ program test_bort
   elseif (sub_name .eq. 'sntbbe') then
      if (test_case .eq. '1') then
         call sntbbe(0, 'c', 1, 2, int_1d, char_4, char_12, char_4, char_24, char_8, char_4, char_120)        
+     elseif (test_case .eq. '2') then
+        card = '  0-00-007 |   0 |                                                              '
+     elseif (test_case .eq. '3') then
+        card = '  0-00-007 |     |           0 |  16 | CCITT IA5         | CMTVN    ;     ;     '
+     elseif (test_case .eq. '4') then
+        card = '  0-00-007 |   0 |             |  16 | CCITT IA5         | CMTVN    ;     ;     '
+     elseif (test_case .eq. '5') then
+        card = '  0-00-007 |   0 |           0 |     | CCITT IA5         | CMTVN    ;     ;     '
+     elseif (test_case .eq. '6') then
+        card = '  0-00-007 |   0 |           0 |  16 |                   | CMTV$    ;     ;     '
      endif
+     jret = 0
+     call sntbbe(0, card, 1, jret, int_1d, char_4, char_12, char_4, char_24, char_8, char_4, char_120)
   elseif (sub_name .eq. 'sntbde') then
+     card = '  3-01-022 | LTLONHHT   ;     ;                                                 '
      if (test_case .eq. '1') then
-        call sntbde(0, 0, 'c', 1, 1, 2, int_1d, char_8, char_4, char_120, int_1d_2, int_1d, char_120)        
+        call sntbde(0, 0, 'c', 1, 1, 2, int_1d, char_8, char_4, char_120, int_1d, int_1d, char_120)
+     elseif (test_case .eq. '2') then
+        card(21:21) = '$'
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = '/dev/null')
+     elseif (test_case .eq. '4') then
+        open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
+        if (ios .ne. 0) stop 3
+        char_85 = '             0-05-001                                                                '
+        write (12,'(A)') char_85
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
+        if (ios .ne. 0) stop 3
+     elseif (test_case .eq. '5') then
+        open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
+        if (ios .ne. 0) stop 3
+        char_85 = '           | 0-05-001 >                                                              '
+        write (12,'(A)') char_85
+        char_85 = '           | 0-06-300                                                                '
+        write (12,'(A)') char_85
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
+        if (ios .ne. 0) stop 3
      endif
+     jret = 0
+     call wrdlen
+     call sntbde(12, 49430, card, 1, 1, jret, int_1d, char_8, char_4, char_120, int_1d, int_1d, char_120)
+  elseif (sub_name .eq. 'sntbfe') then
+     if (test_case .eq. '1') then
+        open(unit = 12, file = '/dev/null')
+     elseif (test_case .eq. '2') then
+        open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
+        if (ios .ne. 0) stop 3
+        card = '            0-01-031,0-01-033,0-01-035=176                                      '
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
+        if (ios .ne. 0) stop 3
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
+        if (ios .ne. 0) stop 3
+        card = '          | 0-01-031,0-01-033,0-01-035 176                                      '
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
+        if (ios .ne. 0) stop 3
+     elseif (test_case .eq. '4') then
+        open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
+        if (ios .ne. 0) stop 3
+        card = '          |                           =176                                      '
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
+        if (ios .ne. 0) stop 3
+     elseif (test_case .eq. '5') then
+        open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
+        if (ios .ne. 0) stop 3
+        card = '          | 0-01-331,0-01-033,0-01-035=176                                      '
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
+        if (ios .ne. 0) stop 3
+     elseif (test_case .eq. '6') then
+        open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
+        if (ios .ne. 0) stop 3
+        card = '          | 0-01-031,0-01-033,0-01-035=                                         '
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
+        if (ios .ne. 0) stop 3
+     elseif (test_case .eq. '7') then
+        open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
+        if (ios .ne. 0) stop 3
+        card = '          | 0-01-031,0-01-033,0-01-035=17T                                      '
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
+        if (ios .ne. 0) stop 3
+     endif
+     call wrdlen
+     call sntbfe(12, 288)
   elseif (sub_name .eq. 'stdmsg') then
      if (test_case .eq. '1') then
         call stdmsg('W')
@@ -845,9 +943,6 @@ program test_bort
        write (12,'(A)') card
        card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
        write (12,'(A)') card
-       close (12)
-       open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
-       call openbf(11, 'OUT', 12)
      elseif (test_case .eq. '8') then
        card = '| YEAR     | 004001 | YEAR                                                     |'
        write (12,'(A)') card
