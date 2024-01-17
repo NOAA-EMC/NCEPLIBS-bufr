@@ -34,10 +34,14 @@ C  -----------------------------------------
       IF(ITP(NODE).EQ.1) THEN
          IVAL(N) = NINT(VAL(N,LUN))
       ELSEIF(TYP(NODE).EQ.'NUM') THEN
-         IF(IBFMS(VAL(N,LUN)).EQ.0) THEN
-            IVAL(N) = IPKS(VAL(N,LUN),NODE)
-         ELSE
+         IF( (IBFMS(VAL(N,LUN)).EQ.1) .OR.
+     .        (VAL(N,LUN).NE.VAL(N,LUN)) ) THEN
+
+C           The user number is either "missing" or NaN.
+
             IVAL(N) = -1
+         ELSE
+            IVAL(N) = IPKS(VAL(N,LUN),NODE)
          ENDIF
       ENDIF
       ENDDO
