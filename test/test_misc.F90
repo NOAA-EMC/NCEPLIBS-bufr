@@ -29,6 +29,13 @@ program test_misc
   integer igetprm, isetprm
   integer imrkopr
   character*7 prms(13)
+  character*4 char_4(1)
+  character*8 char_8(1)
+  character*12 char_12(1)
+  character*24 char_24(1)
+  character*120 char_120(1)
+  character*80 card
+  integer int_1d(1)
 #endif
 
   print *, 'Testing misc subroutines, ignore warnings.'
@@ -85,20 +92,6 @@ program test_misc
   call gets1loc('NONEXISTENT', 3, isbyt, iwid, iret)
   if ( iret .ne. -1 ) stop 16
   
-  ! Open for OUT.
-  ! This fails but I don't know why yet. I get a bort() message that contains:
-  ! BUFRLIB: RDUSDX
-  ! THIS CARD HAS A BAD FORMAT - IT IS NOT RECOGNIZED BY THIS SUBROUTINE
-  ! open(unit = 11, file = 'test_misc.bufr', form = 'UNFORMATTED', iostat = ios)
-  ! if (ios .ne. 0) stop 11
-  ! open(unit = 12, file = 'testfiles/IN_1', iostat = ios)
-  ! if (ios .ne. 0) stop 12
-  ! call openbf(11, 'OUT', 12)
-  ! call status(11, lun, il, im)
-  ! print *, lun, il, im
-  ! if (lun .ne. 1 .or. il .ne. -1 .or. im .ne. 0) stop 13
-  ! call closbf(11)
-
   ! Testing strnum
   call strnum('8DUMMY8',num,iret)
   if (iret .ne. -1) stop 400
@@ -210,6 +203,12 @@ program test_misc
       stop 800
     endif
   enddo
+
+  ! Test sntbbe()
+  card = '  0-00-007 |   0 |           0 |  16                                            '
+  iret = 0
+  call sntbbe(0, card, 1, iret, int_1d, char_4, char_12, char_4, char_24, char_8, char_4, char_120)
+  if ( char_24(1) .ne. ' ' ) stop 801
   
 #endif
 

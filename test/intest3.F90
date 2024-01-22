@@ -17,9 +17,11 @@ program intest3
         nr8lv, nr8rr, nr8rf, nr8rhr, nr8rh, nr8rdr, nr8rd
 
   real*8 r8arr(mxr8pm, mxr8lv), r8arf(mxr8pm, mxr8lv), r8arhr(1, mxr8lv), &
-       r8arh(mxr8pm, mxr8lv), r8ardr(1, mxr8lv), r8ard (mxr8pm, mxr8lv)
+       r8arh(mxr8pm, mxr8lv), r8ardr(1, mxr8lv), r8ard (mxr8pm, mxr8lv), r8val
 
-  character cmgtag*8, celem*40, cunit*20
+  character cmgtag*8, celem*40, cunit*20, c8val*8
+
+  equivalence (r8val, c8val)
 
   print *, 'Testing reading IN_3, using nested delayed replication, OPENBF IO = IN, and LUNIN = LUNDX'
 
@@ -31,12 +33,22 @@ program intest3
 
   ! First, read some values from all of the data subsets.
   call ufbtab(11, r8arr, mxr8pm, mxr8lv, nr8lv, 'CLAT CLON HSMSL {SHRVFFSQ}')
-  IF (nr8lv .ne. 10 .or. nint(r8arr(1,1)*100) .ne. 4025 .or. nint(r8arr(3,1)) .ne. 88 .or. &
+  if (nr8lv .ne. 10 .or. nint(r8arr(1,1)*100) .ne. 4025 .or. nint(r8arr(3,1)) .ne. 88 .or. &
        nint(r8arr(4,1)) .ne. 12 .or. nint(r8arr(2,2)*100) .ne. -8852 .or. &
        nint(r8arr(4,2)) .ne. 20 .or. nint(r8arr(1,5)*100) .ne. 3352 .or. &
        ibfms(r8arr(3,5)) .ne. 1 .or. nint(r8arr(1,8)*100) .ne. 3277 .or. &
        nint(r8arr(1,9)*100) .ne. 3693 .or. nint(r8arr(2,9)*100) .ne. -9496 .or. &
        nint(r8arr(3,9)) .ne. 228 .or. nint(r8arr(4,9)) .ne. 20) stop 1
+  call ufbtab(11, r8arr, mxr8pm, mxr8lv, nr8lv, 'RPID')
+  if (nr8lv .ne. 10) stop 2
+  r8val = r8arr(1,1)
+  if (c8val(1:5) .ne. 'HARP1') stop 3
+  r8val = r8arr(1,3)
+  if (c8val(1:5) .ne. 'IOLK1') stop 4
+  r8val = r8arr(1,8)
+  if (c8val(1:5) .ne. 'WLDA1') stop 5
+  r8val = r8arr(1,9)
+  if (c8val(1:5) .ne. 'COMO2') stop 6
 
   ! (Re)open the file for usual reading of each subset one at a time.
   call openbf ( 11, 'IN', 11 )
@@ -53,21 +65,21 @@ program intest3
      call ufbint ( 11, r8ardr, 1, mxr8lv, nr8rdr, '{SHRVDCSQ}' )
      call ufbseq ( 11, r8ard, mxr8pm, mxr8lv, nr8rd, 'SHRVDCSQ' )
 
-     IF (isct .eq. 1) THEN
+     if (isct .eq. 1) then
         call rtrcpt ( 11, ityr, itmo, itdy, ithr, itmi, ier )
-        IF ( ier .ne. -1 ) stop 11
+        if ( ier .ne. -1 ) stop 11
 
-        IF ( ( nr8rr .ne. 1 ) .or. ( nint(r8arr(2,1)) .ne. 2 ) .or. &
+        if ( ( nr8rr .ne. 1 ) .or. ( nint(r8arr(2,1)) .ne. 2 ) .or. &
              ( nint(r8arr(4,1)) .ne. 14 ) .or. ( nint(r8arr(5,1)) .ne. 3 ) ) stop 12
 
-        IF ( ( nr8rf .ne. 12 ) .or. ( nint(r8arf(1,1)) .ne. 4 ) .or. ( nint(r8arf(2,1)) .ne. 2015 ) .or. &
+        if ( ( nr8rf .ne. 12 ) .or. ( nint(r8arf(1,1)) .ne. 4 ) .or. ( nint(r8arf(2,1)) .ne. 2015 ) .or. &
              ( nint(r8arf(3,1)) .ne. 2 ) .or. ( nint(r8arf(4,1)) .ne. 12 ) .or. ( nint(r8arf(5,1)) .ne. 18 ) &
              .or. ( nint(r8arf(4,4)) .ne. 13 ) .or. ( nint(r8arf(5,4)) .ne. 12 ) .or. &
              ( nint(r8arf(4,10)) .ne. 15 ) .or. ( nint(r8arf(5,10)) .ne. 0 ) .or. &
              ( nint(r8arf(1,11)) .ne. 4 ) .or. ( nint(r8arf(4,11)) .ne. 15 ) .or. &
              ( nint(r8arf(5,11)) .ne. 6 ) ) stop 13
 
-        IF ( ( nr8rhr .ne. 12 ) .or. ( nint(r8arhr(1,1)) .ne. 1 ) .or. ( nint(r8arhr(1,2)) .ne. 1 ) .or. &
+        if ( ( nr8rhr .ne. 12 ) .or. ( nint(r8arhr(1,1)) .ne. 1 ) .or. ( nint(r8arhr(1,2)) .ne. 1 ) .or. &
              ( nint(r8arhr(1,3)) .ne. 1 ) .or. ( nint(r8arhr(1,8)) .ne. 1 ) .or. ( nr8rh .ne. 12 ) .or. &
              ( nint(r8arh(3,1)*1000) .ne. 1402 ) .or. ( nint(r8arh(5,1)) .ne. 26 ) .or. ( nint(r8arh(3,2)*1000) .ne. 1372 ) .or. &
              ( nint(r8arh(1,8)) .ne. 0 ) .or. ( nint(r8arh(2,8)) .ne. 0 ) .or. ( nr8rdr .ne. 12 ) .or. &
@@ -82,7 +94,7 @@ program intest3
         if ( ( ier .ne. 0 ) .or. ( ityr .ne. 2014 ) .or. ( itmo .ne. 10 ) .or. ( itdy .ne. 5 ) .or. &
              ( ithr .ne. 12 ) .or. ( itmi .ne. 52 ) ) stop 41
 
-        IF ( ( nr8rhr .ne. 20 ) .or. ( NINT(r8arhr(1,1)) .ne. 2 ) .or. ( NINT(r8arhr(1,2)) .ne. 2 ) .or. &
+        if ( ( nr8rhr .ne. 20 ) .or. ( NINT(r8arhr(1,1)) .ne. 2 ) .or. ( NINT(r8arhr(1,2)) .ne. 2 ) .or. &
              ( nint(r8arhr(1,12)) .ne. 2 ) .or. ( nint(r8arhr(1,19)) .ne. 2 ) .or. ( nr8rh .ne. 40 ) .or. &
              ( nint(r8arh(1,1)) .ne. 0 ) .or. ( nint(r8arh(3,1)*1000) .ne. 2286 ) .or. ( nint(r8arh(1,2)) .ne. 2 ) .or. &
              ( nint(r8arh(3,2)*1000) .ne. 2286 ) .or. ( nint(r8arh(1,3)) .ne. 0 ) .or. ( nint(r8arh(3,3)*1000) .ne. 2256 ) .or. &
