@@ -7,7 +7,7 @@
 program outtest1
   implicit none
 
-  real*8 r8ymd(3,1), r8ltl(2,1), r8flv(1,5), r8oth(10,1)
+  real*8 r8ymd(3,1), r8ltl(2,1), r8flv(1,5), r8oth(10,1), r8acrn(1,3), r8val
 
   integer*4 lcmgdf
 
@@ -15,7 +15,9 @@ program outtest1
   integer nsa, nra, nba, iernsa, nsm, nrm, nbm, iernsm
   integer iertgp, jj, nlv
 
-  character acrn*10, libvrsn*8, tagpr*6
+  character acrn*10, libvrsn*8, tagpr*6, c8val*8
+
+  equivalence (r8val, c8val)
 
   print *, 'Testing writing OUT_1 using OPENBF IO = OUT and LUNIN != LUNDX,'
   print *, 'and using 2-03-YYY to change reference values'
@@ -163,5 +165,17 @@ program outtest1
 
   ! Close the output file.
   call closbf ( 11 )
+
+  ! Re-open the output file for reading and use ufbtab to check the compressed acrn values.
+  ! Note that with ufbtab we can only look at the first 8 characters of each value.
+  open ( unit = 11, file = 'out1.bufr', form ='unformatted')
+  call ufbtab ( 11, r8acrn, 1, 3, nlv, 'ACRN')
+  if (nlv .ne. 3 ) stop 4
+  r8val = r8acrn(1,1)
+  if (c8val .ne. 'TESTUPS0') stop 5
+  r8val = r8acrn(1,2)
+  if (c8val .ne. 'TESTAAL2') stop 6
+  r8val = r8acrn(1,3)
+  if (c8val .ne. 'TESTSWA1') stop 7
 
 end program outtest1

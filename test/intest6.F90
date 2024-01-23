@@ -3,7 +3,37 @@
 ! Reads test file 'testfiles/IN_6' using UFBMEM, RDMEMM, UFBMNS, and UFBTAM
 !
 ! J. Ator, 2/23/2023
+
+module Share_errstr_intest6
+  ! This module is needed in order to share information between the test program and subroutine errwrt, because
+  ! the latter is not called by the former but rather is called directly from within the NCEPLIBS-bufr software.
+
+  character*1500 errstr
+
+  integer errstr_len
+end module Share_errstr_intest6
+
+subroutine errwrt(str)
+  ! This subroutine supersedes the subroutine of the same name within the NCEPLIBS-bufr software, so that we can
+  ! easily test the generation of error messages from within the library.
+
+  use Share_errstr_intest6
+
+  character*(*) str
+
+  integer str_len
+
+  str_len = len(str)
+  errstr ( errstr_len + 1 : errstr_len + str_len + 1 ) = str
+  errstr_len = errstr_len + str_len
+
+  return
+end subroutine errwrt
+
 program intest6
+
+  use Share_errstr_intest6
+
   implicit none
  
   integer*4 nmsub
@@ -14,9 +44,11 @@ program intest6
   parameter ( mxr8pm = 2 )
   parameter ( mxr8lv = 19000 )
 
-  real*8 r8vals (mxr8pm, mxr8lv)
+  real*8 r8vals (mxr8pm, mxr8lv), r8val
 
-  character cmgtag*8
+  character cmgtag*8, c8val*8
+
+  equivalence (r8val, c8val)
 
   print *, 'Testing reading IN_6 using UFBMEM, RDMEMM, UFBMNS, and UFBTAM'
 
@@ -54,6 +86,17 @@ program intest6
       ( nint(r8vals(1,1285)*100) .ne. 4328 ) .or. ( nint(r8vals(2,1285)*100) .ne. -7910 ) .or. &
       ( nint(r8vals(1,5189)*100) .ne. 3918 ) .or. ( nint(r8vals(2,5189)*100) .ne. 11638 ) .or. &
       ( nint(r8vals(1,17961)*100) .ne. 3070 ) .or. ( nint(r8vals(2,17961)*100) .ne. 10383 ) ) stop 6
+  call ufbtam ( r8vals, mxr8pm, mxr8lv, nsub, 'BUHD' )
+  if ( nsub .ne. 18447 ) stop 7
+  r8val = r8vals(1, 6314)
+  if (c8val(1:6) .ne. 'IUAD01') stop 8
+  r8val = r8vals(1, 17888)
+  if (c8val(1:6) .ne. 'IUSN08') stop 9
+
+  ! Test an errwrt case in ufbtam.
+  errstr_len = 0
+  call ufbtam ( r8vals, mxr8pm, 1000, nsub, 'BUHD' )
+  if ( ( index( errstr(1:errstr_len), 'UFBTAM - THE NO. OF DATA SUBSETS IN MEMORY IS .GT. LIMIT' ) .eq. 0 ) ) stop 10
 
   print *, 'SUCCESS!'
 end program intest6
