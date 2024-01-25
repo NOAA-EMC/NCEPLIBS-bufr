@@ -67,6 +67,9 @@ for kind in "4" "d"; do
     # Check dumpbf().
     (./test_bort_$kind dumpbf 1) && exit 1
     
+    # Check dxdump().
+    (./test_bort_$kind dxdump 1) && exit 1
+
     # Check elemdx().
     (./test_bort_$kind elemdx 1) && exit 1
     (./test_bort_$kind elemdx 2) && exit 1
@@ -369,6 +372,10 @@ for kind in "4" "d"; do
     # Check ufbseq().
     (./test_bort_$kind ufbseq 1) && exit 1
     (./test_bort_$kind ufbseq 2) && exit 1
+    (./test_bort_$kind ufbseq 3) && exit 1
+    (./test_bort_$kind ufbseq 4) && exit 1
+    (./test_bort_$kind ufbseq 5) && exit 1
+    (./test_bort_$kind ufbseq 6) && exit 1
 
     # Check ufbstp().
     (./test_bort_$kind ufbstp 1) && exit 1
