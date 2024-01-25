@@ -83,7 +83,7 @@ program intest7
   if ( ( iret .ne. -1 ) .or. &
       ( index( errstr(1:errstr_len), 'IGETPRM - UNKNOWN INPUT PARAMETER DUMMY' ) .eq. 0 ) ) stop 5
 
-  ! Read some data values from the 1st messaage, which uses the 2-03-YYY operator to change one of the
+  ! Read some data values from the 1st message, which uses the 2-03-YYY operator to change one of the
   ! reference values.
   if ( ireadns ( 11, cmgtag, imgdt ) .ne. 0 ) stop 6
   call ufbrep ( 11, r8arr, mxr8pm, mxr8lv, nr8v, 'TIDER' )
@@ -120,65 +120,69 @@ program intest7
   call ufbint ( 11, r8val, 1, 0, nr8v, 'TMDB' )
   idx = index( errstr(1:errstr_len), 'UFBINT - 4th ARG. (INPUT) IS .LE. 0' )
   if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 14
+  errstr_len = 0
+  call ufbseq ( 11, r8arr, mxr8pm, mxr8lv, nr8v, 'RPSEQ005' )
+  idx = index( errstr(1:errstr_len), 'UFBSEQ - INCOMPLETE READ; ONLY THE FIRST' )
+  if ( ( nr8v .ne. 5 ) .or. ( idx .eq. 0 ) ) stop 15
 
   ! Jump ahead to the 2nd subset of the 30th message and read some data values.
   call ufbpos ( 11, 30, 2, cmgtag, jdate )
   call ufbstp ( 11, r8arr, mxr8pm, mxr8lv, nr8v, 'CLAT CLON HSMSL' )
   if ( ( nr8v .ne. 1 ) .or. &
       ( nint ( r8arr(1,1)*100 ) .ne. 3163 ) .or. ( nint ( r8arr(2,1)*100 ) .ne. -11017 ) .or. &
-      ( nint ( r8arr(3,1) ) .ne. 1205 ) ) stop 15
+      ( nint ( r8arr(3,1) ) .ne. 1205 ) ) stop 16
   errstr_len = 0
   call ufbstp ( 11, r8val, 1, 1, nr8v, 'DUMMY' )
   idx = index( errstr(1:errstr_len), 'UFBSTP - NO SPECIFIED VALUES READ IN' )
-  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 16
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 17
   errstr_len = 0
   call ufbstp ( 11, r8val, 0, 1, nr8v, 'CLON' )
   idx = index( errstr(1:errstr_len), 'UFBSTP - 3rd ARG. (INPUT) IS .LE. 0' )
-  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 17
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 18
   errstr_len = 0
   call ufbstp ( 11, r8val, 1, 0, nr8v, 'CLON' )
   idx = index( errstr(1:errstr_len), 'UFBSTP - 4th ARG. (INPUT) IS .LE. 0' )
-  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 18
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 19
 
   ! Jump backwards to the 88th subset of the 29th message and read some data values.
   call ufbpos ( 11, 29, 88, cmgtag, jdate )
   call ufbseq ( 11, r8arr, mxr8pm, mxr8lv, nr8v, 'NC008023' )
   if ( ( nr8v .ne. 1 ) .or. &
       ( nint ( r8arr(6,1)*100000 ) .ne. 2967000 ) .or. ( nint ( r8arr(7,1)*100000 ) .ne. -9512833 ) .or. &
-      ( nint ( r8arr(5,1) ) .ne. 482011039 ) ) stop 19
+      ( nint ( r8arr(5,1) ) .ne. 482011039 ) ) stop 20
   errstr_len = 0
   call ufbseq ( 11, r8val, 1, 1, nr8v, 'DUMMY' )
   idx = index( errstr(1:errstr_len), 'UFBSEQ - NO SPECIFIED VALUES READ IN' )
-  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 20
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 21
   errstr_len = 0
   call ufbseq ( 11, r8val, 0, 1, nr8v, 'CLON' )
   idx = index( errstr(1:errstr_len), 'UFBSEQ - 3rd ARG. (INPUT) IS .LE. 0' )
-  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 21
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 22
   errstr_len = 0
   call ufbseq ( 11, r8val, 1, 0, nr8v, 'CLON' )
   idx = index( errstr(1:errstr_len), 'UFBSEQ - 4th ARG. (INPUT) IS .LE. 0' )
-  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 22
+  if ( ( nr8v .ne. 0 ) .or. ( idx .eq. 0 ) ) stop 23
 
   ! Test ufbcnt.
   call ufbcnt(11, kmsg, ksub)
-  if ( kmsg.ne.29 .or. ksub.ne.88) stop 23
+  if ( kmsg.ne.29 .or. ksub.ne.88) stop 24
 
   ! Rewind the file and get a total count of the subsets.
   call ufbtab ( -11, r8val, 1, 1, nsub, ' ' )
-  if ( ( nsub .ne. 402 ) .or. ( ibfms ( r8val(1,1) ) .ne. 1 ) ) stop 24
+  if ( ( nsub .ne. 402 ) .or. ( ibfms ( r8val(1,1) ) .ne. 1 ) ) stop 25
 
   ! Test datebf & dumpbf when Section 1 date cannot be found.
   errstr_len = 0
   call datebf ( 12, iyr, imon, iday, ihour, imgdt )
   idx = index(errstr(1:errstr_len), "DATEBF - SECTION 1 DATE COULD NOT BE LOCATED - RETURN WITH IDATE = -1")
-  if ( (imgdt .ne. -1) .or. (idx .eq. 0) ) stop 25
+  if ( (imgdt .ne. -1) .or. (idx .eq. 0) ) stop 26
   errstr_len = 0
   call dumpbf ( 12, jdatearr, jdumparr)
   idx = index(errstr(1:errstr_len), "DUMPBF - FIRST  EMPTY BUFR MESSAGE SECTION 1 DATE COULD NOT BE LOCATED")
-  if (idx .eq. 0) stop 26
-  idx = index(errstr(1:errstr_len), "DUMPBF - SECOND EMPTY BUFR MESSAGE SECTION 1 DATE COULD NOT BE LOCATED")
   if (idx .eq. 0) stop 27
-  if (.not. (all(jdatearr .eq. -1) .and. all(jdumparr .eq. -1))) stop 28
+  idx = index(errstr(1:errstr_len), "DUMPBF - SECOND EMPTY BUFR MESSAGE SECTION 1 DATE COULD NOT BE LOCATED")
+  if (idx .eq. 0) stop 28
+  if (.not. (all(jdatearr .eq. -1) .and. all(jdumparr .eq. -1))) stop 29
 
   print *, 'SUCCESS!'
 end program intest7

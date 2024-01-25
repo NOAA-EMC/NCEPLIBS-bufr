@@ -240,6 +240,11 @@ program test_bort
         call openbf(11, 'IN', 11)
         call dumpbf(11, jdate1, jdump1) 
      endif
+  elseif (sub_name .eq. 'dxdump') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        call dxdump(11, 6)
+     endif
   elseif (sub_name .eq. 'elemdx') then
      open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
      if (ios .ne. 0) stop 3
@@ -1287,12 +1292,40 @@ program test_bort
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
-        call ufbseq(11, real_2d, 1, 2, iret, 'c')
+        call ufbseq(11, real_2d, 1, 1, iret, 'c')
      elseif (test_case .eq. '2') then
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
         call openbf(12, 'IN', 10)
-        call ufbseq(12, real_2d, 1, 2, iret, 'c')
+        call ufbseq(12, real_2d, 1, 1, iret, 'c')
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 12)
+        call readns(12, char_val_8, jdate, iret)
+        if (iret .ne. 0) stop 3
+        call ufbseq(12, real_2d, 1, 1, iret, ' ')
+     elseif (test_case .eq. '4') then
+        open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 12)
+        call readns(12, char_val_8, jdate, iret)
+        if (iret .ne. 0) stop 3
+        call ufbseq(12, real_2d, 1, 1, iret, 'YEAR MNTH')
+     elseif (test_case .eq. '5') then
+        open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 12)
+        call readns(12, char_val_8, jdate, iret)
+        if (iret .ne. 0) stop 3
+        call ufbseq(12, real_2d, 1, 1, iret, 'YEAR')
+     elseif (test_case .eq. '6') then
+        open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 12)
+        call readns(12, char_val_8, jdate, iret)
+        if (iret .ne. 0) stop 3
+        call ufbseq(12, real_2d, 1, 1, iret, 'UARID')
      endif
   elseif (sub_name .eq. 'ufdump') then
      if (test_case .eq. '1') then
