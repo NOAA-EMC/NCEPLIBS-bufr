@@ -43,6 +43,7 @@ program test_bort
   integer jdate1(5), jdump1(5)
   integer lmsgt, msgt(100), msgl
   integer nseq, irps(20), knts(20)
+  integer imt, imtv, iogce, iltv
   integer*8 nval
 
   integer*4 isize, iupm, iupvs01, isetprm, nmsub
@@ -264,6 +265,73 @@ program test_bort
      elseif (test_case .eq. '5') then
         card = '| MXTM     |    2 |           0 |  1x | DEGREES KELVIN           |-------------|'
         call elemdx(card,1)
+     endif
+  elseif (sub_name .eq. 'getntbe') then
+     open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
+     if (ios .ne. 0) stop 3
+     if (test_case .eq. '1') then
+        card = ' DUMMY |                                                                        '
+        write (11,'(A)') card
+        close (11)
+        open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call getntbe(11, iret, card, jret)
+     endif
+  elseif (sub_name .eq. 'gettbh') then
+     open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
+     if (ios .ne. 0) stop 3
+     open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
+     if (ios .ne. 0) stop 3
+     if (test_case .eq. '1') then
+        card = 'Table B STD |  0                                                               |'
+        write (11,'(A)') card
+        close (11)
+        open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call gettbh(11, 12, 'B', imt, imtv, iogce, iltv)
+     elseif (test_case .eq. '2') then
+        card = 'Table B STX |  0 | 38                                                          |'
+        write (11,'(A)') card
+        close (11)
+        open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call gettbh(11, 12, 'B', imt, imtv, iogce, iltv)
+     elseif (test_case .eq. '3') then
+        card = 'Table B STD |  0 | 38                                                          |'
+        write (11,'(A)') card
+        close (11)
+        open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
+        if (ios .ne. 0) stop 3
+        card = 'Table B LOC |  0 | 7                                                           |'
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call gettbh(11, 12, 'B', imt, imtv, iogce, iltv)
+     elseif (test_case .eq. '4') then
+        card = 'Table B STD |  0 | 38                                                          |'
+        write (11,'(A)') card
+        close (11)
+        open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
+        if (ios .ne. 0) stop 3
+        card = 'Table B LOX |  0 | 7 |  1                                                      |'
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call gettbh(11, 12, 'B', imt, imtv, iogce, iltv)
+     elseif (test_case .eq. '5') then
+        card = 'Table B STD |  0 | 38                                                          |'
+        write (11,'(A)') card
+        close (11)
+        open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
+        if (ios .ne. 0) stop 3
+        card = 'Table B LOC |  1 | 7 |  1                                                      |'
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call gettbh(11, 12, 'B', imt, imtv, iogce, iltv)
      endif
   elseif (sub_name .eq. 'idn30') then
      if (test_case .eq. '1') then

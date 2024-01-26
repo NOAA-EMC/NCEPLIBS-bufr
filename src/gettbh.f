@@ -14,7 +14,7 @@ C>                      information
 C> @param[in] LUNL   -- integer: Fortran logical unit number for
 C>                      ASCII file containing local table
 C>                      information
-C> @param[out] TAB   -- character: Type of table
+C> @param[in] TAB    -- character: Type of table
 C>                        - 'B' = Table B
 C>                        - 'D' = Table D
 C>                        - 'F' = Code/Flag table

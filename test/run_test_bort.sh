@@ -77,6 +77,16 @@ for kind in "4" "d"; do
     (./test_bort_$kind elemdx 4) && exit 1
     (./test_bort_$kind elemdx 5) && exit 1
 
+    # Check getntbe().
+    (./test_bort_$kind getntbe 1) && exit 1
+
+    # Check gettbh().
+    (./test_bort_$kind gettbh 1) && exit 1
+    (./test_bort_$kind gettbh 2) && exit 1
+    (./test_bort_$kind gettbh 3) && exit 1
+    (./test_bort_$kind gettbh 4) && exit 1
+    (./test_bort_$kind gettbh 5) && exit 1
+
     # Check idn30().
     (./test_bort_$kind idn30 1) && exit 1
     (./test_bort_$kind idn30 2) && exit 1
