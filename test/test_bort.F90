@@ -13,7 +13,7 @@ program test_bort
   implicit none
   integer iret, jret, iunit, iqcd
   ! integer i1
-  integer int_1d(1), int_1d_2(1)
+  integer int_1d(1), int_1d_2(1), int_2d(1,5)
   character char_1
   character*2 char_short
   character*30 char_30
@@ -23,7 +23,7 @@ program test_bort
   character*12 char_12(1)
   character*24 char_24(1)
   character*85 char_85
-  character*120 char_120(1)
+  character*120 char_120(1), char_120_2(1,5)
   character*5 adn30_val_5
   real*8 real_1d(1)
   real*8 real_2d(1,1)
@@ -283,50 +283,50 @@ program test_bort
      open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
      if (ios .ne. 0) stop 3
      if (test_case .eq. '1') then
-        card = 'Table B STD |  0                                                               |'
+        card = 'Table B STD |  0                                                                '
         write (11,'(A)') card
         close (11)
         open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
         if (ios .ne. 0) stop 3
         call gettbh(11, 12, 'B', imt, imtv, iogce, iltv)
      elseif (test_case .eq. '2') then
-        card = 'Table B STX |  0 | 38                                                          |'
+        card = 'Table B STX |  0 | 38                                                           '
         write (11,'(A)') card
         close (11)
         open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
         if (ios .ne. 0) stop 3
         call gettbh(11, 12, 'B', imt, imtv, iogce, iltv)
      elseif (test_case .eq. '3') then
-        card = 'Table B STD |  0 | 38                                                          |'
+        card = 'Table B STD |  0 | 38                                                           '
         write (11,'(A)') card
         close (11)
         open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
         if (ios .ne. 0) stop 3
-        card = 'Table B LOC |  0 | 7                                                           |'
+        card = 'Table B LOC |  0 | 7                                                            '
         write (12,'(A)') card
         close (12)
         open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
         if (ios .ne. 0) stop 3
         call gettbh(11, 12, 'B', imt, imtv, iogce, iltv)
      elseif (test_case .eq. '4') then
-        card = 'Table B STD |  0 | 38                                                          |'
+        card = 'Table B STD |  0 | 38                                                           '
         write (11,'(A)') card
         close (11)
         open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
         if (ios .ne. 0) stop 3
-        card = 'Table B LOX |  0 | 7 |  1                                                      |'
+        card = 'Table B LOX |  0 | 7 |  1                                                       '
         write (12,'(A)') card
         close (12)
         open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
         if (ios .ne. 0) stop 3
         call gettbh(11, 12, 'B', imt, imtv, iogce, iltv)
      elseif (test_case .eq. '5') then
-        card = 'Table B STD |  0 | 38                                                          |'
+        card = 'Table B STD |  0 | 38                                                           '
         write (11,'(A)') card
         close (11)
         open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
         if (ios .ne. 0) stop 3
-        card = 'Table B LOC |  1 | 7 |  1                                                      |'
+        card = 'Table B LOC |  1 | 7 |  1                                                       '
         write (12,'(A)') card
         close (12)
         open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
@@ -591,6 +591,74 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(11, 'IN', 11)
         call posapx(12)        
+     endif
+  elseif (sub_name .eq. 'rdmtbb') then
+     open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
+     if (ios .ne. 0) stop 3
+     open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
+     if (ios .ne. 0) stop 3
+     if (test_case .eq. '1') then
+        card = 'Table B STD |  0 | 38                                                           '
+        write (11,'(A)') card
+        card = ' 0-01-001 |  0 |     0 |   7 | Numeric   | WMOB   ; ; WMO block number          '
+        write (11,'(A)') card
+        close (11)
+        open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
+        if (ios .ne. 0) stop 3
+        card = 'Table B LOC |  0 | 7 |  1                                                       '
+        write (12,'(A)') card
+        card = ' 001001 |  0 |     2 |  12 | Code table   | QCWS  ; ; Wind speed quality mark   '
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call rdmtbb(11, 12, 1, imt, imtv, iogce, iltv, iret, &
+                    int_1d, char_4, char_12, char_4, char_24, char_8, char_4, char_120)
+     endif
+  elseif (sub_name .eq. 'rdmtbd') then
+     open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
+     if (ios .ne. 0) stop 3
+     open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
+     if (ios .ne. 0) stop 3
+     if (test_case .eq. '1') then
+        card = 'Table D STD |  0 | 38                                                           '
+        write (11,'(A)') card
+        card = '   3-01-058 | UNTFROLD   ;     ; Universal lightning event                      '
+        write (11,'(A)') card
+        close (11)
+        open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
+        if (ios .ne. 0) stop 3
+        card = 'Table D LOC |  0 | 7 |  1                                                       '
+        write (12,'(A)') card
+        card = '   3-01-058 | LOWRESSEQ   ;     ; Low-resolution data sequence                  '
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call rdmtbd(11, 12, 1, 5, imt, imtv, iogce, iltv, iret, &
+                    int_1d, char_8, char_4, char_120, int_1d_2, int_2d, char_120_2)
+     endif
+  elseif (sub_name .eq. 'rdmtbf') then
+     open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
+     if (ios .ne. 0) stop 3
+     open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
+     if (ios .ne. 0) stop 3
+     if (test_case .eq. '1') then
+        card = 'Table F STD |  0 | 35                                                           '
+        write (11,'(A)') card
+        card = '   0-02-002 | TIWM ; FLAG                                                       '
+        write (11,'(A)') card
+        close (11)
+        open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
+        if (ios .ne. 0) stop 3
+        card = 'Table F LOC |  0 | 7 |  1                                                       '
+        write (12,'(A)') card
+        card = '   002002 | NCDY3 ; CODE                                                        '
+        write (12,'(A)') card
+        close (12)
+        open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call rdmtbf(11, 12)
      endif
   elseif (sub_name .eq. 'rdusdx') then
      open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
