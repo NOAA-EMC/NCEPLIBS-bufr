@@ -5,7 +5,7 @@
 # validates the recipe by ensuring that every CMake option that should be set
 # in the Spack recipe is so set.
 #
-# Alex Richert, Sep 2023
+# Alex Richert, Jan 2024
 name: Spack
 on:
   push:
