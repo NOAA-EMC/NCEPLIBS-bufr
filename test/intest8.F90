@@ -3,7 +3,37 @@
 ! Test using RDMGSB, UFBEVN, UFBQCD, and UFBQCP to read prepbufr file
 !
 ! J. Ator, 2/24/2023
+
+module Share_errstr_intest8
+  ! This module is needed in order to share information between the test program and subroutine errwrt, because
+  ! the latter is not called by the former but rather is called directly from within the NCEPLIBS-bufr software.
+
+  character*1500 errstr
+
+  integer errstr_len
+end module Share_errstr_intest8
+
+subroutine errwrt(str)
+  ! This subroutine supersedes the subroutine of the same name within the NCEPLIBS-bufr software, so that we can
+  ! easily test the generation of error messages from within the library.
+
+  use Share_errstr_intest8
+
+  character*(*) str
+
+  integer str_len
+
+  str_len = len(str)
+  errstr ( errstr_len + 1 : errstr_len + str_len + 1 ) = str
+  errstr_len = errstr_len + str_len
+
+  return
+end subroutine errwrt
+
 program intest8
+
+  use Share_errstr_intest8
+
   implicit none
 
   integer, parameter :: mxr8pm = 15
@@ -43,7 +73,7 @@ program intest8
 
   ! Now, get all of the temperature data from this subset which meets the conditions of being on
   ! a level where the pressure is between 490mb and 44mb, and check some of those values.
-  call ufbevn ( 11, r8vals, MXR8PM, MXR8LV, MXR8EN, ilv, 'POB<490 POB>44 POB TOB TQM TPC TRC' )
+  call ufbevn ( 11, r8vals, mxr8pm, mxr8lv, mxr8en, ilv, 'POB<490 POB>44 POB TOB TQM TPC TRC' )
   if ( ( ilv /= 33 ) .or. &
        ( nint(r8vals(1,5,1)) /= 378 ) .or. ( nint(r8vals(2,5,1)*10) /= -149 ) .or. &
        ( nint(r8vals(4,5,1)) /= 8 ) .or. ( nint(r8vals(2,5,2)*10) /= -151 ) .or. &
@@ -68,6 +98,17 @@ program intest8
   r8v = 264192.
   call upftbv ( 11, 'WVCQ', r8v, 6, ibit, nib )
   if ( ( nib /= 2 ) .or. ( ibit(1) /= 6 ) .or. ( ibit(2) /= 13 ) ) stop 9
+
+  ! Test some errwrt cases in ufbevn
+  errstr_len = 0
+  call ufbevn ( 11, r8vals, (-1)*mxr8pm, mxr8lv, mxr8en, ilv, 'QOB QQM QPC QRC' )
+  if ( ( index( errstr(1:errstr_len), 'UFBEVN - 3rd ARG. (INPUT) IS .LE. 0' ) .eq. 0 ) ) stop 10
+  errstr_len = 0
+  call ufbevn ( 11, r8vals, mxr8pm, (-1)*mxr8lv, mxr8en, ilv, 'QOB QQM QPC QRC' )
+  if ( ( index( errstr(1:errstr_len), 'UFBEVN - 4th ARG. (INPUT) IS .LE. 0' ) .eq. 0 ) ) stop 11
+  errstr_len = 0
+  call ufbevn ( 11, r8vals, mxr8pm, mxr8lv, (-1)*mxr8en, ilv, 'QOB QQM QPC QRC' )
+  if ( ( index( errstr(1:errstr_len), 'UFBEVN - 5th ARG. (INPUT) IS .LE. 0' ) .eq. 0 ) ) stop 12
 
   print *, 'SUCCESS!'
 end program intest8

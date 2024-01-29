@@ -107,7 +107,7 @@ C       contents into a unified set of master Table B arrays.
      .                    NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
      .                    CMUNIT, CMMNEM, CMDSC, CMELEM )
             CALL GETNTBE ( LUNSTB, ISFXYN, STLINE, IERS )
-          ELSE IF ( IERL .EQ. 0 ) THEN
+          ELSE
             CALL SNTBBE ( ILFXYN, LTLINE, MXMTBB,
      .                    NMTBB, IMFXYN, CMSCL, CMSREF, CMBW,
      .                    CMUNIT, CMMNEM, CMDSC, CMELEM )

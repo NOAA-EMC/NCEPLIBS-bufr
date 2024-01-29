@@ -109,7 +109,7 @@ C       contents into a unified set of master Table D arrays.
      .                    NMTBD, IMFXYN, CMMNEM, CMDSC, CMSEQ,
      .                    NMELEM, IEFXYN, CEELEM )
             CALL GETNTBE ( LUNSTD, ISFXYN, STLINE, IERS )
-          ELSE IF ( IERL .EQ. 0 ) THEN
+          ELSE
             CALL SNTBDE ( LUNLTD, ILFXYN, LTLINE, MXMTBD, MXELEM,
      .                    NMTBD, IMFXYN, CMMNEM, CMDSC, CMSEQ,
      .                    NMELEM, IEFXYN, CEELEM )

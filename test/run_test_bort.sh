@@ -67,12 +67,25 @@ for kind in "4" "d"; do
     # Check dumpbf().
     (./test_bort_$kind dumpbf 1) && exit 1
     
+    # Check dxdump().
+    (./test_bort_$kind dxdump 1) && exit 1
+
     # Check elemdx().
     (./test_bort_$kind elemdx 1) && exit 1
     (./test_bort_$kind elemdx 2) && exit 1
     (./test_bort_$kind elemdx 3) && exit 1
     (./test_bort_$kind elemdx 4) && exit 1
     (./test_bort_$kind elemdx 5) && exit 1
+
+    # Check getntbe().
+    (./test_bort_$kind getntbe 1) && exit 1
+
+    # Check gettbh().
+    (./test_bort_$kind gettbh 1) && exit 1
+    (./test_bort_$kind gettbh 2) && exit 1
+    (./test_bort_$kind gettbh 3) && exit 1
+    (./test_bort_$kind gettbh 4) && exit 1
+    (./test_bort_$kind gettbh 5) && exit 1
 
     # Check idn30().
     (./test_bort_$kind idn30 1) && exit 1
@@ -121,14 +134,6 @@ for kind in "4" "d"; do
     # Check nemtbd().
     (./test_bort_$kind nemtbd 1) && exit 1
 
-    # Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384.
-    # Check nemtbb().
-    #(./test_bort_$kind nemtbb 1) && exit 1
-
-    # Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384.
-    # Check nemtbd().
-    #(./test_bort_$kind nemtbd 1) && exit 1
-
     # Check nenubd().
     (./test_bort_$kind nenubd 1) && exit 1
     (./test_bort_$kind nenubd 2) && exit 1
@@ -171,6 +176,15 @@ for kind in "4" "d"; do
     # Check posapx().
     (./test_bort_$kind posapx 1) && exit 1
     (./test_bort_$kind posapx 2) && exit 1
+
+    # Check rdmtbb().
+    (./test_bort_$kind rdmtbb 1) && exit 1
+
+    # Check rdmtbd().
+    (./test_bort_$kind rdmtbd 1) && exit 1
+
+    # Check rdmtbf().
+    (./test_bort_$kind rdmtbf 1) && exit 1
 
     # Check readerme().
     (./test_bort_$kind readerme 1) && exit 1
@@ -369,6 +383,10 @@ for kind in "4" "d"; do
     # Check ufbseq().
     (./test_bort_$kind ufbseq 1) && exit 1
     (./test_bort_$kind ufbseq 2) && exit 1
+    (./test_bort_$kind ufbseq 3) && exit 1
+    (./test_bort_$kind ufbseq 4) && exit 1
+    (./test_bort_$kind ufbseq 5) && exit 1
+    (./test_bort_$kind ufbseq 6) && exit 1
 
     # Check ufbstp().
     (./test_bort_$kind ufbstp 1) && exit 1

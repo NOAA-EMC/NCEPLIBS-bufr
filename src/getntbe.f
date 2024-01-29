@@ -41,7 +41,6 @@ C           The first field within this line should contain the
 C           FXY number.
 
             CALL PARSTR ( LINE(1:20), TAGS, 4, NTAG, '|', .FALSE. )
-            IF ( NTAG .LT. 1 ) GOTO 900
             IF ( IGETFXY ( TAGS(1), ADSC ) .NE. 0 ) GOTO 900
 
 C           Store the WMO bit-wise representation of the FXY number.
