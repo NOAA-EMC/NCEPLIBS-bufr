@@ -100,6 +100,7 @@ for kind in "4" "d"; do
 
     # Check isize().
     (./test_bort_$kind isize 1) && exit 1
+    (./test_bort_$kind isize 2) && exit 1
     
     # Check iupm().
     (./test_bort_$kind iupm 1) && exit 1
@@ -143,6 +144,9 @@ for kind in "4" "d"; do
     # Check nmsub().
     (./test_bort_$kind nmsub 1) && exit 1
     (./test_bort_$kind nmsub 2) && exit 1
+
+    # Check nvnwin().
+    (./test_bort_$kind nvnwin 1) && exit 1
 
     # Check openbf().
     (./test_bort_$kind openbf 1) && exit 1
@@ -367,6 +371,7 @@ for kind in "4" "d"; do
     # Check ufbqcd().
     (./test_bort_$kind ufbqcd 1) && exit 1
     (./test_bort_$kind ufbqcd 2) && exit 1
+    (./test_bort_$kind ufbqcd 3) && exit 1
 
     # Check ufbqcp().
     (./test_bort_$kind ufbqcp 1) && exit 1

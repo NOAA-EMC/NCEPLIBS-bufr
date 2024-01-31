@@ -365,6 +365,8 @@ program test_bort
   elseif (sub_name .eq. 'isize') then
      if (test_case .eq. '1') then
         iret = isize(1000000)
+     elseif (test_case .eq. '2') then
+        iret = isize(-10)
      endif
   elseif (sub_name .eq. 'iupm') then
      if (test_case .eq. '1') then
@@ -511,6 +513,14 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(11, 'OUT', 11)
         iret = nmsub(11)
+     endif
+  elseif (sub_name .eq. 'nvnwin') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call readns(11, char_val_8, jdate, iret)
+        call nvnwin(1717, 1, 25, 175, jdate1, 5)
      endif
   elseif (sub_name .eq. 'openbf') then
      if (test_case .eq. '1') then
@@ -1364,6 +1374,12 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(11, 'IN', 10)        
         call ufbqcd(11, 'c', iqcd)
+     elseif (test_case .eq. '3') then
+        open(unit = 11, file = 'testfiles/IN_5', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call readns(11, char_val_8, jdate, iret)
+        call ufbqcd(11, 'ADPUPA', iqcd)
      endif
   elseif (sub_name .eq. 'ufbqcp') then
      if (test_case .eq. '1') then
