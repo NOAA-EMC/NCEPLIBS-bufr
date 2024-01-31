@@ -1,0 +1,85 @@
+# This is a CI workflow for the NCEPLIBS-bufr project.
+#
+# This workflow builds NCEPLIBS-bufr with Spack, including installing with the
+# "--test root" option to run the CTest suite. It also has a one-off job that
+# validates the recipe by ensuring that every CMake option that should be set
+# in the Spack recipe is so set.
+#
+# Alex Richert, Jan 2024
+name: Spack
+on:
+  push:
+    branches:
+    - develop
+  pull_request:
+    branches:
+    - develop
+
+jobs:
+  # This job builds with Spack using every combination of variants and runs the CTest suite each time
+  Spack:
+
+    strategy:
+      matrix:
+        os: ["ubuntu-latest"]
+        variants: ["+python ~shared", "~python +shared"]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    
+    - name: checkout-bufr
+      uses: actions/checkout@v4
+      with: 
+        path: bufr
+
+    - name: install-python
+      if: ${{ contains(matrix.variants, '+python') }}
+      run: |
+        sudo apt install python3 python3-numpy
+
+    - name: spack-build-and-test
+      run: |
+        git clone -c feature.manyFiles=true https://github.com/spack/spack
+        . spack/share/spack/setup-env.sh
+        spack env create bufr-env $GITHUB_WORKSPACE/bufr/spack/spack.yaml
+        spack env activate bufr-env
+        cp $GITHUB_WORKSPACE/bufr/spack/package.py $SPACK_ROOT/var/spack/repos/builtin/packages/bufr/package.py
+        spack develop --no-clone --path $GITHUB_WORKSPACE/bufr bufr@develop
+        spack add bufr@develop%gcc@11 ${{ matrix.variants }}
+        spack external find cmake gmake python py-numpy
+        spack concretize
+        # Run installation and run CTest suite
+        spack install --verbose --fail-fast --test root
+        # Print test results
+        #cat $(spack location -i bufr)/.spack/install-time-test-log.txt
+        # Run 'spack load' and check that key build options were respected
+        spack load bufr
+        if [[ "${{ matrix.variants }}" =~ "+shared" ]]; then suffix="so" ; else suffix="a"; fi
+        libvar=BUFR_LIB4
+        ls ${BUFR_LIB4} | grep -cE "/libbufr_4\."$suffix'$'
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: ${{ failure() }}
+      with:
+        name: spackci-ctest-output-${{ matrix.os }}-${{ matrix.variants }}
+        path: ${{ github.workspace }}/*/spack-build-*/Testing/Temporary/LastTest.log
+
+  # This job validates the Spack recipe by making sure each cmake build option is represented
+  recipe-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: checkout-bufr
+      uses: actions/checkout@v4
+      with: 
+        path: bufr
+
+    - name: recipe-check
+      run: |
+        echo "If this jobs fails, look at the most recently output CMake option below and make sure that option appears in spack/package.py"
+        for opt in $(grep -ioP '^option\(\K(?!(ENABLE_DOCS))[^ ]+' $GITHUB_WORKSPACE/bufr/CMakeLists.txt) ; do
+          echo "Checking for presence of '$opt' CMake option in package.py"
+          grep -cP "define.+\b${opt}\b" $GITHUB_WORKSPACE/bufr/spack/package.py
+        done
