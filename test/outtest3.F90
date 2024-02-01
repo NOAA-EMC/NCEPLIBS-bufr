@@ -58,12 +58,12 @@ program outtest3
   call ufbint ( 11, r8vals, 11, 1, nlv, 'YEAR MNTH DAYS HOUR MINU CLATH CLONH PRLC WDIR WSPD CCST' )
 
   do ii = 1, 26
-    r8bitmap(ii) = 0.
+    r8bitmap(ii) = 1.
   end do
-  r8bitmap(16) = 1.
-  r8bitmap(17) = 1.
-  r8bitmap(18) = 1.
-  r8bitmap(21) = 1.
+  r8bitmap(16) = 0.
+  r8bitmap(17) = 0.
+  r8bitmap(18) = 0.
+  r8bitmap(21) = 0.
   call ufbrep ( 11, r8bitmap, 1, 26, nlv, 'DPRI' )
 
   r8vals(1,1) = 7.
@@ -130,12 +130,12 @@ program outtest3
   call ufbint ( 11, r8vals, 11, 1, nlv, 'YEAR MNTH DAYS HOUR MINU CLATH CLONH PRLC WDIR WSPD CCST' )
 
   do ii = 1, 26
-    r8bitmap(ii) = 0.
+    r8bitmap(ii) = 1.
   end do
-  r8bitmap(16) = 1.
-  r8bitmap(17) = 1.
-  r8bitmap(18) = 1.
-  r8bitmap(26) = 1.
+  r8bitmap(16) = 0.
+  r8bitmap(17) = 0.
+  r8bitmap(18) = 0.
+  r8bitmap(26) = 0.
   call ufbrep ( 11, r8bitmap, 1, 26, nlv, 'DPRI' )
 
   r8vals(1,1) = 7.
