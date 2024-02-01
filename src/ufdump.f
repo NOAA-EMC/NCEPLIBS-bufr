@@ -70,6 +70,7 @@ C> @authors J. Woollen, J. Ator @date 2002-05-14
       CHARACTER*1  CDMF,TAB,YOU
       EQUIVALENCE  (RVAL,CVAL)
       REAL*8       RVAL
+      INTEGER*8    IVAL
       LOGICAL      TRACK,FOUND,RDRV
 
       PARAMETER (MXCFDP=5)
@@ -156,7 +157,7 @@ C  -------------------------------------------------------------------
          PRINT*
          PRINT*,'==> You have chosen to stop the dumping of this subset'
          PRINT*
-            GOTO 100
+            RETURN
          ENDIF
       ENDIF
 
@@ -285,12 +286,17 @@ C           The value is "missing".
             FMT = '(A6,2X,A10,2X,A20,2X,A24,6X,A48)'
             WRITE(LUOUT,FMT) NUMB,NEMO,PMISS,UNIT,DESC
          ELSE
-            FMT = '(A6,2X,A10,2X,F20.00,2X,A24,6X,A48)'
+            FMT = '(A6,2X,A10,2X,      ,2X,A24,6X,A48)'
 
 C           Based upon the corresponding scale factor, select an
 C           appropriate format for the printing of this value.
 
-            WRITE(FMT(19:20),'(I2)') MAX(1,ISC(NODE))
+            IF(ISC(NODE).GT.0) THEN
+               WRITE(FMT(15:20),'(A,I2)') 'F20.', ISC(NODE)
+            ELSE
+               WRITE(FMT(18:20),'(A)') 'I20'
+            ENDIF
+
             IF(UNIT(1:4).EQ.'FLAG') THEN
 
 C              Print a listing of the bits corresponding to
@@ -315,7 +321,12 @@ C              this value.
                ENDIF
             ENDIF
 
-            WRITE(LUOUT,FMT) NUMB,NEMO,RVAL,UNIT,DESC
+            IF(ISC(NODE).GT.0) THEN
+               WRITE(LUOUT,FMT) NUMB,NEMO,RVAL,UNIT,DESC
+            ELSE
+               IVAL = NINT(RVAL,8)
+               WRITE(LUOUT,FMT) NUMB,NEMO,IVAL,UNIT,DESC
+            ENDIF
 
             IF( (UNIT(1:4).EQ.'FLAG' .OR. UNIT(1:4).EQ.'CODE') .AND.
      .            (CDMF.EQ.'Y') ) THEN
@@ -431,7 +442,7 @@ C           that we can properly output each one.
 C  EXITS
 C  -----
 
-100   RETURN
+      RETURN
 900   CALL BORT('BUFRLIB: UFDUMP - INPUT BUFR FILE IS CLOSED, IT '//
      . 'MUST BE OPEN FOR INPUT')
 901   CALL BORT('BUFRLIB: UFDUMP - INPUT BUFR FILE IS OPEN FOR '//
