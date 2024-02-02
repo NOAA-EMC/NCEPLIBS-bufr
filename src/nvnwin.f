@@ -41,7 +41,7 @@ C----------------------------------------------------------------------
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       CALL ERRWRT(' ')
          ENDIF
-         GOTO 100
+         RETURN
       ENDIF
 
       DO I=1,NMAX
@@ -62,7 +62,7 @@ C  ----------------------------
 C  EXITS
 C  -----
 
-100   RETURN
+      RETURN
 900   WRITE(BORT_STR,'("BUFRLIB: NVNWIN - THE NUMBER OF EVENTS '//
      . 'EXCEEDS THE LIMIT NMAX (",I5,")")') NMAX
       CALL BORT(BORT_STR)

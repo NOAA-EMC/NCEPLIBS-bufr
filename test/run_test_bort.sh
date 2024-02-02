@@ -60,6 +60,12 @@ for kind in "4" "d"; do
     (./test_bort_$kind copysb 4) && exit 1
     (./test_bort_$kind copysb 5) && exit 1
     (./test_bort_$kind copysb 6) && exit 1
+
+    # Check cpymem().
+    (./test_bort_$kind cpymem 1) && exit 1
+    (./test_bort_$kind cpymem 2) && exit 1
+    (./test_bort_$kind cpymem 3) && exit 1
+    (./test_bort_$kind cpymem 4) && exit 1
     
     # Check datebf().
     (./test_bort_$kind datebf 1) && exit 1
@@ -203,8 +209,8 @@ for kind in "4" "d"; do
     (./test_bort_$kind readmg 1) && exit 1
     (./test_bort_$kind readmg 2) && exit 1
 
-    # Check rdmemm().
-    (./test_bort_$kind rdmemm 1) && exit 1
+    # Check rdmems().
+    (./test_bort_$kind rdmems 1) && exit 1
 
     # Check rdusdx().
     (./test_bort_$kind rdusdx 1) && exit 1

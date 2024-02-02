@@ -33,7 +33,7 @@ program test_bort
   character(len=32) :: sub_name, test_case
   character*5 adn30
   character*80 card
-  integer ibay(1), ibit, subset, jdate
+  integer ibay(1), ibit, jdate
   integer mtyp, msbt, inod
   character*28 unit
   integer iscl, iref
@@ -222,6 +222,27 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(12, 'OUT', 10)
         call copysb(11, 12, ierr)     
+     endif
+  elseif (sub_name .eq. 'cpymem') then
+     open(unit = 11, file = 'testfiles/IN_6_infile1', form = 'UNFORMATTED', iostat = ios)
+     if (ios .ne. 0) stop 3
+     open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+     if (ios .ne. 0) stop 3
+     call ufbmem(11, 0, iret, iunit)
+     if (test_case .eq. '1') then
+        call cpymem(12)
+     elseif (test_case .eq. '2') then
+        call rdmemm(167, char_val_8, jdate, ierr)
+        call cpymem(12)
+     elseif (test_case .eq. '3') then
+        call rdmemm(167, char_val_8, jdate, ierr)
+        call openbf(12, 'IN', 11)
+        call cpymem(12)
+     elseif (test_case .eq. '4') then
+        call rdmemm(167, char_val_8, jdate, ierr)
+        call openbf(12, 'OUT', 11)
+        call openmg(12, 'NC004001', 2024020112)
+        call cpymem(12)
      endif
   elseif (sub_name .eq. 'datebf') then
      if (test_case .eq. '1') then
@@ -773,12 +794,12 @@ program test_bort
         call openbf(11, 'OUT', 12)
         call readmg(11, char_val_8, jdate, iret)
      endif
-  elseif (sub_name .eq. 'rdmemm') then
+  elseif (sub_name .eq. 'rdmems') then
+     open(unit = 11, file = 'testfiles/IN_6_infile1', form = 'UNFORMATTED', iostat = ios)
+     if (ios .ne. 0) stop 3
+     call ufbmem(11, 0, iret, iunit)
      if (test_case .eq. '1') then
-        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios .ne. 0) stop 3
-        call openbf(11, 'IN', 11)
-        call rdmemm(1, subset, jdate, iret)        
+        call rdmems(11, jret)
      endif
   elseif (sub_name .eq. 'readns') then
      if (test_case .eq. '1') then
