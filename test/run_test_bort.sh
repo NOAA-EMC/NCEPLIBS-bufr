@@ -61,6 +61,9 @@ for kind in "4" "d"; do
     (./test_bort_$kind copysb 5) && exit 1
     (./test_bort_$kind copysb 6) && exit 1
 
+    # Check cpdxmm().
+    (./test_bort_$kind cpdxmm 1) && exit 1
+
     # Check cpymem().
     (./test_bort_$kind cpymem 1) && exit 1
     (./test_bort_$kind cpymem 2) && exit 1
@@ -290,12 +293,21 @@ for kind in "4" "d"; do
     (./test_bort_$kind stndrd 5) && exit 1
     (./test_bort_$kind stndrd 6) && exit 1
 
+    # Check strtbfe().
+    (./test_bort_$kind strtbfe 1) && exit 1
+
+    # Check strbtm().
+    (./test_bort_$kind strbtm 1) && exit 1
+
     # Check strcpt().
     (./test_bort_$kind strcpt 1) && exit 1
 
     # Check string().
     (./test_bort_$kind string 1) && exit 1
     (./test_bort_$kind string 2) && exit 1
+
+    # Check tabent().
+    (./test_bort_$kind tabent 1) && exit 1
 
     # Check tabsub().
     (./test_bort_$kind tabsub 1) && exit 1
@@ -308,6 +320,8 @@ for kind in "4" "d"; do
     (./test_bort_$kind tabsub 8) && exit 1
     (./test_bort_$kind tabsub 9) && exit 1
     (./test_bort_$kind tabsub 10) && exit 1
+    (./test_bort_$kind tabsub 11) && exit 1
+    (./test_bort_$kind tabsub 12) && exit 1
 
     # Check ufbcnt().
     (./test_bort_$kind ufbcnt 1) && exit 1

@@ -223,6 +223,17 @@ program test_bort
         call openbf(12, 'OUT', 10)
         call copysb(11, 12, ierr)     
      endif
+  elseif (sub_name .eq. 'cpdxmm') then
+     if (test_case .eq. '1') then
+       open(unit = 11, file = 'testfiles/IN_6_infile1', form = 'UNFORMATTED', iostat = ios)
+       if (ios .ne. 0) stop 3
+       open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
+       if (ios .ne. 0) stop 3
+       if (isetprm('MXDXTS',1) .ne. 0) stop 3
+       call ufbmem(11, 0, iret, iunit)
+       call ufbmem(12, 1, iret, iunit)
+       call ufbmns(18364, char_val_8, jdate)
+     endif
   elseif (sub_name .eq. 'cpymem') then
      open(unit = 11, file = 'testfiles/IN_6_infile1', form = 'UNFORMATTED', iostat = ios)
      if (ios .ne. 0) stop 3
@@ -1052,6 +1063,21 @@ program test_bort
      elseif (test_case .eq. '6') then
         call stndrd ( 21, ibfmg, 5000, ibfmg2 )
      endif
+  elseif (sub_name .eq. 'strtbfe') then
+     if (test_case .eq. '1') then
+       if (isetprm('MXMTBF',100) .ne. 0) stop 3
+       open(unit = 11, file = 'testfiles/IN_4', iostat = ios)
+       call openbf(11, 'SEC3', 11)
+       call codflg('Y')
+       call readns(11, char_val_8, jdate, iret)
+     endif
+  elseif (sub_name .eq. 'strbtm') then
+     if (test_case .eq. '1') then
+       if (isetprm('MXBTMSE',8) .ne. 0) stop 3
+       open(unit = 11, file = 'testfiles/IN_4', iostat = ios)
+       call openbf(11, 'SEC3', 11)
+       call readns(11, char_val_8, jdate, iret)
+     endif
   elseif (sub_name .eq. 'strcpt') then
      if (test_case .eq. '1') then
         call strcpt('W', 1960, 12, 15, 12, 0)
@@ -1067,79 +1093,105 @@ program test_bort
        call ufbint(11, real_2d_3x1, 3, 1, iret, 'YEAR MNTH DAYS')
        call string('YEAR MNTH DAYS', 1, 2, 0)
      endif
-  elseif (sub_name .eq. 'tabsub') then
-     open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
-     if (ios .ne. 0) stop 3
-     card = '| NC007200 | A54124 | MTYPE 007-200                                            |'
-     write (12,'(A)') card
+  elseif (sub_name .eq. 'tabent') then
      if (test_case .eq. '1') then
-     elseif (test_case .eq. '2') then
-       card = '| YEAR     | 004001 | YEAR                                                     |'
-       write (12,'(A)') card
-       card = '| NC007200 | 201129 YEAR                                                       |'
-       write (12,'(A)') card
-       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
-       write (12,'(A)') card
-     elseif (test_case .eq. '3') then
-       card = '| YEAR     | 004001 | YEAR                                                     |'
-       write (12,'(A)') card
-       card = '| NC007200 | 202129 YEAR                                                       |'
-       write (12,'(A)') card
-       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
-       write (12,'(A)') card
-     elseif (test_case .eq. '4') then
-       card = '| YEAR     | 004001 | YEAR                                                     |'
-       write (12,'(A)') card
-       card = '| NC007200 | 207002 YEAR                                                       |'
-       write (12,'(A)') card
-       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
-       write (12,'(A)') card
-     elseif (test_case .eq. '5') then
-       card = '| YEAR     | 004001 | YEAR                                                     |'
-       write (12,'(A)') card
-       card = '| NC007200 | 208024 YEAR                                                       |'
-       write (12,'(A)') card
-       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
-       write (12,'(A)') card
-     elseif (test_case .eq. '6') then
-       card = '| YEAR     | 004001 | YEAR                                                     |'
-       write (12,'(A)') card
-       card = '| NC007200 | 201129 201133 YEAR                                                |'
-       write (12,'(A)') card
-       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
-       write (12,'(A)') card
-     elseif (test_case .eq. '7') then
-       card = '| YEAR     | 004001 | YEAR                                                     |'
-       write (12,'(A)') card
-       card = '| NC007200 | 202129 202133 YEAR                                                |'
-       write (12,'(A)') card
-       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
-       write (12,'(A)') card
-     elseif (test_case .eq. '8') then
-       card = '| YEAR     | 004001 | YEAR                                                     |'
-       write (12,'(A)') card
-       card = '| NC007200 | 203012 YEAR 203006                                                |'
-       write (12,'(A)') card
-       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
-       write (12,'(A)') card
-     elseif (test_case .eq. '9') then
-       card = '| YEAR     | 004001 | YEAR                                                     |'
-       write (12,'(A)') card
-       card = '| NC007200 | 203012 YEAR                                                       |'
-       write (12,'(A)') card
-       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
-       write (12,'(A)') card
-     elseif (test_case .eq. '10') then
-       card = '| YEAR     | 004001 | YEAR                                                     |'
-       write (12,'(A)') card
-       card = '| NC007200 | 203000 YEAR                                                       |'
-       write (12,'(A)') card
-       card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
-       write (12,'(A)') card
+       if (isetprm('MXNRV',1) .ne. 0) stop 3
+       open(unit = 11, file = 'testfiles/IN_7', form = 'UNFORMATTED', iostat = ios)
+       if (ios .ne. 0) stop 3
+       open(unit = 12, file = 'testfiles/IN_7_bufrtab', iostat = ios)
+       if (ios .ne. 0) stop 3
+       call openbf(11, 'IN', 12)
+       open(unit = 13, file = 'testfiles/OUT_1', form = 'UNFORMATTED', iostat = ios)
+       if (ios .ne. 0) stop 3
+       call openbf(13, 'IN', 13)
      endif
-     close (12)
-     open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
-     call openbf(11, 'OUT', 12)
+  elseif (sub_name .eq. 'tabsub') then
+     if (test_case .eq. '11') then
+       if (isetprm('MXTCO',3) .ne. 0) stop 3
+       open(unit = 11, file = 'testfiles/IN_4', iostat = ios)
+       call openbf(11, 'SEC3', 11)
+       call readns(11, char_val_8, jdate, iret)
+     elseif (test_case .eq. '12') then
+       if (isetprm('MXTAMC',1) .ne. 0) stop 3
+       open(unit = 11, file = 'testfiles/IN_4', iostat = ios)
+       call openbf(11, 'SEC3', 11)
+       call readns(11, char_val_8, jdate, iret)
+       open(unit = 13, file = 'testfiles/OUT_3', iostat = ios)
+       call openbf(13, 'IN', 13)
+     else
+       open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+       if (ios .ne. 0) stop 3
+       card = '| NC007200 | A54124 | MTYPE 007-200                                            |'
+       write (12,'(A)') card
+       if (test_case .eq. '1') then
+       elseif (test_case .eq. '2') then
+         card = '| YEAR     | 004001 | YEAR                                                     |'
+         write (12,'(A)') card
+         card = '| NC007200 | 201129 YEAR                                                       |'
+         write (12,'(A)') card
+         card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+         write (12,'(A)') card
+       elseif (test_case .eq. '3') then
+         card = '| YEAR     | 004001 | YEAR                                                     |'
+         write (12,'(A)') card
+         card = '| NC007200 | 202129 YEAR                                                       |'
+         write (12,'(A)') card
+         card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+         write (12,'(A)') card
+       elseif (test_case .eq. '4') then
+         card = '| YEAR     | 004001 | YEAR                                                     |'
+         write (12,'(A)') card
+         card = '| NC007200 | 207002 YEAR                                                       |'
+         write (12,'(A)') card
+         card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+         write (12,'(A)') card
+       elseif (test_case .eq. '5') then
+         card = '| YEAR     | 004001 | YEAR                                                     |'
+         write (12,'(A)') card
+         card = '| NC007200 | 208024 YEAR                                                       |'
+         write (12,'(A)') card
+         card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+         write (12,'(A)') card
+       elseif (test_case .eq. '6') then
+         card = '| YEAR     | 004001 | YEAR                                                     |'
+         write (12,'(A)') card
+         card = '| NC007200 | 201129 201133 YEAR                                                |'
+         write (12,'(A)') card
+         card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+         write (12,'(A)') card
+       elseif (test_case .eq. '7') then
+         card = '| YEAR     | 004001 | YEAR                                                     |'
+         write (12,'(A)') card
+         card = '| NC007200 | 202129 202133 YEAR                                                |'
+         write (12,'(A)') card
+         card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+         write (12,'(A)') card
+       elseif (test_case .eq. '8') then
+         card = '| YEAR     | 004001 | YEAR                                                     |'
+         write (12,'(A)') card
+         card = '| NC007200 | 203012 YEAR 203006                                                |'
+         write (12,'(A)') card
+         card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+         write (12,'(A)') card
+       elseif (test_case .eq. '9') then
+         card = '| YEAR     | 004001 | YEAR                                                     |'
+         write (12,'(A)') card
+         card = '| NC007200 | 203012 YEAR                                                       |'
+         write (12,'(A)') card
+         card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+         write (12,'(A)') card
+       elseif (test_case .eq. '10') then
+         card = '| YEAR     | 004001 | YEAR                                                     |'
+         write (12,'(A)') card
+         card = '| NC007200 | 203000 YEAR                                                       |'
+         write (12,'(A)') card
+         card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+         write (12,'(A)') card
+       endif
+       close (12)
+       open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+       call openbf(11, 'OUT', 12)
+     endif
   elseif (sub_name .eq. 'ufbcnt') then
      if (test_case .eq. '1') then
         call openbf(12, 'FIRST', 11)
