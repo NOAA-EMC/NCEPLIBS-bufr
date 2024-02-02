@@ -5,7 +5,7 @@ C> @author Woollen @date 1994-01-06
 
 C> Initialize space in internal subset arrays
 C> in modules @ref moda_usrint and @ref moda_usrbit, according
-C> to the subset definition from subroutine maksetab(). This is in
+C> to the subset definition from subroutine makestab(). This is in
 C> preparation for the actual unpacking of the subset in rdtree().
 C>
 C> @param[in] LUN - integer: file ID

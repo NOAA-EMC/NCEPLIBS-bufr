@@ -60,6 +60,15 @@ for kind in "4" "d"; do
     (./test_bort_$kind copysb 4) && exit 1
     (./test_bort_$kind copysb 5) && exit 1
     (./test_bort_$kind copysb 6) && exit 1
+
+    # Check cpdxmm().
+    (./test_bort_$kind cpdxmm 1) && exit 1
+
+    # Check cpymem().
+    (./test_bort_$kind cpymem 1) && exit 1
+    (./test_bort_$kind cpymem 2) && exit 1
+    (./test_bort_$kind cpymem 3) && exit 1
+    (./test_bort_$kind cpymem 4) && exit 1
     
     # Check datebf().
     (./test_bort_$kind datebf 1) && exit 1
@@ -100,6 +109,7 @@ for kind in "4" "d"; do
 
     # Check isize().
     (./test_bort_$kind isize 1) && exit 1
+    (./test_bort_$kind isize 2) && exit 1
     
     # Check iupm().
     (./test_bort_$kind iupm 1) && exit 1
@@ -143,6 +153,9 @@ for kind in "4" "d"; do
     # Check nmsub().
     (./test_bort_$kind nmsub 1) && exit 1
     (./test_bort_$kind nmsub 2) && exit 1
+
+    # Check nvnwin().
+    (./test_bort_$kind nvnwin 1) && exit 1
 
     # Check openbf().
     (./test_bort_$kind openbf 1) && exit 1
@@ -199,8 +212,8 @@ for kind in "4" "d"; do
     (./test_bort_$kind readmg 1) && exit 1
     (./test_bort_$kind readmg 2) && exit 1
 
-    # Check rdmemm().
-    (./test_bort_$kind rdmemm 1) && exit 1
+    # Check rdmems().
+    (./test_bort_$kind rdmems 1) && exit 1
 
     # Check rdusdx().
     (./test_bort_$kind rdusdx 1) && exit 1
@@ -280,12 +293,21 @@ for kind in "4" "d"; do
     (./test_bort_$kind stndrd 5) && exit 1
     (./test_bort_$kind stndrd 6) && exit 1
 
+    # Check strtbfe().
+    (./test_bort_$kind strtbfe 1) && exit 1
+
+    # Check strbtm().
+    (./test_bort_$kind strbtm 1) && exit 1
+
     # Check strcpt().
     (./test_bort_$kind strcpt 1) && exit 1
 
     # Check string().
     (./test_bort_$kind string 1) && exit 1
     (./test_bort_$kind string 2) && exit 1
+
+    # Check tabent().
+    (./test_bort_$kind tabent 1) && exit 1
 
     # Check tabsub().
     (./test_bort_$kind tabsub 1) && exit 1
@@ -298,6 +320,8 @@ for kind in "4" "d"; do
     (./test_bort_$kind tabsub 8) && exit 1
     (./test_bort_$kind tabsub 9) && exit 1
     (./test_bort_$kind tabsub 10) && exit 1
+    (./test_bort_$kind tabsub 11) && exit 1
+    (./test_bort_$kind tabsub 12) && exit 1
 
     # Check ufbcnt().
     (./test_bort_$kind ufbcnt 1) && exit 1
@@ -367,6 +391,7 @@ for kind in "4" "d"; do
     # Check ufbqcd().
     (./test_bort_$kind ufbqcd 1) && exit 1
     (./test_bort_$kind ufbqcd 2) && exit 1
+    (./test_bort_$kind ufbqcd 3) && exit 1
 
     # Check ufbqcp().
     (./test_bort_$kind ufbqcp 1) && exit 1
