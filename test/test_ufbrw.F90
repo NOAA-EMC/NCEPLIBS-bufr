@@ -5,6 +5,8 @@
 ! testfile and test various user defined options available through subroutine
 ! ufbint which is the driver of ufbrw.
 !
+! Adding additional testing in ufbrw
+!
 ! J Woollen  4/14/23  
 
       program test_ufbrw
