@@ -92,9 +92,6 @@
 
       do i=1,5
 
-      if(i==1) iprt=2
-      if(i/=1) iprt=0
-
       if(i==1) cond='POB<1000         '
       if(i==2) cond='POB<1000 UOB<1000'
       if(i==3) cond='POB<800  TOB<1000'
@@ -107,6 +104,9 @@
 
       open(20,file=file,form='unformatted')
       call openbf(20,'IN',20)
+
+      if(i==1) iprt=2
+      if(i/=1) iprt=0
 
       do while(ireadmg(20,subset,idate)==0)
         do while(ireadsb(20)==0)
