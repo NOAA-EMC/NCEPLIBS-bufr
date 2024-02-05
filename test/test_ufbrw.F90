@@ -11,7 +11,6 @@
 
       program test_ufbrw
 
-      COMMON /QUIET / IPRT
       character(255)file     
       character(55) brr(56),line,str1,str2
       character(20) cond    
@@ -87,6 +86,7 @@
 ! open the print file to record ufbrep test results
 
       open(55,file='ufbrw_prnt_out')
+      iprt=2
 
 ! test various reading options applying user specified filtering, testing conwin
 
@@ -105,13 +105,12 @@
       open(20,file=file,form='unformatted')
       call openbf(20,'IN',20)
 
-      if(i==1) iprt=2
-      if(i/=1) iprt=0
-
       do while(ireadmg(20,subset,idate)==0)
         do while(ireadsb(20)==0)
+          if(i==1) call openbf(20,'QUIET',iprt)
           call ufbint(20,arr,10,255,irt,cond//' POB QOB TOB UOB VOB')
           if(irt>0) write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
+          iprt=0
         enddo
       enddo
       call closbf(20)
@@ -173,6 +172,28 @@
           stop 99
         endif
       enddo
+
+! try to read and write an element that doesn't exist
+
+      open(20,file=file,form='unformatted')
+      open(50,file='ufbrw_bufr_out',form='unformatted')
+
+      call openbf(20,'IN ',20)
+      call openbf(50,'OUT',20)
+      
+      do while(ireadmg(20,subset,idate)==0)
+        do while(ireadsb(20)==0)
+          call ufbint(20,arr,10,255,irt,'notthere')
+          write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
+          call openmb(50,subset,idate)
+          call ufbint(50,arr,10,irt,jrt,'notthere')
+          exit
+        enddo
+      exit
+      enddo
+
+      call closbf(20)
+      call closbf(50)
 
 ! successful exit
 
