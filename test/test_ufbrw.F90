@@ -11,6 +11,7 @@
 
       program test_ufbrw
 
+      COMMON /QUIET / IPRT
       character(255)file     
       character(55) brr(56),line,str1,str2
       character(20) cond    
@@ -90,6 +91,9 @@
 ! test various reading options applying user specified filtering, testing conwin
 
       do i=1,5
+
+      if(i==1) iprt=2
+      if(i/=1) iprt=0
 
       if(i==1) cond='POB<1000         '
       if(i==2) cond='POB<1000 UOB<1000'
