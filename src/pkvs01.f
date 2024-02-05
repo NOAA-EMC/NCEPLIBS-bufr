@@ -64,9 +64,9 @@ C>
 C> @authors J. Ator @date 2005-11-29
       RECURSIVE SUBROUTINE PKVS01(S01MNEM,IVAL)
 
-      USE MODV_MXS01V
-      USE MODA_S01CM
-      USE MODV_IM8B
+      use modv_vars, only: im8b, mxs01v
+
+      use moda_s01cm
 
       CHARACTER*(*) S01MNEM
 

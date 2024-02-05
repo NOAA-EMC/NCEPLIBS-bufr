@@ -26,8 +26,9 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE STRING(STR,LUN,I1,IO)
 
-      USE MODV_MXS
-      USE MODA_MSGCWD
+      use modv_vars, only: mxs
+
+      use moda_msgcwd
 
       PARAMETER (JCONS=52)
 

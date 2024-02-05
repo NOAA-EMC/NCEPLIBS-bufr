@@ -33,8 +33,7 @@ C>
 C> @author J. Woollen @date 2012-09-15
       RECURSIVE SUBROUTINE SETBMISS(XMISS)
 
-      USE MODV_IM8B
-      USE MODV_BMISS
+      use modv_vars, only: im8b, bmiss
 
       REAL*8 XMISS
 

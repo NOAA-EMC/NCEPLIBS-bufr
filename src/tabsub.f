@@ -13,13 +13,12 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE TABSUB(LUN,NEMO)
 
-      USE MODV_MXTAMC
-      USE MODV_MXTCO
+      use modv_vars, only: mxtamc, mxtco
 
-      USE MODA_TABLES
-      USE MODA_NMIKRP
-      USE MODA_NRV203
-      USE MODA_BITMAPS
+      use moda_tables
+      use moda_nmikrp
+      use moda_nrv203
+      use moda_bitmaps
 
       COMMON /TABCCC/ ICDW,ICSC,ICRV,INCW
 

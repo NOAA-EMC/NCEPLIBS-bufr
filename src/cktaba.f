@@ -25,10 +25,10 @@ C> @author Woollen @date 2000-09-19
 
       SUBROUTINE CKTABA(LUN,SUBSET,JDATE,IRET)
 
-      USE MODA_MSGCWD
-      USE MODA_SC3BFR
-      USE MODA_UNPTYP
-      USE MODA_BITBUF
+      use moda_msgcwd
+      use moda_sc3bfr
+      use moda_unptyp
+      use moda_bitbuf
 
       COMMON /PADESC/ IBCT,IPD1,IPD2,IPD3,IPD4
       COMMON /QUIET / IPRT

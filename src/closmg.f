@@ -24,10 +24,11 @@ C> @author J. Woollen, D. Keyser @date 1994-01-06
 
       RECURSIVE SUBROUTINE CLOSMG(LUNIN)
 
-      USE MODA_MSGCWD
-      USE MODA_MSGLIM
-      USE MODA_BITBUF
-      USE MODV_IM8B
+      use modv_vars, only: im8b
+
+      use moda_msgcwd
+      use moda_msglim
+      use moda_bitbuf
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

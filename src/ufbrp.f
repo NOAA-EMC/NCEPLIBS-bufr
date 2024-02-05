@@ -29,7 +29,7 @@ C>
 C> @author J. Woollen @date 1994-01-06
       SUBROUTINE UFBRP(LUN,USR,I1,I2,IO,IRET)
 
-      USE MODA_USRINT
+      use moda_usrint
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
 

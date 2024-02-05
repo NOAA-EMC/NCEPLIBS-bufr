@@ -28,7 +28,7 @@ C> @author J. Ator @date 2009-03-23
 
         RECURSIVE SUBROUTINE ATRCPT(MSGIN,LMSGOT,MSGOT)
 
-        USE MODV_IM8B
+        use modv_vars, only: im8b
 
         DIMENSION MSGIN(*), MSGOT(*)
 

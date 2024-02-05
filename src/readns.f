@@ -38,9 +38,10 @@ C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE READNS(LUNIT,SUBSET,JDATE,IRET)
 
-      USE MODA_MSGCWD
-      USE MODA_TABLES
-      USE MODV_IM8B
+      use modv_vars, only: im8b
+
+      use moda_msgcwd
+      use moda_tables
 
       CHARACTER*8  SUBSET
 

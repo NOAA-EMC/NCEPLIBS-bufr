@@ -33,9 +33,10 @@ C>
 C> @author J. Woollen @date 2003-11-04
       RECURSIVE SUBROUTINE RDMGSB(LUNIT,IMSG,ISUB)
 
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODV_IM8B
+      use modv_vars, only: im8b
+
+      use moda_msgcwd
+      use moda_bitbuf
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   SUBSET

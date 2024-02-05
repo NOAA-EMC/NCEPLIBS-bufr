@@ -124,16 +124,14 @@ C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06
 
       use bufrlib
 
-      USE MODV_IFOPBF
-      USE MODV_NFILES
-      USE MODV_IM8B
+      use modv_vars, only: im8b, ifopbf, nfiles
 
-      USE MODA_MSGCWD
-      USE MODA_STBFR
-      USE MODA_SC3BFR
-      USE MODA_LUSHR
-      USE MODA_NULBFR
-      USE MODA_STCODE
+      use moda_msgcwd
+      use moda_stbfr
+      use moda_sc3bfr
+      use moda_lushr
+      use moda_nulbfr
+      use moda_stcode
 
       COMMON /QUIET / IPRT
 

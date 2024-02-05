@@ -26,8 +26,8 @@ C>
 C> @author J. Ator @date 2009-06-26
       INTEGER FUNCTION IOK2CPY(LUI,LUO)
 
-      USE MODA_MSGCWD
-      USE MODA_TABLES
+      use moda_msgcwd
+      use moda_tables
 
       CHARACTER*8  SUBSET
 

@@ -24,8 +24,9 @@ C> @author J. Woollen, J. Ator @date 1994-01-06
 
       use bufrlib
 
-      USE MODA_NULBFR
-      USE MODV_IM8B
+      use modv_vars, only: im8b
+
+      use moda_nulbfr
 
       CHARACTER*128 ERRSTR
 

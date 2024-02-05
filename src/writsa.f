@@ -89,9 +89,9 @@ C> @author J. Woollen @author J. Ator @date 1994-01-06
 
       RECURSIVE SUBROUTINE WRITSA(LUNXX,LMSGT,MSGT,MSGL)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
-      USE MODA_BUFRMG
+      use moda_bufrmg
 
       COMMON /MSGCMP/ CCMF
 

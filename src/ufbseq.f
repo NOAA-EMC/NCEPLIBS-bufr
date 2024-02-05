@@ -126,12 +126,11 @@ C> @authors J. Woollen @authors J. Ator @date 2000-09-19
 
       RECURSIVE SUBROUTINE UFBSEQ(LUNIN,USR,I1,I2,IRET,STR)
 
-      USE MODV_BMISS
-      USE MODV_IM8B
+      use modv_vars, only: im8b, bmiss
 
-      USE MODA_USRINT
-      USE MODA_MSGCWD
-      USE MODA_TABLES
+      use moda_usrint
+      use moda_msgcwd
+      use moda_tables
 
       PARAMETER (MTAG=10)
 

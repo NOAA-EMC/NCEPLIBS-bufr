@@ -35,7 +35,7 @@ C> @author J. Woollen @date 1994-01-06
 
       SUBROUTINE WTSTAT(LUNIT,LUN,IL,IM)
 
-      USE MODA_STBFR
+      use moda_stbfr
 
       CHARACTER*128 BORT_STR
 

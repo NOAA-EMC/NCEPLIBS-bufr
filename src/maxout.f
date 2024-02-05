@@ -24,10 +24,9 @@ C>
 C> @authors J. Woollen, J. Ator @date 2002-05-14
       RECURSIVE SUBROUTINE MAXOUT(MAXO)
 
-      USE MODV_MXMSGL
-      USE MODV_IM8B
+      use modv_vars, only: mxmsgl, im8b
 
-      USE MODA_BITBUF
+      use moda_bitbuf
 
       COMMON /MAXCMP/ MAXCMB,MAXROW,MAXCOL,NCMSGS,NCSUBS,NCBYTS
       COMMON /DXTAB / MAXDX,IDXV,NXSTR(10),LDXA(10),LDXB(10),LDXD(10),

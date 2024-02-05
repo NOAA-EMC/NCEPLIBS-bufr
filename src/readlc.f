@@ -48,13 +48,14 @@ C> @authors J. Woollen J. Ator @date 2003-11-04
 
       RECURSIVE SUBROUTINE READLC(LUNIT,CHR,STR)
 
-      USE MODA_USRINT
-      USE MODA_USRBIT
-      USE MODA_UNPTYP
-      USE MODA_BITBUF
-      USE MODA_TABLES
-      USE MODA_RLCCMN
-      USE MODV_IM8B
+      use modv_vars, only: im8b
+
+      use moda_usrint
+      use moda_usrbit
+      use moda_unptyp
+      use moda_bitbuf
+      use moda_tables
+      use moda_rlccmn
 
       COMMON /QUIET / IPRT
 

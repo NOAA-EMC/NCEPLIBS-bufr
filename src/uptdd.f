@@ -26,7 +26,7 @@ C> @author J. Woollen @date 1994-01-06
 
       SUBROUTINE UPTDD(ID,LUN,IENT,IRET)
 
-      USE MODA_TABABD
+      use moda_tababd
 
       COMMON /DXTAB / MAXDX,IDXV,NXSTR(10),LDXA(10),LDXB(10),LDXD(10),
      .                LD30(10),DXSTR(10)

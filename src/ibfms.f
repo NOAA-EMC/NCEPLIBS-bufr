@@ -24,7 +24,7 @@ C>
 C> @author J. Ator @date 2007-01-19
         INTEGER FUNCTION IBFMS ( R8VAL )
 
-        USE MODV_BMISS
+        use modv_vars, only: bmiss
 
         REAL*8          R8VAL
 

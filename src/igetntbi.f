@@ -19,7 +19,7 @@ C>
 C> @author J. Ator @date 2009-03-23
         FUNCTION IGETNTBI ( LUN, CTB )
 
-        USE MODA_TABABD
+        use moda_tababd
 
         CHARACTER*128 BORT_STR
         CHARACTER*1   CTB

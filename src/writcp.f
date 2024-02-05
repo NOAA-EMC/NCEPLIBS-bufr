@@ -26,7 +26,7 @@ C> @author J. Woollen @date 2002-05-14
 
       RECURSIVE SUBROUTINE WRITCP(LUNIT)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
 C     Check for I8 integers.
 

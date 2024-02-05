@@ -34,10 +34,11 @@ C> @author J. Ator @date 2012-09-12
         RECURSIVE SUBROUTINE GETTAGPR
      .          ( LUNIT, TAGCH, NTAGCH, TAGPR, IRET )
 
-        USE MODA_USRINT
-        USE MODA_MSGCWD
-        USE MODA_TABLES
-        USE MODV_IM8B
+        use modv_vars, only: im8b
+
+        use moda_usrint
+        use moda_msgcwd
+        use moda_tables
 
         CHARACTER*(*) TAGCH, TAGPR
 

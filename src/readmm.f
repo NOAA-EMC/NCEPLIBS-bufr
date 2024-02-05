@@ -41,7 +41,7 @@ C>
 C> @author J. Woollen @date 1999-11-18
       RECURSIVE SUBROUTINE READMM(IMSG,SUBSET,JDATE,IRET)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
       CHARACTER*8 SUBSET
 

@@ -38,14 +38,13 @@ C> @author J. Woollen @author J. Ator @date 2003-11-04
 
       RECURSIVE SUBROUTINE WRITLC(LUNIT,CHR,STR)
 
-      USE MODV_IM8B
-      USE MODV_MXLCC
+      use modv_vars, only: im8b, mxlcc
 
-      USE MODA_USRINT
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODA_TABLES
-      USE MODA_COMPRS
+      use moda_usrint
+      use moda_msgcwd
+      use moda_bitbuf
+      use moda_tables
+      use moda_comprs
 
       COMMON /QUIET / IPRT
 

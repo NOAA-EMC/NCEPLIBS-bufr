@@ -52,10 +52,11 @@ C> @authors J. Woollen, J. Ator @date 1994-01-06
 
       use bufrlib
 
-      USE MODA_MSGCWD
-      USE MODA_SC3BFR
-      USE MODA_BITBUF
-      USE MODV_IM8B
+      use modv_vars, only: im8b
+
+      use moda_msgcwd
+      use moda_sc3bfr
+      use moda_bitbuf
 
       COMMON /QUIET / IPRT
 

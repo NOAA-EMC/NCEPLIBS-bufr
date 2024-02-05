@@ -30,7 +30,7 @@ C>
 C> @author J. Woollen @date 1999-11-18
       RECURSIVE FUNCTION IREADMM(IMSG,SUBSET,IDATE) RESULT(IRET)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
       CHARACTER*8 SUBSET
 

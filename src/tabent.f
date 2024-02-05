@@ -21,10 +21,10 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE TABENT(LUN,NEMO,TAB,ITAB,IREP,IKNT,JUM0)
 
-      USE MODV_MXNRV
+      use modv_vars, only: mxnrv
 
-      USE MODA_TABLES
-      USE MODA_NRV203
+      use moda_tables
+      use moda_nrv203
 
 C     Note that the values within the COMMON /REPTAB/ arrays were
 C     initialized within subroutine BFRINI.

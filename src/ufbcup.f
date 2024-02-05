@@ -25,12 +25,12 @@ C>
 C> @author Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBCUP(LUBIN,LUBOT)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
-      USE MODA_USRINT
-      USE MODA_MSGCWD
-      USE MODA_TABLES
-      USE MODA_IVTTMP
+      use moda_usrint
+      use moda_msgcwd
+      use moda_tables
+      use moda_ivttmp
 
       CHARACTER*10 TAGO
 

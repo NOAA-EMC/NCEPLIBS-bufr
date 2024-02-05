@@ -17,7 +17,7 @@ C>
 C> @author J. Ator @date 2009-03-23
         RECURSIVE FUNCTION IDXMSG( MESG ) RESULT( IRET )
 
-        USE MODV_IM8B
+        use modv_vars, only: im8b
 
         DIMENSION MESG(*)
 

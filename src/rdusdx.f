@@ -19,7 +19,7 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE RDUSDX(LUNDX,LUN)
 
-      USE MODA_TABABD
+      use moda_tababd
 
       CHARACTER*128 BORT_STR1
       CHARACTER*156 BORT_STR2

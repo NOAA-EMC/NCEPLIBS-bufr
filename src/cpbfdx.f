@@ -13,8 +13,8 @@ C> @author Woollen @date 1994-01-06
 
       SUBROUTINE CPBFDX(LUD,LUN)
 
-      USE MODA_MSGCWD
-      USE MODA_TABABD
+      use moda_msgcwd
+      use moda_tababd
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

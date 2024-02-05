@@ -29,8 +29,9 @@ C>
 C> @author J. Ator @date 2009-03-23
       RECURSIVE SUBROUTINE RTRCPT(LUNIT,IYR,IMO,IDY,IHR,IMI,IRET)
 
-      USE MODV_IM8B
-      USE MODA_BITBUF
+      use modv_vars, only: im8b
+
+      use moda_bitbuf
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

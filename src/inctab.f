@@ -19,7 +19,7 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE INCTAB(ATAG,ATYP,NODE)
 
-      USE MODA_TABLES
+      use moda_tables
 
       CHARACTER*(*) ATAG,ATYP
       CHARACTER*128 BORT_STR

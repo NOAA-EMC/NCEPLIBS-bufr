@@ -24,9 +24,10 @@ C>
 C> @author J. Woollen @date 1996-10-09
       RECURSIVE SUBROUTINE INVMRG(LUBFI,LUBFJ)
 
-      USE MODA_USRINT
-      USE MODA_TABLES
-      USE MODV_IM8B
+      use modv_vars, only: im8b
+
+      use moda_usrint
+      use moda_tables
 
       COMMON /MRGCOM/ NRPL,NMRG,NAMB,NTOT
 

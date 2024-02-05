@@ -18,7 +18,7 @@ C> @author J. Woollen @date 1994-01-06
 
       SUBROUTINE NEMTBB(LUN,ITAB,UNIT,ISCL,IREF,IBIT)
 
-      USE MODA_TABABD
+      use moda_tababd
 
       CHARACTER*128 BORT_STR
       CHARACTER*24  UNIT

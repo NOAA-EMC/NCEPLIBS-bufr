@@ -22,8 +22,9 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE PKTDD(ID,LUN,IDN,IRET)
 
-      USE MODV_MAXCD
-      USE MODA_TABABD
+      use modv_vars, only: maxcd
+
+      use moda_tababd
 
       COMMON /DXTAB / MAXDX,IDXV,NXSTR(10),LDXA(10),LDXB(10),LDXD(10),
      .                LD30(10),DXSTR(10)

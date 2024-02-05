@@ -47,9 +47,10 @@ C>
 C> @author J. Woollen @date 2002-05-14
       RECURSIVE SUBROUTINE DRFINI(LUNIT,MDRF,NDRF,DRFTAG)
 
-      USE MODA_USRINT
-      USE MODA_TABLES
-      USE MODV_IM8B
+      use modv_vars, only: im8b
+
+      use moda_usrint
+      use moda_tables
 
       PARAMETER ( MXDRF = 2000 )
 

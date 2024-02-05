@@ -44,13 +44,13 @@ C> @authors J. Woollen, J. Ator @date 2002-05-14
 
       use bufrlib
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
-      USE MODA_USRINT
-      USE MODA_MSGCWD
-      USE MODA_TABABD
-      USE MODA_TABLES
-      USE MODA_NRV203
+      use moda_usrint
+      use moda_msgcwd
+      use moda_tababd
+      use moda_tables
+      use moda_nrv203
 
       COMMON /TABLEF/ CDMF
 

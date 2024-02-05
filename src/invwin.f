@@ -21,7 +21,7 @@ C>
 C> @author Woollen @date 1994-01-06
       FUNCTION INVWIN(NODE,LUN,INV1,INV2)
 
-      USE MODA_USRINT
+      use moda_usrint
 
       COMMON /QUIET/  IPRT
 

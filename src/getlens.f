@@ -34,7 +34,7 @@ C> @author J. Ator @date 2005-11-29
         RECURSIVE SUBROUTINE GETLENS
      .          (MBAY,LL,LEN0,LEN1,LEN2,LEN3,LEN4,LEN5)
 
-        USE MODV_IM8B
+        use modv_vars, only: im8b
 
         DIMENSION   MBAY(*)
 

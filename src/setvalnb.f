@@ -50,10 +50,11 @@ C> @author J. Ator @date 2016-07-29
         RECURSIVE SUBROUTINE SETVALNB
      .          ( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB, R8VAL, IRET )
 
-        USE MODA_USRINT
-        USE MODA_MSGCWD
-        USE MODA_TABLES
-        USE MODV_IM8B
+        use modv_vars, only: im8b
+
+        use moda_usrint
+        use moda_msgcwd
+        use moda_tables
 
         CHARACTER*(*) TAGPV, TAGNB
 

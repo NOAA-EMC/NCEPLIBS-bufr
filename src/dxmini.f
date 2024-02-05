@@ -17,7 +17,7 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE DXMINI(MBAY,MBYT,MB4,MBA,MBB,MBD)
 
-      USE MODV_MXMSGL
+      use modv_vars, only: mxmsgld4
 
       COMMON /DXTAB / MAXDX,IDXV,NXSTR(10),LDXA(10),LDXB(10),LDXD(10),
      .                LD30(10),DXSTR(10)

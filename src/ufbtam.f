@@ -53,14 +53,13 @@ C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBTAM(TAB,I1,I2,IRET,STR)
 
-      USE MODV_BMISS
-      USE MODV_IM8B
+      use modv_vars, only: im8b, bmiss
 
-      USE MODA_USRINT
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODA_MSGMEM
-      USE MODA_TABLES
+      use moda_usrint
+      use moda_msgcwd
+      use moda_bitbuf
+      use moda_msgmem
+      use moda_tables
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),VALS(10),KONS(10)
       COMMON /QUIET / IPRT

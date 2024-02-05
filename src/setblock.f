@@ -49,7 +49,7 @@ C>
 C> @author J. Woollen @date 2012-09-15
       RECURSIVE SUBROUTINE SETBLOCK(IBLK)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
       COMMON /ENDORD/ IBLOCK,IORDBE(4),IORDLE(4)
 

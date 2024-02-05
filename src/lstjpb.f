@@ -28,8 +28,8 @@ C>
 C> @author Woollen @date 1994-01-06
       FUNCTION LSTJPB(NODE,LUN,JBTYP)
 
-      USE MODA_MSGCWD
-      USE MODA_TABLES
+      use moda_msgcwd
+      use moda_tables
 
       CHARACTER*(*) JBTYP
       CHARACTER*128 BORT_STR

@@ -65,7 +65,7 @@ C> @author J. Ator @date 2005-11-29
 
         RECURSIVE FUNCTION IUPBS01(MBAY,S01MNEM) RESULT(IRET)
 
-        USE MODV_IM8B
+        use modv_vars, only: im8b
 
         DIMENSION       MBAY(*)
 

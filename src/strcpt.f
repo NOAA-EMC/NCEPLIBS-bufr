@@ -43,7 +43,7 @@ C>
 C> @author J. Ator @date 2009-03-23
       RECURSIVE SUBROUTINE STRCPT(CF,IYR,IMO,IDY,IHR,IMI)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
       COMMON /TNKRCP/ ITRYR,ITRMO,ITRDY,ITRHR,ITRMI,CTRT
 

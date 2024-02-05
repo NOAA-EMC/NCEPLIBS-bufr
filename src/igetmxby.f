@@ -16,9 +16,9 @@ C>
 C> @author J. Ator @date 2016-06-27
       RECURSIVE FUNCTION IGETMXBY() RESULT(IRET)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
-      USE MODA_BITBUF
+      use moda_bitbuf
 
 c-----------------------------------------------------------------------
 c-----------------------------------------------------------------------

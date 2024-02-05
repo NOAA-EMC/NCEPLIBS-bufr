@@ -43,10 +43,11 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bfrini.f90.in ${CMAKE_CURRENT_BINARY_
 list(APPEND fortran_src ${CMAKE_CURRENT_BINARY_DIR}/bvers.f ${CMAKE_CURRENT_BINARY_DIR}/bfrini.f90)
 
 # Create the bufrlib.h file
-foreach(_var IN ITEMS MAXNC MXNAF MAXCD NFILES)
+foreach(_var IN ITEMS maxnc mxnaf maxcd nfiles)
   file(STRINGS modules_vars.F90 _${_var}_tempstr REGEX "integer[a-z ,]*:: ${_var}")
   if(_${_var}_tempstr MATCHES "${_var} = ([0-9]+)")
-    set(${_var} ${CMAKE_MATCH_1})
+    string(TOUPPER ${_var} _varuc)
+    set(${_varuc} ${CMAKE_MATCH_1})
   else()
     message(FATAL_ERROR "Unable to parse variable ${_var} value from file: modules_vars.F90")
   endif()

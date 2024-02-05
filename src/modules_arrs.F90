@@ -200,8 +200,7 @@ end module moda_comprx
 !> @author J. Ator
 !> @date 2012-03-02
 module moda_dscach
-  use modv_maxnc
-  use modv_mxcnem
+  use modv_vars, only: maxnc, mxcnem
   !> Number of entries in the internal Table A mnemonic cache (up to a
   !> maximum of MXCNEM).
   integer :: NCNEM
@@ -223,7 +222,6 @@ end module moda_dscach
 !>
 !> @author J. Ator @date 2014-02-05
 module moda_h4wlc
-  use modv_mxh4wlc
   !> Number of long character strings being stored.
   integer :: NH4WLC
   !> File ID for associated output file.

@@ -22,9 +22,9 @@ C>
 C> @author J. Ator @date 2010-05-11
       RECURSIVE FUNCTION IGETSC(LUNIT) RESULT(IRET)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
-      USE MODA_STCODE
+      use moda_stcode
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

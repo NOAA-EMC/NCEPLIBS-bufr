@@ -12,13 +12,12 @@ C>
 C> @author J. Ator @date 2016-05-27
         SUBROUTINE STRBTM ( N, LUN )
 
-        USE MODV_MXBTM
-        USE MODV_MXBTMSE
+        use modv_vars, only: mxbtm, mxbtmse
 
-        USE MODA_MSGCWD
-        USE MODA_USRINT
-        USE MODA_TABLES
-        USE MODA_BITMAPS
+        use moda_msgcwd
+        use moda_usrint
+        use moda_tables
+        use moda_bitmaps
 
         LOGICAL ISBTME
 

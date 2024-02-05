@@ -27,7 +27,7 @@ C> @author Woollen @date 1994-01-06
 
         use bufrlib
 
-        USE MODA_MGWA
+        use moda_mgwa
 
         COMMON /QUIET/  IPRT
 

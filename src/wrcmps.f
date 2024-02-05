@@ -22,17 +22,16 @@ C> @author Woollen @date 2002-05-14
 
       SUBROUTINE WRCMPS(LUNIX)
 
-      USE MODV_MXCDV
-      USE MODV_MXCSB
+      use modv_vars, only: mxcdv, mxcsb
 
-      USE MODA_USRINT
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODA_MGWA
-      USE MODA_TABLES
-      USE MODA_COMPRX
-      USE MODA_COMPRS
-      USE MODA_S01CM
+      use moda_usrint
+      use moda_msgcwd
+      use moda_bitbuf
+      use moda_mgwa
+      use moda_tables
+      use moda_comprx
+      use moda_comprs
+      use moda_s01cm
 
       COMMON /MAXCMP/ MAXCMB,MAXROW,MAXCOL,NCMSGS,NCSUBS,NCBYTS
 

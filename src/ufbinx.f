@@ -42,10 +42,10 @@ C>
 C> @author Woollen @date 2003-11-04
       RECURSIVE SUBROUTINE UFBINX(LUNIT,IMSG,ISUB,USR,I1,I2,IRET,STR)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
+      use moda_msgcwd
+      use moda_bitbuf
 
       CHARACTER*(*) STR
       CHARACTER*128 BORT_STR

@@ -48,9 +48,10 @@ C>
 C> @author D. Keyser @date 2003-11-04
       RECURSIVE SUBROUTINE MESGBC(LUNIN,MESGTYP,ICOMP)
 
-      USE MODA_BITBUF
-      USE MODA_MGWA
-      USE MODV_IM8B
+      use modv_vars, only: im8b
+
+      use moda_bitbuf
+      use moda_mgwa
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

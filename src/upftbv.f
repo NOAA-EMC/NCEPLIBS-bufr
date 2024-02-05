@@ -26,9 +26,9 @@ C> @author J. Ator @date 2005-11-29
 
       RECURSIVE SUBROUTINE UPFTBV(LUNIT,NEMO,VAL,MXIB,IBIT,NIB)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
-      USE MODA_TABABD
+      use moda_tababd
 
       REAL*8  VAL, R8VAL, R82I
 

@@ -18,13 +18,12 @@ C> @author J. Woollen @date 1994-01-06
 
       SUBROUTINE USRTPL(LUN,INVN,NBMP)
 
-      USE MODV_MAXJL
-      USE MODV_MAXSS
+      use modv_vars, only: maxjl, maxss
 
-      USE MODA_USRINT
-      USE MODA_MSGCWD
-      USE MODA_TABLES
-      USE MODA_IVTTMP
+      use moda_usrint
+      use moda_msgcwd
+      use moda_tables
+      use moda_ivttmp
       use moda_stcode
 
       COMMON /QUIET / IPRT

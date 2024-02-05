@@ -16,7 +16,7 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE DXINIT(LUN,IOI)
 
-      USE MODA_TABABD
+      use moda_tababd
 
       COMMON /PADESC/ IBCT,IPD1,IPD2,IPD3,IPD4
       COMMON /REPTAB/ IDNR(5,2),TYPS(5,2),REPS(5,2),LENS(5)

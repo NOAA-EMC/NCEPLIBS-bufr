@@ -23,7 +23,7 @@ C>
 C> @author J. Ator @date 2012-06-07
         RECURSIVE FUNCTION ICBFMS ( STR, LSTR ) RESULT ( IRET )
 
-        USE MODV_IM8B
+        use modv_vars, only: im8b
 
         CHARACTER*(*)   STR
 

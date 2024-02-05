@@ -16,7 +16,7 @@ C>
 C> @author Ator @date 2009-03-23
         SUBROUTINE STNTBI ( N, LUN, NUMB, NEMO, CELSQ )
 
-        USE MODA_TABABD
+        use moda_tababd
 
         CHARACTER*(*) NUMB, NEMO, CELSQ
 

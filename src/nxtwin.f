@@ -22,7 +22,7 @@ C>
 C> @author J. Woollen @date 1994-01-06
       SUBROUTINE NXTWIN(LUN,IWIN,JWIN)
 
-      USE MODA_USRINT
+      use moda_usrint
 
       CHARACTER*128 BORT_STR
 

@@ -41,10 +41,11 @@ C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE COPYSB(LUNIN,LUNOT,IRET)
 
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODA_TABLES
-      USE MODV_IM8B
+      use modv_vars, only: im8b
+
+      use moda_msgcwd
+      use moda_bitbuf
+      use moda_tables
 
       CHARACTER*128 BORT_STR
 
