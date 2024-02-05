@@ -21,9 +21,9 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE MSGUPD(LUNIT,LUN)
 
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODA_H4WLC
+      use moda_msgcwd
+      use moda_bitbuf
+      use moda_h4wlc
 
       COMMON /MSGPTR/ NBY0,NBY1,NBY2,NBY3,NBY4,NBY5
       COMMON /QUIET / IPRT

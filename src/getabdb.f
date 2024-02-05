@@ -18,9 +18,10 @@ C>
 C> @author J. Ator @date 2005-11-29
       RECURSIVE SUBROUTINE GETABDB(LUNIT,TABDB,ITAB,JTAB)
 
-      USE MODA_TABABD
-      USE MODA_NMIKRP
-      USE MODV_IM8B
+      use modv_vars, only: im8b
+
+      use moda_tababd
+      use moda_nmikrp
 
       CHARACTER*128 TABDB(*)
       CHARACTER*8   NEMO

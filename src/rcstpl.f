@@ -16,16 +16,14 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE RCSTPL(LUN,IRET)
 
-      USE MODV_BMISS
-      USE MODV_MAXJL
-      USE MODV_MAXSS
+      use modv_vars, only: bmiss, maxjl, maxss
 
-      USE MODA_USRINT
-      USE MODA_USRBIT
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODA_TABLES
-      USE MODA_USRTMP
+      use moda_usrint
+      use moda_usrbit
+      use moda_msgcwd
+      use moda_bitbuf
+      use moda_tables
+      use moda_usrtmp
 
       COMMON /QUIET / IPRT
 

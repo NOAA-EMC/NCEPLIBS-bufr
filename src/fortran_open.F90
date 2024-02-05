@@ -14,7 +14,7 @@
 !> @author Jeff Whitaker @date 2015-08-30
    recursive subroutine fortran_open(filename, lunit, format, position, iret)
 
-      use modv_im8b
+      use modv_vars, only: im8b
 
       implicit none
       character*(*), intent(in) :: filename, format, position

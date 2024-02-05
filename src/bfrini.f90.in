@@ -14,24 +14,19 @@
 !> @authors J. Woollen J. Ator @date 1994-01-06
 subroutine bfrini
 
-USE MODV_MAXJL
-USE MODV_MAXTBA
-USE MODV_MAXTBB
-USE MODV_MAXTBD
-USE MODV_MXMSGL
-USE MODV_NFILES
+use modv_vars, only: maxjl, maxtba, maxtbb, maxtbd, mxmsgl, nfiles
 
-USE MODA_STBFR
-USE MODA_IDRDM
-USE MODA_MSGLIM
-USE MODA_BITBUF
-USE MODA_BUFRMG
-USE MODA_BUFRSR
-USE MODA_TABABD
-USE MODA_USRINT
-USE MODA_TABLES
-USE MODA_H4WLC
-USE MODA_DSCACH
+use moda_stbfr
+use moda_idrdm
+use moda_msglim
+use moda_bitbuf
+use moda_bufrmg
+use moda_bufrsr
+use moda_tababd
+use moda_usrint
+use moda_tables
+use moda_h4wlc
+use moda_dscach
 
 COMMON /MAXCMP/ MAXCMB,MAXROW,MAXCOL,NCMSGS,NCSUBS,NCBYTS
 COMMON /PADESC/ IBCT,IPD1,IPD2,IPD3,IPD4

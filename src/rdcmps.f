@@ -13,14 +13,13 @@ C>
 C> @author Woollen @date 2000-09-19
       SUBROUTINE RDCMPS(LUN)
 
-      USE MODV_BMISS
-      USE MODV_MXRST
+      use modv_vars, only: bmiss, mxrst
 
-      USE MODA_USRINT
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODA_TABLES
-      USE MODA_RLCCMN
+      use moda_usrint
+      use moda_msgcwd
+      use moda_bitbuf
+      use moda_tables
+      use moda_rlccmn
       use moda_stcode
 
       CHARACTER*128 BORT_STR

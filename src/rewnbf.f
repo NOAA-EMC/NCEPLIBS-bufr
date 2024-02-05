@@ -37,9 +37,9 @@ C> @author Woollen @date 2003-11-04
 
       use bufrlib
 
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODA_BUFRSR
+      use moda_msgcwd
+      use moda_bitbuf
+      use moda_bufrsr
 
       CHARACTER*128 BORT_STR
 

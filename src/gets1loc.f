@@ -55,7 +55,7 @@ C>
 C> @author J. Ator @date 2005-11-29
         RECURSIVE SUBROUTINE GETS1LOC(S1MNEM,IBEN,ISBYT,IWID,IRET)
 
-        USE MODV_IM8B
+        use modv_vars, only: im8b
 
         CHARACTER*(*) S1MNEM
 

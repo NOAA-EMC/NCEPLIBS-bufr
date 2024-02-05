@@ -18,9 +18,9 @@ C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE FUNCTION IFBGET(LUNIT) RESULT(IRET)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
-      USE MODA_MSGCWD
+      use moda_msgcwd
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

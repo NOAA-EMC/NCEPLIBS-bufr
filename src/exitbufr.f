@@ -34,12 +34,10 @@ C> @author J. Ator @date 2015-03-02
 
         use bufrlib
 
-        USE MODV_IM8B
-        USE MODV_IFOPBF
-        USE MODV_NFILES
+        use modv_vars, only: im8b, ifopbf, nfiles
 
-        USE MODA_STBFR
-        USE MODA_S01CM
+        use moda_stbfr
+        use moda_s01cm
 
         COMMON /TABLEF/ CDMF
 

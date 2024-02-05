@@ -22,18 +22,16 @@ C> @author J. Woollen @date 1994-01-06
 
       SUBROUTINE MAKESTAB
 
-      USE MODV_BMISS
-      USE MODV_MAXJL
-      USE MODV_NFILES
+      use modv_vars, only: bmiss, maxjl, nfiles
 
-      USE MODA_USRINT
-      USE MODA_STBFR
-      USE MODA_LUSHR
-      USE MODA_XTAB
-      USE MODA_TABABD
-      USE MODA_TABLES
-      USE MODA_NRV203
-      USE MODA_BITMAPS
+      use moda_usrint
+      use moda_stbfr
+      use moda_lushr
+      use moda_xtab
+      use moda_tababd
+      use moda_tables
+      use moda_nrv203
+      use moda_bitmaps
 
       COMMON /QUIET/  IPRT
 

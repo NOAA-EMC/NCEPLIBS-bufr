@@ -23,7 +23,7 @@ C>
 C> @author J. Woollen @date 1999-11-18
       SUBROUTINE NEMTBAX(LUN,NEMO,MTYP,MSBT,INOD)
 
-      USE MODA_TABABD
+      use moda_tababd
 
       CHARACTER*(*) NEMO
       CHARACTER*128 BORT_STR

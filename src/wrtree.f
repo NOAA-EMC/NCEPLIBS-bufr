@@ -12,11 +12,11 @@ C> @author J. Woollen @date 1994-01-06
 
       SUBROUTINE WRTREE(LUN)
 
-      USE MODA_USRINT
-      USE MODA_IVAL
-      USE MODA_UFBCPL
-      USE MODA_BITBUF
-      USE MODA_TABLES
+      use moda_usrint
+      use moda_ival
+      use moda_ufbcpl
+      use moda_bitbuf
+      use moda_tables
 
       CHARACTER*120 LSTR
       CHARACTER*8   CVAL

@@ -22,7 +22,7 @@ C>
 C> @author J. Woollen @date 1998-07-08
       RECURSIVE FUNCTION I4DY(IDATE) RESULT(IRET)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------

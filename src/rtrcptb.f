@@ -26,7 +26,7 @@ C>
 C> @author J. Ator @date 2013-10-07
       RECURSIVE SUBROUTINE RTRCPTB(MBAY,IYR,IMO,IDY,IHR,IMI,IRET)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
       DIMENSION MBAY (*)
 

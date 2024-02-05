@@ -41,8 +41,9 @@ C> @author J. Woollen @date 1994-01-06
 
       SUBROUTINE NEMTBD(LUN,ITAB,NSEQ,NEMS,IRPS,KNTS)
 
-      USE MODV_MAXCD
-      USE MODA_TABABD
+      use modv_vars, only: maxcd
+
+      use moda_tababd
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   NEMO,NEMS,NEMT,NEMF

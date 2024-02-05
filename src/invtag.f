@@ -24,8 +24,8 @@ C>
 C> @author Woollen @date 1994-01-06
       FUNCTION INVTAG(NODE,LUN,INV1,INV2)
 
-      USE MODA_USRINT
-      USE MODA_TABLES
+      use moda_usrint
+      use moda_tables
 
       COMMON /QUIET/  IPRT
 

@@ -28,7 +28,7 @@ C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBQCD(LUNIT,NEMO,IQCD)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
       CHARACTER*(*) NEMO
       CHARACTER*128 BORT_STR

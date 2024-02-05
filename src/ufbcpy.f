@@ -30,12 +30,12 @@ C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBCPY(LUBIN,LUBOT)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
-      USE MODA_USRINT
-      USE MODA_MSGCWD
-      USE MODA_UFBCPL
-      USE MODA_TABLES
+      use moda_usrint
+      use moda_msgcwd
+      use moda_ufbcpl
+      use moda_tables
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------

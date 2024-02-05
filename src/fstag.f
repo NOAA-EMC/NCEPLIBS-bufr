@@ -24,8 +24,8 @@ C>
 C> @author J. Ator @date 2014-10-02
         SUBROUTINE FSTAG ( LUN, UTAG, NUTAG, NIN, NOUT, IRET )
 
-        USE MODA_USRINT
-        USE MODA_TABLES
+        use moda_usrint
+        use moda_tables
 
         CHARACTER*10  TGS(15)
 

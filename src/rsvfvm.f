@@ -25,8 +25,6 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE RSVFVM(NEM1,NEM2)
 
-
-
       CHARACTER*8 NEM1,NEM2
 
       DO I=1,LEN(NEM1)

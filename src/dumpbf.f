@@ -43,8 +43,9 @@ C>
 C> @author J. Woollen @date 1996-12-11
       RECURSIVE SUBROUTINE DUMPBF(LUNIT,JDATE,JDUMP)
 
-      USE MODA_MGWA
-      USE MODV_IM8B
+      use modv_vars, only: im8b
+
+      use moda_mgwa
 
       COMMON /QUIET / IPRT
 

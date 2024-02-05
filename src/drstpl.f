@@ -30,7 +30,7 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE DRSTPL(INOD,LUN,INV1,INV2,INVN)
 
-      USE MODA_TABLES
+      use moda_tables
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

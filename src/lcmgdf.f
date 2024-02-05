@@ -35,9 +35,9 @@ C>
 C> @author J. Ator @date 2009-07-09
       RECURSIVE FUNCTION LCMGDF(LUNIT,SUBSET) RESULT(IRET)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
-      USE MODA_TABLES
+      use moda_tables
 
       CHARACTER*8  SUBSET
 

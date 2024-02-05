@@ -48,12 +48,10 @@ C> @author J. Woollen @date 1994-01-06
 
       use bufrlib
 
-      USE MODV_MAXMEM
-      USE MODV_MAXMSG
-      USE MODV_IM8B
+      use modv_vars, only: im8b, maxmem, maxmsg
 
-      USE MODA_MGWA
-      USE MODA_MSGMEM
+      use moda_mgwa
+      use moda_msgmem
 
       COMMON /QUIET / IPRT
 

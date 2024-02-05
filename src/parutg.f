@@ -79,8 +79,8 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE PARUTG(LUN,IO,UTG,NOD,KON,VAL)
 
-      USE MODA_MSGCWD
-      USE MODA_TABLES
+      use moda_msgcwd
+      use moda_tables
 
       COMMON /UTGPRM/ PICKY
 

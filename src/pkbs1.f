@@ -49,7 +49,7 @@ C>
 C> @authors J. Ator, D. Keyser @date 2005-11-29
         RECURSIVE SUBROUTINE PKBS1(IVAL,MBAY,S1MNEM)
 
-        USE MODV_IM8B
+        use modv_vars, only: im8b
 
         DIMENSION       MBAY(*)
 

@@ -56,8 +56,9 @@ C>
 C> @author J. Ator @date 2014-02-05
       RECURSIVE SUBROUTINE HOLD4WLC(LUNIT,CHR,STR)
 
-      USE MODA_H4WLC
-      USE MODV_IM8B
+      use modv_vars, only: im8b, mxh4wlc
+
+      use moda_h4wlc
 
       COMMON /QUIET/ IPRT
 

@@ -24,8 +24,8 @@ C> @author Woollen @date 1994-01-06
 
       SUBROUTINE CPYUPD(LUNIT,LIN,LUN,IBYT)
 
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
+      use moda_msgcwd
+      use moda_bitbuf
 
       COMMON /MSGPTR/ NBY0,NBY1,NBY2,NBY3,NBY4,NBY5
 

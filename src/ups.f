@@ -20,8 +20,8 @@ C>
 C> @author J. Ator @date 2012-03-02
         REAL*8 FUNCTION UPS(IVAL,NODE)
 
-        USE MODA_TABLES
-        USE MODA_NRV203
+        use moda_tables
+        use moda_nrv203
 
         integer*8 ival,imask
         REAL*8    TEN

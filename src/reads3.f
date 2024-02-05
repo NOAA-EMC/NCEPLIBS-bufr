@@ -14,9 +14,10 @@ C> @author J. Ator @date 2009-03-23
         SUBROUTINE READS3 ( LUN )
 
         use bufrlib
-        USE MODA_SC3BFR
-        USE MODA_BITBUF
-        USE MODA_DSCACH
+
+        use moda_sc3bfr
+        use moda_bitbuf
+        use moda_dscach
 
         COMMON /QUIET/  IPRT
 

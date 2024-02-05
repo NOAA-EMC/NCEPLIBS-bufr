@@ -21,7 +21,7 @@
 !> @author J. Ator @date 2022-09-01
 subroutine setim8b ( int8b )
 
-  use modv_im8b
+  use modv_vars, only: im8b
 
   logical, intent(in) :: int8b
 

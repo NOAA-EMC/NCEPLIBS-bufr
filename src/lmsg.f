@@ -22,7 +22,7 @@ C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE FUNCTION LMSG(SEC0) RESULT(IRET)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
       CHARACTER*8 SEC0,CSEC0
       DIMENSION   MSEC0(2)

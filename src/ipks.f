@@ -22,8 +22,8 @@ C>
 C> @author J. Ator @date 2012-03-02
         FUNCTION IPKS(VAL,NODE)
 
-        USE MODA_TABLES
-        USE MODA_NRV203
+        use moda_tables
+        use moda_nrv203
 
         integer(8) imask, ipks
         REAL*8     TEN,VAL

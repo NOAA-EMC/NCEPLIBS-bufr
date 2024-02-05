@@ -19,7 +19,7 @@ C>
 C> @author J. Ator @date 2009-03-23
       LOGICAL FUNCTION MSGFULL(MSIZ,ITOADD,MXSIZ)
 
-      USE MODV_MAXNC
+      use modv_vars, only: maxnc
 
       COMMON /MSGSTD/ CSMF
       COMMON /TNKRCP/ ITRYR,ITRMO,ITRDY,ITRHR,ITRMI,CTRT

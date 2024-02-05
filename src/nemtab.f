@@ -25,7 +25,7 @@ C> @author J. Woollen @date 1994-01-06
 
       SUBROUTINE NEMTAB(LUN,NEMO,IDN,TAB,IRET)
 
-      USE MODA_TABABD
+      use moda_tababd
 
       CHARACTER*(*) NEMO
       CHARACTER*8   NEMT
