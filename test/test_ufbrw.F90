@@ -110,7 +110,7 @@
           if(i==1) call openbf(20,'QUIET',iprt)
           call ufbint(20,arr,10,255,irt,cond//' POB QOB TOB UOB VOB')
           if(irt>0) write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
-          iprt=0; call openbf(20,'QUIET',iprt)
+          iprt=0
         enddo
       enddo
       call closbf(20)
@@ -187,7 +187,6 @@
       do while(ireadmg(20,subset,idate)==0)
         do while(ireadsb(20)==0)
           call ufbint(20,arr,10,255,irt,'notthere')
-          write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
           call openmb(50,subset,idate)
           call ufbint(50,arr,10,irt,jrt,'notthere')
           exit
