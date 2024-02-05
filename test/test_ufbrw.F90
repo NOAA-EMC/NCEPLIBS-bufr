@@ -110,7 +110,7 @@
           if(i==1) call openbf(20,'QUIET',iprt)
           call ufbint(20,arr,10,255,irt,cond//' POB QOB TOB UOB VOB')
           if(irt>0) write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
-          iprt=0
+          iprt=0; call openbf(20,'QUIET',iprt)
         enddo
       enddo
       call closbf(20)
@@ -174,6 +174,9 @@
       enddo
 
 ! try to read and write an element that doesn't exist
+
+      call closbf(20)
+      call closbf(50)
 
       open(20,file=file,form='unformatted')
       open(50,file='ufbrw_bufr_out',form='unformatted')
