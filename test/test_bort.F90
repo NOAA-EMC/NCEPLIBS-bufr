@@ -440,6 +440,26 @@ program test_bort
         call readmg(11, char_val_8, jdate, iret)
         call lstjpb(10000, 1, 'DRP')
      endif
+  elseif (sub_name .eq. 'msgwrt') then
+     filnam = 'testfiles/IN_2'
+     call cobfl_c( filnam, 'r' )
+     open(unit = 31, file = '/dev/null')
+     call openbf(31, 'INUL', 31)
+     call crbmg_c(bfmg, 200000, msgl, iret)
+     if (test_case .eq. '1') then
+        ibit = 64
+        call pkb(25, 24, ibfmg, ibit)
+     elseif (test_case .eq. '2') then
+        ibit = 256
+        call pkb(25, 24, ibfmg, ibit)
+     elseif (test_case .eq. '3') then
+        ! Make it look like there's a Section 2 in the message.
+        ibit = 120
+        call pkb(1, 1, ibfmg, ibit)
+        ibit = 256
+        call pkb(3, 24, ibfmg, ibit)
+     endif
+     call msgwrt(31, ibfmg, 19926)
   elseif (sub_name .eq. 'mtfnam') then
      if (test_case .eq. '1') then
         call mtinfo('../tables', 80, 81)
@@ -538,12 +558,18 @@ program test_bort
      if (test_case .eq. '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
-        call openbf(11, 'BBB', 11)
-        iret = nmsub(12)
+        iret = nmsub(11)
      elseif (test_case .eq. '2') then
-        open(unit = 11, file = 'tmp', form = 'UNFORMATTED', iostat = ios)
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
-        call openbf(11, 'OUT', 11)
+        open(unit = 12, file = 'testfiles/IN_7_bufrtab', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        iret = nmsub(11)
+     elseif (test_case .eq. '3') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
         iret = nmsub(11)
      endif
   elseif (sub_name .eq. 'nvnwin') then

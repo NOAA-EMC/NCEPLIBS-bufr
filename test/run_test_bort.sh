@@ -126,6 +126,11 @@ for kind in "4" "d"; do
     (./test_bort_$kind lstjpb 1) && exit 1
     (./test_bort_$kind lstjpb 2) && exit 1
 
+    # Check msgwrt().
+    (./test_bort_$kind msgwrt 1) && exit 1
+    (./test_bort_$kind msgwrt 2) && exit 1
+    (./test_bort_$kind msgwrt 3) && exit 1
+
     # Check mtfnam().
     (./test_bort_$kind mtfnam 1) && exit 1
     # For the next test, we need to temporarily create a dummy placeholder file
@@ -153,6 +158,7 @@ for kind in "4" "d"; do
     # Check nmsub().
     (./test_bort_$kind nmsub 1) && exit 1
     (./test_bort_$kind nmsub 2) && exit 1
+    (./test_bort_$kind nmsub 3) && exit 1
 
     # Check nvnwin().
     (./test_bort_$kind nvnwin 1) && exit 1
