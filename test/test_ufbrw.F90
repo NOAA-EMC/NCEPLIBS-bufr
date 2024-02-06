@@ -134,6 +134,7 @@
           write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
           call openmb(50,subset,idate)
           call ufbint(50,arr,10,irt,jrt,'POB QOB TOB UOB VOB')
+          call ufbint(50,arr,10,irt,jrt,'POB QOB TOB UOB VOB')
           call writsb(50)
         enddo
       enddo
