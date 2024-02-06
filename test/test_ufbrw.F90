@@ -183,15 +183,11 @@
 
       call openbf(20,'IN ',20)
       call openbf(50,'OUT',20)
-      
+
       do while(ireadmg(20,subset,idate)==0)
-        do while(ireadsb(20)==0)
-          call ufbint(20,arr,10,255,irt,'notthere')
-          call openmb(50,subset,idate)
-          call ufbint(50,arr,10,irt,jrt,'notthere')
+          call openmb(50,'ADPUPA',idate)
+          call ufbint(50,0.0_8,1,1,irt,'MSST')     
           exit
-        enddo
-      exit
       enddo
 
       call closbf(20)
