@@ -185,8 +185,9 @@
       call openbf(50,'OUT',20)
 
       do while(ireadmg(20,subset,idate)==0)
+          arr(1,1)=0.0
           call openmb(50,'ADPUPA',idate)
-          call ufbint(50,0.0_8,1,1,irt,'MSST')     
+          call ufbint(50,iarr,1,1,irt,'MSST')     
           exit
       enddo
 
