@@ -648,6 +648,21 @@ program test_bort
      elseif (test_case .eq. '2') then
         call pkb(1, 65, ibay, ibit)        
      endif
+  elseif (sub_name .eq. 'pkbs1') then
+     filnam = 'testfiles/IN_2'
+     call cobfl_c( filnam, 'r' )
+     call crbmg_c(bfmg, 200000, msgl, iret)
+     if (test_case .eq. '1') then
+        call pkbs1(88, ibfmg, 'DUMMY')
+     endif
+  elseif (sub_name .eq. 'pkvs01') then
+     if (test_case .eq. '1') then
+        if (isetprm('MXS01V',1) .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call pkvs01('OGCE', 88)
+        call pkvs01('OGCE', 84) ! test the overwrite logic too
+        call pkvs01('USN', 2)
+     endif
   elseif (sub_name .eq. 'posapx') then
      if (test_case .eq. '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
@@ -800,20 +815,35 @@ program test_bort
         call readerme(ibfmg, 31, char_val_8, jdate, iret)
      endif
   elseif (sub_name .eq. 'readlc') then
+     open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+     if (ios .ne. 0) stop 3
+     open(unit = 12, file = 'testfiles/IN_2_bufrtab', iostat = ios)
+     if (ios .ne. 0) stop 3
      if (test_case .eq. '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
-        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios .ne. 0) stop 3
-        call openbf(11, 'IN', 12)
+        call openbf(11, 'IN', 11)
         call readlc(12, char_val_8, char_val_8)
      elseif (test_case .eq. '2') then
-        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        open(unit = 13, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
-        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios .ne. 0) stop 3
-        call openbf(11, 'OUT', 12)
+        call openbf(13, 'OUT', 12)
+        call readlc(13, char_val_8, char_val_8)
+     elseif (test_case .eq. '3') then
+        call openbf(11, 'IN', 11)
         call readlc(11, char_val_8, char_val_8)
+     elseif (test_case .eq. '4') then
+        call openbf(11, 'IN', 12)
+        call readns(11, char_val_8, jdate, iret)
+        call readlc(11, char_val_8, 'YEAR MNTH')
+     elseif (test_case .eq. '5') then
+        call openbf(11, 'IN', 12)
+        call readns(11, char_val_8, jdate, iret)
+        call readlc(11, char_val_8, 'YEAR')
+     elseif (test_case .eq. '6') then
+        call openbf(11, 'IN', 12)
+        call readns(11, char_val_8, jdate, iret)
+        call readlc(11, char_1, 'BULTIM')
      endif
   elseif (sub_name .eq. 'readmg') then
      if (test_case .eq. '1') then

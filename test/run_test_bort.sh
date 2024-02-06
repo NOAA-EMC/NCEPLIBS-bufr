@@ -192,6 +192,12 @@ for kind in "4" "d"; do
     (./test_bort_$kind pkb8 1) && exit 1
     (./test_bort_$kind pkb8 2) && exit 1
 
+    # Check pkbs1().
+    (./test_bort_$kind pkbs1 1) && exit 1
+
+    # Check pkvs01().
+    (./test_bort_$kind pkvs01 1) && exit 1
+
     # Check posapx().
     (./test_bort_$kind posapx 1) && exit 1
     (./test_bort_$kind posapx 2) && exit 1
@@ -213,6 +219,10 @@ for kind in "4" "d"; do
     # Check readlc().
     (./test_bort_$kind readlc 1) && exit 1
     (./test_bort_$kind readlc 2) && exit 1
+    (./test_bort_$kind readlc 3) && exit 1
+    (./test_bort_$kind readlc 4) && exit 1
+    (./test_bort_$kind readlc 5) && exit 1
+    (./test_bort_$kind readlc 6) && exit 1
 
     # Check readmg().
     (./test_bort_$kind readmg 1) && exit 1
