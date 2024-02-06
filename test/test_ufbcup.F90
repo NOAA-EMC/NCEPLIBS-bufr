@@ -10,9 +10,9 @@ program test_ufbcup
   real*8 hdr(1, 1)
   real*8 EPSILON
   parameter(EPSILON = .01)
-  real*8 missing
   character*8 station
   equivalence(station, hdr(1, 1))
+  integer*4 ibfms
   
   print *, 'Testing ufbcup.'
 
@@ -61,8 +61,7 @@ program test_ufbcup
 
   ! Get the MISSING value.
   call ufbint(12, hdr, 1, 1, iret, 'NUL')
-  missing = hdr(1, 1)
-  if (abs(hdr(1, 1) - 100000000000.00000_8) > EPSILON) stop 32
+  if (ibfms(hdr(1, 1)) .ne. 1) stop 32
   
   ! Get and check more values.
   call ufbint(12, hdr, 1, 1, iret, 'XOB')
@@ -78,7 +77,7 @@ program test_ufbcup
   call ufbint(12, hdr, 1, 1, iret, 'T29')
   if (abs(hdr(1, 1) - 512.0) > EPSILON) stop 45
   call ufbint(12, hdr, 1, 1, iret, 'ITP')
-  if (abs(hdr(1, 1) - missing) > EPSILON) stop 46
+  if (ibfms(hdr(1, 1)) .ne. 1) stop 46
 
   ! Read a replication.
   call ufbrep(12, hdr, 1, 1, iret, '{PLEVL}')
