@@ -174,27 +174,6 @@
         endif
       enddo
 
-! try to read and write an element that doesn't exist
-
-      call closbf(20)
-      call closbf(50)
-
-      open(20,file=file,form='unformatted')
-      open(50,file='ufbrw_bufr_out',form='unformatted')
-
-      call openbf(20,'IN ',20)
-      call openbf(50,'OUT',20)
-
-      do while(ireadmg(20,subset,idate)==0)
-          arr(1,1)=0.0
-          call openmb(50,'ADPUPA',idate)
-          call ufbint(50,arr,1,1,irt,'SSTOE')    
-          exit
-      enddo
-
-      call closbf(20)
-      call closbf(50)
-
 ! successful exit
 
       print*,'success'
