@@ -53,11 +53,12 @@ C  -----------------------------
 
       IF(ISR.EQ.0) THEN
          CALL STATUS(LUNIT,LUN,IL,IM)
-         IF(JSR(LUN).NE.0)  GOTO 900
+         IF(JSR(LUN).NE.0) GOTO 900
          IF(IL.EQ.0) GOTO 901
       ELSEIF(ISR.EQ.1) THEN
+         IF(JUNN.EQ.0) GOTO 902
+         IF(JSR(JUNN).NE.1) GOTO 902
          LUN = JUNN
-         IF(JSR(JUNN).NE.1)  GOTO 902
       ELSE
          GOTO 903
       ENDIF

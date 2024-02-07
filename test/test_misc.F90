@@ -208,7 +208,20 @@ program test_misc
   ! we should now be at EOF, so confirm that another call to cpdxmm properly traps this EOF condition
   call cpdxmm(11)
   call openbf(11, 'QUIET', 0)
-  close (11)
+  call closbf(11)
+
+  ! Test readmg() on a file which contains DX table messages at the end of the file
+  open(unit = 11, file = 'testfiles/OUT_2_preAPX', iostat = ios)
+  call openbf(11, 'IN', 11)
+  ! skip ahead to the start of the DX table messages at the end of the file
+  do i = 1, 213
+    call readmg(11, subset, idate, iret)
+  enddo
+  call openbf(11, 'QUIET', 1)
+  ! read the next message which should be a DX message
+  call readmg(11, subset, idate, iret)
+  call openbf(11, 'QUIET', 0)
+  call closbf(11)
 
   ! Test print of warning statement in nvnwin()
   call openbf(11, 'QUIET', 1)

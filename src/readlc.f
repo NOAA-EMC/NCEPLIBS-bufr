@@ -138,7 +138,7 @@ C        The message is uncompressed
              ENDIF
            ENDIF
          ENDDO
-      ELSEIF(MSGUNP(LUN).EQ.2) THEN
+      ELSE
 
 C        The message is compressed
 
@@ -157,8 +157,6 @@ C        The message is compressed
              ENDIF
            ENDDO
          ENDIF
-      ELSE
-         GOTO 906
       ENDIF
 
 C     If we made it here, then we couldn't find the requested string.
@@ -196,8 +194,5 @@ C  -----
 905   WRITE(BORT_STR,'("BUFRLIB: READLC - MNEMONIC ",A," IS A '//
      . 'CHARACTER STRING OF LENGTH",I4," BUT SPACE WAS PROVIDED '//
      . 'FOR ONLY",I4, " CHARACTERS")') TGS(1),NCHR,LCHR
-      CALL BORT(BORT_STR)
-906   WRITE(BORT_STR,'("BUFRLIB: READLC - MESSAGE UNPACK TYPE",I3,'//
-     . '" IS NOT RECOGNIZED")') MSGUNP
       CALL BORT(BORT_STR)
       END
