@@ -33,12 +33,12 @@ program sinv
 
   ! get filename argument
 
-  narg=iargc()
+  narg=command_argument_count()
   if(narg<1) then
      write(*,*)'Usage: sinv <satbufrfile> will print inventory of satellites by platform and instrument'
      call exit(2)
   endif
-  call getarg(1,file)
+  call get_command_argument(1,file)
   file = trim(adjustl(file))
   inquire(file=file,exist=exist)
   if (.not.exist) call bort(trim(file)//' does not exist')
@@ -47,7 +47,7 @@ program sinv
 
   call openbf(lunbf,'FIRST',lunbf)  ! need to call openbf prior to calling mtinfo
   if(narg==2) then ! arg 2 would be a user defined table dir
-     call getarg(2,tbldir)
+     call get_command_argument(2,tbldir)
      call mtinfo(tbldir,3,4)
   else ! otherwise default table dir is used
      cmtdir = '@MASTER_TABLE_DIR_F@'

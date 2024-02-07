@@ -20,7 +20,7 @@ program gettab
 
 ! get the filename to open and read
 
-  call getarg(1,file); file=trim(adjustl(file))
+  call get_command_argument(1,file); file=trim(adjustl(file))
   if (file == '') then
     print *,'Usage: gettab <bufrfile> will print the internal BUFR table'
     call exit(2)

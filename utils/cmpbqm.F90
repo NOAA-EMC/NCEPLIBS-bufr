@@ -42,7 +42,7 @@ PROGRAM CMPBQM
   !  OPEN A FILE - GET A DATE
   !  ------------------------
 
-  call getarg(1,file); file=trim(adjustl(file))
+  call get_command_argument(1,file); file=trim(adjustl(file))
   if (file == '') then 
      print *, 'Usage: Usage: cmpbqm <prepbufrfile> will print prep inventory by variable, report type, and qc mark'
      call exit(2)

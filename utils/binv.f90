@@ -27,13 +27,13 @@ PROGRAM BINV
 
   !  get filename
 
-  NARG=IARGC()
-  IF(NARG/=1) THEN
-     PRINT *,'Usage: binv <bufrfile> will print bufrfile inventory by message type'
-     CALL EXIT(2)
-  ENDIF
+  narg=command_argument_count()
+  if(narg/=1) then
+     print *,'Usage: binv <bufrfile> will print bufrfile inventory by message type'
+     call exit(2)
+  endif
 
-  call getarg(1,file)
+  call get_command_argument(1,file)
   file = TRIM(file)//CHAR(0)
   inquire(file=file,exist=exist)
   if (.not.exist) then

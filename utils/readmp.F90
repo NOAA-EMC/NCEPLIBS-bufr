@@ -23,7 +23,7 @@
 
 ! get the filename to open and read
 
-  call getarg(1,file); file=trim(adjustl(file))
+  call get_command_argument(1,file); file=trim(adjustl(file))
   if (file == '') then
      print *, 'Usage: readmp <bufrfile> will print reports one at a time'
      call exit(2)
@@ -33,7 +33,7 @@
      print *,trim(file)//' does not exist'
      call exit(3)
   endif
-  call getarg(2,go); go=trim(adjustl(go)) ! this for testing !
+  call get_command_argument(2,go); go=trim(adjustl(go)) ! this for testing
   open(lunit,file=file,form='unformatted')
 
 ! open the file to bufr and dump the subsets to standard outout one at a time
