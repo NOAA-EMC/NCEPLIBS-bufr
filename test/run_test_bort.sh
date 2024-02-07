@@ -184,6 +184,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind parusr 3) && exit 1
     (./test_bort_$kind parusr 4) && exit 1
     (./test_bort_$kind parusr 5) && exit 1
+    (./test_bort_$kind parusr 6) && exit 1
 
     # Check pkb().
     (./test_bort_$kind pkb 1) && exit 1
@@ -201,6 +202,10 @@ for kind in "4" "d"; do
     # Check posapx().
     (./test_bort_$kind posapx 1) && exit 1
     (./test_bort_$kind posapx 2) && exit 1
+
+    # Check rdmgsb().
+    (./test_bort_$kind rdmgsb 1) && exit 1
+    (./test_bort_$kind rdmgsb 2) && exit 1
 
     # Check rdmtbb().
     (./test_bort_$kind rdmtbb 1) && exit 1
@@ -247,6 +252,13 @@ for kind in "4" "d"; do
     # Check readsb().
     (./test_bort_$kind readsb 1) && exit 1
     (./test_bort_$kind readsb 2) && exit 1
+
+    # Check rewnbf().
+    (./test_bort_$kind rewnbf 1) && exit 1
+    (./test_bort_$kind rewnbf 2) && exit 1
+    (./test_bort_$kind rewnbf 3) && exit 1
+    (./test_bort_$kind rewnbf 4) && exit 1
+    (./test_bort_$kind rewnbf 5) && exit 1
 
     # Check rtrcpt().
     (./test_bort_$kind rtrcpt 1) && exit 1

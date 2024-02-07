@@ -96,7 +96,7 @@ end module moda_bufrmg
 !> @author J. Ator @date 2014-12-10
 module moda_bufrsr
   !> File ID of BUFR file.
-  integer :: JUNN
+  integer :: JUNN = 0
   !> File status indicator of BUFR file.
   integer :: JILL
   !> Message status indicator of BUFR file.
