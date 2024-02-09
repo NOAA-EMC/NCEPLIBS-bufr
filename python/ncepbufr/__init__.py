@@ -271,6 +271,13 @@ class open:
                 bisect.insort_left(_funits,self.lundx)
             else:
                 raise IOError('error closing bufr table')
+
+    def cmpmsg(self, cmp):
+        """
+        compress the data in subsequent writes to the bufr file
+        """
+        return _bufrlib.cmpmsg(cmp)
+
     def advance(self):
         """
         advance to the next msg in the bufr file
