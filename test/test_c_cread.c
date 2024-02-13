@@ -15,8 +15,6 @@
 #define MSG_SIZE 14928 /* in bytes */
 #define MSG_SIZE_INT ( MSG_SIZE / sizeof(int) ) /* in ints */
 
-void arallocc_(void);
-
 int main()
 {
     int *msg, *msg2;

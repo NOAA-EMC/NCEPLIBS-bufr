@@ -42,6 +42,12 @@ program intest1
   call datelen(10)
 
   ! Specify the use of Section 3 decoding.
+  ! For this test we're going to use cobfl_c and crbmg_c to read a BUFR message from filnam, and then we're going to
+  ! call readerme to pass that message as input to the library, rather than having the library read directly from
+  ! a logical unit number via openbf.  However, we do still need to call openbf to specify that messages will be
+  ! decoded according to Section 3, and since we still need to call openbf, then we also need to pass in a logical
+  ! unit number associated with an actual file on the system, even though openbf will never actually try to read
+  ! anything from that file.  So /dev/null is a good choice here.
   open (unit = 11, file = '/dev/null')
   call openbf(11, 'SEC3', 11)
 
@@ -66,8 +72,10 @@ program intest1
   IF (nds3 .ne. 8 .or. cds3(1) .ne. '309052' .or. cds3(5) .ne. '002095') stop 7
 
   ! Pass the BUFR message from the memory array into the library.
+  call openbf(11, 'QUIET', 2)  ! Turn on some extra print statements for testing
   call readerme(ibfmg, 11, cmgtag, imgdt, ierme)
   if (ierme .ne. 0 .or. cmgtag .ne. 'MSTTB001') stop 8
+  call openbf(11, 'QUIET', 0)  ! Turn off extra print statements
 
   ! Get and check the element names and units associated with some
   ! Table B mnemonics.

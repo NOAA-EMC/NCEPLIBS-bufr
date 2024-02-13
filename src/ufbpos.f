@@ -41,10 +41,10 @@ C> @author J. Woollen @date 1995-11-22
 
       use bufrlib
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
+      use moda_msgcwd
+      use moda_bitbuf
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   SUBSET

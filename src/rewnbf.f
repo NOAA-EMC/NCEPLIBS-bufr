@@ -37,9 +37,9 @@ C> @author Woollen @date 2003-11-04
 
       use bufrlib
 
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODA_BUFRSR
+      use moda_msgcwd
+      use moda_bitbuf
+      use moda_bufrsr
 
       CHARACTER*128 BORT_STR
 
@@ -53,11 +53,12 @@ C  -----------------------------
 
       IF(ISR.EQ.0) THEN
          CALL STATUS(LUNIT,LUN,IL,IM)
-         IF(JSR(LUN).NE.0)  GOTO 900
+         IF(JSR(LUN).NE.0) GOTO 900
          IF(IL.EQ.0) GOTO 901
       ELSEIF(ISR.EQ.1) THEN
+         IF(JUNN.EQ.0) GOTO 902
+         IF(JSR(JUNN).NE.1) GOTO 902
          LUN = JUNN
-         IF(JSR(JUNN).NE.1)  GOTO 902
       ELSE
          GOTO 903
       ENDIF

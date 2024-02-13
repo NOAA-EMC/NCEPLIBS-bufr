@@ -30,9 +30,10 @@ C>
 C> @author J. Woollen @date 1994-01-06
       SUBROUTINE UFBRW(LUN,USR,I1,I2,IO,IRET)
 
-      USE MODV_BMISS
-      USE MODA_USRINT
-      USE MODA_TABLES
+      use modv_vars, only: bmiss
+
+      use moda_usrint
+      use moda_tables
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
       COMMON /QUIET / IPRT

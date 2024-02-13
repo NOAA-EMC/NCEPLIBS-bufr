@@ -62,7 +62,7 @@ program outtest4
 #endif
 
   ! Set some custom array sizes.
-  IF ( ( isetprm ( 'NFILES', 6 ) .ne. 0 ) .or. ( isetprm ( 'MXMSGL', 400000 ) .ne. 0 ) .or. &
+  if ( ( isetprm ( 'NFILES', 6 ) .ne. 0 ) .or. ( isetprm ( 'MXMSGL', 400000 ) .ne. 0 ) .or. &
       ( isetprm ( 'MAXSS', 250000 ) .ne. 0 ) .or. ( isetprm ( 'MAXMEM', 100000 ) .ne. 0 ) .or. &
       ( isetprm ( 'MAXMSG', 100 ) .ne. 0 ) .or. ( isetprm ( 'MXDXTS', 5 ) .ne. 0 ) .or. &
       ( isetprm ( 'MXCDV', 100 ) .ne. 0 ) .or. ( isetprm ( 'MXCSB', 100 ) .ne. 0 ) .or. &
@@ -230,15 +230,19 @@ program outtest4
 
   end do
 
+  errstr_len = 0
+  call openbf ( 13, 'QUIET', 2 )
   call writsa ( -13, mxbfmg, mgbf, lmgbf )
+  if ( index( errstr(1:errstr_len), 'MSGWRT: LUNIT =' ) .eq. 0 ) stop 18
+  call openbf ( 13, 'QUIET', -1 )
 
   ! Get Section 1 date.
   idate = igetdate(mgbf, mear, mmon, mday, mour)
-  if ( any((/idate,mear,mmon,mday,mour/).ne.(/20100111,20,10,1,11/)) ) stop 18
+  if ( any((/idate,mear,mmon,mday,mour/).ne.(/20100111,20,10,1,11/)) ) stop 19
 
   ! Get the tank receipt time.
   call rtrcptb ( mgbf, mear, mmon, mday, mour, mmin, iret )
-  if ( any((/iret,mear,mmon,mday,mour,mmin/).ne.(/0,2020,11,4,15,29/)) ) stop 19
+  if ( any((/iret,mear,mmon,mday,mour,mmin/).ne.(/0,2020,11,4,15,29/)) ) stop 20
 
   ! Close the output file.
   call closbf ( 13 )
@@ -248,6 +252,6 @@ program outtest4
   ilena = iupbs01(mgbf2, 'LENM')
   call atrcpt(mgbf, lmgbf, mgbf2)
   ilenb = iupbs01(mgbf2, 'LENM')
-  IF (ilenb-ilena .ne. 6) stop 20
+  if (ilenb-ilena .ne. 6) stop 21
 
 end program outtest4

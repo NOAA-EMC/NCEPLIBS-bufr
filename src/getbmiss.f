@@ -22,8 +22,7 @@ C>
 C> @author J. Woollen @date 2012-09-15
       RECURSIVE FUNCTION GETBMISS() RESULT(R8VAL)
 
-      USE MODV_IM8B
-      USE MODV_BMISS
+      use modv_vars, only: im8b, bmiss
 
       REAL*8 R8VAL
 
@@ -40,8 +39,6 @@ C     Check for I8 integers.
          IM8B=.TRUE.
          RETURN
       ENDIF
-
-      CALL OPENBF(0,'FIRST',0)
 
       R8VAL = BMISS
 

@@ -30,8 +30,9 @@ C> @author J. Ator @date 2014-10-02
 
         RECURSIVE SUBROUTINE NEMDEFS ( LUNIT, NEMO, CELEM, CUNIT, IRET )
 
-        USE MODA_TABABD
-        USE MODV_IM8B
+        use modv_vars, only: im8b
+
+        use moda_tababd
 
         CHARACTER*1   TAB
 

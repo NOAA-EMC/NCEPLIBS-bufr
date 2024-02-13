@@ -46,7 +46,7 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE GETWIN(NODE,LUN,IWIN,JWIN)
 
-      USE MODA_USRINT
+      use moda_usrint
 
       CHARACTER*128 BORT_STR
 

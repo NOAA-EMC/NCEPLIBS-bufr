@@ -28,7 +28,7 @@ C>
 C> @author J. Woollen @date 1994-01-06
       SUBROUTINE UPC(CHR,NCHR,IBAY,IBIT,CNVNULL)
 
-      COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
+      use modv_vars, only: nbytw, iordle, iordbe
 
       CHARACTER*(*) CHR
       CHARACTER*8   CVAL
@@ -40,7 +40,15 @@ C> @author J. Woollen @date 1994-01-06
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
-      LB = IORD(NBYTW)
+C     Set LB to point to the "low-order" (i.e. least significant) byte
+C     within a machine word.
+
+#ifdef BIG_ENDIAN
+      LB = IORDBE(NBYTW)
+#else
+      LB = IORDLE(NBYTW)
+#endif
+
       CVAL = ' '
 
       NUMCHR = MIN(NCHR,LEN(CHR))

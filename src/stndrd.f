@@ -29,12 +29,10 @@ C> @author J. Ator @date 2004-08-18
       RECURSIVE SUBROUTINE STNDRD(LUNIT,MSGIN,LMSGOT,MSGOT)
 
       use bufrlib
-      USE MODV_MAXNC
-      USE MODV_IM8B
+
+      use modv_vars, only: im8b, maxnc, nbytw
 
       DIMENSION ICD(MAXNC)
-
-      COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
 
       DIMENSION MSGIN(*),MSGOT(*)
 

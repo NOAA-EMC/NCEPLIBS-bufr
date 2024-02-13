@@ -63,31 +63,11 @@ C>
 C> @author J. Ator @date 2014-12-04
         INTEGER FUNCTION IGETPRM ( CPRMNM )
 
-        USE MODV_MAXSS
-        USE MODV_NFILES
-        USE MODV_MXMSGL
-        USE MODV_MXDXTS
-        USE MODV_MAXMSG
-        USE MODV_MAXMEM
-        USE MODV_MAXTBA
-        USE MODV_MAXTBB
-        USE MODV_MAXTBD
-        USE MODV_MAXJL
-        USE MODV_MXCDV
-        USE MODV_MXLCC
-        USE MODV_MXCSB
-        USE MODV_MXMTBB
-        USE MODV_MXMTBD
-        USE MODV_MXMTBF
-        USE MODV_MAXCD
-        USE MODV_MXS01V
-        USE MODV_MXBTM
-        USE MODV_MXBTMSE
-        USE MODV_MXTAMC
-        USE MODV_MXTCO
-        USE MODV_MXNRV
-        USE MODV_MXRST
-        USE MODV_MXH4WLC
+        use modv_vars, only: mxmsgl, maxss, nfiles, mxdxts, maxmsg,
+     .                       maxmem, maxtba, maxtbb, maxtbd, maxjl,
+     .                       mxcdv, mxlcc, mxcsb, mxmtbb, mxmtbd,
+     .                       mxmtbf, maxcd, mxs01v, mxbtm, mxbtmse,
+     .                       mxtamc, mxtco, mxnrv, mxrst, mxh4wlc
 
         CHARACTER*(*)   CPRMNM
         CHARACTER*64    ERRSTR

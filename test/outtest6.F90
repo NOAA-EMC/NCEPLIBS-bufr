@@ -40,6 +40,12 @@ program outtest6
   r8val = 16.
   call setvalnb ( 11, 'TMDB', 1, 'HOUR', -1, r8val, iersvb )
 
+  ! Try setting the value of the first occurrence of HOUR to NaN.
+  ! It should end up getting encoded as "missing" in the output.
+  r8val = -1
+  r8wind ( 1, 1 ) = sqrt( r8val )  ! r8wind(1,1) is now NaN
+  call ufbint ( 11, r8wind, 2, 1, nlv, 'HOUR' )
+
   r8dbss ( 1, 1 ) = 1.0
   r8dbss ( 2, 1 ) = 34.1
   r8dbss ( 3, 1 ) = 284.7

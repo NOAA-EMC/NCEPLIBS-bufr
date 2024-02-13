@@ -99,8 +99,18 @@ program outtest9
     do jj = 1, 4
       r8arr2(jj,2) = r8arr1(jj,1)
     end do
+    if ( ii .eq. 1 ) then  ! test some errwrt cases in ufbovr
+      call openbf (21, 'QUIET', 2 )
+      errstr_len = 0
+      call ufbovr (21, r8arr2, -4, 2, ier, 'PRWE TPHR PSW1 PSW2' )
+      if ( ( index( errstr(1:errstr_len), 'UFBOVR - 3rd ARG. (INPUT) IS .LE. 0' ) .eq. 0 ) ) stop 9
+      errstr_len = 0
+      call ufbovr (21, r8arr2, 4, -2, ier, 'PRWE TPHR PSW1 PSW2' )
+      if ( ( index( errstr(1:errstr_len), 'UFBOVR - 4th ARG. (INPUT) IS .LE. 0' ) .eq. 0 ) ) stop 10
+      call openbf (21, 'QUIET', 0 )
+    end if
     call ufbovr (21, r8arr2, 4, 2, ier, 'PRWE TPHR PSW1 PSW2' )
-    if ( ier .ne. 2 ) stop 9
+    if ( ier .ne. 2 ) stop 11
 
     ! Write the subset into the output message.
     if ( ii.lt.3 ) then
@@ -117,11 +127,11 @@ program outtest9
   errstr_len = 0
   call mrginv
   if ( ( index( errstr(1:errstr_len), 'NUMBER OF DRB EXPANSIONS  =        3' ) .eq. 0 ) .or. &
-       ( index( errstr(1:errstr_len), 'NUMBER OF MERGES          =       42' ) .eq. 0 ) ) stop 10
+       ( index( errstr(1:errstr_len), 'NUMBER OF MERGES          =       42' ) .eq. 0 ) ) stop 12
 
   ! Read the second data message from infile1, which includes a new preceding DX BUFR table.
   call readmg ( 11, cmgtag, imgdt, ier )
-  if ( ier .ne. 0 ) stop 11
+  if ( ier .ne. 0 ) stop 13
 
   ! Copy the new DX BUFR table to the output file.
   call wrdxtb (11, 21)
@@ -131,18 +141,18 @@ program outtest9
 
   ! Read the third data message from infile1.
   call readmg ( 11, cmgtag, imgdt, ier )
-  if ( ier .ne. 0 ) stop 12
+  if ( ier .ne. 0 ) stop 14
 
   ! Get a count of the number of data subsets in the message.
   jj = nmsub(11)
-  if ( jj .ne. 660 ) stop 13
+  if ( jj .ne. 660 ) stop 15
 
   ! Open a new BUFR message for output.
   call openmb ( 21, cmgtag, imgdt )
 
   ! Copy the third data message subset-by-subset into the output file.
   do ii = 1, jj 
-   if ( icopysb (11, 21) .ne. 0 ) stop 14
+   if ( icopysb (11, 21) .ne. 0 ) stop 16
   end do
 
   ! Close the output file.

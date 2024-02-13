@@ -62,9 +62,9 @@ C>
 C> @author J. Ator @date 2005-11-29
       RECURSIVE FUNCTION IUPVS01(LUNIT,S01MNEM) RESULT(IRET)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
-      USE MODA_BITBUF
+      use moda_bitbuf
 
       CHARACTER*(*)   S01MNEM
 

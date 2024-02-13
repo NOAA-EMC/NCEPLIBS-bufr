@@ -29,6 +29,9 @@ for kind in "4" "d"; do
     # Check bvers().
     (./test_bort_$kind bvers 1) && exit 1
 
+    # Check chekstab().
+    (./test_bort_$kind chekstab 1) && exit 1
+
     # Check closmg().
     (./test_bort_$kind closmg 1) && exit 1
     (./test_bort_$kind closmg 2) && exit 1
@@ -57,6 +60,15 @@ for kind in "4" "d"; do
     (./test_bort_$kind copysb 4) && exit 1
     (./test_bort_$kind copysb 5) && exit 1
     (./test_bort_$kind copysb 6) && exit 1
+
+    # Check cpdxmm().
+    (./test_bort_$kind cpdxmm 1) && exit 1
+
+    # Check cpymem().
+    (./test_bort_$kind cpymem 1) && exit 1
+    (./test_bort_$kind cpymem 2) && exit 1
+    (./test_bort_$kind cpymem 3) && exit 1
+    (./test_bort_$kind cpymem 4) && exit 1
     
     # Check datebf().
     (./test_bort_$kind datebf 1) && exit 1
@@ -64,6 +76,26 @@ for kind in "4" "d"; do
     # Check dumpbf().
     (./test_bort_$kind dumpbf 1) && exit 1
     
+    # Check dxdump().
+    (./test_bort_$kind dxdump 1) && exit 1
+
+    # Check elemdx().
+    (./test_bort_$kind elemdx 1) && exit 1
+    (./test_bort_$kind elemdx 2) && exit 1
+    (./test_bort_$kind elemdx 3) && exit 1
+    (./test_bort_$kind elemdx 4) && exit 1
+    (./test_bort_$kind elemdx 5) && exit 1
+
+    # Check getntbe().
+    (./test_bort_$kind getntbe 1) && exit 1
+
+    # Check gettbh().
+    (./test_bort_$kind gettbh 1) && exit 1
+    (./test_bort_$kind gettbh 2) && exit 1
+    (./test_bort_$kind gettbh 3) && exit 1
+    (./test_bort_$kind gettbh 4) && exit 1
+    (./test_bort_$kind gettbh 5) && exit 1
+
     # Check idn30().
     (./test_bort_$kind idn30 1) && exit 1
     (./test_bort_$kind idn30 2) && exit 1
@@ -77,6 +109,7 @@ for kind in "4" "d"; do
 
     # Check isize().
     (./test_bort_$kind isize 1) && exit 1
+    (./test_bort_$kind isize 2) && exit 1
     
     # Check iupm().
     (./test_bort_$kind iupm 1) && exit 1
@@ -86,6 +119,18 @@ for kind in "4" "d"; do
     (./test_bort_$kind iupvs01 2) && exit 1
     (./test_bort_$kind iupvs01 3) && exit 1
     
+    # Check jstnum().
+    (./test_bort_$kind jstnum 1) && exit 1
+
+    # Check lstjpb().
+    (./test_bort_$kind lstjpb 1) && exit 1
+    (./test_bort_$kind lstjpb 2) && exit 1
+
+    # Check msgwrt().
+    (./test_bort_$kind msgwrt 1) && exit 1
+    (./test_bort_$kind msgwrt 2) && exit 1
+    (./test_bort_$kind msgwrt 3) && exit 1
+
     # Check mtfnam().
     (./test_bort_$kind mtfnam 1) && exit 1
     # For the next test, we need to temporarily create a dummy placeholder file
@@ -96,13 +141,13 @@ for kind in "4" "d"; do
     # Check nemtba().
     (./test_bort_$kind nemtba 1) && exit 1
 
-    # Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384.
     # Check nemtbb().
-    #(./test_bort_$kind nemtbb 1) && exit 1
+    (./test_bort_$kind nemtbb 1) && exit 1
+    (./test_bort_$kind nemtbb 2) && exit 1
+    (./test_bort_$kind nemtbb 3) && exit 1
 
-    # Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384.
     # Check nemtbd().
-    #(./test_bort_$kind nemtbd 1) && exit 1
+    (./test_bort_$kind nemtbd 1) && exit 1
 
     # Check nenubd().
     (./test_bort_$kind nenubd 1) && exit 1
@@ -113,6 +158,10 @@ for kind in "4" "d"; do
     # Check nmsub().
     (./test_bort_$kind nmsub 1) && exit 1
     (./test_bort_$kind nmsub 2) && exit 1
+    (./test_bort_$kind nmsub 3) && exit 1
+
+    # Check nvnwin().
+    (./test_bort_$kind nvnwin 1) && exit 1
 
     # Check openbf().
     (./test_bort_$kind openbf 1) && exit 1
@@ -135,6 +184,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind parusr 3) && exit 1
     (./test_bort_$kind parusr 4) && exit 1
     (./test_bort_$kind parusr 5) && exit 1
+    (./test_bort_$kind parusr 6) && exit 1
 
     # Check pkb().
     (./test_bort_$kind pkb 1) && exit 1
@@ -143,9 +193,28 @@ for kind in "4" "d"; do
     (./test_bort_$kind pkb8 1) && exit 1
     (./test_bort_$kind pkb8 2) && exit 1
 
+    # Check pkbs1().
+    (./test_bort_$kind pkbs1 1) && exit 1
+
+    # Check pkvs01().
+    (./test_bort_$kind pkvs01 1) && exit 1
+
     # Check posapx().
     (./test_bort_$kind posapx 1) && exit 1
     (./test_bort_$kind posapx 2) && exit 1
+
+    # Check rdmgsb().
+    (./test_bort_$kind rdmgsb 1) && exit 1
+    (./test_bort_$kind rdmgsb 2) && exit 1
+
+    # Check rdmtbb().
+    (./test_bort_$kind rdmtbb 1) && exit 1
+
+    # Check rdmtbd().
+    (./test_bort_$kind rdmtbd 1) && exit 1
+
+    # Check rdmtbf().
+    (./test_bort_$kind rdmtbf 1) && exit 1
 
     # Check readerme().
     (./test_bort_$kind readerme 1) && exit 1
@@ -155,13 +224,17 @@ for kind in "4" "d"; do
     # Check readlc().
     (./test_bort_$kind readlc 1) && exit 1
     (./test_bort_$kind readlc 2) && exit 1
+    (./test_bort_$kind readlc 3) && exit 1
+    (./test_bort_$kind readlc 4) && exit 1
+    (./test_bort_$kind readlc 5) && exit 1
+    (./test_bort_$kind readlc 6) && exit 1
 
     # Check readmg().
     (./test_bort_$kind readmg 1) && exit 1
     (./test_bort_$kind readmg 2) && exit 1
 
-    # Check rdmemm().
-    (./test_bort_$kind rdmemm 1) && exit 1
+    # Check rdmems().
+    (./test_bort_$kind rdmems 1) && exit 1
 
     # Check rdusdx().
     (./test_bort_$kind rdusdx 1) && exit 1
@@ -179,6 +252,13 @@ for kind in "4" "d"; do
     # Check readsb().
     (./test_bort_$kind readsb 1) && exit 1
     (./test_bort_$kind readsb 2) && exit 1
+
+    # Check rewnbf().
+    (./test_bort_$kind rewnbf 1) && exit 1
+    (./test_bort_$kind rewnbf 2) && exit 1
+    (./test_bort_$kind rewnbf 3) && exit 1
+    (./test_bort_$kind rewnbf 4) && exit 1
+    (./test_bort_$kind rewnbf 5) && exit 1
 
     # Check rtrcpt().
     (./test_bort_$kind rtrcpt 1) && exit 1
@@ -206,8 +286,29 @@ for kind in "4" "d"; do
     (./test_bort_$kind status 1) && exit 1
     (./test_bort_$kind status 2) && exit 1
 
+    # Check sntbbe().
+    (./test_bort_$kind sntbbe 1) && exit 1
+    (./test_bort_$kind sntbbe 2) && exit 1
+    (./test_bort_$kind sntbbe 3) && exit 1
+    (./test_bort_$kind sntbbe 4) && exit 1
+    (./test_bort_$kind sntbbe 5) && exit 1
+    (./test_bort_$kind sntbbe 6) && exit 1
+
     # Check sntbde().
     (./test_bort_$kind sntbde 1) && exit 1
+    (./test_bort_$kind sntbde 2) && exit 1
+    (./test_bort_$kind sntbde 3) && exit 1
+    (./test_bort_$kind sntbde 4) && exit 1
+    (./test_bort_$kind sntbde 5) && exit 1
+
+    # Check sntbfe().
+    (./test_bort_$kind sntbfe 1) && exit 1
+    (./test_bort_$kind sntbfe 2) && exit 1
+    (./test_bort_$kind sntbfe 3) && exit 1
+    (./test_bort_$kind sntbfe 4) && exit 1
+    (./test_bort_$kind sntbfe 5) && exit 1
+    (./test_bort_$kind sntbfe 6) && exit 1
+    (./test_bort_$kind sntbfe 7) && exit 1
 
     # Check stdmsg().
     (./test_bort_$kind stdmsg 1) && exit 1
@@ -220,14 +321,35 @@ for kind in "4" "d"; do
     (./test_bort_$kind stndrd 5) && exit 1
     (./test_bort_$kind stndrd 6) && exit 1
 
+    # Check strtbfe().
+    (./test_bort_$kind strtbfe 1) && exit 1
+
+    # Check strbtm().
+    (./test_bort_$kind strbtm 1) && exit 1
+
     # Check strcpt().
     (./test_bort_$kind strcpt 1) && exit 1
 
-    # Commented out until https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/384
-    # is resolved.
     # Check string().
-    #./test_bort_$kind string 1
-    #[ $? != 1 ] &&  exit 1
+    (./test_bort_$kind string 1) && exit 1
+    (./test_bort_$kind string 2) && exit 1
+
+    # Check tabent().
+    (./test_bort_$kind tabent 1) && exit 1
+
+    # Check tabsub().
+    (./test_bort_$kind tabsub 1) && exit 1
+    (./test_bort_$kind tabsub 2) && exit 1
+    (./test_bort_$kind tabsub 3) && exit 1
+    (./test_bort_$kind tabsub 4) && exit 1
+    (./test_bort_$kind tabsub 5) && exit 1
+    (./test_bort_$kind tabsub 6) && exit 1
+    (./test_bort_$kind tabsub 7) && exit 1
+    (./test_bort_$kind tabsub 8) && exit 1
+    (./test_bort_$kind tabsub 9) && exit 1
+    (./test_bort_$kind tabsub 10) && exit 1
+    (./test_bort_$kind tabsub 11) && exit 1
+    (./test_bort_$kind tabsub 12) && exit 1
 
     # Check ufbcnt().
     (./test_bort_$kind ufbcnt 1) && exit 1
@@ -297,6 +419,7 @@ for kind in "4" "d"; do
     # Check ufbqcd().
     (./test_bort_$kind ufbqcd 1) && exit 1
     (./test_bort_$kind ufbqcd 2) && exit 1
+    (./test_bort_$kind ufbqcd 3) && exit 1
 
     # Check ufbqcp().
     (./test_bort_$kind ufbqcp 1) && exit 1
@@ -313,6 +436,10 @@ for kind in "4" "d"; do
     # Check ufbseq().
     (./test_bort_$kind ufbseq 1) && exit 1
     (./test_bort_$kind ufbseq 2) && exit 1
+    (./test_bort_$kind ufbseq 3) && exit 1
+    (./test_bort_$kind ufbseq 4) && exit 1
+    (./test_bort_$kind ufbseq 5) && exit 1
+    (./test_bort_$kind ufbseq 6) && exit 1
 
     # Check ufbstp().
     (./test_bort_$kind ufbstp 1) && exit 1
@@ -323,6 +450,9 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufdump 1) && exit 1
     (./test_bort_$kind ufdump 2) && exit 1
     (./test_bort_$kind ufdump 3) && exit 1
+
+    # Check upb8().
+    (./test_bort_$kind upb8 1) && exit 1
 
     # Check upftbv().
     (./test_bort_$kind upftbv 1) && exit 1

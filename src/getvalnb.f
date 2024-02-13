@@ -51,12 +51,11 @@ C> @author J. Ator @date 2012-09-12
      .          ( LUNIT, TAGPV, NTAGPV, TAGNB, NTAGNB )
      .          RESULT ( R8VAL )
 
-        USE MODV_BMISS
-        USE MODV_IM8B
+        use modv_vars, only: im8b, bmiss
 
-        USE MODA_USRINT
-        USE MODA_MSGCWD
-        USE MODA_TABLES
+        use moda_usrint
+        use moda_msgcwd
+        use moda_tables
 
         CHARACTER*(*) TAGPV, TAGNB
 

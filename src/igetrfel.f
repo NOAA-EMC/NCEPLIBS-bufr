@@ -21,11 +21,11 @@ C>
 C> @author J. Ator @date 2016-05-27
         INTEGER FUNCTION IGETRFEL ( N, LUN )
 
-        USE MODA_MSGCWD
-        USE MODA_USRINT
-        USE MODA_TABLES
-        USE MODA_BITMAPS
-        USE MODA_NRV203
+        use moda_msgcwd
+        use moda_usrint
+        use moda_tables
+        use moda_bitmaps
+        use moda_nrv203
 
         CHARACTER*128   BORT_STR
         CHARACTER*6     CFLWOPR,ADN30,FXY

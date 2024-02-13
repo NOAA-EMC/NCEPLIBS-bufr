@@ -38,8 +38,7 @@ C>
 C> @author J. Woollen @date 2012-09-15
       SUBROUTINE BLOCKS(MBAY,MWRD)
 
-      COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
-      COMMON /ENDORD/ IBLOCK,IORDBE(4),IORDLE(4)
+      use modv_vars, only: iblock, nbytw, iordle
 
       INTEGER*4 MBAY(MWRD),IINT,JINT
 
@@ -47,36 +46,13 @@ C> @author J. Woollen @date 2012-09-15
       EQUIVALENCE(CINT,IINT)
       EQUIVALENCE(DINT,JINT)
 
-      DATA IFIRST/0/
-      SAVE IFIRST
-
 c----------------------------------------------------------------------
 c----------------------------------------------------------------------
 
       if(iblock.eq.0) return
 
-      if(ifirst.eq.0) then
-
-c        Initialize some arrays for later use.  Note that Fortran
-c        record control words are always 4 bytes.
-
-         iint=0; cint(1)=char(1)
-         do i=1,4
-         if(cint(1).eq.char(01)) then
-            iordbe(i)=4-i+1
-            iordle(i)=i
-         else
-            iordle(i)=4-i+1
-            iordbe(i)=i
-         endif
-         enddo
-         ifirst=1
-      endif
-
 c  make room in mbay for control words - one at each end of the record
 c  -------------------------------------------------------------------
-
-      if(nbytw.eq.8) mwrd=mwrd*2
 
       do m=mwrd,1,-1
       mbay(m+1) = mbay(m)
@@ -87,9 +63,20 @@ c  -------------------------------------------------------
 
       iint=mwrd*4
 
-      do i=1,4
-      if(iblock.eq.+1) dint(i)=cint(iordbe(i))
-      if(iblock.eq.-1) dint(i)=cint(iordle(i))
+      do i=1,nbytw
+        if(iblock.eq.-1) then
+#ifdef BIG_ENDIAN
+          dint(i)=cint(iordle(i))
+#else
+          dint(i)=cint(i)
+#endif
+        elseif(iblock.eq.1) then
+#ifdef LITTLE_ENDIAN
+          dint(i)=cint(iordle(i))
+#else
+          dint(i)=cint(i)
+#endif
+        endif
       enddo
 
 c  increment mrwd and install the control words in their proper places
@@ -98,8 +85,6 @@ c  -------------------------------------------------------------------
       mwrd = mwrd+2
       mbay(1) = jint
       mbay(mwrd) = jint
-
-      if(nbytw.eq.8) mwrd=mwrd/2
 
       return
       end

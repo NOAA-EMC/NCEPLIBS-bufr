@@ -3,7 +3,37 @@
 ! Reads test file 'testfiles/IN_9' using UFBIN3 to read prepfits file.
 !
 ! J. Ator, 3/1/2023
+
+module Share_errstr_intest9
+  ! This module is needed in order to share information between the test program and subroutine errwrt, because
+  ! the latter is not called by the former but rather is called directly from within the NCEPLIBS-bufr software.
+
+  character*1500 errstr
+
+  integer errstr_len
+end module Share_errstr_intest9
+
+subroutine errwrt(str)
+  ! This subroutine supersedes the subroutine of the same name within the NCEPLIBS-bufr software, so that we can
+  ! easily test the generation of error messages from within the library.
+
+  use Share_errstr_intest9
+
+  character*(*) str
+
+  integer str_len
+
+  str_len = len(str)
+  errstr ( errstr_len + 1 : errstr_len + str_len + 1 ) = str
+  errstr_len = errstr_len + str_len
+
+  return
+end subroutine errwrt
+
 program intest9
+
+  use Share_errstr_intest9
+
   implicit none
 
   integer*4 ireadmg, ireadsb
@@ -65,6 +95,17 @@ program intest9
        ( nint(r8vals(1,1,1)*10) /= 7818 ) .or. ( nint(r8vals(2,1,1)*10) /= 180 ) .or. &
        ( nint(r8vals(1,7,1)*10) /= 5491 ) .or. ( nint(r8vals(3,7,1)*10) /= -67 ) .or. &
        ( nint(r8vals(2,8,1)*10) /= 353 ) .or. ( nint(r8vals(3,8,1)*10) /= -69 ) ) stop 11
+
+  ! Test some errwrt cases in ufbin3
+  errstr_len = 0
+  call ufbin3 ( 11, r8vals, (-1)*mxr8pm, mxr8lv, mxr8en, iret, jret, 'POB QOB UOB CAPE VENT' )
+  if ( ( index( errstr(1:errstr_len), 'UFBIN3 - 3rd ARG. (INPUT) IS .LE. 0' ) .eq. 0 ) ) stop 12
+  errstr_len = 0
+  call ufbin3 ( 11, r8vals, mxr8pm, (-1)*mxr8lv, mxr8en, iret, jret, 'POB QOB UOB CAPE VENT' )
+  if ( ( index( errstr(1:errstr_len), 'UFBIN3 - 4th ARG. (INPUT) IS .LE. 0' ) .eq. 0 ) ) stop 13
+  errstr_len = 0
+  call ufbin3 ( 11, r8vals, mxr8pm, mxr8lv, (-1)*mxr8en, iret, jret, 'POB QOB UOB CAPE VENT' )
+  if ( ( index( errstr(1:errstr_len), 'UFBIN3 - 5th ARG. (INPUT) IS .LE. 0' ) .eq. 0 ) ) stop 14
 
   print *, 'SUCCESS!'
 end program intest9

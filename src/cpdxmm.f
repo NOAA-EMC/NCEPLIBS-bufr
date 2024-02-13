@@ -12,10 +12,10 @@ C> @author J. Ator @date 2009-03-23
 
         use bufrlib
 
-        USE MODV_MXDXTS
+        use modv_vars, only: mxdxts
 
-        USE MODA_MGWA
-        USE MODA_MSGMEM
+        use moda_mgwa
+        use moda_msgmem
 
         COMMON /QUIET/  IPRT
 

@@ -37,7 +37,7 @@ C>
 C> @author J. Ator @date 2009-03-23
       RECURSIVE SUBROUTINE MTINFO ( CMTDIR, LUNMT1, LUNMT2 )
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
       COMMON /MSTINF/ LUN1, LUN2, LMTD, MTDIR
 

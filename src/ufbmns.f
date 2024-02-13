@@ -30,9 +30,9 @@ C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBMNS(IREP,SUBSET,IDATE)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
-      USE MODA_MSGMEM
+      use moda_msgmem
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   SUBSET

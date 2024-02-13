@@ -27,10 +27,10 @@ C>
 C> @author Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBOVR(LUNIT,USR,I1,I2,IRET,STR)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
-      USE MODA_USRINT
-      USE MODA_MSGCWD
+      use moda_usrint
+      use moda_msgcwd
 
       COMMON /QUIET / IPRT
 

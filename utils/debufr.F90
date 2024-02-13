@@ -392,7 +392,7 @@ subroutine openbt ( lundx, mtyp )
   implicit none
 
   character*11 bftab
-  character*520 bftabfil
+  character*275 bftabfil
 
   integer, intent(in) :: mtyp
   integer, intent(out) :: lundx

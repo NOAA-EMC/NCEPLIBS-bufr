@@ -18,7 +18,7 @@
 !>
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine strnum( str, num, iret )
-  use modv_im8b
+  use modv_vars, only: im8b
 
   implicit none
 

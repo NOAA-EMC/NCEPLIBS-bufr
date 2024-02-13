@@ -12,40 +12,40 @@ C> @author J. Ator @date 2014-12-04
 
         use bufrlib
 
-        USE MODA_USRINT
-        USE MODA_USRBIT
-        USE MODA_IVAL
-        USE MODA_MSGCWD
-        USE MODA_STBFR
-        USE MODA_UFBCPL
-        USE MODA_SC3BFR
-        USE MODA_UNPTYP
-        USE MODA_LUSHR
-        USE MODA_NULBFR
-        USE MODA_STCODE
-        USE MODA_IDRDM
-        USE MODA_XTAB
-        USE MODA_MSGLIM
-        USE MODA_BITBUF
-        USE MODA_MGWA
-        USE MODA_MGWB
-        USE MODA_BUFRMG
-        USE MODA_BUFRSR
-        USE MODA_MSGMEM
-        USE MODA_TABABD
-        USE MODA_TABLES
-        USE MODA_USRTMP
-        USE MODA_IVTTMP
-        USE MODA_COMPRX
-        USE MODA_COMPRS
-        USE MODA_MSTABS
-        USE MODA_RDMTB
-        USE MODA_NMIKRP
-        USE MODA_S01CM
-        USE MODA_BITMAPS
-        USE MODA_NRV203
-        USE MODA_RLCCMN
-        USE MODA_H4WLC
+        use moda_usrint
+        use moda_usrbit
+        use moda_ival
+        use moda_msgcwd
+        use moda_stbfr
+        use moda_ufbcpl
+        use moda_sc3bfr
+        use moda_unptyp
+        use moda_lushr
+        use moda_nulbfr
+        use moda_stcode
+        use moda_idrdm
+        use moda_xtab
+        use moda_msglim
+        use moda_bitbuf
+        use moda_mgwa
+        use moda_mgwb
+        use moda_bufrmg
+        use moda_bufrsr
+        use moda_msgmem
+        use moda_tababd
+        use moda_tables
+        use moda_usrtmp
+        use moda_ivttmp
+        use moda_comprx
+        use moda_comprs
+        use moda_mstabs
+        use moda_rdmtb
+        use moda_nmikrp
+        use moda_s01cm
+        use moda_bitmaps
+        use moda_nrv203
+        use moda_rlccmn
+        use moda_h4wlc
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

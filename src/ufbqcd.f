@@ -28,7 +28,7 @@ C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBQCD(LUNIT,NEMO,IQCD)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
       CHARACTER*(*) NEMO
       CHARACTER*128 BORT_STR
@@ -60,7 +60,7 @@ C  ---------------------
 
       FXY = ADN30(IDN,6)
       IF(FXY(2:3).NE.'63') GOTO 902
-      READ(FXY(4:6),'(I3)',ERR=903) IQCD
+      READ(FXY(4:6),'(I3)') IQCD
 
 C  EXITS
 C  -----
@@ -74,9 +74,5 @@ C  -----
 902   WRITE(BORT_STR,'("BUFRLIB: UFBQCD - BUFR TABLE SEQ. DESCRIPTOR '//
      . 'ASSOC. WITH INPUT MNEMONIC ",A," HAS INVALID CATEGORY ",A," -'//
      . ' CATEGORY MUST BE 63")') NEMO,FXY(2:3)
-      CALL BORT(BORT_STR)
-903   WRITE(BORT_STR,'("BUFRLIB: UFBQCD - ERROR READING ENTRY '//
-     . '(PROGRAM CODE) FROM BUFR TBL SEQ. DESCRIPTOR ",A," ASSOC. '//
-     . 'WITH INPUT MNEM. ",A)') FXY,NEMO
       CALL BORT(BORT_STR)
       END

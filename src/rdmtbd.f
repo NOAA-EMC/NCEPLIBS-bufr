@@ -73,11 +73,6 @@ C> @author J. Ator @date 2007-01-19
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C       Call WRDLEN to initialize some important information about the
-C       local machine, just in case it hasn't already been called.
-
-        CALL WRDLEN
-
 C       Read and parse the header lines of both files.
 
         CALL GETTBH ( LUNSTD, LUNLTD, 'D', IMT, IMTV, IOGCE, ILTV )
@@ -109,7 +104,7 @@ C       contents into a unified set of master Table D arrays.
      .                    NMTBD, IMFXYN, CMMNEM, CMDSC, CMSEQ,
      .                    NMELEM, IEFXYN, CEELEM )
             CALL GETNTBE ( LUNSTD, ISFXYN, STLINE, IERS )
-          ELSE IF ( IERL .EQ. 0 ) THEN
+          ELSE
             CALL SNTBDE ( LUNLTD, ILFXYN, LTLINE, MXMTBD, MXELEM,
      .                    NMTBD, IMFXYN, CMMNEM, CMDSC, CMSEQ,
      .                    NMELEM, IEFXYN, CEELEM )

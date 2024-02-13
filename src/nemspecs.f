@@ -45,11 +45,12 @@ C> @author J. Ator @date 2014-10-02
         RECURSIVE SUBROUTINE NEMSPECS
      .          ( LUNIT, NEMO, NNEMO, NSCL, NREF, NBTS, IRET )
 
-        USE MODA_USRINT
-        USE MODA_MSGCWD
-        USE MODA_TABLES
-        USE MODA_NRV203
-        USE MODV_IM8B
+        use modv_vars, only: im8b
+
+        use moda_usrint
+        use moda_msgcwd
+        use moda_tables
+        use moda_nrv203
 
         CHARACTER*10  TAGN
 

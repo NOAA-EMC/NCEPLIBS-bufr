@@ -262,15 +262,6 @@ void pktdd_f(int id, int lun, int idn, int *iret);
 void bort_f(char *errstr);
 
 /**
- * Determine important information about the local machine.
- *
- * Wraps wrdlen() subroutine.
- *
- * @author J. Ator @date 2023-04-07
- */
-void wrdlen_f(void);
-
-/**
  * Decode an integer value from an integer array.
  *
  * Wraps iupb() function.

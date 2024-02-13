@@ -126,12 +126,11 @@ C> @authors J. Woollen @authors J. Ator @date 2000-09-19
 
       RECURSIVE SUBROUTINE UFBSEQ(LUNIN,USR,I1,I2,IRET,STR)
 
-      USE MODV_BMISS
-      USE MODV_IM8B
+      use modv_vars, only: im8b, bmiss
 
-      USE MODA_USRINT
-      USE MODA_MSGCWD
-      USE MODA_TABLES
+      use moda_usrint
+      use moda_msgcwd
+      use moda_tables
 
       PARAMETER (MTAG=10)
 
@@ -221,8 +220,6 @@ C  ------------------------------------------------------
       CALL PARSTR(STR,TAGS,MTAG,NTAG,' ',.TRUE.)
       IF(NTAG.LT.1) GOTO 902
       IF(NTAG.GT.1) GOTO 903
-      IF(I1.LE.0) GOTO 904
-      IF(I2.LE.0) GOTO 905
       IF(INODE(LUN).NE.INV(1,LUN)) GOTO 906
 
 
@@ -386,14 +383,6 @@ C  -----
 903   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - THERE CANNOT BE MORE THAN '//
      . 'ONE MNEMONIC IN THE INPUT STRING (",A,") (HERE THERE ARE ",I3'//
      . ',")")') STR,NTAG
-      CALL BORT(BORT_STR)
-904   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - THIRD ARGUMENT (INPUT) MUST'//
-     . ' BE .GT. ZERO (HERE IT IS",I4,") - INPUT MNEMONIC IS ",A)')
-     . I1,TAGS(1)
-      CALL BORT(BORT_STR)
-905   WRITE(BORT_STR,'("BUFRLIB: UFBSEQ - FOURTH ARGUMENT (INPUT) '//
-     . 'MUST BE .GT. ZERO (HERE IT IS",I4,") - INPUT MNEMONIC IS ",A)')
-     . I2,TAGS(1)
       CALL BORT(BORT_STR)
 906   CALL BORT('BUFRLIB: UFBSEQ - LOCATION OF INTERNAL TABLE FOR '//
      . 'BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN INTERNAL '//

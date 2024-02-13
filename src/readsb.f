@@ -30,12 +30,13 @@ C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE READSB(LUNIT,IRET)
 
-      USE MODA_MSGCWD
-      USE MODA_UNPTYP
-      USE MODA_BITBUF
-      USE MODA_BITMAPS
+      use modv_vars, only: im8b
+
+      use moda_msgcwd
+      use moda_unptyp
+      use moda_bitbuf
+      use moda_bitmaps
       use moda_stcode
-      USE MODV_IM8B
 
       CHARACTER*128 BORT_STR
 

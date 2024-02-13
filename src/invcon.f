@@ -30,7 +30,7 @@ C>
 C> @author Woollen @date 1994-01-06
       FUNCTION INVCON(NC,LUN,INV1,INV2)
 
-      USE MODA_USRINT
+      use moda_usrint
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
       COMMON /QUIET / IPRT

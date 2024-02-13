@@ -34,10 +34,9 @@ C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE STATUS(LUNIT,LUN,IL,IM)
 
-      USE MODV_NFILES
-      USE MODV_IM8B
+      use modv_vars, only: im8b, nfiles
 
-      USE MODA_STBFR
+      use moda_stbfr
 
       CHARACTER*128 BORT_STR, ERRSTR
 

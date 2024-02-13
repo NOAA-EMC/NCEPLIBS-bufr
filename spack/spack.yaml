@@ -1,0 +1,16 @@
+# This is a Spack Environment file the Spack.yml CI.
+#
+# It describes a set of packages to be installed, along with
+# configuration settings.
+spack:
+  specs: [bufr@develop]
+  view: false
+  concretizer:
+    unify: true
+
+  packages:
+    py-numpy:
+      externals:
+      - spec: py-numpy@1.21.5
+        prefix: /usr
+      buildable: false

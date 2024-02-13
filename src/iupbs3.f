@@ -27,7 +27,7 @@ C> @author J. Ator @date 2009-03-23
 
         RECURSIVE FUNCTION IUPBS3(MBAY,S3MNEM) RESULT(IRET)
 
-        USE MODV_IM8B
+        use modv_vars, only: im8b
 
         DIMENSION       MBAY(*)
 
@@ -46,12 +46,6 @@ C       Check for I8 integers.
            IM8B=.TRUE.
            RETURN
         ENDIF
-
-C       Call subroutine WRDLEN to initialize some important information
-C       about the local machine, just in case subroutine OPENBF hasn't
-C       been called yet.
-
-        CALL WRDLEN
 
 C       Skip to the beginning of Section 3.
 

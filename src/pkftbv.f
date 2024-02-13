@@ -25,8 +25,7 @@ C>
 C> @author J. Ator @date 2005-11-29
       RECURSIVE FUNCTION PKFTBV(NBITS,IBIT) RESULT(R8VAL)
 
-      USE MODV_BMISS
-      USE MODV_IM8B
+      use modv_vars, only: im8b, bmiss
 
       REAL*8 R8VAL
 

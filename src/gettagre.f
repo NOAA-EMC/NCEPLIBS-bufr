@@ -37,10 +37,11 @@ C> @author J. Ator @date 2016-06-07
         RECURSIVE SUBROUTINE GETTAGRE
      .          ( LUNIT, TAGI, NTAGI, TAGRE, NTAGRE, IRET )
 
-        USE MODA_USRINT
-        USE MODA_MSGCWD
-        USE MODA_TABLES
-        USE MODV_IM8B
+        use modv_vars, only: im8b
+
+        use moda_usrint
+        use moda_msgcwd
+        use moda_tables
 
         CHARACTER*(*) TAGI, TAGRE
 

@@ -21,7 +21,7 @@ C> @author J. Woollen @date 1994-01-06
 
       FUNCTION ADN30(IDN,L30)
 
-      COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
+      use modv_vars, only: nbitw
 
       CHARACTER*(*) ADN30
       CHARACTER*128 BORT_STR

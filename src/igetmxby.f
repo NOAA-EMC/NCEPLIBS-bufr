@@ -16,9 +16,9 @@ C>
 C> @author J. Ator @date 2016-06-27
       RECURSIVE FUNCTION IGETMXBY() RESULT(IRET)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
-      USE MODA_BITBUF
+      use moda_bitbuf
 
 c-----------------------------------------------------------------------
 c-----------------------------------------------------------------------
@@ -33,8 +33,6 @@ C     CHECK FOR I8 INTEGERS.
           IM8B=.TRUE.
           RETURN
       ENDIF
-
-      CALL OPENBF(0,'FIRST',0)
 
       IRET = MAXBYT
 

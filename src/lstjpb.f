@@ -28,8 +28,8 @@ C>
 C> @author Woollen @date 1994-01-06
       FUNCTION LSTJPB(NODE,LUN,JBTYP)
 
-      USE MODA_MSGCWD
-      USE MODA_TABLES
+      use moda_msgcwd
+      use moda_tables
 
       CHARACTER*(*) JBTYP
       CHARACTER*128 BORT_STR
@@ -57,11 +57,11 @@ C  -----
 
       RETURN
 900   WRITE(BORT_STR,'("BUFRLIB: LSTJPB - TABLE NODE (",I7,") IS OUT '//
-     . 'OF BOUNDS, < LOWER BOUNDS (",I7,"); TAG IS ",A10)')
-     . NODE,INODE(LUN),TAG(NODE)
+     . 'OF BOUNDS, < LOWER BOUNDS (",I7,")")')
+     . NODE,INODE(LUN)
       CALL BORT(BORT_STR)
 901   WRITE(BORT_STR,'("BUFRLIB: LSTJPB - TABLE NODE (",I7,") IS OUT '//
-     . 'OF BOUNDS, > UPPER BOUNDS (",I7,"); TAG IS ",A10)')
-     . NODE,ISC(INODE(LUN)),TAG(NODE)
+     . 'OF BOUNDS, > UPPER BOUNDS (",I7,")")')
+     . NODE,ISC(INODE(LUN))
       CALL BORT(BORT_STR)
       END

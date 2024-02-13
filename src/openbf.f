@@ -124,16 +124,14 @@ C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06
 
       use bufrlib
 
-      USE MODV_IFOPBF
-      USE MODV_NFILES
-      USE MODV_IM8B
+      use modv_vars, only: im8b, ifopbf, nfiles
 
-      USE MODA_MSGCWD
-      USE MODA_STBFR
-      USE MODA_SC3BFR
-      USE MODA_LUSHR
-      USE MODA_NULBFR
-      USE MODA_STCODE
+      use moda_msgcwd
+      use moda_stbfr
+      use moda_sc3bfr
+      use moda_lushr
+      use moda_nulbfr
+      use moda_stcode
 
       COMMON /QUIET / IPRT
 
@@ -191,15 +189,12 @@ c  .... override previous IPRT value (printout indicator)
       IF(IFOPBF.EQ.0) THEN
 
 C        This is the first call to this subroutine, so take care of some
-C        initial housekeeping tasks.  Note that ARALLOCF, ARALLOCC_C, and
-C        WRDLEN must all be called prior to calling BFRINI.
+C        initial housekeeping tasks.  Note that ARALLOCF and ARALLOCC_C
+C        must be called before calling BFRINI.
 
 C        Allocate any arrays which are being dynamically sized.
          CALL ARALLOCF
          CALL ARALLOCC_C
-
-C        Figure out some important information about the local machine.
-         CALL WRDLEN
 
 C        Initialize some global variables.
          CALL BFRINI
@@ -207,8 +202,7 @@ C        Initialize some global variables.
          IFOPBF = 1
       ENDIF
 
-      IF(IO.EQ.'FIRST') GOTO 100
-      IF(IO.EQ.'QUIET') GOTO 100
+      IF( (IO.EQ.'FIRST') .OR. (IO.EQ.'QUIET') ) RETURN
 
 C  SEE IF A FILE CAN BE OPENED
 C  ---------------------------
@@ -283,32 +277,10 @@ C  ----------------------------------------------------
          GOTO 904
       ENDIF
 
-      GOTO 100
-
-C     FILE OPENED FOR INPUT IS EMPTY - LET READMG OR READERME GIVE
-C     THE BAD NEWS LATER
-
-      REWIND LUNIT
-      IF(IPRT.GE.0) THEN
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      WRITE ( UNIT=ERRSTR, FMT='(A,I3,A)' )
-     .  'BUFRLIB: OPENBF - INPUT BUFR FILE IN UNIT ', LUNIT,
-     .  ' IS EMPTY'
-      CALL ERRWRT(ERRSTR)
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      CALL ERRWRT(' ')
-      ENDIF
-      CALL WTSTAT(LUNIT,LUN,-1,0)
-
-C  INITIALIZE THE DICTIONARY TABLE PARTITION
-C  -----------------------------------------
-
-      CALL DXINIT(LUN,0)
-
 C  EXITS
 C  -----
 
-100   RETURN
+      RETURN
 900   WRITE(BORT_STR,'("BUFRLIB: OPENBF - THERE ARE ALREADY",I3,'//
      . '" BUFR FILES OPENED, CANNOT OPEN FILE CONNECTED TO UNIT",I4)')
      . NFILES,LUNIT

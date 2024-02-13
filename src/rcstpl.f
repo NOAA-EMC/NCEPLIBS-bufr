@@ -5,7 +5,7 @@ C> @author Woollen @date 1994-01-06
 
 C> Initialize space in internal subset arrays
 C> in modules @ref moda_usrint and @ref moda_usrbit, according
-C> to the subset definition from subroutine maksetab(). This is in
+C> to the subset definition from subroutine makestab(). This is in
 C> preparation for the actual unpacking of the subset in rdtree().
 C>
 C> @param[in] LUN - integer: file ID
@@ -16,16 +16,14 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE RCSTPL(LUN,IRET)
 
-      USE MODV_BMISS
-      USE MODV_MAXJL
-      USE MODV_MAXSS
+      use modv_vars, only: bmiss, maxjl, maxss
 
-      USE MODA_USRINT
-      USE MODA_USRBIT
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODA_TABLES
-      USE MODA_USRTMP
+      use moda_usrint
+      use moda_usrbit
+      use moda_msgcwd
+      use moda_bitbuf
+      use moda_tables
+      use moda_usrtmp
 
       COMMON /QUIET / IPRT
 

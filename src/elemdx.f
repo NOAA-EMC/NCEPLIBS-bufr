@@ -18,7 +18,7 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE ELEMDX(CARD,LUN)
 
-      USE MODA_TABABD
+      use moda_tababd
 
       CHARACTER*128 BORT_STR1,BORT_STR2
       CHARACTER*80  CARD

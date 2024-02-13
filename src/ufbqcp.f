@@ -22,7 +22,7 @@ C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBQCP(LUNIT,IQCP,NEMO)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
       CHARACTER*(*) NEMO
       CHARACTER*1   TAB

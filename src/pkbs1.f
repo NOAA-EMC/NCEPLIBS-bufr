@@ -49,7 +49,7 @@ C>
 C> @authors J. Ator, D. Keyser @date 2005-11-29
         RECURSIVE SUBROUTINE PKBS1(IVAL,MBAY,S1MNEM)
 
-        USE MODV_IM8B
+        use modv_vars, only: im8b
 
         DIMENSION       MBAY(*)
 
@@ -71,9 +71,6 @@ C       Check for I8 integers.
             IM8B = .TRUE.
             RETURN
         END IF
-
-C       Note that the following call to function IUPBS01 will ensure
-C       that subroutine WRDLEN has been called.
 
         IBEN = IUPBS01(MBAY,'BEN')
 

@@ -29,6 +29,14 @@ program test_misc
   integer igetprm, isetprm
   integer imrkopr
   character*7 prms(13)
+  character*4 char_4(1), char_4_2(2)
+  character*8 char_8(1), char_8_2(2)
+  character*12 char_12(1)
+  character*24 char_24(1)
+  character*120 char_120(1), char_120_2(2), char_120_2d(2,5)
+  character*80 card
+  integer int_1d(1), int_1d_2(2), int_1d_3(2), int_2d(2,5)
+  integer imt, imtv, iogce, iltv
 #endif
 
   print *, 'Testing misc subroutines, ignore warnings.'
@@ -85,20 +93,6 @@ program test_misc
   call gets1loc('NONEXISTENT', 3, isbyt, iwid, iret)
   if ( iret .ne. -1 ) stop 16
   
-  ! Open for OUT.
-  ! This fails but I don't know why yet. I get a bort() message that contains:
-  ! BUFRLIB: RDUSDX
-  ! THIS CARD HAS A BAD FORMAT - IT IS NOT RECOGNIZED BY THIS SUBROUTINE
-  ! open(unit = 11, file = 'test_misc.bufr', form = 'UNFORMATTED', iostat = ios)
-  ! if (ios .ne. 0) stop 11
-  ! open(unit = 12, file = 'testfiles/IN_1', iostat = ios)
-  ! if (ios .ne. 0) stop 12
-  ! call openbf(11, 'OUT', 12)
-  ! call status(11, lun, il, im)
-  ! print *, lun, il, im
-  ! if (lun .ne. 1 .or. il .ne. -1 .or. im .ne. 0) stop 13
-  ! call closbf(11)
-
   ! Testing strnum
   call strnum('8DUMMY8',num,iret)
   if (iret .ne. -1) stop 400
@@ -191,6 +185,7 @@ program test_misc
   if (igetprm('MXMSGL') .ne. 600000) stop 633
   if (igetprm('MAXJL') .ne. 96000) stop 634
   if (igetprm('MXH4WLC') .ne. 10) stop 635
+  call closbf(11)
 
   ! Test imrkopr().
   if (imrkopr('nn') .ne. 0) stop 700
@@ -199,6 +194,39 @@ program test_misc
   if (imrkopr('225255') .ne. 1) stop 703
   if (imrkopr('232255') .ne. 1) stop 704
   if (imrkopr('123456') .ne. 0) stop 705
+
+  ! Test cpdxmm() on a file which contains DX table messages at the end of the file
+  open(unit = 11, file = 'testfiles/OUT_2_preAPX', iostat = ios)
+  call openbf(11, 'IN', 11)
+  ! skip ahead to the start of the DX table messages at the end of the file
+  do i = 1, 213
+    call readmg(11, subset, idate, iret)
+  enddo
+  call openbf(11, 'QUIET', 2)
+  ! read all of the DX messages up to the end of the file and print the count
+  call cpdxmm(11)
+  ! we should now be at EOF, so confirm that another call to cpdxmm properly traps this EOF condition
+  call cpdxmm(11)
+  call openbf(11, 'QUIET', 0)
+  call closbf(11)
+
+  ! Test readmg() on a file which contains DX table messages at the end of the file
+  open(unit = 11, file = 'testfiles/OUT_2_preAPX', iostat = ios)
+  call openbf(11, 'IN', 11)
+  ! skip ahead to the start of the DX table messages at the end of the file
+  do i = 1, 213
+    call readmg(11, subset, idate, iret)
+  enddo
+  call openbf(11, 'QUIET', 1)
+  ! read the next message which should be a DX message
+  call readmg(11, subset, idate, iret)
+  call openbf(11, 'QUIET', 0)
+  call closbf(11)
+
+  ! Test print of warning statement in nvnwin()
+  call openbf(11, 'QUIET', 1)
+  call nvnwin(0, 1, 1, 1, mbay, 2)
+  call openbf(11, 'QUIET', 0)
 
   ! Test various parameters for isetprm().
   prms = (/ 'MAXTBA ', 'MAXTBB ', 'MAXTBD ', 'MXMTBB ', 'MXMTBD ', 'MAXJL  ', &
@@ -210,6 +238,103 @@ program test_misc
       stop 800
     endif
   enddo
+
+  ! Test rdmtbb()
+  open(unit = 11, file = 'testfiles/test_misc_rdmtb_std', iostat = ios)
+  if (ios .ne. 0) stop 3
+  open(unit = 12, file = 'testfiles/test_misc_rdmtb_loc', iostat = ios)
+  if (ios .ne. 0) stop 3
+  card = 'Table B STD |  0 | 38                                                           '
+  write (11,'(A)') card
+  card = ' 0-01-001 |  0 |     0 |   7 | Numeric   | WMOB   ; ; WMO block number          '
+  write (11,'(A)') card
+  close (11)
+  open(unit = 11, file = 'testfiles/test_misc_rdmtb_std', iostat = ios)
+  if (ios .ne. 0) stop 3
+  card = 'Table B LOC |  0 | 7 |  1                                                       '
+  write (12,'(A)') card
+  close (12)
+  open(unit = 12, file = 'testfiles/test_misc_rdmtb_loc', iostat = ios)
+  if (ios .ne. 0) stop 3
+  call rdmtbb(11, 12, 1, imt, imtv, iogce, iltv, iret, &
+              int_1d, char_4, char_12, char_4, char_24, char_8, char_4, char_120)
+  if ( iret .ne. 1 ) stop 801
+  close (11)
+  close (12)
+
+  ! Test rdmtbd()
+  open(unit = 11, file = 'testfiles/test_misc_rdmtb_std', iostat = ios)
+  if (ios .ne. 0) stop 3
+  open(unit = 12, file = 'testfiles/test_misc_rdmtb_loc', iostat = ios)
+  if (ios .ne. 0) stop 3
+  card = 'Table D STD |  0 | 38                                                           '
+  write (11,'(A)') card
+  card = '   3-01-058 | UNTFROLD   ;     ; Universal lightning event                      '
+  write (11,'(A)') card
+  card = '         | 3-01-011 > | Year, month, day                                        '
+  write (11,'(A)') card
+  card = '         | 3-01-012 > | Hour, minute                                            '
+  write (11,'(A)') card
+  card = '         | 0-20-118 > | Lightning detection error                               '
+  write (11,'(A)') card
+  card = '         | 0-20-119 > | Lightning discharge polarity                            '
+  write (11,'(A)') card
+  card = '         | 0-25-035   | Decision method for polarity                            '
+  write (11,'(A)') card
+  close (11)
+  open(unit = 11, file = 'testfiles/test_misc_rdmtb_std', iostat = ios)
+  if (ios .ne. 0) stop 3
+  card = 'Table D LOC |  0 | 7 |  1                                                       '
+  write (12,'(A)') card
+  card = '   3-01-055 | LOWRESSQ   ;     ; Low-resolution data sequence                   '
+  write (12,'(A)') card
+  card = '         | 3-01-025 > | Latitude/longitude (coarse accuracy), day/time          '
+  write (12,'(A)') card
+  card = '         | 0-02-121 > | Mean frequency                                          '
+  write (12,'(A)') card
+  card = '         | 0-20-023   | Other weather phenomena                                 '
+  write (12,'(A)') card
+  close (12)
+  open(unit = 12, file = 'testfiles/test_misc_rdmtb_loc', iostat = ios)
+  if (ios .ne. 0) stop 3
+  call rdmtbd(11, 12, 2, 5, imt, imtv, iogce, iltv, iret, &
+              int_1d_2, char_8_2, char_4_2, char_120_2, int_1d_3, int_2d, char_120_2d)
+  if ( iret .ne. 2 ) stop 802
+  close (11)
+  close (12)
+
+  ! Test rdmtbf()
+  open(unit = 11, file = 'testfiles/test_misc_rdmtb_std', iostat = ios)
+  if (ios .ne. 0) stop 3
+  open(unit = 12, file = 'testfiles/test_misc_rdmtb_loc', iostat = ios)
+  if (ios .ne. 0) stop 3
+  card = 'Table F STD |  0 | 38                                                           '
+  write (11,'(A)') card
+  card = '   0-02-002 | TIWM ; FLAG                                                       '
+  write (11,'(A)') card
+  card = '              | 1 > | Certified Instruments                                     '
+  write (11,'(A)') card
+  card = '              | 2 > | Originally measured in knots                              '
+  write (11,'(A)') card
+  card = '              | 3   | Originally measured in km h**-1                           '
+  write (11,'(A)') card
+  close (11)
+  open(unit = 11, file = 'testfiles/test_misc_rdmtb_std', iostat = ios)
+  if (ios .ne. 0) stop 3
+  card = 'Table F LOC |  0 | 7 |  1                                                       '
+  write (12,'(A)') card
+  close (12)
+  open(unit = 12, file = 'testfiles/test_misc_rdmtb_loc', iostat = ios)
+  if (ios .ne. 0) stop 3
+  call rdmtbf(11, 12)
+  close (11)
+  close (12)
+
+  ! Test sntbbe()
+  card = '  0-00-007 |   0 |           0 |  16                                            '
+  iret = 0
+  call sntbbe(0, card, 1, iret, int_1d, char_4, char_12, char_4, char_24, char_8, char_4, char_120)
+  if ( char_24(1) .ne. ' ' ) stop 803
   
 #endif
 

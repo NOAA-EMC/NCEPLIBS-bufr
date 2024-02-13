@@ -19,14 +19,12 @@ C>                          of IBAY which contains the encoded NVAL.
 C>
 C> @remarks
 C> - This subroutine is the logical inverse of subroutine upb().
-C> - This subroutine will not work properly if NBITS is greater than
-C>   the number of bits in an integer, as determined via
-C>   an internal call to subroutine wrdlen().
+C> - This subroutine will not work properly if NBITS is greater than 32.
 C>
 C> @author J. Woollen @date 1994-01-06
       SUBROUTINE PKB(NVAL,NBITS,IBAY,IBIT)
 
-      COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
+      use modv_vars, only: nbitw
 
       DIMENSION IBAY(*)
 

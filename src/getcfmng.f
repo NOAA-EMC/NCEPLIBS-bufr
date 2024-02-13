@@ -105,8 +105,9 @@ C> @author J. Ator @date 2018-01-11
 
         use bufrlib
 
-        USE MODA_TABABD
-        USE MODV_IM8B
+        use modv_vars, only: im8b
+
+        use moda_tababd
 
         COMMON /TABLEF/ CDMF
 

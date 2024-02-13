@@ -33,7 +33,7 @@ C>
 C> @author Woollen @date 1994-01-06
       FUNCTION IREV(N)
 
-      COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
+      use modv_vars, only: nbytw, iordle
 
       CHARACTER*8 CINT,DINT
       EQUIVALENCE(CINT,INT)
@@ -47,7 +47,7 @@ C----------------------------------------------------------------------
 #else
       INT = N
       DO I=1,NBYTW
-        DINT(I:I) = CINT(IORD(I):IORD(I))
+        DINT(I:I) = CINT(IORDLE(I):IORDLE(I))
       ENDDO
       IREV = JNT
 #endif

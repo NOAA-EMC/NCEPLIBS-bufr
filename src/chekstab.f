@@ -14,8 +14,8 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE CHEKSTAB(LUN)
 
-      USE MODA_TABABD
-      USE MODA_NMIKRP
+      use moda_tababd
+      use moda_nmikrp
 
       CHARACTER*128 BORT_STR
       CHARACTER*24  UNIT

@@ -25,8 +25,6 @@ C>
 C> @author J. Woollen @date 2022-05-06
       subroutine up8(nval,nbits,ibay,ibit)
 
-      common /hrdwrd/ nbytw,nbitw,iord(8)
-
       integer(8) :: nval
       integer(4) :: nbits,ibit,ibay(*)
 

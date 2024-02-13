@@ -37,9 +37,10 @@ C>
 C> @author J. Ator @date 2004-08-18
       RECURSIVE SUBROUTINE DXDUMP(LUNIT,LDXOT)
 
-      USE MODA_TABABD
-      USE MODA_NMIKRP
-      USE MODV_IM8B
+      use modv_vars, only: im8b
+
+      use moda_tababd
+      use moda_nmikrp
 
       COMMON /REPTAB/ IDNR(5,2),TYPS(5,2),REPS(5,2),LENS(5)
 

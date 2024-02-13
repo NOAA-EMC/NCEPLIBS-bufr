@@ -50,12 +50,12 @@ C>
 C> @authors J. Woollen, J. Ator, D. Keyser @date 1994-01-06
       RECURSIVE SUBROUTINE UFBDMP(LUNIN,LUPRT)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
-      USE MODA_USRINT
-      USE MODA_MSGCWD
-      USE MODA_TABABD
-      USE MODA_TABLES
+      use moda_usrint
+      use moda_msgcwd
+      use moda_tababd
+      use moda_tables
 
       CHARACTER*120 LCHR2
       CHARACTER*20 LCHR,PMISS

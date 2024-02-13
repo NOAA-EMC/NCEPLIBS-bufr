@@ -38,13 +38,13 @@ C> @author J. Woollen @date 1994-01-06
 
       use bufrlib
 
-      USE MODV_MXMSGL
+      use modv_vars, only: mxmsgld4
 
-      USE MODA_NULBFR
-      USE MODA_BUFRMG
-      USE MODA_MGWA
-      USE MODA_MGWB
-      USE MODA_S01CM
+      use moda_nulbfr
+      use moda_bufrmg
+      use moda_mgwa
+      use moda_mgwb
+      use moda_s01cm
 
       COMMON /QUIET / IPRT
       COMMON /MSGSTD/ CSMF

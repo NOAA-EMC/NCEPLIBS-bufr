@@ -36,7 +36,7 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE TRYBUMP(LUN,USR,I1,I2,IO,IRET)
 
-      USE MODA_USRINT
+      use moda_usrint
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
 

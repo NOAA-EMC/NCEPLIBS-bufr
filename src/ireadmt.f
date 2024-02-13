@@ -33,15 +33,12 @@ C> @author J. Ator @date 2009-03-23
 
         use bufrlib
 
-        USE MODV_MAXNC
-        USE MODV_MAXCD
-        USE MODV_MXMTBB
-        USE MODV_MXMTBD
+        use modv_vars, only: maxnc, maxcd, mxmtbb, mxmtbd
 
-        USE MODA_MSTABS
-        USE MODA_BITBUF
-        USE MODA_RDMTB
-        USE MODA_SC3BFR
+        use moda_mstabs
+        use moda_bitbuf
+        use moda_rdmtb
+        use moda_sc3bfr
 
         COMMON /QUIET/  IPRT
         COMMON /MSTINF/ LUN1, LUN2, LMTD, MTDIR
@@ -49,9 +46,9 @@ C> @author J. Ator @date 2009-03-23
 
         CHARACTER*1     CDMF
         CHARACTER*6     CDS3(MAXNC)
-        CHARACTER*100   MTDIR
+        CHARACTER*240   MTDIR
         CHARACTER*128   BORT_STR
-        CHARACTER*132   STDFIL,LOCFIL
+        CHARACTER*275   STDFIL,LOCFIL
         LOGICAL         ALLSTD
 
 C*      Initializing the following value ensures that new master tables

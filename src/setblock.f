@@ -49,9 +49,7 @@ C>
 C> @author J. Woollen @date 2012-09-15
       RECURSIVE SUBROUTINE SETBLOCK(IBLK)
 
-      USE MODV_IM8B
-
-      COMMON /ENDORD/ IBLOCK,IORDBE(4),IORDLE(4)
+      use modv_vars, only: im8b, iblock
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -68,7 +66,6 @@ C     Check for I8 integers.
          RETURN
       ENDIF
 
-      CALL OPENBF(0,'FIRST',0)
       IBLOCK=IBLK
 
       RETURN

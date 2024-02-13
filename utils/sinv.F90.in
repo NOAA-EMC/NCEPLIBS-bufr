@@ -13,16 +13,15 @@ program sinv
   parameter (maxa=16000000)
   parameter (maxs=1000)
 
-  CHARACTER(255) FILE,tbldir
-  CHARACTER(240) cmtdir
-  CHARACTER(8)   SUBSET
-  CHARACTER      ci*16,cj*80
-  DIMENSION      isat(0:maxs,0:maxs)
+  character(255) file
+  character(240) cmtdir,tbldir
+  character(8)   subset
+  character      ci*16,cj*80
+  dimension      isat(0:maxs,0:maxs)
   real(8)        said(maxa),siid(maxa)
   logical        exist
 
-  DATA BMISS  /10E10/
-  DATA LUNBF  /20/
+  data lunbf  /20/
 
   !-----------------------------------------------------------------------
   !-----------------------------------------------------------------------
@@ -34,21 +33,25 @@ program sinv
 
   ! get filename argument
 
-  NARG=IARGC()
-  IF(NARG<1) THEN
+  narg=command_argument_count()
+  if(narg<1) then
      write(*,*)'Usage: sinv <satbufrfile> will print inventory of satellites by platform and instrument'
-     CALL EXIT(2)
-  ENDIF
-  call getarg(1,file)
-  file = TRIM(adjustl(file))
+     call exit(2)
+  endif
+  call get_command_argument(1,file)
+  file = trim(adjustl(file))
   inquire(file=file,exist=exist)
   if (.not.exist) call bort(trim(file)//' does not exist')
 
   ! define master table directory
 
-  call openbf(lunbf,'FIRST',lunbf)  ! need to call openbf prior to calling mtinfo
-  IF(NARG==2) THEN ! arg 2 would be a user defined table dir
-     call getarg(2,tbldir)
+  ! Before calling mtinfo, make an initial call to openbf so that bfrini is called internally.
+  ! Otherwise, if we wait until later to make the initial call to openbf, then the internal call
+  ! to bfrini will end up overwriting the master table directory that we pass in during either
+  ! of the following calls to mtinfo.
+  call openbf(lunbf,'FIRST',lunbf)
+  if(narg==2) then ! arg 2 would be a user defined table dir
+     call get_command_argument(2,tbldir)
      call mtinfo(tbldir,3,4)
   else ! otherwise default table dir is used
      cmtdir = '@MASTER_TABLE_DIR_F@'
@@ -64,7 +67,7 @@ program sinv
   ! need to open the bufrfile with the satellites of interest
 
   open(lunbf,file=file,form='unformatted')
-  CALL OPENBF(LUNBF,'IN',LUNBF)
+  call openbf(lunbf,'IN',lunbf)
   call readmg(lunbf,subset,idate,iret)
   call codflg('Y')
 

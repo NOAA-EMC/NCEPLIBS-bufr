@@ -31,8 +31,8 @@ program split_by_subset
 
   !> get input filename from stdin
 
-  if(iargc()==1) then
-     call getarg(1, finput)
+  if(command_argument_count()==1) then
+     call get_command_argument(1, finput)
      inquire(file=trim(adjustl(finput)), exist=file_exists)
      if (file_exists) then
         open(lunit, file=trim(adjustl(finput)), form='unformatted')

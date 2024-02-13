@@ -37,7 +37,7 @@ C>
 C> @author J. Woollen @date 2003-11-04
       FUNCTION NEVN(NODE,LUN,INV1,INV2,I1,I2,I3,USR)
 
-      USE MODA_USRINT
+      use moda_usrint
 
       CHARACTER*128 BORT_STR
       DIMENSION     USR(I1,I2,I3)

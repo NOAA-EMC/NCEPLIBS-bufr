@@ -22,7 +22,7 @@ C>
 C> @author J. Woollen @date 2002-05-14
       SUBROUTINE NUMTBD(LUN,IDN,NEMO,TAB,IRET)
 
-      USE MODA_TABABD
+      use moda_tababd
 
       CHARACTER*(*) NEMO
       CHARACTER*1   TAB

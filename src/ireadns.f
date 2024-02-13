@@ -27,7 +27,7 @@ C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE FUNCTION IREADNS(LUNIT,SUBSET,IDATE) RESULT(IRET)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
       CHARACTER*8 SUBSET
 

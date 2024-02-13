@@ -14,24 +14,19 @@
 !> @authors J. Woollen J. Ator @date 1994-01-06
 subroutine bfrini
 
-USE MODV_MAXJL
-USE MODV_MAXTBA
-USE MODV_MAXTBB
-USE MODV_MAXTBD
-USE MODV_MXMSGL
-USE MODV_NFILES
+use modv_vars, only: maxjl, maxtba, maxtbb, maxtbd, mxmsgl, nfiles
 
-USE MODA_STBFR
-USE MODA_IDRDM
-USE MODA_MSGLIM
-USE MODA_BITBUF
-USE MODA_BUFRMG
-USE MODA_BUFRSR
-USE MODA_TABABD
-USE MODA_USRINT
-USE MODA_TABLES
-USE MODA_H4WLC
-USE MODA_DSCACH
+use moda_stbfr
+use moda_idrdm
+use moda_msglim
+use moda_bitbuf
+use moda_bufrmg
+use moda_bufrsr
+use moda_tababd
+use moda_usrint
+use moda_tables
+use moda_h4wlc
+use moda_dscach
 
 COMMON /MAXCMP/ MAXCMB,MAXROW,MAXCOL,NCMSGS,NCSUBS,NCBYTS
 COMMON /PADESC/ IBCT,IPD1,IPD2,IPD3,IPD4
@@ -45,7 +40,6 @@ COMMON /MSGSTD/ CSMF
 COMMON /MSGCMP/ CCMF
 COMMON /TABLEF/ CDMF
 COMMON /TNKRCP/ ITRYR,ITRMO,ITRDY,ITRHR,ITRMI,CTRT
-COMMON /ENDORD/ IBLOCK,IORDBE(4),IORDLE(4)
 
 character*240 CMTDIR
 character*56  DXSTR
@@ -88,23 +82,15 @@ data NLD30 /   5 ,   6 , 8*0 /
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
 
-!  Initialize /ENDORD/ to control output blocking -1=LE 0=NONE +1=BE
-!  -----------------------------------------------------------------
+!  Initialize module moda_bitbuf
 
-IBLOCK = 0
+maxbyt = min(10000,mxmsgl)
 
-!  Initialize module BITBUF
-!  ------------------------
+!  Initialize module moda_h4wlc
 
-MAXBYT = min(10000,MXMSGL)
-
-!  Initialize module H4WLC
-!  -----------------------
-
-NH4WLC = 0
+nh4wlc = 0
 
 !  Initialize /MAXCMP/
-!  -------------------
 
 MAXCMB = MAXBYT
 MAXROW = 0
@@ -114,7 +100,6 @@ NCSUBS = 0
 NCBYTS = 0
 
 !  Initialize /PADESC/
-!  -------------------
 
 IBCT = ifxy('063000')
 IPD1 = ifxy('102000')
@@ -122,37 +107,32 @@ IPD2 = ifxy('031001')
 IPD3 = ifxy('206001')
 IPD4 = ifxy('063255')
 
-!  Initialize module STBFR
-!  -----------------------
+!  Initialize module moda_stbfr
 
-do I=1,NFILES
-  IOLUN(I) = 0
-  IOMSG(I) = 0
+do i=1,nfiles
+  iolun(i) = 0
+  iomsg(i) = 0
 enddo
 
-!  Initialize module IDRDM
-!  -----------------------
+!  Initialize module moda_idrdm
 
-do I=1,NFILES
-  IDRDM(I) = 0
+do i=1,nfiles
+  idrdm(i) = 0
 enddo
 
-!  Initialize module MSGLIM
-!  ------------------------
+!  Initialize module moda_msglim
 
-do I=1,NFILES
-  MSGLIM(I) = 3
+do i=1,nfiles
+  msglim(i) = 3
 enddo
 
-!  Initialize module USRINT
-!  ------------------------
+!  Initialize module moda_usrint
 
-do I=1,NFILES
-  NVAL(I) = 0
+do i=1,nfiles
+  nval(i) = 0
 enddo
 
 !  Initialize /REPTAB/
-!  -------------------
 
 do I=1,5
   LENS(I) = LENX(I)
@@ -163,25 +143,18 @@ do I=1,5
   enddo
 enddo
 
-!  Initialize TABABD (internal arrays holding dictionary table)
-!  ------------------------------------------------------------
+!  Initialize module moda_tababd
 
-!    NTBA(0) is the maximum number of entries w/i internal BUFR table A
-
-NTBA(0) = MAXTBA
-
-!    NTBB(0) is the maximum number of entries w/i internal BUFR Table B
-
-NTBB(0) = MAXTBB
-
-!    NTBD(0) is the maximum number of entries w/i internal BUFR Table D
-
-NTBD(0) = MAXTBD
+!    ntba(0) is the maximum number of entries within internal BUFR table A
+ntba(0) = maxtba
+!    ntbb(0) is the maximum number of entries within internal BUFR Table B
+ntbb(0) = maxtbb
+!    ntbd(0) is the maximum number of entries within internal BUFR Table D
+ntbd(0) = maxtbd
 
 !  Initialize /DXTAB/
-!  ------------------
 
-MAXDX = MAXBYT
+MAXDX = maxbyt
 !  .... IDXV is the version number of the local tables
 IDXV  = 1
 
@@ -198,20 +171,17 @@ do J=1,10
   enddo
 enddo
 
-!  Initialize module TABLES
-!  ------------------------
+!  Initialize module moda_tables
 
-MAXTAB = MAXJL
+maxtab = maxjl
 
-!  Initialize module BUFRMG
-!  ------------------------
+!  Initialize module moda_bufrmg
 
-do I=1,NFILES
-  MSGLEN(I) = 0
+do i=1,nfiles
+  msglen(i) = 0
 enddo
 
 !  Initialize /MRGCOM/
-!  -------------------
 
 NRPL = 0
 NMRG = 0
@@ -219,49 +189,40 @@ NAMB = 0
 NTOT = 0
 
 !  Initialize /DATELN/
-!  -------------------
 
 if(LENDAT.ne.10) LENDAT = 8
 
 !  Initialize /ACMODE/
-!  -------------------
 
 IAC = 0
 
-!  Initialize module BUFRSR
-!  ------------------------
+!  Initialize module moda_bufrsr
 
-do I=1,NFILES
-  JSR(I) = 0
+do i=1,nfiles
+  jsr(i) = 0
 enddo
 
-!  Initialize /DSCACH/
-!  -------------------
+!  Initialize module moda_dscach
 
-NCNEM = 0
+ncnem = 0
 
 !  Initialize /MSGSTD/
-!  -------------------
 
 CSMF = 'N'
 
 !  Initialize /MSGCMP/
-!  -------------------
 
 CCMF = 'N'
 
 !  Initialize /TABLEF/
-!  -------------------
 
 CDMF = 'N'
 
 !  Initialize /TNKRCP/
-!  -------------------
 
 CTRT = 'N'
 
 !  Initialize /MSTINF/
-!  -------------------
 
 CMTDIR = &
 '@MASTER_TABLE_DIR_F@'

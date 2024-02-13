@@ -13,14 +13,13 @@ C>
 C> @author Woollen @date 2000-09-19
       SUBROUTINE RDCMPS(LUN)
 
-      USE MODV_BMISS
-      USE MODV_MXRST
+      use modv_vars, only: bmiss, mxrst
 
-      USE MODA_USRINT
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODA_TABLES
-      USE MODA_RLCCMN
+      use moda_usrint
+      use moda_msgcwd
+      use moda_bitbuf
+      use moda_tables
+      use moda_rlccmn
       use moda_stcode
 
       CHARACTER*128 BORT_STR
@@ -82,10 +81,19 @@ C     omitted from the message.
 
 C        This is a numeric element.
 
-         CALL UP8(LREF,NBIT,MBAY(1,LUN),IBIT)
-         CALL UPB(LINC,   6,MBAY(1,LUN),IBIT)
-         JBIT = IBIT + LINC*(NSBS-1)
-         CALL UP8(NINC,LINC,MBAY(1,LUN),JBIT)
+         if(nbit<=32) then
+            CALL UPB(LRE4,NBIT,MBAY(1,LUN),IBIT)
+            CALL UPB(LINC,   6,MBAY(1,LUN),IBIT)
+            JBIT = IBIT + LINC*(NSBS-1)
+            CALL UPB(NIN4,LINC,MBAY(1,LUN),JBIT)
+            LREF=LRE4; NINC=NIN4
+         elseif(nbit<=64) then
+            CALL UP8(LREF,NBIT,MBAY(1,LUN),IBIT)
+            CALL UPB(LINC,   6,MBAY(1,LUN),IBIT)
+            JBIT = IBIT + LINC*(NSBS-1)
+            CALL UP8(NINC,LINC,MBAY(1,LUN),JBIT)
+         endif
+
          IF(NINC.EQ.LPS(LINC)) THEN
             IVAL = LPS(NBIT)
          ELSE

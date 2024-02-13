@@ -55,7 +55,7 @@
 
 !  check for filename argument
 
-      narg=iargc()
+      narg=command_argument_count()
 1     if(narg<1) THEN
         call printx('                                                                                                        ')
         call printx('Usage: readbp <-s> <-w> <m> <-k> <-r> <-d> <-n> <-h>  prep bufrfile                                     ')
@@ -82,22 +82,22 @@
 
       iarg=1
       do while(iarg<=narg)
-      call getarg(iarg,file)
+      call get_command_argument(iarg,file)
       if(file(1:1)=='-') then
          if(file(2:2)=='s') then
-           iarg=iarg+1; call getarg(iarg,sta); nsta=len(trim(sta))
+           iarg=iarg+1; call get_command_argument(iarg,sta); nsta=len(trim(sta))
          elseif(file(2:2)=='w') then
-           iarg=iarg+1; call getarg(iarg,val); read(val,*)x1
-           iarg=iarg+1; call getarg(iarg,val); read(val,*)x2
-           iarg=iarg+1; call getarg(iarg,val); read(val,*)y1
-           iarg=iarg+1; call getarg(iarg,val); read(val,*)y2
+           iarg=iarg+1; call get_command_argument(iarg,val); read(val,*)x1
+           iarg=iarg+1; call get_command_argument(iarg,val); read(val,*)x2
+           iarg=iarg+1; call get_command_argument(iarg,val); read(val,*)y1
+           iarg=iarg+1; call get_command_argument(iarg,val); read(val,*)y2
            window=.true.
          elseif(file(2:2)=='k') then
-           iarg=iarg+1; call getarg(iarg,val); read(val,*)ikx
+           iarg=iarg+1; call get_command_argument(iarg,val); read(val,*)ikx
          elseif(file(2:2)=='r') then
-           iarg=iarg+1; call getarg(iarg,val); read(val,*)irt
+           iarg=iarg+1; call get_command_argument(iarg,val); read(val,*)irt
          elseif(file(2:2)=='m') then
-           iarg=iarg+1; call getarg(iarg,val); msg=val(1:8)
+           iarg=iarg+1; call get_command_argument(iarg,val); msg=val(1:8)
          elseif(file(2:2)=='d') then
            iarg=iarg+1; dump=.true.
          elseif(file(2:2)=='h') then

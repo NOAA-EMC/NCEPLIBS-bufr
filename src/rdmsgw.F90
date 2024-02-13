@@ -16,7 +16,7 @@ subroutine rdmsgw(lunit,mesg,iret)
 
   use bufrlib
 
-  use modv_mxmsgl
+  use modv_vars, only: mxmsgld4
 
   implicit none
 

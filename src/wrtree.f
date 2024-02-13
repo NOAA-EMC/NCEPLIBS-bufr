@@ -12,11 +12,11 @@ C> @author J. Woollen @date 1994-01-06
 
       SUBROUTINE WRTREE(LUN)
 
-      USE MODA_USRINT
-      USE MODA_IVAL
-      USE MODA_UFBCPL
-      USE MODA_BITBUF
-      USE MODA_TABLES
+      use moda_usrint
+      use moda_ival
+      use moda_ufbcpl
+      use moda_bitbuf
+      use moda_tables
 
       CHARACTER*120 LSTR
       CHARACTER*8   CVAL
@@ -34,10 +34,14 @@ C  -----------------------------------------
       IF(ITP(NODE).EQ.1) THEN
          IVAL(N) = NINT(VAL(N,LUN))
       ELSEIF(TYP(NODE).EQ.'NUM') THEN
-         IF(IBFMS(VAL(N,LUN)).EQ.0) THEN
-            IVAL(N) = IPKS(VAL(N,LUN),NODE)
-         ELSE
+         IF( (IBFMS(VAL(N,LUN)).EQ.1) .OR.
+     .        (VAL(N,LUN).NE.VAL(N,LUN)) ) THEN
+
+C           The user number is either "missing" or NaN.
+
             IVAL(N) = -1
+         ELSE
+            IVAL(N) = IPKS(VAL(N,LUN),NODE)
          ENDIF
       ENDIF
       ENDDO

@@ -34,7 +34,7 @@ C>
 C> @author J. Woollen @date 1998-07-08
       RECURSIVE SUBROUTINE OPENBT(LUNDX,MTYP)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
       COMMON /QUIET / IPRT
 

@@ -25,8 +25,7 @@ jobs:
       run: |
        sudo apt-get update
        sudo apt-get install python3-pip python3-dev python3-numpy
-       sudo python3 -m pip install -U pip setuptools
-       sudo python3 -m pip install -U numpy
+       sudo python3 -m pip install -U pip
        sudo python3 -m pip install -U netCDF4
        sudo python3 -m pip install -U pdoc
 
@@ -41,7 +40,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/data
-        key: data-10
+        key: data-13
 
     - name: build
       run: |

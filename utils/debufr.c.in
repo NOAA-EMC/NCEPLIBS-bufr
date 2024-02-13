@@ -167,12 +167,14 @@ void prtusage( char *prgnam ) {
 int main( int argc, char *argv[ ] ) {
 
     int ch;
+    int iret;
+    int lenof, lentd, lentf, lenps;
 
     char basic = 'N';
     char forcemt = 'N';
     char cfms = 'Y';
     char io = 'r';
-    char tbldir_default[500] =
+    char tbldir_default[240] =
             "@MASTER_TABLE_DIR_C@";
     char bvstr[VERS_STR_LEN+1];
 
@@ -184,8 +186,6 @@ int main( int argc, char *argv[ ] ) {
 
     char *bcopy, *bname, *dcopy, *dname;
 
-    int lenof, lentd, lentf, lenps;
-
     /*
     **  Get and process the valid options from the command line:
     */
@@ -193,7 +193,7 @@ int main( int argc, char *argv[ ] ) {
         switch ( ch ) {
             case 'v':
                 bvers_f( bvstr, VERS_STR_LEN+1 );
-                printf( "This is debufr v4.0.0, built with NCEPLIBS-bufr v%s\n", bvstr );
+                printf( "This is the debufr utility, built with NCEPLIBS-bufr v%s\n", bvstr );
                 return 0;
             case 'h':
                 printf( "\nPROGRAM %s\n", argv[0] );
@@ -330,18 +330,21 @@ int main( int argc, char *argv[ ] ) {
         printf( "\nERROR: Cannot write output file to %s\n",
             ( strcmp( dname, "." ) == 0 ? "current working directory" : dname ) );
         prtusage( argv[0] );
-        return -1;
+        iret = -1;
+    }
+    else {
+
+        /*
+        **  Read and decode each message from the input BUFR file.
+        */
+        lenof = strlen( ofile );
+        lentd = strlen( tbldir );
+        lentf = strlen( tblfil );
+        lenps = strlen( prmstg );
+        fdebufr_f( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps, basic, forcemt, cfms );
+        iret = 0;
     }
     free( dcopy );
-
-    /*
-    **  Read and decode each message from the input BUFR file.
-    */
-    lenof = strlen( ofile );
-    lentd = strlen( tbldir );
-    lentf = strlen( tblfil );
-    lenps = strlen( prmstg );
-    fdebufr_f( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps, basic, forcemt, cfms );
 
     free( ofile );
     free( tbldir );
@@ -353,5 +356,5 @@ int main( int argc, char *argv[ ] ) {
     */
     ccbfl( );
 
-    return 0;
+    return iret;
 }

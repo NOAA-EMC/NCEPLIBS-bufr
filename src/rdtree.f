@@ -16,12 +16,13 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE RDTREE(LUN,IRET)
 
-      USE MODV_BMISS
-      USE MODA_USRINT
-      USE MODA_USRBIT
-      USE MODA_IVAL
-      USE MODA_BITBUF
-      USE MODA_TABLES
+      use modv_vars, only: bmiss
+
+      use moda_usrint
+      use moda_usrbit
+      use moda_ival
+      use moda_bitbuf
+      use moda_tables
 
       CHARACTER*8  CVAL
       EQUIVALENCE  (CVAL,RVAL)

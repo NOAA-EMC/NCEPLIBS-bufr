@@ -24,9 +24,10 @@ C> @author J. Ator @date 2009-03-23
 
       RECURSIVE SUBROUTINE WRDXTB(LUNDX,LUNOT)
 
-      USE MODV_IM8B
-      USE MODA_TABABD
-      USE MODA_MGWA
+      use modv_vars, only: im8b
+
+      use moda_tababd
+      use moda_mgwa
 
       COMMON /DXTAB / MAXDX,IDXV,NXSTR(10),LDXA(10),LDXB(10),LDXD(10),
      .                LD30(10),DXSTR(10)

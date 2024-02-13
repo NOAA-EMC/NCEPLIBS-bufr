@@ -19,14 +19,13 @@ C>
 C> @author Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE UFBGET(LUNIT,TAB,I1,IRET,STR)
 
-      USE MODV_BMISS
-      USE MODV_IM8B
+      use modv_vars, only: im8b, bmiss
 
-      USE MODA_USRINT
-      USE MODA_USRBIT
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODA_TABLES
+      use moda_usrint
+      use moda_usrbit
+      use moda_msgcwd
+      use moda_bitbuf
+      use moda_tables
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
 

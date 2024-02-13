@@ -19,10 +19,6 @@ C> @author J. Woollen @date 2022-10-12
 
         INTEGER   IIN8(*),IOUT4(*)
 
-C       Call subroutine WRDLEN, in case it hasn't already been called.
-
-        CALL WRDLEN
-
 C       ILO points to the first byte of the low-order (i.e. least
 C       significant) 4-byte integer word within an 8-byte integer word.
 

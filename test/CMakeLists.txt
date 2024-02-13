@@ -8,7 +8,9 @@ list(APPEND test_kinds 4 8 d)
 
 # Fetch test data from: https://ftp.emc.ncep.noaa.gov/static_files/public
 set(BUFR_URL "https://ftp.emc.ncep.noaa.gov/static_files/public")
-if(${PROJECT_VERSION} VERSION_GREATER_EQUAL 11.6.0)
+if(${PROJECT_VERSION} VERSION_GREATER_EQUAL 12.1.0)
+  set(BUFR_TAR "bufr-12.1.0.tgz")
+elseif(${PROJECT_VERSION} VERSION_GREATER_EQUAL 11.6.0)
   set(BUFR_TAR "bufr-11.6.0.tgz")
 else()
   set(BUFR_TAR "bufr.tar")

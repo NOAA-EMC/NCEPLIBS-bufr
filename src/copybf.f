@@ -24,8 +24,9 @@ C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE COPYBF(LUNIN,LUNOT)
 
-      USE MODA_MGWA
-      USE MODV_IM8B
+      use modv_vars, only: im8b
+
+      use moda_mgwa
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -42,12 +43,6 @@ C  ---------------------
          IM8B=.TRUE.
          RETURN
       ENDIF
-
-C  CALL SUBROUTINE WRDLEN TO INITIALIZE SOME IMPORTANT INFORMATION
-C  ABOUT THE LOCAL MACHINE (IN CASE IT HAS NOT YET BEEN CALLED)
-C  ---------------------------------------------------------------
-
-      CALL WRDLEN
 
 C  CHECK BUFR FILE STATUSES
 C  ------------------------

@@ -26,7 +26,7 @@ C> @author J. Woollen @date 1998-07-08
 
       RECURSIVE SUBROUTINE DATELEN(LEN)
 
-      USE MODV_IM8B
+      use modv_vars, only: im8b
 
       COMMON /DATELN/ LENDAT
 
@@ -47,12 +47,6 @@ C  ---------------------
          IM8B=.TRUE.
          RETURN
       ENDIF
-
-C  CALL SUBROUTINE WRDLEN TO INITIALIZE SOME IMPORTANT INFORMATION
-C  ABOUT THE LOCAL MACHINE (IN CASE IT HAS NOT YET BEEN CALLED)
-C  ---------------------------------------------------------------
-
-      CALL WRDLEN
 
       IF(LEN.NE.8 .AND. LEN.NE.10) GOTO 900
       LENDAT = LEN

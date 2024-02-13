@@ -38,12 +38,10 @@ C>
 C> @author J. Woollen @date 2012-01-26
       RECURSIVE SUBROUTINE UFBMEX(LUNIT,LUNDX,INEW,IRET,MESG)
 
-      USE MODV_IM8B
-      USE MODV_MAXMEM
-      USE MODV_MAXMSG
+      use modv_vars, only: im8b, maxmem, maxmsg
 
-      USE MODA_MGWA
-      USE MODA_MSGMEM
+      use moda_mgwa
+      use moda_msgmem
 
       COMMON /QUIET / IPRT
 

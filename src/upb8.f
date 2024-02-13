@@ -12,8 +12,7 @@ C> only an input argument, and the overall order of the arguments
 C> is different.
 C>
 C> This subroutine will not work properly if NBITS is less than 0 or
-C> greater than 64, as determined via an internal call to subroutine
-C> wrdlen().
+C> greater than 64.
 C>
 C> @param[in] IBAY - integer(*): Array containing encoded value.
 C> @param[in] IBIT - integer: Bit within IBAY after which to begin
@@ -24,7 +23,7 @@ C>
 C> @author J. Woollen @date 2022-05-06
       subroutine upb8(nval,nbits,ibit,ibay)
 
-      common /hrdwrd/ nbytw,nbitw,iord(8)
+      use modv_vars, only: nbitw
 
       integer(8) :: nval
       integer(4) :: nbits,ibit,ibay(*)
@@ -36,16 +35,19 @@ C> @author J. Woollen @date 2022-05-06
 !----------------------------------------------------------------------
 !----------------------------------------------------------------------
 
-      if(nbits<0 ) call bort('BUFRLIB: UPB8 - nbits < zero !!!!!')
-      if(nbits>64) then
+      if(nbits<0) then
+         call bort('BUFRLIB: UPB8 - nbits < zero !!!!!')
+      elseif(nbits<=32) then
+         jbit=ibit; ival=0
+         call upb(ival,nbits,ibay,jbit)
+         nval=ival
+      elseif(nbits<=64) then
+         jbit=ibit; nvals=0
+         call upb(nvals(2),max(nbits-nbitw,0),ibay,jbit)
+         call upb(nvals(1),min(nbitw,nbits  ),ibay,jbit)
+         nval=nval8
+      else
          nval=0
-         return
       endif
-
-      jbit=ibit
-      nvals=0
-      call upb(nvals(2),max(nbits-nbitw,0),ibay,jbit)
-      call upb(nvals(1),min(nbitw,nbits  ),ibay,jbit)
-      nval=nval8
 
       end subroutine

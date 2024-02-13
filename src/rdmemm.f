@@ -38,11 +38,12 @@ C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE RDMEMM(IMSG,SUBSET,JDATE,IRET)
 
-      USE MODA_MSGCWD
-      USE MODA_BITBUF
-      USE MODA_MGWA
-      USE MODA_MSGMEM
-      USE MODV_IM8B
+      use modv_vars, only: im8b
+
+      use moda_msgcwd
+      use moda_bitbuf
+      use moda_mgwa
+      use moda_msgmem
 
       COMMON /QUIET / IPRT
 
@@ -74,8 +75,6 @@ C  -----------------------------------------
 
       CALL STATUS(MUNIT,LUN,IL,IM)
       CALL WTSTAT(MUNIT,LUN,IL, 1)
-      IF(IL.EQ.0) GOTO 900
-      IF(IL.GT.0) GOTO 901
       IRET = 0
 
       IF(IMSG.EQ.0 .OR.IMSG.GT.MSGP(0)) THEN
@@ -97,7 +96,7 @@ C  -----------------------------------------
       CALL ERRWRT(' ')
          ENDIF
          IRET = -1
-         GOTO 100
+         RETURN
       ENDIF
 
 C  ENSURE THAT THE PROPER DICTIONARY TABLE IS IN SCOPE
@@ -176,11 +175,7 @@ C  ----------------------------------
 C  EXITS
 C  -----
 
-100   RETURN
-900   CALL BORT('BUFRLIB: RDMEMM - INPUT BUFR FILE IS CLOSED, IT '//
-     . 'MUST BE OPEN FOR INPUT')
-901   CALL BORT('BUFRLIB: RDMEMM - INPUT BUFR FILE IS OPEN FOR '//
-     . 'OUTPUT, IT MUST BE OPEN FOR INPUT')
+      RETURN
 902   WRITE(BORT_STR,'("BUFRLIB: RDMEMM - UNKNOWN DX TABLE FOR '//
      . 'REQUESTED MESSAGE #",I5)') IMSG
       CALL BORT(BORT_STR)

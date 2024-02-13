@@ -22,7 +22,7 @@ C>
 C> @author Woollen @date 1994-01-06
       FUNCTION NVNWIN(NODE,LUN,INV1,INV2,INVN,NMAX)
 
-      USE MODA_USRINT
+      use moda_usrint
 
       COMMON /QUIET / IPRT
 
@@ -41,7 +41,7 @@ C----------------------------------------------------------------------
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       CALL ERRWRT(' ')
          ENDIF
-         GOTO 100
+         RETURN
       ENDIF
 
       DO I=1,NMAX
@@ -62,8 +62,8 @@ C  ----------------------------
 C  EXITS
 C  -----
 
-100   RETURN
-900   WRITE(BORT_STR,'("BUFRLIB: NVNWIN - THE NUMBER OF EVENTS, '//
-     . 'NVNWIN (",I5,") EXCEEDS THE LIMIT, NMAX (",I5,")")') NVNWIN,NMAX
+      RETURN
+900   WRITE(BORT_STR,'("BUFRLIB: NVNWIN - THE NUMBER OF EVENTS '//
+     . 'EXCEEDS THE LIMIT NMAX (",I5,")")') NMAX
       CALL BORT(BORT_STR)
       END

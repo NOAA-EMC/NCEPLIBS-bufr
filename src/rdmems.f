@@ -24,11 +24,12 @@ C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE RDMEMS(ISUB,IRET)
 
-      USE MODA_MSGCWD
-      USE MODA_UNPTYP
-      USE MODA_BITBUF
-      USE MODA_MSGMEM
-      USE MODV_IM8B
+      use modv_vars, only: im8b
+
+      use moda_msgcwd
+      use moda_unptyp
+      use moda_bitbuf
+      use moda_msgmem
 
       CHARACTER*128 BORT_STR,ERRSTR
 
@@ -55,8 +56,6 @@ C  CHECK THE MESSAGE REQUEST AND FILE STATUS
 C  -----------------------------------------
 
       CALL STATUS(MUNIT,LUN,IL,IM)
-      IF(IL.EQ.0) GOTO 900
-      IF(IL.GT.0) GOTO 901
       IF(IM.EQ.0) GOTO 902
       IF(NSUB(LUN).NE.0) GOTO 903
 
@@ -72,7 +71,7 @@ C  -----------------------------------------
       CALL ERRWRT(' ')
          ENDIF
          IRET = -1
-         GOTO 100
+         RETURN
       ENDIF
 
       MBYM = MBYT(LUN)
@@ -113,11 +112,7 @@ C  -------------------------------------------------------------------
 C  EXITS
 C  -----
 
-100   RETURN
-900   CALL BORT('BUFRLIB: RDMEMS - INPUT BUFR FILE IS CLOSED, IT '//
-     . 'MUST BE OPEN FOR INPUT')
-901   CALL BORT('BUFRLIB: RDMEMS - INPUT BUFR FILE IS OPEN FOR '//
-     . 'OUTPUT, IT MUST BE OPEN FOR INPUT')
+      RETURN
 902   CALL BORT('BUFRLIB: RDMEMS - A MEMORY MESSAGE MUST BE OPEN IN '//
      . 'INPUT BUFR FILE, NONE ARE')
 903   WRITE(BORT_STR,'("BUFRLIB: RDMEMS - UPON ENTRY, SUBSET POINTER '//

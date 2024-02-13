@@ -33,7 +33,7 @@ C> @author Ator @date 2017-10-16
 
         CHARACTER*16    TBLTYP2
         CHARACTER*20    FMTF
-        CHARACTER*100   MTDIR
+        CHARACTER*240   MTDIR
         CHARACTER*128   BORT_STR
         LOGICAL         FOUND
 
@@ -88,7 +88,7 @@ C*        Use the local table from NCEP.
      .             '_LOC_0_7_1'
           IF ( IPRT .GE. 2 ) THEN
             CALL ERRWRT('Local ' // TBLTYP2(1:LTBT) //
-     .                  'not found, so using:')
+     .                  ' not found, so using:')
             CALL ERRWRT(LOCFIL)
           ENDIF
           INQUIRE ( FILE = LOCFIL, EXIST = FOUND )
