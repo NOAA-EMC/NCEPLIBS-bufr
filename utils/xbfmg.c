@@ -193,11 +193,6 @@ int main( int argc, char *argv[] ) {
     }
 
     /*
-    **  Call wrdlen function to initialize NCEPLIBS-bufr and determine machine endianness.
-    */
-    wrdlen_f( );
-
-    /*
     **  Locate each BUFR message within the input file and write each one to a separate output file.
     **
     **  Note that we can't use the intrinsic C strstr function to locate the "BUFR" and "7777"

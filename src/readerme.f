@@ -50,13 +50,12 @@ C> @authors J. Woollen J. Ator @date 1995-06-28
 
       RECURSIVE SUBROUTINE READERME(MESG,LUNIT,SUBSET,JDATE,IRET)
 
-      use modv_vars, only: mxmsgl, im8b
+      use modv_vars, only: mxmsgl, im8b, nbytw
 
       use moda_sc3bfr
       use moda_idrdm
       use moda_bitbuf
 
-      COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
       COMMON /QUIET/  IPRT
 
       CHARACTER*128 BORT_STR,ERRSTR

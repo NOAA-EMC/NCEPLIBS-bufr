@@ -17,7 +17,7 @@ C>
 C> @author Ator @date 2005-11-29
         SUBROUTINE PADMSG(MESG,LMESG,NPBYT)
 
-        COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
+        use modv_vars, only: nbytw
 
         DIMENSION MESG(*)
 

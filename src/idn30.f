@@ -20,8 +20,6 @@ C>
 C> @author J. Woollen @date 1994-01-06
       FUNCTION IDN30(ADN30,L30)
 
-      COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
-
       CHARACTER*(*) ADN30
       CHARACTER*128 BORT_STR
 

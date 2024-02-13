@@ -8,8 +8,7 @@ C> number of bits of an integer array, starting at the bit
 C> immediately after a specified bit within the array.
 C>
 C> This subroutine will not work properly if NBITS is less than 0 or
-C> greater than 64, as determined via an internal call to subroutine
-C> wrdlen().
+C> greater than 64.
 C>      
 C> This subroutine is the logical inverse of subroutine up8().
 C>
@@ -26,7 +25,7 @@ C>
 C> @author J. Woollen @date 2022-05-06
       subroutine pkb8(nval,nbits,ibay,ibit)
 
-      common /hrdwrd/ nbytw,nbitw,iord(8)
+      use modv_vars, only: nbitw
 
       integer(8) :: nval
       integer(4) :: nbits,ibit,ibay(*)
