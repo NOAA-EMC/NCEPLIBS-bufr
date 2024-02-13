@@ -20,7 +20,7 @@ C>
 C> @author J. Woollen @date 1994-01-06
       SUBROUTINE UPBB(NVAL,NBITS,IBIT,IBAY)
 
-      COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
+      use modv_vars, only: nbitw
 
       DIMENSION IBAY(*)
 

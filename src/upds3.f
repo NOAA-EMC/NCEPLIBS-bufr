@@ -46,12 +46,6 @@ C     Check for I8 integers.
          RETURN
       ENDIF
 
-C     Call subroutine WRDLEN to initialize some important information
-C     about the local machine, just in case subroutine OPENBF hasn't
-C     been called yet.
-
-      CALL WRDLEN
-
 C     Skip to the beginning of Section 3.
 
       CALL GETLENS(MBAY,3,LEN0,LEN1,LEN2,LEN3,L4,L5)

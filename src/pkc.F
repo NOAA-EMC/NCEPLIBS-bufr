@@ -27,7 +27,7 @@ C>
 C> @author J. Woollen @date 1994-01-06
       SUBROUTINE PKC(CHR,NCHR,IBAY,IBIT)
 
-      COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
+      use modv_vars, only: nbitw, nbytw, iordle, iordbe
 
       CHARACTER*(*) CHR
       CHARACTER*1   CVAL(8)
@@ -37,10 +37,14 @@ C> @author J. Woollen @date 1994-01-06
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
-      LB = IORD(NBYTW)
-
-C     LB now points to the "low-order" (i.e. least significant) byte
+C     Set LB to point to the "low-order" (i.e. least significant) byte
 C     within a machine word.
+
+#ifdef BIG_ENDIAN
+      LB = IORDBE(NBYTW)
+#else
+      LB = IORDLE(NBYTW)
+#endif
 
       IVAL(1) = 0
       NBIT = 8

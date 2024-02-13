@@ -51,8 +51,6 @@ C     Check for I8 integers.
          RETURN
       ENDIF
 
-      CALL OPENBF(0,'FIRST',0)
-
       BMISS = XMISS
 
       RETURN

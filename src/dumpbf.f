@@ -71,12 +71,6 @@ C  ---------------------
          RETURN
       ENDIF
 
-C  CALL SUBROUTINE WRDLEN TO INITIALIZE SOME IMPORTANT INFORMATION
-C  ABOUT THE LOCAL MACHINE (IN CASE IT HAS NOT YET BEEN CALLED)
-C  ---------------------------------------------------------------
-
-      CALL WRDLEN
-
       DO I=1,5
         JDATE(I) = -1
         JDUMP(I) = -1

@@ -29,11 +29,9 @@ C>
 C> @author J. Ator @date 2005-11-29
         RECURSIVE SUBROUTINE CNVED4(MSGIN,LMSGOT,MSGOT)
 
-        use modv_vars, only: im8b
+        use modv_vars, only: im8b, nbytw
 
         DIMENSION MSGIN(*), MSGOT(*)
-
-        COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------

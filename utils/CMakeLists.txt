@@ -3,15 +3,15 @@
 #
 # Rahul Mahajan, Jeff Ator, Ed Hartnett
 
-# Create the debufr.c and sinv.f90 files
+# Create the debufr.c and sinv.F90 files
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/debufr.c.in ${CMAKE_CURRENT_BINARY_DIR}/debufr.c @ONLY)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/sinv.f90.in ${CMAKE_CURRENT_BINARY_DIR}/sinv.f90 @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/sinv.F90.in ${CMAKE_CURRENT_BINARY_DIR}/sinv.F90 @ONLY)
 
 # Source code for utilities.
 list(APPEND _utils_srcs
   binv.f90
   cmpbqm.F90
-  ${CMAKE_CURRENT_BINARY_DIR}/sinv.f90
+  ${CMAKE_CURRENT_BINARY_DIR}/sinv.F90
   gettab.f90
   readbp.F90
   readmp.F90

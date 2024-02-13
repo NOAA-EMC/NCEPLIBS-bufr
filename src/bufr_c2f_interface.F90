@@ -31,7 +31,7 @@ module bufr_c2f_interface
   public :: iupbs01_c, iupb_c, imrkopr_c, istdesc_c, ifxy_c
   public :: igetntbi_c, igettdi_c, stntbi_c
   public :: igetprm_c, isetprm_c, maxout_c, igetmxby_c
-  public :: elemdx_c, cadn30_c, strnum_c, wrdlen_c, uptdd_c, pktdd_c
+  public :: elemdx_c, cadn30_c, strnum_c, uptdd_c, pktdd_c
   public :: nemdefs_c, nemspecs_c, nemtab_c, nemtbb_c, numtbd_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
@@ -1075,15 +1075,6 @@ module bufr_c2f_interface
       call bvers(f_cverstr)
       call copy_f_c_str(f_cverstr, cverstr, cverstr_len)
     end subroutine bvers_c
-
-    !> Determine important information about the local machine.
-    !>
-    !> Wraps wrdlen() subroutine.
-    !>
-    !> @author J. Ator @date 2023-04-07
-    subroutine wrdlen_c() bind(C, name='wrdlen_f')
-      call wrdlen()
-    end subroutine wrdlen_c
 
     !> Decode an integer value from an integer array.
     !>

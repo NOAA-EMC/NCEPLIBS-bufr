@@ -44,12 +44,6 @@ C  ---------------------
          RETURN
       ENDIF
 
-C  CALL SUBROUTINE WRDLEN TO INITIALIZE SOME IMPORTANT INFORMATION
-C  ABOUT THE LOCAL MACHINE (IN CASE IT HAS NOT YET BEEN CALLED)
-C  ---------------------------------------------------------------
-
-      CALL WRDLEN
-
 C  CHECK BUFR FILE STATUSES
 C  ------------------------
 
