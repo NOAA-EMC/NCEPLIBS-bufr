@@ -118,7 +118,7 @@
       enddo
 
 ! copy the testfile to test helpers getwin, invwin, newwin, nxtwin in output more
-! print the res:lts in a text file for verification
+! print the results in a text file for verification
 
       open(20,file=file,form='unformatted')
       open(50,file='ufbrw_bufr_out',form='unformatted')
@@ -178,10 +178,3 @@
 
       print*,'success'
       end program
-
-!     subroutine bort(str)
-!     character(*) str
-!     print*,str
-!     call tracebackqq()
-!     end subroutine
-
