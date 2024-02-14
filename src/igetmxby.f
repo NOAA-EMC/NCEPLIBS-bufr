@@ -34,8 +34,6 @@ C     CHECK FOR I8 INTEGERS.
           RETURN
       ENDIF
 
-      CALL OPENBF(0,'FIRST',0)
-
       IRET = MAXBYT
 
       RETURN

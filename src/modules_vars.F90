@@ -5,25 +5,46 @@
 
 module modv_vars
 
+  !> Number of bytes within an integer.
+  integer, parameter :: nbytw = 4
+
+  !> Order of bytes within an integer on a big-endian machine, from most to least significant.
+  integer, parameter :: iordbe(nbytw) = (/1,2,3,4/)
+
+  !> Order of bytes within an integer on a little-endian machine, from most to least significant.
+  integer, parameter :: iordle(nbytw) = (/4,3,2,1/)
+
+  !> Number of bits within an integer.
+  integer, parameter :: nbitw = nbytw * 8
+
+  !> Status indicator to keep track of whether all future BUFR output
+  !> messages should be encapsulated with IEEE Fortran control words.
+  !> - -1 = Yes, using little-endian control words
+  !> - 0 = No
+  !> - 1 = Yes, using big-endian control words
+  !> The default value is 0, but this value can be changed at any
+  !> time via a call to subroutine setblock().
+  integer :: iblock = 0
+
   !> Current placeholder value to represent "missing" data when reading
   !> from or writing to BUFR files; this value can be changed at any
   !> time via a call to subroutine setbmiss().
-  real*8, public :: bmiss = 10E10_8
+  real*8 :: bmiss = 10E10_8
 
   !> Status indicator to keep track of whether subroutine openbf() has
   !> already been called:
   !> - 0 = No
   !> - 1 = Yes
-  integer, public :: ifopbf = 0
+  integer :: ifopbf = 0
 
   !> Status indicator to keep track of whether all future calls to
-  !> BUFRLIB subroutines and functions from a Fortran application
+  !> NCEPLIBS-bufr subroutines and functions from a Fortran application
   !> program will be made using 8-byte integer arguments.
   !> The default value is .false., meaning that all future calls to
-  !> BUFRLIB subroutines and functions will be made using 4-byte
+  !> NCEPLIBS-bufr subroutines and functions will be made using 4-byte
   !> integer arguments.  This value can be changed at any time via a
   !> call to subroutine setim8b().
-  logical, public :: im8b = .false.
+  logical :: im8b = .false.
 
   !> Maximum number of child descriptors that can be included within
   !> the sequence definition of a Table D descriptor, not counting the
@@ -32,7 +53,7 @@ module modv_vars
   !> This variable is initialized to a default value which can be
   !> overridden by a subsequent call to function isetprm() within the
   !> application program.
-  integer, public :: maxcd = 250
+  integer :: maxcd = 250
 
   !> Maximum number of entries in the internal jump/link table.
   !> This variable is initialized to a default value which can be
@@ -55,31 +76,31 @@ module modv_vars
   integer :: maxmsg = 200000
 
   !> Maximum number of descriptors within Section 3 of a BUFR message.
-  integer, parameter, public :: maxnc = 600
+  integer, parameter :: maxnc = 600
 
   !> Maximum number of data values that can be read from or written
-  !> into a data subset by the BUFRLIB software.
+  !> into a data subset by the NCEPLIBS-bufr software.
   !> This variable is initialized to a default value which can be
   !> overridden by a subsequent call to function isetprm() within the
   !> application program.
   integer :: maxss = 120000
 
   !> Maximum number of entries in the internal BUFR Table A for each
-  !> BUFR file that is connected to the BUFRLIB software.
+  !> BUFR file that is connected to the NCEPLIBS-bufr software.
   !> This variable is initialized to a default value which can be
   !> overridden by a subsequent call to function isetprm() within the
   !> application program.
   integer :: maxtba = 150
 
   !> Maximum number of entries in the internal BUFR Table B for each
-  !> BUFR file that is connected to the BUFRLIB software.
+  !> BUFR file that is connected to the NCEPLIBS-bufr software.
   !> This variable is initialized to a default value which can be
   !> overridden by a subsequent call to function isetprm() within the
   !> application program.
   integer :: maxtbb = 500
 
   !> Maximum number of entries in the internal BUFR Table D for each
-  !> BUFR file that is connected to the BUFRLIB software.
+  !> BUFR file that is connected to the NCEPLIBS-bufr software.
   !> This variable is initialized to a default value which can be
   !> overridden by a subsequent call to function isetprm() within the
   !> application program.
@@ -98,7 +119,7 @@ module modv_vars
   integer :: mxbtmse = 500
 
   !> Maximum number of data values that can be written into a data
-  !> subset of a compressed BUFR message by the BUFRLIB software.
+  !> subset of a compressed BUFR message by the NCEPLIBS-bufr software.
   !> This variable is initialized to a default value which can be
   !> overridden by a subsequent call to function isetprm() within the
   !> application program.
@@ -106,10 +127,10 @@ module modv_vars
 
   !> Maximum number of entries in the internal Table A mnemonic cache
   !> that is used for Section 3 decoding of BUFR messages.
-  integer, parameter, public :: mxcnem = 450
+  integer, parameter :: mxcnem = 450
 
   !> Maximum number of data subsets that can be written into a
-  !> compressed BUFR message by the BUFRLIB software.
+  !> compressed BUFR message by the NCEPLIBS-bufr software.
   !> This variable is initialized to a default value which can be
   !> overridden by a subsequent call to function isetprm() within the
   !> application program.
@@ -129,14 +150,14 @@ module modv_vars
 
   !> Maximum length (in bytes) of a character string that can be
   !> written into a data subset of a compressed BUFR message
-  !> by the BUFRLIB software.
+  !> by the NCEPLIBS-bufr software.
   !> This variable is initialized to a default value which can be
   !> overridden by a subsequent call to function isetprm() within the
   !> application program.
   integer :: mxlcc = 32
 
   !> Maximum length (in bytes) of a BUFR message that can be read or
-  !> written by the BUFRLIB software.
+  !> written by the NCEPLIBS-bufr software.
   !> This variable is initialized to a default value which can be
   !> overridden by a subsequent call to function isetprm() within the
   !> application program.
@@ -168,7 +189,7 @@ module modv_vars
 
   !> Maximum number of associated fields that can be in effect at any
   !> given time for a Table B descriptor.
-  integer, parameter, public :: mxnaf = 4
+  integer, parameter :: mxnaf = 4
 
   !> Maximum number of entries in the internal jump/link table that can
   !> contain new reference values.
@@ -185,7 +206,7 @@ module modv_vars
   integer :: mxrst = 50
 
   !> Maximum number of default Section 0 or Section 1 values that can
-  !> be overwritten within an output BUFR message by the BUFRLIB
+  !> be overwritten within an output BUFR message by the NCEPLIBS-bufr
   !> software.
   !> This variable is initialized to a default value which can be
   !> overridden by a subsequent call to function isetprm() within the
@@ -193,7 +214,7 @@ module modv_vars
   integer :: mxs01v = 10
 
   !> Maximum number of entries in the internal string cache.
-  integer, parameter, public :: mxs = 1000
+  integer, parameter :: mxs = 1000
 
   !> Maximum number of Table A mnemonics in the internal jump/link
   !> table which contain at least one Table C operator with an XX value
@@ -211,11 +232,11 @@ module modv_vars
   !> application program.
   integer :: mxtco = 30
 
-  !> Maximum number of BUFR files that can be connected to the BUFRLIB
+  !> Maximum number of BUFR files that can be connected to the NCEPLIBS-bufr
   !> software (for reading or writing) at any one time.
   !> This variable is initialized to a default value which can be
   !> overridden by a subsequent call to function isetprm() within the
   !> application program.
-  integer, public :: nfiles = 32
+  integer :: nfiles = 32
 
 end module modv_vars

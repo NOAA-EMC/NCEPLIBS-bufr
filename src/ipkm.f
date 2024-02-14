@@ -18,9 +18,7 @@ C>
 C> @author J. Woollen @date 1994-01-06
       RECURSIVE SUBROUTINE IPKM(CBAY,NBYT,N)
 
-      use modv_vars, only: im8b
-
-      COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
+      use modv_vars, only: im8b, nbytw
 
       CHARACTER*128 BORT_STR
       CHARACTER*8   CBAY,CINT

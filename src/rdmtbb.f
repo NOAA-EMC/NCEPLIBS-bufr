@@ -71,11 +71,6 @@ C> @author J. Ator @date 2007-01-19
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C       Call WRDLEN to initialize some important information about the
-C       local machine, just in case it hasn't already been called.
-
-        CALL WRDLEN
-
 C       Read and parse the header lines of both files.
 
         CALL GETTBH ( LUNSTB, LUNLTB, 'B', IMT, IMTV, IOGCE, ILTV )

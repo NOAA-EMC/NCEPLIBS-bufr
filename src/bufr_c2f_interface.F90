@@ -28,10 +28,10 @@ module bufr_c2f_interface
   public :: get_isc_c, get_link_c, get_itp_c, get_typ_c, get_tag_c, get_jmpb_c
   public :: get_inode_c, get_nval_c, get_val_c, get_inv_c, get_irf_c, readlc_c
   public :: delete_table_data_c
-  public :: iupbs01_c, iupb_c, imrkopr_c, istdesc_c, ifxy_c
+  public :: iupbs01_c, imrkopr_c, istdesc_c, ifxy_c
   public :: igetntbi_c, igettdi_c, stntbi_c
   public :: igetprm_c, isetprm_c, maxout_c, igetmxby_c
-  public :: elemdx_c, cadn30_c, strnum_c, wrdlen_c, uptdd_c, pktdd_c
+  public :: elemdx_c, cadn30_c, strnum_c, uptdd_c, pktdd_c
   public :: nemdefs_c, nemspecs_c, nemtab_c, nemtbb_c, numtbd_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
@@ -1075,35 +1075,6 @@ module bufr_c2f_interface
       call bvers(f_cverstr)
       call copy_f_c_str(f_cverstr, cverstr, cverstr_len)
     end subroutine bvers_c
-
-    !> Determine important information about the local machine.
-    !>
-    !> Wraps wrdlen() subroutine.
-    !>
-    !> @author J. Ator @date 2023-04-07
-    subroutine wrdlen_c() bind(C, name='wrdlen_f')
-      call wrdlen()
-    end subroutine wrdlen_c
-
-    !> Decode an integer value from an integer array.
-    !>
-    !> Wraps iupb() function.
-    !>
-    !> @param mbay - Array containing encoded value.
-    !> @param nbyt - Byte within mbay at whose first bit to begin decoding.
-    !> @param nbit - Number of bits to decode.
-    !>
-    !> @return iupb_c - Decoded value.
-    !>
-    !> @author J. Ator @date 2023-04-07
-    function iupb_c(mbay,nbyt,nbit) result(ires) bind(C, name='iupb_f')
-      integer(c_int), intent(in) :: mbay(*)
-      integer(c_int), intent(in), value :: nbyt, nbit
-      integer(c_int) :: ires
-      integer :: iupb
-
-      ires = iupb(mbay,nbyt,nbit)
-    end function iupb_c
 
     !> Specify the use of compression when writing BUFR messages.
     !>

@@ -651,9 +651,9 @@ program test_bort
      endif
   elseif (sub_name .eq. 'pkb8') then
      if (test_case .eq. '1') then
-        call pkb(1, 1, ibay, ibit)        
+        call pkb8(1, -1, ibay, ibit)
      elseif (test_case .eq. '2') then
-        call pkb(1, 65, ibay, ibit)        
+        call pkb8(1, 65, ibay, ibit)
      endif
   elseif (sub_name .eq. 'pkbs1') then
      filnam = 'testfiles/IN_2'
@@ -1067,7 +1067,7 @@ program test_bort
         if (ios .ne. 0) stop 3
      endif
      jret = 0
-     call wrdlen
+     call openbf(12, 'FIRST', 12)
      call sntbde(12, 49430, card, 1, 1, jret, int_1d, char_8, char_4, char_120, int_1d, int_1d, char_120)
   elseif (sub_name .eq. 'sntbfe') then
      if (test_case .eq. '1') then
@@ -1121,7 +1121,7 @@ program test_bort
         open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
         if (ios .ne. 0) stop 3
      endif
-     call wrdlen
+     call openbf(12, 'FIRST', 12)
      call sntbfe(12, 288)
   elseif (sub_name .eq. 'stdmsg') then
      if (test_case .eq. '1') then

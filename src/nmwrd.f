@@ -22,9 +22,7 @@ C>
 C> @author J. Ator @date 2005-11-29
         RECURSIVE FUNCTION NMWRD(MBAY) RESULT(IRET)
 
-        use modv_vars, only: im8b
-
-        COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
+        use modv_vars, only: im8b, nbytw
 
         DIMENSION MBAY(*)
 
