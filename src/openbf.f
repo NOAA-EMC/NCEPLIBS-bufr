@@ -207,8 +207,7 @@ C        Initialize some global variables.
          IFOPBF = 1
       ENDIF
 
-      IF(IO.EQ.'FIRST') GOTO 100
-      IF(IO.EQ.'QUIET') GOTO 100
+      IF( (IO.EQ.'FIRST') .OR. (IO.EQ.'QUIET') ) RETURN
       IF(IO.EQ.'SILENT') GOTO 100
 
 C  SEE IF A FILE CAN BE OPENED
