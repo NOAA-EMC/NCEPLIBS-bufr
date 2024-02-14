@@ -208,7 +208,7 @@ C        Initialize some global variables.
       ENDIF
 
       IF( (IO.EQ.'FIRST') .OR. (IO.EQ.'QUIET') ) RETURN
-      IF(IO.EQ.'SILENT') GOTO 100
+      IF  (IO.EQ.'SILENT') RETURN
 
 C  SEE IF A FILE CAN BE OPENED
 C  ---------------------------
