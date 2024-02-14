@@ -68,9 +68,6 @@ void stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, in
 /** Size of a character string needed to store the units of a Table B descriptor. */
 #define UNIT_STR_LEN 24
 
-/** Size of a character string needed to store a library version number. */
-#define VERS_STR_LEN 8
-
 /**
  * Convert an FXY value from its WMO bit-wise representation to its
  * six-character representation.
@@ -260,27 +257,3 @@ void pktdd_f(int id, int lun, int idn, int *iret);
  * @author J. Ator @date 2023-04-07
  */
 void bort_f(char *errstr);
-
-/**
- * Determine important information about the local machine.
- *
- * Wraps wrdlen() subroutine.
- *
- * @author J. Ator @date 2023-04-07
- */
-void wrdlen_f(void);
-
-/**
- * Decode an integer value from an integer array.
- *
- * Wraps iupb() function.
- *
- * @param mbay - Array containing encoded value.
- * @param nbyt - Byte within mbay at whose first bit to begin decoding.
- * @param nbit - Number of bits to decode.
- *
- * @return Decoded value.
- *
- * @author J. Ator @date 2003-11-04
- */
-int iupb_f(int *mbay, int nbyt, int nbit);

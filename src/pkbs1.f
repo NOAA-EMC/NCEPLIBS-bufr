@@ -72,9 +72,6 @@ C       Check for I8 integers.
             RETURN
         END IF
 
-C       Note that the following call to function IUPBS01 will ensure
-C       that subroutine WRDLEN has been called.
-
         IBEN = IUPBS01(MBAY,'BEN')
 
 C       Determine where to store the value.

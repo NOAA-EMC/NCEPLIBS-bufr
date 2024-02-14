@@ -29,11 +29,6 @@ C> @author J. Ator @date 2017-10-17
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
-C       Call WRDLEN to initialize some important information about the
-C       local machine, just in case it hasn't already been called.
-
-        CALL WRDLEN
-
 C       Initialize the internal memory structure, including allocating
 C       space for it in case this hasn't already been done.
 

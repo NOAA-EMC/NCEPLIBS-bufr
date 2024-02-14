@@ -91,12 +91,6 @@ C       Check for I8 integers.
             RETURN
         ENDIF
 
-C       Call subroutine WRDLEN to initialize some important information
-C       about the local machine, just in case subroutine OPENBF hasn't
-C       been called yet.
-
-        CALL WRDLEN
-
 C       Handle some simple requests that do not depend on the BUFR
 C       edition number.
 

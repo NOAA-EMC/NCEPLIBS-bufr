@@ -28,11 +28,10 @@ C> @author J. Ator @date 2009-03-23
 
         RECURSIVE SUBROUTINE ATRCPT(MSGIN,LMSGOT,MSGOT)
 
-        use modv_vars, only: im8b
+        use modv_vars, only: im8b, nbytw
 
         DIMENSION MSGIN(*), MSGOT(*)
 
-        COMMON /HRDWRD/ NBYTW,NBITW,IORD(8)
         COMMON /TNKRCP/ ITRYR,ITRMO,ITRDY,ITRHR,ITRMI,CTRT
 
         CHARACTER*1 CTRT
