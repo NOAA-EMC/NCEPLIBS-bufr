@@ -23,6 +23,8 @@ C> @author Woollen @date 1994-01-06
 
       USE MODA_USRINT
 
+      COMMON /QUIET/  IPRT
+
       character(80) errstr
 
 C----------------------------------------------------------------------
