@@ -42,7 +42,6 @@ C> @author J. Woollen @date 1994-01-06
       CHARACTER*128 ERRSTR
       CHARACTER*10  TAGSTR 
       CHARACTER*10  SUBSET 
-      LOGICAL       FIRST /.true./
       REAL*8        USR(I1,I2)
 
 C----------------------------------------------------------------------
