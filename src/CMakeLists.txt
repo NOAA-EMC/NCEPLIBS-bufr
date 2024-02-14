@@ -27,7 +27,7 @@ list(APPEND fortran_src
   ufbrw.f ufbseq.f ufbsp.f ufbstp.f ufbtab.f ufbtam.f ufdump.f upb.f upbb.f upc.F90 upds3.f upftbv.f
   ups.f uptdd.f usrtpl.f wrcmps.f wrdxtb.f writcp.f writdx.f writlc.f writsa.f writsb.f
   wrtree.f wtstat.f arallocf.f ardllocf.f closbf.f ireadmt.f irev.F90 isetprm.f openbf.f pkvs01.f
-  fortran_open.F90 fortran_close.F90 bufr_interface.F90 pkb8.f upb8.f up8.f setim8b.F90
+  fortran_open.F90 fortran_close.F90 bufr_interface.F90 pkb8.F90 upb8.F90 up8.F90 setim8b.F90
   bufr_c2f_interface.F90 x48.F90 x84.F90 bufrlib.F90)
 
 list(APPEND c_src
