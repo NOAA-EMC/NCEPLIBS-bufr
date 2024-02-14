@@ -21,34 +21,35 @@ C>
 C> @author Woollen @date 1994-01-06
       FUNCTION INVWIN(NODE,LUN,INV1,INV2)
 
-      use moda_usrint
+      USE MODA_USRINT
 
-      COMMON /QUIET/  IPRT
+      character(80) errstr
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
-      INVWIN = 0
-      IF(NODE.EQ.0) GOTO 200
+C  RETURN 0 IF NODE = 0
+C  --------------------
 
-C  SEARCH BETWEEN INV1 AND INV2
-C  ----------------------------
+      INVWIN = 0; IF(NODE==0) goto 100 
+
+C  SEARCH FOR NODE BETWEEN INV1 AND INV2
+C  -------------------------------------
 
       DO INVWIN=INV1,INV2
-      IF(INV(INVWIN,LUN).EQ.NODE) GOTO 100
+      IF(INV(INVWIN,LUN).EQ.NODE) goto 100
       ENDDO
 
       INVWIN = 0
 
- 200  IF(IPRT.GE.2) THEN
-      CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
-      CALL ERRWRT('BUFRLIB: INVWIN - RETURNING WITH A VALUE OF 0')
-      CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
-      CALL ERRWRT(' ')
-      ENDIF
+C  RETURN 0 IF NODE NOT FOUND IN WINDOW
+C  ------------------------------------
 
-C  EXIT
-C  ----
-
-100   RETURN
-      END
+100   if(iprt>=3) then
+         write(errstr,'(a,2i8,a,i8)')
+     .   'invwin reads',inv1,inv2,'returns',invwin 
+         call errwrt(errstr)
+      endif
+      
+      return
+      end
