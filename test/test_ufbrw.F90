@@ -5,6 +5,8 @@
 ! testfile and test various user defined options available through subroutine
 ! ufbint which is the driver of ufbrw.
 !
+! Adding additional testing in ufbrw
+!
 ! J Woollen  4/14/23  
 
       program test_ufbrw
@@ -84,6 +86,7 @@
 ! open the print file to record ufbrep test results
 
       open(55,file='ufbrw_prnt_out')
+      iprt=2
 
 ! test various reading options applying user specified filtering, testing conwin
 
@@ -104,7 +107,9 @@
 
       do while(ireadmg(20,subset,idate)==0)
         do while(ireadsb(20)==0)
+          if(i==1) call openbf(20,'SILENT',2)
           call ufbint(20,arr,10,255,irt,cond//' POB QOB TOB UOB VOB')
+          if(i==1) call openbf(20,'SILENT',0)
           if(irt>0) write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
         enddo
       enddo
@@ -113,7 +118,7 @@
       enddo
 
 ! copy the testfile to test helpers getwin, invwin, newwin, nxtwin in output more
-! print the results in a text file for verification
+! print the res:lts in a text file for verification
 
       open(20,file=file,form='unformatted')
       open(50,file='ufbrw_bufr_out',form='unformatted')
@@ -128,6 +133,7 @@
           call ufbint(20,arr,10,255,irt,'POB QOB TOB UOB VOB')
           write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
           call openmb(50,subset,idate)
+          call ufbint(50,arr,10,irt,jrt,'POB QOB TOB UOB VOB')
           call ufbint(50,arr,10,irt,jrt,'POB QOB TOB UOB VOB')
           call writsb(50)
         enddo
@@ -172,4 +178,10 @@
 
       print*,'success'
       end program
+
+      subroutine bort(str)
+      character(*) str
+      print*,str
+      call tracebackqq()
+      end subroutine
 

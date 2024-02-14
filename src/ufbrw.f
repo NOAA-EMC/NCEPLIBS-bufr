@@ -34,16 +34,21 @@ C> @author J. Woollen @date 1994-01-06
 
       use moda_usrint
       use moda_tables
+      use moda_msgcwd
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
       COMMON /QUIET / IPRT
 
       CHARACTER*128 ERRSTR
-      REAL*8       USR(I1,I2)
+      CHARACTER*10  TAGSTR 
+      CHARACTER*8   SUBSET 
+      LOGICAL       FIRST /.true./
+      REAL*8        USR(I1,I2)
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
 
+      SUBSET=TAG(INODE(LUN))
       IRET = 0
 
 C  LOOP OVER COND WINDOWS
@@ -78,23 +83,17 @@ C  ---------------------
 
       IF(IPRT.GE.2)  THEN
       CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
-         WRITE ( UNIT=ERRSTR, FMT='(5(A,I7))' )
-     .      'BUFRLIB: UFBRW - IRET:INS1:INS2:INC1:INC2 = ',
-     .      IRET, ':', INS1, ':', INS2, ':', INC1, ':', INC2
-         CALL ERRWRT(ERRSTR)
-         KK = INS1
-         DO WHILE ( ( INS2 - KK ) .GE. 5 )
-            WRITE ( UNIT=ERRSTR, FMT='(5A10)' )
-     .         (TAG(INV(I,LUN)),I=KK,KK+4)
-            CALL ERRWRT(ERRSTR)
-            KK = KK+5
-         ENDDO
-         WRITE ( UNIT=ERRSTR, FMT='(5A10)' )
-     .      (TAG(INV(I,LUN)),I=KK,INS2)
-         CALL ERRWRT(ERRSTR)
+      CALL ERRWRT('UFBRW LEV TAG     IO   INS1   INVN   INS2  '//SUBSET)
       CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
-      CALL ERRWRT(' ')
-      ENDIF
+         DO I=1,NNOD
+         IF(IO==0) TAGSTR=TAG(NODS(I))(1:8)//' R'
+         IF(IO==1) TAGSTR=TAG(NODS(I))(1:8)//' W'
+         INVN = INVWIN(NODS(I),LUN,INS1,INS2)
+         IF(INVN.EQ.0.AND.IO==1) CALL DRSTPL(NODS(I),LUN,INS1,INS2,INVN)
+         WRITE(ERRSTR,'("LEV=",I5,1X,A,3I7)') IRET,TAGSTR,INS1,INVN,INS2
+         CALL ERRWRT(ERRSTR)
+         enddo
+      endif
 
 C  WRITE USER VALUES
 C  -----------------
