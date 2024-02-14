@@ -257,18 +257,3 @@ void pktdd_f(int id, int lun, int idn, int *iret);
  * @author J. Ator @date 2023-04-07
  */
 void bort_f(char *errstr);
-
-/**
- * Decode an integer value from an integer array.
- *
- * Wraps iupb() function.
- *
- * @param mbay - Array containing encoded value.
- * @param nbyt - Byte within mbay at whose first bit to begin decoding.
- * @param nbit - Number of bits to decode.
- *
- * @return Decoded value.
- *
- * @author J. Ator @date 2003-11-04
- */
-int iupb_f(int *mbay, int nbyt, int nbit);
