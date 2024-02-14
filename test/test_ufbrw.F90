@@ -179,9 +179,9 @@
       print*,'success'
       end program
 
-      subroutine bort(str)
-      character(*) str
-      print*,str
-      call tracebackqq()
-      end subroutine
+!     subroutine bort(str)
+!     character(*) str
+!     print*,str
+!     call tracebackqq()
+!     end subroutine
 
