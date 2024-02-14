@@ -9,8 +9,8 @@
 #include <stdio.h>
 #include <libgen.h>
 #include <unistd.h>
+#include <stdlib.h>
 
-#include "bufrlib.h"
 #include "bufr_interface.h"
 
 /**

@@ -73,6 +73,9 @@ for kind in "4" "d"; do
     # Check datebf().
     (./test_bort_$kind datebf 1) && exit 1
     
+    # Check datelen().
+    (./test_bort_$kind datelen 1) && exit 1
+
     # Check dumpbf().
     (./test_bort_$kind dumpbf 1) && exit 1
     
