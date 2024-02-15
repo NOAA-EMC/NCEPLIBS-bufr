@@ -138,14 +138,14 @@ C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06
       CHARACTER*(*) IO
       CHARACTER*255 FILENAME,FILEACC
       CHARACTER*128 BORT_STR,ERRSTR
-      CHARACTER*30  CPRINT(0:4)
+      CHARACTER*28  CPRINT(0:4)
 
       DATA          CPRINT/
      . ' (only ABORTs)               ',
      . ' (limited - default)         ',
      . ' (all warnings)              ',
-     . ' (all warning+informationa l)', 
-     . ' (low level high volume prnt)'/ 
+     . ' (all warning+informational)', 
+     . ' (low level high volume out)'/ 
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
