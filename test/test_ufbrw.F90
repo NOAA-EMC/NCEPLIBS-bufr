@@ -86,7 +86,6 @@
 ! open the print file to record ufbrep test results
 
       open(55,file='ufbrw_prnt_out')
-      iprt=2
 
 ! test various reading options applying user specified filtering, testing conwin
 
