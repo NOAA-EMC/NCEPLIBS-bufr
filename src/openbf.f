@@ -174,7 +174,7 @@ c  .... override previous IPRT value (printout indicator)
          IPRTPRV = IPRT
          IPRT = LUNDX
          IF(IPRT.LT.-1) IPRT = -1
-         IF(IPRT.GT. 2) IPRT =  2
+         IF(IPRT.GT. 3) IPRT =  3
          IF(IPRT.GE.0) THEN
       CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
       WRITE ( UNIT=ERRSTR, FMT='(A,I3,A,A,I3,A)' )
@@ -184,8 +184,6 @@ c  .... override previous IPRT value (printout indicator)
       CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
       CALL ERRWRT(' ')
          ENDIF
-      ELSEIF(IO.EQ.'SILENT') THEN
-         IPRT=MIN(MAX(LUNDX,-1),3)
       ENDIF
 
       IF(IFOPBF.EQ.0) THEN
@@ -205,8 +203,6 @@ C        Initialize some global variables.
       ENDIF
 
       IF( (IO.EQ.'FIRST') .OR. (IO.EQ.'QUIET') ) RETURN
-      IF  (IO.EQ.'SILENT') RETURN
-
 
 
 C  SEE IF A FILE CAN BE OPENED
