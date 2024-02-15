@@ -141,10 +141,11 @@ C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06
       CHARACTER*28  CPRINT(0:4)
 
       DATA          CPRINT/
-     . ' (only ABORTs)              ',
-     . ' (limited - default)        ',
-     . ' (all warnings)             ',
-     . ' (all warning+informational)'/
+     . ' (only ABORTs)               ',
+     . ' (limited - default)         ',
+     . ' (all warnings)              ',
+     . ' (all warning+informationa l)', 
+     . ' (low level high volume prnt)'/ 
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
