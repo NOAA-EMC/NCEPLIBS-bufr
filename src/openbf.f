@@ -115,8 +115,8 @@ C>                   printout:
 C>                      - -1 = no printout except for ABORT messages
 C>                      -  0 = limited printout (default)
 C>                      -  1 = all warning messages are printed out
-C>                      -  2 = all warning and informational messages are
-C>                             printed out
+C>                      -  2 = all warning and info messages are printed
+C>                      -  3 = high volume low level debug output prints
 C>
 C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06
 
@@ -142,10 +142,10 @@ C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06
 
       DATA          CPRINT/
      . ' (only ABORTs)              ',
-     . ' (limited - default)        ',
+     . ' (limited -default)         ',
      . ' (all warnings)             ',
-     . ' (all warning+informational)', 
-     . ' (low level high volume out)'/ 
+     . ' (all warnings+infos)       ',
+     . ' (all warnings+infos+debugs)'/ 
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
