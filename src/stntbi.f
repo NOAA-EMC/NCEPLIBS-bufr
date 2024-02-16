@@ -31,7 +31,7 @@ C-----------------------------------------------------------------------
             TABB(N,LUN)( 7:14) = NEMO(1:8)
             TABB(N,LUN)(16:70) = CELSQ(1:55)
             NTBB(LUN) = N
-        ELSE IF ( NUMB(1:1) .EQ. '3') THEN
+        ELSE  ! NUMB(1:1) .EQ. '3'
             IDND(N,LUN) = IFXY(NUMB)
             TABD(N,LUN)( 1: 6) = NUMB(1:6)
             TABD(N,LUN)( 7:14) = NEMO(1:8)

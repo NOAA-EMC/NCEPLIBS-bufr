@@ -38,8 +38,6 @@ C> @author J. Woollen @date 1994-01-06
       use moda_bitmaps
       use moda_stcode
 
-      CHARACTER*128 BORT_STR
-
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
@@ -107,12 +105,10 @@ c  .... message with "standard" Section 3
            GOTO 100
          ENDIF
          MBYT(LUN) = IBIT
-      ELSEIF(MSGUNP(LUN).EQ.2) THEN
+      ELSE ! MSGUNP(LUN).EQ.2
 c  .... compressed message
          CALL RDCMPS(LUN)
          if (iscodes(lun) .ne. 0) iret = -1
-      ELSE
-         GOTO 902
       ENDIF
 
 C  EXITS
@@ -123,7 +119,4 @@ C  -----
      . ' BE OPEN FOR INPUT')
 901   CALL BORT('BUFRLIB: READSB - INPUT BUFR FILE IS OPEN FOR OUTPUT'//
      . ', IT MUST BE OPEN FOR INPUT')
-902   WRITE(BORT_STR,'("BUFRLIB: READSB - MESSAGE UNPACK TYPE",I3,"IS'//
-     . ' NOT RECOGNIZED")') MSGUNP
-      CALL BORT(BORT_STR)
       END

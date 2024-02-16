@@ -132,6 +132,11 @@ for kind in "4" "d"; do
     (./test_bort_$kind lstjpb 1) && exit 1
     (./test_bort_$kind lstjpb 2) && exit 1
 
+    # Check minimg().
+    (./test_bort_$kind minimg 1) && exit 1
+    (./test_bort_$kind minimg 2) && exit 1
+    (./test_bort_$kind minimg 3) && exit 1
+
     # Check msgwrt().
     (./test_bort_$kind msgwrt 1) && exit 1
     (./test_bort_$kind msgwrt 2) && exit 1
@@ -181,6 +186,10 @@ for kind in "4" "d"; do
     # Check openmg().
     (./test_bort_$kind openmg 1) && exit 1
     (./test_bort_$kind openmg 2) && exit 1
+
+    # Check openmb().
+    (./test_bort_$kind openmb 1) && exit 1
+    (./test_bort_$kind openmb 2) && exit 1
 
     # Check parstr().
     (./test_bort_$kind parstr 1) && exit 1
@@ -336,6 +345,10 @@ for kind in "4" "d"; do
     (./test_bort_$kind stndrd 5) && exit 1
     (./test_bort_$kind stndrd 6) && exit 1
 
+    # Check stntbia().
+    (./test_bort_$kind stntbia 1) && exit 1
+    (./test_bort_$kind stntbia 2) && exit 1
+
     # Check strtbfe().
     (./test_bort_$kind strtbfe 1) && exit 1
 
@@ -487,6 +500,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind wtstat 2) && exit 1
     (./test_bort_$kind wtstat 3) && exit 1
     (./test_bort_$kind wtstat 4) && exit 1
+    (./test_bort_$kind wtstat 5) && exit 1
 
     # Check writdx().
     (./test_bort_$kind writdx 1) && exit 1

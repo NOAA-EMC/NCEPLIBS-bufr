@@ -446,6 +446,18 @@ program test_bort
         call readmg(11, char_val_8, jdate, iret)
         call lstjpb(10000, 1, 'DRP')
      endif
+  elseif (sub_name .eq. 'minimg') then
+     if (test_case .eq. '1') then
+     elseif (test_case .eq. '2') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+     elseif (test_case .eq. '3') then
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUX', 11)
+     endif
+     call minimg(11, 16)
   elseif (sub_name .eq. 'msgwrt') then
      filnam = 'testfiles/IN_2'
      call cobfl_c( filnam, 'r' )
@@ -634,6 +646,15 @@ program test_bort
         call openmg(11, 'F5FCMESG', 2021022312)
      elseif (test_case .eq. '2') then
         call openmg(11, 'F5FCMESG', 2021022312)
+     endif
+  elseif (sub_name .eq. 'openmb') then
+     open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+     if (ios .ne. 0) stop 3
+     if (test_case .eq. '1') then
+        call openbf(11, 'IN', 11)
+        call openmb(11, 'F5FCMESG', 2021022312)
+     elseif (test_case .eq. '2') then
+        call openmb(11, 'F5FCMESG', 2021022312)
      endif
   elseif (sub_name .eq. 'parstr') then
      if (test_case .eq. '1') then
@@ -1214,6 +1235,26 @@ program test_bort
      elseif (test_case .eq. '6') then
         call stndrd ( 21, ibfmg, 5000, ibfmg2 )
      endif
+  elseif (sub_name .eq. 'stntbia') then
+     open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+     if (ios .ne. 0) stop 3
+     open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+     if (ios .ne. 0) stop 3
+     if (test_case .eq. '1') then
+       card = '| NC007200 | A54124 | MTYPE 007-200                                            |'
+       write (12,'(A)') card
+       card = '| NC008200 | A54124 | MTYPE 008-200                                            |'
+       write (12,'(A)') card
+     elseif (test_case .eq. '2') then
+       card = '| NC007200 | A54124 | MTYPE 007-200                                            |'
+       write (12,'(A)') card
+       card = '| NC007200 | A54125 | MTYPE 007-200                                            |'
+       write (12,'(A)') card
+     endif
+     close (12)
+     open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
+     if (ios .ne. 0) stop 3
+     call openbf(11, 'OUT', 12)
   elseif (sub_name .eq. 'strtbfe') then
      if (test_case .eq. '1') then
        if (isetprm('MXMTBF',100) .ne. 0) stop 3
@@ -1834,6 +1875,11 @@ program test_bort
         call wtstat(1, 1, -2, 0)
      elseif (test_case .eq. '4') then
         call wtstat(1, 1, 0, -1)
+     elseif (test_case .eq. '5') then
+        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'IN', 12)
+        call wtstat(2, 1, 0, 1)
      endif
   else
      print *, "Unknown test function"
