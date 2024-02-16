@@ -114,9 +114,9 @@ C>                 - If IO is set to 'QUIET' = indicator for degree of
 C>                   printout:
 C>                      - -1 = no printout except for ABORT messages
 C>                      -  0 = limited printout (default)
-C>                      -  1 = all warning messages are printed out
+C>                      -  1 = all warning messages are printed
 C>                      -  2 = all warning and info messages are printed
-C>                      -  3 = high volume low level debug output prints
+C>                      -  3 = all warning, info and debug messages are printed
 C>
 C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06
 

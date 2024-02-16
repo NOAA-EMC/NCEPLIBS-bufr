@@ -110,6 +110,9 @@ for kind in "4" "d"; do
     (./test_bort_$kind ifbget 2) && exit 1
     (./test_bort_$kind ifbget 3) && exit 1
 
+    # Check inctab().
+    (./test_bort_$kind inctab 1) && exit 1
+
     # Check isize().
     (./test_bort_$kind isize 1) && exit 1
     (./test_bort_$kind isize 2) && exit 1
@@ -144,6 +147,10 @@ for kind in "4" "d"; do
     # Check nemtba().
     (./test_bort_$kind nemtba 1) && exit 1
 
+    # Check nemtbax().
+    (./test_bort_$kind nemtbax 1) && exit 1
+    (./test_bort_$kind nemtbax 2) && exit 1
+
     # Check nemtbb().
     (./test_bort_$kind nemtbb 1) && exit 1
     (./test_bort_$kind nemtbb 2) && exit 1
@@ -173,8 +180,7 @@ for kind in "4" "d"; do
 
     # Check openmg().
     (./test_bort_$kind openmg 1) && exit 1
-    # Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/395.    
-    # (./test_bort_$kind openmg 2) && exit 1
+    (./test_bort_$kind openmg 2) && exit 1
 
     # Check parstr().
     (./test_bort_$kind parstr 1) && exit 1
@@ -188,6 +194,12 @@ for kind in "4" "d"; do
     (./test_bort_$kind parusr 4) && exit 1
     (./test_bort_$kind parusr 5) && exit 1
     (./test_bort_$kind parusr 6) && exit 1
+    (./test_bort_$kind parusr 7) && exit 1
+
+    # Check parutg().
+    (./test_bort_$kind parutg 1) && exit 1
+    (./test_bort_$kind parutg 2) && exit 1
+    (./test_bort_$kind parutg 3) && exit 1
 
     # Check pkb().
     (./test_bort_$kind pkb 1) && exit 1
