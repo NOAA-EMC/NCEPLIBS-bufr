@@ -5,6 +5,8 @@
 ! testfile and test various user defined options available through subroutine
 ! ufbint which is the driver of ufbrw.
 !
+! Adding additional testing in ufbrw
+!
 ! J Woollen  4/14/23  
 
       program test_ufbrw
@@ -104,7 +106,9 @@
 
       do while(ireadmg(20,subset,idate)==0)
         do while(ireadsb(20)==0)
+          if(i==1) call openbf(20,'QUIET',3)
           call ufbint(20,arr,10,255,irt,cond//' POB QOB TOB UOB VOB')
+          if(i==1) call openbf(20,'QUIET',0)
           if(irt>0) write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
         enddo
       enddo
@@ -128,6 +132,7 @@
           call ufbint(20,arr,10,255,irt,'POB QOB TOB UOB VOB')
           write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
           call openmb(50,subset,idate)
+          call ufbint(50,arr,10,irt,jrt,'POB QOB TOB UOB VOB')
           call ufbint(50,arr,10,irt,jrt,'POB QOB TOB UOB VOB')
           call writsb(50)
         enddo
@@ -172,4 +177,3 @@
 
       print*,'success'
       end program
-
