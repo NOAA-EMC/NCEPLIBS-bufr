@@ -33,7 +33,6 @@ C     initialized within subroutine BFRINI.
 
       COMMON /TABCCC/ ICDW,ICSC,ICRV,INCW
 
-      CHARACTER*128 BORT_STR
       CHARACTER*24  UNIT
       CHARACTER*10  RTAG
       CHARACTER*8   NEMO
@@ -63,7 +62,6 @@ C  ---------------------------------------------
             GOTO 1
          ENDIF
          ENDDO
-         GOTO 900
       ENDIF
 
 C  MAKE AN JUMP/LINK ENTRY FOR AN ELEMENT OR A SEQUENCE
@@ -109,7 +107,7 @@ C           This node contains a new (redefined) reference value.
             IBT(NODE) = INCW * 8
          ENDIF
 
-      ELSEIF(TAB.EQ.'D') THEN
+      ELSE  ! TAB.EQ.'D'
 
          IF(IREP.EQ.0) THEN
             TYPT = 'SEQ'
@@ -124,21 +122,11 @@ C           This node contains a new (redefined) reference value.
          IRF (NODE) = 0
          ISC (NODE) = 0
 
-      ELSE
-
-         GOTO 901
-
       ENDIF
 
 C  EXITS
 C  -----
 
       RETURN
-900   WRITE(BORT_STR,'("BUFRLIB: TABENT - REPLICATOR ERROR FOR INPUT '//
-     . 'MNEMONIC ",A,", RTAG IS ",A)') NEMO,RTAG
-      CALL BORT(BORT_STR)
-901   WRITE(BORT_STR,'("BUFRLIB: TABENT - UNDEFINED TAG (",A,") FOR '//
-     . 'INPUT MNEMONIC ",A)') TAB,NEMO
-      CALL BORT(BORT_STR)
 902   CALL BORT('BUFRLIB: TABENT - MXNRV OVERFLOW')
       END

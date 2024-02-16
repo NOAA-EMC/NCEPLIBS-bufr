@@ -250,12 +250,10 @@ C  -----------------------------------------
          VALI(NODE) = BMISS
          KNTI(NODE) = 1
          ITP (NODE) = 2
-      ELSEIF(TYP(NODE).EQ.'CHR') THEN
+      ELSE ! TYP(NODE).EQ.'CHR'
          VALI(NODE) = BMISS
          KNTI(NODE) = 1
          ITP (NODE) = 3
-      ELSE
-         GOTO 901
       ENDIF
       ENDDO
 
@@ -319,8 +317,6 @@ C  EXITS
 C  -----
 
       RETURN
-901   WRITE(BORT_STR,'("BUFRLIB: MAKESTAB - UNKNOWN TYPE ",A)')TYP(NODE)
-      CALL BORT(BORT_STR)
 902   WRITE(BORT_STR,'("BUFRLIB: MAKESTAB - NUMBER OF JSEQ ENTRIES IN'//
      . ' JUMP/LINK TABLE EXCEEDS THE LIMIT (",I6,")")') MAXJL
       CALL BORT(BORT_STR)

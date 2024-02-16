@@ -12,7 +12,7 @@ C> not, nothing happens at this point. If it does, then the type of
 C> condition character is noted and the tag is stripped of all
 C> characters at and beyond the condition character. In either event,
 C> the resultant tag is checked against those in the internal jump/
-C> link subset table (in module tables). If found, the node
+C> link subset table (in module @ref moda_tables). If found, the node
 C> associated with the tag is returned (and it is either a "condition"
 C> node or a "store" node depending of the presence or absence of a
 C> condition character in UTG). Otherwise the node is returned as
@@ -217,7 +217,6 @@ C  -----
      . 'FOR MNEMONIC ",A)') ATYP,ATAG
       CALL BORT(BORT_STR1)
 903   WRITE(BORT_STR1,'("BUFRLIB: PARUTG - CONDITION VALUE IN '//
-     . 'MNEMONIC ",A," ILLEGAL BECAUSE ALL OTHER CHARACTERS IN '//
-     . 'MNEMONIC MUST BE NUMERIC")') UTG
+     . 'MNEMONIC ",A," CONTAINS NON-NUMERIC CHARACTERS")') UTG
       CALL BORT(BORT_STR1)
       END

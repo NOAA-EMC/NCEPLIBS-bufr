@@ -63,10 +63,10 @@ program intest10
 
   ! Test some various out-of-bounds verbosity settings, and test the errwrt branch in arallocf.
   ! The verbosity level is the 3rd argument whenever the 2nd argument to openbf is 'QUIET'.  Any
-  ! request greater than 3 should automatically reset internally to the max value of 2, and any
+  ! request greater than 3 should automatically reset internally to the max value of 3, and any
   ! request less than -1 should automatically reset internally to the min value of -1.
   errstr_len = 0
-  call openbf ( 21, 'QUIET', 3 )
+  call openbf ( 21, 'QUIET', 4 )
   if ( index( errstr(1:errstr_len), 'ARRAYS WILL BE DYNAMICALLY ALLOCATED USING THE FOLLOWING VALUES' ) .eq. 0 ) stop 3
   call openbf ( 21, 'QUIET', -2 )
   call openbf ( 21, 'QUIET', 1 )
