@@ -106,7 +106,7 @@
 
       do while(ireadmg(20,subset,idate)==0)
         do while(ireadsb(20)==0)
-          if(i==1) call openbf(20,'QUIET',2)
+          if(i==1) call openbf(20,'QUIET',3)
           call ufbint(20,arr,10,255,irt,cond//' POB QOB TOB UOB VOB')
           if(i==1) call openbf(20,'QUIET',0)
           if(irt>0) write(55,'(5(1x,f8.2))')arr(1:5,1:irt)

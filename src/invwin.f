@@ -48,8 +48,8 @@ C  RETURN 0 IF NODE NOT FOUND IN WINDOW
 C  ------------------------------------
 
 100   if(iprt>=3) then
-         write(errstr,'(a,2i8,a,i8)')
-     .   'invwin reads',inv1,inv2,'returns',invwin 
+         write(errstr,'(a,3i8)')
+     .   'invwin i1,i2,in ',inv11,inv2,invwin 
          call errwrt(errstr)
       endif
       
