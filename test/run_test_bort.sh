@@ -110,6 +110,9 @@ for kind in "4" "d"; do
     (./test_bort_$kind ifbget 2) && exit 1
     (./test_bort_$kind ifbget 3) && exit 1
 
+    # Check igetntbi().
+    (./test_bort_$kind igetntbi 1) && exit 1
+
     # Check inctab().
     (./test_bort_$kind inctab 1) && exit 1
 
@@ -386,6 +389,11 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufbcpy 1) && exit 1
     (./test_bort_$kind ufbcpy 2) && exit 1
     (./test_bort_$kind ufbcpy 3) && exit 1
+    (./test_bort_$kind ufbcpy 4) && exit 1
+    (./test_bort_$kind ufbcpy 5) && exit 1
+    (./test_bort_$kind ufbcpy 6) && exit 1
+    (./test_bort_$kind ufbcpy 7) && exit 1
+    (./test_bort_$kind ufbcpy 8) && exit 1
 
     # Check ufbcup().
     (./test_bort_$kind ufbcup 1) && exit 1
@@ -487,8 +495,13 @@ for kind in "4" "d"; do
     (./test_bort_$kind upftbv 2) && exit 1
 
     # Check usrtpl().
-    # Oddly this does not cause a bort() in intel. Why?
-    #(./test_bort_$kind usrtpl 1) && exit 1
+    (./test_bort_$kind usrtpl 1) && exit 1
+    (./test_bort_$kind usrtpl 2) && exit 1
+    (./test_bort_$kind usrtpl 3) && exit 1
+
+    # Check wrcmps().
+    (./test_bort_$kind wrcmps 1) && exit 1
+    (./test_bort_$kind wrcmps 2) && exit 1
 
     # Check wrdxtb().
     (./test_bort_$kind wrdxtb 1) && exit 1

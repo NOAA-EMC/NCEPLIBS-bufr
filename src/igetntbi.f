@@ -33,7 +33,7 @@ C-----------------------------------------------------------------------
         ELSE IF ( CTB .EQ. 'B' ) THEN
           IGETNTBI = NTBB(LUN) + 1
           IMAX = NTBB(0)
-        ELSE IF ( CTB .EQ. 'D' ) THEN
+        ELSE  ! CTB .EQ. 'D'
           IGETNTBI = NTBD(LUN) + 1
           IMAX = NTBD(0)
         ENDIF
