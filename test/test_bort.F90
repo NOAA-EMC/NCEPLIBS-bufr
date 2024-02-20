@@ -1260,6 +1260,7 @@ program test_bort
        if (isetprm('MXMTBF',100) .ne. 0) stop 3
        open(unit = 11, file = 'testfiles/IN_4', iostat = ios)
        call openbf(11, 'SEC3', 11)
+       call mtinfo('../tables', 80, 81)
        call codflg('Y')
        call readns(11, char_val_8, jdate, iret)
      endif
@@ -1268,6 +1269,7 @@ program test_bort
        if (isetprm('MXBTMSE',8) .ne. 0) stop 3
        open(unit = 11, file = 'testfiles/IN_4', iostat = ios)
        call openbf(11, 'SEC3', 11)
+       call mtinfo('../tables', 80, 81)
        call readns(11, char_val_8, jdate, iret)
      endif
   elseif (sub_name .eq. 'strcpt') then
@@ -1302,11 +1304,13 @@ program test_bort
        if (isetprm('MXTCO',3) .ne. 0) stop 3
        open(unit = 11, file = 'testfiles/IN_4', iostat = ios)
        call openbf(11, 'SEC3', 11)
+       call mtinfo('../tables', 80, 81)
        call readns(11, char_val_8, jdate, iret)
      elseif (test_case .eq. '12') then
        if (isetprm('MXTAMC',1) .ne. 0) stop 3
        open(unit = 11, file = 'testfiles/IN_4', iostat = ios)
        call openbf(11, 'SEC3', 11)
+       call mtinfo('../tables', 80, 81)
        call readns(11, char_val_8, jdate, iret)
        open(unit = 13, file = 'testfiles/OUT_3', iostat = ios)
        call openbf(13, 'IN', 13)
