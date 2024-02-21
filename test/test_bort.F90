@@ -222,6 +222,20 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(12, 'OUT', 10)
         call copysb(11, 12, ierr)     
+     elseif (test_case .eq. '7') then
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2_bufrtab', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 12)
+        call readmg(11, char_val_8, jdate, iret)
+        open(unit = 13, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 14, file = 'testfiles/IN_7_bufrtab', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(13, 'OUT', 14)
+        call openmb(13, 'NC008023', 2021022312)
+        call copysb(11, 13, ierr)
      endif
   elseif (sub_name .eq. 'cpdxmm') then
      if (test_case .eq. '1') then
@@ -992,6 +1006,24 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(12, 'OUT', 10)
         call readsb(11, iret)
+     endif
+  elseif (sub_name .eq. 'reads3') then
+     if (test_case .eq. '1') then
+        if (isetprm('MXCNEM',1) .ne. 0) stop 3
+        open(unit = 31, file = '/dev/null')
+        call openbf(31, 'SEC3', 31)
+        call mtinfo('../tables', 80, 81)
+        filnam = 'testfiles/IN_1'
+        call cobfl_c( filnam, 'r' )
+        call crbmg_c(bfmg, 200000, msgl, iret)
+        call readerme(ibfmg, 31, char_val_8, jdate, iret)
+        filnam = 'testfiles/IN_4'
+        call cobfl_c( filnam, 'r' )
+        call crbmg_c(bfmg, 200000, msgl, iret)
+        ! Make it look like the message uses version 14 of the WMO master tables.
+        ibit = 168
+        call pkb(14, 8, ibfmg, ibit)
+        call readerme(ibfmg, 31, char_val_8, jdate, iret)
      endif
   elseif (sub_name .eq. 'rewnbf') then
      open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)

@@ -88,7 +88,6 @@ program outtest4
   ! units 51 and 52 to files on the local system.
   errstr_len = 0
   call openbf ( 51, 'NUL', 13 )
-  call openbf ( 52, 'QUIET', 2 )
   call openbf ( 52, 'INUL', 51 )
   if ( index( errstr(1:errstr_len), 'INTERNAL ARRAYS ASSOC. W/ OUTPUT UNIT' ) .eq. 0 ) stop 4
   call openbf ( 13, 'QUIET', -1 )

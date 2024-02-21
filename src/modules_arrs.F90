@@ -200,18 +200,17 @@ end module moda_comprx
 !> @author J. Ator
 !> @date 2012-03-02
 module moda_dscach
-  use modv_vars, only: maxnc, mxcnem
   !> Number of entries in the internal Table A mnemonic cache (up to a
   !> maximum of mxcnem).
   integer :: ncnem
   !> Table A mnemonics.
-  character*8 :: cnem(mxcnem)
+  character*8, allocatable :: cnem(:)
   !> Number of child descriptors for the corresponding Table A mnemonic
   !> in cnem.
-  integer :: ndc(mxcnem)
+  integer, allocatable :: ndc(:)
   !> WMO bit-wise representations of the child descriptors for the
   !> corresponding Table A mnemonic in cnem.
-  integer :: idcach(mxcnem,maxnc)
+  integer, allocatable :: idcach(:,:)
 end module moda_dscach
 
 !> Declare arrays and variables needed to

@@ -93,6 +93,20 @@ program test_misc
   call gets1loc('NONEXISTENT', 3, isbyt, iwid, iret)
   if ( iret .ne. -1 ) stop 16
   
+  ! Testing copysb for "no more subsets" condition
+  open(unit = 11, file = 'testfiles/OUT_4_infile1', form = 'UNFORMATTED', iostat = ios)
+  if (ios .ne. 0) stop 17
+  call openbf(11, 'IN', 11)
+  call readns(11, subset, idate, iret)
+  open(unit = 12, file = 'testfiles/test_misc_OUT', form = 'UNFORMATTED', iostat = ios)
+  if (ios .ne. 0) stop 18
+  call openbf(12, 'OUT', 11)
+  call openmg(12, 'NC007000', 2021022312)
+  call copysb(11, 12, iret)
+  if ( iret .ne. -1 ) stop 19
+  call closbf(11)
+  call closbf(12)
+
   ! Testing strnum
   call strnum('8DUMMY8',num,iret)
   if (iret .ne. -1) stop 400
@@ -185,6 +199,7 @@ program test_misc
   if (igetprm('MXMSGL') .ne. 600000) stop 633
   if (igetprm('MAXJL') .ne. 96000) stop 634
   if (igetprm('MXH4WLC') .ne. 10) stop 635
+  if (igetprm('MXCNEM') .ne. 450) stop 636
   call closbf(11)
 
   ! Test imrkopr().

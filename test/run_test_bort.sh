@@ -60,6 +60,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind copysb 4) && exit 1
     (./test_bort_$kind copysb 5) && exit 1
     (./test_bort_$kind copysb 6) && exit 1
+    (./test_bort_$kind copysb 7) && exit 1
 
     # Check cpdxmm().
     (./test_bort_$kind cpdxmm 1) && exit 1
@@ -279,6 +280,9 @@ for kind in "4" "d"; do
     # Check readsb().
     (./test_bort_$kind readsb 1) && exit 1
     (./test_bort_$kind readsb 2) && exit 1
+
+    # Check reads3().
+    (./test_bort_$kind reads3 1) && exit 1
 
     # Check rewnbf().
     (./test_bort_$kind rewnbf 1) && exit 1
