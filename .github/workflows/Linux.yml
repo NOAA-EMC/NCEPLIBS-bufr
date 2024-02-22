@@ -69,4 +69,4 @@ jobs:
       if: steps.cache-data.outputs.cache-hit != 'true'
       run: |
         mkdir ~/data
-        cp $GITHUB_WORKSPACE/bufr/build/test/bufr-11.6.0.tgz ~/data
+        cp $GITHUB_WORKSPACE/bufr/build/test/bufr-12.1.0.tgz ~/data

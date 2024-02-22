@@ -47,8 +47,6 @@ C> @author J. Woollen @date 1994-01-06
       use moda_bitbuf
       use moda_tables
 
-      CHARACTER*128 BORT_STR
-
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
@@ -117,7 +115,7 @@ C  --------------------------------------------------------------------
             CALL CMPMSG('N')
          ENDIF
          GOTO 100
-      ELSE  IF(ICMP.EQ.0) THEN
+      ELSE   ! ICMP.EQ.0
 
 C  -------------------------------------------------------
 C  THIS BRANCH IS FOR UNCOMPRESSED INPUT/OUTPUT MESSAGES
@@ -151,8 +149,6 @@ C            oversized subset.
          IF(LUNOT.GT.0) CALL CPYUPD(LUNOT,LIN,LOT,NBYT)
          MBYT(LIN) = MBYT(LIN) + NBYT
          NSUB(LIN) = NSUB(LIN) + 1
-      ELSE
-         GOTO 907
       ENDIF
 
 C  EXITS
@@ -173,8 +169,4 @@ C  -----
      . 'BUFR FILE, NONE ARE')
 906   CALL BORT('BUFRLIB: COPYSB - INPUT AND OUTPUT BUFR FILES MUST '//
      . 'HAVE THE SAME INTERNAL TABLES, THEY ARE DIFFERENT HERE')
-907   WRITE(BORT_STR,'("BUFRLIB: COPYSB - INVALID COMPRESSION '//
-     . 'INDICATOR (ICMP=",I3," RETURNED FROM BUFR ARCHIVE LIBRARY '//
-     . 'ROUTINE MESGBC")') ICMP
-      CALL BORT(BORT_STR)
       END

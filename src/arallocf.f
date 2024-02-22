@@ -19,7 +19,8 @@ C> @author J. Ator @date 2014-12-04
      .                       maxtba, maxtbb, maxtbd, mxbtm, mxbtmse,
      .                       mxcdv, mxcsb, mxdxts, mxlcc, mxmsgl,
      .                       mxmsgld4, mxmtbb, mxmtbd, mxnrv, mxrst,
-     .                       mxs01v, mxtamc, mxtco, mxh4wlc, nfiles
+     .                       mxs01v, mxtamc, mxtco, mxh4wlc, nfiles,
+     .                       mxcnem, maxnc
 
         use moda_usrint
         use moda_usrbit
@@ -55,6 +56,7 @@ C> @author J. Ator @date 2014-12-04
         use moda_nrv203
         use moda_rlccmn
         use moda_h4wlc
+        use moda_dscach
 
         CHARACTER*80 ERRSTR
         CHARACTER*36  BRTSTR
@@ -117,6 +119,8 @@ C-----------------------------------------------------------------------
             WRITE ( ERRSTR, '(A,I4)' ) '  MXH4WLC = ', MXH4WLC
             CALL ERRWRT(ERRSTR)
             WRITE ( ERRSTR, '(A,I4)' ) '    MXRST = ', MXRST
+            CALL ERRWRT(ERRSTR)
+            WRITE ( ERRSTR, '(A,I4)' ) '   MXCNEM = ', MXCNEM
             CALL ERRWRT(ERRSTR)
             CALL ERRWRT
      .          ('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
@@ -557,6 +561,17 @@ C       MODA_H4WLC arrays.
 
         ALLOCATE( CHH4WLC(MXH4WLC), STAT=iost )
         IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'CHH4WLC' )
+
+C       MODA_DSCACH arrays.
+
+        ALLOCATE( CNEM(MXCNEM), STAT=iost )
+        IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'CNEM' )
+
+        ALLOCATE( NDC(MXCNEM), STAT=iost )
+        IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'NDC' )
+
+        ALLOCATE( IDCACH(MXCNEM,MAXNC), STAT=iost )
+        IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'IDCACH' )
 
         RETURN
         END

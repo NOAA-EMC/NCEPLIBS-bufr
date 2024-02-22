@@ -74,6 +74,8 @@ program intest1
   ! Pass the BUFR message from the memory array into the library.
   call openbf(11, 'QUIET', 2)  ! Turn on some extra print statements for testing
   call readerme(ibfmg, 11, cmgtag, imgdt, ierme)
+  ! Call readerme a second time with the same BUFR message, to test reusing the Section 3 cache from the first call.
+  call readerme(ibfmg, 11, cmgtag, imgdt, ierme)
   if (ierme .ne. 0 .or. cmgtag .ne. 'MSTTB001') stop 8
   call openbf(11, 'QUIET', 0)  ! Turn off extra print statements
 
