@@ -17,7 +17,7 @@ program test_misc
   integer isbyt, iwid
   character*6 cfxy
   
-#ifdef KIND_4
+#ifndef KIND_8
   character*5 char5
   character sign
   character*5 adn30
@@ -26,8 +26,8 @@ program test_misc
   integer ierr, nemock
   integer numbck
   integer mtyp, msbt, inod
-  integer igetprm, isetprm
-  integer imrkopr
+  integer*4 igetprm, isetprm, invcon, invtag
+  integer*4 imrkopr
   character*7 prms(13)
   character*4 char_4(1), char_4_2(2)
   character*8 char_8(1), char_8_2(2)
@@ -117,8 +117,18 @@ program test_misc
   call strnum('    ',num,iret)
   if ((iret .ne. 0) .or. (num .ne. 0)) stop 403
 
-  ! These tests only for the _4 run of test_misc.
-#ifdef KIND_4
+  ! Test various igetfxy() cases.
+  iret = igetfxy("SHORT", cfxy)
+  if (iret .ne. -1) stop 900
+  iret = igetfxy("352003", cfxy)
+  if (iret .ne. 0) stop 901
+
+  ! The following tests are only for the _4 and _d runs of test_misc, because many
+  ! of the routines below aren't intended to ever be called directly by users, and
+  ! therefore those routines aren't configured to handle the passing of 8-byte
+  ! integer arguments.
+
+#ifndef KIND_8
 
   ! adn30/idn30.
   char5 = adn30(42, 5)
@@ -243,6 +253,17 @@ program test_misc
   call nvnwin(0, 1, 1, 1, mbay, 2)
   call openbf(11, 'QUIET', 0)
 
+  ! Test invcon() and invtag()
+  open(unit = 11, file = 'testfiles/OUT_5_infile', iostat = ios)
+  call openbf(11, 'IN', 11)
+  call readns(11, subset, idate, iret)
+  call openbf(11, 'QUIET', 2)
+  if (invcon(1, 1, 0, 3) .ne. 0) stop 706
+  if (invcon(1, 1, 3, 0) .ne. 0) stop 707
+  if (invtag(0, 1, 3, 0) .ne. 0) stop 708
+  call openbf(11, 'QUIET', 0)
+  call closbf(11)
+
   ! Test various parameters for isetprm().
   prms = (/ 'MAXTBA ', 'MAXTBB ', 'MAXTBD ', 'MXMTBB ', 'MXMTBD ', 'MAXJL  ', &
     'MXMTBF ', 'MXS01V ', 'MXBTM  ', 'MXBTMSE', 'MXTAMC ', 'MXTCO  ', 'MXRST  ' /)
@@ -352,12 +373,6 @@ program test_misc
   if ( char_24(1) .ne. ' ' ) stop 803
   
 #endif
-
-  ! Test various igetfxy() cases.
-  iret = igetfxy("SHORT", cfxy)
-  if (iret .ne. -1) stop 900
-  iret = igetfxy("352003", cfxy)
-  if (iret .ne. 0) stop 901
 
   print *, 'SUCCESS'
 end program test_misc

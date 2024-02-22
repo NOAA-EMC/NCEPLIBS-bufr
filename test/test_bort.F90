@@ -46,7 +46,7 @@ program test_bort
   integer imt, imtv, iogce, iltv
   integer*8 nval
 
-  integer*4 isize, iupm, iupvs01, isetprm, nmsub
+  integer*4 isize, iupm, iupvs01, isetprm, nmsub, igettdi
 
   character*25 filnam
   character bfmg(200000)
@@ -417,10 +417,18 @@ program test_bort
        if (ios .ne. 0) stop 3
        call openbf(11, 'IN', 12)
      endif
+  elseif (sub_name .eq. 'igettdi') then
+     if (test_case .eq. '1') then
+       iret = igettdi(0)
+       do u = 1, 257
+         iret = igettdi(1)
+       enddo
+     endif
   elseif (sub_name .eq. 'inctab') then
      if (test_case .eq. '1') then
-       if (isetprm('MAXJL',10) .ne. 0) stop 3
        open(unit = 11, file = 'testfiles/OUT_1', iostat = ios)
+       if (ios .ne. 0) stop 3
+       if (isetprm('MAXJL',10) .ne. 0) stop 3
        call openbf(11, 'IN', 11)
      endif
   elseif (sub_name .eq. 'isize') then

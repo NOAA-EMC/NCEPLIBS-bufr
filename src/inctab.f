@@ -19,6 +19,8 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE INCTAB(ATAG,ATYP,NODE)
 
+      use modv_vars, only: maxjl
+
       use moda_tables
 
       CHARACTER*(*) ATAG,ATYP
@@ -28,7 +30,7 @@ C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
 
       NTAB = NTAB+1
-      IF(NTAB.GT.MAXTAB) GOTO 900
+      IF(NTAB.GT.MAXJL) GOTO 900
       TAG(NTAB) = ATAG
       TYP(NTAB) = ATYP
       NODE = NTAB
@@ -38,6 +40,6 @@ C  -----
 
       RETURN
  900  WRITE(BORT_STR,'("BUFRLIB: INCTAB - THE NUMBER OF JUMP/LINK '//
-     . 'TABLE ENTRIES EXCEEDS THE LIMIT, MAXTAB (",I7,")")') MAXTAB
+     . 'TABLE ENTRIES EXCEEDS THE LIMIT, MAXJL (",I7,")")') MAXJL
       CALL BORT(BORT_STR)
       END
