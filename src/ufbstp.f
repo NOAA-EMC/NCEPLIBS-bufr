@@ -125,9 +125,9 @@ C> @author J. Woollen @date 1994-01-06
       CHARACTER*128 BORT_STR1,BORT_STR2,ERRSTR
       REAL*8        USR(I1,I2)
 
-      DATA IFIRST1/0/,IFIRST2/0/
+      DATA IFIRST1/0/
 
-      SAVE IFIRST1, IFIRST2
+      SAVE IFIRST1
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------
@@ -231,29 +231,6 @@ C  -------------------------------
       CALL ERRWRT(STR)
       CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       CALL ERRWRT(' ')
-            ENDIF
-         ELSE
-            IF(IPRT.EQ.-1)  IFIRST2 = 1
-            IF(IFIRST2.EQ.0 .OR. IPRT.GE.1)  THEN
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      ERRSTR = 'BUFRLIB: UFBSTP - NO SPECIFIED VALUES WRITTEN OUT, ' //
-     .   'SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
-      CALL ERRWRT(ERRSTR)
-      CALL ERRWRT(STR)
-      CALL ERRWRT('MAY NOT BE IN THE BUFR TABLE(?)')
-               IF(IPRT.EQ.0) THEN
-      ERRSTR = 'Note: Only the first occurrence of this WARNING ' //
-     .   'message is printed, there may be more.  To output all ' //
-     .   'such messages,'
-      CALL ERRWRT(ERRSTR)
-      ERRSTR = 'modify your application program to add ' //
-     .   '"CALL OPENBF(0,''QUIET'',1)" prior to the first call ' //
-     .   'to a BUFRLIB routine.'
-      CALL ERRWRT(ERRSTR)
-               ENDIF
-      CALL ERRWRT('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      CALL ERRWRT(' ')
-               IFIRST2 = 1
             ENDIF
          ENDIF
       ENDIF

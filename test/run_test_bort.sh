@@ -467,6 +467,7 @@ for kind in "4" "d"; do
     # Check ufbrep().
     (./test_bort_$kind ufbrep 1) && exit 1
     (./test_bort_$kind ufbrep 2) && exit 1
+    (./test_bort_$kind ufbrep 3) && exit 1
 
     # Check ufbrms().
     (./test_bort_$kind ufbrms 1) && exit 1
@@ -485,6 +486,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufbstp 1) && exit 1
     (./test_bort_$kind ufbstp 2) && exit 1
     (./test_bort_$kind ufbstp 3) && exit 1
+    (./test_bort_$kind ufbstp 4) && exit 1
 
     # Check ufdump().
     (./test_bort_$kind ufdump 1) && exit 1

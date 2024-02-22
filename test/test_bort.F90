@@ -1750,6 +1750,14 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(12, 'IN', 10)
         call ufbrep(12, real_2d, 1, 2, iret, 'c')
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 11, file = 'testfiles/IN_7_bufrtab', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 11)
+        call openmb(12, 'NC008023', 2021022312)
+        call ufbrep(12, real_2d, 1, 2, iret, 'TOST')
      endif
   elseif (sub_name .eq. 'ufbrms') then
      if (test_case .eq. '1') then
@@ -1789,6 +1797,14 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(12, 'OUT', 10)
         call ufbstp(11, real_2d, 1, 1, iret, 'LALAL1')
+     elseif (test_case .eq. '4') then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 11, file = 'testfiles/IN_7_bufrtab', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(12, 'OUT', 11)
+        call openmb(12, 'NC008023', 2021022312)
+        call ufbstp(12, real_2d, 1, 2, iret, 'TOST')
      endif
   elseif (sub_name .eq. 'ufbseq') then
      if (test_case .eq. '1') then
