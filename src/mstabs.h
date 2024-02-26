@@ -12,62 +12,76 @@
  *  @author J. Ator @date 2014-12-04
  */
 
+/** @var nmtb_c
+ *  Number of master Table B entries; copied from Fortran nmtb variable
+ *
+ *  @var ibfxyn_c
+ *  WMO bit-wise representations of master Table B FXY numbers; copied from Fortran ibfxyn array
+ *
+ *  @var cbscl_c
+ *  Master Table B scale factors; copied from Fortran cbscl array
+ *
+ *  @var cbsref_c
+ *  Master Table B reference values; copied from Fortran cbsref array
+ *
+ *  @var cbbw_c
+ *  Master Table B bit widths; copied from Fortran cbbw array
+ *
+ *  @var cbunit_c
+ *  Master Table B units; copied from Fortran cbunit array
+ *
+ *  @var cbmnem_c
+ *  Master Table B mnemonics; copied from Fortran cbmnem array
+ *
+ *  @var cbelem_c
+ *  Master Table B element names; copied from Fortran cbelem array
+ *
+ *  @var nmtd_c
+ *  Number of master Table D entries; copied from Fortran nmtd variable
+ *
+ *  @var idfxyn_c
+ *  WMO bit-wise representations of master Table D FXY numbers; copied from Fortran idfxyn array
+ *
+ *  @var cdseq_c
+ *  Master Table D sequence names; copied from Fortran cdseq array
+ *
+ *  @var cdmnem_c
+ *  Master Table D mnemonics; copied from Fortran cdmnem array
+ *
+ *  @var ndelem_c
+ *  Number of child descriptors for master Table D sequences; copied from Fortran ndelem array
+ *
+ *  @var idefxy_c
+ *  WMO bit-wise representations of child descriptors for master Table D sequences; copied from Fortran idefxy array
+ */
 #ifdef IN_ARALLOCC
-        /** Number of master Table B entries; copied from Fortran nmtb variable. */
-        int nmtb_c;
-        /** WMO bit-wise representations of master Table B FXY numbers; copied from Fortran ibfxyn array. */
-        int *ibfxyn_c;
-        /** Master Table B scale factors; copied from Fortran cbscl array. */
-        char   (*cbscl_c)[4];
-        /** Master Table B reference value; copied from Fortran cbsref array. */
-        char   (*cbsref_c)[12];
-        /** Master Table B bit widths; copied from Fortran cbbw array. */
-        char   (*cbbw_c)[4];
-        /** Master Table B units; copied from Fortran cbunit array. */
-        char   (*cbunit_c)[24];
-        /** Master Table B mnemonics; copied from Fortran cbmnem array. */
-        char   (*cbmnem_c)[8];
-        /** Master Table B element names; copied from Fortran cbelem array. */
-        char   (*cbelem_c)[120];
-        /** Number of master Table D entries; copied from Fortran nmtd variable. */
-        int nmtd_c;
-        /** WMO bit-wise representations of master Table D FXY numbers; copied from Fortran idfxyn array. */
-        int *idfxyn_c;
-        /** Master Table D sequence names; copied from Fortran cdseq array. */
-        char   (*cdseq_c)[120];
-        /** Master Table D mnemonics; copied from Fortran cdmnem array. */
-        char   (*cdmnem_c)[8];
-        /** Number of child descriptors for master Table D sequence; copied from Fortran ndelem array. */
-        int *ndelem_c;
-        /** WMO bit-wise representations of child descriptors for master Table D sequence; copied from Fortran idefxy array. */
-        int *idefxy_c;
+    int nmtb_c;
+    int *ibfxyn_c;
+    char   (*cbscl_c)[4];
+    char   (*cbsref_c)[12];
+    char   (*cbbw_c)[4];
+    char   (*cbunit_c)[24];
+    char   (*cbmnem_c)[8];
+    char   (*cbelem_c)[120];
+    int nmtd_c;
+    int *idfxyn_c;
+    char   (*cdseq_c)[120];
+    char   (*cdmnem_c)[8];
+    int *ndelem_c;
+    int *idefxy_c;
 #else
-        /** Number of master Table B entries; copied from Fortran nmtb variable. */
-        extern int nmtb_c;
-        /** WMO bit-wise representations of master Table B FXY numbers; copied from Fortran ibfxyn array. */
-        extern int *ibfxyn_c;
-        /** Master Table B scale factors; copied from Fortran cbscl array. */
-        extern char   (*cbscl_c)[4];
-        /** Master Table B reference value; copied from Fortran cbsref array. */
-        extern char   (*cbsref_c)[12];
-        /** Master Table B bit widths; copied from Fortran cbbw array. */
-        extern char   (*cbbw_c)[4];
-        /** Master Table B units; copied from Fortran cbunit array. */
-        extern char   (*cbunit_c)[24];
-        /** Master Table B mnemonics; copied from Fortran cbmnem array. */
-        extern char   (*cbmnem_c)[8];
-        /** Master Table B element names; copied from Fortran cbelem array. */
-        extern char   (*cbelem_c)[120];
-        /** Number of master Table D entries; copied from Fortran nmtd variable. */
-        extern int nmtd_c;
-        /** WMO bit-wise representations of master Table D FXY numbers; copied from Fortran idfxyn array. */
-        extern int *idfxyn_c;
-        /** Master Table D sequence names; copied from Fortran cdseq array. */
-        extern char   (*cdseq_c)[120];
-        /** Master Table D mnemonics; copied from Fortran cdmnem array. */
-        extern char   (*cdmnem_c)[8];
-        /** Number of child descriptors for master Table D sequence; copied from Fortran ndelem array. */
-        extern int *ndelem_c;
-        /** WMO bit-wise representations of child descriptors for master Table D sequence; copied from Fortran idefxy array. */
-        extern int *idefxy_c;
+    extern int nmtb_c;
+    extern int *ibfxyn_c;
+    extern char   (*cbscl_c)[4];
+    extern char   (*cbsref_c)[12];
+    extern char   (*cbbw_c)[4];
+    extern char   (*cbunit_c)[24];
+    extern char   (*cbmnem_c)[8];
+    extern char   (*cbelem_c)[120];
+    extern int nmtd_c;
+    extern int *idfxyn_c;
+    extern char   (*cdseq_c)[120];
+    extern char   (*cdmnem_c)[8];
+    extern int *ndelem_c;
+    extern int *idefxy_c;
 #endif
