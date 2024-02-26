@@ -276,7 +276,7 @@ class open:
         """
         compress the data in subsequent writes to the bufr file
         """
-        return _bufrlib.cmpmsg(cmp)
+        _bufrlib.cmpmsg(cmp)
 
     def advance(self):
         """
