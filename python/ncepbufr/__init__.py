@@ -20,84 +20,12 @@ _nmaxseq = _maxevents # max size of sequence in message
 def set_param(key, value):
     """
     set BUFRLIB internal parameters controlling size limits.
-    Must be done prior to opening a bufr file.  Valid parameters are:
-
-    'MXMSGL' = MAXIMUM LENGTH (IN BYTES) OF A BUFR\
-               MESSAGE
-
-    'MAXSS'  = MAXIMUM NUMBER OF DATA VALUES IN AN
-               UNCOMPRESSED BUFR SUBSET
-
-    'MXCDV'  = MAXIMUM NUMBER OF DATA VALUES THAT CAN BE
-               WRITTEN INTO A COMPRESSED BUFR SUBSET
-
-    'MXLCC'  = MAXIMUM LENGTH (IN BYTES) OF A CHARACTER
-               STRING THAT CAN BE WRITTEN INTO A
-               COMPRESSED BUFR SUBSET
-
-    'MXCSB'  = MAXIMUM NUMBER OF SUBSETS THAT CAN BE
-               WRITTEN INTO A COMPRESSED BUFR MESSAGE
-
-    'NFILES' = MAXIMUM NUMBER OF BUFR FILES THAT CAN BE
-               ACCESSED FOR READING OR WRITING AT ANY
-               ONE TIME
-
-    'MAXTBA' = MAXIMUM NUMBER OF ENTRIES IN INTERNAL BUFR
-               TABLE A PER BUFR FILE
-
-    'MAXTBB' = MAXIMUM NUMBER OF ENTRIES IN INTERNAL BUFR
-               TABLE B PER BUFR FILE
-
-    'MAXTBD' = MAXIMUM NUMBER OF ENTRIES IN INTERNAL BUFR
-               TABLE D PER BUFR FILE
-
-    'MAXMEM' = MAXIMUM NUMBER OF BYTES THAT CAN BE USED
-               TO STORE BUFR MESSAGES IN INTERNAL MEMORY
-
-    'MAXMSG' = MAXIMUM NUMBER OF BUFR MESSAGES THAT CAN
-               BE STORED IN INTERNAL MEMORY
-
-    'MXDXTS' = MAXIMUM NUMBER OF DICTIONARY TABLES THAT
-               CAN BE STORED FOR USE WITH BUFR MESSAGES
-               IN INTERNAL MEMORY
-
-    'MXMTBB' = MAXIMUM NUMBER OF MASTER TABLE B ENTRIES
-
-    'MXMTBD' = MAXIMUM NUMBER OF MASTER TABLE D ENTRIES
-
-    'MXMTBF' = MAXIMUM NUMBER OF MASTER CODE/FLAG ENTRIES
-
-    'MAXCD'  = MAXIMUM NUMBER OF CHILD DESCRIPTORS IN A
-               TABLE D DESCRIPTOR SEQUENCE DEFINITION
-
-    'MAXJL'  = MAXIMUM NUMBER OF ENTRIES IN THE INTERNAL
-               JUMP/LINK TABLE
-
-    'MXS01V' = MAXIMUM NUMBER OF DEFAULT SECTION 0 OR
-               SECTION 1 VALUES THAT CAN BE OVERWRITTEN
-               WITHIN AN OUTPUT BUFR MESSAGE
-
-    'MXBTM'  = MAXIMUM NUMBER OF BITMAPS THAT CAN BE
-               STORED INTERNALLY FOR A BUFR SUBSET
-
-   'MXBTMSE' = MAXIMUM NUMBER OF ENTRIES THAT CAN BE
-               SET WITHIN A BITMAP
-
-    'MXTAMC' = MAXIMUM NUMBER OF TABLE A MNEMONICS IN THE
-               INTERNAL JUMP/LINK TABLE WHICH CONTAIN AT
-               LEAST ONE TABLE C OPERATOR WITH X>=21 IN
-               THEIR SUBSET DEFINITION
-
-    'MXTCO'  = MAXIMUM NUMBER OF TABLE C OPERATORS (WITH
-               X>=21) IN THE SUBSET DEFINITION OF A
-               TABLE A MNEMONIC
-
-    'MXNRV'  = MAXIMUM NUMBER OF 2-03 REFERENCE VALUES
-               IN THE INTERNAL JUMP/LINK TABLE
+    Must be done prior to opening a bufr file.  Valid parameters are
+    listed in the docblock of the isetprm source file.
 
     The 'get_param' function can be used to obtain the current value of these
     parameters."""
-    _bufrlib.isetprm(key, value)
+    return _bufrlib.isetprm(key, value)
 
 def get_param(key):
     """
