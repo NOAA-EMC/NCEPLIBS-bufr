@@ -145,6 +145,9 @@ end subroutine upftbv
 subroutine writsb(lunit) ! in writsb.f
     integer :: lunit
 end subroutine writsb
+subroutine cmpmsg(cmp) ! in cmpmsg.f
+    character*(*),intent(in) :: cmp
+end subroutine cmpmsg
 
     end interface 
 end python module _bufrlib
