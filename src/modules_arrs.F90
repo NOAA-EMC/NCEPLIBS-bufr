@@ -658,8 +658,6 @@ end module moda_tababd
 !>
 !> @author J. Ator @date 2014-12-10
 module moda_tables
-  !> Maximum number of entries in the jump/link table; equivalent to maxjl.
-  integer :: maxtab
   !> Number of entries in the jump/link table.
   integer :: ntab
   !> Mnemonics in the jump/link table.

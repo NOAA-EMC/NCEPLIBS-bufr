@@ -9,9 +9,10 @@
 #
 # Ed Hartnett 3/12/23
 
-# For now, don't run on _8 version of the library, because not all
-# functions tested here handle _8 calls well, since they are not
-# intended to be called directly by the user.
+# Don't run on the _8 version of the library, because many of the routines
+# tested below aren't intended to ever be called directly by users, and
+# therefore those routines aren't configured to handle the passing of
+# 8-byte integer arguments.
 for kind in "4" "d"; do
     # Check adn30().
     (./test_bort_$kind adn30 1) && exit 1
@@ -113,6 +114,9 @@ for kind in "4" "d"; do
 
     # Check igetntbi().
     (./test_bort_$kind igetntbi 1) && exit 1
+
+    # Check igettdi().
+    (./test_bort_$kind igettdi 1) && exit 1
 
     # Check inctab().
     (./test_bort_$kind inctab 1) && exit 1
@@ -467,6 +471,7 @@ for kind in "4" "d"; do
     # Check ufbrep().
     (./test_bort_$kind ufbrep 1) && exit 1
     (./test_bort_$kind ufbrep 2) && exit 1
+    (./test_bort_$kind ufbrep 3) && exit 1
 
     # Check ufbrms().
     (./test_bort_$kind ufbrms 1) && exit 1
@@ -485,6 +490,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufbstp 1) && exit 1
     (./test_bort_$kind ufbstp 2) && exit 1
     (./test_bort_$kind ufbstp 3) && exit 1
+    (./test_bort_$kind ufbstp 4) && exit 1
 
     # Check ufdump().
     (./test_bort_$kind ufdump 1) && exit 1
