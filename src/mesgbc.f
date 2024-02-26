@@ -41,7 +41,6 @@ C> @param[out] ICOMP -- integer: Message compression indicator
 C>                         - -3 = BUFR file does not exist
 C>                         - -2 = none of the messages in the BUFR file
 C>                                contained any report data
-C>                         - -1 = error reading the BUFR file
 C>                         -  0 = message is not compressed
 C>                         -  1 = message is compressed
 C>
@@ -81,7 +80,6 @@ C  ---------------------------------------------------------------
       ITYPE = 0
       IF(LUNIT.NE.LUNIN) ITYPE = 1
 
-      ICOMP   =   -1
       MESGTYP = -256
 
       IF(ITYPE.EQ.0) THEN
@@ -132,10 +130,10 @@ C  --------------------------------------------
 
 900   IF(IREC.EQ.0) THEN
          MESGTYP = -256
-         ICOMP =     -3
+         ICOMP = -3
       ELSE
          IF(MESGTYP.GE.0) MESGTYP = -MESGTYP
-         ICOMP  = -2
+         ICOMP = -2
       ENDIF
 
 C  EXIT

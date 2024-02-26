@@ -14,7 +14,7 @@
 !> @authors J. Woollen J. Ator @date 1994-01-06
 subroutine bfrini
 
-use modv_vars, only: maxjl, maxtba, maxtbb, maxtbd, mxmsgl, nfiles
+use modv_vars, only: maxtba, maxtbb, maxtbd, mxmsgl, nfiles
 
 use moda_stbfr
 use moda_idrdm
@@ -24,7 +24,6 @@ use moda_bufrmg
 use moda_bufrsr
 use moda_tababd
 use moda_usrint
-use moda_tables
 use moda_h4wlc
 use moda_dscach
 
@@ -170,10 +169,6 @@ do J=1,10
     call ipkm(DXSTR(J)(I1:I1),2,ifxy(DNDX(I,J)))
   enddo
 enddo
-
-!  Initialize module moda_tables
-
-maxtab = maxjl
 
 !  Initialize module moda_bufrmg
 

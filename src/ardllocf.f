@@ -46,6 +46,7 @@ C> @author J. Ator @date 2014-12-04
         use moda_nrv203
         use moda_rlccmn
         use moda_h4wlc
+        use moda_dscach
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -269,6 +270,12 @@ C       MODA_H4WLC arrays.
         DEALLOCATE( LUH4WLC )
         DEALLOCATE( STH4WLC )
         DEALLOCATE( CHH4WLC )
+
+C       MODA_DSCACH arrays.
+
+        DEALLOCATE( CNEM )
+        DEALLOCATE( NDC )
+        DEALLOCATE( IDCACH )
 
 C       C language arrays.
 

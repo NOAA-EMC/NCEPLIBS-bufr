@@ -17,6 +17,9 @@ void crbmg(char *bmg, int mxmb, int *nmb, int *iret);
 void cwbmg(char *bmg, int nmb, int *iret);
 void ccbfl(void);
 
+/** Size of a character string needed to store a library version number. */
+#define VERS_STR_LEN 8
+
 #ifdef __cplusplus
 extern "C" {
 #endif

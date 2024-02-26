@@ -64,6 +64,8 @@ C> - 'MXRST'  = Maximum number of long character strings that can be
 C> read from a compressed subset.
 C> - 'MXH4WLC' = Maximum number of long character strings that can be
 C> stored internally.
+C> - 'MXCNEM' = Maximum number of Table A entries that can be cached during
+C> Section 3 decoding of BUFR messages.
 C> @param[in] IPVAL - integer: Value to be set for CPRMNM
 C> @returns  isetprm - integer:
 C> -  0 = normal return
@@ -76,7 +78,8 @@ C> @author J. Ator @date 2014-12-04
      .                       maxmem, maxtba, maxtbb, maxtbd, maxjl,
      .                       mxcdv, mxlcc, mxcsb, mxmtbb, mxmtbd,
      .                       mxmtbf, maxcd, mxs01v, mxbtm, mxbtmse,
-     .                       mxtamc, mxtco, mxnrv, mxrst, mxh4wlc, im8b
+     .                       mxtamc, mxtco, mxnrv, mxrst, mxh4wlc, im8b,
+     .                       mxcnem
 
         CHARACTER*(*)   CPRMNM
         CHARACTER*128   ERRSTR
@@ -147,6 +150,8 @@ C       Check for I8 integers.
             MXRST = IPVAL
         ELSE IF ( CPRMNM .EQ. 'MXH4WLC' ) THEN
             MXH4WLC = IPVAL
+        ELSE IF ( CPRMNM .EQ. 'MXCNEM' ) THEN
+            MXCNEM = IPVAL
         ELSE
             IRET = -1
             CALL ERRWRT('++++++++++++++++++WARNING+++++++++++++++++++')

@@ -90,7 +90,7 @@ c  .... message with "standard" Section 3
          DO I=1,ISUB-1
          CALL READSB(MUNIT,IRET)
          ENDDO
-      ELSEIF(MSGUNP(LUN).EQ.2) THEN
+      ELSE ! MSGUNP(LUN).EQ.2
 c  .... compressed message
          NSUB(LUN) = ISUB-1
       ENDIF

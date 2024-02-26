@@ -15,6 +15,8 @@ C> @author J. Ator @date 2009-03-23
 
         use bufrlib
 
+        use modv_vars, only: maxnc, mxcnem
+
         use moda_sc3bfr
         use moda_bitbuf
         use moda_dscach

@@ -114,9 +114,9 @@ C>                 - If IO is set to 'QUIET' = indicator for degree of
 C>                   printout:
 C>                      - -1 = no printout except for ABORT messages
 C>                      -  0 = limited printout (default)
-C>                      -  1 = all warning messages are printed out
-C>                      -  2 = all warning and informational messages are
-C>                             printed out
+C>                      -  1 = all warning messages are printed
+C>                      -  2 = all warning and info messages are printed
+C>                      -  3 = all warning, info and debug messages are printed
 C>
 C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06
 
@@ -138,13 +138,14 @@ C> @authors J. Woollen, J. Ator,  D. Keyser @date 1994-01-06
       CHARACTER*(*) IO
       CHARACTER*255 FILENAME,FILEACC
       CHARACTER*128 BORT_STR,ERRSTR
-      CHARACTER*28  CPRINT(0:3)
+      CHARACTER*28  CPRINT(0:4)
 
       DATA          CPRINT/
      . ' (only ABORTs)              ',
-     . ' (limited - default)        ',
+     . ' (limited -default)         ',
      . ' (all warnings)             ',
-     . ' (all warning+informational)'/
+     . ' (all warnings+infos)       ',
+     . ' (all warnings+infos+debugs)'/ 
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -174,7 +175,7 @@ c  .... override previous IPRT value (printout indicator)
          IPRTPRV = IPRT
          IPRT = LUNDX
          IF(IPRT.LT.-1) IPRT = -1
-         IF(IPRT.GT. 2) IPRT =  2
+         IF(IPRT.GT. 3) IPRT =  3
          IF(IPRT.GE.0) THEN
       CALL ERRWRT('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
       WRITE ( UNIT=ERRSTR, FMT='(A,I3,A,A,I3,A)' )
@@ -203,6 +204,7 @@ C        Initialize some global variables.
       ENDIF
 
       IF( (IO.EQ.'FIRST') .OR. (IO.EQ.'QUIET') ) RETURN
+
 
 C  SEE IF A FILE CAN BE OPENED
 C  ---------------------------

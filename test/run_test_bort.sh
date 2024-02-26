@@ -9,9 +9,10 @@
 #
 # Ed Hartnett 3/12/23
 
-# For now, don't run on _8 version of the library, because not all
-# functions tested here handle _8 calls well, since they are not
-# intended to be called directly by the user.
+# Don't run on the _8 version of the library, because many of the routines
+# tested below aren't intended to ever be called directly by users, and
+# therefore those routines aren't configured to handle the passing of
+# 8-byte integer arguments.
 for kind in "4" "d"; do
     # Check adn30().
     (./test_bort_$kind adn30 1) && exit 1
@@ -60,6 +61,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind copysb 4) && exit 1
     (./test_bort_$kind copysb 5) && exit 1
     (./test_bort_$kind copysb 6) && exit 1
+    (./test_bort_$kind copysb 7) && exit 1
 
     # Check cpdxmm().
     (./test_bort_$kind cpdxmm 1) && exit 1
@@ -73,6 +75,9 @@ for kind in "4" "d"; do
     # Check datebf().
     (./test_bort_$kind datebf 1) && exit 1
     
+    # Check datelen().
+    (./test_bort_$kind datelen 1) && exit 1
+
     # Check dumpbf().
     (./test_bort_$kind dumpbf 1) && exit 1
     
@@ -107,6 +112,15 @@ for kind in "4" "d"; do
     (./test_bort_$kind ifbget 2) && exit 1
     (./test_bort_$kind ifbget 3) && exit 1
 
+    # Check igetntbi().
+    (./test_bort_$kind igetntbi 1) && exit 1
+
+    # Check igettdi().
+    (./test_bort_$kind igettdi 1) && exit 1
+
+    # Check inctab().
+    (./test_bort_$kind inctab 1) && exit 1
+
     # Check isize().
     (./test_bort_$kind isize 1) && exit 1
     (./test_bort_$kind isize 2) && exit 1
@@ -126,6 +140,11 @@ for kind in "4" "d"; do
     (./test_bort_$kind lstjpb 1) && exit 1
     (./test_bort_$kind lstjpb 2) && exit 1
 
+    # Check minimg().
+    (./test_bort_$kind minimg 1) && exit 1
+    (./test_bort_$kind minimg 2) && exit 1
+    (./test_bort_$kind minimg 3) && exit 1
+
     # Check msgwrt().
     (./test_bort_$kind msgwrt 1) && exit 1
     (./test_bort_$kind msgwrt 2) && exit 1
@@ -140,6 +159,10 @@ for kind in "4" "d"; do
 
     # Check nemtba().
     (./test_bort_$kind nemtba 1) && exit 1
+
+    # Check nemtbax().
+    (./test_bort_$kind nemtbax 1) && exit 1
+    (./test_bort_$kind nemtbax 2) && exit 1
 
     # Check nemtbb().
     (./test_bort_$kind nemtbb 1) && exit 1
@@ -170,8 +193,11 @@ for kind in "4" "d"; do
 
     # Check openmg().
     (./test_bort_$kind openmg 1) && exit 1
-    # Commented out. See https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/395.    
-    # (./test_bort_$kind openmg 2) && exit 1
+    (./test_bort_$kind openmg 2) && exit 1
+
+    # Check openmb().
+    (./test_bort_$kind openmb 1) && exit 1
+    (./test_bort_$kind openmb 2) && exit 1
 
     # Check parstr().
     (./test_bort_$kind parstr 1) && exit 1
@@ -185,6 +211,12 @@ for kind in "4" "d"; do
     (./test_bort_$kind parusr 4) && exit 1
     (./test_bort_$kind parusr 5) && exit 1
     (./test_bort_$kind parusr 6) && exit 1
+    (./test_bort_$kind parusr 7) && exit 1
+
+    # Check parutg().
+    (./test_bort_$kind parutg 1) && exit 1
+    (./test_bort_$kind parutg 2) && exit 1
+    (./test_bort_$kind parutg 3) && exit 1
 
     # Check pkb().
     (./test_bort_$kind pkb 1) && exit 1
@@ -252,6 +284,9 @@ for kind in "4" "d"; do
     # Check readsb().
     (./test_bort_$kind readsb 1) && exit 1
     (./test_bort_$kind readsb 2) && exit 1
+
+    # Check reads3().
+    (./test_bort_$kind reads3 1) && exit 1
 
     # Check rewnbf().
     (./test_bort_$kind rewnbf 1) && exit 1
@@ -321,6 +356,10 @@ for kind in "4" "d"; do
     (./test_bort_$kind stndrd 5) && exit 1
     (./test_bort_$kind stndrd 6) && exit 1
 
+    # Check stntbia().
+    (./test_bort_$kind stntbia 1) && exit 1
+    (./test_bort_$kind stntbia 2) && exit 1
+
     # Check strtbfe().
     (./test_bort_$kind strtbfe 1) && exit 1
 
@@ -358,6 +397,11 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufbcpy 1) && exit 1
     (./test_bort_$kind ufbcpy 2) && exit 1
     (./test_bort_$kind ufbcpy 3) && exit 1
+    (./test_bort_$kind ufbcpy 4) && exit 1
+    (./test_bort_$kind ufbcpy 5) && exit 1
+    (./test_bort_$kind ufbcpy 6) && exit 1
+    (./test_bort_$kind ufbcpy 7) && exit 1
+    (./test_bort_$kind ufbcpy 8) && exit 1
 
     # Check ufbcup().
     (./test_bort_$kind ufbcup 1) && exit 1
@@ -427,6 +471,7 @@ for kind in "4" "d"; do
     # Check ufbrep().
     (./test_bort_$kind ufbrep 1) && exit 1
     (./test_bort_$kind ufbrep 2) && exit 1
+    (./test_bort_$kind ufbrep 3) && exit 1
 
     # Check ufbrms().
     (./test_bort_$kind ufbrms 1) && exit 1
@@ -445,6 +490,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufbstp 1) && exit 1
     (./test_bort_$kind ufbstp 2) && exit 1
     (./test_bort_$kind ufbstp 3) && exit 1
+    (./test_bort_$kind ufbstp 4) && exit 1
 
     # Check ufdump().
     (./test_bort_$kind ufdump 1) && exit 1
@@ -459,8 +505,13 @@ for kind in "4" "d"; do
     (./test_bort_$kind upftbv 2) && exit 1
 
     # Check usrtpl().
-    # Oddly this does not cause a bort() in intel. Why?
-    #(./test_bort_$kind usrtpl 1) && exit 1
+    (./test_bort_$kind usrtpl 1) && exit 1
+    (./test_bort_$kind usrtpl 2) && exit 1
+    (./test_bort_$kind usrtpl 3) && exit 1
+
+    # Check wrcmps().
+    (./test_bort_$kind wrcmps 1) && exit 1
+    (./test_bort_$kind wrcmps 2) && exit 1
 
     # Check wrdxtb().
     (./test_bort_$kind wrdxtb 1) && exit 1
@@ -472,6 +523,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind wtstat 2) && exit 1
     (./test_bort_$kind wtstat 3) && exit 1
     (./test_bort_$kind wtstat 4) && exit 1
+    (./test_bort_$kind wtstat 5) && exit 1
 
     # Check writdx().
     (./test_bort_$kind writdx 1) && exit 1

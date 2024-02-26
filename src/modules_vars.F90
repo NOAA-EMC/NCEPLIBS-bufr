@@ -127,7 +127,7 @@ module modv_vars
 
   !> Maximum number of entries in the internal Table A mnemonic cache
   !> that is used for Section 3 decoding of BUFR messages.
-  integer, parameter :: mxcnem = 450
+  integer :: mxcnem = 450
 
   !> Maximum number of data subsets that can be written into a
   !> compressed BUFR message by the NCEPLIBS-bufr software.
