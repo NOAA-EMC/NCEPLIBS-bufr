@@ -26,7 +26,6 @@ void cewind(int nfile);
 void closfb(int nfile);
 int crdbufr(int nfile, int *bufr, int mxwrd);
 void cwrbufr(int nfile, int *bufr, int nwrd);
-void bort_exit(void);
 int icvidx(int ii, int jj, int numjj);
 void wrdesc(int desc, int *descary, int *ndescary);
 void restd(int lunb, int tddesc, int *nctddesc, int *ctddesc);

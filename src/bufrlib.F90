@@ -331,16 +331,6 @@ module bufrlib
       integer(c_int), intent(out) :: cdesc(*)
     end subroutine stseq_c
 
-    !> @fn bufrlib::bort_exit_c::bort_exit_c()
-    !> Abort the application program.
-    !>
-    !> Wraps bort_exit() function.
-    !>
-    !> @author J. Ator @date 2023-04-07
-    subroutine bort_exit_c() bind(C, name='bort_exit')
-      use iso_c_binding
-    end subroutine bort_exit_c
-
   end interface
 
 end module bufrlib
