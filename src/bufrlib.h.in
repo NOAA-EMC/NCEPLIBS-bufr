@@ -27,7 +27,6 @@ void closfb(int nfile);
 int crdbufr(int nfile, int *bufr, int mxwrd);
 void cwrbufr(int nfile, int *bufr, int nwrd);
 int icvidx(int ii, int jj, int numjj);
-void wrdesc(int desc, int *descary, int *ndescary, int mxdescary);
 void restd(int lunb, int tddesc, int *nctddesc, int *ctddesc);
 void stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncdesc);
 

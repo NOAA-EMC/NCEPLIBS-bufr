@@ -500,6 +500,9 @@ for kind in "4" "d"; do
     # Check upb8().
     (./test_bort_$kind upb8 1) && exit 1
 
+    # Check upds3().
+    (./test_bort_$kind upds3 1) && exit 1
+
     # Check upftbv().
     (./test_bort_$kind upftbv 1) && exit 1
     (./test_bort_$kind upftbv 2) && exit 1
@@ -512,6 +515,9 @@ for kind in "4" "d"; do
     # Check wrcmps().
     (./test_bort_$kind wrcmps 1) && exit 1
     (./test_bort_$kind wrcmps 2) && exit 1
+
+    # Check wrdesc().
+    (./test_bort_$kind wrdesc 1) && exit 1
 
     # Check wrdxtb().
     (./test_bort_$kind wrdxtb 1) && exit 1
@@ -553,8 +559,6 @@ done
 (./test_c_bort crbmg 1) && exit 1
 
 (./test_c_bort cwbmg 1) && exit 1
-
-(./test_c_bort wrdesc 1) && exit 1
 
 # If we made it here, all error codes were correctly returned, and the
 # test passed!

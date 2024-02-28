@@ -1877,6 +1877,15 @@ program test_bort
      if (test_case .eq. '1') then
         call upb8(nval, -1, ibit, ibay)
      endif
+  elseif (sub_name .eq. 'upds3') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_1', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        if (isetprm('MAXNC',6) .ne. 0) stop 3
+        call openbf(11, 'SEC3', 11)
+        call mtinfo('../tables', 80, 81)
+        call readmg(11, char_val_8, jdate, iret)
+     endif
   elseif (sub_name .eq. 'upftbv') then
      if (test_case .eq. '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
@@ -1925,6 +1934,19 @@ program test_bort
         call wrcmps(14)
      elseif (test_case .eq. '2') then
         call wrcmps(13)
+     endif
+  elseif (sub_name .eq. 'wrdesc') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        if (isetprm('MAXNC',20) .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call openbf(12, 'OUT', 11)
+        call readmg(11, char_val_8, jdate, iret)
+        call stdmsg('Y')
+        call copymg(11, 12)
      endif
   elseif (sub_name .eq. 'wrdxtb') then
      if (test_case .eq. '1') then
