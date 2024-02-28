@@ -47,6 +47,7 @@ C> @author J. Ator @date 2014-12-04
         use moda_rlccmn
         use moda_h4wlc
         use moda_dscach
+        use moda_s3list
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -276,6 +277,11 @@ C       MODA_DSCACH arrays.
         DEALLOCATE( CNEM )
         DEALLOCATE( NDC )
         DEALLOCATE( IDCACH )
+
+C       MODA_S3LIST arrays.
+
+        DEALLOCATE( IDS3 )
+        DEALLOCATE( CDS3 )
 
 C       C language arrays.
 

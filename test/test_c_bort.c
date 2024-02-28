@@ -58,7 +58,7 @@ int main(int argc, char **argv)
     else if (!strcmp(argv[1], "wrdesc"))
     {
         if (!strcmp(argv[2], "1"))
-            wrdesc(1, &descary, &ndescary);
+            wrdesc(1, &descary, &ndescary, 600);
     }
 
     return 0;

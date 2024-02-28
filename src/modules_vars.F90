@@ -76,7 +76,10 @@ module modv_vars
   integer :: maxmsg = 200000
 
   !> Maximum number of descriptors within Section 3 of a BUFR message.
-  integer, parameter :: maxnc = 600
+  !> This variable is initialized to a default value which can be
+  !> overridden by a subsequent call to function isetprm() within the
+  !> application program.
+  integer :: maxnc = 600
 
   !> Maximum number of data values that can be read from or written
   !> into a data subset by the NCEPLIBS-bufr software.
@@ -127,6 +130,9 @@ module modv_vars
 
   !> Maximum number of entries in the internal Table A mnemonic cache
   !> that is used for Section 3 decoding of BUFR messages.
+  !> This variable is initialized to a default value which can be
+  !> overridden by a subsequent call to function isetprm() within the
+  !> application program.
   integer :: mxcnem = 450
 
   !> Maximum number of data subsets that can be written into a
@@ -146,6 +152,9 @@ module modv_vars
   !> Maximum number of long character strings that can be held for
   !> writing into an uncompressed BUFR subset by future internal calls
   !> to subroutine writlc().
+  !> This variable is initialized to a default value which can be
+  !> overridden by a subsequent call to function isetprm() within the
+  !> application program.
   integer :: mxh4wlc = 10
 
   !> Maximum length (in bytes) of a character string that can be

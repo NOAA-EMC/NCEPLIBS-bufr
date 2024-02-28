@@ -57,6 +57,7 @@ C> @author J. Ator @date 2014-12-04
         use moda_rlccmn
         use moda_h4wlc
         use moda_dscach
+        use moda_s3list
 
         CHARACTER*80 ERRSTR
         CHARACTER*36  BRTSTR
@@ -121,6 +122,8 @@ C-----------------------------------------------------------------------
             WRITE ( ERRSTR, '(A,I4)' ) '    MXRST = ', MXRST
             CALL ERRWRT(ERRSTR)
             WRITE ( ERRSTR, '(A,I4)' ) '   MXCNEM = ', MXCNEM
+            CALL ERRWRT(ERRSTR)
+            WRITE ( ERRSTR, '(A,I4)' ) '    MAXNC = ', MAXNC
             CALL ERRWRT(ERRSTR)
             CALL ERRWRT
      .          ('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
@@ -572,6 +575,14 @@ C       MODA_DSCACH arrays.
 
         ALLOCATE( IDCACH(MXCNEM,MAXNC), STAT=iost )
         IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'IDCACH' )
+
+C       MODA_S3LIST arrays.
+
+        ALLOCATE( IDS3(MAXNC), STAT=iost )
+        IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'IDS3' )
+
+        ALLOCATE( CDS3(MAXNC), STAT=iost )
+        IF ( iost .ne. 0 ) CALL BORT( BRTSTR // 'CDS3' )
 
         RETURN
         END

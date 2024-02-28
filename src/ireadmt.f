@@ -39,13 +39,13 @@ C> @author J. Ator @date 2009-03-23
         use moda_bitbuf
         use moda_rdmtb
         use moda_sc3bfr
+        use moda_s3list
 
         COMMON /QUIET/  IPRT
         COMMON /MSTINF/ LUN1, LUN2, LMTD, MTDIR
         COMMON /TABLEF/ CDMF
 
         CHARACTER*1     CDMF
-        CHARACTER*6     CDS3(MAXNC)
         CHARACTER*240   MTDIR
         CHARACTER*128   BORT_STR
         CHARACTER*275   STDFIL,LOCFIL

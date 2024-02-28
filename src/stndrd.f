@@ -30,9 +30,9 @@ C> @author J. Ator @date 2004-08-18
 
       use bufrlib
 
-      use modv_vars, only: im8b, maxnc, nbytw
+      use modv_vars, only: im8b, nbytw
 
-      DIMENSION ICD(MAXNC)
+      use moda_s3list
 
       DIMENSION MSGIN(*),MSGOT(*)
 
@@ -116,7 +116,7 @@ C     LOCATE THE TOP-LEVEL TABLE A DESCRIPTOR
 C         ISUB IS A NON-STANDARD TABLE A DESCRIPTOR AND NEEDS
 C         TO BE EXPANDED INTO AN EQUIVALENT STANDARD SEQUENCE
 
-          CALL RESTD_C(LUN,ISUB,NCD,ICD)
+          CALL RESTD_C(LUN,ISUB,NCD,IDS3)
       ELSE
 
 C         ISUB IS ALREADY A STANDARD DESCRIPTOR, SO JUST COPY
@@ -124,7 +124,7 @@ C         IT "AS IS" INTO THE NEW SECTION 3 (I.E. NO EXPANSION
 C         IS NECESSARY!)
 
           NCD = 1
-          ICD(NCD) = ISUB
+          IDS3(NCD) = ISUB
       ENDIF
 
 C     USE THE EDITION NUMBER TO DETERMINE THE LENGTH OF THE
@@ -142,7 +142,7 @@ C     STORE THE DESCRIPTORS INTO THE NEW SECTION 3
 
       IBIT = (IAD3+7)*8
       DO N=1,NCD
-          CALL PKB(ICD(N),16,MSGOT,IBIT)
+          CALL PKB(IDS3(N),16,MSGOT,IBIT)
       ENDDO
 
 C     DEPENDING ON THE EDITION NUMBER, PAD OUT THE NEW SECTION 3 WITH AN

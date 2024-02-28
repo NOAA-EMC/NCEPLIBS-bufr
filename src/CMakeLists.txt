@@ -10,7 +10,7 @@ list(APPEND fortran_src
   cpyupd.f datebf.f datelen.f digit.f drfini.f drstpl.f dumpbf.f dxdump.f dxinit.f dxmini.f elemdx.f
   errwrt.F90 exitbufr.f fstag.f getabdb.f getbmiss.f getcfmng.f getlens.f getntbe.f gets1loc.f gettagpr.f
   gettagre.f gettbh.f getvalnb.f getwin.f hold4wlc.f i4dy.f ibfms.f icbfms.f icmpdx.f icopysb.f
-  idn30.f idxmsg.f ifbget.f ifxy.f igetdate.f igetfxy.f igetmxby.f igetntbi.f igetntbl.f igetprm.f
+  idn30.f idxmsg.f ifbget.f ifxy.f igetdate.f igetfxy.f igetmxby.f igetntbi.f igetntbl.f igetprm.F90
   igetrfel.f igetsc.f igettdi.f imrkopr.f inctab.f invcon.f invmrg.f invtag.f invwin.f iok2cpy.f
   iokoper.f ipkm.f ipks.f ireadmg.f ireadmm.f ireadns.f ireadsb.f ishrdx.f isize.f istdesc.f iupb.f
   iupbs01.f iupbs3.f iupm.f iupvs01.f jstnum.f lcmgdf.f lmsg.f lstjpb.f makestab.f maxout.f
@@ -26,13 +26,12 @@ list(APPEND fortran_src
   ufbmem.f ufbmex.f ufbmms.f ufbmns.f ufbovr.f ufbpos.f ufbqcd.f ufbqcp.f ufbrep.f ufbrms.f ufbrp.f
   ufbrw.f ufbseq.f ufbsp.f ufbstp.f ufbtab.f ufbtam.f ufdump.f upb.f upbb.f upc.F90 upds3.f upftbv.f
   ups.f uptdd.f usrtpl.f wrcmps.f wrdxtb.f writcp.f writdx.f writlc.f writsa.f writsb.f
-  wrtree.f wtstat.f arallocf.f ardllocf.f closbf.f ireadmt.f irev.F90 isetprm.f openbf.f pkvs01.f
+  wrtree.f wtstat.f arallocf.f ardllocf.f closbf.f ireadmt.f irev.F90 isetprm.F90 openbf.f pkvs01.f
   fortran_open.F90 fortran_close.F90 bufr_interface.F90 pkb8.F90 upb8.F90 up8.F90 setim8b.F90
   bufr_c2f_interface.F90 x48.F90 x84.F90 bufrlib.F90)
 
 list(APPEND c_src
-  arallocc.c ardllocc.c cpmstabs.c cread.c crwbmg.c cfe.c
-  icvidx.c restd.c stseq.c wrdesc.c)
+  arallocc.c ardllocc.c cpmstabs.c cread.c crwbmg.c cfe.c icvidx.c restd.c stseq.c)
 
 list(APPEND c_hdr
   cread.h mstabs.h bufr_interface.h)
@@ -43,7 +42,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bfrini.F90.in ${CMAKE_CURRENT_BINARY_
 list(APPEND fortran_src ${CMAKE_CURRENT_BINARY_DIR}/bvers.f ${CMAKE_CURRENT_BINARY_DIR}/bfrini.F90)
 
 # Create the bufrlib.h file
-foreach(_var IN ITEMS maxnc mxnaf maxcd nfiles)
+foreach(_var IN ITEMS mxnaf)
   file(STRINGS modules_vars.F90 _${_var}_tempstr REGEX "integer[a-z ,]*:: ${_var}")
   if(_${_var}_tempstr MATCHES "${_var} = ([0-9]+)")
     string(TOUPPER ${_var} _varuc)

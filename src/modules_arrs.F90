@@ -305,6 +305,17 @@ module moda_mgwb
   integer, allocatable :: mgwb(:)
 end module moda_mgwb
 
+!> Declare arrays used by various subroutines and functions to hold a
+!> temporary working copy of a Section 3 descriptor list.
+!>
+!> @author J. Ator @date 2024-02-27
+module moda_s3list
+  !> Temporary working copy of Section 3 descriptor list in integer form.
+  integer, allocatable :: ids3(:)
+  !> Temporary working copy of Section 3 descriptor list in character form.
+  character*6, allocatable :: cds3(:)
+end module moda_s3list
+
 !> Declare arrays used to store
 !> information about the current BUFR message that is in the process
 !> of being read from or written to the logical unit associated with

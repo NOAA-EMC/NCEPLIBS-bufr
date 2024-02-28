@@ -28,7 +28,7 @@ program test_misc
   integer mtyp, msbt, inod
   integer*4 igetprm, isetprm, invcon, invtag
   integer*4 imrkopr
-  character*7 prms(13)
+  character*7 prms(14)
   character*4 char_4(1), char_4_2(2)
   character*8 char_8(1), char_8_2(2)
   character*12 char_12(1)
@@ -210,6 +210,7 @@ program test_misc
   if (igetprm('MAXJL') .ne. 96000) stop 634
   if (igetprm('MXH4WLC') .ne. 10) stop 635
   if (igetprm('MXCNEM') .ne. 450) stop 636
+  if (igetprm('MAXNC') .ne. 600) stop 637
   call closbf(11)
 
   ! Test imrkopr().
@@ -266,7 +267,7 @@ program test_misc
 
   ! Test various parameters for isetprm().
   prms = (/ 'MAXTBA ', 'MAXTBB ', 'MAXTBD ', 'MXMTBB ', 'MXMTBD ', 'MAXJL  ', &
-    'MXMTBF ', 'MXS01V ', 'MXBTM  ', 'MXBTMSE', 'MXTAMC ', 'MXTCO  ', 'MXRST  ' /)
+    'MXMTBF ', 'MXS01V ', 'MXBTM  ', 'MXBTMSE', 'MXTAMC ', 'MXTCO  ', 'MXRST  ', 'MAXNC  ' /)
   do i = 1, size(prms, 1)
     iret = isetprm(trim(prms(i)), 42+i)
     if ( (iret .ne. 0) .or. (igetprm(trim(prms(i))) .ne. 42+i) ) then
