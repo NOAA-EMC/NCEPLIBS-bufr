@@ -198,7 +198,7 @@ module modv_vars
 
   !> Maximum number of associated fields that can be in effect at any
   !> given time for a Table B descriptor.
-  integer, parameter :: mxnaf = 4
+  integer :: mxnaf = 4
 
   !> Maximum number of entries in the internal jump/link table that can
   !> contain new reference values.

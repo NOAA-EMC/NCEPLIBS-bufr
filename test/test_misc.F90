@@ -10,7 +10,7 @@ program test_misc
   integer ios
   integer num, iret
   integer imsg, idate, iunit
-  integer*4 ireadmm, igetfxy
+  integer*4 ireadmm, igetfxy, isetprm
   integer mbay(2)
   character*8 subset
   integer iupb
@@ -26,9 +26,9 @@ program test_misc
   integer ierr, nemock
   integer numbck
   integer mtyp, msbt, inod
-  integer*4 igetprm, isetprm, invcon, invtag
+  integer*4 igetprm, invcon, invtag
   integer*4 imrkopr
-  character*7 prms(14)
+  character*7 prms(15)
   character*4 char_4(1), char_4_2(2)
   character*8 char_8(1), char_8_2(2)
   character*12 char_12(1)
@@ -48,6 +48,11 @@ program test_misc
   ! This prints a warning because no file is open, but otherwise has
   ! no effect.
   call closbf(11)  
+
+  ! Test a special case in arallocf when mod(MXMSGL,4) .ne. 0
+  iret = isetprm('MXMSGL', 600006)
+  if (iret .ne. 0) stop 2
+  call openbf(15, 'FIRST', 15)
 
   ! testing status()
   open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
@@ -183,7 +188,7 @@ program test_misc
   if (igetprm('MXCSB') .ne. 4000) stop 607
   if (igetprm('MXDXTS') .ne. 200) stop 608
   if (igetprm('MXLCC') .ne. 32) stop 609
-  if (igetprm('MXMSGL') .ne. 600000) stop 610
+  if (igetprm('MXMSGL') .ne. 600006) stop 610
   if (igetprm('MXMTBB') .ne. 4000) stop 611
   if (igetprm('MXMTBD') .ne. 1000) stop 612
   if (igetprm('MXMTBF') .ne. 25000) stop 613
@@ -206,11 +211,11 @@ program test_misc
   if (igetprm('MXCSB') .ne. 4000) stop 630
   if (igetprm('MXDXTS') .ne. 200) stop 631
   if (igetprm('MXLCC') .ne. 32) stop 632
-  if (igetprm('MXMSGL') .ne. 600000) stop 633
   if (igetprm('MAXJL') .ne. 96000) stop 634
   if (igetprm('MXH4WLC') .ne. 10) stop 635
   if (igetprm('MXCNEM') .ne. 450) stop 636
   if (igetprm('MAXNC') .ne. 600) stop 637
+  if (igetprm('MXNAF') .ne. 4) stop 638
   call closbf(11)
 
   ! Test imrkopr().
@@ -266,7 +271,7 @@ program test_misc
   call closbf(11)
 
   ! Test various parameters for isetprm().
-  prms = (/ 'MAXTBA ', 'MAXTBB ', 'MAXTBD ', 'MXMTBB ', 'MXMTBD ', 'MAXJL  ', &
+  prms = (/ 'MAXTBA ', 'MAXTBB ', 'MAXTBD ', 'MXMTBB ', 'MXMTBD ', 'MAXJL  ', 'MXNAF  ', &
     'MXMTBF ', 'MXS01V ', 'MXBTM  ', 'MXBTMSE', 'MXTAMC ', 'MXTCO  ', 'MXRST  ', 'MAXNC  ' /)
   do i = 1, size(prms, 1)
     iret = isetprm(trim(prms(i)), 42+i)

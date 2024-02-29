@@ -42,6 +42,6 @@ ardllocc(void)
     free( cdmnem_c );
     free( ndelem_c );
     free( idefxy_c );
-
+    free( iafpk );
 }
 

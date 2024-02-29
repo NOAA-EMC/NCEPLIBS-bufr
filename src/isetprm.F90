@@ -44,7 +44,8 @@
 !> - 'MXRST'  = Maximum number of long character strings that can be read from a compressed subset
 !> - 'MXH4WLC' = Maximum number of long character strings that can be stored internally
 !> - 'MXCNEM' = Maximum number of Table A entries that can be cached during Section 3 decoding of BUFR messages
-!> - 'MAXNC' = Maximum number of descriptors within Section 3 of a BUFR message.
+!> - 'MAXNC' = Maximum number of descriptors within Section 3 of a BUFR message
+!> - 'MXNAF' = Maximum number of associated fields that can be in effect at any given time for a Table B descriptor
 !> @param[in] ipval - integer: Value to be set for cprmnm
 !> @returns isetprm - integer:
 !> -  0 = normal return
@@ -55,7 +56,7 @@ recursive function isetprm ( cprmnm, ipval ) result ( iret )
 
   use modv_vars, only: mxmsgl, maxss, nfiles, mxdxts, maxmsg, maxmem, maxtba, maxtbb, maxtbd, maxjl, &
                        mxcdv, mxlcc, mxcsb, mxmtbb, mxmtbd, mxmtbf, maxcd, mxs01v, mxbtm, mxbtmse, &
-                       mxtamc, mxtco, mxnrv, mxrst, mxh4wlc, im8b, mxcnem, maxnc
+                       mxtamc, mxtco, mxnrv, mxrst, mxh4wlc, im8b, mxcnem, maxnc, mxnaf
 
   implicit none
 
@@ -137,6 +138,8 @@ recursive function isetprm ( cprmnm, ipval ) result ( iret )
     mxcnem = ipval
   else if ( cprmnm .eq. 'MAXNC' ) then
     maxnc = ipval
+  else if ( cprmnm .eq. 'MXNAF' ) then
+    mxnaf = ipval
   else
     iret = -1
     call errwrt('++++++++++++++++++WARNING+++++++++++++++++++')

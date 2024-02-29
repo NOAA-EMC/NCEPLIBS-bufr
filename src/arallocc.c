@@ -36,6 +36,7 @@ arallocc(void)
     int mxmtbb;
     int mxmtbd;
     int maxcd;
+    int mxnaf;
 
 /*
 **  cread arrays
@@ -54,6 +55,7 @@ arallocc(void)
     mxmtbb = igetprm_f("MXMTBB");
     mxmtbd = igetprm_f("MXMTBD");
     maxcd = igetprm_f("MAXCD");
+    mxnaf = igetprm_f("MXNAF");
 
     if (!(ibfxyn_c = malloc(mxmtbb * sizeof(int)))) bort_f(brtstr);
 
@@ -78,4 +80,6 @@ arallocc(void)
     if (!(ndelem_c = malloc(mxmtbd * sizeof(int)))) bort_f(brtstr);
 
     if (!(idefxy_c = malloc(mxmtbd * maxcd * sizeof(int)))) bort_f(brtstr);
+
+    if (!(iafpk = malloc(mxnaf * sizeof(int)))) bort_f(brtstr);
 }

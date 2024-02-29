@@ -30,10 +30,6 @@ int icvidx(int ii, int jj, int numjj);
 void restd(int lunb, int tddesc, int *nctddesc, int *ctddesc);
 void stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncdesc);
 
-/** Maximum number of associated fields that can be in effect at any
- * given time for a Table B descriptor.*/
-#define MXNAF @MXNAF@
-
 /** Size of a character string needed to store an FXY value. */
 #define FXY_STR_LEN 6
 

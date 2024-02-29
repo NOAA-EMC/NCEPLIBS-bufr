@@ -373,6 +373,11 @@ for kind in "4" "d"; do
     (./test_bort_$kind string 1) && exit 1
     (./test_bort_$kind string 2) && exit 1
 
+    # Check stseq().
+    (./test_bort_$kind stseq 1) && exit 1
+    (./test_bort_$kind stseq 2) && exit 1
+    (./test_bort_$kind stseq 3) && exit 1
+
     # Check tabent().
     (./test_bort_$kind tabent 1) && exit 1
 

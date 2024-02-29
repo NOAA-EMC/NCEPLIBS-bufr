@@ -34,7 +34,8 @@
 !> - 'MXRST'  = Maximum number of long character strings that can be read from a compressed subset
 !> - 'MXH4WLC' = Maximum number of long character strings that can be stored internally
 !> - 'MXCNEM' = Maximum number of Table A entries that can be cached during Section 3 decoding of BUFR messages
-!> - 'MAXNC' = Maximum number of descriptors within Section 3 of a BUFR message.
+!> - 'MAXNC' = Maximum number of descriptors within Section 3 of a BUFR message
+!> - 'MXNAF' = Maximum number of associated fields that can be in effect at any given time for a Table B descriptor
 !>
 !> @returns igetprm - integer: Value of cprmnm:
 !> - -1 Unknown cprmnm
@@ -44,7 +45,7 @@ integer function igetprm ( cprmnm ) result ( iret )
 
   use modv_vars, only: mxmsgl, maxss, nfiles, mxdxts, maxmsg, maxmem, maxtba, maxtbb, maxtbd, maxjl, &
                        mxcdv, mxlcc, mxcsb, mxmtbb, mxmtbd, mxmtbf, maxcd, mxs01v, mxbtm, mxbtmse, &
-                       mxtamc, mxtco, mxnrv, mxrst, mxh4wlc, mxcnem, maxnc
+                       mxtamc, mxtco, mxnrv, mxrst, mxh4wlc, mxcnem, maxnc, mxnaf
 
   implicit none
 
@@ -109,6 +110,8 @@ integer function igetprm ( cprmnm ) result ( iret )
     iret = mxcnem
   else if ( cprmnm .eq. 'MAXNC' ) then
     iret = maxnc
+  else if ( cprmnm .eq. 'MXNAF' ) then
+    iret = mxnaf
   else
     iret = -1
     call errwrt('++++++++++++++++++WARNING+++++++++++++++++++')
