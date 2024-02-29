@@ -1143,6 +1143,44 @@ program test_bort
      elseif (test_case .eq. '2') then
         call status(100, 0, 0, 0)        
      endif
+  elseif (sub_name .eq. 'stseq') then
+     filnam = 'testfiles/IN_1'
+     call cobfl_c( filnam, 'r' )
+     open(unit = 31, file = '/dev/null')
+     if (test_case .eq. '1') then
+        if (isetprm('MXNAF',1) .ne. 0) stop 3
+        call openbf(31, 'SEC3', 31)
+        call crbmg_c(bfmg, 200000, msgl, iret)
+        ! Make Section 3 of the message look like it contains two consecutive occurrences of descriptor 3-03-021.
+        ibit = 296
+        call pkb(195, 8, ibfmg, ibit)
+        call pkb(21, 8, ibfmg, ibit)
+        call pkb(195, 8, ibfmg, ibit)
+        call pkb(21, 8, ibfmg, ibit)
+     elseif (test_case .eq. '2') then
+        call openbf(31, 'SEC3', 31)
+        call crbmg_c(bfmg, 200000, msgl, iret)
+        ! Make Section 3 of the message look like it contains one occurrence of descriptor 3-03-021 followed
+        ! by two occurrences of descriptor 2-04-000.
+        ibit = 296
+        call pkb(195, 8, ibfmg, ibit)
+        call pkb(21, 8, ibfmg, ibit)
+        ibit = 360
+        call pkb(132, 8, ibfmg, ibit)
+        call pkb(0, 8, ibfmg, ibit)
+        call pkb(132, 8, ibfmg, ibit)
+        call pkb(0, 8, ibfmg, ibit)
+     elseif (test_case .eq. '3') then
+        call openbf(31, 'SEC3', 31)
+        call crbmg_c(bfmg, 200000, msgl, iret)
+        ! Make Section 3 of the message look like it contains an occurrence of replication descriptor 1-03-000
+        ! without a following delayed descriptor replication factor.
+        ibit = 296
+        call pkb(67, 8, ibfmg, ibit)
+        call pkb(0, 8, ibfmg, ibit)
+     endif
+     call mtinfo('../tables', 80, 81)
+     call readerme(ibfmg, 31, char_val_8, jdate, iret)
   elseif (sub_name .eq. 'sntbbe') then
      if (test_case .eq. '1') then
         call sntbbe(0, 'c', 1, 2, int_1d, char_4, char_12, char_4, char_24, char_8, char_4, char_120)        
@@ -1877,6 +1915,15 @@ program test_bort
      if (test_case .eq. '1') then
         call upb8(nval, -1, ibit, ibay)
      endif
+  elseif (sub_name .eq. 'upds3') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_1', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        if (isetprm('MAXNC',6) .ne. 0) stop 3
+        call openbf(11, 'SEC3', 11)
+        call mtinfo('../tables', 80, 81)
+        call readmg(11, char_val_8, jdate, iret)
+     endif
   elseif (sub_name .eq. 'upftbv') then
      if (test_case .eq. '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
@@ -1925,6 +1972,19 @@ program test_bort
         call wrcmps(14)
      elseif (test_case .eq. '2') then
         call wrcmps(13)
+     endif
+  elseif (sub_name .eq. 'wrdesc') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        if (isetprm('MAXNC',20) .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call openbf(12, 'OUT', 11)
+        call readmg(11, char_val_8, jdate, iret)
+        call stdmsg('Y')
+        call copymg(11, 12)
      endif
   elseif (sub_name .eq. 'wrdxtb') then
      if (test_case .eq. '1') then

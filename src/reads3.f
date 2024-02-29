@@ -20,11 +20,11 @@ C> @author J. Ator @date 2009-03-23
         use moda_sc3bfr
         use moda_bitbuf
         use moda_dscach
+        use moda_s3list
 
         COMMON /QUIET/  IPRT
 
-        DIMENSION       IDS3(MAXNC)
-        CHARACTER*6     CDS3(MAXNC),NUMB,ADN30
+        CHARACTER*6     NUMB,ADN30
 
         CHARACTER*55    CSEQ
 

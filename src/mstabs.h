@@ -53,6 +53,9 @@
  *
  *  @var idefxy_c
  *  WMO bit-wise representations of child descriptors for master Table D sequences; copied from Fortran idefxy array
+ *
+ *  @var iafpk
+ *  WMO bit-wise representations of associated fields within master Table D sequences
  */
 #ifdef IN_ARALLOCC
     int nmtb_c;
@@ -69,6 +72,7 @@
     char   (*cdmnem_c)[8];
     int *ndelem_c;
     int *idefxy_c;
+    int *iafpk;
 #else
     extern int nmtb_c;
     extern int *ibfxyn_c;
@@ -84,4 +88,5 @@
     extern char   (*cdmnem_c)[8];
     extern int *ndelem_c;
     extern int *idefxy_c;
+    extern int *iafpk;
 #endif

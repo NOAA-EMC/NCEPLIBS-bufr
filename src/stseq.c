@@ -82,8 +82,7 @@ nummtb(int *idn, char *tab, int *ipt)
 }
 
 /**
- * Store information about a standard Table D descriptor within
- * internal DX BUFR tables.
+ * Store information about a standard Table D descriptor within internal DX BUFR tables.
  *
  * Given the WMO bit-wise (integer) representation of a standard
  * Table D descriptor, this subroutine uses the master BUFR tables
@@ -92,18 +91,15 @@ nummtb(int *idn, char *tab, int *ipt)
  * are themselves Table D descriptors are automatically resolved via
  * a recursive call to this same subroutine.
  *
- * @param lun - File ID.
- * @param irepct - Replication sequence counter for the current
- * master table; used internally to keep track of which sequence names have
- * already been defined, and thereby avoid contention within the internal
- * DX BUFR Table D.
- * @param idn - WMO bit-wise representation of FXY value for standard
- * Table D descriptor
- * @param nemo - Mnemonic corresponding to idn.
- * @param cseq - Description corresponding to idn.
- * @param cdesc - Array of WMO-standard child descriptors equivalent
- * to idn.
- * @param ncdesc - Number of WMO-standard child descriptors in cdesc.
+ * @param lun - File ID
+ * @param irepct - Replication sequence counter for the current master table; used internally
+ * to keep track of which sequence names have already been defined, and thereby avoid contention
+ * within the internal DX BUFR Table D
+ * @param idn - WMO bit-wise representation of FXY value for standard Table D descriptor
+ * @param nemo - Mnemonic corresponding to idn
+ * @param cseq - Description corresponding to idn
+ * @param cdesc - Array of WMO-standard child descriptors equivalent to idn
+ * @param ncdesc - Number of WMO-standard child descriptors in cdesc
  *
  * @author J. Ator @date 2009-03-23
 */
@@ -112,17 +108,16 @@ stseq(int lun, int *irepct, int idn, char *nemo,
       char *cseq, int *cdesc, int ncdesc)
 {
     int i, j, nb, nd, ix, iy, iret, nbits;
-    int rpidn, pkint, ilen, imxcd, ipt, *rpdesc;
+    int rpidn, pkint, ilen, imxcd, imxnf, ipt, *rpdesc;
 
     char tab, adn[FXY_STR_LEN+1], adn2[FXY_STR_LEN+1], units[10], errstr[129];
     char nemo2[NEMO_STR_LEN+1], rpseq[56], card[80], ctmp[4], cblk = ' ', czero = '0';
 
 /*
-**  The following variables are declared as static so that they
-**  automatically initialize to zero and remain unchanged between
-**  recursive calls to this subroutine.
+**  The following variable is declared as static so that it automatically initializes
+**  to zero and remains unchanged between recursive calls to this subroutine.
 */
-    static int naf, iafpk[MXNAF];
+    static int naf;
 
 /*
 **  Is idn already listed as an entry in the internal Table D?
@@ -143,6 +138,7 @@ stseq(int lun, int *irepct, int idn, char *nemo,
 **  Now, go through the list of child descriptors corresponding to idn.
 */
     imxcd = igetprm_f("MAXCD");
+    imxnf = igetprm_f("MXNAF");
 
     for ( i = 0; i < ncdesc; i++ ) {
         cadn30_f(cdesc[i], adn, FXY_STR_LEN+1); adn[6] = '\0';
@@ -288,7 +284,7 @@ stseq(int lun, int *irepct, int idn, char *nemo,
 /*
 **                  Add an associated field.
 */
-                    if ( naf >= MXNAF ) {
+                    if ( naf >= imxnf ) {
                         sprintf(errstr, "BUFRLIB: STSEQ - TOO MANY ASSOCIATED"
                             " FIELDS ARE IN EFFECT AT THE SAME TIME");
                         bort_f(errstr);

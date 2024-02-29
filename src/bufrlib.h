@@ -27,27 +27,8 @@ void closfb(int nfile);
 int crdbufr(int nfile, int *bufr, int mxwrd);
 void cwrbufr(int nfile, int *bufr, int nwrd);
 int icvidx(int ii, int jj, int numjj);
-void wrdesc(int desc, int *descary, int *ndescary);
 void restd(int lunb, int tddesc, int *nctddesc, int *ctddesc);
 void stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncdesc);
-
-/** Maximum number of BUFR files that can be connected to the NCEPLIBS-bufr
- * software (for reading or writing) at any one time. */
-#define NFILES @NFILES@
-
-/** Maximum number of child descriptors that can be included within
- * the sequence definition of a Table D descriptor, not counting the
- * recursive resolution of any child descriptors which may themselves
- * be Table D descriptors. */
-#define MAXCD @MAXCD@
-
-/** Maximum number of descriptors within Section 3 of a BUFR
- * message. */
-#define MAXNC @MAXNC@
-
-/** Maximum number of associated fields that can be in effect at any
- * given time for a Table B descriptor.*/
-#define MXNAF @MXNAF@
 
 /** Size of a character string needed to store an FXY value. */
 #define FXY_STR_LEN 6
