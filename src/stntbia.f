@@ -4,11 +4,11 @@ C> @author Ator @date 2009-03-23
 
 C> Store a new entry within internal BUFR Table A.
 C>
-C> @param[in] N - integer: storage index into internal Table A.
-C> @param[in] LUN - integer: file ID.
-C> @param[in] NUMB - character*6: FXY number for new Table A entry (in format FXXYYY).
-C> @param[in] NEMO - character*8: mnemonic corresponding to NUMB.
-C> @param[in] CELSQ - character*55: sequence description corresponding to NUMB.
+C> @param[in] N - integer: storage index into internal Table A
+C> @param[in] LUN - integer: file ID
+C> @param[in] NUMB - character*6: FXY number for new Table A entry (in format FXXYYY)
+C> @param[in] NEMO - character*8: mnemonic corresponding to NUMB
+C> @param[in] CELSQ - character*55: sequence description corresponding to NUMB
 C>
 C> @author Ator @date 2009-03-23
         SUBROUTINE STNTBIA ( N, LUN, NUMB, NEMO, CELSQ )
@@ -18,8 +18,6 @@ C> @author Ator @date 2009-03-23
         CHARACTER*128 BORT_STR
 
         CHARACTER*(*) NUMB, NEMO, CELSQ
-
-        LOGICAL DIGIT
 
 C-----------------------------------------------------------------------
 C-----------------------------------------------------------------------
@@ -41,7 +39,7 @@ C       Store the values within the internal BUFR Table A.
 
 C       Decode and store the message type and subtype.
 
-        IF ( DIGIT ( NEMO(3:8) ) ) THEN
+        IF ( verify( NEMO(3:8), '1234567890' ) == 0 ) THEN
 c  ....   Message type & subtype obtained directly from Table A mnemonic
             READ ( NEMO,'(2X,2I3)') MTYP, MSBT
             IDNA(N,LUN,1) = MTYP

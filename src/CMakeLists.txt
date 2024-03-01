@@ -6,7 +6,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 list(APPEND fortran_src
   modules_vars.F90 modules_arrs.F90 atrcpt.f blocks.F90 borts.F90 capit.f chekstab.f cktaba.f closmg.f
   cmpmsg.f cmsgini.f cnved4.f codflg.f conwin.f copybf.f copymg.f copysb.f cpbfdx.f cpdxmm.f cpymem.f
-  cpyupd.f datebf.f datelen.f digit.f drfini.f drstpl.f dumpbf.f dxdump.f dxinit.f dxmini.f elemdx.f
+  cpyupd.f datebf.f datelen.f drfini.f drstpl.f dumpbf.f dxdump.f dxinit.f dxmini.f elemdx.f
   errwrt.F90 exitbufr.f fstag.f getabdb.f getbmiss.f getcfmng.f getlens.f getntbe.f gets1loc.f gettagpr.f
   gettagre.f gettbh.f getvalnb.f getwin.f hold4wlc.f i4dy.f ibfms.f icbfms.f icmpdx.f icopysb.f
   idxmsg.f ifbget.f fxy.F90 igetdate.f igetmxby.f igetntbi.f igetntbl.f igetprm.F90

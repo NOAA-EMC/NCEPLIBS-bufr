@@ -8,14 +8,14 @@ C> Return the Table A mnemonic and date
 C> from Section 1 of a BUFR message that was previously read from LUN
 C> using one of the [message-reading subroutines](@ref hierarchy).
 C>
-C> @param[in] LUN - integer: file ID.
+C> @param[in] LUN - integer: file ID
 C> @param[out] SUBSET - character*8: Table A mnemonic
 C>                      - returned as a string of all blank characters
 C>                        if IRET is equal to 11 (see below) and if Section 3
 C>                        isn't being used for decoding
 C> @param[out] JDATE    - integer: date-time stored within Section 1 of BUFR
 C>                        in format of either YYMMDDHH or
-C>                        YYYYMMDDHH, depending on datelen() value.
+C>                        YYYYMMDDHH, depending on datelen() value
 C> @param[out] IRET - integer: return code:
 C>                      - 0 normal return
 C>                      - -1 unrecognized Table A (message type) value
@@ -37,7 +37,7 @@ C> @author Woollen @date 2000-09-19
       CHARACTER*8   SUBSET
       CHARACTER*2   CPFX(3)
       CHARACTER*1   TAB
-      LOGICAL       TRYBT, DIGIT
+      LOGICAL       TRYBT
 
       DATA CPFX   / 'NC', 'FR', 'FN' /
       DATA NCPFX  / 3 /
@@ -199,7 +199,8 @@ C  ------------------------------------------------------------------
 
 10    IF(ISC3(LUN).EQ.0) THEN
         IF(MTYP.NE.MTY1) GOTO 900
-        IF(MSBT.NE.MSB1.AND.DIGIT(SUBSET(3:8))) GOTO 901
+        IF( MSBT.NE.MSB1 .AND.
+     .     ( verify(SUBSET(3:8),'1234567890') == 0 ) ) GOTO 901
       ENDIF
       IF(IUPBS3(MBAY(1,LUN),'ICMP').GT.0) MSGUNP(LUN) = 2
 

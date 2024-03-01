@@ -241,8 +241,6 @@ integer function numbck(numb) result(iret)
 
   integer ix, iy
 
-  logical digit
-
   ! Check the first character of numb.
 
   if( llt(numb(1:1),'0') .or. lgt(numb(1:1),'3') ) then
@@ -252,7 +250,7 @@ integer function numbck(numb) result(iret)
 
   ! Check for a valid descriptor.
 
-  if(digit(numb(2:6))) then
+  if( verify(numb(2:6),'1234567890') == 0 ) then
     read(numb,'(1x,i2,i3)') ix,iy
   else
     iret = -2
