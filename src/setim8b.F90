@@ -23,6 +23,8 @@ subroutine setim8b ( int8b )
 
   use modv_vars, only: im8b
 
+  implicit none
+
   logical, intent(in) :: int8b
 
   im8b = int8b

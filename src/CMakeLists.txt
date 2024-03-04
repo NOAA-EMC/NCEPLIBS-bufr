@@ -4,19 +4,18 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 list(APPEND fortran_src
-  modules_vars.F90 modules_arrs.F90
-  adn30.f atrcpt.f blocks.F90 borts.F90 cadn30.f capit.f chekstab.f cktaba.f closmg.f
+  modules_vars.F90 modules_arrs.F90 atrcpt.f blocks.F90 borts.F90 capit.f chekstab.f cktaba.f closmg.f
   cmpmsg.f cmsgini.f cnved4.f codflg.f conwin.f copybf.f copymg.f copysb.f cpbfdx.f cpdxmm.f cpymem.f
-  cpyupd.f datebf.f datelen.f digit.f drfini.f drstpl.f dumpbf.f dxdump.f dxinit.f dxmini.f elemdx.f
+  cpyupd.f datebf.f datelen.f drfini.f drstpl.f dumpbf.f dxdump.f dxinit.f dxmini.f elemdx.f
   errwrt.F90 exitbufr.f fstag.f getabdb.f getbmiss.f getcfmng.f getlens.f getntbe.f gets1loc.f gettagpr.f
   gettagre.f gettbh.f getvalnb.f getwin.f hold4wlc.f i4dy.f ibfms.f icbfms.f icmpdx.f icopysb.f
-  idn30.f idxmsg.f ifbget.f ifxy.f igetdate.f igetfxy.f igetmxby.f igetntbi.f igetntbl.f igetprm.F90
+  idxmsg.f ifbget.f fxy.F90 igetdate.f igetmxby.f igetntbi.f igetntbl.f igetprm.F90
   igetrfel.f igetsc.f igettdi.f imrkopr.f inctab.f invcon.f invmrg.f invtag.f invwin.f iok2cpy.f
   iokoper.f ipkm.f ipks.f ireadmg.f ireadmm.f ireadns.f ireadsb.f ishrdx.f isize.f istdesc.f iupb.f
   iupbs01.f iupbs3.f iupm.f iupvs01.f jstnum.f lcmgdf.f lmsg.f lstjpb.f makestab.f maxout.f
   mesgbc.f mesgbf.f minimg.f mrginv.f msgfull.f msgini.f msgupd.f msgwrt.f mtfnam.f mtinfo.f mvb.f
   nemdefs.f nemock.f nemspecs.f nemtab.f nemtba.f nemtbax.f nemtbb.f nemtbd.f nenubd.f nevn.f newwin.f
-  nmsub.f nmwrd.f numbck.f numtab.f numtbd.f nvnwin.f nwords.f nxtwin.f openbt.f openmb.f openmg.f pad.f
+  nmsub.f nmwrd.f numtab.f numtbd.f nvnwin.f nwords.f nxtwin.f openbt.f openmb.f openmg.f pad.f
   padmsg.f parstr.f parusr.f parutg.f pkb.f pkbs1.f pkc.F90 pkftbv.f pktdd.f posapx.f rcstpl.f rdbfdx.f
   rdcmps.f rdmemm.f rdmems.f rdmgsb.f rdmsgw.F90 rdmtbb.f rdmtbd.f rdmtbf.f rdtree.f rdusdx.f readdx.f
   readerme.f readlc.f readmg.f readmm.f readns.f reads3.f readsb.f rewnbf.f rsvfvm.f rtrcpt.f

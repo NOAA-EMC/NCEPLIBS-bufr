@@ -102,6 +102,7 @@ restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
 **              it now via a recursive call to this same routine.
 */
                 if (!(cdesc = malloc(maxnc * sizeof(int)))) bort_f("RESTD FAILED ALLOCATING");
+
                 restd(lun, desc, &ncdesc, cdesc);
 
                 if ( ( *nctddesc > 0 ) &&
@@ -137,10 +138,10 @@ restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
                 for ( j = 0; j < ncdesc; j++ ) {
                     wrdesc(cdesc[j], ctddesc, nctddesc, maxnc);
                 }
-                free(cdesc);
 
+                free(cdesc);
             }
-            else if ( tab == 'B' ) {
+            else {
 /*
 **              desc is a local Table B descriptor, so precede it with
 **              a 206YYY operator in the output list.
