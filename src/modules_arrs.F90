@@ -813,7 +813,6 @@ end module moda_usrint
 !>
 !> @author J. Woollen 1994-01-06
 module moda_usrtmp
-  parameter ( maxrcr = 100 )
   !> inv array elements for new sections of a growing subset buffer.
   integer, allocatable :: iutmp(:,:)
   !> val array elements for new sections of a growing subset buffer.

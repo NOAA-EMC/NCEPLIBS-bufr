@@ -115,6 +115,11 @@ for kind in "4" "d"; do
     # Check igetntbi().
     (./test_bort_$kind igetntbi 1) && exit 1
 
+    # Check igetrfel().
+    (./test_bort_$kind igetrfel 1) && exit 1
+    (./test_bort_$kind igetrfel 2) && exit 1
+    (./test_bort_$kind igetrfel 3) && exit 1
+
     # Check igettdi().
     (./test_bort_$kind igettdi 1) && exit 1
 
@@ -198,6 +203,9 @@ for kind in "4" "d"; do
     # Check openmb().
     (./test_bort_$kind openmb 1) && exit 1
     (./test_bort_$kind openmb 2) && exit 1
+
+    # Check pad().
+    (./test_bort_$kind pad 1) && exit 1
 
     # Check parstr().
     (./test_bort_$kind parstr 1) && exit 1

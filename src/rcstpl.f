@@ -16,7 +16,7 @@ C>
 C> @author Woollen @date 1994-01-06
       SUBROUTINE RCSTPL(LUN,IRET)
 
-      use modv_vars, only: bmiss, maxjl, maxss
+      use modv_vars, only: bmiss, maxjl, maxss, maxrcr
 
       use moda_usrint
       use moda_usrbit

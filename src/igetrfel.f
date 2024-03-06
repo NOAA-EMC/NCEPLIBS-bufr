@@ -76,10 +76,7 @@ C               operator (if any) corresponding to this element.
                     IF ( FXY(2:3) .EQ. '33' ) CFLWOPR = '222000'
                   END IF
                 END IF
-                IF ( CFLWOPR .EQ. 'XXXXXX' ) THEN
-                  IF ( IMRKOPR(TAG(NODE)) .EQ. 1 ) GOTO 900
-                  RETURN
-                END IF
+                IF ( CFLWOPR .EQ. 'XXXXXX' ) RETURN
 
 C               Now, check whether the appropriate "follow" operator was
 C               actually present in the subset.  If there are multiple
@@ -222,9 +219,6 @@ C                 those of the previous referenced element.
         END IF
 
         RETURN
-900     WRITE(BORT_STR,'("BUFRLB: IGETRFEL - UNABLE TO DETERMINE '//
-     .      'FOLLOW OPERATOR FOR MARKER OPERATOR ",A)') TAG(NODE)
-        CALL BORT(BORT_STR)
 901     WRITE(BORT_STR,'("BUFRLB: IGETRFEL - UNABLE TO FIND FOLLOW '//
      .      'OPERATOR ",A," IN SUBSET")') CFLWOPR
         CALL BORT(BORT_STR)
