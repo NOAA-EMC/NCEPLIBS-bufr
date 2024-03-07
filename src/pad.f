@@ -14,7 +14,7 @@ C> Note that it's the number of bits padded here that
 C> was packed in bits ibit+1 through ibit+8 - this is actually a
 C> delayed replication factor! IPADB must be a multiple of eight and
 C> represents the bit boundary on which the packed subset in ibay
-C> should end after padding. For example, if ipabd is "8", then the
+C> should end after padding. For example, if ipadb is "8", then the
 C> number of bits in ibay actually consumed by packed data (including
 C> the padding) will be a multiple of eight. If ipadb is "16", it
 C> will be a multiple of sixteen.  in either (or any) case, this
@@ -51,16 +51,12 @@ c  .... Now pad with zeroes to the byte boundary
       CALL PKB(0,IPAD,IBAY,IBIT)
       IBYT = IBIT/8
 
-      IF(MOD(IBIT,IPADB).NE.0) GOTO 900
-      IF(MOD(IBIT,8    ).NE.0) GOTO 901
+      IF(MOD(IBIT,8).NE.0) GOTO 901
 
 C  EXITS
 C  -----
 
       RETURN
-900   WRITE(BORT_STR,'("BUFRLIB: PAD - THE INPUT BIT BOUNDARY TO PAD '//
-     . 'TO (",I8,") IS NOT A MULTIPLE OF 8")') IPADB
-      CALL BORT(BORT_STR)
 901   WRITE(BORT_STR,'("BUFRLIB: PAD - THE NUMBER OF BITS IN A PACKED'//
      . ' SUBSET AFTER PADDING (",I8,") IS NOT A MULTIPLE OF 8")') IBIT
       CALL BORT(BORT_STR)

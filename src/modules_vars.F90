@@ -225,6 +225,9 @@ module modv_vars
   !> Maximum number of entries in the internal string cache.
   integer, parameter :: mxs = 1000
 
+  !> Maximum number of recursion levels when expanding a subset template.
+  integer, parameter :: maxrcr = 100
+
   !> Maximum number of Table A mnemonics in the internal jump/link
   !> table which contain at least one Table C operator with an XX value
   !> of 21 or greater in their definition.

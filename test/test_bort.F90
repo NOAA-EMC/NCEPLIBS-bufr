@@ -12,7 +12,6 @@ program test_bort
   use bufr_interface
   implicit none
   integer iret, jret, iunit, iqcd
-  ! integer i1
   integer int_1d(1), int_1d_2(1), int_2d(1,5)
   character char_1
   character*2 char_short
@@ -417,6 +416,31 @@ program test_bort
        if (ios .ne. 0) stop 3
        call openbf(11, 'IN', 12)
      endif
+  elseif (sub_name .eq. 'igetrfel') then
+     filnam = 'testfiles/IN_4'
+     call cobfl_c( filnam, 'r' )
+     open(unit = 31, file = '/dev/null')
+     call openbf(31, 'SEC3', 31)
+     call crbmg_c(bfmg, 200000, msgl, iret)
+     if (test_case .eq. '1') then
+        ! Change the last 2-37-000 operator in Section 3 to 2-35-000, so that the bitmap can't be located
+        ! for any of the subsequent marker operators.
+        ibit = 1016
+        call pkb(163, 8, ibfmg, ibit)
+     elseif (test_case .eq. '2') then
+        ! Change the first 2-24-000 operator in Section 3 to 2-22-000, so that the "follow" operator can't
+        ! be located for any of the subsequent marker operators.
+        ibit = 888
+        call pkb(150, 8, ibfmg, ibit)
+     elseif (test_case .eq. '3') then
+        ! Change the first 2-22-000 operator in Section 3 to 2-35-000, so that the previous referenced
+        ! element can't be located for any of the subsequent marker operators.
+        ibit = 312
+        call pkb(163, 8, ibfmg, ibit)
+     endif
+     call mtinfo('../tables', 80, 81)
+     call readerme(ibfmg, 31, char_val_8, jdate, iret)
+     call readsb(31, iret)
   elseif (sub_name .eq. 'igettdi') then
      if (test_case .eq. '1') then
        iret = igettdi(0)
@@ -686,6 +710,11 @@ program test_bort
         call openmb(11, 'F5FCMESG', 2021022312)
      elseif (test_case .eq. '2') then
         call openmb(11, 'F5FCMESG', 2021022312)
+     endif
+  elseif (sub_name .eq. 'pad') then
+     if (test_case .eq. '1') then
+        ibit = 16
+        call pad(ibay, ibit, ierr, 27)
      endif
   elseif (sub_name .eq. 'parstr') then
      if (test_case .eq. '1') then

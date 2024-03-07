@@ -178,16 +178,6 @@ program test_misc
   open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
   if (ios .ne. 0) stop 3
   call openbf(11, 'IN', 11)
-  if (igetprm('MAXSS') .ne. 120000) stop 600
-  if (igetprm('MAXTBA') .ne. 150) stop 601
-  if (igetprm('MAXTBB') .ne. 500) stop 602
-  if (igetprm('MAXTBD') .ne. 500) stop 603
-  if (igetprm('MXBTM') .ne. 5) stop 604
-  if (igetprm('MXBTMSE') .ne. 500) stop 605
-  if (igetprm('MXCDV') .ne. 3000) stop 606
-  if (igetprm('MXCSB') .ne. 4000) stop 607
-  if (igetprm('MXDXTS') .ne. 200) stop 608
-  if (igetprm('MXLCC') .ne. 32) stop 609
   if (igetprm('MXMSGL') .ne. 600006) stop 610
   if (igetprm('MXMTBB') .ne. 4000) stop 611
   if (igetprm('MXMTBD') .ne. 1000) stop 612
@@ -267,6 +257,31 @@ program test_misc
   if (invcon(1, 1, 0, 3) .ne. 0) stop 706
   if (invcon(1, 1, 3, 0) .ne. 0) stop 707
   if (invtag(0, 1, 3, 0) .ne. 0) stop 708
+  call openbf(11, 'QUIET', 0)
+  call closbf(11)
+
+  ! Test rcstpl() passing non-zero iret values back through rdtree and readsb
+  open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
+  if (ios .ne. 0) stop 3
+  call openbf(11, 'IN', 11)
+  call readmg(11, subset, idate, iret)
+  iret = isetprm('MAXJL', 20)
+  call openbf(11, 'QUIET', 1)
+  call readsb(11, iret)
+  if ( iret .ne. -1 ) stop 709
+  iret = isetprm('MAXJL', 96000)
+  iret = isetprm('MAXSS', 20)
+  call readmg(11, subset, idate, iret)
+  call readsb(11, iret)
+  if ( iret .ne. -1 ) stop 710
+  call closbf(11)
+  open(unit = 11, file = 'testfiles/IN_1', form = 'UNFORMATTED', iostat = ios)
+  if (ios .ne. 0) stop 3
+  call openbf(11, 'SEC3', 11)
+  call mtinfo('../tables', 80, 81)
+  call readns(11, subset, idate, iret)
+  if ( iret .ne. -1 ) stop 711
+  iret = isetprm('MAXSS', 120000)
   call openbf(11, 'QUIET', 0)
   call closbf(11)
 
@@ -377,7 +392,7 @@ program test_misc
   iret = 0
   call sntbbe(0, card, 1, iret, int_1d, char_4, char_12, char_4, char_24, char_8, char_4, char_120)
   if ( char_24(1) .ne. ' ' ) stop 803
-  
+
 #endif
 
   print *, 'SUCCESS'

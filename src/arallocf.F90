@@ -17,7 +17,7 @@ subroutine arallocf
 
   use modv_vars, only: maxcd, maxjl, maxmem, maxmsg, maxss, maxtba, maxtbb, maxtbd, mxbtm, mxbtmse, &
                        mxcdv, mxcsb, mxdxts, mxlcc, mxmsgl, mxmsgld4, mxmtbb, mxmtbd, mxnrv, mxrst, &
-                       mxs01v, mxtamc, mxtco, mxh4wlc, nfiles, mxcnem, maxnc
+                       mxs01v, mxtamc, mxtco, mxh4wlc, nfiles, mxcnem, maxnc, maxrcr
 
   use moda_usrint
   use moda_usrbit
