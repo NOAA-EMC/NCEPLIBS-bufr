@@ -126,6 +126,9 @@ for kind in "4" "d"; do
     # Check inctab().
     (./test_bort_$kind inctab 1) && exit 1
 
+    # Check ipkm().
+    (./test_bort_$kind ipkm 1) && exit 1
+
     # Check isize().
     (./test_bort_$kind isize 1) && exit 1
     (./test_bort_$kind isize 2) && exit 1
@@ -520,10 +523,15 @@ for kind in "4" "d"; do
     (./test_bort_$kind upftbv 1) && exit 1
     (./test_bort_$kind upftbv 2) && exit 1
 
+    # Check uptdd().
+    (./test_bort_$kind uptdd 1) && exit 1
+
     # Check usrtpl().
     (./test_bort_$kind usrtpl 1) && exit 1
     (./test_bort_$kind usrtpl 2) && exit 1
     (./test_bort_$kind usrtpl 3) && exit 1
+    (./test_bort_$kind usrtpl 4) && exit 1
+    (./test_bort_$kind usrtpl 5) && exit 1
 
     # Check wrcmps().
     (./test_bort_$kind wrcmps 1) && exit 1

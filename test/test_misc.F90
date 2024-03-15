@@ -260,7 +260,7 @@ program test_misc
   call openbf(11, 'QUIET', 0)
   call closbf(11)
 
-  ! Test rcstpl() passing non-zero iret values back through rdtree and readsb
+  ! Test rcstpl() passing non-zero iret values back through rdtree() and readsb()
   open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
   if (ios .ne. 0) stop 3
   call openbf(11, 'IN', 11)
