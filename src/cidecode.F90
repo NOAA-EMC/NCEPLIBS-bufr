@@ -29,16 +29,13 @@ subroutine upc(chr,nchr,ibay,ibit,cnvnull)
   implicit none
 
   character*(*), intent(out) :: chr
+  character*1 cval(8)
 
   integer, intent(in) :: nchr, ibay(*)
-
   integer, intent(inout) :: ibit
-
-  logical, intent(in) :: cnvnull
-
   integer ival(2), lb, i, numchr
 
-  character*1 cval(8)
+  logical, intent(in) :: cnvnull
 
   equivalence (cval,ival)
 
@@ -160,9 +157,7 @@ subroutine upbb(nval,nbits,ibit,ibay)
   implicit none
 
   integer, intent(in) :: ibay(*), ibit, nbits
-
   integer, intent(out) :: nval
-
   integer nwd, nbt, int, jnt, irev, lbt
 
   !  If nbits=0, then just set nval=0 and return
@@ -208,9 +203,7 @@ subroutine upb(nval,nbits,ibay,ibit)
   implicit none
 
   integer, intent(in) :: ibay(*), nbits
-
   integer, intent(out) :: nval
-
   integer, intent(inout) :: ibit
 
   call upbb(nval,nbits,ibit,ibay)
@@ -236,7 +229,6 @@ recursive integer function iupb(mbay,nbyt,nbit) result(iret)
   implicit none
 
   integer, intent(in) :: mbay(*), nbit, nbyt
-
   integer my_nbit, my_nbyt, mbit
 
   ! Check for I8 integers.
@@ -276,14 +268,11 @@ recursive integer function iupm(cbay,nbits) result(iret)
   implicit none
 
   character*4, intent(in) :: cbay
-
-  integer, intent(in) :: nbits
-
-  integer my_nbits, int, irev
-
+  character*4 cint
   character*128 bort_str
 
-  character*4 cint
+  integer, intent(in) :: nbits
+  integer my_nbits, int, irev
 
   equivalence (cint,int)
 

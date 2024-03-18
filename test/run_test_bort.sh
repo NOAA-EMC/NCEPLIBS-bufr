@@ -522,6 +522,8 @@ for kind in "4" "d"; do
     # Check upftbv().
     (./test_bort_$kind upftbv 1) && exit 1
     (./test_bort_$kind upftbv 2) && exit 1
+    (./test_bort_$kind upftbv 3) && exit 1
+    (./test_bort_$kind upftbv 4) && exit 1
 
     # Check uptdd().
     (./test_bort_$kind uptdd 1) && exit 1

@@ -16,14 +16,14 @@ list(APPEND fortran_src
   mesgbc.f mesgbf.f minimg.f mrginv.f msgfull.f msgini.f msgupd.f msgwrt.f mtfnam.f mtinfo.f mvb.f
   nemdefs.f nemock.f nemspecs.f nemtab.f nemtba.f nemtbax.f nemtbb.f nemtbd.f nenubd.f nevn.f newwin.f
   nmsub.f nmwrd.f numtab.f numtbd.f nvnwin.f nwords.f nxtwin.f openbt.f openmb.f openmg.f pad.f
-  padmsg.f parstr.f parusr.f parutg.f pkbs1.f pkftbv.f pktdd.f posapx.f rcstpl.f rdbfdx.f
+  padmsg.f parstr.f parusr.f parutg.f pkbs1.f ftbvs.F90 pktdd.f posapx.f rcstpl.f rdbfdx.f
   rdcmps.f rdmemm.f rdmems.f rdmgsb.f rdmsgw.F90 rdmtbb.f rdmtbd.f rdmtbf.f rdtree.f rdusdx.f readdx.f
   readerme.f readlc.f readmg.f readmm.f readns.f reads3.f readsb.f rewnbf.f rsvfvm.f rtrcpt.f
   rtrcptb.f seqsdx.f setblock.F90 setbmiss.f setvalnb.f sntbbe.f sntbde.f sntbfe.f status.f stbfdx.f
   stdmsg.f stndrd.f stntbi.f stntbia.f strbtm.f strcln.f strcpt.f string.f strnum.F90 strsuc.F90 tabent.f
   tabsub.f trybump.f ufbcnt.f ufbcpy.f ufbcup.f ufbdmp.f ufbevn.f ufbget.f ufbin3.f ufbint.f ufbinx.f
   ufbmem.f ufbmex.f ufbmms.f ufbmns.f ufbovr.f ufbpos.f ufbqcd.f ufbqcp.f ufbrep.f ufbrms.f ufbrp.f
-  ufbrw.f ufbseq.f ufbsp.f ufbstp.f ufbtab.f ufbtam.f ufdump.f upds3.f upftbv.f ciencode.F90 cidecode.F90
+  ufbrw.f ufbseq.f ufbsp.f ufbstp.f ufbtab.f ufbtam.f ufdump.f upds3.f ciencode.F90 cidecode.F90
   ups.f uptdd.f usrtpl.f wrcmps.f wrdxtb.f writcp.f writdx.f writlc.f writsa.f writsb.f
   wrtree.f wtstat.f arallocf.F90 ardllocf.F90 closbf.f ireadmt.f irev.F90 isetprm.F90 openbf.f pkvs01.f
   fortran_open.F90 fortran_close.F90 bufr_interface.F90 setim8b.F90

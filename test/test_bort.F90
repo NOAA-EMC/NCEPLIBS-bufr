@@ -1957,16 +1957,24 @@ program test_bort
         call readmg(11, char_val_8, jdate, iret)
      endif
   elseif (sub_name .eq. 'upftbv') then
+     open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+     if (ios .ne. 0) stop 3
+     real_1d(1) = 1.0
      if (test_case .eq. '1') then
-        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios .ne. 0) stop 3
         call openbf(11, 'IN', 11)
-        call upftbv(11, 'n', 1.0, 1, 1, 1)
+        call upftbv(11, 'n', real_1d(1), 20, irps, ierr)
      elseif (test_case .eq. '2') then
         call openbf(12, 'FIRST', 11)
-        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios .ne. 0) stop 3
-        call upftbv(11, 'n', 1.0, 1, 1, 1)
+        call upftbv(11, 'n', real_1d(1), 20, irps, ierr)
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/IN_2_bufrtab')
+        call openbf(11, 'IN', 12)
+        call upftbv(11, 'SSNX', real_1d(1), 20, irps, ierr)
+     elseif (test_case .eq. '4') then
+        open(unit = 12, file = 'testfiles/IN_2_bufrtab')
+        call openbf(11, 'IN', 12)
+        real_1d(1) = 4194306.0
+        call upftbv(11, 'SIDP', real_1d(1), 1, int_1d, ierr)
      endif
   elseif (sub_name .eq. 'uptdd') then
      if (test_case .eq. '1') then

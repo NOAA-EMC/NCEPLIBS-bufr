@@ -28,16 +28,12 @@ subroutine pkc(chr,nchr,ibay,ibit)
   implicit none
 
   character*(*), intent(in) :: chr
+  character*1 cval(8)
 
   integer, intent(in) :: nchr
-
   integer, intent(out) :: ibay(*)
-
   integer, intent(inout) :: ibit
-
   integer ival(2), lb, i, nwd, nbt, nbit, int, msk, irev
-
-  character*1 cval(8)
 
   equivalence (cval,ival)
 
@@ -148,14 +144,11 @@ subroutine pkb(nval,nbits,ibay,ibit)
   implicit none
 
   integer, intent(in) :: nval, nbits
-
   integer, intent(out) :: ibay(*)
-
   integer, intent(inout) :: ibit
+  integer nwd, nbt, ival, int, msk, irev
 
   character*156 bort_str
-
-  integer nwd, nbt, ival, int, msk, irev
 
   if(nbits.gt.nbitw) then
     write(bort_str,'("BUFRLIB: PKB - NUMBER OF BITS BEING PACKED '// &
@@ -205,13 +198,10 @@ recursive subroutine ipkm(cbay,nbyt,n)
   implicit none
 
   integer, intent(in) :: n, nbyt
-
-  character*(*), intent(out) :: cbay
-
   integer my_n, my_nbyt, int, irev, i
 
+  character*(*), intent(out) :: cbay
   character*128 bort_str
-
   character*4 cint
 
   equivalence (cint,int)

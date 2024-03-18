@@ -52,7 +52,7 @@
 !> - -1 = Unknown cprmnm
 !>
 !> @author J. Ator @date 2014-12-04
-recursive function isetprm ( cprmnm, ipval ) result ( iret )
+recursive integer function isetprm ( cprmnm, ipval ) result ( iret )
 
   use modv_vars, only: mxmsgl, maxss, nfiles, mxdxts, maxmsg, maxmem, maxtba, maxtbb, maxtbd, maxjl, &
                        mxcdv, mxlcc, mxcsb, mxmtbb, mxmtbd, mxmtbf, maxcd, mxs01v, mxbtm, mxbtmse, &
@@ -64,7 +64,7 @@ recursive function isetprm ( cprmnm, ipval ) result ( iret )
 
   integer, intent(in) :: ipval
 
-  integer iret, my_ipval
+  integer my_ipval
 
   character*128 errstr
 
