@@ -112,6 +112,9 @@ program outtest2
   call cnved4(mgbf2,mxbfmg,mgbf)
   if ( .not. all( mgbf(1:lmgbf) .eq. mgbf2(1:lmgbf) )) stop 5
 
+  ! Call pkftbv with some bogus values to ensure that the "missing" value is properly returned.
+  if ( nint(pkftbv(0,0)) .ne. nint(getbmiss()) ) stop 6
+
   ! Close the output file.
   call closbf ( 11 )
 

@@ -23,14 +23,13 @@ program test_bort
   character*24 char_24(1)
   character*85 char_85
   character*120 char_120(1), char_120_2(1,5)
-  character*5 adn30_val_5
+  character*5 adn30, adn30_val_5
   real*8 real_1d(1)
   real*8 real_2d(1,1)
   real*8 real_2d_3x1(3,1)
   integer idn30, idn30_val
   integer :: num_args, len, stat, ios, u
   character(len=32) :: sub_name, test_case
-  character*5 adn30
   character*80 card
   integer ibay(1), ibit, jdate
   integer mtyp, msbt, inod
@@ -454,6 +453,10 @@ program test_bort
        if (ios .ne. 0) stop 3
        if (isetprm('MAXJL',10) .ne. 0) stop 3
        call openbf(11, 'IN', 11)
+     endif
+  elseif (sub_name .eq. 'ipkm') then
+     if (test_case .eq. '1') then
+       call ipkm(char_val_8, 6, 29)
      endif
   elseif (sub_name .eq. 'isize') then
      if (test_case .eq. '1') then
@@ -1954,16 +1957,31 @@ program test_bort
         call readmg(11, char_val_8, jdate, iret)
      endif
   elseif (sub_name .eq. 'upftbv') then
+     open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+     if (ios .ne. 0) stop 3
+     real_1d(1) = 1.0
      if (test_case .eq. '1') then
-        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios .ne. 0) stop 3
         call openbf(11, 'IN', 11)
-        call upftbv(11, 'n', 1.0, 1, 1, 1)
+        call upftbv(11, 'n', real_1d(1), 20, irps, ierr)
      elseif (test_case .eq. '2') then
         call openbf(12, 'FIRST', 11)
-        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        call upftbv(11, 'n', real_1d(1), 20, irps, ierr)
+     elseif (test_case .eq. '3') then
+        open(unit = 12, file = 'testfiles/IN_2_bufrtab')
+        call openbf(11, 'IN', 12)
+        call upftbv(11, 'SSNX', real_1d(1), 20, irps, ierr)
+     elseif (test_case .eq. '4') then
+        open(unit = 12, file = 'testfiles/IN_2_bufrtab')
+        call openbf(11, 'IN', 12)
+        real_1d(1) = 4194306.0
+        call upftbv(11, 'SIDP', real_1d(1), 1, int_1d, ierr)
+     endif
+  elseif (sub_name .eq. 'uptdd') then
+     if (test_case .eq. '1') then
+        open(unit = 11, file = 'testfiles/OUT_5_infile', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
-        call upftbv(11, 'n', 1.0, 1, 1, 1)
+        call openbf(11, 'IN', 11)
+        call uptdd(65, 1, 20, iret)
      endif
   elseif (sub_name .eq. 'usrtpl') then
      open(unit = 11, file = 'testfiles/OUT_5_infile', form = 'UNFORMATTED', iostat = ios)
@@ -1976,6 +1994,16 @@ program test_bort
         call usrtpl(1, 53, 2)
      elseif (test_case .eq. '3') then
         call usrtpl(1, 51, 1)
+     elseif ((test_case .eq. '4') .or. (test_case .eq. '5')) then
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        call openbf(12, 'OUT', 11)
+        if (test_case .eq. '4') then
+          char_val_8 = 'MAXJL   '
+        else
+          char_val_8 = 'MAXSS   '
+        endif
+        if (isetprm(char_val_8,10) .ne. 0) stop 3
+        call openmg(12, 'NC001103', 2021022312)
      endif
   elseif (sub_name .eq. 'wrcmps') then
      open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
