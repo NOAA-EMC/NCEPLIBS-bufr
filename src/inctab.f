@@ -5,7 +5,7 @@ C>
 C> @author Woollen @date 1994-01-06
 
 C> Return the next available positional index
-C> for writing into the internal jump/link table in module tables,
+C> for writing into the internal jump/link table in module @ref moda_tables,
 C> and also use that index to store ATAG and ATYP within,
 C> respectively, the internal jump/link table arrays tag(*) and typ(*).
 C> If there is no more room for additional entries within the internal

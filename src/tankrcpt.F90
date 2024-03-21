@@ -1,5 +1,5 @@
 !> @file
-!> @brief Encode and decode tank receipt times within BUFR messages
+!> @brief Read and write tank receipt times within BUFR messages
 !> @author J. Ator @date 2009-03-23
 
 !> Read an input message and output an equivalent BUFR message with a tank receipt time added to Section 1.
@@ -93,7 +93,7 @@ recursive subroutine atrcpt(msgin,lmsgot,msgot)
   return
 end subroutine atrcpt
 
-!> Return the tank receipt time (if one exists) from Section 1 of a BUFR message.
+!> Read the tank receipt time (if one exists) from Section 1 of a BUFR message.
 !>
 !> This subroutine is similar to subroutine rtrcpt(), except that it operates on a BUFR message passed in via a memory array,
 !> whereas rtrcpt() operates on the BUFR message that was read into internal arrays via the most recent call to any of the
@@ -166,7 +166,7 @@ recursive subroutine rtrcptb(mbay,iyr,imo,idy,ihr,imi,iret)
   return
 end subroutine rtrcptb
 
-!> Return the tank receipt time (if one exists) from Section 1 of a BUFR message.
+!> Read the tank receipt time (if one exists) from Section 1 of a BUFR message.
 !>
 !> This subroutine is similar to subroutine rtrcptb(), except that rtrcptb() operates on a BUFR message passed in via a
 !> memory array, whereas this subroutine operates on the BUFR message that was read into internal arrays via the most
