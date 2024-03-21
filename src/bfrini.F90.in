@@ -38,7 +38,6 @@ COMMON /ACMODE/ IAC
 COMMON /MSGSTD/ CSMF
 COMMON /MSGCMP/ CCMF
 COMMON /TABLEF/ CDMF
-COMMON /TNKRCP/ ITRYR,ITRMO,ITRDY,ITRHR,ITRMI,CTRT
 
 character*240 CMTDIR
 character*56  DXSTR
@@ -48,7 +47,6 @@ character*1   REPX(5,2),REPS
 character*1   CSMF
 character*1   CCMF
 character*1   CDMF
-character*1   CTRT
 dimension     NDNDX(10),NLDXA(10),NLDXB(10),NLDXD(10),NLD30(10)
 dimension     LENX(5)
 
@@ -212,10 +210,6 @@ CCMF = 'N'
 !  Initialize /TABLEF/
 
 CDMF = 'N'
-
-!  Initialize /TNKRCP/
-
-CTRT = 'N'
 
 !  Initialize /MSTINF/
 
