@@ -7,19 +7,19 @@ list(APPEND fortran_src
   modules_vars.F90 modules_arrs.F90 blocks.F90 borts.F90 capit.f chekstab.f cktaba.f closmg.f
   cmpmsg.f cmsgini.f cnved4.f codflg.f conwin.f copybf.f copymg.f copysb.f cpbfdx.f cpdxmm.f cpymem.f
   cpyupd.f datebf.f datelen.f drfini.f drstpl.f dumpbf.f dxdump.f dxinit.f dxmini.f elemdx.f
-  errwrt.F90 exitbufr.f fstag.f getabdb.f getbmiss.f getcfmng.f getlens.f getntbe.f gettagpr.f
-  gettagre.f gettbh.f getvalnb.f getwin.f hold4wlc.f i4dy.f ibfms.f icbfms.f icmpdx.f icopysb.f
+  errwrt.F90 exitbufr.f fstag.f getabdb.f getcfmng.f getlens.f getntbe.f gettagpr.f
+  gettagre.f gettbh.f getvalnb.f getwin.f hold4wlc.f i4dy.f icmpdx.f icopysb.f
   idxmsg.f ifbget.f fxy.F90 igetdate.f igetmxby.f igetntbi.f igetntbl.f igetprm.F90
   igetrfel.f igetsc.f igettdi.f imrkopr.f inctab.f invcon.f invmrg.f invtag.f invwin.f iok2cpy.f
   iokoper.f ipks.f ireadmg.f ireadmm.f ireadns.f ireadsb.f ishrdx.f isize.f istdesc.f
-  jstnum.f lcmgdf.f lmsg.f lstjpb.f makestab.f maxout.f
+  jstnum.f lcmgdf.f lmsg.f lstjpb.f makestab.f maxout.f missing.F90
   mesgbc.f mesgbf.f minimg.f mrginv.f msgfull.f msgini.f msgupd.f msgwrt.f mtfnam.f mtinfo.f mvb.f
   nemdefs.f nemock.f nemspecs.f nemtab.f nemtba.f nemtbax.f nemtbb.f nemtbd.f nenubd.f nevn.f newwin.f
   nmsub.f nmwrd.f numtab.f numtbd.f nvnwin.f nwords.f nxtwin.f openbt.f openmb.f openmg.f pad.f
   padmsg.f parstr.f parusr.f parutg.f ftbvs.F90 pktdd.f posapx.f rcstpl.f rdbfdx.f
   rdcmps.f rdmemm.f rdmems.f rdmgsb.f rdmsgw.F90 rdmtbb.f rdmtbd.f rdmtbf.f rdtree.f rdusdx.f readdx.f
   readerme.f readlc.f readmg.f readmm.f readns.f readsb.f rewnbf.f rsvfvm.f s013vals.F90
-  tankrcpt.F90 seqsdx.f setblock.F90 setbmiss.f setvalnb.f sntbbe.f sntbde.f sntbfe.f status.f stbfdx.f
+  tankrcpt.F90 seqsdx.f setvalnb.f sntbbe.f sntbde.f sntbfe.f status.f stbfdx.f
   stdmsg.f stndrd.f stntbi.f stntbia.f strbtm.f strcln.f string.f strnum.F90 strsuc.F90 tabent.f
   tabsub.f trybump.f ufbcnt.f ufbcpy.f ufbcup.f ufbdmp.f ufbevn.f ufbget.f ufbin3.f ufbint.f ufbinx.f
   ufbmem.f ufbmex.f ufbmms.f ufbmns.f ufbovr.f ufbpos.f ufbqcd.f ufbqcp.f ufbrep.f ufbrms.f ufbrp.f
