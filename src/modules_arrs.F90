@@ -859,3 +859,14 @@ module moda_tnkrcp
   !> Tank receipt minute
   integer :: itrmi
 end module moda_tnkrcp
+
+!> Declare a variable used to indicate whether output BUFR messages should be standardized.
+!>
+!> @author J. Ator @date 2024-03-22
+module moda_msgstd
+  !> Flag indicating whether BUFR output messages are to be standardized; this variable is initialized to a default
+  !> value which can be overridden by a subsequent call to subroutine stdmsg() within the application program:
+  !> - 'N' = No (default)
+  !> - 'Y' = Yes
+  character*1 :: csmf = 'N'
+end module moda_msgstd

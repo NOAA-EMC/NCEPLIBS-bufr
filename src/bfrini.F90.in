@@ -35,7 +35,6 @@ COMMON /DXTAB / MAXDX,IDXV,NXSTR(10),LDXA(10),LDXB(10),LDXD(10), &
 COMMON /MRGCOM/ NRPL,NMRG,NAMB,NTOT
 COMMON /DATELN/ LENDAT
 COMMON /ACMODE/ IAC
-COMMON /MSGSTD/ CSMF
 COMMON /MSGCMP/ CCMF
 COMMON /TABLEF/ CDMF
 
@@ -44,7 +43,6 @@ character*56  DXSTR
 character*6   ADSN(5,2),DNDX(25,10)
 character*3   TYPX(5,2),TYPS
 character*1   REPX(5,2),REPS
-character*1   CSMF
 character*1   CCMF
 character*1   CDMF
 dimension     NDNDX(10),NLDXA(10),NLDXB(10),NLDXD(10),NLD30(10)
@@ -198,10 +196,6 @@ enddo
 !  Initialize module moda_dscach
 
 ncnem = 0
-
-!  Initialize /MSGSTD/
-
-CSMF = 'N'
 
 !  Initialize /MSGCMP/
 

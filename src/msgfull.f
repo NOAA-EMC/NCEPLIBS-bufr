@@ -22,10 +22,7 @@ C> @author J. Ator @date 2009-03-23
       use modv_vars, only: maxnc
 
       use moda_tnkrcp
-
-      COMMON /MSGSTD/ CSMF
-
-      CHARACTER*1 CSMF
+      use moda_msgstd
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------

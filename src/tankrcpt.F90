@@ -29,7 +29,7 @@ recursive subroutine atrcpt(msgin,lmsgot,msgot)
   implicit none
 
   integer, intent(in) :: msgin(*), lmsgot
-  integer, intent(out) :: msgot
+  integer, intent(out) :: msgot(*)
   integer my_lmsgot, len0, len1, l2, l3, l4, l5, iad1, iad2, lenm, lenmot, len1ot, ibit, iupbs01
 
   ! Check for I8 integers.
