@@ -3,7 +3,7 @@
 !>
 !> @author J. Ator @date 2024-02-29
 
-!> Convert a WMO bit-wise representation of an FXY value to a character string of length 5 or 6.
+!> Convert an FXY value from its WMO bit-wise representation to a character string of length 5 or 6.
 !>      
 !> For an description of the WMO bit-wise representation of the FXY value, see ifxy().
 !>
@@ -82,41 +82,41 @@ end subroutine cadn30
 !>
 !> This function is the logical inverse of function adn30().
 !>
-!> @param[in] adn30 - character*(*): FXY value; must be of length 5 or 6
-!> @param[in] ldn - integer: Length of adn30; can be either 5 or 6 characters
+!> @param[in] adn - character*(*): FXY value; must be of length 5 or 6
+!> @param[in] ldn - integer: Length of adn; can be either 5 or 6 characters
 !> @returns idn30 - integer: WMO bit-wise representation of FXY value
 !>
 !> @author J. Woollen @date 1994-01-06
-integer function idn30(adn30,ldn) result(iret)
+integer function idn30(adn,ldn) result(iret)
 
   implicit none
 
   integer, intent(in) :: ldn
 
-  character*(*), intent(in) :: adn30
+  character*(*), intent(in) :: adn
 
   character*128 bort_str
 
   integer ifxy
 
-  if(len(adn30).lt.ldn) then
+  if(len(adn).lt.ldn) then
     write(bort_str,'("BUFRLIB: IDN30 - FUNCTION INPUT STRING ",A," CHARACTER LENGTH (",I4,") IS TOO SHORT (< LDN,",I5)') &
-          adn30, len(adn30), ldn
+          adn, len(adn), ldn
     call bort(bort_str)
   endif
 
   if(ldn.eq.5) then
-    read(adn30,'(i5)') iret
+    read(adn,'(i5)') iret
     if(iret.lt.0 .or. iret.gt.65535) then
       write(bort_str, &
         '("BUFRLIB: IDN30 - DESCRIPTOR INTEGER REPRESENTATION, IDN30 (",I8,"), IS OUTSIDE 16-BIT RANGE (0-65535)")') iret
       call bort(bort_str)
     endif
   elseif(ldn.eq.6) then
-    iret = ifxy(adn30)
+    iret = ifxy(adn)
   else
     write(bort_str,'("BUFRLIB: IDN30 - FUNCTION INPUT STRING ",A," CHARACTER LENGTH (",I4,") MUST BE EITHER 5 OR 6")') &
-          adn30,ldn
+          adn,ldn
     call bort(bort_str)
   endif
 

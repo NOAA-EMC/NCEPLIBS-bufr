@@ -45,16 +45,14 @@ C> @author J. Woollen @date 1994-01-06
       use moda_mgwa
       use moda_mgwb
       use moda_s01cm
+      use moda_tnkrcp
+      use moda_msgstd
 
       COMMON /QUIET / IPRT
-      COMMON /MSGSTD/ CSMF
-      COMMON /TNKRCP/ ITRYR,ITRMO,ITRDY,ITRHR,ITRMI,CTRT
 
       CHARACTER*128 ERRSTR
 
       CHARACTER*4 BUFR,SEVN
-      CHARACTER*1 CSMF
-      CHARACTER*1 CTRT
       DIMENSION   MESG(*)
       DIMENSION   IEC0(2)
 
@@ -145,7 +143,7 @@ C       COPY THE MGWB ARRAY BACK INTO MGWA.
       ENDIF
 
 C     APPEND THE TANK RECEIPT TIME TO SECTION 1 IF REQUESTED VIA
-C     COMMON /TNKRCP/, UNLESS THE MESSAGE CONTAINS BUFR TABLE (DX)
+C     module @ref moda_tnkrcp, UNLESS THE MESSAGE CONTAINS BUFR TABLE (DX)
 C     INFORMATION.
 
       IF ( ( CTRT.EQ.'Y' ) .AND. ( IDXMSG(MGWA).NE.1 ) ) THEN

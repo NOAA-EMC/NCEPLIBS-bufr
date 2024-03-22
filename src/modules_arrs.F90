@@ -837,3 +837,36 @@ module moda_xtab
   !> .false. otherwise.
   logical, allocatable :: xtab(:)
 end module moda_xtab
+
+!> Declare variables used to store tank receipt time information within Section 1 of BUFR messages.
+!>
+!> @author J. Ator @date 2024-03-20
+module moda_tnkrcp
+  !> Flag indicating whether tank receipt times are to be included within output BUFR messages; this variable is
+  !> initialized to a default value which can be overridden by a subsequent call to subroutine strcpt() within the
+  !> application program:
+  !> - 'N' = No (default)
+  !> - 'Y' = Yes
+  character*1 :: ctrt = 'N'
+  !> Tank receipt year
+  integer :: itryr
+  !> Tank receipt month
+  integer :: itrmo
+  !> Tank receipt day
+  integer :: itrdy
+  !> Tank receipt hour
+  integer :: itrhr
+  !> Tank receipt minute
+  integer :: itrmi
+end module moda_tnkrcp
+
+!> Declare a variable used to indicate whether output BUFR messages should be standardized.
+!>
+!> @author J. Ator @date 2024-03-22
+module moda_msgstd
+  !> Flag indicating whether BUFR output messages are to be standardized; this variable is initialized to a default
+  !> value which can be overridden by a subsequent call to subroutine stdmsg() within the application program:
+  !> - 'N' = No (default)
+  !> - 'Y' = Yes
+  character*1 :: csmf = 'N'
+end module moda_msgstd

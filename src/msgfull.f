@@ -21,11 +21,8 @@ C> @author J. Ator @date 2009-03-23
 
       use modv_vars, only: maxnc
 
-      COMMON /MSGSTD/ CSMF
-      COMMON /TNKRCP/ ITRYR,ITRMO,ITRDY,ITRHR,ITRMI,CTRT
-
-      CHARACTER*1 CSMF
-      CHARACTER*1 CTRT
+      use moda_tnkrcp
+      use moda_msgstd
 
 C----------------------------------------------------------------------
 C----------------------------------------------------------------------

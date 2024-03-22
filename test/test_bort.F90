@@ -73,14 +73,12 @@ program test_bort
   ! Run the test for the subroutine and test case.
   if (sub_name .eq. 'adn30') then
      if (test_case .eq. '1') then
-        char_short = adn30(0, 6)
-     elseif (test_case .eq. '2') then
         char_30 = adn30(0, 9)
-     elseif (test_case .eq. '3') then
+     elseif (test_case .eq. '2') then
         char_30 = adn30(-1, 5)
-     elseif (test_case .eq. '4') then
+     elseif (test_case .eq. '3') then
         char_30 = adn30(65536, 5)
-     elseif (test_case .eq. '5') then
+     elseif (test_case .eq. '4') then
         char_30 = adn30(0, 3)
      endif
   elseif (sub_name .eq. 'bort') then
