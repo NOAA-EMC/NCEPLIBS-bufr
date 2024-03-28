@@ -1,13 +1,13 @@
 /** @file
- *  @brief Dynamically allocate C language arrays.
+ *  @brief Allocate or deallocate C language arrays.
  * @author J. Ator @date 2014-12-04
 */
 
 #include "bufrlib.h"
 
-/** Macro to control whether certain variables are explicitly declared
- * or referenced as extern. */
+/** Macro to control whether certain variables are explicitly declared or referenced as extern. */
 #define IN_ARALLOCC
+
 #include "cread.h"
 #include "mstabs.h"
 
@@ -28,7 +28,6 @@
 void
 arallocc(void)
 {
-
     char brtstr[50] = "BUFRLIB: ARALLOCC FAILED ALLOCATING";
 
     int nfiles;
@@ -38,9 +37,7 @@ arallocc(void)
     int maxcd;
     int mxnaf;
 
-/*
-**  cread arrays
-*/
+    /* cread arrays */
 
     nfiles = igetprm_f("NFILES");
 
@@ -48,9 +45,7 @@ arallocc(void)
 
     if (!(lstpos = malloc((nfiles+1) * sizeof(fpos_t)))) bort_f(brtstr);
 
-/*
-**  mstabs arrays
-*/
+    /* mstabs arrays */
 
     mxmtbb = igetprm_f("MXMTBB");
     mxmtbd = igetprm_f("MXMTBD");
@@ -82,4 +77,36 @@ arallocc(void)
     if (!(idefxy_c = malloc(mxmtbd * maxcd * sizeof(int)))) bort_f(brtstr);
 
     if (!(iafpk = malloc(mxnaf * sizeof(int)))) bort_f(brtstr);
+}
+
+/**
+ * Free all memory that was dynamically allocated
+ * during a previous call to subroutine arallocc().
+ *
+ * @author J. Ator @date 2014-12-04
+ */
+
+void
+ardllocc(void)
+{
+    /* cread arrays */
+
+    free( pb );
+    free( lstpos );
+
+    /* mstabs arrays */
+
+    free( ibfxyn_c );
+    free( cbscl_c );
+    free( cbsref_c );
+    free( cbbw_c );
+    free( cbunit_c );
+    free( cbmnem_c );
+    free( cbelem_c );
+    free( idfxyn_c );
+    free( cdseq_c );
+    free( cdmnem_c );
+    free( ndelem_c );
+    free( idefxy_c );
+    free( iafpk );
 }

@@ -7,7 +7,7 @@ list(APPEND fortran_src
   modules_vars.F90 modules_arrs.F90 blocks.F90 borts.F90 capit.f chekstab.f cktaba.f closmg.f
   cmpmsg.f cmsgini.f cnved4.f codflg.f conwin.f copybf.f copymg.f copysb.f cpbfdx.f cpdxmm.f cpymem.f
   cpyupd.f datebf.f datelen.f drfini.f drstpl.f dumpbf.f dxdump.f dxinit.f dxmini.f elemdx.f
-  errwrt.F90 exitbufr.f fstag.f getabdb.f getcfmng.f getlens.f getntbe.f gettagpr.f
+  errwrt.F90 fstag.f getabdb.f getcfmng.f getlens.f getntbe.f gettagpr.f
   gettagre.f gettbh.f getvalnb.f getwin.f hold4wlc.f i4dy.f icmpdx.f icopysb.f
   idxmsg.f ifbget.f fxy.F90 igetdate.f igetmxby.f igetntbi.f igetntbl.f igetprm.F90
   igetrfel.f igetsc.f igettdi.f imrkopr.f inctab.f invcon.f invmrg.f invtag.f invwin.f iok2cpy.f
@@ -25,12 +25,12 @@ list(APPEND fortran_src
   ufbmem.f ufbmex.f ufbmms.f ufbmns.f ufbovr.f ufbpos.f ufbqcd.f ufbqcp.f ufbrep.f ufbrms.f ufbrp.f
   ufbrw.f ufbseq.f ufbsp.f ufbstp.f ufbtab.f ufbtam.f ufdump.f ciencode.F90 cidecode.F90
   ups.f uptdd.f usrtpl.f wrcmps.f wrdxtb.f writcp.f writdx.f writlc.f writsa.f writsb.f
-  wrtree.f wtstat.f arallocf.F90 ardllocf.F90 closbf.F90 ireadmt.f irev.F90 isetprm.F90 openbf.F90
-  fortran_open.F90 fortran_close.F90 bufr_interface.F90 setim8b.F90
+  wrtree.f wtstat.f arallocf.F90 closbf.F90 ireadmt.f irev.F90 isetprm.F90 openbf.F90
+  fortran_open.F90 fortran_close.F90 bufr_interface.F90
   bufr_c2f_interface.F90 x4884.F90 bufrlib.F90)
 
 list(APPEND c_src
-  arallocc.c ardllocc.c cpmstabs.c cread.c crwbmg.c cfe.c icvidx.c restd.c stseq.c)
+  arallocc.c cpmstabs.c cread.c crwbmg.c cfe.c icvidx.c restd.c stseq.c)
 
 list(APPEND c_hdr
   cread.h mstabs.h bufr_interface.h bufrlib.h)

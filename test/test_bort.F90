@@ -81,6 +81,15 @@ program test_bort
      elseif (test_case .eq. '4') then
         char_30 = adn30(0, 3)
      endif
+  elseif (sub_name .eq. 'atrcpt') then
+     if (test_case .eq. '1') then
+        filnam = 'testfiles/IN_11'
+        call cobfl_c ( filnam, 'r' )
+        call crbmg_c ( bfmg, 200000, msgl, iret )
+        if ( iret .ne. 0 ) stop 3
+        call ccbfl_c ()
+        call atrcpt ( ibfmg, 5000, ibfmg2 )
+     endif
   elseif (sub_name .eq. 'bort') then
      if (test_case .eq. '1') then
         call bort('goodbye!')
