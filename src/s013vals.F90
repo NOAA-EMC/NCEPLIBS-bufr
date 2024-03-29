@@ -867,3 +867,240 @@ recursive subroutine upds3(mbay,lcds3,cds3,nds3)
 
   return
 end subroutine upds3
+
+!> Specify the format of Section 1 date-time values that will be output by future calls to
+!> any of the NCEPLIBS-bufr [message-reading subroutines](@ref hierarchy).
+!>
+!> This subroutine can be called at any time from within the
+!> application program, and the specified value for len will remain
+!> in effect for all future calls to any of the NCEPLIBS-bufr subroutines
+!> which read BUFR messages, unless a subsequent call is made to this
+!> subroutine to reset the value of len again.  If this subroutine is
+!> never called, a default value of 8 is used for len, as set within
+!> subroutine bfrini().
+!>
+!> @param[in] len - integer: Length of Section 1 date-time values to be output by all future calls to
+!> message-reading subroutines:
+!>  -  8 = YYMMDDHH format with 2-digit year (the default)
+!>  - 10 = YYYYMMDDHH format with 4-digit year
+!>
+!> @author J. Woollen @date 1998-07-08
+recursive subroutine datelen(len)
+
+  use modv_vars, only: im8b
+
+  implicit none
+
+  integer, intent(in) :: len
+  integer my_len, lendat
+
+  character*128 bort_str
+
+  common /dateln/ lendat
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+
+    call x84(len,my_len,1)
+    call datelen(my_len)
+
+    im8b=.true.
+    return
+  endif
+
+  if(len.ne.8 .and. len.ne.10) then
+    write(bort_str,'("BUFRLIB: DATELEN - INPUT ARGUMENT IS",I4," - IT MUST BE EITHER 8 OR 10")') len
+    call bort(bort_str)
+  endif
+  lendat = len
+
+  return
+end subroutine datelen
+
+!> Get the Section 1 date-time from the first data message of a BUFR file, bypassing any messages
+!> at the beginning of the file which may contain embedded DX BUFR table information.
+!>
+!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
+!> @param[out] mear - integer: Year stored within Section 1 of first data message, in format of either YY or YYYY,
+!> depending on the most recent call to subroutine datelen()
+!> @param[out] mmon - integer: Month stored within Section 1 of first data message
+!> @param[out] mday - integer: Day stored within Section 1 of first data message
+!> @param[out] mour - integer: Hour stored within Section 1 of first data message
+!> @param[out] idate - integer: Date-time stored within Section 1 of first data message, in format of either
+!> YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine datelen()
+!>   -1 = First data message could not be found in BUFR file
+!>
+!> Logical unit lunit must already be associated with a filename on the local system, typically via a Fortran "OPEN" statement.
+!>
+!> @author J. Woollen @date 1994-01-06
+recursive subroutine datebf(lunit,mear,mmon,mday,mour,idate)
+
+  use modv_vars, only: im8b
+
+  use moda_mgwa
+
+  implicit none
+
+  integer, intent(in) :: lunit
+  integer, intent(out) :: mear, mmon, mday, mour, idate
+  integer my_lunit, iprt, lun, jl, jm, ier, idx, idxmsg, igetdate
+
+  character*128 errstr
+
+  common /quiet/ iprt
+
+  !  Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+
+    call x84(lunit,my_lunit,1)
+    call datebf(my_lunit,mear,mmon,mday,mour,idate)
+    call x48(mear,mear,1)
+    call x48(mmon,mmon,1)
+    call x48(mday,mday,1)
+    call x48(mour,mour,1)
+    call x48(idate,idate,1)
+
+    im8b=.true.
+    return
+  endif
+
+  ! Initialization, in case openbf() hasn't been called yet.
+
+  if ( .not. allocated(mgwa) ) call openbf(lunit,'FIRST',lunit)
+
+  ! See if the file is already open to the library (a no-no!).
+
+  call status(lunit,lun,jl,jm)
+  if(jl.ne.0) call bort ('BUFRLIB: DATEBF - INPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')
+
+  ! Read to the first data message and pick out the date.
+
+  call openbf(lunit,'INX',lunit)
+  idx = 1
+  do while (idx==1)
+    call rdmsgw(lunit,mgwa,ier)
+    if(ier.lt.0) then
+      if (iprt.ge.1) then
+        call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+        errstr = 'BUFRLIB: DATEBF - SECTION 1 DATE COULD NOT BE LOCATED - RETURN WITH IDATE = -1'
+        call errwrt(errstr)
+        call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+        call errwrt(' ')
+      endif
+      idate = -1
+      call closbf(lunit)
+      return
+    endif
+    idx = idxmsg(mgwa)
+  end do
+  idate = igetdate(mgwa,mear,mmon,mday,mour)
+  call closbf(lunit)
+
+  return
+end subroutine datebf
+
+!> Get the date-time from within Section 1 of a BUFR message.
+!>
+!> The function will work on any BUFR message encoded using BUFR edition 2, 3, or 4.
+!>
+!> @param[in] mbay - integer(*): BUFR message
+!> @param[out] iyr - integer: Year stored within Section 1 of mbay, in format of either YY or YYYY,
+!> depending on the most recent call to subroutine datelen()
+!> @param[out] imo - integer: Month stored within Section 1 of mbay
+!> @param[out] idy - integer: Day stored within Section 1 of mbay
+!> @param[out] ihr - integer: Hour stored within Section 1 of mbay
+!> @returns igetdate - integer: Date-time stored within Section 1 of mbay, in format of either YYMMDDHH or YYYYMMDDHH,
+!> depending on the most recent call to subroutine datelen()
+!>
+!> @remarks
+!> - The start of the BUFR message (i.e. the string 'BUFR') must be aligned on the first 4 bytes of mbay
+!>
+!> @author J. Ator @date 2005-11-29
+recursive integer function igetdate(mbay,iyr,imo,idy,ihr) result(iret)
+
+  use modv_vars, only: im8b
+
+  implicit none
+
+  integer, intent(in) :: mbay(*)
+  integer, intent(out) :: iyr, imo, idy, ihr
+  integer lendat, iupbs01
+
+  common /dateln/ lendat
+
+  ! Check for I8 integers.
+
+  if(im8b) then
+     im8b=.false.
+
+     iret=igetdate(mbay,iyr,imo,idy,ihr)
+     call x48(iyr,iyr,1)
+     call x48(imo,imo,1)
+     call x48(idy,idy,1)
+     call x48(ihr,ihr,1)
+
+     im8b=.true.
+     return
+  endif
+
+  iyr = iupbs01(mbay,'YEAR')
+  imo = iupbs01(mbay,'MNTH')
+  idy = iupbs01(mbay,'DAYS')
+  ihr = iupbs01(mbay,'HOUR')
+  if(lendat.ne.10) iyr = mod(iyr,100)
+  iret = (iyr*1000000) + (imo*10000) + (idy*100) + ihr
+
+  return
+end function igetdate
+
+!> Convert a date-time with a 2-digit year (YYMMDDHH) to a date-time with a 4-digit year (YYYYMMDDHH) using a
+!> windowing technique.
+!>
+!> All 2-digit years greater than 40 are assumed to have a 4-digit
+!> year beginning with 19 (i.e. 1941-1999), and all 2-digit years less
+!> than or equal to 40 are assumed to have a 4-digit year beginning
+!> with 20 (i.e. 2000-2040).  If the input date-time already contains
+!> a 4-digit year, then the function simply returns that value.
+!>
+!> @param[in] idate - integer: Date-time in format of either YYMMDDHH (2-digit year) or YYYYMMDDHH (4-digit year)
+!> @returns i4dy - integer: Date-time in format of YYYYMMDDHH (4-digit year)
+!>
+!> @author J. Woollen @date 1998-07-08
+recursive integer function i4dy(idate) result(iret)
+
+  use modv_vars, only: im8b
+
+  implicit none
+
+  integer, intent(in) :: idate
+  integer my_idate, iy
+
+  ! Check for I8 integers.
+
+  if(im8b) then
+    im8b=.false.
+
+    call x84(idate,my_idate,1)
+    iret=i4dy(my_idate)
+
+    im8b=.true.
+    return
+  endif
+
+  if(idate.lt.10**8) then
+    iy = idate/10**6
+    if(iy.gt.40) then
+       iret = idate + 19*100000000
+    else
+       iret = idate + 20*100000000
+    endif
+  else
+    iret = idate
+  endif
+
+  return
+end function i4dy
