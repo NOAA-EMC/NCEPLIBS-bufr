@@ -5,6 +5,7 @@
 !
 ! Ed Hartnett 3/17/23
 program test_misc
+  use bufr_interface
   implicit none
   integer lun, il, im
   integer ios
@@ -22,12 +23,16 @@ program test_misc
   character sign
   character*5 adn30
   character*6 adn_char
-  integer a, idn30, idn, i
+  integer a, idn30, idn, i, ibit
   integer ierr, nemock
   integer numbck
   integer mtyp, msbt, inod
-  integer*4 igetprm, invcon, invtag
+  integer*4 igetprm, invcon, invtag, iupbs01, iupbs3
   integer*4 imrkopr
+  character bfmg(15000)
+  integer ibfmg(3750)
+  integer*4 lenmg, ierrb
+  character*30 filnam
   character*7 prms(15)
   character*4 char_4(1), char_4_2(2)
   character*8 char_8(1), char_8_2(2)
@@ -37,6 +42,7 @@ program test_misc
   character*80 card
   integer int_1d(1), int_1d_2(2), int_1d_3(2), int_2d(2,5)
   integer imt, imtv, iogce, iltv
+  equivalence ( bfmg(1), ibfmg(1) )
 #endif
 
   print *, 'Testing misc subroutines, ignore warnings.'
@@ -215,6 +221,18 @@ program test_misc
   if (imrkopr('225255') .ne. 1) stop 703
   if (imrkopr('232255') .ne. 1) stop 704
   if (imrkopr('123456') .ne. 0) stop 705
+
+  ! testing iupbs01 and iupbs3
+  filnam = 'testfiles/data/debufr_4'
+  call cobfl_c ( filnam, 'r' )
+  do i = 1, 27  ! skip to the 27th message in the file which is BUFR edition 3
+    call crbmg_c ( bfmg, 15000, lenmg, ierrb )
+    if ( ierrb .ne. 0 ) stop 20
+  enddo
+  if ( iupbs3( ibfmg, 'DUMMY' ) .ne. -1 ) stop 21
+  ibit = 200
+  call pkb(30, 8, ibfmg, ibit) ! overwrite the century byte with a bogus value
+  if ( iupbs01( ibfmg, 'CENT' ) .ne. -1 ) stop 22
 
   ! Test cpdxmm() on a file which contains DX table messages at the end of the file
   open(unit = 11, file = 'testfiles/OUT_2_preAPX', iostat = ios)

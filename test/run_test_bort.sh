@@ -20,6 +20,9 @@ for kind in "4" "d"; do
     (./test_bort_$kind adn30 3) && exit 1
     (./test_bort_$kind adn30 4) && exit 1
 
+    # Check atrcpt().
+    (./test_bort_$kind atrcpt 1) && exit 1
+
     # Check bort().
     (./test_bort_$kind bort 1) && exit 1
 

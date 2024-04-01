@@ -1,12 +1,79 @@
 !> @file
-!> @brief Connect a new file to the library, or initialize the
-!> library, or change verbosity associated with already-connected file.
+!> @brief Open or close a file to the library
 !>
 !> @authors J. Woollen, J. Ator, D. Keyser @date 1994-01-06
 
-!> Connects a new file to the NCEPLIBS-bufr software for
-!> input or output operations, or initializes the library without
-!> connecting to a file, or changes the verbosity of the library for an
+!> Open a Fortran file on the local system.
+!>
+!> @param[in] filename - character*(*): name of the file to be opened
+!> @param[in] lunit    - integer: Fortran logical unit number for Fortran file
+!> @param[in] format   - character*(*): format of the Fortran file
+!> @param[in] position - character*(*): to rewind or continue with open file
+!> @param[out] iret    - integer: return code from the Fortran open statement
+!>
+!> @author Jeff Whitaker @date 2015-08-30
+recursive subroutine fortran_open(filename, lunit, format, position, iret)
+
+  use modv_vars, only: im8b
+
+  implicit none
+  character*(*), intent(in) :: filename, format, position
+  integer, intent(in)  :: lunit
+  integer, intent(out) :: iret
+  integer my_lunit
+
+  ! check for i8 integers
+
+  if(im8b) then
+    im8b=.false.
+
+    call x84(lunit,my_lunit,1)
+    call fortran_open(filename,my_lunit,format,position,iret)
+    call x48(iret,iret,1)
+
+    im8b=.true.
+    return
+  endif
+
+  open(lunit, file=trim(filename), form=trim(format), position=trim(position), iostat=iret)
+  return
+end subroutine fortran_open
+
+!> Close a Fortran file on the local system.
+!>
+!> @param[in] lunit - integer: Fortran logical unit number for Fortran file
+!> @param[out] iret - integer: return code from the Fortran close statement
+!>
+!> @author Jeff Whitaker @date 2015-08-30
+recursive subroutine fortran_close(lunit, iret)
+
+  use modv_vars, only: im8b
+
+  implicit none
+  integer, intent(in)  :: lunit
+  integer, intent(out) :: iret
+  integer my_lunit
+
+  ! check for i8 integers
+
+  if(im8b) then
+    im8b=.false.
+
+    call x84(lunit,my_lunit,1)
+    call fortran_close(my_lunit,iret)
+    call x48(iret,iret,1)
+
+    im8b=.true.
+    return
+  endif
+
+  close(lunit, iostat=iret)
+  return
+end subroutine fortran_close
+
+!> Connect a new file to the NCEPLIBS-bufr software for
+!> input or output operations, or initialize the library without
+!> connecting to a file, or change the verbosity of the library for an
 !> already-connected BUFR file.
 !>
 !> The logical unit numbers lunit and lundx must already be associated
@@ -128,7 +195,7 @@ recursive subroutine openbf(lunit,io,lundx)
     ' (limited -default)         ', &
     ' (all warnings)             ', &
     ' (all warnings+infos)       ', &
-    ' (all warnings+infos+debugs)'/ 
+    ' (all warnings+infos+debugs)'/
 
   ! Check for i8 integers
 
@@ -254,3 +321,62 @@ recursive subroutine openbf(lunit,io,lundx)
 
   return
 end subroutine openbf
+
+!> Close the connection between logical unit lunit and the NCEPLIBS-bufr software.
+!>
+!> @remarks
+!> - This subroutine will execute a Fortran "CLOSE" on logical unit lunit, even though subroutine openbf() didn't
+!> previously handle the corresponding Fortran "OPEN" of the same file.
+!> - It's a good idea to call this subroutine for every lunit that was opened to the software via openbf(); however, it's
+!> especially important to do so when writing/encoding a BUFR file, in order to ensure that all output is properly flushed
+!> to lunit.
+!>
+!> @param[in] lunit - integer: Fortran logical unit number for BUFR file.
+!>
+!> @author J. Woollen, J. Ator @date 1994-01-06
+recursive subroutine closbf(lunit)
+
+  use bufrlib
+
+  use modv_vars, only: im8b
+
+  use moda_nulbfr
+
+  implicit none
+
+  character*128 errstr
+
+  integer, intent(in) :: lunit
+  integer my_lunit, lun, il, im
+
+  ! Check for i8 integers
+
+  if(im8b) then
+     im8b=.false.
+
+     call x84(lunit,my_lunit,1)
+     call closbf(my_lunit)
+
+     im8b=.true.
+     return
+  endif
+
+  if ( .not. allocated(null) ) then
+    call errwrt('++++++++++++++++++++WARNING++++++++++++++++++++++')
+    errstr = 'BUFRLIB: CLOSBF WAS CALLED WITHOUT HAVING PREVIOUSLY CALLED OPENBF'
+    call errwrt(errstr)
+    call errwrt('++++++++++++++++++++WARNING++++++++++++++++++++++')
+    return
+  ENDIF
+
+  call status(lunit,lun,il,im)
+  if(il.gt.0 .and. im.ne.0) call closmg(lunit)
+  if(il.ne.0 .and. null(lun).eq.0) call closfb_c(lun)
+  call wtstat(lunit,lun,0,0)
+
+  ! Close Fortran unit if null(lun) = 0
+
+  if(null(lun).eq.0) close(lunit)
+
+  return
+end subroutine closbf

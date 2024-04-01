@@ -87,3 +87,31 @@ subroutine x84(iin8,iout4,nval)
 
   return
 end subroutine x84
+
+!> Specify whether all integer arguments to NCEPLIBS-bufr subprograms from
+!> Fortran will use 8-byte integers.
+!>
+!> The default value is .false., meaning that if this subroutine is
+!> never called, then the NCEPLIBS-bufr will expect that all future calls
+!> from the application program will use 4-byte integer arguments.
+!> Otherwise, the specification in any call to this subroutine remains
+!> in effect unless and until it is overridden by a subsequent future
+!> call to this same subroutine.
+!>
+!> @param[in] int8b - logical: .true. iff 8-byte integers will be used
+!> for all integer arguments passed to and from all future calls to
+!> NCEPLIBS-bufr subprograms from within the application program
+!>
+!> @author J. Ator @date 2022-09-01
+subroutine setim8b ( int8b )
+
+  use modv_vars, only: im8b
+
+  implicit none
+
+  logical, intent(in) :: int8b
+
+  im8b = int8b
+
+return
+end subroutine setim8b
