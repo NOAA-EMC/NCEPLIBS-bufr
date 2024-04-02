@@ -380,3 +380,179 @@ recursive subroutine closbf(lunit)
 
   return
 end subroutine closbf
+
+!> Check whether a specified Fortran logical unit number is currently connected to the NCEPLIBS-bufr software.
+!>
+!> If the unit number is already connected, then the subroutine returns information about the associated file.
+!> Otherwise, it returns the next available file ID that could be used to connect the associated file to the
+!> software via a subsequent call to subroutine wtstat().
+!>
+!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
+!> @param[out] lun - integer: File ID associated with lunit
+!> - 0 = lunit is not already connected to the software, <b>and</b> there is no remaining internal space available that
+!> could be used to connect it
+!> @param[out] il - integer: File status:
+!> - 0 = lunit is not already connected to the software, but lun contains a file ID that could be used to connect it via
+!> a subsequent call to subroutine wtstat()
+!> - 1 = lunit is already connected to the software for output operations (i.e. writing/encoding BUFR)
+!> - -1 = lunit is already connected to the software for input operations (i.e. reading/decoding BUFR)
+!> @param[out] im - integer: Message status, indicating whether there is already a message open within internal arrays
+!> for lunit:
+!> - 0 = No
+!> - 1 = Yes
+!>
+!> @author J. Woollen @date 1994-01-06
+recursive subroutine status(lunit,lun,il,im)
+
+  use modv_vars, only: im8b, nfiles
+
+  use moda_stbfr
+
+  implicit none
+
+  integer, intent(in) :: lunit
+  integer, intent(out) :: lun, il, im
+  integer my_lunit, i
+
+  character*128 bort_str, errstr
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+
+    call x84(lunit,my_lunit,1)
+    call status(my_lunit,lun,il,im)
+    call x48(lun,lun,1)
+    call x48(il,il,1)
+    call x48(im,im,1)
+
+    im8b=.true.
+    return
+  endif
+
+  if(lunit.le.0 .or. lunit.gt.99) then
+    write(bort_str,'("BUFRLIB: STATUS - INPUT UNIT NUMBER (",I3,") OUTSIDE LEGAL RANGE OF 1-99")') lunit
+    call bort(bort_str)
+  endif
+
+  ! Clear the status indicators
+
+  lun = 0
+  il  = 0
+  im  = 0
+
+  ! See if the unit is already connected to the library
+
+  if ( .not. allocated(iolun) ) then
+    call errwrt('++++++++++++++++++++WARNING++++++++++++++++++++++')
+    errstr = 'BUFRLIB: STATUS WAS CALLED WITHOUT HAVING PREVIOUSLY CALLED OPENBF'
+    call errwrt(errstr)
+    call errwrt('++++++++++++++++++++WARNING++++++++++++++++++++++')
+    return
+  endif
+
+  do i=1,nfiles
+    if(abs(iolun(i)).eq.lunit) lun = i
+  enddo
+
+  ! If not, try to define it so as to connect it to the library
+
+  if(lun.eq.0) then
+    do i=1,nfiles
+      if(iolun(i).eq.0) then
+        ! File space is available, return with lun > 0, il and im remain 0
+        lun = i
+        return
+      endif
+    enddo
+    ! File space is NOT available, return with lun, il and im all 0
+    return
+  endif
+
+  ! If the unit was already connected to the library prior to this call, then return statuses
+
+  il = sign(1,iolun(lun))
+  im = iomsg(lun)
+
+  return
+end subroutine status
+
+!> Update file status in library internals.
+!>
+!> This subroutine can be used to connect or disconnect a specified
+!> Fortran logical unit number to/from the NCEPLIBS-bufr software, and it
+!> can also be used to set or reset the internal message status
+!> associated with that logical unit number.
+!>
+!> @note Before this subroutine is called to connect any lunit to the
+!> software, a previous call should have been made to subroutine
+!> status() to confirm that internal space is available to connect
+!> the associated file, as well as to obtain an lun value to use
+!> in connecting it. Once a file is connected, the corresponding
+!> lunit and lun values remain linked to each other for as
+!> long as the file is connected to the software.
+!>
+!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
+!> @param[in] lun - integer: file ID associated with lunit
+!> @param[in] il - integer: File status update option:
+!>  - 0 Disconnect lunit from the software
+!>  - 1 Connect lunit to the software for output operations (i.e. writing/encoding BUFR), if not already connected
+!>  - -1 Connect lunit to the software for input operations (i.e. reading/decoding BUFR), if not already connected
+!> @param[in] im - integer: Message status update option, indicating whether a message is currently open within the internal
+!> arrays for lunit:
+!>  - 0 No
+!>  - 1 Yes
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine wtstat(lunit,lun,il,im)
+
+  use moda_stbfr
+
+  implicit none
+
+  integer, intent(in) :: lunit, lun, il, im
+
+  character*128 bort_str
+
+  ! Check on the arguments
+
+  if(lunit.le.0) then
+    write(bort_str,'("BUFRLIB: WTSTAT - INVALID UNIT NUMBER PASSED INTO FIRST ARGUMENT (INPUT) (=",I3,")")') lunit
+    call bort(bort_str)
+  endif
+  if(lun.le.0) then
+    write(bort_str,'("BUFRLIB: WTSTAT - INVALID FILE ID PASSED INTO SECOND ARGUMENT (INPUT) (=",I3,")")') lun
+    call bort(bort_str)
+  endif
+  if(il.lt.-1 .or. il.gt.1) then
+    write(bort_str,'("BUFRLIB: WTSTAT - INVALID LOGICAL UNIT STATUS INDICATOR PASSED INTO THIRD ARGUMENT '// &
+      '(INPUT) (=",I4,")")') il
+    call bort(bort_str)
+  endif
+  if(im.lt. 0 .or. im.gt.1) then
+    write(bort_str,'("BUFRLIB: WTSTAT - INVALID BUFR MESSAGE STATUS INDICATOR PASSED INTO FOURTH ARGUMENT '// &
+      '(INPUT) (=",I4,")")') im
+    call bort(bort_str)
+  endif
+
+  ! Check on lunit-lun combination
+
+  if(abs(iolun(lun)).ne.lunit .and. (iolun(lun).ne.0)) then
+    write(bort_str,'("BUFRLIB: WTSTAT - ATTEMPTING TO REDEFINE EXISTING FILE UNIT (LOGICAL UNIT '// &
+      'NUMBER ",I3,")")') iolun(lun)
+    call bort(bort_str)
+  endif
+
+  ! Reset the file statuses
+
+  if(il.ne.0) then
+    iolun(lun) = sign(lunit,il)
+    iomsg(lun) = im
+  else
+    iolun(lun) = 0
+    iomsg(lun) = 0
+  endif
+
+  return
+end subroutine wtstat

@@ -1104,3 +1104,113 @@ recursive integer function i4dy(idate) result(iret)
 
   return
 end function i4dy
+
+!> Read the Section 1 date-time from the first two "dummy" messages of an NCEP dump file.
+!>
+!> This bypasses any messages at the beginning of the
+!> file which may contain embedded DX BUFR table information. Normally,
+!> the first of these two "dummy" messages contains the dump center
+!> date-time in Section 1, while the second message contains the dump
+!> initiation date-time in Section 1. Neither of these two "dummy"
+!> messages should contain any data subsets in Section 4.
+!>
+!> Logical unit lunit must already be associated with a filename
+!> on the local system, typically via a Fortran "OPEN" statement.
+!>
+!> If the subroutine fails to locate either of the two "dummy"
+!> messages within the file pointed to by lunit, then the corresponding
+!> jdate or jdump array will be filled with all values set to (-1).
+!>
+!> @param[in] lunit - integer: Fortran logical unit number for BUFR dump file
+!> @param[out] jdate - integer(5): Dump center date-time stored within Section 1 of first "dummy" message:
+!> - Index 1 contains the year, in format of either YY or YYYY, depending on the most recent call to subroutine datelen()
+!> - Index 2 contains the month
+!> - Index 3 contains the day
+!> - Index 4 contains the hour
+!> - Index 5 contains the minute
+!> @param[out] jdump  -- integer(5): Dump initiation date-time stored within Section 1 of second "dummy" message:
+!> - Index 1 contains the year, in format of either YY or YYYY, depending on the most recent call to subroutine datelen()
+!> - Index 2 contains the month
+!> - Index 3 contains the day
+!> - Index 4 contains the hour
+!> - Index 5 contains the minute
+!>
+!> @author J. Woollen @date 1996-12-11
+recursive subroutine dumpbf(lunit,jdate,jdump)
+
+  use modv_vars, only: im8b
+
+  use moda_mgwa
+
+  implicit none
+
+  integer, intent(in) :: lunit
+  integer, intent(out) :: jdate(*), jdump(*)
+  integer my_lunit, lun, jl, jm, iprt, ier, ii, igetdate, idxmsg, iupbs3, iupbs01
+
+  character*128 errstr
+
+  common /quiet/ iprt
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+
+    call x84(lunit,my_lunit,1)
+    call dumpbf(my_lunit,jdate,jdump)
+    call x48(jdate(1),jdate(1),5)
+    call x48(jdump(1),jdump(1),5)
+
+    im8b=.true.
+    return
+  endif
+
+  do ii=1,5
+    jdate(ii) = -1
+    jdump(ii) = -1
+  enddo
+
+  ! See if the file is already open to the library (a no-no!).
+
+  call status(lunit,lun,jl,jm)
+  if(jl.ne.0) call bort('BUFRLIB: DUMPBF - INPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')
+  call openbf(lunit,'INX',lunit)
+
+  do while (.true.)
+    call rdmsgw(lunit,mgwa,ier)
+    if(ier.ne.0) exit
+    if(idxmsg(mgwa).eq.1) cycle   ! Skip past any dictionary messages
+
+    ! The dump center YY,MM,DD,HH,MM should be in this message, which is the first message containing zero subsets
+    if(iupbs3(mgwa,'NSUB').ne.0) exit
+    ii = igetdate(mgwa,jdate(1),jdate(2),jdate(3),jdate(4))
+    jdate(5) = iupbs01(mgwa,'MINU')
+
+    ! The dump clock YY,MM,DD,HH,MM should be in the next message, which is the second message containing zero subsets
+    call rdmsgw(lunit,mgwa,ier)
+    if(ier.ne.0) exit
+    if(iupbs3(mgwa,'NSUB').ne.0) exit
+    ii = igetdate(mgwa,jdump(1),jdump(2),jdump(3),jdump(4))
+    jdump(5) = iupbs01(mgwa,'MINU')
+
+    call closbf(lunit)
+    return
+  enddo
+
+  if (iprt.ge.1 .and. (jdate(1).eq.-1.or.jdump(1).eq.-1)) then
+    call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+    if(jdate(1).eq.-1) then
+      errstr = 'BUFRLIB: DUMPBF - FIRST  EMPTY BUFR MESSAGE SECTION 1 DATE COULD NOT BE LOCATED - RETURN WITH JDATE = 5*-1'
+      call errwrt(errstr)
+    endif
+    if(jdump(1).eq.-1) then
+      errstr = 'BUFRLIB: DUMPBF - SECOND EMPTY BUFR MESSAGE SECTION 1 DATE COULD NOT BE LOCATED - RETURN WITH JDUMP = 5*-1'
+      call errwrt(errstr)
+    endif
+    call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+    call errwrt(' ')
+  endif
+
+  return
+end subroutine dumpbf

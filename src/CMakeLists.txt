@@ -6,7 +6,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 list(APPEND fortran_src
   modules_vars.F90 modules_arrs.F90 blocks.F90 borts.F90 capit.f chekstab.f cktaba.f closmg.f
   cmpmsg.f cmsgini.f cnved4.f codflg.f conwin.f copydata.F90 cpdxmm.f
-  drfini.f drstpl.f dumpbf.f dxdump.f dxinit.f dxmini.f elemdx.f
+  drfini.f drstpl.f dxdump.f dxinit.f dxmini.f elemdx.f
   errwrt.F90 fstag.f getabdb.f getcfmng.f getlens.f getntbe.f gettagpr.f
   gettagre.f gettbh.f getvalnb.f getwin.f hold4wlc.f icmpdx.f
   idxmsg.f ifbget.f fxy.F90 igetmxby.f igetntbi.f igetntbl.f
@@ -19,13 +19,13 @@ list(APPEND fortran_src
   padmsg.f parstr.f parusr.f parutg.f ftbvs.F90 pktdd.f posapx.f rcstpl.f rdbfdx.f
   rdcmps.f rdmemm.f rdmems.f rdmgsb.f rdmsgw.F90 rdmtbb.f rdmtbd.f rdmtbf.f rdtree.f rdusdx.f readdx.f
   readerme.f readlc.f readmg.f readmm.f readns.f readsb.f rewnbf.f rsvfvm.f s013vals.F90
-  tankrcpt.F90 seqsdx.f setvalnb.f sntbbe.f sntbde.f sntbfe.f status.f stbfdx.f
+  tankrcpt.F90 seqsdx.f setvalnb.f sntbbe.f sntbde.f sntbfe.f stbfdx.f
   standard.F90 stntbi.f stntbia.f strbtm.f strcln.f string.f strnum.F90 strsuc.F90 tabent.f
   tabsub.f trybump.f ufbcnt.f ufbcup.f ufbdmp.f ufbevn.f ufbget.f ufbin3.f ufbint.f ufbinx.f
   ufbmem.f ufbmex.f ufbmms.f ufbmns.f ufbovr.f ufbpos.f ufbqcd.f ufbqcp.f ufbrep.f ufbrms.f ufbrp.f
   ufbrw.f ufbseq.f ufbsp.f ufbstp.f ufbtab.f ufbtam.f ufdump.f ciencode.F90 cidecode.F90
   ups.f uptdd.f usrtpl.f wrcmps.f wrdxtb.f writcp.f writdx.f writlc.f writsa.f writsb.f
-  wrtree.f wtstat.f arallocf.F90 ireadmt.f irev.F90 openclosebf.F90
+  wrtree.f arallocf.F90 ireadmt.f irev.F90 openclosebf.F90
   bufr_interface.F90 bufr_c2f_interface.F90 x4884.F90 bufrlib.F90)
 
 list(APPEND c_src
