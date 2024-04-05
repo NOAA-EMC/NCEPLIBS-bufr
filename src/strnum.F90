@@ -30,10 +30,7 @@ recursive subroutine strnum( str, num, iret )
 
   integer lens, ios
 
-!-----------------------------------------------------------------------
-!-----------------------------------------------------------------------
-
-! Check for I8 integers.
+  ! Check for I8 integers.
 
   if (im8b) then
      im8b = .false.
@@ -46,7 +43,7 @@ recursive subroutine strnum( str, num, iret )
      return
   end if
 
-! Decode the integer from the string.
+  ! Decode the integer from the string.
 
   iret = 0
   num = 0
