@@ -4,21 +4,21 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 list(APPEND fortran_src
-  modules_vars.F90 modules_arrs.F90 blocks.F90 borts.F90 capit.f chekstab.f cktaba.f closmg.f
+  modules_vars.F90 modules_arrs.F90 blocks.F90 borts.F90 capit.f chekstab.f cktaba.f
   cmpmsg.f cmsgini.f cnved4.f codflg.f conwin.f copydata.F90 dumpdata.F90
   drfini.f drstpl.f dxinit.f dxmini.f elemdx.f
   errwrt.F90 fstag.f getabdb.f getcfmng.f getlens.f getntbe.f gettagpr.f
   gettagre.f gettbh.f getvalnb.f getwin.f hold4wlc.f icmpdx.f
   idxmsg.f ifbget.f fxy.F90 igetmxby.f igetntbi.f igetntbl.f
   igetrfel.f igetsc.f igettdi.f imrkopr.f inctab.f invcon.f invmrg.f invtag.f invwin.f
-  iokoper.f ipks.f ireadmg.f ireadns.f ireadsb.f ishrdx.f isize.f
+  iokoper.f ipks.f ireadns.f ireadsb.f ishrdx.f isize.f
   jstnum.f lcmgdf.f lmsg.f lstjpb.f makestab.f maxout.f missing.F90
-  mesgbc.f mesgbf.f mrginv.f msgfull.f msgini.f msgupd.f msgwrt.f mtfnam.f mtinfo.f mvb.f
+  mesgbc.f mesgbf.f mrginv.f msgupd.f mtfnam.f mtinfo.f mvb.f
   nemdefs.f nemock.f nemspecs.f nemtab.f nemtba.f nemtbax.f nemtbb.f nemtbd.f nenubd.f nevn.f newwin.f
-  nmsub.f nmwrd.f numtab.f numtbd.f nvnwin.f nwords.f nxtwin.f openbt.f openmb.f openmg.f pad.f
+  nmsub.f nmwrd.f numtab.f numtbd.f nvnwin.f nwords.f nxtwin.f openbt.f pad.f
   padmsg.f parstr.f parusr.f parutg.f ftbvs.F90 pktdd.f posapx.f rcstpl.f rdbfdx.f
-  rdcmps.f rdmgsb.f rdmsgw.F90 rdmtbb.f rdmtbd.f rdmtbf.f rdtree.f rdusdx.f readdx.f
-  readerme.f readlc.f readmg.f readns.f readsb.f rewnbf.f rsvfvm.f s013vals.F90
+  rdcmps.f rdmgsb.f rdmtbb.f rdmtbd.f rdmtbf.f rdtree.f rdusdx.f readdx.f
+  readwritemg.F90 readlc.f readns.f readsb.f rewnbf.f rsvfvm.f s013vals.F90
   tankrcpt.F90 seqsdx.f setvalnb.f sntbbe.f sntbde.f sntbfe.f stbfdx.f
   standard.F90 stntbi.f stntbia.f strbtm.f strcln.f string.f strnum.F90 strsuc.F90 tabent.f
   tabsub.f trybump.f ufbcnt.f ufbcup.f ufbevn.f ufbget.f ufbin3.f ufbint.f ufbinx.f
