@@ -1214,3 +1214,47 @@ recursive subroutine dumpbf(lunit,jdate,jdump)
 
   return
 end subroutine dumpbf
+
+!> Write a minutes value into Section 1 of the BUFR
+!> message that was most recently opened for writing via a call to
+!> one of the [message-writing subroutines](@ref hierarchy) for a
+!> specified Fortran logical unit.
+!>
+!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
+!> @param[in] mini - integer: Minutes value
+!>
+!>
+!> @author J. Woollen @date 1994-01-06
+recursive subroutine minimg(lunit,mini)
+
+  use modv_vars, only: im8b
+
+  use moda_bitbuf
+
+  implicit none
+
+  integer, intent(in) :: lunit, mini
+  integer my_lunit, my_mini, lun, il, im
+
+  ! Check for I8 integers.
+
+  if(im8b) then
+    im8b=.false.
+
+    call x84(lunit,my_lunit,1)
+    call x84(mini,my_mini,1)
+    call minimg(my_lunit,my_mini)
+
+    im8b=.true.
+    return
+  endif
+
+  call status(lunit,lun,il,im)
+  if(il.eq.0) call bort('BUFRLIB: MINIMG - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
+  if(il.lt.0) call bort('BUFRLIB: MINIMG - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
+  if(im.eq.0) call bort('BUFRLIB: MINIMG - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
+
+  call pkbs1(mini,mbay(1,lun),'MINU')
+
+  return
+end subroutine minimg
