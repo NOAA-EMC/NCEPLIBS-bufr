@@ -11,20 +11,20 @@ list(APPEND fortran_src
   gettagre.f gettbh.f getvalnb.f getwin.f hold4wlc.f icmpdx.f
   idxmsg.f ifbget.f fxy.F90 igetmxby.f igetntbi.f igetntbl.f
   igetrfel.f igetsc.f igettdi.f imrkopr.f inctab.f invcon.f invmrg.f invtag.f invwin.f
-  iokoper.f ipks.f ireadns.f ireadsb.f ishrdx.f isize.f
-  jstnum.f lcmgdf.f lmsg.f lstjpb.f makestab.f maxout.f missing.F90
+  iokoper.f ipks.f ishrdx.f isize.f
+  jstnum.f lcmgdf.f lmsg.f lstjpb.f makestab.f missing.F90
   mesgbc.f mesgbf.f mrginv.f msgupd.f mtfnam.f mtinfo.f mvb.f
   nemdefs.f nemock.f nemspecs.f nemtab.f nemtba.f nemtbax.f nemtbb.f nemtbd.f nenubd.f nevn.f newwin.f
   nmsub.f nmwrd.f numtab.f numtbd.f nvnwin.f nwords.f nxtwin.f openbt.f pad.f
-  padmsg.f parstr.f parusr.f parutg.f ftbvs.F90 pktdd.f posapx.f rcstpl.f rdbfdx.f
-  rdcmps.f rdmgsb.f rdmtbb.f rdmtbd.f rdmtbf.f rdtree.f rdusdx.f readdx.f
-  readwritemg.F90 readlc.f readns.f readsb.f rewnbf.f rsvfvm.f s013vals.F90
+  parstr.f parusr.f parutg.f ftbvs.F90 pktdd.f posapx.f rcstpl.f rdbfdx.f
+  rdcmps.f rdmtbb.f rdmtbd.f rdmtbf.f rdtree.f rdusdx.f readdx.f
+  readwritemg.F90 readwritesb.F90 readlc.f rewnbf.f rsvfvm.f s013vals.F90
   tankrcpt.F90 seqsdx.f setvalnb.f sntbbe.f sntbde.f sntbfe.f stbfdx.f
   standard.F90 stntbi.f stntbia.f strbtm.f strcln.f string.f strnum.F90 strsuc.F90 tabent.f
   tabsub.f trybump.f ufbcnt.f ufbcup.f ufbevn.f ufbget.f ufbin3.f ufbint.f ufbinx.f
   memmsgs.F90 ufbovr.f ufbpos.f ufbqcd.f ufbqcp.f ufbrep.f ufbrp.f
   ufbrw.f ufbseq.f ufbsp.f ufbstp.f ufbtab.f ciencode.F90 cidecode.F90
-  ups.f uptdd.f usrtpl.f wrcmps.f wrdxtb.f writcp.f writdx.f writlc.f writsa.f writsb.f
+  ups.f uptdd.f usrtpl.f wrcmps.f wrdxtb.f writcp.f writdx.f writlc.f
   wrtree.f arallocf.F90 ireadmt.f irev.F90 openclosebf.F90
   bufr_interface.F90 bufr_c2f_interface.F90 x4884.F90 bufrlib.F90)
 

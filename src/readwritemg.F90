@@ -952,3 +952,113 @@ logical function msgfull(msiz,itoadd,mxsiz) result(bool)
 
   return
 end function msgfull
+
+!> Specify the maximum length of a BUFR message that can be written
+!> to any output file by the NCEPLIBS-bufr software.
+!>
+!> This subroutine can be called from within an application program at
+!> any time after the initial call to subroutine openbf(), and the
+!> specified value maxo will then be used for all future BUFR messages
+!> written by the software to all output files for the remainder of
+!> the program, unless another call is made to this same subroutine
+!> to reset the value of maxo again.  Otherwise, if this subroutine
+!> is never called, a default maximum message length is used for all
+!> output files, as set via an initial internal call to subroutine
+!> bfrini().
+!>
+!> @param[in] maxo -  integer: New maximum length (in bytes) for all BUFR messages written to all output files
+!>   - 0 = Set maxo to the maximum value allowed by the NCEPLIBS-bufr software
+!>
+!> @authors J. Woollen, J. Ator @date 2002-05-14
+recursive subroutine maxout(maxo)
+
+  use modv_vars, only: mxmsgl, im8b
+
+  use moda_bitbuf
+
+  implicit none
+
+  integer, intent(in) :: maxo
+  integer my_maxo, iprt, newsiz, maxcmb, maxrow, maxcol, ncmsgs, ncsubs, ncbyts, maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30
+
+  character*128 errstr
+  character*56 dxstr
+
+  common /maxcmp/ maxcmb,maxrow,maxcol,ncmsgs,ncsubs,ncbyts
+  common /dxtab/ maxdx,idxv,nxstr(10),ldxa(10),ldxb(10),ldxd(10),ld30(10),dxstr(10)
+  common /quiet/ iprt
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+
+    call x84(maxo,my_maxo,1)
+    call maxout(my_maxo)
+
+    im8b=.true.
+    return
+  endif
+
+  if((maxo.eq.0).or.(maxo.gt.mxmsgl)) then
+    newsiz = mxmsgl
+  else
+    newsiz = maxo
+  endif
+
+  if(iprt.ge.0) then
+    if(maxbyt.ne.newsiz) then
+      call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+      write ( unit=errstr, fmt='(A,A,I7,A,I7)' ) 'BUFRLIB: MAXOUT - THE RECORD LENGTH OF ALL BUFR MESSAGES ',&
+        'CREATED FROM THIS POINT ON IS BEING CHANGED FROM ', maxbyt, ' TO ', newsiz
+      call errwrt(errstr)
+      call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+      call errwrt(' ')
+    endif
+  endif
+
+  maxbyt = newsiz
+  maxcmb = newsiz
+  maxdx  = newsiz
+
+  return
+end subroutine maxout
+
+!> Pad a BUFR message with zeroed-out bytes from the end of the message up to the next 8-byte boundary.
+!>
+!> @param[inout] mesg - integer(*):
+!>  - on input, contains BUFR message to be padded
+!>  - on output, contains BUFR message with npbyt zeroed-out bytes appended to the end
+!> @param[in] lmesg - integer: dimensioned size (in integer words) of mesg;
+!> used by the subroutine to ensure that it does not overflow the mesg array
+!> @param[out] npbyt - integer: number of zeroed-out bytes appended to mesg
+!>
+!> @author Ator @date 2005-11-29
+subroutine padmsg(mesg,lmesg,npbyt)
+
+  use modv_vars, only: nbytw
+
+  implicit none
+
+  integer, intent(in) :: lmesg
+  integer, intent(inout) :: mesg(*)
+  integer, intent(out) :: npbyt
+  integer nmw, nmb, ibit, i, nmwrd, iupbs01
+
+  ! Make sure that the array is big enough to hold the additional byte padding that will be appended to the
+  ! end of the message.
+
+  nmw = nmwrd(mesg)
+  if(nmw.gt.lmesg) call bort('BUFRLIB: PADMSG - CANNOT ADD PADDING TO MESSAGE ARRAY; TRY A LARGER DIMENSION FOR THIS ARRAY')
+
+  ! Pad from the end of the message up to the next 8-byte boundary.
+
+  nmb = iupbs01(mesg,'LENM')
+  ibit = nmb*8
+  npbyt = ( nmw * nbytw ) - nmb
+  do i = 1, npbyt
+    call pkb(0,8,mesg,ibit)
+  enddo
+
+  return
+end subroutine padmsg
