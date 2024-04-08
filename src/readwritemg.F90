@@ -403,7 +403,7 @@ recursive subroutine openmb(lunit,subset,jdate)
   integer, intent(in) :: lunit, jdate
   integer my_lunit, my_jdate, lun, il, im, mtyp, mstb, inod, i4dy
 
-  character*8, intent(in) :: subset
+  character*(*), intent(in) :: subset
 
   logical open
 
@@ -475,7 +475,7 @@ recursive subroutine openmg(lunit,subset,jdate)
   integer, intent(in) :: lunit, jdate
   integer my_lunit, my_jdate, lun, il, im, mtyp, mstb, inod, i4dy
 
-  character*8, intent(in) :: subset
+  character*(*), intent(in) :: subset
 
   ! Check for I8 integers
 
