@@ -9,9 +9,9 @@
 !> memory contains sufficient space for the equivalent number of 8-byte
 !> integer values.
 !>
-!> @param[in] iin4 - integer(*): Value(s) encoded as 4-byte integers
-!> @param[out] iout8 - integer(*): Value(s) from iin4 now re-encoded as 8-byte integers
-!> @param[in] nval - integer: Number of values in iin4 to be re-encoded
+!> @param[in] iin4 - Value(s) encoded as 4-byte integers
+!> @param[out] iout8 - Value(s) from iin4 now re-encoded as 8-byte integers
+!> @param[in] nval - Number of values in iin4 to be re-encoded
 !>
 !> @author J. Woollen @date 2022-10-12
 subroutine x48(iin4,iout8,nval)
@@ -56,9 +56,9 @@ end subroutine x48
 !>
 !> @note iin8 and iout4 may be the same array.
 !>
-!> @param[in] iin8 - integer(*): Value(s) encoded as 8-byte integers
-!> @param[out] iout4 - integer(*): Value(s) from iin8 now re-encoded as 4-byte integers
-!> @param[in] nval - integer: Number of values in iin8 to be re-encoded
+!> @param[in] iin8 - Value(s) encoded as 8-byte integers
+!> @param[out] iout4 - Value(s) from iin8 now re-encoded as 4-byte integers
+!> @param[in] nval - Number of values in iin8 to be re-encoded
 !>
 !> @author J. Woollen @date 2022-10-12
 subroutine x84(iin8,iout4,nval)
@@ -98,7 +98,7 @@ end subroutine x84
 !> in effect unless and until it is overridden by a subsequent future
 !> call to this same subroutine.
 !>
-!> @param[in] int8b - logical: .true. iff 8-byte integers will be used
+!> @param[in] int8b - .true. iff 8-byte integers will be used
 !> for all integer arguments passed to and from all future calls to
 !> NCEPLIBS-bufr subprograms from within the application program
 !>

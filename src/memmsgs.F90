@@ -25,12 +25,12 @@
 !> all BUFR messages that were read and stored by all previous calls
 !> to this subroutine.
 !>
-!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
-!> @param[in] inew - integer: Processing option:
+!> @param[in] lunit - Fortran logical unit number for BUFR file
+!> @param[in] inew - Processing option:
 !>   - 0 = Initialize the internal arrays, then read all BUFR messages from lunit into internal arrays
 !>   - Otherwise, read all BUFR messages from lunit and append them to the existing messages within the internal arrays
-!> @param[out] iret - integer: Number of BUFR messages that were read from lunit and stored into internal arrays
-!> @param[out] iunit - integer: File status:
+!> @param[out] iret - Number of BUFR messages that were read from lunit and stored into internal arrays
+!> @param[out] iunit - File status:
 !>   - 0 = lunit was empty, so no messages were read
 !>   - Otherwise, the Fortran logical unit number to use for later access to any of the messages from the internal arrays
 !>
@@ -203,14 +203,14 @@ end subroutine ufbmem
 !> with actual filenames on the local system, typically via a Fortran
 !> "OPEN" statement.
 !>
-!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
-!> @param[in] lundx - integer: Fortran logical unit number containing DX BUFR table information associated with
+!> @param[in] lunit - Fortran logical unit number for BUFR file
+!> @param[in] lundx - Fortran logical unit number containing DX BUFR table information associated with
 !> BUFR messages in lunit
-!> @param[in] inew - integer: Processing option:
+!> @param[in] inew - Processing option:
 !>  - 0 = Initialize the internal arrays, then read all BUFR messages from lunit into internal arrays
 !>  - Otherwise, read all BUFR messages from lunit and append them to the existing messages within the internal arrays
-!> @param[out] iret - integer: Number of BUFR messages that were read from lunit and stored into internal arrays
-!> @param[out] mesg - integer(*): Types of BUFR messages that were read from lunit and stored into internal arrays
+!> @param[out] iret - Number of BUFR messages that were read from lunit and stored into internal arrays
+!> @param[out] mesg - Types of BUFR messages that were read from lunit and stored into internal arrays
 !>
 !> @author J. Woollen @date 2012-01-26
 recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
@@ -365,15 +365,15 @@ end subroutine ufbmex
 !> the calling program, which in turn allows it to be easily called
 !> within an iterative program loop.
 !>
-!> @param[in,out] imsg - integer: Message pointer within internal arrays:
+!> @param[in,out] imsg - Message pointer within internal arrays:
 !>   - On input, imsg is the number of the BUFR message to be read into scope for further
 !>     processing, counting from the beginning of the internal arrays in memory
 !>   - On output, imsg is incremented by one from its input value
-!> @param[out] subset - character*8: Table A mnemonic for type of BUFR message that was read into scope
+!> @param[out] subset - Table A mnemonic for type of BUFR message that was read into scope
 !> (see [DX BUFR Tables](@ref dfbftab) for further information about Table A mnemonics)
-!> @param[out] jdate - integer: Date-time stored within Section 1 of BUFR message that was read into scope,
+!> @param[out] jdate - Date-time stored within Section 1 of BUFR message that was read into scope,
 !> in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine datelen()
-!> @param[out] iret - integer: return code:
+!> @param[out] iret - return code:
 !>   - 0 = requested message was successfully read into scope
 !>   - -1 = requested message number could not be found in internal arrays
 !>
@@ -416,16 +416,16 @@ end subroutine readmm
 !> The use of this function allows the return code from readmm() to be
 !> used as the target variable within an iterative program loop.
 !>
-!> @param[in,out] imsg - integer: Message pointer within internal arrays:
+!> @param[in,out] imsg - Message pointer within internal arrays:
 !> - On input, imsg is the number of the BUFR message to be read into scope for further processing, counting from the
 !> beginning of the internal arrays in memory
 !>  - On output, imsg is incremented by one from its input value
-!> @param[out] subset - character*8: Table A mnemonic for type of BUFR message that was read into scope
+!> @param[out] subset - Table A mnemonic for type of BUFR message that was read into scope
 !> (see [DX BUFR Tables](@ref dfbftab) for further information about Table A mnemonics)
-!> @param[out] idate - integer: Date-time stored within Section 1 of BUFR message that was read into scope,
+!> @param[out] idate - Date-time stored within Section 1 of BUFR message that was read into scope,
 !> in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine datelen()
 !>
-!> @returns ireadmm - integer:
+!> @returns ireadmm - return code:
 !> - 0 new BUFR message was successfully read into scope
 !> - -1 requested message number could not be found in internal arrays
 !>
@@ -472,13 +472,13 @@ end function ireadmm
 !> the calling program, which in turn allows it to be easily called
 !> within an iterative program loop.
 !>
-!> @param[in] imsg - integer: Number of BUFR message to be read into scope for further processing,
+!> @param[in] imsg - Number of BUFR message to be read into scope for further processing,
 !> counting from the beginning of the internal arrays in memory
-!> @param[out] subset - character*8: Table A mnemonic for type of BUFR message that was read into scope
+!> @param[out] subset - Table A mnemonic for type of BUFR message that was read into scope
 !> (see [DX BUFR Tables](@ref dfbftab) for further information about Table A mnemonics)
-!> @param[out] jdate - integer: Date-time stored within Section 1 of BUFR message that was read into scope,
+!> @param[out] jdate - Date-time stored within Section 1 of BUFR message that was read into scope,
 !> in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine datelen()
-!> @param[out] iret - integer: return code:
+!> @param[out] iret - return code:
 !>  - 0 = requested message was successfully read into scope
 !>  - -1 = requested message number could not be found in internal arrays
 !>
@@ -625,8 +625,8 @@ end subroutine rdmemm
 !> logical unit number IUNIT that was returned from the most recent
 !> call to subroutine ufbmem().
 !>
-!> @param[in] isub - integer: Number of data subset to be read from BUFR message, counting from the beginning of the message
-!> @param[out] iret - integer: return code:
+!> @param[in] isub - Number of data subset to be read from BUFR message, counting from the beginning of the message
+!> @param[out] iret - return code:
 !>  - 0 = requested data subset was successfully read
 !>  - -1 = requested subset number could not be found in the message
 !>
@@ -723,7 +723,7 @@ end subroutine rdmems
 
 !> Read an entire DX BUFR table from a specified file into internal memory arrays.
 !>
-!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
+!> @param[in] lunit - Fortran logical unit number for BUFR file
 !>
 !> @author J. Ator @date 2009-03-23
 subroutine cpdxmm( lunit )
@@ -826,13 +826,13 @@ end subroutine cpdxmm
 !> Fortran logical unit number iunit that was returned from the most
 !> recent call to subroutine ufbmem().
 !>
-!> @param[in] imsg - integer: Number of BUFR message to be read into scope for further processing, counting from the
+!> @param[in] imsg - Number of BUFR message to be read into scope for further processing, counting from the
 !> beginning of the internal arrays in memory
-!> @param[in] isub - integer: Number of data subset to be read from the (imsg)th BUFR message, counting from the
+!> @param[in] isub - Number of data subset to be read from the (imsg)th BUFR message, counting from the
 !> beginning of the message
-!> @param[out] subset - character*8: Table A mnemonic for type of (imsg)th BUFR message
+!> @param[out] subset - Table A mnemonic for type of (imsg)th BUFR message
 !> (see [DX BUFR Tables](@ref dfbftab) for further information about Table A mnemonics)
-!> @param[out] jdate - integer: Date-time stored within Section 1 of (imsg)th BUFR message, in format of either
+!> @param[out] jdate - Date-time stored within Section 1 of (imsg)th BUFR message, in format of either
 !> YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine datelen()
 !>
 !> @author J. Woollen @date 1994-01-06
@@ -899,11 +899,11 @@ end subroutine ufbmms
 !> This subroutine does not return any information about which
 !> BUFR message within the internal arrays contained the specified data subset.
 !>
-!> @param[in] irep - integer: Number of data subset to be read into scope for further processing,
+!> @param[in] irep - Number of data subset to be read into scope for further processing,
 !> counting from the beginning of the internal arrays in memory
-!> @param[out] subset - character*8: Table A mnemonic for type of BUFR message that was read into scope
+!> @param[out] subset - Table A mnemonic for type of BUFR message that was read into scope
 !> (see [DX BUFR Tables](@ref dfbftab) for further information about Table A mnemonics)
-!> @param[out] idate - integer: Date-time stored within Section 1 of BUFR message that was read into scope,
+!> @param[out] idate - Date-time stored within Section 1 of BUFR message that was read into scope,
 !> in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine datelen()
 !>
 !> @author J. Woollen @date 1994-01-06
@@ -960,15 +960,15 @@ end subroutine ufbmns
 !> of subroutines rdmemm(), rdmems() and ufbint() within a single
 !> subroutine call.
 !>
-!> @param[in] imsg - integer: Number of BUFR message to be read into scope for further processing,
+!> @param[in] imsg - Number of BUFR message to be read into scope for further processing,
 !> counting from the beginning of the internal arrays in memory
-!> @param[in] isub - integer: Number of data subset to be read from the (imsg)th BUFR message,
+!> @param[in] isub - Number of data subset to be read from the (imsg)th BUFR message,
 !> counting from the beginning of the message
-!> @param[out] usr - real*8(*,*): Data values
-!> @param[in] i1 - integer: First dimension of usr as allocated within the calling program
-!> @param[in] i2 - integer: Second dimension of usr as allocated within the calling program
-!> @param[out] iret - integer: Number of replications of str that were read from the data subset
-!> @param[in] str - character*(*): String of blank-separated Table B mnemonics in one-to-one correspondence with the number of
+!> @param[out] usr - Data values
+!> @param[in] i1 - First dimension of usr as allocated within the calling program
+!> @param[in] i2 - Second dimension of usr as allocated within the calling program
+!> @param[out] iret - Number of replications of str that were read from the data subset
+!> @param[in] str - String of blank-separated Table B mnemonics in one-to-one correspondence with the number of
 !> data values that will be read from the data subset within the first dimension of usr (see [DX BUFR Tables](@ref dfbftab)
 !> for further information about Table B mnemonics)
 !>
@@ -1090,11 +1090,11 @@ end subroutine ufbrms
 !>
 !> This subroutine will not work on compressed data subsets.
 !>
-!> @param[out] tab - real*8(*,*): Data values
-!> @param[in] i1 - integer: First dimension of tab as allocated within the calling program
-!> @param[in] i2 - integer: Second dimension of tab as allocated within the calling program
-!> @param[out] iret - integer: Number of data subsets in internal arrays
-!> @param[in] str - character*(*): String of blank-separated Table B mnemonics, in one-to-one correspondence with the number
+!> @param[out] tab - Data values
+!> @param[in] i1 - First dimension of tab as allocated within the calling program
+!> @param[in] i2 - Second dimension of tab as allocated within the calling program
+!> @param[out] iret - Number of data subsets in internal arrays
+!> @param[in] str - String of blank-separated Table B mnemonics, in one-to-one correspondence with the number
 !> of data values that will be read from each data subset within the first dimension of tab
 !> (see [DX BUFR Tables](@ref dfbftab) for further information about Table B mnemonics)
 !>

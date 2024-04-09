@@ -9,9 +9,9 @@
 !>
 !> This function is the logical inverse of function idn30().
 !>
-!> @param[in] idn - integer: WMO bit-wise representation of FXY value
-!> @param[in] ldn - integer: Length of string to be returned; can be either 5 or 6 characters
-!> @returns adn30 - character*(*): FXY character string
+!> @param[in] idn - WMO bit-wise representation of FXY value
+!> @param[in] ldn - Length of string to be returned; can be either 5 or 6 characters
+!> @returns adn30 - FXY character string
 !>
 !> @author J. Woollen @date 1994-01-06
 function adn30(idn,ldn)
@@ -57,8 +57,8 @@ end function adn30
 !>
 !> For a description of the WMO bit-wise representation of an FXY value, see ifxy().
 !>
-!> @param[in] idn - integer: WMO bit-wise representation of FXY value
-!> @param[out] adn - character*6: FXY value
+!> @param[in] idn - WMO bit-wise representation of FXY value
+!> @param[out] adn - FXY value
 !>
 !> @author J. Ator @date 2004-08-18
 subroutine cadn30( idn, adn )
@@ -82,9 +82,9 @@ end subroutine cadn30
 !>
 !> This function is the logical inverse of function adn30().
 !>
-!> @param[in] adn - character*(*): FXY value; must be of length 5 or 6
-!> @param[in] ldn - integer: Length of adn; can be either 5 or 6 characters
-!> @returns idn30 - integer: WMO bit-wise representation of FXY value
+!> @param[in] adn - FXY value; must be of length 5 or 6
+!> @param[in] ldn - Length of adn; can be either 5 or 6 characters
+!> @returns idn30 - WMO bit-wise representation of FXY value
 !>
 !> @author J. Woollen @date 1994-01-06
 integer function idn30(adn,ldn) result(iret)
@@ -144,8 +144,8 @@ end function idn30
 !>
 !>       = 16150
 !>
-!> @param[in] adsc - character*6: FXY value
-!> @returns ifxy - integer: WMO bit-wise representation of FXY value
+!> @param[in] adsc - FXY value
+!> @returns ifxy - WMO bit-wise representation of FXY value
 !>
 !> @author J. Woollen @date 1994-01-06
 integer function ifxy(adsc) result(iret)
@@ -167,8 +167,8 @@ end function ifxy
 !> The FXY number may be in format of either FXXYYY or F-XX-YYY within the input string, but
 !> it is always returned in format FXXYYY upon output.
 !>
-!> @param[in] str - character*(*): input string
-!> @param[out] cfxy - character*6: FXY number in format FXXYYY
+!> @param[in] str - input string
+!> @param[out] cfxy - FXY number in format FXXYYY
 !>
 !> @return
 !> - 0 normal return.
@@ -223,7 +223,7 @@ end function igetfxy
 
 !> Check the input character string to determine whether it contains a valid FXY (descriptor) value.
 !>
-!> @param[in] numb - character*6: FXY value to be checked
+!> @param[in] numb - FXY value to be checked
 !>
 !> @return indicator as to whether numb is valid:
 !> - 0 yes

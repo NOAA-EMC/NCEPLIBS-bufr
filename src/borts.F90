@@ -8,7 +8,7 @@
 !> This subroutine is similar to subroutine bort2(), except that bort2() logs
 !> two error messages instead of one.
 !>
-!> @param[in] str - character*(*): Error message
+!> @param[in] str - Error message
 !>
 !> @author J. Woollen @date 1998-07-08
 subroutine bort(str)
@@ -31,8 +31,8 @@ end subroutine bort
 !> This subroutine is similar to subroutine bort(), except that bort() logs
 !> one error message instead of two.
 !>
-!> @param[in] str1 - character*(*): First error message
-!> @param[in] str2 - character*(*): Second error message
+!> @param[in] str1 - First error message
+!> @param[in] str2 - Second error message
 !>
 !> @author D. Keyser @date 2003-11-04
 subroutine bort2(str1,str2)

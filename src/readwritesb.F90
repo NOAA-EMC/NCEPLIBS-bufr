@@ -22,8 +22,8 @@
 !> be made to one of the [message-reading subroutines](@ref hierarchy)
 !> in order to read in the next message from logical unit lunit.
 !>
-!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
-!> @param[out] iret - integer: return code:
+!> @param[in] lunit - Fortran logical unit number for BUFR file
+!> @param[out] iret - return code:
 !> - 0 new BUFR data subset was successfully read into internal arrays
 !> - -1 there are no more BUFR data subsets in the BUFR message
 !>
@@ -107,8 +107,8 @@ end subroutine readsb
 !> The use of this function allows the return code from readsb() to be
 !> used as the target variable within an iterative program loop.
 !>
-!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
-!> @returns ireadsb - integer:
+!> @param[in] lunit - Fortran logical unit number for BUFR file
+!> @returns ireadsb - return code:
 !> - 0 = new BUFR data subset was successfully read into internal arrays
 !> - -1 = there are no more BUFR data subsets in the BUFR message
 !>
@@ -153,13 +153,13 @@ end function ireadsb
 !> subsequent calls can immediately be made to any of the various
 !> [values-reading subroutines](@ref hierarchy).
 !>
-!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
-!> @param[out] subset - character*8: Table A mnemonic for type of data subset that was read
+!> @param[in] lunit - Fortran logical unit number for BUFR file
+!> @param[out] subset - Table A mnemonic for type of data subset that was read
 !>  (see [DX BUFR Tables](@ref dfbftab) for further information about Table A mnemonics)
-!> @param[out] jdate - integer: Date-time stored within Section 1 of
+!> @param[out] jdate - Date-time stored within Section 1 of
 !>  BUFR message containing data subset that was read, in format of either YYMMDDHH or YYYYMMDDHH, depending on the most
 !>  recent call to subroutine datelen()
-!> @param[out] iret - integer: return code
+!> @param[out] iret - return code
 !>  - 0 = new BUFR data subset was successfully read into internal arrays
 !>  - -1 = there are no more BUFR data subsets in the file connected to logical unit lunit
 !>
@@ -222,15 +222,15 @@ end subroutine readns
 !> The use of this function allows the return code from readns() to be
 !> used as the target variable within an iterative program loop.
 !>
-!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
-!> @param[out] subset - character*8: Table A mnemonic for type of
+!> @param[in] lunit - Fortran logical unit number for BUFR file
+!> @param[out] subset - Table A mnemonic for type of
 !> data subset that was read (see [DX BUFR Tables](@ref dfbftab) for
 !> further information about Table A mnemonics)
-!> @param[out] idate - integer: Date-time stored within Section 1 of
+!> @param[out] idate - Date-time stored within Section 1 of
 !> BUFR message containing data subset that was read, in format of
 !> either YYMMDDHH or YYYYMMDDHH, depending on the most
 !> recent call to subroutine datelen()
-!> @returns ireadns - integer:
+!> @returns ireadns - return code:
 !> - 0 = new BUFR data subset was successfully read into internal arrays
 !> - -1 = there are no more BUFR data subsets in the file connected to logical unit lunit
 !>
@@ -296,7 +296,7 @@ end function ireadns
 !> the [message-writing subroutines](@ref hierarchy) for lunit, then
 !> encode and pack the data subset into that new message.
 !>
-!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
+!> @param[in] lunit - Fortran logical unit number for BUFR file
 !>
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine writsb(lunit)
@@ -414,11 +414,11 @@ end subroutine writsb
 !> does not even need to be associated with an actual file on the
 !> local system.
 !>
-!> @param[in] lunxx - integer: Absolute value is Fortran logical unit number for BUFR file
-!> @param[in] lmsgt - integer: Dimensioned size (in integers) of msgt;
+!> @param[in] lunxx - Absolute value is Fortran logical unit number for BUFR file
+!> @param[in] lmsgt - Dimensioned size (in integers) of msgt;
 !> used by the subroutine to ensure that it doesn't overflow the msgt array
-!> @param[out] msgt - integer: BUFR message
-!> @param[out] msgl - integer: Size (in integers) of BUFR message in msgt (0 for no message)
+!> @param[out] msgt - BUFR message
+!> @param[out] msgl - Size (in integers) of BUFR message in msgt (0 for no message)
 !>
 !> @author J. Woollen @author J. Ator @date 1994-01-06
 recursive subroutine writsa(lunxx,lmsgt,msgt,msgl)
@@ -529,11 +529,11 @@ end subroutine writsa
 !> In other words, a value of 12 for imsg means to read the 12th
 !> message which contains actual report data.
 !>
-!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
-!> @param[in] imsg - integer: Number of BUFR message to be read from the
+!> @param[in] lunit - Fortran logical unit number for BUFR file
+!> @param[in] imsg - Number of BUFR message to be read from the
 !> BUFR file, counting from the beginning of the file, but <b>not</b>
 !> counting any DX BUFR table messages which may be present in the file
-!> @param[in] isub - integer: Number of data subset to be read from the
+!> @param[in] isub - Number of data subset to be read from the
 !> (imsg)th BUFR message, counting from the beginning of the message
 !>
 !> @author J. Woollen @date 2003-11-04

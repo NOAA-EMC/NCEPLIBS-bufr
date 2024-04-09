@@ -10,8 +10,8 @@
 !> If the string is empty or contains all blank characters, then num
 !> is returned with a value of 0.
 !>
-!> @param[in]  str - character*(*): String
-!> @param[out] num - integer: Value decoded from str
+!> @param[in] str - String
+!> @param[out] num - Value decoded from str
 !> @param[out] iret - return code:
 !>   0 = success
 !>  -1 = string contained one or more illegal characters

@@ -939,7 +939,7 @@ end subroutine exitbufr
 !> parameter, then an internal default value for that parameter is
 !> used instead.
 !>
-!> @param[in] cprmnm - character*(*): Parameter to be changed from its internal default value:
+!> @param[in] cprmnm - Parameter to be changed from its internal default value:
 !> - 'MXMSGL' = Maximum length (in bytes) of a BUFR message
 !> - 'MAXSS'  = Maximum number of data values in an uncompressed BUFR subset
 !> - 'MXCDV'  = Maximum number of data values that can be written into a compressed BUFR subset
@@ -969,8 +969,8 @@ end subroutine exitbufr
 !> - 'MXCNEM' = Maximum number of Table A entries that can be cached during Section 3 decoding of BUFR messages
 !> - 'MAXNC' = Maximum number of descriptors within Section 3 of a BUFR message
 !> - 'MXNAF' = Maximum number of associated fields that can be in effect at any given time for a Table B descriptor
-!> @param[in] ipval - integer: Value to be set for cprmnm
-!> @returns isetprm - integer:
+!> @param[in] ipval - Value to be set for cprmnm
+!> @returns isetprm - return code:
 !> -  0 = normal return
 !> - -1 = Unknown cprmnm
 !>
@@ -1074,7 +1074,7 @@ end function isetprm
 !> Return the current value of a parameter used for allocating one or more internal arrays within the
 !> NCEPLIBS-bufr software.
 !>
-!> @param[in] cprmnm - character*(*): Parameter
+!> @param[in] cprmnm - Parameter
 !> - 'MXMSGL' = Maximum length (in bytes) of a BUFR message
 !> - 'MAXSS'  = Maximum number of data values in an uncompressed BUFR subset
 !> - 'MXCDV'  = Maximum number of data values that can be written into a compressed BUFR subset
@@ -1105,7 +1105,7 @@ end function isetprm
 !> - 'MAXNC' = Maximum number of descriptors within Section 3 of a BUFR message
 !> - 'MXNAF' = Maximum number of associated fields that can be in effect at any given time for a Table B descriptor
 !>
-!> @returns igetprm - integer: Value of cprmnm:
+!> @returns igetprm - Value of cprmnm
 !> - -1 Unknown cprmnm
 !>
 !> @author J. Ator @date 2014-12-04

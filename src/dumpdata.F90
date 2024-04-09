@@ -27,14 +27,14 @@
 !> application program (by typing 'q' then '&lt;Enter&gt;') or continue
 !> scrolling (by typing anything else).
 !>
-!> @param[in] lunin - integer: Absolute value is Fortran logical unit number for BUFR file
+!> @param[in] lunin - Absolute value is Fortran logical unit number for BUFR file
 !> - If lunin > 0, data values are printed to luprt using the format descriptor code 'G15.6', meaning that all values will
 !> be printed (since the format adapts to the order of magnitude of each value), but values won't necessarily be lined up
 !> with the decimal point in the same column
 !> - If lunin < 0, data values are printed to luprt using the format descriptor code 'F15.6', meaning that all values will
 !> be lined up with the decimal point in the same column, but values exceeding the format width of 15 characters will print
 !> as overflow (e.g. '***************')
-!> @param[in] luprt - integer: Fortran logical unit number for print output:
+!> @param[in] luprt - Fortran logical unit number for print output:
 !> - 0 = Run interactively, printing to standard output
 !>
 !> @authors J. Woollen, J. Ator, D. Keyser @date 1994-01-06
@@ -219,8 +219,8 @@ end subroutine ufbdmp
 !> must have been made with argument cf = 'Y'. Otherwise, only the
 !> code and flag table values themselves will be printed.
 !>
-!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
-!> @param[in] luprt - integer: Fortran logical unit number for print output
+!> @param[in] lunit - Fortran logical unit number for BUFR file
+!> @param[in] luprt - Fortran logical unit number for print output
 !>  - 0 = Run interactively, printing to standard output
 !>
 !> @authors J. Woollen, J. Ator @date 2002-05-14
@@ -560,8 +560,8 @@ end subroutine ufdump
 !> subroutine openbf() for reading or writing additional BUFR
 !> files with the same structure.
 !>
-!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
-!> @param[in] ldxot - integer: Fortran logical unit number for print output
+!> @param[in] lunit - Fortran logical unit number for BUFR file
+!> @param[in] ldxot - Fortran logical unit number for print output
 !>
 !> Logical unit lunit must be open for either input or output
 !> operations via a previous call to subroutine openbf().
