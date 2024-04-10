@@ -30,12 +30,12 @@
 !> lunxx < 0 is itself still supported for backwards-compatibility with
 !> certain legacy application programs.
 !>
-!> @param[in] lunxx - Absolute value is Fortran logical unit number for BUFR file
-!> @param[out] subset - Table A mnemonic for type of BUFR message that was read
+!> @param lunxx - Absolute value is Fortran logical unit number for BUFR file
+!> @param subset - Table A mnemonic for type of BUFR message that was read
 !> (see [DX BUFR Tables](@ref dfbftab) for further information about Table A mnemonics)
-!> @param[out] jdate - Date-time stored within Section 1 of BUFR message that was read, in format of either
+!> @param jdate - Date-time stored within Section 1 of BUFR message that was read, in format of either
 !> YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine datelen()
-!> @param[out] iret - return code
+!> @param iret - return code
 !> - 0 = new BUFR message was successfully read into internal arrays
 !> - -1 = there are no more BUFR messages in the file connected to logical unit abs(lunxx)
 !>
@@ -130,10 +130,10 @@ end subroutine readmg
 !> The use of this function allows the return code from readmg() to be
 !> used as the target variable within an iterative program loop.
 !>
-!> @param[in] lunit - Fortran logical unit number for BUFR file
-!> @param[out] subset - Table A mnemonic for type of BUFR message that was read
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param subset - Table A mnemonic for type of BUFR message that was read
 !> (see [DX BUFR Tables](@ref dfbftab) for further information about Table A mnemonics)
-!> @param[out] idate - Date-time stored within Section 1 of BUFR message that was read,
+!> @param idate - Date-time stored within Section 1 of BUFR message that was read,
 !> in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine datelen()
 !> @returns ireadmg - Return code:
 !> - 0 = new BUFR message was successfully read into internal arrays
@@ -200,13 +200,13 @@ end function ireadmg
 !> BUFR table, up until a call is made where mesg no longer contains a
 !> DX BUFR table message.
 !>
-!> @param[in] mesg - BUFR message
-!> @param[in] lunit - Fortran logical unit number for BUFR file
-!> @param[out] subset - Table A mnemonic for type of BUFR message that was read
+!> @param mesg - BUFR message
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param subset - Table A mnemonic for type of BUFR message that was read
 !> (see [DX BUFR Tables](@ref dfbftab) or further information about Table A mnemonics)
-!> @param[out] jdate - Date-time stored within Section 1 of BUFR message that was read,
+!> @param jdate - Date-time stored within Section 1 of BUFR message that was read,
 !> in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to datelen()
-!> @param[out] iret - return code:
+!> @param iret - return code:
 !> - 0 mesg was successfully read
 !> - 11 mesg contained a DX BUFR table message
 !> - -1 mesg contained an unrecognized Table A message type
@@ -333,9 +333,9 @@ end subroutine readerme
 
 !> Read the next BUFR message from logical unit lunit as an array of integer words.
 !>
-!> @param[in] lunit - Fortran logical unit number for BUFR file.
-!> @param[out] mesg - BUFR message.
-!> @param[out] iret - return code:
+!> @param lunit - Fortran logical unit number for BUFR file.
+!> @param mesg - BUFR message.
+!> @param iret - return code:
 !> - 0 normal return.
 !> - -1 end-of-file encountered while reading from lunit.
 !>
@@ -385,10 +385,10 @@ end subroutine rdmsgw
 !> closmg().  In this case, the behavior of this subroutine then
 !> becomes exactly like that of subroutine openmg().
 !>
-!> @param[in] lunit - Fortran logical unit number for BUFR file
-!> @param[in] subset - Table A mnemonic for type of BUFR BUFR message to be opened
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param subset - Table A mnemonic for type of BUFR BUFR message to be opened
 !> (see [DX BUFR Tables](@ref dfbftab) for further information about Table A mnemonics)
-!> @param[in] jdate - Date-time to be stored within Section 1 of BUFR message being opened,
+!> @param jdate - Date-time to be stored within Section 1 of BUFR message being opened,
 !> in format of either YYMMDDHH or YYYYMMDDHH
 !>
 !> @author J. Woollen @date 1994-01-06
@@ -457,10 +457,10 @@ end subroutine openmb
 !> arrays will be automatically flushed and written to logical unit lunit
 !> via an internal call to subroutine closmg().
 !>
-!> @param[in] lunit - Fortran logical unit number for BUFR file
-!> @param[in] subset - Table A mnemonic for type of BUFR message to be opened
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param subset - Table A mnemonic for type of BUFR message to be opened
 !> (see [DX BUFR Tables](@ref dfbftab) for further information about Table A mnemonics)
-!> @param[in] jdate - Date-time to be stored within Section 1 of BUFR message being opened,
+!> @param jdate - Date-time to be stored within Section 1 of BUFR message being opened,
 !> in format of either YYMMDDHH or YYYYMMDDHH
 !>
 !> @author J. Woollen @date 1994-01-06
@@ -525,7 +525,7 @@ end subroutine openmg
 !> writing of any "dummy" messages containing dump center and initiation
 !> times that normally appear in the first 2 messages of NCEP dump files.
 !>
-!> @param[in] lunin - Absolute value is Fortran logical unit number for BUFR file
+!> @param lunin - Absolute value is Fortran logical unit number for BUFR file
 !>
 !> @author J. Woollen, D. Keyser @date 1994-01-06
 recursive subroutine closmg(lunin)
@@ -588,9 +588,9 @@ end subroutine closmg
 !> - Encapsulating the BUFR message with IEEE Fortran control words, if requested via a previous call to subroutine setblock()
 !> - Storing a copy of the final message into internal arrays for possible later retrival via subroutine writsa()
 !>
-!> @param[in] lunit - Fortran logical unit number for BUFR file
-!> @param[in] mesg  - BUFR message
-!> @param[in] mgbyt - Size (in bytes) of BUFR message
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param mesg  - BUFR message
+!> @param mgbyt - Size (in bytes) of BUFR message
 !>
 !> @author J. Woollen @date 1994-01-06
 subroutine msgwrt(lunit,mesg,mgbyt)
@@ -770,7 +770,7 @@ end subroutine msgwrt
 !>
 !> Arrays are filled in common block msgptr and modules @ref moda_msgcwd and @ref moda_bitbuf.
 !>
-!> @param[in] lun - file ID
+!> @param lun - file ID
 !>
 !> @author Woollen @date 1994-01-06
 subroutine msgini(lun)
@@ -907,9 +907,9 @@ end subroutine msgini
 !> internal arrays, based on the prescribed maximum size of a BUFR message and the allowance of some extra "wiggle room"
 !> that may be needed later when writing out the message.
 !>
-!> @param[in] msiz - Size (in bytes) of current BUFR message
-!> @param[in] itoadd - Size (in bytes) of current data subset
-!> @param[in] mxsiz - Maximum size of a BUFR message
+!> @param msiz - Size (in bytes) of current BUFR message
+!> @param itoadd - Size (in bytes) of current data subset
+!> @param mxsiz - Maximum size of a BUFR message
 !> @returns msgfull - Flag indicating whether the current data subset will fit within the current BUFR message
 !>
 !> @author J. Ator @date 2009-03-23
@@ -966,7 +966,7 @@ end function msgfull
 !> output files, as set via an initial internal call to subroutine
 !> bfrini().
 !>
-!> @param[in] maxo - New maximum length (in bytes) for all BUFR messages written to all output files
+!> @param maxo - New maximum length (in bytes) for all BUFR messages written to all output files
 !>   - 0 = Set maxo to the maximum value allowed by the NCEPLIBS-bufr software
 !>
 !> @authors J. Woollen, J. Ator @date 2002-05-14
@@ -1026,12 +1026,12 @@ end subroutine maxout
 
 !> Pad a BUFR message with zeroed-out bytes from the end of the message up to the next 8-byte boundary.
 !>
-!> @param[inout] mesg - integer(*):
+!> @param mesg - integer(*):
 !>  - on input, contains BUFR message to be padded
 !>  - on output, contains BUFR message with npbyt zeroed-out bytes appended to the end
-!> @param[in] lmesg - Dimensioned size (in integer words) of mesg;
+!> @param lmesg - Dimensioned size (in integer words) of mesg;
 !> used by the subroutine to ensure that it does not overflow the mesg array
-!> @param[out] npbyt - Number of zeroed-out bytes appended to mesg
+!> @param npbyt - Number of zeroed-out bytes appended to mesg
 !>
 !> @author Ator @date 2005-11-29
 subroutine padmsg(mesg,lmesg,npbyt)

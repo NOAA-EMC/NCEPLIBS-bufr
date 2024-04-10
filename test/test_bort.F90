@@ -1507,6 +1507,20 @@ program test_bort
          write (12,'(A)') card
          card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
          write (12,'(A)') card
+       elseif (test_case .eq. '13') then
+         card = '| YEAR     | 004001 | YEAR                                                     |'
+         write (12,'(A)') card
+         card = '| NC007200 | 201129 207002 YEAR                                                |'
+         write (12,'(A)') card
+         card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+         write (12,'(A)') card
+       elseif (test_case .eq. '14') then
+         card = '| YEAR     | 004001 | YEAR                                                     |'
+         write (12,'(A)') card
+         card = '| NC007200 | 202129 207001 YEAR                                                |'
+         write (12,'(A)') card
+         card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
+         write (12,'(A)') card
        endif
        close (12)
        open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)

@@ -7,7 +7,7 @@
 !> NCEPLIBS-bufr [values-reading subroutines](@ref hierarchy)
 !> contains the current placeholder value for "missing" data.
 !>
-!> @param[in] r8val - Data value to be tested
+!> @param r8val - Data value to be tested
 !> @returns ibfms - integer:
 !> - 0 = r8val is not "missing"
 !> - 1 = r8val is "missing"
@@ -41,8 +41,8 @@ end function ibfms
 !> Check whether a character string returned from a previous call to subroutine
 !> readlc() was encoded as "missing" (all bits set to 1) within the actual BUFR data subset.
 !>
-!> @param[in] str - String
-!> @param[in] lstr - Length of string, i.e. number of characters within str to be tested
+!> @param str - String
+!> @param lstr - Length of string, i.e. number of characters within str to be tested
 !> @returns icbfms - return code:
 !>   - 0 = str is not "missing"
 !>   - 1 = str is "missing"
@@ -164,7 +164,7 @@ end function getbmiss
 !> values are always encoded as all bits set to 1, per WMO
 !> regulations.
 !>
-!> @param[in] xmiss - New placeholder value to represent "missing" data
+!> @param xmiss - New placeholder value to represent "missing" data
 !>
 !> @author J. Woollen @date 2012-09-15
 subroutine setbmiss(xmiss)

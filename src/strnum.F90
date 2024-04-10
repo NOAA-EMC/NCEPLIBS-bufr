@@ -10,9 +10,9 @@
 !> If the string is empty or contains all blank characters, then num
 !> is returned with a value of 0.
 !>
-!> @param[in] str - String
-!> @param[out] num - Value decoded from str
-!> @param[out] iret - return code:
+!> @param str - String
+!> @param num - Value decoded from str
+!> @param iret - return code:
 !>   0 = success
 !>  -1 = string contained one or more illegal characters
 !>

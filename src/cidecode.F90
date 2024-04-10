@@ -13,13 +13,13 @@
 !>   be decoded do not necessarily need to be aligned on byte boundaries
 !>   within ibay.
 !>
-!> @param[out] chr - Decoded string
-!> @param[in] nchr - Number of bytes of ibay from within which to decode chr (i.e. the number of characters in chr)
-!> @param[in] ibay - Array from which to decode chr
-!> @param[inout] ibit - Bit pointer within ibay
+!> @param chr - Decoded string
+!> @param nchr - Number of bytes of ibay from within which to decode chr (i.e. the number of characters in chr)
+!> @param ibay - Array from which to decode chr
+!> @param ibit - Bit pointer within ibay
 !> - On input, ibit points to the bit within ibay after which to begin decoding chr
 !> - On output, ibit points to the last bit of ibay which was decoded
-!> @param[in] cnvnull - .true. if null characters in ibay should be converted to blanks within chr; .false. otherwise
+!> @param cnvnull - .true. if null characters in ibay should be converted to blanks within chr; .false. otherwise
 !>
 !> @author J. Woollen @date 1994-01-06
 subroutine upc(chr,nchr,ibay,ibit,cnvnull)
@@ -70,10 +70,10 @@ end subroutine upc
 !>
 !> This subroutine will not work properly if nbits is greater than 64.
 !>
-!> @param[in] ibay - Array containing encoded value
-!> @param[in] ibit - Bit within ibay after which to begin decoding nval
-!> @param[in] nbits - Number of bits to be decoded
-!> @param[out] nval - Decoded value
+!> @param ibay - Array containing encoded value
+!> @param ibit - Bit within ibay after which to begin decoding nval
+!> @param nbits - Number of bits to be decoded
+!> @param nval - Decoded value
 !>
 !> @author J. Woollen @date 2022-05-06
 subroutine upb8(nval,nbits,ibit,ibay)
@@ -116,12 +116,12 @@ end subroutine upb8
 !>
 !> This subroutine is the logical inverse of subroutine pkb8().
 !>
-!> @param[in] ibay - Array containing encoded value
-!> @param[in,out] ibit - Bit pointer within ibay
+!> @param ibay - Array containing encoded value
+!> @param ibit - Bit pointer within ibay
 !>   - On input, ibit points to the bit within ibay after which to begin decoding nval
 !>   - On output, ibit points to the last bit of ibay which contained the decoded nval
-!> @param[in] nbits - Number of bits to be decoded
-!> @param[out] nval - Decoded value
+!> @param nbits - Number of bits to be decoded
+!> @param nval - Decoded value
 !>
 !> @author J. Woollen @date 2022-05-06
 subroutine up8(nval,nbits,ibay,ibit)
@@ -144,10 +144,10 @@ end subroutine up8
 !> This subroutine is similar to subroutine upb(), except that here ibit is only an input argument, and the overall
 !> order of the arguments is different.
 !>
-!> @param[in] ibay - Array containing encoded value
-!> @param[in] ibit - Bit within ibay after which to begin decoding nval
-!> @param[in] nbits - Number of bits to be decoded
-!> @param[out] nval - Decoded value
+!> @param ibay - Array containing encoded value
+!> @param ibit - Bit within ibay after which to begin decoding nval
+!> @param nbits - Number of bits to be decoded
+!> @param nval - Decoded value
 !>
 !> @author J. Woollen @date 1994-01-06
 subroutine upbb(nval,nbits,ibit,ibay)
@@ -187,12 +187,12 @@ end subroutine upbb
 !> This subroutine is similar to subroutine upbb(), except that here ibit is both an input and an output argument,
 !> and the overall order of the arguments is different.
 !>
-!> @param[in] ibay - Array containing encoded value
-!> @param[in,out] ibit - Bit pointer within ibay
+!> @param ibay - Array containing encoded value
+!> @param ibit - Bit pointer within ibay
 !>    - On input, ibit points to the bit within ibay after which to begin decoding nval
 !>    - On output, ibit points to the last bit of ibay which contained the decoded nval
-!> @param[in] nbits - Number of bits to be decoded
-!> @param[out] nval - Decoded value
+!> @param nbits - Number of bits to be decoded
+!> @param nval - Decoded value
 !>
 !> @remarks
 !> - This subroutine is the logical inverse of subroutine pkb().
@@ -215,9 +215,9 @@ end subroutine upb
 !> Decode an integer value from within a specified number of bits of an integer array, starting with the first
 !> bit of a specified byte of the array.
 !>
-!> @param[in] mbay - Array containing encoded value
-!> @param[in] nbyt - Byte within mbay at whose first bit to begin decoding
-!> @param[in] nbit - Number of bits to be decoded, up to a maximum of 32
+!> @param mbay - Array containing encoded value
+!> @param nbyt - Byte within mbay at whose first bit to begin decoding
+!> @param nbit - Number of bits to be decoded, up to a maximum of 32
 !>
 !> @returns iupb - Decoded value
 !>
@@ -255,8 +255,8 @@ end function iupb
 !>
 !> This function is the logical inverse of subroutine ipkm().
 !>
-!> @param[in] cbay - String
-!> @param[in] nbits - Number of bits from cbay to be decoded, up to a maximum of 32
+!> @param cbay - String
+!> @param nbits - Number of bits from cbay to be decoded, up to a maximum of 32
 !>
 !> @returns iupm - Decoded value
 !>

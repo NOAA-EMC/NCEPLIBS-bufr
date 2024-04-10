@@ -20,8 +20,8 @@
 !> recent call to subroutine setblock(), then this subroutine
 !> simply returns without modifying either of its input parameters.
 !>
-!> @param[in,out] mbay - BUFR message, possibly with added control words on output
-!> @param[in,out] mwrd - Size (in integers) of contents of mbay
+!> @param mbay - BUFR message, possibly with added control words on output
+!> @param mwrd - Size (in integers) of contents of mbay
 !>
 !> @remarks
 !> - For more information about IEEE Fortran control words, as
@@ -120,7 +120,7 @@ end subroutine blocks
 !> necessary and are therefore now disabled by default when writing
 !> BUFR messages to output files.
 !>
-!> @param[in] iblk - Flag indicating whether future BUFR output messages should be encapsulated with control words:
+!> @param iblk - Flag indicating whether future BUFR output messages should be encapsulated with control words:
 !>    - -1 = Yes, using little-endian control words
 !>    -  0 = No (the default)
 !>    -  1 = Yes, using big-endian control words

@@ -7,8 +7,8 @@
 !>
 !> If the computation fails for any reason, then the function returns the current placeholder value for "missing" data.
 !>
-!> @param[in] nbits - Total number of bits in flag table
-!> @param[in] ibit  - Number of bit to be set
+!> @param nbits - Total number of bits in flag table
+!> @param ibit  - Number of bit to be set
 !>
 !> @returns pkftbv  - real*8: Value equivalent to the setting of bit #(ibit) within a flag table of nbits bits
 !>
@@ -57,13 +57,13 @@ end function pkftbv
 !> According to the WMO standard, bits within a bit field are numbered from left to right, so bit #1 is always the
 !> high-order i.e. most significant) bit in any bit field.
 !>
-!> @param[in] lunit - Fortran logical unit number for BUFR file
-!> @param[in] nemo - Table B mnemonic with flag table units
-!> @param[in] val - Value corresponding to nemo
-!> @param[in] mxib - Dimensioned size (in integers) of ibit in the calling program; used by the subroutine
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param nemo - Table B mnemonic with flag table units
+!> @param val - Value corresponding to nemo
+!> @param mxib - Dimensioned size (in integers) of ibit in the calling program; used by the subroutine
 !> to ensure that it doesn't overflow the ibit array
-!> @param[out] ibit - Bit numbers which were set to "On" (i.e. set to "1") in val
-!> @param[out] nib - Number of bit numbers returned in ibit
+!> @param ibit - Bit numbers which were set to "On" (i.e. set to "1") in val
+!> @param nib - Number of bit numbers returned in ibit
 !>
 !> @author J. Ator @date 2005-11-29
 recursive subroutine upftbv(lunit,nemo,val,mxib,ibit,nib)

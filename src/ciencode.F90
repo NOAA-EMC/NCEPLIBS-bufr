@@ -13,10 +13,10 @@
 !>   guarantee that the nchr characters of chr will be aligned on byte
 !>   boundaries when encoded within ibay.
 !>
-!> @param[in] chr - String to be encoded
-!> @param[in] nchr - Number of bytes of ibay within which to encode chr (i.e. the number of characters in chr)
-!> @param[out] ibay - Array containing encoded chr
-!> @param[in,out] ibit - Bit pointer within ibay
+!> @param chr - String to be encoded
+!> @param nchr - Number of bytes of ibay within which to encode chr (i.e. the number of characters in chr)
+!> @param ibay - Array containing encoded chr
+!> @param ibit - Bit pointer within ibay
 !>  - On input, ibit points to the bit within ibay after which to begin encoding chr
 !>  - On output, ibit points to the last bit of ibay which contains the encoded chr
 !>
@@ -85,10 +85,10 @@ end subroutine pkc
 !>
 !> This subroutine is the logical inverse of subroutine up8().
 !>
-!> @param[in] nval - Value to be encoded
-!> @param[in] nbits - Number of bits of ibay (up to a maximum of 64) within which to encode nval
-!> @param[out] ibay - Array containing encoded nval
-!> @param[in,out] ibit - Bit pointer within ibay
+!> @param nval - Value to be encoded
+!> @param nbits - Number of bits of ibay (up to a maximum of 64) within which to encode nval
+!> @param ibay - Array containing encoded nval
+!> @param ibit - Bit pointer within ibay
 !> - On input, ibit points to the bit within ibay after which to begin encoding nval
 !> - On output, ibit points to the last bit of ibay which contains the encoded nval
 !>
@@ -125,10 +125,10 @@ end subroutine pkb8
 !> Encode an integer value within a specified number of bits of an integer array,
 !> starting at the bit immediately after a specified bit within the array.
 !>
-!> @param[in] nval  - Value to be encoded
-!> @param[in] nbits - Number of bits of ibay within which to encode nval
-!> @param[out] ibay - Array containing encoded nval
-!> @param[in,out] ibit - Bit pointer within ibay
+!> @param nval  - Value to be encoded
+!> @param nbits - Number of bits of ibay within which to encode nval
+!> @param ibay - Array containing encoded nval
+!> @param ibit - Bit pointer within ibay
 !>  - On input, ibit points to the bit within ibay after which to begin encoding nval
 !>  - On output, ibit points to the last bit of ibay which contains the encoded nval
 !>
@@ -186,9 +186,9 @@ end subroutine pkb
 !>
 !> This subroutine is the logical inverse of subroutine iupm().
 !>
-!> @param[in] n - Value to be encoded
-!> @param[in] nbyt - Number of bytes of cbay (up to a maximum of 4) within which to encode n
-!> @param[out] cbay - String of length nbyt bytes containing encoded integer n
+!> @param n - Value to be encoded
+!> @param nbyt - Number of bytes of cbay (up to a maximum of 4) within which to encode n
+!> @param cbay - String of length nbyt bytes containing encoded integer n
 !>
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ipkm(cbay,nbyt,n)

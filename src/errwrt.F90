@@ -19,7 +19,7 @@
 !> it within the compilation, and then the input string STR can be
 !> logged or handled in any way of the user's choosing.
 !>
-!> @param[in] str - Error message or other diagnostic to be printed to standard output (default) or
+!> @param str - Error message or other diagnostic to be printed to standard output (default) or
 !> to another location (if specified via an inline replacement version of this subroutine)
 !>
 !> @remarks

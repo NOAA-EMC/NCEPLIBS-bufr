@@ -14,10 +14,10 @@
 !> - msgot will be longer in length than msgin, so the user must allow for extra space when allocating msgot within the
 !> application program
 !>
-!> @param[in] msgin - BUFR message
-!> @param[in] lmsgot - Dimensioned size (in integers) of msgot; used by the subroutine to ensure that
+!> @param msgin - BUFR message
+!> @param lmsgot - Dimensioned size (in integers) of msgot; used by the subroutine to ensure that
 !> it doesn't overflow the msgot array
-!> @param[out] msgot - Copy of msgin with a tank receipt time added to Section 1
+!> @param msgot - Copy of msgin with a tank receipt time added to Section 1
 !>
 !> @author J. Ator @date 2009-03-23
 recursive subroutine atrcpt(msgin,lmsgot,msgot)
@@ -99,13 +99,13 @@ end subroutine atrcpt
 !> whereas rtrcpt() operates on the BUFR message that was read into internal arrays via the most recent call to any of the
 !> other [message-reading subroutines](@ref hierarchy) for a specified Fortran logical unit.
 !>
-!> @param[in]  mbay - BUFR message
-!> @param[out] iyr  - Tank receipt year
-!> @param[out] imo  - Tank receipt month
-!> @param[out] idy  - Tank receipt day
-!> @param[out] ihr  - Tank receipt hour
-!> @param[out] imi  - Tank receipt minute
-!> @param[out] iret - return code:
+!> @param mbay - BUFR message
+!> @param iyr  - Tank receipt year
+!> @param imo  - Tank receipt month
+!> @param idy  - Tank receipt day
+!> @param ihr  - Tank receipt hour
+!> @param imi  - Tank receipt minute
+!> @param iret - return code:
 !> - 0 = normal return
 !> - -1 = no tank receipt time exists within mbay
 !>
@@ -172,13 +172,13 @@ end subroutine rtrcptb
 !> memory array, whereas this subroutine operates on the BUFR message that was read into internal arrays via the most
 !> recent call to any of the other [message-reading subroutines](@ref hierarchy) for a specified Fortran logical unit.
 !>
-!> @param[in] lunit - Fortran logical unit number for BUFR file
-!> @param[out] iyr  - Tank receipt year
-!> @param[out] imo  - Tank receipt month
-!> @param[out] idy  - Tank receipt day
-!> @param[out] ihr  - Tank receipt hour
-!> @param[out] imi  - Tank receipt minute
-!> @param[out] iret - return code
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param iyr  - Tank receipt year
+!> @param imo  - Tank receipt month
+!> @param idy  - Tank receipt day
+!> @param ihr  - Tank receipt hour
+!> @param imi  - Tank receipt minute
+!> @param iret - return code
 !>  - 0 = normal return
 !>  - -1 = no tank receipt time exists within the BUFR message currently open for input within internal arrays
 !>
@@ -243,15 +243,15 @@ end subroutine rtrcpt
 !> However, it's encoded by the NCEPLIBS-bufr software in such a way that its inclusion within an output BUFR message is
 !> still fully compliant with the regulations.
 !>
-!> @param[in] cf - character*1: Flag indicating whether future BUFR output messages should include the tank receipt
+!> @param cf - character*1: Flag indicating whether future BUFR output messages should include the tank receipt
 !> time defined by iyr, imo, idy, ihr, and imi:
 !> - 'N' = No (the default)
 !> - 'Y' = Yes
-!> @param[in] iyr - Tank receipt year
-!> @param[in] imo - Tank receipt month
-!> @param[in] idy - Tank receipt day
-!> @param[in] ihr - Tank receipt hour
-!> @param[in] imi - Tank receipt minute
+!> @param iyr - Tank receipt year
+!> @param imo - Tank receipt month
+!> @param idy - Tank receipt day
+!> @param ihr - Tank receipt hour
+!> @param imi - Tank receipt minute
 !>
 !> @author J. Ator @date 2009-03-23
 recursive subroutine strcpt(cf,iyr,imo,idy,ihr,imi)

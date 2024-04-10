@@ -5,11 +5,11 @@
 
 !> Open a Fortran file on the local system.
 !>
-!> @param[in] filename - name of the file to be opened
-!> @param[in] lunit    - Fortran logical unit number for Fortran file
-!> @param[in] format   - format of the Fortran file
-!> @param[in] position - to rewind or continue with open file
-!> @param[out] iret    - return code from the Fortran open statement
+!> @param filename - name of the file to be opened
+!> @param lunit    - Fortran logical unit number for Fortran file
+!> @param format   - format of the Fortran file
+!> @param position - to rewind or continue with open file
+!> @param iret    - return code from the Fortran open statement
 !>
 !> @author Jeff Whitaker @date 2015-08-30
 recursive subroutine fortran_open(filename, lunit, format, position, iret)
@@ -41,8 +41,8 @@ end subroutine fortran_open
 
 !> Close a Fortran file on the local system.
 !>
-!> @param[in] lunit - Fortran logical unit number for Fortran file
-!> @param[out] iret - return code from the Fortran close statement
+!> @param lunit - Fortran logical unit number for Fortran file
+!> @param iret - return code from the Fortran close statement
 !>
 !> @author Jeff Whitaker @date 2015-08-30
 recursive subroutine fortran_close(lunit, iret)
@@ -134,9 +134,9 @@ end subroutine fortran_close
 !> messages to be decoded.
 !>
 !>
-!> @param[in] lunit - Fortran logical unit number for BUFR file (unless io is set to 'FIRST' or 'QUIET',
+!> @param lunit - Fortran logical unit number for BUFR file (unless io is set to 'FIRST' or 'QUIET',
 !> in which case this is a dummy argument)
-!> @param[in] io - flag indicating how lunit is to be used by the software:
+!> @param io - flag indicating how lunit is to be used by the software:
 !>   - 'IN' = input operations with table processing
 !>   - 'INX' = input operations w/o table processing
 !>   - 'OUX' = output operations w/o table processing
@@ -153,7 +153,7 @@ end subroutine fortran_close
 !>   value in lundx
 !>   - 'FIRST' = lunit and lundx are ignored; this is an indicator to initialize the NCEPLIBS-bufr software, in case this
 !>   subroutine was never previously called
-!> @param[in] lundx - Fortran logical unit number containing DX BUFR table information, except as noted below:
+!> @param lundx - Fortran logical unit number containing DX BUFR table information, except as noted below:
 !>   - If io is not set to 'FIRST' or 'QUIET' = Fortran logical unit number containing DX BUFR table information to be used in
 !>   reading/writing from/to lunit (depending on the case); this value may be set equal to lunit if DX BUFR table information is
 !>   already embedded in lunit
@@ -331,7 +331,7 @@ end subroutine openbf
 !> especially important to do so when writing/encoding a BUFR file, in order to ensure that all output is properly flushed
 !> to lunit.
 !>
-!> @param[in] lunit - Fortran logical unit number for BUFR file
+!> @param lunit - Fortran logical unit number for BUFR file
 !>
 !> @author J. Woollen, J. Ator @date 1994-01-06
 recursive subroutine closbf(lunit)
@@ -387,16 +387,16 @@ end subroutine closbf
 !> Otherwise, it returns the next available file ID that could be used to connect the associated file to the
 !> software via a subsequent call to subroutine wtstat().
 !>
-!> @param[in] lunit - Fortran logical unit number for BUFR file
-!> @param[out] lun - File ID associated with lunit
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param lun - File ID associated with lunit
 !> - 0 = lunit is not already connected to the software, <b>and</b> there is no remaining internal space available that
 !> could be used to connect it
-!> @param[out] il - File status:
+!> @param il - File status:
 !> - 0 = lunit is not already connected to the software, but lun contains a file ID that could be used to connect it via
 !> a subsequent call to subroutine wtstat()
 !> - 1 = lunit is already connected to the software for output operations (i.e. writing/encoding BUFR)
 !> - -1 = lunit is already connected to the software for input operations (i.e. reading/decoding BUFR)
-!> @param[out] im - Message status, indicating whether there is already a message open within internal arrays
+!> @param im - Message status, indicating whether there is already a message open within internal arrays
 !> for lunit:
 !> - 0 = No
 !> - 1 = Yes
@@ -493,13 +493,13 @@ end subroutine status
 !> lunit and lun values remain linked to each other for as
 !> long as the file is connected to the software.
 !>
-!> @param[in] lunit - Fortran logical unit number for BUFR file
-!> @param[in] lun - File ID associated with lunit
-!> @param[in] il - File status update option:
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param lun - File ID associated with lunit
+!> @param il - File status update option:
 !>  - 0 Disconnect lunit from the software
 !>  - 1 Connect lunit to the software for output operations (i.e. writing/encoding BUFR), if not already connected
 !>  - -1 Connect lunit to the software for input operations (i.e. reading/decoding BUFR), if not already connected
-!> @param[in] im - Message status update option, indicating whether a message is currently open within the internal
+!> @param im - Message status update option, indicating whether a message is currently open within the internal
 !> arrays for lunit:
 !>  - 0 No
 !>  - 1 Yes
