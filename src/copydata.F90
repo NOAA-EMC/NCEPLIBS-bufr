@@ -5,8 +5,8 @@
 
 !> Copy an entire BUFR file from one Fortran logical unit to another.
 !>
-!> @param[in] lunin - integer: Fortran logical unit number for source BUFR file
-!> @param[in] lunot - integer: Fortran logical unit number for target BUFR file
+!> @param lunin - Fortran logical unit number for source BUFR file
+!> @param lunot - Fortran logical unit number for target BUFR file
 !>
 !> The logical unit numbers lunin and lunot must already be associated with actual filenames on the local system,
 !> typically via a Fortran "OPEN" statement.
@@ -100,8 +100,8 @@ end subroutine copybf
 !> original BUFR message from lunin with any or all of the updates
 !> described in the documentation for subroutine msgwrt().
 !>
-!> @param[in] lunin - integer: Fortran logical unit number for source BUFR file
-!> @param[in] lunot - integer: Fortran logical unit number for target BUFR file
+!> @param lunin - Fortran logical unit number for source BUFR file
+!> @param lunot - Fortran logical unit number for target BUFR file
 !>
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine copymg(lunin,lunot)
@@ -192,9 +192,9 @@ end subroutine copymg
 !> definitions for the type of BUFR message containing the data
 !> subset to be copied from lunin to lunot.
 !>
-!> @param[in] lunin - integer: Fortran logical unit number for source BUFR file
-!> @param[in] lunot - integer: Fortran logical unit number for target BUFR file
-!> @param[out] iret - integer: return code:
+!> @param lunin - Fortran logical unit number for source BUFR file
+!> @param lunot - Fortran logical unit number for target BUFR file
+!> @param iret - return code:
 !>     - 0 = normal return
 !>     - -1 = a BUFR data subset could not be read from the BUFR message in internal arrays for lunin
 !>
@@ -297,9 +297,9 @@ end subroutine copysb
 !>
 !> This function calls subroutine copysb() and passes back its return code as the function value.
 !>
-!> @param[in] lunin - integer: Fortran logical unit number for source BUFR file
-!> @param[in] lunot - integer: Fortran logical unit number for target BUFR file
-!> @returns icopysb - integer: return code:
+!> @param lunin - Fortran logical unit number for source BUFR file
+!> @param lunot - Fortran logical unit number for target BUFR file
+!> @returns icopysb - return code:
 !>     - 0 = normal return
 !>     - -1 = a BUFR data subset could not be read from the BUFR message in internal arrays for lunin
 !>
@@ -344,9 +344,9 @@ end function icopysb
 !> associated DX BUFR table information isn't identical between both
 !> units.
 !>
-!> @param[in] lui - integer: File ID for source BUFR file
-!> @param[in] luo - integer: File ID for target BUFR file
-!> @returns iok2cpy - integer: Flag indicating whether a BUFR message or data subset can be copied from lui to luo:
+!> @param lui - File ID for source BUFR file
+!> @param luo - File ID for target BUFR file
+!> @returns iok2cpy - Flag indicating whether a BUFR message or data subset can be copied from lui to luo:
 !> - 0 = No
 !> - 1 = Yes
 !>
@@ -427,7 +427,7 @@ end function iok2cpy
 !> original BUFR message from memory with any or all of the updates
 !> described in the documentation for subroutine msgwrt().
 !>
-!> @param[in] lunot - integer: Fortran logical unit number for target BUFR file.
+!> @param lunot - Fortran logical unit number for target BUFR file.
 !>
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine cpymem(lunot)
@@ -503,10 +503,10 @@ end subroutine cpymem
 !> larger than the maximum message length, then a call is issued to
 !> subroutine bort().
 !>
-!> @param[in] lunit - integer: Fortran logical unit number for BUFR file associated with output unit
-!> @param[in] lin - integer: file ID for input unit
-!> @param[in] lun - integer: file ID for output unit
-!> @param[in] ibyt - integer: length (in bytes) of data subset
+!> @param lunit - Fortran logical unit number for BUFR file associated with output unit
+!> @param lin - File ID for input unit
+!> @param lun - File ID for output unit
+!> @param ibyt - Length (in bytes) of data subset
 !>
 !> @author Woollen @date 1994-01-06
 subroutine cpyupd(lunit,lin,lun,ibyt)
@@ -604,8 +604,8 @@ end subroutine cpyupd
 !> each of the logical units lubin and lubot must contain identical
 !> definitions for the data subset to be copied.
 !>
-!> @param[in] lubin - integer: Fortran logical unit number for source BUFR file
-!> @param[in] lubot - integer: Fortran logical unit number for target BUFR file
+!> @param lubin - Fortran logical unit number for source BUFR file
+!> @param lubot - Fortran logical unit number for target BUFR file
 !>
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbcpy(lubin,lubot)
@@ -670,8 +670,8 @@ end subroutine ufbcpy
 
 !> Copy all of the DX BUFR table information from one unit to another within internal memory.
 !>
-!> @param[in] lud - integer: file ID for input unit
-!> @param[in] lun - integer: file ID for output unit
+!> @param lud - File ID for input unit
+!> @param lun - File ID for output unit
 !>
 !> @author Woollen @date 1994-01-06
 subroutine cpbfdx(lud,lun)

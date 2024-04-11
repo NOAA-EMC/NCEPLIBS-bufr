@@ -8,7 +8,7 @@
 !> The location and availability of any particular value within Section 1 of a BUFR message can vary depending on the edition
 !> number used to encode the message.  This subroutine will work for BUFR edition 2, 3, or 4.
 !>
-!> @param[in] s1mnem - character*(*): Value whose location within Section 1 is to be determined:
+!> @param s1mnem - Value whose location within Section 1 is to be determined:
 !>   - 'LEN1'  = Length (in bytes) of Section 1
 !>   - 'BMT'   = BUFR master table
 !>   - 'OGCE'  = Originating center
@@ -30,11 +30,11 @@
 !>   - 'HOUR'  = Hour
 !>   - 'MINU'  = Minute
 !>   - 'SECO'  = Second
-!> @param[in] iben - integer: BUFR edition number
-!> @param[out] isbyt - integer: Number of starting byte within Section 1 which contains value corresponding to s1mnem
-!> @param[out] iwid - integer: Width (in bits) of value corresponding to s1mnem, counting from the first bit of the
+!> @param iben - BUFR edition number
+!> @param isbyt - Number of starting byte within Section 1 which contains value corresponding to s1mnem
+!> @param iwid - Width (in bits) of value corresponding to s1mnem, counting from the first bit of the
 !> byte pointed to by isbyt
-!> @param[out] iret - integer: Return code:
+!> @param iret - Return code:
 !>   - 0 = normal return
 !>   - -1 = s1mnem is invalid for BUFR edition iben
 !>
@@ -213,8 +213,8 @@ end subroutine gets1loc
 !>   calculated internally using the values for 'YCEN' and 'CENT', or inferred using a windowing technique
 !> - Values corresponding to s01mnem = 'SECO' or 'MSBTI' can only be read from BUFR messages encoded using BUFR edition 4
 !>
-!> @param[in] mbay  - integer(*): BUFR message
-!> @param[in] s01mnem - character*(*): Value to be read from Section 0 or Section 1 of mbay
+!> @param mbay - BUFR message
+!> @param s01mnem - Value to be read from Section 0 or Section 1 of mbay
 !> - 'LENM'  = Length (in bytes) of BUFR message
 !> - 'LEN0'  = Length (in bytes) of Section 0
 !> - 'LEN1'  = Length (in bytes) of Section 1
@@ -239,7 +239,7 @@ end subroutine gets1loc
 !> - 'HOUR'  = Hour
 !> - 'MINU'  = Minute
 !> - 'SECO'  = Second
-!> @returns iupbs01 - integer: Value corresponding to s01mnem:
+!> @returns iupbs01 - Value corresponding to s01mnem:
 !> - -1 = s01mnem was invalid for the edition of BUFR message in mbay, or some other error occurred
 !>
 !> @author J. Ator @date 2005-11-29
@@ -331,8 +331,8 @@ end function iupbs01
 !> @remarks
 !> - The start of the BUFR message (i.e. the string 'BUFR') must be aligned on the first 4 bytes of mbay
 !>
-!> @param[in] mbay - integer(*): BUFR message
-!> @param[in] s3mnem - character*(*): Value to be read from Section 3 of mbay
+!> @param mbay - BUFR message
+!> @param s3mnem - Value to be read from Section 3 of mbay
 !> - 'NSUB'  = Number of data subsets
 !> - 'IOBS'  = Flag indicating whether the message contains observed data:
 !>   - 0 = No
@@ -341,7 +341,7 @@ end function iupbs01
 !>   - 0 = No
 !>   - 1 = Yes
 !>
-!> @returns iupbs3 - integer: Value corresponding to s3mnem
+!> @returns iupbs3 - Value corresponding to s3mnem
 !> - -1 = s3mnem was invalid
 !>
 !> @author J. Ator @date 2009-03-23
@@ -408,8 +408,8 @@ end function iupbs3
 !>   calculated internally using the values for 'YCEN' and 'CENT', or inferred using a windowing technique
 !> - Values corresponding to s01mnem = 'SECO' or 'MSBTI' can only be read from BUFR messages encoded using BUFR edition 4
 !>
-!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
-!> @param[in] s01mnem - character*(*): Value to be read from Section 0 or Section 1 of BUFR message in internal arrays for lunit:
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param s01mnem - Value to be read from Section 0 or Section 1 of BUFR message in internal arrays for lunit:
 !> - 'LENM'  = Length (in bytes) of BUFR message
 !> - 'LEN0'  = Length (in bytes) of Section 0
 !> - 'LEN1'  = Length (in bytes) of Section 1
@@ -435,7 +435,7 @@ end function iupbs3
 !> - 'MINU'  = Minute
 !> - 'SECO'  = Second
 !>
-!> @returns - integer: Value corresponding to s01mnem:
+!> @returns - Value corresponding to s01mnem:
 !> - -1 = s01mnem was invalid for the edition of BUFR message in internal arrays for lunit, or some other error occurred
 !>
 !> @author J. Ator @date 2005-11-29
@@ -489,9 +489,9 @@ end function iupvs01
 !> whereas pkvs01() operates on BUFR messages stored internally within
 !> the software.
 !>
-!> @param[in] ival - integer: Value to be stored
-!> @param[in,out] mbay - integer(*): BUFR message
-!> @param[in] s1mnem - character*(*): Location in Section 1 of mbay within which to store ival:
+!> @param ival - Value to be stored
+!> @param mbay - BUFR message
+!> @param s1mnem - Location in Section 1 of mbay within which to store ival:
 !>    - 'BMT'   = BUFR master table
 !>    - 'OGCE'  = Originating center
 !>    - 'GSES'  = Originating subcenter
@@ -582,8 +582,8 @@ end subroutine pkbs1
 !> value is used for the corresponding ival, as set within subroutine
 !> msgini(), cmsgini() or dxmini().
 !>
-!> @param[in] ival - integer: Value to be stored
-!> @param[in] s01mnem - character*(*): Location where ival is to be stored within Section 0 or Section 1 of all future
+!> @param ival - Value to be stored
+!> @param s01mnem - Location where ival is to be stored within Section 0 or Section 1 of all future
 !> output BUFR messages:
 !>   - 'BEN'   = BUFR edition number
 !>   - 'BMT'   = BUFR master table
@@ -679,7 +679,7 @@ end subroutine pkvs01
 !> Read the Section 3 descriptors from the BUFR message in mbay(1,lun), then use the BUFR master tables to generate the
 !> necessary information for those descriptors within the internal BUFR table arrays.
 !>
-!> @param[in] lun - integer: file ID
+!> @param lun - File ID
 !>
 !> @author J. Ator @date 2009-03-23
 subroutine reads3 ( lun )
@@ -818,11 +818,11 @@ end subroutine reads3
 !> - This subroutine does not recursively resolve any Table D descriptors from within Section 3; rather, what is returned in
 !> CDS3 is the exact list of data descriptors as it appears within Section 3 of mbay
 !>
-!> @param[in]  mbay - integer(*): BUFR message
-!> @param[in]  lcds3 - integer: Dimensioned size (in integers) of cds3 in the calling program; used by the subroutine to
+!> @param mbay - BUFR message
+!> @param lcds3 - Dimensioned size (in integers) of cds3 in the calling program; used by the subroutine to
 !> ensure that it doesn't overflow the cds3 array
-!> @param[out] cds3 - character*6(*): Data descriptor sequence within Section 3 of mbay
-!> @param[out] nds3 - integer: Number of data descriptors in cds3
+!> @param cds3 - Data descriptor sequence within Section 3 of mbay
+!> @param nds3 - Number of data descriptors in cds3
 !>
 !> @author J. Ator @date 2003-11-04
 recursive subroutine upds3(mbay,lcds3,cds3,nds3)
@@ -879,7 +879,7 @@ end subroutine upds3
 !> never called, a default value of 8 is used for len, as set within
 !> subroutine bfrini().
 !>
-!> @param[in] len - integer: Length of Section 1 date-time values to be output by all future calls to
+!> @param len - Length of Section 1 date-time values to be output by all future calls to
 !> message-reading subroutines:
 !>  -  8 = YYMMDDHH format with 2-digit year (the default)
 !>  - 10 = YYYYMMDDHH format with 4-digit year
@@ -922,13 +922,13 @@ end subroutine datelen
 !> Get the Section 1 date-time from the first data message of a BUFR file, bypassing any messages
 !> at the beginning of the file which may contain embedded DX BUFR table information.
 !>
-!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
-!> @param[out] mear - integer: Year stored within Section 1 of first data message, in format of either YY or YYYY,
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param mear - Year stored within Section 1 of first data message, in format of either YY or YYYY,
 !> depending on the most recent call to subroutine datelen()
-!> @param[out] mmon - integer: Month stored within Section 1 of first data message
-!> @param[out] mday - integer: Day stored within Section 1 of first data message
-!> @param[out] mour - integer: Hour stored within Section 1 of first data message
-!> @param[out] idate - integer: Date-time stored within Section 1 of first data message, in format of either
+!> @param mmon - Month stored within Section 1 of first data message
+!> @param mday - Day stored within Section 1 of first data message
+!> @param mour - Hour stored within Section 1 of first data message
+!> @param idate - Date-time stored within Section 1 of first data message, in format of either
 !> YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine datelen()
 !>   -1 = First data message could not be found in BUFR file
 !>
@@ -1007,13 +1007,13 @@ end subroutine datebf
 !>
 !> The function will work on any BUFR message encoded using BUFR edition 2, 3, or 4.
 !>
-!> @param[in] mbay - integer(*): BUFR message
-!> @param[out] iyr - integer: Year stored within Section 1 of mbay, in format of either YY or YYYY,
+!> @param mbay - BUFR message
+!> @param iyr - Year stored within Section 1 of mbay, in format of either YY or YYYY,
 !> depending on the most recent call to subroutine datelen()
-!> @param[out] imo - integer: Month stored within Section 1 of mbay
-!> @param[out] idy - integer: Day stored within Section 1 of mbay
-!> @param[out] ihr - integer: Hour stored within Section 1 of mbay
-!> @returns igetdate - integer: Date-time stored within Section 1 of mbay, in format of either YYMMDDHH or YYYYMMDDHH,
+!> @param imo - Month stored within Section 1 of mbay
+!> @param idy - Day stored within Section 1 of mbay
+!> @param ihr - Hour stored within Section 1 of mbay
+!> @returns igetdate - Date-time stored within Section 1 of mbay, in format of either YYMMDDHH or YYYYMMDDHH,
 !> depending on the most recent call to subroutine datelen()
 !>
 !> @remarks
@@ -1066,8 +1066,8 @@ end function igetdate
 !> with 20 (i.e. 2000-2040).  If the input date-time already contains
 !> a 4-digit year, then the function simply returns that value.
 !>
-!> @param[in] idate - integer: Date-time in format of either YYMMDDHH (2-digit year) or YYYYMMDDHH (4-digit year)
-!> @returns i4dy - integer: Date-time in format of YYYYMMDDHH (4-digit year)
+!> @param idate - Date-time in format of either YYMMDDHH (2-digit year) or YYYYMMDDHH (4-digit year)
+!> @returns i4dy - Date-time in format of YYYYMMDDHH (4-digit year)
 !>
 !> @author J. Woollen @date 1998-07-08
 recursive integer function i4dy(idate) result(iret)
@@ -1121,14 +1121,14 @@ end function i4dy
 !> messages within the file pointed to by lunit, then the corresponding
 !> jdate or jdump array will be filled with all values set to (-1).
 !>
-!> @param[in] lunit - integer: Fortran logical unit number for BUFR dump file
-!> @param[out] jdate - integer(5): Dump center date-time stored within Section 1 of first "dummy" message:
+!> @param lunit - Fortran logical unit number for BUFR dump file
+!> @param jdate - Dump center date-time stored within Section 1 of first "dummy" message:
 !> - Index 1 contains the year, in format of either YY or YYYY, depending on the most recent call to subroutine datelen()
 !> - Index 2 contains the month
 !> - Index 3 contains the day
 !> - Index 4 contains the hour
 !> - Index 5 contains the minute
-!> @param[out] jdump  -- integer(5): Dump initiation date-time stored within Section 1 of second "dummy" message:
+!> @param jdump - Dump initiation date-time stored within Section 1 of second "dummy" message:
 !> - Index 1 contains the year, in format of either YY or YYYY, depending on the most recent call to subroutine datelen()
 !> - Index 2 contains the month
 !> - Index 3 contains the day
@@ -1220,9 +1220,8 @@ end subroutine dumpbf
 !> one of the [message-writing subroutines](@ref hierarchy) for a
 !> specified Fortran logical unit.
 !>
-!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
-!> @param[in] mini - integer: Minutes value
-!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param mini - Minutes value
 !>
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine minimg(lunit,mini)

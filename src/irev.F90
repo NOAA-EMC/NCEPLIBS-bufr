@@ -22,10 +22,10 @@
 !> "big-endian", irev() simply returns a copy of the same integer that was
 !> input.
 !>
-!> @param[in] n - integer: integer word with bytes ordered according
+!> @param n - integer word with bytes ordered according
 !> to the "big-endian" numbering scheme
 !>
-!> @return - integer: integer word with bytes ordered according to
+!> @return - integer word with bytes ordered according to
 !> the numbering scheme of the local machine (either
 !> "big-endian" or "little-endian"; if "big-endian" then
 !> this is just a direct copy of n).

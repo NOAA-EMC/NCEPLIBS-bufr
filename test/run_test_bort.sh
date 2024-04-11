@@ -407,6 +407,8 @@ for kind in "4" "d"; do
     (./test_bort_$kind tabsub 10) && exit 1
     (./test_bort_$kind tabsub 11) && exit 1
     (./test_bort_$kind tabsub 12) && exit 1
+    (./test_bort_$kind tabsub 13) && exit 1
+    (./test_bort_$kind tabsub 14) && exit 1
 
     # Check ufbcnt().
     (./test_bort_$kind ufbcnt 1) && exit 1

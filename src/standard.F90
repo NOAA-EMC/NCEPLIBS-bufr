@@ -29,7 +29,7 @@
 !> value of cf again.  If this subroutine is never called, a default
 !> value of 'N' is used for cf, as set within subroutine bfrini().
 !>
-!> @param[in] cf - character*1: Flag indicating whether future BUFR output messages are to be standardized:
+!> @param cf - Flag indicating whether future BUFR output messages are to be standardized:
 !>  - 'N' = No (the default)
 !>  - 'Y' = Yes
 !>
@@ -64,11 +64,11 @@ end subroutine stdmsg
 !> - Standardized messages are usually longer in length than their non-standard counterparts, so it's a good idea to allow
 !> for extra space when allocating msgot within the application program
 !>
-!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
-!> @param[in] msgin - integer(*): BUFR message
-!> @param[in] lmsgot - integer: Dimensioned size (in integers) of msgot; used by the subroutine to ensure that it doesn't
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param msgin - BUFR message
+!> @param lmsgot - Dimensioned size (in integers) of msgot; used by the subroutine to ensure that it doesn't
 !> overflow the msgot array
-!> @param[out] msgot - integer(*): Standardized copy of msgin
+!> @param msgot - Standardized copy of msgin
 !>
 !> @author J. Ator @date 2004-08-18
 recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
@@ -290,8 +290,8 @@ end subroutine stndrd
 !>
 !> If a descriptor is not WMO-standard, then by definition it is a local descriptor.
 !>
-!> @param[in] idn - integer: WMO bit-wise representation of FXY value for descriptor
-!> @returns istdesc - integer: Flag indicating whether idn is a WMO-standard descriptor:
+!> @param idn - WMO bit-wise representation of FXY value for descriptor
+!> @returns istdesc - Flag indicating whether idn is a WMO-standard descriptor:
 !> - 0 = No
 !> - 1 = Yes
 !>
