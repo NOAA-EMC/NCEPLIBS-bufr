@@ -6,7 +6,7 @@ C> @author J. Ator @date 2016-05-04
 C> Check whether a specified mnemonic is a Table C marker operator.
 C>
 C> @param[in] NEMO - character*(*): Mnemonic
-C> @returns iokoper - integer: Flag indicating whether NEMO is a
+C> @returns imrkopr - integer: Flag indicating whether NEMO is a
 C> Table C marker operator:
 C> - 0 = No
 C> - 1 = Yes

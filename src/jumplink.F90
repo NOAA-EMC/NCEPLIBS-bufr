@@ -775,3 +775,99 @@ integer function lstjpb(node,lun,jbtyp) result(iret)
 
   return
 end function lstjpb
+
+!> Check whether the same [DX BUFR Table](@ref dfbftab) is being shared between two Fortran logical units.
+!>
+!> @param lud - File ID for first BUFR file
+!> @param lun - File ID for second BUFR file
+!> @returns ishrdx - Flag indicating whether the same DX BUFR table is being shared between the
+!> BUFR file associated with lud and the BUFR file associated with lun
+!>    - 0 = No
+!>    - 1 = Yes
+!>
+!> @author J. Ator @date 2009-06-18
+integer function ishrdx(lud,lun) result(iret)
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: lud, lun
+  integer ii
+
+  ! Note that, for any file ID luX, the mtab(*,luX) array contains pointer indices into the internal jump/link table
+  ! for each of the Table A mnemonics that is currently defined for that luX value.  Thus, if all of these indices are
+  ! identical for two different luX values, then the associated logical units are sharing table information.
+
+  if ( ( ntba(lud) .ge. 1 ) .and. ( ntba(lud) .eq. ntba(lun) ) ) then
+    ii = 1
+    iret = 1
+    do while ( ( ii .le. ntba(lud) ) .and. ( iret .eq. 1 ) )
+      if ( ( mtab(ii,lud) .ne. 0 ) .and. ( mtab(ii,lud) .eq. mtab(ii,lun) ) ) then
+        ii = ii + 1
+      else
+        iret = 0
+      endif
+    enddo
+  else
+    iret = 0
+  endif
+
+  return
+end function ishrdx
+
+!> Check whether the full set of associated [DX BUFR Table information](@ref dfbftab) is identical between
+!> two Fortran logical units.
+!>
+!> Note that two different logical units can have identical DX BUFR
+!> Table information associated with them even if they aren't actually
+!> sharing the same DX BUFR table.
+!>
+!> @param lud - File ID for first BUFR file
+!> @param lun - File ID for second BUFR file
+!> @returns icmpdx - Flag indicating whether the BUFR file associated with lud and the BUFR
+!> file associated with lun have the same DX BUFR table information
+!>    - 0 = No
+!>    - 1 = Yes
+!>
+!> @author J. Ator @date 2009-06-18
+integer function icmpdx(lud,lun) result(iret)
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: lud, lun
+  integer ishrdx, i
+
+  ! First, check whether the two units are actually sharing tables.
+  ! If so, then they obviously have the same table information.
+
+  iret = ishrdx(lud,lun)
+  if ( iret .eq. 1 ) return
+
+  ! Otherwise, check whether the internal Table A, B and D entries are all identical between the two units.
+
+  if ( ( ntba(lud) .eq. 0 ) .or. ( ntba(lun) .ne. ntba(lud) ) ) return
+  do i = 1, ntba(lud)
+    if ( idna(i,lun,1) .ne. idna(i,lud,1) ) return
+    if ( idna(i,lun,2) .ne. idna(i,lud,2) ) return
+    if ( taba(i,lun) .ne. taba(i,lud) ) return
+  enddo
+
+  if ( ( ntbb(lud) .eq. 0 ) .or. ( ntbb(lun) .ne. ntbb(lud) ) ) return
+  do i = 1, ntbb(lud)
+    if ( idnb(i,lun) .ne. idnb(i,lud) ) return
+    if ( tabb(i,lun) .ne. tabb(i,lud) ) return
+  enddo
+
+  if ( ( ntbd(lud) .eq. 0 ) .or. ( ntbd(lun) .ne. ntbd(lud) ) ) return
+  do i = 1, ntbd(lud)
+    if ( idnd(i,lun) .ne. idnd(i,lud) ) return
+    if ( tabd(i,lun) .ne. tabd(i,lud) ) return
+  enddo
+
+  iret = 1
+
+  return
+end function icmpdx
