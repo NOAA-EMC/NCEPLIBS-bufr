@@ -143,7 +143,7 @@ end subroutine readmg
 recursive integer function ireadmg(lunit,subset,idate) result(iret)
 
   use modv_vars, only: im8b
-  
+
   implicit none
 
   integer, intent(in) :: lunit
@@ -1024,9 +1024,28 @@ recursive subroutine maxout(maxo)
   return
 end subroutine maxout
 
+!> Get the maximum length of a BUFR message that can be written to an output file by the NCEPLIBS-bufr software.
+!>
+!> @returns igetmxby - Maximum length of a BUFR message that can be written to an output file by the NCEPLIBS-bufr software
+!>
+!> This maximum length value can be changed at any time via a
+!> separate call to subroutine maxout().
+!>
+!> @author J. Ator @date 2016-06-27
+integer function igetmxby() result(iret)
+
+  use moda_bitbuf
+
+  implicit none
+
+  iret = maxbyt
+
+  return
+end function igetmxby
+
 !> Pad a BUFR message with zeroed-out bytes from the end of the message up to the next 8-byte boundary.
 !>
-!> @param mesg - integer(*):
+!> @param mesg - BUFR message:
 !>  - on input, contains BUFR message to be padded
 !>  - on output, contains BUFR message with npbyt zeroed-out bytes appended to the end
 !> @param lmesg - Dimensioned size (in integer words) of mesg;
@@ -1062,3 +1081,112 @@ subroutine padmsg(mesg,lmesg,npbyt)
 
   return
 end subroutine padmsg
+
+!> Get the total number of data subsets available within the BUFR message that was most recently opened for reading
+!> via a call to one of the [message-reading subroutines](@ref hierarchy) for a specified Fortran logical unit.
+!>
+!> The data subsets themselves do not need to have already been read via previous calls to any of the
+!> [subset-reading subroutines](@ref hierarchy).
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @returns nmsub - Number of data subsets
+!>
+!> @author J. Woollen @date 1994-01-06
+recursive integer function nmsub(lunit) result(iret)
+
+  use modv_vars, only: im8b
+
+  use moda_msgcwd
+
+  implicit none
+
+  integer, intent(in) :: lunit
+  integer my_lunit, lun, il, im
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+
+    call x84(lunit,my_lunit,1)
+    iret=nmsub(my_lunit)
+
+    im8b=.true.
+    return
+  endif
+
+  iret = 0
+
+  ! Check the file status
+
+  call status(lunit,lun,il,im)
+  if(il.eq.0) call bort('BUFRLIB: NMSUB - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il.gt.0) call bort('BUFRLIB: NMSUB - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(im.eq.0) call bort('BUFRLIB: NMSUB - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+
+  iret = msub(lun)
+
+  return
+end function nmsub
+
+!> Given an integer array containing Section 0 from a BUFR message, determine the array size (in integers)
+!> needed to store the entire BUFR message.
+!>
+!> This function is similar to function lmsg(), except that it takes an integer array as input rather than a character string.
+!>
+!> @param mbay - Section 0 from a BUFR message
+!> @returns nmwrd - Array size (in integers) needed to store entire BUFR message
+!>
+!> @remarks
+!> - In some cases, the value returned may be slightly larger than the minimum number of integers needed to store the
+!> entire BUFR message.
+!>
+!> @author J. Ator @date 2005-11-29
+integer function nmwrd(mbay) result(iret)
+
+  use modv_vars, only: nbytw
+
+  implicit none
+
+  integer, intent(in) :: mbay(*)
+  integer lenm, iupbs01
+
+  lenm = iupbs01(mbay,'LENM')
+  if(lenm.eq.0) then
+    iret = 0
+  else
+    iret = ((lenm/8)+1)*(8/nbytw)
+  endif
+
+  return
+end function nmwrd
+
+!> Given a character string containing Section 0 from a BUFR message, determine the array size (in integers)
+!> needed to store the entire BUFR message.
+!>
+!> This function is similar to function nmwrd(), except that it takes a character string as input rather than an integer array.
+!>
+!> @param sec0 - Section 0 from a BUFR message
+!> @returns lmsg - Array size (in integers) needed to store entire BUFR message
+!>
+!> @remarks
+!> - In some cases, the value returned may be slightly larger than the minimum number of integers needed to store the
+!> entire BUFR message.
+!>
+!> @author J. Woollen @date 1994-01-06
+integer function lmsg(sec0) result(iret)
+
+  implicit none
+
+  integer msec0(2), nmwrd
+
+  character*8, intent(in) :: sec0
+  character*8 csec0
+
+  equivalence(msec0,csec0)
+
+  csec0 = sec0
+  iret = nmwrd(msec0)
+
+  return
+end function lmsg
