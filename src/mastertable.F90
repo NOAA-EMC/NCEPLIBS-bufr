@@ -121,7 +121,7 @@ subroutine mtfnam ( imt, imtv, iogce, imtvl, tbltyp, stdfil, locfil )
   inquire ( file = stdfil, exist = found )
   if ( .not. found ) then
     bort_str = 'BUFRLIB: MTFNAM - COULD NOT FIND STANDARD FILE:'
-    call bort2(bort_str,stdfil)
+    call bort2(bort_str, stdfil)
   endif
 
   ! Now determine the local master table path/filename.
@@ -146,12 +146,199 @@ subroutine mtfnam ( imt, imtv, iogce, imtvl, tbltyp, stdfil, locfil )
     inquire ( file = locfil, exist = found )
     if ( .not. found ) then
       bort_str = 'BUFRLIB: MTFNAM - COULD NOT FIND LOCAL FILE:'
-      call bort2(bort_str,locfil)
+      call bort2(bort_str, locfil)
     endif
   endif
 
   return
 end subroutine mtfnam
+
+!> Check the most recent BUFR message that was read via a call to one of the [message-reading subroutines](@ref hierarchy)
+!> and determine whether the appropriate corresponding BUFR master tables have already been read into internal memory.
+!>
+!> If not, then open the appropriate master BUFR tables on the
+!> local file system and read the contents into internal
+!> memory, clearing any previous master BUFR table information that
+!> may have previously been stored there.
+!>
+!> @param lun - File ID
+!> @returns ireadmt - Flag indicating whether new master BUFR tables needed to be read into internal memory:
+!> - 0 = No
+!> - 1 = Yes
+!>
+!> Information about the location of master BUFR tables on the
+!> local file system is obtained from the most recent call to
+!> subroutine mtinfo(), or else from subroutine bfrini() if
+!> subroutine mtinfo() was never called, and in which case Fortran
+!> logical unit numbers 98 and 99 will be used by this function
+!> for opening and reading master BUFR table files.
+!>
+!> @author J. Ator @date 2009-03-23
+integer function ireadmt ( lun ) result ( iret )
+
+  use bufrlib
+
+  use modv_vars, only: maxnc, maxcd, mxmtbb, mxmtbd
+
+  use moda_mstabs
+  use moda_bitbuf
+  use moda_rdmtb
+  use moda_sc3bfr
+  use moda_s3list
+
+  implicit none
+
+  integer, intent(in) :: lun
+  integer iprt, lun1, lun2, lmtd, lmt, lmtv, logce, lmtvl, imt, imtv, iogce, imtvl, ii, jj, idx, ncds3, ier, &
+    ibmt, ibmtv, ibogce, ibltv, idmt, idmtv, idogce, idltv, iupbs01, ifxy, istdesc
+
+  character*(*), parameter :: bort_str1 = 'BUFRLIB: IREADMT - COULD NOT OPEN STANDARD FILE:'
+  character*(*), parameter :: bort_str2 = 'BUFRLIB: IREADMT - COULD NOT OPEN LOCAL FILE:'
+  character*275 stdfil,locfil
+  character*240 mtdir
+  character cdmf
+
+  logical allstd
+
+  common /quiet/ iprt
+  common /mstinf/ lun1, lun2, lmtd, mtdir
+  common /tablef/ cdmf
+
+  ! Initializing the following value ensures that new master tables are read during the first call to this subroutine.
+
+  data lmt /-99/
+
+  save lmt, lmtv, logce, lmtvl
+
+  iret = 0
+
+  ! Unpack some Section 1 information from the message that was most recently read.
+
+  imt  = iupbs01 ( mbay(1,lun), 'BMT' )
+  imtv = iupbs01 ( mbay(1,lun), 'MTV' )
+  iogce = iupbs01 ( mbay(1,lun), 'OGCE' )
+  imtvl = iupbs01 ( mbay(1,lun), 'MTVL' )
+
+  ! Compare the master table and master table version numbers from this message to those from the message that was
+  ! processed during the previous call to this subroutine.
+
+  if (  ( imt .ne. lmt )  .or.  ( ( imt .ne. 0 ) .and. ( imtv .ne. lmtv ) )  .or. &
+          ( ( imt .eq. 0 ) .and. ( imtv .ne. lmtv ) .and. ( ( imtv .gt. 13 ) .or. ( lmtv .gt. 13 ) ) )  )  then
+    ! Either the master table number has changed
+    !       OR
+    ! The master table number hasn't changed, but it isn't 0, and the table version number has changed
+    !       OR
+    ! The master table number hasn't changed and is 0, but the table version number has changed, and at least one of the
+    ! table version numbers (i.e. the current or the previous) is greater than 13 (which is the last version that was a
+    ! superset of all earlier versions of master table 0!)
+
+    ! In any of these cases, we need to read in new tables!
+    iret = 1
+
+  else
+
+    ! Unpack the list of Section 3 descriptors from the message and determine if any of them are local descriptors.
+    call upds3 ( mbay(1,lun), maxnc, cds3, ncds3 )
+    ii = 1
+    allstd = .true.
+    do while ( (allstd) .and. (ii.le.ncds3) )
+      if ( istdesc(ifxy(cds3(ii))) .eq. 0 ) then
+        allstd = .false.
+      else
+        ii = ii + 1
+      endif
+    enddo
+
+    ! If there was at least one local (i.e. non-standard) descriptor, and if either the originating center or local table
+    ! version number are different than those from the message that was processed during the previous call to this subroutine,
+    ! then we need to read in new tables.
+    if ( ( .not. allstd ) .and. ( ( iogce .ne. logce ) .or. ( imtvl .ne. lmtvl ) ) ) iret = 1
+
+  endif
+
+  if ( iret .eq. 0 ) return
+
+  lmt  = imt
+  lmtv = imtv
+  logce = iogce
+  lmtvl = imtvl
+
+  if ( iprt .ge. 2 ) then
+    call errwrt(' ')
+    call errwrt('+++++++++++++++++++++++++++++++++++++++++++++++++')
+    call errwrt('BUFRLIB: IREADMT - OPENING/READING MASTER TABLES')
+  endif
+
+  if ( isc3(lun) .ne. 0 ) then
+
+    ! Locate and open the master Table B files.  There should be one file of standard descriptors and one file of local
+    ! descriptors.
+    call mtfnam ( imt, imtv, iogce, imtvl, 'TableB', stdfil, locfil )
+    open ( unit = lun1, file = stdfil, iostat = ier )
+    if ( ier .ne. 0 ) call bort2(bort_str1, stdfil)
+    open ( unit = lun2, file = locfil, iostat = ier )
+    if ( ier .ne. 0 ) call bort2(bort_str2, locfil)
+
+    ! Read the master Table B files.
+    call rdmtbb ( lun1, lun2, mxmtbb, ibmt, ibmtv, ibogce, ibltv, nmtb, ibfxyn, cbscl, cbsref, cbbw, &
+      cbunit, cbmnem, cmdscb, cbelem )
+
+    ! Close the master Table B files.
+    close ( unit = lun1 )
+    close ( unit = lun2 )
+
+    ! Locate and open the master Table D files.  There should be one file of standard descriptors and one file of local
+    ! descriptors.
+    call mtfnam ( imt, imtv, iogce, imtvl, 'TableD', stdfil, locfil )
+    open ( unit = lun1, file = stdfil, iostat = ier )
+    if ( ier .ne. 0 ) call bort2(bort_str1, stdfil)
+    open ( unit = lun2, file = locfil, iostat = ier )
+    if ( ier .ne. 0 ) call bort2(bort_str2, locfil)
+
+    ! Read the master Table D files.
+    call rdmtbd ( lun1, lun2, mxmtbd, maxcd, idmt, idmtv, idogce, idltv, nmtd, idfxyn, cdmnem, cmdscd, cdseq, &
+      ndelem, iefxyn, ceelem )
+    do ii = 1, nmtd
+      do jj = 1, ndelem(ii)
+        idx = icvidx_c ( ii-1, jj-1, maxcd ) + 1
+        idefxy(idx) = iefxyn(ii,jj)
+      enddo
+    enddo
+
+    ! Close the master Table D files.
+    close ( unit = lun1 )
+    close ( unit = lun2 )
+
+    ! Copy master table B and D information into internal C arrays.
+    call cpmstabs_c ( nmtb, ibfxyn, cbscl, cbsref, cbbw, cbunit, cbmnem, cbelem, nmtd, idfxyn, cdseq, cdmnem, &
+      ndelem, idefxy, maxcd )
+  endif
+
+  if ( cdmf .eq. 'Y' ) then
+
+    ! Locate and open the master code and flag table files.  There should be one file corresponding to the standard Table B
+    ! descriptors, and one file corresponding to the local Table B descriptors.
+    call mtfnam ( imt, imtv, iogce, imtvl, 'CodeFlag', stdfil, locfil )
+    open ( unit = lun1, file = stdfil, iostat = ier )
+    if ( ier .ne. 0 ) call bort2(bort_str1, stdfil)
+    open ( unit = lun2, file = locfil, iostat = ier )
+    if ( ier .ne. 0 ) call bort2(bort_str2, locfil)
+
+    ! Read the master code and flag table files.
+    call rdmtbf ( lun1, lun2 )
+
+    ! Close the master code and flag table files.
+    close ( unit = lun1 )
+    close ( unit = lun2 )
+  endif
+
+  if ( iprt .ge. 2 ) then
+    call errwrt('+++++++++++++++++++++++++++++++++++++++++++++++++')
+    call errwrt(' ')
+  endif
+
+  return
+end function ireadmt
 
 !> Read master Table B information from two separate ASCII files (one standard and one local) and then merge the
 !> output into a single set of arrays.
@@ -398,15 +585,14 @@ subroutine sntbbe ( ifxyn, line, mxmtbb, nmtbb, imfxyn, cmscl, cmsref, cmbw, cmu
   integer, intent(out) :: nmtbb, imfxyn(*)
   integer ntag, ii, nemock
 
-  character*(*), intent(in) :: line
   character, intent(out) :: cmelem(120,*), cmunit(24,*), cmsref(12,*), cmmnem(8,*), cmscl(4,*), cmbw(4,*), cmdsc(*)*4
+  character*(*), intent(in) :: line
+  character*(*), parameter :: bort_str1_head = 'BUFRLIB: SNTBBE - TABLE B ENTRY FOR ELEMENT DESCRIPTOR: '
   character*200 tags(10), wktag
   character*128 bort_str1, bort_str2
 
   if ( nmtbb .ge. mxmtbb ) call bort('BUFRLIB: SNTBBE - OVERFLOW OF MERGED ARRAYS')
   nmtbb = nmtbb + 1
-
-  bort_str1 = 'BUFRLIB: SNTBBE - CARD BEGINNING WITH: ' // line(1:20)
 
   ! Store the FXY number.  This is the element descriptor.
 
@@ -416,16 +602,18 @@ subroutine sntbbe ( ifxyn, line, mxmtbb, nmtbb, imfxyn, cmscl, cmsref, cmbw, cmu
 
   call parstr ( line, tags, 10, ntag, '|', .false. )
   if ( ntag .lt. 4 ) then
+    call sntbestr(bort_str1_head, ifxyn, bort_str1)
     bort_str2 = '                  HAS TOO FEW FIELDS'
-    call bort2(bort_str1,bort_str2)
+    call bort2(bort_str1, bort_str2)
   endif
 
   ! Scale factor.
 
   tags(2) = adjustl( tags(2) )
   if ( tags(2) .eq. ' ' ) then
+    call sntbestr(bort_str1_head, ifxyn, bort_str1)
     bort_str2 = '                  HAS MISSING SCALE FACTOR'
-    call bort2(bort_str1,bort_str2)
+    call bort2(bort_str1, bort_str2)
   endif
   tags(2)(1:4) = adjustr( tags(2)(1:4) )
   do ii = 1, 4
@@ -436,8 +624,9 @@ subroutine sntbbe ( ifxyn, line, mxmtbb, nmtbb, imfxyn, cmscl, cmsref, cmbw, cmu
 
   tags(3) = adjustl( tags(3) )
   if ( tags(3) .eq. ' ' ) then
+    call sntbestr(bort_str1_head, ifxyn, bort_str1)
     bort_str2 = '                  HAS MISSING REFERENCE VALUE'
-    call bort2(bort_str1,bort_str2)
+    call bort2(bort_str1, bort_str2)
   endif
   tags(3)(1:12) = adjustr( tags(3)(1:12) )
   do ii = 1, 12
@@ -448,8 +637,9 @@ subroutine sntbbe ( ifxyn, line, mxmtbb, nmtbb, imfxyn, cmscl, cmsref, cmbw, cmu
 
   tags(4) = adjustl( tags(4) )
   if ( tags(4) .eq. ' ' ) then
+    call sntbestr(bort_str1_head, ifxyn, bort_str1)
     bort_str2 = '                  HAS MISSING BIT WIDTH'
-    call bort2(bort_str1,bort_str2)
+    call bort2(bort_str1, bort_str2)
   endif
   tags(4)(1:4) = adjustr( tags(4)(1:4) )
   do ii = 1, 4
@@ -486,8 +676,9 @@ subroutine sntbbe ( ifxyn, line, mxmtbb, nmtbb, imfxyn, cmscl, cmsref, cmbw, cmu
       tags(1) = adjustl( tags(1) )
       ! If there is a mnemonic, then make sure it's legal.
       if ( ( tags(1) .ne. ' ' ) .and. ( nemock ( tags(1) ) .ne. 0 ) ) then
+        call sntbestr(bort_str1_head, ifxyn, bort_str1)
         bort_str2 = '                  HAS ILLEGAL MNEMONIC'
-        call bort2(bort_str1,bort_str2)
+        call bort2(bort_str1, bort_str2)
       endif
       do ii = 1, 8
         cmmnem ( ii, nmtbb ) = tags(1)(ii:ii)
@@ -527,7 +718,7 @@ end subroutine sntbbe
 !> @param cmseq - Merged array containing sequence names
 !> @param nmelem - Merged array containing number of elements stored for each sequence
 !> @param iefxyn - Merged array containing WMO bit-wise representations of element FXY numbers
-!> @param ceelem - Merged array containing  element names
+!> @param ceelem - Merged array containing element names
 !>
 !> @author J. Ator @date 2007-01-19
 subroutine sntbde ( lunt, ifxyn, line, mxmtbd, mxelem, nmtbd, imfxyn, cmmnem, cmdsc, cmseq, nmelem, iefxyn, ceelem )
@@ -539,19 +730,16 @@ subroutine sntbde ( lunt, ifxyn, line, mxmtbd, mxelem, nmtbd, imfxyn, cmmnem, cm
   integer ii, ipt, ntag, nelem, nemock, ifxy, igetfxy, igetntbl
 
   character*(*), intent(in) :: line
+  character*(*), parameter :: bort_str1_head = 'BUFRLIB:  SNTBDE - TABLE D ENTRY FOR SEQUENCE DESCRIPTOR: '
   character, intent(out) :: cmseq(120,*), cmmnem(8,*), cmdsc(*)*4, ceelem(mxmtbd,mxelem)*120
   character*200 tags(10), cline
   character*128 bort_str1, bort_str2
-  character*6 adn30, adsc, clemon
+  character*6 adsc
 
   logical done
 
   if ( nmtbd .ge. mxmtbd ) call bort('BUFRLIB: SNTBDE - OVERFLOW OF MERGED ARRAYS')
   nmtbd = nmtbd + 1
-
-  clemon = adn30 ( ifxyn, 6 )
-  write(bort_str1,'("BUFRLIB: SNTBDE - TABLE D ENTRY FOR SEQUENCE DESCRIPTOR: ",5A)') &
-    clemon(1:1), '-', clemon(2:3), '-', clemon(4:6)
 
   ! Store the FXY number.  This is the sequence descriptor.
 
@@ -575,8 +763,9 @@ subroutine sntbde ( lunt, ifxyn, line, mxmtbd, mxelem, nmtbd, imfxyn, cmmnem, cm
       tags(1) = adjustl( tags(1) )
       ! If there is a mnemonic, then make sure it's legal.
       if ( ( tags(1) .ne. ' ' ) .and. ( nemock ( tags(1) ) .ne. 0 ) ) then
+        call sntbestr(bort_str1_head, ifxyn, bort_str1)
         bort_str2 = '                  HAS ILLEGAL MNEMONIC'
-        call bort2(bort_str1,bort_str2)
+        call bort2(bort_str1, bort_str2)
       endif
       do ii = 1, 8
         cmmnem ( ii, nmtbd ) = tags(1)(ii:ii)
@@ -603,18 +792,21 @@ subroutine sntbde ( lunt, ifxyn, line, mxmtbd, mxelem, nmtbd, imfxyn, cmmnem, cm
   done = .false.
   do while ( .not. done )
     if ( igetntbl ( lunt, cline ) .ne. 0 ) then
+      call sntbestr(bort_str1_head, ifxyn, bort_str1)
       bort_str2 = '                  IS INCOMPLETE'
-      call bort2(bort_str1,bort_str2)
+      call bort2(bort_str1, bort_str2)
     endif
     call parstr ( cline, tags, 10, ntag, '|', .false. )
     if ( ntag .lt. 2 ) then
+      call sntbestr(bort_str1_head, ifxyn, bort_str1)
       bort_str2 = '                  HAS BAD ELEMENT CARD'
-      call bort2(bort_str1,bort_str2)
+      call bort2(bort_str1, bort_str2)
     endif
     ! The second field contains the FXY number for this element.
     if ( igetfxy ( tags(2), adsc ) .ne. 0 ) then
+      call sntbestr(bort_str1_head, ifxyn, bort_str1)
       bort_str2 = '                  HAS BAD OR MISSING ELEMENT FXY NUMBER'
-      call bort2(bort_str1,bort_str2)
+      call bort2(bort_str1, bort_str2)
     endif
     if ( nelem .ge. mxelem ) CALL BORT('BUFRLIB: SNTBDE - OVERFLOW OF MERGED ARRAYS')
     nelem = nelem + 1
@@ -651,18 +843,15 @@ subroutine sntbfe ( lunt, ifxyn )
   integer idfxy(10), idval(25), nidfxy, nidval, ntag, ii, jj, ival, ier, ipt, lt3, ifxy, igetfxy, igetntbl
 
   character*160 cline, tags(4), cdstr(2), adsc(10), cval(25)
+  character*(*), parameter :: bort_str1_head = 'BUFRLIB: SNTBFE - TABLE F ENTRY FOR ELEMENT DESCRIPTOR: '
   character*128 bort_str1, bort_str2
-  character*6 adn30, clemon, cdsc
+  character*6 cdsc
 
   logical done, lstnblk
 
   ! We already have the FXY number.  Now we need to read and parse all of the remaining lines from the table entry for this
   ! FXY number.  The information for each individual code figure or bit number will then be stored as a separate entry within
   ! the internal memory structure.
-
-  clemon = adn30 ( ifxyn, 6 )
-  write(bort_str1,'("BUFRLIB: SNTBFE - TABLE F ENTRY FOR ELEMENT DESCRIPTOR: ",5A)') &
-    clemon(1:1), '-', clemon(2:3), '-', clemon(4:6)
 
   done = .false.
   nidfxy = 0
@@ -671,14 +860,16 @@ subroutine sntbfe ( lunt, ifxyn )
   do while ( .not. done )
 
     if ( igetntbl ( lunt, cline ) .ne. 0 ) then
+      call sntbestr(bort_str1_head, ifxyn, bort_str1)
       bort_str2 = '                  IS INCOMPLETE'
-      call bort2(bort_str1,bort_str2)
+      call bort2(bort_str1, bort_str2)
     endif
 
     call parstr ( cline, tags, 4, ntag, '|', .false. )
     if ( ( ntag .lt. 2 ) .or. ( ntag .gt. 3 ) ) then
+      call sntbestr(bort_str1_head, ifxyn, bort_str1)
       bort_str2 = '                  HAS BAD CARD'
-      call bort2(bort_str1,bort_str2)
+      call bort2(bort_str1, bort_str2)
     endif
 
     if ( ntag .eq. 2 ) then
@@ -687,34 +878,39 @@ subroutine sntbfe ( lunt, ifxyn )
 
       call parstr ( tags(2), cdstr, 2, ntag, '=', .false. )
       if ( ntag .ne. 2 ) then
+        call sntbestr(bort_str1_head, ifxyn, bort_str1)
         bort_str2 = '           HAS BAD DEPENDENCY CARD'
-        call bort2(bort_str1,bort_str2)
+        call bort2(bort_str1, bort_str2)
       endif
       ! Parse the list of FXY numbers.
       call parstr ( cdstr(1), adsc, 10, nidfxy, ',', .false. )
       if ( ( nidfxy .eq. 0 ) .or. ( ( nidfxy .eq. 1 ) .and. ( adsc(1) .eq. ' ' ) ) ) then
+        call sntbestr(bort_str1_head, ifxyn, bort_str1)
         bort_str2 = '        HAS BAD DEPENDENCY LIST (FXY)'
-        call bort2(bort_str1,bort_str2)
+        call bort2(bort_str1, bort_str2)
       endif
       do ii = 1, nidfxy
         if ( igetfxy ( adsc(ii), cdsc ) .ne. 0 ) then
+          call sntbestr(bort_str1_head, ifxyn, bort_str1)
           bort_str2 = '        HAS BAD DEPENDENCY (FXY)'
-          call bort2(bort_str1,bort_str2)
+          call bort2(bort_str1, bort_str2)
         endif
         idfxy(ii) = ifxy( cdsc )
       enddo
       ! Parse the list of values.
       call parstr ( cdstr(2), cval, 25, nidval, ',', .false. )
       if ( ( nidval .eq. 0 ) .or. ( ( nidval .eq. 1 ) .and. ( cval(1) .eq. ' ' ) ) ) then
+        call sntbestr(bort_str1_head, ifxyn, bort_str1)
         bort_str2 = '        HAS BAD DEPENDENCY LIST (VAL)'
-        call bort2(bort_str1,bort_str2)
+        call bort2(bort_str1, bort_str2)
       endif
       do ii = 1, nidval
         cval(ii) = adjustl( cval(ii) )
         call strnum ( cval(ii), ival, ier )
         if ( ier .ne. 0 ) then
+          call sntbestr(bort_str1_head, ifxyn, bort_str1)
           bort_str2 = '        HAS BAD DEPENDENCY (VAL)'
-          call bort2(bort_str1,bort_str2)
+          call bort2(bort_str1, bort_str2)
         endif
         idval(ii) = ival
       enddo
@@ -760,3 +956,222 @@ subroutine sntbfe ( lunt, ifxyn )
 
   return
 end subroutine sntbfe
+
+!> Generate an error-reporting string containing an FXY number
+!>
+!> @param hestr - Head portion of error-reporting string
+!> @param ifxyn - WMO bit-wise representation of FXY number
+!> @param estr - Error-reporting string
+!>
+!> @author J. Ator @date 2024-04-15
+subroutine sntbestr ( hestr, ifxyn, estr )
+
+  implicit none
+
+  character*(*), intent(in) :: hestr
+  character*(*), intent(out) :: estr
+  character*6 adn30, clemon
+
+  integer, intent(in) :: ifxyn
+
+  clemon = adn30 ( ifxyn, 6 )
+  estr = hestr // clemon(1:1) // '-' // clemon(2:3) // '-' // clemon(4:6)
+
+  return
+end subroutine sntbestr
+
+!> Read the next line from an ASCII master table B, table D or Code/Flag table file, ignoring any blank lines or comment
+!> lines in the process.
+!>
+!> @param lunt - Fortran logical unit number for ASCII file containing table information
+!> @param line - Next non-blank, non-comment line that was read from lunt
+!> @returns igetntbl:
+!>    -  0 = normal return
+!>    - -1 = end-of-file encountered while reading from lunt
+!>
+!> @author J. Ator @date 2007-01-19
+integer function igetntbl ( lunt, line ) result ( iret )
+
+  implicit none
+
+  integer, intent(in) :: lunt
+  integer ier
+
+  character*(*), intent(out) :: line
+
+  do while (.true.)
+    read ( lunt, '(A)', iostat = ier ) line
+    if ( ( ier .ne. 0 ) .or. ( line(1:3) .eq. 'END' ) ) then
+      iret = -1
+      return
+    endif
+    if ( ( line .ne. ' ' ) .and. ( line(1:1) .ne. '#' ) ) then
+      iret = 0
+      return
+    endif
+  enddo
+
+end function igetntbl
+
+!> Depending on the value of the input flag, either return the next usable scratch Table D index for the
+!> current master table, or else reset the index back to its minimum value.
+!>
+!> @param iflag - Flag:
+!>   - if set to 0, then the function will reset the scratch Table D index back to its minimum value
+!>   - otherwise, the function will return the next usable scratch Table D index for the current master table
+!>
+!> @return - igettdi:
+!>   - -1 if function was called with iflag = 0
+!>   - otherwise, the next usable scratch Table D index for the current master table
+!>
+!> @author J. Ator @date 2009-03-23
+integer function igettdi ( iflag ) result ( iret )
+
+  implicit none
+
+  integer, intent(in) :: iflag
+  integer, parameter :: idxmin = 62976   ! = ifxy('354000')
+  integer, parameter :: idxmax = 63231   ! = ifxy('354255')
+  integer idx
+
+  save idx
+
+  if ( iflag .eq. 0 ) then
+    ! Initialize the index to one less than the actual minimum value.  That way, the next normal call will return the
+    ! minimum value.
+    idx = idxmin - 1
+    iret = -1
+  else
+    idx = idx + 1
+    if ( idx .gt. idxmax ) call bort('BUFRLIB: IGETTDI - IDXMAX OVERFLOW')
+    iret = idx
+  endif
+
+  return
+end function igettdi
+
+!> Read the header lines from two separate ASCII files (one standard and one local) containing master table B, table D,
+!> or Code/Flag table information.
+!>
+!> @param luns - Fortran logical unit number for ASCII file containing standard table information
+!> @param lunl - Fortran logical unit number for ASCII file containing local table information
+!> @param tab - character: Type of table:
+!>    - 'B' = Table B
+!>    - 'D' = Table D
+!>    - 'F' = Code/Flag table
+!> @param imt - Master table
+!>    - This value is read from both ASCII files and must be identical between them
+!> @param imtv - Version number of master table
+!>    - This value is read from the standard ASCII file
+!> @param iogce - Originating center
+!>    - This value is read from the local ASCII file
+!> @param iltv - Version number of local table
+!>    - This value is read from the local ASCII file
+!>
+!> @author J. Ator @date 2007-01-19
+subroutine gettbh ( luns, lunl, tab, imt, imtv, iogce, iltv )
+
+  implicit none
+
+  integer, intent(in) :: luns, lunl
+  integer, intent(out) :: imt, imtv, iogce, iltv
+  integer ntag, imt2, iersn, igetntbl
+
+  character, intent(in) :: tab
+
+  character*128 bort_str
+  character*(*), parameter :: bort_str_head = 'BUFRLIB: GETTBH - BAD OR MISSING HEADER WITHIN '
+  character*40 header
+  character*30 tags(5), label
+  character*3 cftyp
+  character*2 cttyp
+
+  logical badlabel
+
+  ! Statement function to check for bad header line label
+  badlabel ( label ) = ( ( index ( label, cttyp ) .eq. 0 ) .or. ( index ( label, cftyp ) .eq. 0 ) )
+
+  cttyp = tab // ' '
+
+  ! Read and parse the header line of the standard file.
+
+  cftyp = 'STD'
+  if ( igetntbl ( luns, header ) .ne. 0 ) then
+    bort_str = bort_str_head // cftyp // ' TABLE ' // tab
+    call bort(bort_str)
+  endif
+  call parstr ( header, tags, 5, ntag, '|', .false. )
+  if ( ( ntag .lt. 3 ) .or. ( badlabel ( tags(1) ) ) ) then
+    bort_str = bort_str_head // cftyp // ' TABLE ' // tab
+    call bort(bort_str)
+  endif
+  call strnum ( tags(2), imt, iersn )
+  call strnum ( tags(3), imtv, iersn )
+
+  ! Read and parse the header line of the local file.
+
+  cftyp = 'LOC'
+  if ( igetntbl ( lunl, header ) .ne. 0 ) then
+    bort_str = bort_str_head // cftyp // ' TABLE ' // tab
+    call bort(bort_str)
+  endif
+  call parstr ( header, tags, 5, ntag, '|', .false. )
+  if ( ( ntag .lt. 4 ) .or. ( badlabel ( tags(1) ) ) ) then
+    bort_str = bort_str_head // cftyp // ' TABLE ' // tab
+    call bort(bort_str)
+  endif
+  call strnum ( tags(2), imt2, iersn )
+  call strnum ( tags(3), iogce, iersn )
+  call strnum ( tags(4), iltv, iersn )
+
+  ! Verify that both files are for the same master table.
+
+  if ( imt .ne. imt2 ) then
+    write(bort_str,'("BUFRLIB: GETTBH - MASTER TABLE NUMBER MISMATCH BETWEEN STD AND LOC TABLE ",A)') tab
+    call bort(bort_str)
+  endif
+
+  return
+end subroutine gettbh
+
+!> Read the first line of the next entry from the specified ASCII master table B, table D or table F (Code/Flag) file.
+!> This line contains, among other things, the FXY number corresponding to this entry.
+!>
+!> @param lunt - Fortran logical unit number of master table B, table D or Code/Flag table file
+!> @param ifxyn - WMO bit-wise representation of FXY number for next table entry
+!> @param line - First line of next table entry
+!> @param iret - Return code
+!>  - 0 = normal return
+!>  - -1 = end-of-file encountered while reading from lunt
+!>
+!> @author J. Ator @date 2007-01-19
+subroutine getntbe ( lunt, ifxyn, line, iret )
+
+  implicit none
+
+  integer, intent(in) :: lunt
+  integer, intent(out) :: ifxyn, iret
+  integer ntag, igetfxy, ifxy, igetntbl
+
+  character*(*), intent(out) :: line
+  character*128 bort_str1, bort_str2
+  character*20 tags(4)
+  character*6 adsc
+
+  ! Get the first line of the next entry in the file.
+
+  iret = igetntbl ( lunt, line )
+  if ( iret .eq. 0 ) then
+    ! The first field within this line should contain the FXY number.
+    call parstr ( line(1:20), tags, 4, ntag, '|', .false. )
+    if ( igetfxy ( tags(1), adsc ) .ne. 0 ) then
+      bort_str1 = 'BUFRLIB: GETNTBE - CARD BEGINNING WITH: ' // line(1:20)
+      bort_str2 = '                  HAS BAD OR MISSING FXY NUMBER'
+      call bort2(bort_str1, bort_str2)
+    endif
+    ! Store the WMO bit-wise representation of the FXY number.
+    ifxyn = ifxy ( adsc )
+  endif
+
+  return
+end subroutine getntbe

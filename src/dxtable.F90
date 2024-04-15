@@ -1140,3 +1140,43 @@ integer function idxmsg( mesg ) result( iret )
 
   return
 end function idxmsg
+
+!> Get the next available index for storing an entry within a specified internal DX BUFR table.
+!>
+!> @param lun - File ID
+!> @param ctb - Type of internal DX BUFR table for which to return the next available index:
+!>    - 'A' = Table A
+!>    - 'B' = Table B
+!>    - 'D' = Table D
+!> @returns igetntbi - integer: Next available index for storing an entry within ctb
+!>
+!> @author J. Ator @date 2009-03-23
+integer function igetntbi ( lun, ctb ) result(iret)
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: lun
+  integer imax
+
+  character, intent(in) :: ctb
+  character*128 bort_str
+
+  if ( ctb .eq. 'A' ) then
+    iret = ntba(lun) + 1
+    imax = ntba(0)
+  else if ( ctb .eq. 'B' ) then
+    iret = ntbb(lun) + 1
+    imax = ntbb(0)
+  else  ! ctb .eq. 'D'
+    iret = ntbd(lun) + 1
+    imax = ntbd(0)
+  endif
+  if ( iret .gt. imax ) then
+    write(bort_str,'("BUFRLIB: IGETNTBI - NUMBER OF INTERNAL TABLE",A1," ENTRIES EXCEEDS THE LIMIT (",I4,")")') ctb, imax
+    call bort(bort_str)
+  endif
+
+  return
+end function igetntbi

@@ -1235,7 +1235,7 @@ program test_bort
         card = '  0-00-007 |   0 |           0 |  16 |                   | CMTV$    ;     ;     '
      endif
      jret = 0
-     call sntbbe(0, card, 1, jret, int_1d, char_4, char_12, char_4, char_24, char_8, char_4, char_120)
+     call sntbbe(7, card, 1, jret, int_1d, char_4, char_12, char_4, char_24, char_8, char_4, char_120)
   elseif (sub_name .eq. 'sntbde') then
      card = '  3-01-022 | LTLONHHT   ;     ;                                                 '
      if (test_case .eq. '1') then
