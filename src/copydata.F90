@@ -717,3 +717,31 @@ subroutine cpbfdx(lud,lun)
 
   return
 end subroutine cpbfdx
+
+!> Copy a specified number of bytes from one packed binary array to another.
+!>
+!> @param ib1 - Packed input binary array
+!> @param nb1 - Pointer to first byte in ib1 to copy from
+!> @param ib2 - Packed output binary array
+!> @param nb2 - Pointer to first byte in ib2 to copy to
+!> @param nbm - Number of bytes to copy
+!>
+!> @author Woollen @date 1994-01-06
+subroutine mvb(ib1,nb1,ib2,nb2,nbm)
+
+  implicit none
+
+  integer, intent(in) :: ib1(*), nb1, nb2, nbm
+  integer, intent(out) :: ib2(*)
+  integer jb1, jb2, n, nval
+
+  jb1 = 8*(nb1-1)
+  jb2 = 8*(nb2-1)
+
+  do n=1,nbm
+    call upb(nval,8,ib1,jb1)
+    call pkb(nval,8,ib2,jb2)
+  enddo
+
+  return
+end subroutine mvb

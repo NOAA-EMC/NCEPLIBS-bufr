@@ -596,3 +596,186 @@ recursive subroutine rdmgsb(lunit,imsg,isub)
 
   return
 end subroutine rdmgsb
+
+!> Write an uncompressed BUFR data subset.
+!>
+!> Pack up the current subset within memory (array ibay in module @ref moda_bitbuf), then try to add it to the
+!> uncompressed BUFR message that is currently open within memory for LUNIT (array mbay in module @ref moda_bitbuf).
+!> If the subset will not fit
+!> into the currently open message, or if the subset byte count exceeds
+!> 65530 (sufficiently close to the 16-bit byte counter upper limit of
+!> 65535), then that message is flushed to lunit and a new one is
+!> created in order to hold the current subset. Any subset with byte
+!> count > 65530 will be written into its own one-subset message.
+!> if the current subset is larger than the maximum message length,
+!> then the subset is discarded and a diagnostic is printed.
+!>
+!> @param lunit - Fortran logical unit number for BUFR file.
+!> @param lun - File ID associated with lunit
+!>
+!> @author Woollen @date 1994-01-06
+subroutine msgupd(lunit,lun)
+
+  use moda_msgcwd
+  use moda_bitbuf
+  use moda_h4wlc
+
+  implicit none
+
+  integer, intent(in) :: lunit, lun
+  integer nby0, nby1, nby2, nby3, nby4, nby5, iprt, ibyt, lbyt, lbit, nbyt, ii, iupb
+
+  logical msgfull
+
+  character*128 errstr
+
+  common /msgptr/ nby0, nby1, nby2, nby3, nby4, nby5
+  common /quiet/ iprt
+
+  ! Pad the subset buffer
+
+  call pad(ibay,ibit,ibyt,8)
+
+  ! Check whether the new subset should be written into the currently open message
+
+  if(msgfull(mbyt(lun),ibyt,maxbyt) .or. ((ibyt.gt.65530).and.(nsub(lun).gt.0))) then
+    ! No it should not, either because it doesn't fit
+    !      OR
+    ! It has byte count > 65530 (sufficiently close to the upper limit for the 16 bit byte counter placed at the beginning
+    ! of each subset), and the current message has at least one subset in it
+    !
+    ! In either of these cases, we need to write out the current message and then create a new one to hold the current subset
+    call msgwrt(lunit,mbay(1,lun),mbyt(lun))
+    call msgini(lun)
+  endif
+
+  if(msgfull(mbyt(lun),ibyt,maxbyt)) then
+    ! This is an overlarge subset that won't fit in any message given the current value of maxbyt, so discard the subset
+    ! and exit gracefully.
+    if(iprt.ge.0) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      write ( unit=errstr, fmt='(A,A,I7,A)') 'BUFRLIB: MSGUPD - SUBSET LONGER THAN ANY POSSIBLE MESSAGE ', &
+        '{MAXIMUM MESSAGE LENGTH = ', maxbyt, '}'
+      call errwrt(errstr)
+      call errwrt('>>>>>>>OVERLARGE SUBSET DISCARDED FROM FILE<<<<<<<<')
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+    call usrtpl(lun,1,1)
+    return
+  endif
+
+  ! Set a byte count and transfer the subset buffer into the message
+
+  lbit = 0
+  call pkb(ibyt,16,ibay,lbit)
+
+  ! Note that we want to append the data for this subset to the end of Section 4, but the value in mbyt(lun) already includes
+  ! the length of Section 5 (i.e. 4 bytes).  Therefore, we need to begin writing at the point 3 bytes prior to the byte
+  ! currently pointed to by mbyt(lun).
+
+  call mvb(ibay,1,mbay(1,lun),mbyt(lun)-3,ibyt)
+
+  ! Update the subset and byte counters
+
+  mbyt(lun) = mbyt(lun) + ibyt
+  nsub(lun) = nsub(lun) + 1
+
+  lbit = (nby0+nby1+nby2+4)*8
+  call pkb(nsub(lun),16,mbay(1,lun),lbit)
+
+  lbyt = nby0+nby1+nby2+nby3
+  nbyt = iupb(mbay(1,lun),lbyt+1,24)
+  lbit = lbyt*8
+  call pkb(nbyt+ibyt,24,mbay(1,lun),lbit)
+
+  ! If any long character strings are being held internally for storage into this subset, store them now
+
+  if(nh4wlc.gt.0) then
+    do ii = 1, nh4wlc
+      call writlc(luh4wlc(ii),chh4wlc(ii),sth4wlc(ii))
+    enddo
+    nh4wlc = 0
+  endif
+
+  ! If the subset byte count is > 65530, then give it its own one-subset message (cannot have any other subsets in this
+  ! message because their beginning would be beyond the upper limit of 65535 in the 16-bit byte counter, meaning they
+  ! could not be located!)
+
+  if(ibyt.gt.65530) then
+    if(iprt.ge.1) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      write ( unit=errstr, fmt='(A,I7,A,A)') 'BUFRLIB: MSGUPD - SUBSET HAS BYTE COUNT = ',ibyt,' > UPPER LIMIT OF 65535'
+      call errwrt(errstr)
+      call errwrt('>>>>>>>WILL BE WRITTEN INTO ITS OWN MESSAGE<<<<<<<<')
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+    call msgwrt(lunit,mbay(1,lun),mbyt(lun))
+    call msgini(lun)
+  endif
+
+  ! Reset the user arrays
+
+  call usrtpl(lun,1,1)
+
+  return
+end subroutine msgupd
+
+!> Pad a BUFR data subset with zeroed-out bits up to the next byte boundary.
+!>
+!> Pack the value for the number of bits being "padded", starting with bit
+!> ibit+1 and using eight bits in the packed array ibay (which
+!> represents a subset packed into ibit bits). Then, starting with
+!> ibit+9, pack zeroes (i.e., "pads") to the specified bit
+!> boundary (ipadb).
+!>
+!> Note that it's the number of bits padded here that
+!> was packed in bits ibit+1 through ibit+8 - this is actually a
+!> delayed replication factor! ipadb must be a multiple of eight and
+!> represents the bit boundary on which the packed subset in ibay
+!> should end after padding. For example, if ipadb is "8", then the
+!> number of bits in ibay actually consumed by packed data (including
+!> the padding) will be a multiple of eight. If ipadb is "16", it
+!> will be a multiple of sixteen.  in either (or any) case, this
+!> ensures that the packed subset will always end on a full byte
+!> boundary.
+!>
+!> @param ibay - BUFR data subset:
+!>  - on input, contains BUFR data subset to be padded
+!>  - on output, contains BUFR data subset padded with zeroed-out bits up to ipadb
+!> @param ibit - Bit pointer:
+!>  - on input, contains bit pointer within ibay after which to begin padding
+!>  - on output, contains bit pointer within ibay to last bit that was padded
+!> @param ibyt - integer: number of bytes within ibay containing packed data, including padding
+!> @param ipadb - integer: bit boundary to pad to (must be a multiple of 8)
+!>
+!> @author Woollen @date 1994-01-06
+subroutine pad(ibay,ibit,ibyt,ipadb)
+
+  implicit none
+
+  integer, intent(inout) :: ibay(*), ibit
+  integer, intent(in) :: ipadb
+  integer, intent(out) :: ibyt
+  integer ipad
+
+  character*128 bort_str
+
+  ! Pad the subset to an ipadb bit boundary
+
+  ipad = ipadb - mod(ibit+8,ipadb)
+  ! First pack the # of bits being padded (this is a delayed replication factor)
+  call pkb(ipad,8,ibay,ibit)
+  ! Now pad with zeroes to the byte boundary
+  call pkb(0,ipad,ibay,ibit)
+  ibyt = ibit/8
+
+  if(mod(ibit,8).ne.0) then
+    write(bort_str,'("BUFRLIB: PAD - THE NUMBER OF BITS IN A PACKED'// &
+      ' SUBSET AFTER PADDING (",I8,") IS NOT A MULTIPLE OF 8")') ibit
+    call bort(bort_str)
+  endif
+
+  return
+end subroutine pad
