@@ -40,6 +40,7 @@ class Bufr(CMakePackage):
 
     variant("python", default=False, description="Enable Python interface")
     variant("shared", default=True, description="Build shared libraries", when="@11.5:")
+    variant("test_files", default="none", description="Path to test files")
 
     extends("python", when="+python")
 
@@ -66,6 +67,9 @@ class Bufr(CMakePackage):
             self.define_from_variant("BUILD_SHARED_LIBS", "shared"),
             self.define("BUILD_TESTS", self.run_tests),
         ]
+
+        if not self.spec.satisfies("test_files=none"):
+            args.append(self.define_from_variant("TEST_FILE_DIR", "test_files"))
 
         return args
 
