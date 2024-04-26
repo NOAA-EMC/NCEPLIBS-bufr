@@ -274,7 +274,7 @@ recursive subroutine copysb(lunin,lunot,iret)
     ibit = (mbyt(lin))*8
     call upb(nbyt,16,mbay(1,lin),ibit)
     if (nbyt.gt.65530) then
-      ! This is an oversized subset, so we can't rely on the value of NBYT as being the true size (in bytes) of the subset.
+      ! This is an oversized subset, so we can't rely on the value of nbyt as being the true size (in bytes) of the subset.
       if ( (nsub(lin).eq.0) .and. (msub(lin).eq.1) ) then
         ! But it's also the first and only subset in the message, so we can determine its true size in a different way.
         call getlens(mbay(1,lin), 4, len0, len1, len2, len3, len4, l5)
@@ -541,15 +541,15 @@ subroutine cpyupd(lunit,lin,lun,ibyt)
   endif
 
   if(msgfull(mbyt(lun),ibyt,maxbyt)) then
-    write(bort_str,'("BUFRLIB: CPYUPD - THE LENGTH OF THIS SUBSET EXCEEDS THE MAXIMUM MESSAGE LENGTH (",I6,")")') MAXBYT
+    write(bort_str,'("BUFRLIB: CPYUPD - THE LENGTH OF THIS SUBSET EXCEEDS THE MAXIMUM MESSAGE LENGTH (",I6,")")') maxbyt
     call bort(bort_str)
   endif
 
   ! Transfer subset from one message to the other.
 
-  ! Note that we want to append the data for this subset to the end of Section 4, but the value in MBYT(LUN) already includes
+  ! Note that we want to append the data for this subset to the end of Section 4, but the value in mbyt(lun) already includes
   ! the length of Section 5 (i.e. 4 bytes).  Therefore, we need to begin writing at the point 3 bytes prior to the byte
-  ! currently pointed to by MBYT(LUN).
+  ! currently pointed to by mbyt(lun).
 
   call mvb(mbay(1,lin),mbyt(lin)+1,mbay(1,lun),mbyt(lun)-3,ibyt)
 
@@ -573,7 +573,7 @@ subroutine cpyupd(lunit,lin,lun,ibyt)
   if(ibyt.gt.65530) then
     if(iprt.ge.1) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      write ( unit=errstr, fmt='(A,I7,A,A)') 'BUFRLIB: CPYUPD - SUBSET HAS BYTE COUNT = ',IBYT,' > UPPER LIMIT OF 65535'
+      write ( unit=errstr, fmt='(A,I7,A,A)') 'BUFRLIB: CPYUPD - SUBSET HAS BYTE COUNT = ',ibyt,' > UPPER LIMIT OF 65535'
       call errwrt(errstr)
       call errwrt('>>>>>>>WILL BE COPIED INTO ITS OWN MESSAGE<<<<<<<<')
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')

@@ -417,6 +417,9 @@ subroutine arallocf
   allocate( character*(mxlcc) :: cstr(mxcdv), stat=iost )
   if ( iost .ne. 0 ) call bort( brtstr // 'CSTR' )
 
+  allocate( jlnode(mxcdv), stat=iost )
+  if ( iost .ne. 0 ) call bort( brtstr // 'JLNODE' )
+
   ! moda_comprs arrays.
 
   allocate( matx(mxcdv,mxcsb), stat=iost )
@@ -779,6 +782,7 @@ subroutine ardllocf
   deallocate( ityp )
   deallocate( iwid )
   deallocate( cstr )
+  deallocate( jlnode )
 
   ! moda_comprs arrays.
 

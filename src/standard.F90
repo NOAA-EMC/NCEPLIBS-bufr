@@ -202,7 +202,7 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
 
   if(iupbs3(msgin,'ICMP').eq.1) then
 
-!   The data in Section 4 is compressed and is therefore already standardized, so copy it "as is" into the new Section 4.
+    ! The data in Section 4 is compressed and is therefore already standardized, so copy it "as is" into the new Section 4.
 
     if((lbyto+len4+4).gt.mxbyto) call bort(bort_arrayoverflow)
 

@@ -807,7 +807,7 @@ recursive subroutine dxdump(lunit,ldxot)
 
   write (ldxot,'(A)') cardi3
 
-! Create and write out (to ldxot) the closing card.
+  ! Create and write out (to ldxot) the closing card.
 
   card=cardi4
   card( 1: 1)='`'

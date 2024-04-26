@@ -135,6 +135,19 @@ C  ---------------------------------------------------
          GOTO 20
       ELSEIF(NVAL(LUN).GT.MXCDV) THEN
          GOTO 901
+      else if (ncol.gt.0) then
+C        Confirm that all of the nodes are the same as in the previous
+C        subset for this same BUFR message.  If not, then there may be
+C        different nested replication sequences activated in the current
+C        subset vs. in the previous subset, even though the total number
+C        of nodes is the same.
+         do i = 1, nval(lun)
+           if ( inv(i,lun) .ne. jlnode(i) ) then
+             WRIT1 = .TRUE.
+             ICOL = 1
+             GOTO 20
+           endif
+         enddo
       ENDIF
 
 C  STORE THE NEXT SUBSET FOR COMPRESSION
@@ -150,6 +163,7 @@ C     REFERENCE VALUES, INCREMENTS, ETC.)
       IBIT = 16
       DO I=1,NVAL(LUN)
       NODE = INV(I,LUN)
+      jlnode(i) = node
       ITYP(I) = ITP(NODE)
       IWID(I) = IBT(NODE)
       IF(ITYP(I).EQ.1.OR.ITYP(I).EQ.2) THEN
@@ -192,22 +206,7 @@ C          .TRUE. OTHERWISE
          ENDDO
          KMISS = KMIS(I).AND.KMIN(I).LT.IMISS
          RANGE = REAL(MAX(1,KMAX(I)-KMIN(I)+1))
-         IF(ITYP(I).EQ.1.AND.RANGE.GT.1) THEN
-
-C           THE DATA VALUES IN ROW I OF THE COMPRESSION MATRIX
-C           ARE DELAYED DESCRIPTOR REPLICATION FACTORS AND ARE
-C           NOT ALL IDENTICAL (I.E. RANGE.GT.1), SO WE CANNOT
-C           COMPRESS ALL OF THESE SUBSETS INTO THE SAME MESSAGE.
-C           ASSUMING THAT NONE OF THE VALUES ARE "MISSING",
-C           EXCLUDE THE LAST SUBSET (I.E. THE LAST COLUMN
-C           OF THE MATRIX) AND TRY RE-COMPRESSING AGAIN.
-
-            IF(KMISS) GOTO 903
-            WRIT1 = .TRUE.
-            NCOL = NCOL-1
-            ICOL = 1
-            GOTO 20
-         ELSEIF(ITYP(I).EQ.2.AND.(RANGE.GT.1..OR.KMISS)) THEN
+         IF(ITYP(I).EQ.2.AND.(RANGE.GT.1..OR.KMISS)) THEN
 
 C           THE DATA VALUES IN ROW I OF THE COMPRESSION MATRIX
 C           ARE NUMERIC VALUES THAT ARE NOT ALL IDENTICAL.
@@ -399,7 +398,6 @@ C  -----
 902   WRITE(BORT_STR,'("BUFRLIB: WRCMPS - NO. OF COLUMNS CALCULATED '//
      . 'FOR COMPRESSION MAXRIX IS .LE. 0 (=",I6,")")') NCOL
       CALL BORT(BORT_STR)
-903   CALL BORT('BUFRLIB: WRCMPS - MISSING DELAYED REPLICATION FACTOR')
 904   CALL BORT('BUFRLIB: WRCMPS - THE NUMBER OF BITS IN THE '//
      . 'COMPRESSED BUFR MSG IS NOT A MULTIPLE OF 8 - MSG MUST END ON '//
      . ' A BYTE BOUNDARY')

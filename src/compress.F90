@@ -106,7 +106,7 @@ end subroutine writcp
 !> @ref moda_bitbuf) and store the result within the internal
 !> array val(*,lun) in module @ref moda_usrint.
 !>
-!> @param[in] lun - integer: File ID
+!> @param[in] lun - File ID
 !>
 !> @author Woollen @date 2000-09-19
 subroutine rdcmps(lun)

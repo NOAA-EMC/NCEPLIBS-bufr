@@ -189,6 +189,8 @@ module moda_comprx
   integer, allocatable :: iwid(:)
   !> Character data value, if corresponding ityp value is set to 3.
   character*(:), allocatable :: cstr(:)
+  !> Jump/link table node corresponding to each data value.
+  integer, allocatable :: jlnode(:)
 end module moda_comprx
 
 !> Declare arrays and variables for the
