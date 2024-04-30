@@ -402,8 +402,7 @@ subroutine wrcmps(lunix)
   implicit none
 
   integer, intent(in) :: lunix
-  integer maxcmb, maxrow, maxcol, ncmsgs, ncsubs, ncbyts, ibyt, jbit, lunit, lun, il, im, icol, i, j, node, lbyt, nbyt, &
-    nchr, ldata, iupbs01
+  integer ibyt, jbit, lunit, lun, il, im, icol, i, j, node, lbyt, nbyt, nchr, ldata, iupbs01
 
   character*128 bort_str
   character*8 subset
@@ -413,8 +412,6 @@ subroutine wrcmps(lunix)
 
   real, parameter :: rln2 = 1./log(2.)
   real range
-
-  common /maxcmp/ maxcmb, maxrow, maxcol, ncmsgs, ncsubs, ncbyts
 
   data first /.true./
 
@@ -439,7 +436,7 @@ subroutine wrcmps(lunix)
       writ1 = .false.
       ! The following call to cmsgini() is just being done to determine how many bytes (kbyt) will be taken up in a message
       ! by the information in Sections 0, 1, 2 and 3.  This in turn will allow us to determine how many compressed data subsets
-      ! will fit into Section 4 without overflowing maxcmb.  Then, later on, another separate call to cmsgini() will be done to
+      ! will fit into Section 4 without overflowing maxbyt.  Then, later on, another separate call to cmsgini() will be done to
       ! actually initialize Sections 0, 1, 2 and 3 of the final compressed BUFR message that will be written out.
       call cmsgini(lun,mbay(1,lun),subset,idate(lun),ncol,kbyt)
       ! Check the edition number of the BUFR message to be created
@@ -587,7 +584,7 @@ subroutine wrcmps(lunix)
       ! Depending on the edition number of the message, we need to ensure that we round to an even byte count
       if( (.not.edge4) .and. (mod(ibyt,2).ne.0) ) ibyt = ibyt+1
       jbit = ibyt*8-ldata
-      if(msgfull(ibyt,kbyt,maxcmb)) then
+      if(msgfull(ibyt,kbyt,maxbyt)) then
         ! The current subset will not fit into the current message.  Set the flag to indicate that a message write is needed,
         ! then go back and re-compress the Section 4 data for this message while excluding the data for the current subset,
         ! which will be held and stored as the first subset of a new message after writing the current message.
@@ -667,14 +664,8 @@ subroutine wrcmps(lunix)
 
     call msgwrt(lunit,mgwa,nbyt)
 
-    maxrow = max(maxrow,nrow)
-    maxcol = max(maxcol,ncol)
-    ncmsgs = ncmsgs+1
-    ncsubs = ncsubs+ncol
-    ncbyts = ncbyts+nbyt
-
     ! Now, unless this was a "flush" call to this subroutine, go back and initialize a new message to hold the current subset
-    ! that we weren't able to fit into the message that was just written out
+    ! that we weren't able to fit into the message that was just written out.
 
     first = .true.
     if(flush) return

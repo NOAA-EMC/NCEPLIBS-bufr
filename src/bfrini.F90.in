@@ -27,7 +27,6 @@ subroutine bfrini
   use moda_h4wlc
   use moda_dscach
 
-  common /maxcmp/ maxcmb,maxrow,maxcol,ncmsgs,ncsubs,ncbyts
   common /padesc/ ibct,ipd1,ipd2,ipd3,ipd4
   common /reptab/ idnr(5,2),typs(5,2),reps(5,2),lens(5)
   common /dxtab / maxdx,idxv,nxstr(10),ldxa(10),ldxb(10),ldxd(10),ld30(10),dxstr(10)
@@ -77,15 +76,6 @@ subroutine bfrini
   ! Initialize module moda_h4wlc
 
   nh4wlc = 0
-
-  ! Initialize /MAXCMP/
-
-  maxcmb = maxbyt
-  maxrow = 0
-  maxcol = 0
-  ncmsgs = 0
-  ncsubs = 0
-  ncbyts = 0
 
   ! Initialize /PADESC/
 
