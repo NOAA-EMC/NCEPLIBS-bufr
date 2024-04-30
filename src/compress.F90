@@ -368,3 +368,316 @@ subroutine cmsgini(lun,mesg,subset,idate,nsub,nbyt)
 
   return
 end subroutine cmsgini
+
+!> Write a compressed BUFR data subset.
+!>
+!> Pack up the current subset within memory
+!> (array ibay in module @ref moda_bitbuf), storing it for compression.
+!> Then, try to add it to the compressed BUFR message that is
+!> currently open within memory for abs(lunix). If the
+!> subset will not fit into the currently open message, then that
+!> compressed message is flushed to lunix and a new one is created in
+!> order to hold the current subset (still stored for compression).
+!>
+!> This subroutine performs functions similar to NCEPLIBS-bufr
+!> subroutine msgupd() except that it acts on compressed bufr messages.
+!>
+!> @param lunix - Absolute value is Fortran logical unit number for BUFR file
+!> - if lunix is less than zero, then this is a "flush" call and the buffer must be cleared out
+!>
+!> @author Woollen @date 2002-05-14
+subroutine wrcmps(lunix)
+
+  use modv_vars, only: mxcdv, mxcsb
+
+  use moda_usrint
+  use moda_msgcwd
+  use moda_bitbuf
+  use moda_mgwa
+  use moda_tables
+  use moda_comprx
+  use moda_comprs
+  use moda_s01cm
+
+  implicit none
+
+  integer, intent(in) :: lunix
+  integer maxcmb, maxrow, maxcol, ncmsgs, ncsubs, ncbyts, ibyt, jbit, lunit, lun, il, im, icol, i, j, node, lbyt, nbyt, &
+    nchr, ldata, iupbs01
+
+  character*128 bort_str
+  character*8 subset
+  character czero
+
+  logical first, kmiss, edge4, msgfull, cmpres
+
+  real, parameter :: rln2 = 1./log(2.)
+  real range
+
+  common /maxcmp/ maxcmb, maxrow, maxcol, ncmsgs, ncsubs, ncbyts
+
+  data first /.true./
+
+  save first, ibyt, jbit, subset, edge4
+
+  ! Get the unit and subset tag
+
+  lunit = abs(lunix)
+  call status(lunit,lun,il,im)
+
+  do while (.true.)
+
+    if(first) then
+      ! Initialize some values in order to prepare for the creation of a new compressed BUFR message for output.
+      kbyt = 0
+      ncol = 0
+      lunc = lun
+      nrow = nval(lun)
+      subset = tag(inode(lun))(1:8)
+      first = .false.
+      flush = .false.
+      writ1 = .false.
+      ! The following call to cmsgini() is just being done to determine how many bytes (kbyt) will be taken up in a message
+      ! by the information in Sections 0, 1, 2 and 3.  This in turn will allow us to determine how many compressed data subsets
+      ! will fit into Section 4 without overflowing maxcmb.  Then, later on, another separate call to cmsgini() will be done to
+      ! actually initialize Sections 0, 1, 2 and 3 of the final compressed BUFR message that will be written out.
+      call cmsgini(lun,mbay(1,lun),subset,idate(lun),ncol,kbyt)
+      ! Check the edition number of the BUFR message to be created
+      edge4 = .false.
+      if(ns01v.gt.0) then
+        i = 1
+        do while ( (.not.edge4) .and. (i.le.ns01v) )
+          if( (cmnem(i).eq.'BEN') .and. (ivmnem(i).ge.4) ) then
+            edge4 = .true.
+          else
+            i = i+1
+          endif
+        enddo
+      endif
+    endif
+
+    if(lun.ne.lunc) then
+      write(bort_str,'("BUFRLIB: WRCMPS - FILE ID FOR THIS CALL (",I3,") .NE. FILE ID FOR INITIAL CALL (",I3,")'// &
+        ' - UNIT NUMBER NOW IS",I4)') lun,lunc,lunix
+      call bort(bort_str)
+    endif
+
+    cmpres = .true.
+    if(lunix.lt.0) then
+      ! This is a "flush" call, so clear out the buffer (note that there is no current subset to be stored!) and prepare
+      ! to write the final compressed BUFR message.
+      if(ncol.le.0) return
+      flush = .true.
+      writ1 = .true.
+      icol = 1
+    elseif(ncol+1.gt.mxcsb) then
+      ! There's no more room in the internal compression arrays for another subset, so we'll need to write out a message
+      ! containing all of the data in those arrays, then initialize a new message to hold the current subset.
+      cmpres = .false.
+    else
+      ! Check on some other possibly problematic situations
+      if(nval(lun).ne.nrow) then
+        writ1 = .true.
+        icol = 1
+      elseif(nval(lun).gt.mxcdv) then
+        write(bort_str,'("BUFRLIB: WRCMPS - NO. OF ELEMENTS IN THE '// &
+          'SUBSET (",I6,") .GT. THE NO. OF ROWS ALLOCATED FOR THE COMPRESSION MATRIX (",I6,")")') nval(lun),mxcdv
+        call bort(bort_str)
+      elseif(ncol.gt.0) then
+        ! Confirm that all of the nodes are the same as in the previous subset for this same BUFR message.  If not, then
+        ! there may be different nested replication sequences activated in the current subset vs. in the previous subset,
+        ! even though the total number of nodes is the same.
+        do i = 1, nval(lun)
+          if ( inv(i,lun) .ne. jlnode(i) ) then
+            writ1 = .true.
+            icol = 1
+            exit
+          endif
+        enddo
+      endif
+      if(.not.writ1) then
+        ! Store the next subset for compression
+        ncol = ncol+1
+        icol = ncol
+        ibit = 16
+        do i=1,nval(lun)
+          node = inv(i,lun)
+          jlnode(i) = node
+          ityp(i) = itp(node)
+          iwid(i) = ibt(node)
+          if(ityp(i).eq.1.or.ityp(i).eq.2) then
+            call up8(matx(i,ncol),ibt(node),ibay,ibit)
+          elseif(ityp(i).eq.3) then
+            call upc(catx(i,ncol),ibt(node)/8,ibay,ibit,.true.)
+          endif
+        enddo
+      endif
+    endif
+
+    ! Will the next subset fit into the current message?  The only way to find out is to actually re-do the compression
+    ! by re-computing all of the local reference values, increments, etc. to determine the new Section 4 length.
+
+    do while (cmpres)
+      if(ncol.le.0) then
+        write(bort_str,'("BUFRLIB: WRCMPS - NO. OF COLUMNS CALCULATED '// &
+          'FOR COMPRESSION MAXRIX IS .LE. 0 (=",I6,")")') ncol
+        call bort(bort_str)
+      endif
+      ! ldata will hold the length (in bits) of the compressed data, i.e. the sum total for all data values for all data
+      ! subsets in the message
+      ldata = 0
+      do i=1,nrow
+        if(ityp(i).eq.1 .or. ityp(i).eq.2) then
+          ! Row i of the compression matrix contains numeric values, so kmis(i) will store .true. if any such values are
+          ! "missing", or .false. otherwise
+          imiss = 2_8**iwid(i)-1
+          if(icol.eq.1) then
+            kmin(i) = imiss
+            kmax(i) = 0
+            kmis(i) = .false.
+          endif
+          do j=icol,ncol
+            if(matx(i,j).lt.imiss) then
+              kmin(i) = min(kmin(i),matx(i,j))
+              kmax(i) = max(kmax(i),matx(i,j))
+            else
+              kmis(i) = .true.
+            endif
+          enddo
+          kmiss = kmis(i) .and. kmin(i).lt.imiss
+          range = real(max(1,kmax(i)-kmin(i)+1))
+          if(ityp(i).eq.2 .and. (range.gt.1. .or. kmiss)) then
+            ! The data values in row i of the compression matrix are numeric values that aren't all identical.  Compute the
+            ! number of bits needed to hold the largest of the increments.
+            kbit(i) = nint(log(range)*rln2)
+            if(2**kbit(i)-1.le.range) kbit(i) = kbit(i)+1
+            ! However, under no circumstances should this number ever exceed the width of the original underlying descriptor!
+            if(kbit(i).gt.iwid(i)) kbit(i) = iwid(i)
+          else
+            ! The data values in row i of the compression matrix are numeric values that are all identical, so the increments
+            ! will be omitted from the message.
+            kbit(i) = 0
+          endif
+          ldata = ldata + iwid(i) + 6 + ncol*kbit(i)
+        elseif(ityp(i).eq.3) then
+          ! Row i of the compression matrix contains character values, so kmis(i) will store .false. if all such values are
+          ! identical, OR .true. otherwise
+          if(icol.eq.1) then
+            cstr(i) = catx(i,1)
+            kmis(i) = .false.
+          endif
+          do j=icol,ncol
+            if ( (.not.kmis(i)) .and. (cstr(i).ne.catx(i,j)) ) then
+              kmis(i) = .true.
+            endif
+          enddo
+          if (kmis(i)) then
+            ! The data values in row i of the compression matrix are character values that are not all identical
+            kbit(i) = iwid(i)
+          else
+            ! The data values in row i of the compression matrix are character values that are all identical, so the
+            ! increments will be omitted from the message
+            kbit(i) = 0
+          endif
+          ldata = ldata + iwid(i) + 6 + ncol*kbit(I)
+        endif
+      enddo
+      ! Round data length up to a whole byte count
+      ibyt = (ldata+8-mod(ldata,8))/8
+      ! Depending on the edition number of the message, we need to ensure that we round to an even byte count
+      if( (.not.edge4) .and. (mod(ibyt,2).ne.0) ) ibyt = ibyt+1
+      jbit = ibyt*8-ldata
+      if(msgfull(ibyt,kbyt,maxcmb)) then
+        ! The current subset will not fit into the current message.  Set the flag to indicate that a message write is needed,
+        ! then go back and re-compress the Section 4 data for this message while excluding the data for the current subset,
+        ! which will be held and stored as the first subset of a new message after writing the current message.
+        writ1 = .true.
+        ncol = ncol-1
+        icol = 1
+      elseif(.not.writ1) then
+        ! Add the current subset to the current message and return
+        call usrtpl(lun,1,1)
+        nsub(lun) = -ncol
+        return
+      else
+        ! Exit the loop and proceed to write out the current message
+        cmpres = .false.
+      endif
+    enddo
+
+    ! Write the complete compressed message.  First, we need to do another call to cmsgini() to initialize Sections 0, 1, 2,
+    ! and 3 of the final compressed BUFR message that will be written out.
+
+    call cmsgini(lun,mgwa,subset,idate(lun),ncol,ibyt)
+
+    ! Now add the Section 4 data
+
+    ibit = ibyt*8
+    do i=1,nrow
+      if(ityp(i).eq.1.or.ityp(i).eq.2) then
+        call pkb8(kmin(i),iwid(i),mgwa,ibit)
+        call pkb(kbit(i),6,mgwa,ibit)
+        if(kbit(i).gt.0) then
+          do j=1,ncol
+            if(matx(i,j).lt.2_8**iwid(i)-1) then
+              incr = matx(i,j)-kmin(i)
+            else
+              incr = 2_8**kbit(i)-1
+            endif
+            call pkb8(incr,kbit(i),mgwa,ibit)
+          enddo
+        endif
+      elseif(ityp(i).eq.3) then
+        nchr = iwid(i)/8
+        if(kbit(i).gt.0) then
+          call ipkm(czero,1,0)
+          do j=1,nchr
+            call pkc(czero,1,mgwa,ibit)
+          enddo
+          call pkb(nchr,6,mgwa,ibit)
+          do j=1,ncol
+            call pkc(catx(i,j),nchr,mgwa,ibit)
+          enddo
+        else
+          call pkc(cstr(i),nchr,mgwa,ibit)
+          call pkb(0,6,mgwa,ibit)
+        endif
+      endif
+    enddo
+
+    ! Pad the end of Section 4 with zeroes up to the necessary byte count
+
+    call pkb(0,jbit,mgwa,ibit)
+
+    ! Add Section 5
+
+    call pkc('7777',4,mgwa,ibit)
+
+    ! Check that the message byte counters agree, then write the message
+
+    if(mod(ibit,8).ne.0) call bort('BUFRLIB: WRCMPS - THE NUMBER OF BITS IN THE '// &
+      'COMPRESSED BUFR MSG IS NOT A MULTIPLE OF 8 - MSG MUST END ON A BYTE BOUNDARY')
+    lbyt = iupbs01(mgwa,'LENM')
+    nbyt = ibit/8
+    if(nbyt.ne.lbyt) then
+      write(bort_str,'("BUFRLIB: WRCMPS - OUTPUT MESSAGE LENGTH FROM '// &
+       'SECTION 0",I6," DOES NOT EQUAL FINAL PACKED MESSAGE LENGTH (",I6,")")') lbyt,nbyt
+      call bort(bort_str)
+    endif
+
+    call msgwrt(lunit,mgwa,nbyt)
+
+    maxrow = max(maxrow,nrow)
+    maxcol = max(maxcol,ncol)
+    ncmsgs = ncmsgs+1
+    ncsubs = ncsubs+ncol
+    ncbyts = ncbyts+nbyt
+
+    ! Now, unless this was a "flush" call to this subroutine, go back and initialize a new message to hold the current subset
+    ! that we weren't able to fit into the message that was just written out
+
+    first = .true.
+    if(flush) return
+  end do
+
+end subroutine wrcmps

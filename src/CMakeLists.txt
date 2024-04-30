@@ -18,7 +18,7 @@ list(APPEND fortran_src
   trybump.f ufbcnt.f ufbcup.f ufbevn.f ufbget.f ufbin3.f ufbint.f ufbinx.f
   memmsgs.F90 ufbovr.f ufbpos.f ufbqcd.f ufbqcp.f ufbrep.f ufbrp.f
   ufbrw.f ufbseq.f ufbsp.f ufbstp.f ufbtab.f ciencode.F90 cidecode.F90
-  ups.f uptdd.f usrtpl.f wrcmps.f writlc.f wrtree.f arallocf.F90 irev.F90 openclosebf.F90
+  ups.f uptdd.f usrtpl.f writlc.f wrtree.f arallocf.F90 irev.F90 openclosebf.F90
   bufr_interface.F90 bufr_c2f_interface.F90 x4884.F90 bufrlib.F90)
 
 list(APPEND c_src
