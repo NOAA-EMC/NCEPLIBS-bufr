@@ -16,6 +16,7 @@ operate on BUFR files.
 | [gettab](#gettab) | Print embedded DX BUFR tables from within a BUFR file |
 | [split_by_subset](#split) | Split a BUFR file into separate BUFR files for each subset type |
 | [xbfmg](#xbfmg) | Split a BUFR file into separate BUFR files for each message |
+| [apxdx](#apxdx) | Append a DX BUFR table to a BUFR file |
 
 <br>
 
@@ -612,3 +613,29 @@ See the source code at xbfmg.c
 </div>
 
 <br>
+
+---
+
+<div id="apxdx">
+
+## apxdx
+
+This program generates BUFR messages corresponding to a given DX BUFR table and appends them
+to a given BUFR file.
+
+<pre>
+Usage:
+
+   apxdx BUFRfile DXtable
+
+     where:
+
+       BUFRfile  [path/]name of BUFR file, to which BUFR messages corresponding to DXtable are
+                 to be appended
+
+       DXtable   [path/]name of DX BUFR table
+</pre>
+
+See the source code at apxdx.F90
+
+</div>

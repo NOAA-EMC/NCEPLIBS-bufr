@@ -10,43 +10,41 @@
 !> @author J. Ator @date 2009-07-01
 module Share_Table_Info
 
-!> Directory containing DX BUFR tables to be used for decoding.
+  !> Directory containing DX BUFR tables to be used for decoding.
   character(len=:), allocatable :: tbldir_f
 
-!> Length (in characters) of tbldir_f.
+  !> Length (in characters) of tbldir_f.
   integer ltbd
 
-!> Fortran logical unit number to use for referencing a DX table.
+  !> Fortran logical unit number to use for referencing a DX table.
   integer ludx
 end module Share_Table_Info
 
 !> This subroutine reads, decodes, and generates a verbose output listing of the contents of every BUFR message from
 !> within the input file that was previously opened via a call to function cobfl() with io = 'r'.
 !>
-!> @param[in] ofile   -- c_char(*): File to contain verbose output listing of contents of each decoded BUFR message
-!> @param[in] lenof   -- c_int: Length of ofile string
-!> @param[in] tbldir  -- c_char(*): Directory containing DX and/or master BUFR tables to be used for decoding
-!> @param[in] lentd   -- c_int: Length of tbldir string
-!> @param[in] tblfil  -- c_char(*): File containing DX BUFR table information to be used for decoding
-!>                       - 'NULLFILE' = No such file will be used
-!> @param[in] lentf   -- c_int: Length of tblfil string
-!> @param[in] prmstg  -- c_char*(*): String of up to 20 comma-separated PARAMETER=VALUE pairs to be used to
-!>                       dynamically allocate memory within the NCEPLIBS-bufr software, overriding the default VALUE
-!>                       that would otherwise be used for each such PARAMETER.
-!>                       - 'NULLPSTG' = No such pairs will be used
-!> @param[in] lenps   -- c_int: Length of prmstg string
-!> @param[in] basic   -- c_char: Indicator as to whether only "basic" information in Sections 0-3 should be decoded
-!>                       from each BUFR message:
-!>                       - 'Y' = Yes
-!>                       - 'N' = No
-!> @param[in] forcemt -- c_char: Indicator as to whether master BUFR tables should be used for decoding, regardless
-!>                       of whether the input file contains any embedded DX BUFR table messages:
-!>                       - 'Y' = Yes
-!>                       - 'N' = No
-!> @param[in] cfms    -- c_char: Indicator as to whether code and flag table meanings should be read from master BUFR
-!>                       tables and included in the print output:
-!>                       - 'Y' = Yes
-!>                       - 'N' = No
+!> @param ofile - File to contain verbose output listing of contents of each decoded BUFR message
+!> @param lenof - Length of ofile string
+!> @param tbldir - Directory containing DX and/or master BUFR tables to be used for decoding
+!> @param lentd  - Length of tbldir string
+!> @param tblfil - File containing DX BUFR table information to be used for decoding
+!>   - 'NULLFILE' = No such file will be used
+!> @param lentf  - Length of tblfil string
+!> @param prmstg - String of up to 20 comma-separated PARAMETER=VALUE pairs to be used to dynamically allocate memory
+!> within the NCEPLIBS-bufr software, overriding the default VALUE that would otherwise be used for each such PARAMETER
+!>   - 'NULLPSTG' = No such pairs will be used
+!> @param lenps - Length of prmstg string
+!> @param basic - Indicator as to whether only "basic" information in Sections 0-3 should be decoded from each BUFR message:
+!>   - 'Y' = Yes
+!>   - 'N' = No
+!> @param forcemt - Indicator as to whether master BUFR tables should be used for decoding, regardless of whether the input
+!> file contains any embedded DX BUFR table messages:
+!>   - 'Y' = Yes
+!>   - 'N' = No
+!> @param cfms - Indicator as to whether code and flag table meanings should be read from master BUFR tables and included
+!> in the print output:
+!>   - 'Y' = Yes
+!>   - 'N' = No
 !>
 !> @remarks
 !> - See NCEPLIBS-bufr function isetprm() for a complete list of parameters that can be dynamically sized via prmstg.
@@ -92,14 +90,14 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
   equivalence ( bfmg (1), ibfmg (1) )
 
-! Initialize the values in the Share_Table_Info module.
+  ! Initialize the values in the Share_Table_Info module.
 
   ludx = 93
   ltbd = lentd
   allocate( character(len=lentd) :: tbldir_f )
   tbldir_f = transfer ( tbldir(1:lentd), tbldir_f )
 
-! Copy the other input C strings into Fortran strings.
+  ! Copy the other input C strings into Fortran strings.
 
   allocate( character(len=lenof) :: ofile_f )
   ofile_f = transfer ( ofile(1:lenof), ofile_f )
@@ -111,18 +109,18 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
   forcemt_f = forcemt
   cfms_f = cfms
 
-! Open the output file.
+  ! Open the output file.
 
   open ( unit = 51, file = ofile_f )
 
-! Note that in the below open statement we just need to specify a dummy placeholder file.
+  ! Note that in the below open statement we just need to specify a dummy placeholder file.
 
   lunit = 92
   open ( unit = lunit, file = '/dev/null' )
 
   call datelen ( 10 )
 
-! Initialize some other values.
+  ! Initialize some other values.
 
   nmsg = 0
   nsubt = 0
@@ -132,7 +130,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
   do while ( .true. )
 
-!   Get the next message from the input BUFR file.
+    ! Get the next message from the input BUFR file.
 
     call crbmg_c ( bfmg, mxbf, nbyt, ierr )
 
@@ -150,7 +148,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
         call dxdump ( lunit, 51 )
       end if
 
-!     Close the output file, deallocate memory, and return.
+      ! Close the output file, deallocate memory, and return.
 
       close ( 51 )
       deallocate ( ofile_f )
@@ -168,7 +166,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
         return
       end if
 
-!     Process any dynamic allocation parameters that were passed in on the command line.
+      ! Process any dynamic allocation parameters that were passed in on the command line.
 
       if ( prmstg_f(1:8) .ne. 'NULLPSTG' ) then
         call parstr ( prmstg_f, ptag, mxprms, nptag, ',', .false. )
@@ -189,17 +187,17 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
         end if
       end if
 
-!     Decide how to process the file.
+      ! Decide how to process the file.
 
       if ( ( idxmsg ( ibfmg ) .eq. 1 ) .and. ( forcemt_f .eq. 'N' ) ) then
 
-!       The first message in the file is a DX dictionary message, so assume there's an embedded table at the
-!       front of the file, and use this table to decode it.
+        ! The first message in the file is a DX dictionary message, so assume there's an embedded table at the
+        ! front of the file, and use this table to decode it.
 
         call openbf ( lunit, 'INUL', lunit )
       else if ( ( tblfil_f(1:8) .ne. 'NULLFILE' ) .and. ( forcemt_f .eq. 'N' ) ) then
 
-!       A DX dictionary tables file was specified on the command line, so use it to decode the BUFR file.
+        ! A DX dictionary tables file was specified on the command line, so use it to decode the BUFR file.
 
         inquire ( file = tblfil_f, exist = exists )
         if ( .not. exists ) then
@@ -214,7 +212,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
         call openbf ( lunit, 'IN', 91 )
       else
 
-!       Decode the file using the master tables in tbldir_f.
+        ! Decode the file using the master tables in tbldir_f.
 
         usemt = 'Y'
         call openbf ( lunit, 'SEC3', lunit )
@@ -228,12 +226,12 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
     if ( basic_f .eq. 'N' ) then
 
-!     Pass the message to the decoder.
+      ! Pass the message to the decoder.
 
       call readerme ( ibfmg, lunit, cmgtag, imgdt, ierme )
     end if
 
-!   If this is a DX dictionary message, then don't generate any output unless master tables are being used for decoding.
+    ! If this is a DX dictionary message, then don't generate any output unless master tables are being used for decoding.
 
     if ( ( idxmsg ( ibfmg ) .ne. 1 ) .or. ( usemt .eq. 'Y' ) ) then
 
@@ -241,13 +239,13 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
       write ( 51, fmt = '( /, A, I7 )' ) 'Found BUFR message #', nmsg
 
-!     Decode and output the data from Section 0.
+      ! Decode and output the data from Section 0.
 
       write ( 51, fmt= '( /, A, I9 )' ) '        Message length:   ', iupbs01 ( ibfmg, 'LENM' )
       write ( 51, fmt= '( A, I4 )' ) '      Section 0 length:        ', iupbs01 ( ibfmg, 'LEN0' )
       write ( 51, fmt= '( A, I4 )' ) '          BUFR edition:        ', iupbs01 ( ibfmg, 'BEN' )
 
-!     Decode and output the data from Section 1.
+      ! Decode and output the data from Section 1.
 
       write ( 51, fmt= '( /, A, I4 )' ) '      Section 1 length:        ', iupbs01 ( ibfmg, 'LEN1' )
       write ( 51, fmt= '( A, I4 )' ) '          Master table:        ', iupbs01 ( ibfmg, 'BMT' )
@@ -327,7 +325,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
         end if
       end if
 
-!     Decode and output the data from Section 3.
+      ! Decode and output the data from Section 3.
 
       nsub = iupbs3 ( ibfmg, 'NSUB' )
       write ( 51, fmt= '( /, A, I4 )' ) ' Number of data subsets:        ', nsub
@@ -353,7 +351,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
       if ( ( basic_f .eq. 'N' ) .and. ( ierme .ge. 0 ) ) then
 
-!       Decode and output the data from Section 4.
+        ! Decode and output the data from Section 4.
 
         write ( 51, fmt = '( /, A, I7, 3A, I10, A, I6, A )' ) &
           'BUFR message #', nmsg, ' of type ', cmgtag, ' and date ', imgdt, ' contains ', nsub, ' subsets:'
@@ -379,10 +377,9 @@ end subroutine fdebufr_c
 !> @author J. Ator
 !> @date 2012-12-07
 !>
-!> @param[in] mtyp -- integer: Data category of BUFR message
-!> @param[out] lundx -- integer: Fortran logical unit number for DX BUFR tables file to use in reading/decoding
-!>                      the message
-!>                     - 0 = No such file is available
+!> @param mtyp - Data category of BUFR message
+!> @param lundx - Fortran logical unit number for DX BUFR tables file to use in reading/decoding the message
+!>   - 0 = No such file is available
 !>
 !> @author J. Ator @date 2012-12-07
 subroutine openbt ( lundx, mtyp )

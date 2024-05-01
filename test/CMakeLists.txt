@@ -138,6 +138,7 @@ list(APPEND test_scripts
   test_split_by_subset.sh
   test_debufr.sh
   test_xbfmg.sh
+  test_apxdx.sh
 )
 
 # Run the test scripts for the utils.
@@ -189,6 +190,7 @@ list(APPEND utils
   readmp
   cmpbqm
   xbfmg
+  apxdx
 )
 
 # utility tests
