@@ -505,6 +505,7 @@ subroutine wrcmps(lunix)
           if(ityp(i).eq.1.or.ityp(i).eq.2) then
             call up8(matx(i,ncol),ibt(node),ibay,ibit)
           elseif(ityp(i).eq.3) then
+            catx(i,ncol) = ' '
             call upc(catx(i,ncol),ibt(node)/8,ibay,ibit,.true.)
           endif
         enddo
@@ -576,7 +577,7 @@ subroutine wrcmps(lunix)
             ! increments will be omitted from the message
             kbit(i) = 0
           endif
-          ldata = ldata + iwid(i) + 6 + ncol*kbit(I)
+          ldata = ldata + iwid(i) + 6 + ncol*kbit(i)
         endif
       enddo
       ! Round data length up to a whole byte count

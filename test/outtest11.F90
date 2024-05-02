@@ -85,7 +85,7 @@ program outtest11
   call cmpmsg ( 'Y' )
 
   ! Change the maximum output message size.
-  call maxout ( 12000 )
+  call maxout ( 11500 )
 
   ! Copy all of the data subsets from the third input file to the output file.
   do while ( ireadns ( 13, cmgtag, imgdt ) .eq. 0 )
