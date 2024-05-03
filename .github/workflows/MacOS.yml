@@ -27,7 +27,7 @@ jobs:
     
     - name: install-deps
       run: |
-        pip3 install numpy
+        pip3 install numpy==1.26.3
         pip3 install meson
         pip3 install ninja
         pip3 install netCDF4
@@ -35,13 +35,13 @@ jobs:
         sudo ln -sf /usr/local/bin/gfortran-11 /usr/local/bin/gfortran
           
     - name: checkout-bufr
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with: 
         path: bufr
 
     - name: cache-data
       id: cache-data
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/data
         key: data-15
