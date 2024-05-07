@@ -17,6 +17,7 @@ jobs:
     runs-on: macos-latest
     env:
       FC: gfortran-11
+      F90: gfortran-11
 
     steps:
 
