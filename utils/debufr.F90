@@ -65,13 +65,11 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
   integer, parameter :: mxds3 = 500
   integer, parameter :: mxprms = 20
 
-  character(kind=c_char,len=1), intent(in) :: ofile(*), tbldir(*), tblfil(*), prmstg(*)
+  character(kind=c_char,len=1), intent(in) :: ofile(*), tbldir(*), tblfil(*), prmstg(*), basic, forcemt, cfms
 
   character(len=:), allocatable :: ofile_f, tblfil_f, prmstg_f
 
   integer(c_int), value, intent(in) :: lenof, lentd, lentf, lenps
-
-  character(c_char), value, intent(in) :: basic, forcemt, cfms
 
   integer*4 :: isetprm, idxmsg, iupbs01, iupbs3, ireadsb
   integer*4 :: nbyt, ierr
@@ -105,9 +103,9 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
   tblfil_f = transfer ( tblfil(1:lentf), tblfil_f )
   allocate( character(len=lenps) :: prmstg_f )
   prmstg_f = transfer ( prmstg(1:lenps), prmstg_f )
-  basic_f = basic
-  forcemt_f = forcemt
-  cfms_f = cfms
+  basic_f = transfer ( basic(1:1), basic_f )
+  forcemt_f = transfer ( forcemt(1:1), forcemt_f )
+  cfms_f = transfer ( cfms(1:1), cfms_f )
 
   ! Open the output file.
 
