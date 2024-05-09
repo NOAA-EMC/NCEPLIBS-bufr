@@ -147,6 +147,7 @@ C*      Check for I8 integers.
 C*      Make sure the appropriate code/flag information has already been
 C*      read into internal memory.
 
+        print *, 'in getcfmng, cdmf = >', cdmf, '<'
         IF ( CDMF .NE. 'Y' ) GOTO 903
 
         ITMP = IREADMT ( LUN )

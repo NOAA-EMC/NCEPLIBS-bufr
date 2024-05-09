@@ -221,7 +221,10 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
       opened = 'Y'
 
       call mtinfo ( tbldir_f, 90, 91 )
-      if ( cfms_f .eq. 'Y' ) call codflg ( 'Y' )
+      if ( cfms_f .eq. 'Y' ) then
+        print *, 'in debufr.F90, calling codflg with Y'
+        call codflg ( 'Y' )
+      endif
     end if
 
     if ( basic_f .eq. 'N' ) then
@@ -256,12 +259,14 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
         write ( 51, fmt= '( A, I5 )' ) '    Originating center:       ', iogce
         write ( 51, fmt= '( A, I4 )' ) ' Originating subcenter:        ', igses
       else
+        print *, 'in debufr.F90, calling getcfmng for ORIGC'
         call getcfmng ( lunit, 'ORIGC', iogce, ' ', -1, cmorgc, lcmorgc, ierorgc )
         if ( ierorgc .eq. 0 ) then
           write ( 51, fmt= '( A, I5, 3A )' ) '    Originating center:       ', iogce, ' (= ', cmorgc(1:lcmorgc), ')'
         else
           write ( 51, fmt= '( A, I5 )' ) '    Originating center:       ', iogce
         end if
+        print *, 'in debufr.F90, calling getcfmng for GSES'
         call getcfmng ( lunit, 'GSES', igses, 'ORIGC', iogce, cmgses, lcmgses, iergses )
         if ( iergses .eq. 0 ) then
           write ( 51, fmt= '( A, I4, 3A )' ) ' Originating subcenter:        ', igses, ' (= ', cmgses(1:lcmgses), ')'
@@ -286,18 +291,21 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
         write ( 51, fmt= '( A, I4 )' ) '     Local subcategory:        ', msbt
         write ( 51, fmt= '( A, I4 )' ) ' Internatl subcategory:        ', msbti
       else
+        print *, 'in debufr.F90, calling getcfmng for TABLAT'
         call getcfmng ( lunit, 'TABLAT', mtyp, ' ', -1, cmmtyp, lcmmtyp, iermtyp )
         if ( iermtyp .eq. 0 ) then
           write ( 51, fmt= '( A, I4, 3A )' ) '         Data category:        ', mtyp, ' (= ', cmmtyp(1:lcmmtyp), ')'
         else
           write ( 51, fmt= '( A, I4 )' ) '         Data category:        ', mtyp
         end if
+        print *, 'in debufr.F90, calling getcfmng for TABLASL'
         call getcfmng ( lunit, 'TABLASL', msbt, 'TABLAT', mtyp, cmmsbt, lcmmsbt, iermsbt )
         if ( ( iermsbt .eq. 0 ) .and. ( iogce .eq. 7 ) ) then
           write ( 51, fmt= '( A, I4, 3A )' ) '     Local subcategory:        ', msbt, ' (= ', cmmsbt(1:lcmmsbt), ')'
         else
           write ( 51, fmt= '( A, I4 )' ) '     Local subcategory:        ', msbt
         end if
+        print *, 'in debufr.F90, calling getcfmng for TABLASS'
         call getcfmng ( lunit, 'TABLASS', msbti, 'TABLAT', mtyp, cmmsbti, lcmmsbti, iermsbti )
         if ( iermsbti .eq. 0 ) then
           write ( 51, fmt= '( A, I4, 3A )' ) ' Internatl subcategory:        ', msbti, ' (= ', cmmsbti(1:lcmmsbti), ')'
