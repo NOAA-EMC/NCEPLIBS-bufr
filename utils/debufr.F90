@@ -105,12 +105,12 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
   tblfil_f = transfer ( tblfil(1:lentf), tblfil_f )
   allocate( character(len=lenps) :: prmstg_f )
   prmstg_f = transfer ( prmstg(1:lenps), prmstg_f )
-  print *, 'in debufr.F90, basic, forcemt, cfms passed from debufr.c = >', basic, '< >', forcemt, '< >', cfms, '<'
-  basic_f = transfer ( basic, basic_f )
+  print *, 'in debufr.F90, basic, forcemt, cfms passed from debufr.c = >', basic(1:1), '< >', forcemt(1:1), '< >', cfms(1:1), '<'
+  basic_f = transfer ( basic(1:1), basic_f )
   print *, 'in debufr.F90, initially set basic_f = >', basic_f, '<'
-  forcemt_f = transfer ( forcemt, forcemt_f )
+  forcemt_f = transfer ( forcemt(1:1), forcemt_f )
   print *, 'in debufr.F90, initially set forcemt_f = >', forcemt_f, '<'
-  cfms_f = transfer ( cfms, cfms_f )
+  cfms_f = transfer ( cfms(1:1), cfms_f )
   print *, 'in debufr.F90, initially set cfms_f = >', cfms_f, '<'
 
   ! Open the output file.
