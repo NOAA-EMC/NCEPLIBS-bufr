@@ -71,7 +71,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
   integer(c_int), value, intent(in) :: lenof, lentd, lentf, lenps
 
-  character(c_char), value, intent(in) :: basic, forcemt, cfms
+  character(kind=c_char,len=1), value, intent(in) :: basic, forcemt, cfms
 
   integer*4 :: isetprm, idxmsg, iupbs01, iupbs3, ireadsb
   integer*4 :: nbyt, ierr
