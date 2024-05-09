@@ -65,13 +65,13 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
   integer, parameter :: mxds3 = 500
   integer, parameter :: mxprms = 20
 
-  character(kind=c_char,len=1), intent(in) :: ofile(*), tbldir(*), tblfil(*), prmstg(*), forcemt
+  character(kind=c_char,len=1), intent(in) :: ofile(*), tbldir(*), tblfil(*), prmstg(*)
 
   character(len=:), allocatable :: ofile_f, tblfil_f, prmstg_f
 
   integer(c_int), value, intent(in) :: lenof, lentd, lentf, lenps
 
-  character(c_char), value, intent(in) :: basic, cfms
+  character(c_char), value, intent(in) :: basic, forcemt, cfms
 
   integer*4 :: isetprm, idxmsg, iupbs01, iupbs3, ireadsb
   integer*4 :: nbyt, ierr
