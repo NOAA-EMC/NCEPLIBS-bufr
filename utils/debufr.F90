@@ -108,6 +108,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
   basic_f = basic
   forcemt_f = forcemt
   cfms_f = cfms
+  print *, 'in debufr.F90, initially set cfms_f = >', cfms_f, '<'
 
   ! Open the output file.
 
@@ -158,6 +159,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
       return
     end if
 
+  print *, 'in debufr.F90, a new message was read, and the value of opened = >', opened, '<'
     if ( opened .eq. 'N' ) then
 
       if ( ( isetprm ( 'MAXCD', mxds3 ) .ne. 0 ) .or. ( isetprm ( 'MXMSGL', mxbf ) .ne. 0 ) .or. &
@@ -195,6 +197,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
         ! front of the file, and use this table to decode it.
 
         call openbf ( lunit, 'INUL', lunit )
+  print *, 'in debufr.F90, went thru opened if block'
       else if ( ( tblfil_f(1:8) .ne. 'NULLFILE' ) .and. ( forcemt_f .eq. 'N' ) ) then
 
         ! A DX dictionary tables file was specified on the command line, so use it to decode the BUFR file.
@@ -210,12 +213,14 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
           return
         endif
         call openbf ( lunit, 'IN', 91 )
+  print *, 'in debufr.F90, went thru opened elseif block'
       else
 
         ! Decode the file using the master tables in tbldir_f.
 
         usemt = 'Y'
         call openbf ( lunit, 'SEC3', lunit )
+  print *, 'in debufr.F90, went thru opened else block'
       end if
 
       opened = 'Y'

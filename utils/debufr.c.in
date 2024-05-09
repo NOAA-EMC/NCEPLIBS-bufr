@@ -341,6 +341,7 @@ int main( int argc, char *argv[ ] ) {
         lentd = strlen( tbldir );
         lentf = strlen( tblfil );
         lenps = strlen( prmstg );
+        printf( "\nin debufr.c, about to call fdebufr_f with cfms = %c\n", cfms);
         fdebufr_f( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps, basic, forcemt, cfms );
         iret = 0;
     }
