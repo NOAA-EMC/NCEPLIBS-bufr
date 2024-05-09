@@ -36,7 +36,7 @@
  * @author J. Ator @date 2009-07-01
  */
 void fdebufr_f( char *ofile, int lenof, char *tbldir, int lentd, char *tblfil, int lentf, char *prmstg, int lenps,
-                char basic, char forcemt, char cfms );
+                char *basic, char *forcemt, char *cfms );
 
 /**
  * This function prints program usage information to standard output.
@@ -344,7 +344,7 @@ int main( int argc, char *argv[ ] ) {
         printf( "\nin debufr.c, about to call fdebufr_f with basic = %c\n", basic);
         printf( "\nin debufr.c, about to call fdebufr_f with forcemt = %c\n", forcemt);
         printf( "\nin debufr.c, about to call fdebufr_f with cfms = %c\n", cfms);
-        fdebufr_f( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps, basic, forcemt, cfms );
+        fdebufr_f( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps, &basic, &forcemt, &cfms );
         iret = 0;
     }
     free( dcopy );
