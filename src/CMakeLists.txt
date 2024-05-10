@@ -15,8 +15,8 @@ list(APPEND fortran_src
   parstr.f parusr.f parutg.f ftbvs.F90 pktdd.f posapx.f rcstpl.f rdtree.f
   readwritemg.F90 readwritesb.F90 readwriteval.F90 rewnbf.f rsvfvm.f s013vals.F90 tankrcpt.F90
   standard.F90 stntbi.f stntbia.f strbtm.f strcln.f string.f strnum.F90 strsuc.F90
-  trybump.f ufbcnt.f ufbcup.f ufbevn.f ufbget.f ufbin3.f ufbint.f ufbinx.f
-  memmsgs.F90 ufbovr.f ufbpos.f ufbqcd.f ufbqcp.f ufbrep.f ufbrp.f
+  trybump.f ufbcnt.f ufbcup.f ufbevn.f ufbget.f ufbin3.f ufbinx.f
+  memmsgs.F90 ufbovr.f ufbpos.f ufbqcd.f ufbqcp.f ufbrp.f
   ufbrw.f ufbseq.f ufbsp.f ufbstp.f ufbtab.f ciencode.F90 cidecode.F90
   ups.f uptdd.f usrtpl.f wrtree.f arallocf.F90 irev.F90 openclosebf.F90
   bufr_interface.F90 bufr_c2f_interface.F90 x4884.F90 bufrlib.F90)

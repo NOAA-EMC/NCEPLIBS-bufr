@@ -539,3 +539,468 @@ recursive subroutine readlc(lunit,chr,str)
 
   return
 end subroutine readlc
+
+!> Read or write one or more data values from or to
+!> the BUFR data subset that is currently open within the NCEPLIBS-bufr
+!> internal arrays.
+!>
+!> The direction of the data transfer is determined by the context of abs(lunin):
+!> - If abs(lunin) points to a file that was previously opened for
+!>   input using subroutine openbf(), then data values are read from
+!>   the current data subset.
+!> - If abs(lunin) points to a file that was previously opened for
+!>   output using subroutine openbf(), then data values are written to
+!>   the current data subset.
+!>
+!> This subroutine is specifically designed for use with Table B
+!> mnemonics which are part of a delayed-replication sequence, or for
+!> which there is no replication at all. See also subroutines ufbrep(),
+!> ufbseq() and ufbstp(), which can also be used to read/write one or
+!> more data values from/to a data subset but are designed for
+!> different use cases. A more detailed discussion of
+!> these different use cases, including examples, is available in
+!> [DX BUFR Tables](@ref ufbsubs).
+!>
+!> It is the user's responsibility to ensure that usr is dimensioned
+!> sufficiently large enough to accommodate the number of data values
+!> that are to be read from or written to the data subset. Note also
+!> that usr is an array of real*8 values; therefore, any data that are
+!> to be written out as character (i.e. CCITT IA5) values in
+!> BUFR must be converted from character into real*8 format within the
+!> application program before calling this subroutine. Conversely,
+!> when this subroutine is being used to read character values from a
+!> data subset, the value that is returned will be in real*8 format
+!> and must be converted back into character format by the application
+!> program before it can be used as such. Alternatively, there are
+!> different subroutines such as readlc() and writlc() which can be
+!> used to read/write character data directly from/to a data subset
+!> without the need to convert from/to real*8 format as an intermediate
+!> step.
+!>
+!> Numeric (i.e. non-character) data values within usr are always in
+!> the exact units specified for the corresponding mnemonic within the
+!> relevant DX or master BUFR table, without any scale or reference
+!> values applied. Specifically, this means that, when writing
+!> data values into an output subset, the user only needs to store each
+!> respective value into usr using the units specified within the table,
+!> and the NCEPLIBS-bufr software will take care of any necessary scaling or
+!> referencing of the value before it is actually encoded into BUFR.
+!> Conversely, when reading data values from an input subset, the
+!> values returned in usr are already de-scaled and de-referenced and,
+!> thus, are already in the exact units that were defined for the
+!> corresponding mnemonics within the table.
+!>
+!> "Missing" values in usr are always denoted by a unique
+!> placeholder value. This placeholder value is initially set
+!> to a default value of 10E10_8, but it can be reset to
+!> any substitute value of the user's choice via a separate
+!> call to subroutine setbmiss(). In any case, and whenever this
+!> subroutine is used to read data values from an input subset, any
+!> returned value in usr can be easily checked for equivalence to the
+!> current placeholder value via a call to function ibfms(), and a
+!> positive result means that the value for the corresponding mnemonic
+!> was encoded as "missing" in BUFR (i.e. all bits set to 1) within the
+!> original data subset. Conversely, whenever this subroutine
+!> is used to write data values to an output subset, the current
+!> placeholder value can be obtained via a separate call to function
+!> getbmiss(), and the resulting value can then be stored into the
+!> usr array whereever the user desires a BUFR "missing" value (i.e.
+!> all bits set to 1) to be encoded for the corresponding mnemonic
+!> within the output subset.
+!>
+!> @remarks
+!> - If lunin < 0, and if abs(lunin) points to a file that is open
+!> for output (writing BUFR), then the subroutine will treat the file
+!> pointed to by abs(lunin) as though it was open for input (reading
+!> BUFR). This is a special capability for use by some applications
+!> that need to read certain values back out from a BUFR file during
+!> the same time that it is in the process of being written to.
+!> - If abs(lunin) points to a file that is open for input (reading
+!> BUFR), str may contain a Table D mnemonic that is replicated using
+!> either 8-bit or 16-bit delayed replication (as noted using
+!> replication indicators {} or (), respectively, within the
+!> assocated DX BUFR table), and the corresponding location in usr
+!> will contain the total number of replications of that mnemonic
+!> within the data subset. Note that, when using this option, the
+!> applicable replication indicators must be included in str
+!> along with the mnemonic itself, as shown in an example in the
+!> discussion of [DX BUFR Tables](@ref ufbsubs).
+!>
+!> @param lunin - Absolute value is Fortran logical unit number for BUFR file
+!> @param usr - Data values
+!>  - If abs(lunin) was opened for input, then usr is output from this subroutine and
+!>    contains data values that were read from the current data subset
+!>  - If abs(lunin) was opened for output, then usr is input to this subroutine and
+!>    contains data values that are to be written to the current data subset
+!> @param i1 - First dimension of usr as allocated within the calling program
+!> @param i2 - Second dimension of usr
+!>  - If abs(lunin) was opened for input, then i2 must be set equal to the second dimension
+!>    of usr as allocated within the calling program
+!>  - If abs(lunin) was opened for output, then i2 must be set equal to the number of replications
+!>    of str that are to be written to the data subset
+!> @param iret - Number of replications of str that were read/written from/to the data subset
+!> @param str - String of blank-separated Table B mnemonics in one-to-one correspondence with the number of data values
+!> that will be read/written from/to the data subset within the first dimension of usr (see [DX BUFR Tables](@ref dfbftab)
+!> for further information about Table B mnemonics)
+!>
+!> @author J. Woollen @date 1994-01-06
+recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
+
+  use modv_vars, only: im8b, bmiss
+
+  use moda_usrint
+  use moda_msgcwd
+
+  implicit none
+
+  character*(*), intent(in) :: str
+  character*128 bort_str1, bort_str2, errstr
+
+  real*8, intent(inout) :: usr(i1,i2)
+
+  integer, intent(in) :: lunin, i1, i2
+  integer, intent(out) :: iret
+  integer iprt, nnod, ncon, nods, nodc, ivls, kons, ifirst1, ifirst2, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, i, j
+
+  common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
+  common /quiet/ iprt
+
+  data ifirst1 /0/, ifirst2 /0/
+
+  save ifirst1, ifirst2
+
+  ! Check for I8 integers
+  if(im8b) then
+    im8b=.false.
+    call x84(lunin,my_lunin,1)
+    call x84(i1,my_i1,1)
+    call x84(i2,my_i2,1)
+    call ufbint(my_lunin,usr,my_i1,my_i2,iret,str)
+    call x48(iret,iret,1)
+    im8b=.true.
+    return
+  endif
+
+  iret = 0
+
+  ! Check the file status and inode
+  lunit = abs(lunin)
+  call status(lunit,lun,il,im)
+  if(il.eq.0) call bort('BUFRLIB: UFBINT - BUFR FILE IS CLOSED, IT MUST BE OPEN')
+  if(im.eq.0) call bort('BUFRLIB: UFBINT - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE')
+  if(inode(lun).ne.inv(1,lun)) call bort('BUFRLIB: UFBINT - LOCATION OF INTERNAL TABLE FOR BUFR FILE DOES NOT AGREE ' // &
+    'WITH EXPECTED LOCATION IN INTERNAL SUBSET ARRAY')
+
+  io = min(max(0,il),1)
+  if(lunit.ne.lunin) io = 0
+
+  if(i1.le.0) then
+    if(iprt.ge.0) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      errstr = 'BUFRLIB: UFBINT - 3rd ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+      call errwrt(errstr)
+      call errwrt(str)
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+    return
+  elseif(i2.le.0) then
+    if(iprt.eq.-1) ifirst1 = 1
+    if(io.eq.0 .or. ifirst1.eq.0 .or. iprt.ge.1)  then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      errstr = 'BUFRLIB: UFBINT - 4th ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+      call errwrt(errstr)
+      call errwrt(str)
+      if(iprt.eq.0 .and. io.eq.1) then
+        errstr = 'Note: Only the first occurrence of this WARNING message is printed, there may be more.  To output ' // &
+          'all such messages,'
+        call errwrt(errstr)
+        errstr = 'modify your application program to add "CALL OPENBF(0,''QUIET'',1)" prior to the first call to a ' // &
+          'BUFRLIB routine.'
+        call errwrt(errstr)
+      endif
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+      ifirst1 = 1
+    endif
+    return
+  endif
+
+  ! Parse or recall the input string
+  call string(str,lun,i1,io)
+
+  ! Initialize usr array preceeding an input operation
+  if(io.eq.0) then
+    do j=1,i2
+      do i=1,I1
+        usr(i,j) = bmiss
+      enddo
+    enddo
+  endif
+
+  ! Call the mnemonic reader/writer
+  call ufbrw(lun,usr,i1,i2,io,iret)
+
+  ! If incomplete write try to initialize replication sequence or return
+  if(io.eq.1 .and. iret.ne.i2 .and. iret.ge.0) then
+    call trybump(lun,usr,i1,i2,io,iret)
+    if(iret.ne.i2) then
+      write(bort_str1,'("BUFRLIB: UFBINT - MNEMONIC STRING READ IN IS: ",A)') str
+      write(bort_str2,'(18X,"THE NUMBER OF ''LEVELS'' ACTUALLY '// &
+        'WRITTEN (",I3,") DOES NOT EQUAL THE NUMBER REQUESTED (",I3,") - INCOMPLETE WRITE")')  iret,i2
+      call bort2(bort_str1,bort_str2)
+    endif
+  elseif(iret.eq.-1) then
+    iret = 0
+  endif
+
+  if(iret.eq.0) then
+    if(io.eq.0) then
+      if(iprt.ge.1) then
+        call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+        errstr = 'BUFRLIB: UFBINT - NO SPECIFIED VALUES READ IN, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+        call errwrt(errstr)
+        call errwrt(str)
+        call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+        call errwrt(' ')
+      endif
+    else
+      if(iprt.eq.-1) ifirst2 = 1
+      if(ifirst2.eq.0 .or. iprt.ge.1) then
+        call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+        errstr = 'BUFRLIB: UFBINT - NO SPECIFIED VALUES WRITTEN OUT, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+        call errwrt(errstr)
+        call errwrt(str)
+        call errwrt('MAY NOT BE IN THE BUFR TABLE(?)')
+        if(iprt.eq.0) then
+          errstr = 'Note: Only the first occurrence of this WARNING message is printed, there may be more.  To output ' // &
+            'all such messages,'
+          call errwrt(errstr)
+          errstr = 'modify your application program to add "CALL OPENBF(0,''QUIET'',1)" prior to the first call ' // &
+            'to a BUFRLIB routine.'
+          call errwrt(errstr)
+        endif
+        call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+        call errwrt(' ')
+        ifirst2 = 1
+      endif
+    endif
+  endif
+
+  return
+end subroutine ufbint
+
+!> Read or write one or more data values from or to
+!> the BUFR data subset that is currently open within the NCEPLIBS-bufr
+!> internal arrays.
+!>
+!> The direction of the data transfer is determined by the context of abs(lunin):
+!> - If abs(lunin) points to a file that was previously opened for
+!>   input using subroutine openbf(), then data values are read from
+!>   the current data subset.
+!> - If abs(lunin) points to a file that was previously opened for
+!>   output using subroutine openbf(), then data values are written to
+!>   the current data subset.
+!>
+!> This subroutine is specifically designed for use with Table B
+!> mnemonics which are part of a fixed (i.e. non-delayed) replication
+!> sequence, or for mnemonics which are replicated by being directly
+!> listed more than once within an overall subset definition.
+!> See also subroutines ufbint(),
+!> ufbseq() and ufbstp(), which can also be used to read/write one or
+!> more data values from/to a data subset but are designed for
+!> different use cases. A more detailed discussion of
+!> these different use cases, including examples, is available in
+!> [DX BUFR Tables](@ref ufbsubs).
+!>
+!> It is the user's responsibility to ensure that usr is dimensioned
+!> sufficiently large enough to accommodate the number of data values
+!> that are to be read from or written to the data subset. Note also
+!> that usr is an array of real*8 values; therefore, any data that are
+!> to be written out as character (i.e. CCITT IA5) values in
+!> BUFR must be converted from character into real*8 format within the
+!> application program before calling this subroutine. Conversely,
+!> when this subroutine is being used to read character values from a
+!> data subset, the value that is returned will be in real*8 format
+!> and must be converted back into character format by the application
+!> program before it can be used as such. Alternatively, there are
+!> different subroutines such as readlc() and writlc() which can be
+!> used to read/write character data directly from/to a data subset
+!> without the need to convert from/to real*8 format as an intermediate
+!> step.
+!>
+!> Numeric (i.e. non-character) data values within usr are always in
+!> the exact units specified for the corresponding mnemonic within the
+!> relevant DX or master BUFR table, without any scale or reference
+!> values applied. Specifically, this means that, when writing
+!> data values into an output subset, the user only needs to store each
+!> respective value into usr using the units specified within the table,
+!> and the NCEPLIBS-bufr software will take care of any necessary scaling or
+!> referencing of the value before it is actually encoded into BUFR.
+!> Conversely, when reading data values from an input subset, the
+!> values returned in usr are already de-scaled and de-referenced and,
+!> thus, are already in the exact units that were defined for the
+!> corresponding mnemonics within the table.
+!>
+!> "Missing" values in usr are always denoted by a unique
+!> placeholder value. This placeholder value is initially set
+!> to a default value of 10E10_8, but it can be reset to
+!> any substitute value of the user's choice via a separate
+!> call to subroutine setbmiss(). In any case, and whenever this
+!> subroutine is used to read data values from an input subset, any
+!> returned value in usr can be easily checked for equivalence to the
+!> current placeholder value via a call to function ibfms(), and a
+!> positive result means that the value for the corresponding mnemonic
+!> was encoded as "missing" in BUFR (i.e. all bits set to 1) within the
+!> original data subset. Conversely, whenever this subroutine
+!> is used to write data values to an output subset, the current
+!> placeholder value can be obtained via a separate call to function
+!> getbmiss(), and the resulting value can then be stored into the
+!> usr array whereever the user desires a BUFR "missing" value (i.e.
+!> all bits set to 1) to be encoded for the corresponding mnemonic
+!> within the output subset.
+!>
+!> @remarks
+!> - If lunin < 0, and if abs(lunin) points to a file that is open
+!> for output (writing BUFR), then the subroutine will treat the file
+!> pointed to by abs(lunin) as though it was open for input (reading
+!> BUFR). This is a special capability for use by some applications
+!> that need to read certain values back out from a BUFR file during
+!> the same time that it is in the process of being written to.
+!>
+!> @param lunin - Absolute value is Fortran logical unit number for BUFR file
+!> @param usr - Data values
+!>  - If abs(lunin) was opened for input, then usr is output from this subroutine and
+!>    contains data values that were read from the current data subset
+!>  - If abs(lunin) was opened for output, then usr is input to this subroutine and
+!>    contains data values that are to be written to the current data subset
+!> @param i1 - First dimension of usr as allocated within the calling program
+!> @param i2 - Second dimension of usr
+!>  - If abs(lunin) was opened for input, then i2 must be set equal to the second dimension
+!>    of usr as allocated within the calling program
+!>  - If abs(lunin) was opened for output, then i2 must be set equal to the number of replications
+!>    of str that are to be written to the data subset
+!> @param iret - Number of replications of str that were read/written from/to the data subset
+!> @param str - String of blank-separated Table B mnemonics in one-to-one correspondence with the number of data values
+!> that will be read/written from/to the data subset within the first dimension of usr (see [DX BUFR Tables](@ref dfbftab)
+!> for further information about Table B mnemonics)
+!>
+!> @author J. Woollen @date 1994-01-06
+recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
+
+  use modv_vars, only: im8b, bmiss
+
+  use moda_usrint
+  use moda_msgcwd
+
+  implicit none
+
+  character*(*), intent(in) :: str
+  character*128 bort_str1, bort_str2, errstr
+
+  real*8, intent(inout) :: usr(i1,i2)
+
+  integer, intent(in) :: lunin, i1, i2
+  integer, intent(out) :: iret
+  integer iprt, iac, ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, ia2, i, j
+
+  common /quiet/ iprt
+  common /acmode/ iac
+
+  data ifirst1 /0/
+
+  save ifirst1
+
+  ! Check for I8 integers
+  if(im8b) then
+    im8b=.false.
+    call x84(lunin,my_lunin,1)
+    call x84(i1,my_i1,1)
+    call x84(i2,my_i2,1)
+    call ufbrep(my_lunin,usr,my_i1,my_i2,iret,str)
+    call x48(iret,iret,1)
+    im8b=.true.
+    return
+  endif
+
+  iret = 0
+
+  ! Check the file status and inode
+  lunit = abs(lunin)
+  call status(lunit,lun,il,im)
+  if(il.eq.0) call bort('BUFRLIB: UFBREP - BUFR FILE IS CLOSED, IT MUST BE OPEN')
+  if(im.eq.0) call bort('BUFRLIB: UFBREP - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE')
+  if(inode(lun).ne.inv(1,lun)) call bort('BUFRLIB: UFBREP - LOCATION OF INTERNAL TABLE FOR BUFR FILE DOES NOT AGREE ' // &
+    'WITH EXPECTED LOCATION IN INTERNAL SUBSET ARRAY')
+
+  io = min(max(0,il),1)
+  if(lunit.ne.lunin) io = 0
+
+  if(i1.le.0) then
+    if(iprt.ge.0) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      errstr = 'BUFRLIB: UFBREP - 3rd ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+      call errwrt(errstr)
+      call errwrt(str)
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+    return
+  elseif(i2.le.0) then
+    if(iprt.eq.-1) ifirst1 = 1
+    if(io.eq.0 .or. ifirst1.eq.0 .or. iprt.ge.1)  then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      errstr = 'BUFRLIB: UFBREP - 4th ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+      call errwrt(errstr)
+      call errwrt(str)
+      if(iprt.eq.0 .and. io.eq.1) then
+        errstr = 'Note: Only the first occurrence of this WARNING message is printed, there may be more.  To output ' // &
+          'all such messages,'
+        call errwrt(errstr)
+        errstr = 'modify your application program to add "CALL OPENBF(0,''QUIET'',1)" prior to the first call to a ' // &
+          'BUFRLIB routine.'
+        call errwrt(errstr)
+      endif
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+      ifirst1 = 1
+    endif
+    return
+  endif
+
+  ! Initialize usr array preceeding an input operation
+  if(io.eq.0) then
+    do j=1,i2
+      do i=1,I1
+        usr(i,j) = bmiss
+      enddo
+    enddo
+  endif
+
+  ! Parse or recall the input string
+  ia2 = iac
+  iac = 1
+  call string(str,lun,i1,io)
+
+  ! Call the mnemonic reader/writer
+  call ufbrp(lun,usr,i1,i2,io,iret)
+  iac = ia2
+
+  if(io.eq.1 .and. iret.lt.i2) then
+    write(bort_str1,'("BUFRLIB: UFBREP - MNEMONIC STRING READ IN IS: ",A)') str
+    write(bort_str2,'(18X,"THE NUMBER OF ''LEVELS'' ACTUALLY '// &
+      'WRITTEN (",I3,") LESS THAN THE NUMBER REQUESTED (",I3,") - INCOMPLETE WRITE")')  iret,i2
+    call bort2(bort_str1,bort_str2)
+  endif
+
+  if(iret.eq.0 .and. io.eq.0 .and. iprt.ge.1) then
+    call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+    errstr = 'BUFRLIB: UFBREP - NO SPECIFIED VALUES READ IN, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+    call errwrt(errstr)
+    call errwrt(str)
+    call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+    call errwrt(' ')
+  endif
+
+  return
+end subroutine ufbrep
