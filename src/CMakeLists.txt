@@ -7,13 +7,13 @@ list(APPEND fortran_src
   modules_vars.F90 modules_arrs.F90 blocks.F90 borts.F90 capit.f cktaba.f
   compress.F90 cnved4.f codflg.f conwin.f copydata.F90 dumpdata.F90 drfini.f drstpl.f dxtable.F90
   errwrt.F90 fstag.f getabdb.f getcfmng.f getlens.f gettagpr.f
-  gettagre.f getvalnb.f getwin.f hold4wlc.f ifbget.f fxy.F90 iokoper.f ipks.f isize.f
+  gettagre.f getwin.f hold4wlc.f ifbget.f fxy.F90 iokoper.f ipks.f isize.f
   igetrfel.f igetsc.f imrkopr.f invcon.f invmrg.f invtag.f invwin.f
   jstnum.f lcmgdf.f jumplink.F90 mastertable.F90 missing.F90 mesgbc.f mesgbf.f mrginv.f
   nemdefs.f nemock.f nemspecs.f nemtab.f nemtba.f nemtbax.f nemtbb.f nemtbd.f nenubd.f nevn.f newwin.f
   numtab.f numtbd.f nvnwin.f nwords.f nxtwin.f openbt.f
   parstr.f parusr.f parutg.f ftbvs.F90 pktdd.f posapx.f rcstpl.f rdtree.f
-  readwritemg.F90 readwritesb.F90 readlc.f rewnbf.f rsvfvm.f s013vals.F90 tankrcpt.F90 setvalnb.f 
+  readwritemg.F90 readwritesb.F90 readwriteval.F90 readlc.f rewnbf.f rsvfvm.f s013vals.F90 tankrcpt.F90
   standard.F90 stntbi.f stntbia.f strbtm.f strcln.f string.f strnum.F90 strsuc.F90
   trybump.f ufbcnt.f ufbcup.f ufbevn.f ufbget.f ufbin3.f ufbint.f ufbinx.f
   memmsgs.F90 ufbovr.f ufbpos.f ufbqcd.f ufbqcp.f ufbrep.f ufbrp.f
