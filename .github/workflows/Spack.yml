@@ -46,7 +46,7 @@ jobs:
 
     - name: spack-build-and-test
       run: |
-        git clone -c feature.manyFiles=true https://github.com/spack/spack
+        git clone -c feature.manyFiles=true https://github.com/spack/spack -b releases/v0.21
         . spack/share/spack/setup-env.sh
         spack env create bufr-env $GITHUB_WORKSPACE/bufr/spack/spack.yaml
         spack env activate bufr-env
