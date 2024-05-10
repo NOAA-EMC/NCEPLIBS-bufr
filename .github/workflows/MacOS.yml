@@ -17,6 +17,7 @@ jobs:
     runs-on: macos-latest
     env:
       FC: gfortran-11
+      F90: gfortran-11
 
     steps:
 
@@ -35,16 +36,16 @@ jobs:
         sudo ln -sf /usr/local/bin/gfortran-11 /usr/local/bin/gfortran
           
     - name: checkout-bufr
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with: 
         path: bufr
 
     - name: cache-data
       id: cache-data
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/data
-        key: data-13
+        key: data-15
 
     - name: build-bufr
       run: |

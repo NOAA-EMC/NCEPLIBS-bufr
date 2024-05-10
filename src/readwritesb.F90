@@ -312,7 +312,7 @@ recursive subroutine writsb(lunit)
 
   common /msgcmp/ ccmf
 
-! Check for I8 integers
+  ! Check for I8 integers
 
   if(im8b) then
     im8b=.false.
@@ -324,14 +324,14 @@ recursive subroutine writsb(lunit)
     return
   endif
 
-! Check the file status
+  ! Check the file status
 
   call status(lunit,lun,il,im)
   if(il.eq.0) call bort('BUFRLIB: WRITSB - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
   if(il.lt.0) call bort('BUFRLIB: WRITSB - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
   if(im.eq.0) call bort('BUFRLIB: WRITSB - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
 
-! Pack up the subset and put it into the message
+  ! Pack up the subset and put it into the message
 
   call wrtree(lun)
   if( ccmf.eq.'Y' ) then
@@ -747,8 +747,8 @@ end subroutine msgupd
 !> @param ibit - Bit pointer:
 !>  - on input, contains bit pointer within ibay after which to begin padding
 !>  - on output, contains bit pointer within ibay to last bit that was padded
-!> @param ibyt - integer: number of bytes within ibay containing packed data, including padding
-!> @param ipadb - integer: bit boundary to pad to (must be a multiple of 8)
+!> @param ibyt - Number of bytes within ibay containing packed data, including padding
+!> @param ipadb - Bit boundary to pad to (must be a multiple of 8)
 !>
 !> @author Woollen @date 1994-01-06
 subroutine pad(ibay,ibit,ibyt,ipadb)

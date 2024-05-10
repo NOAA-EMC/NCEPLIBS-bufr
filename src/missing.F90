@@ -8,7 +8,7 @@
 !> contains the current placeholder value for "missing" data.
 !>
 !> @param r8val - Data value to be tested
-!> @returns ibfms - integer:
+!> @returns ibfms - Return code:
 !> - 0 = r8val is not "missing"
 !> - 1 = r8val is "missing"
 !>

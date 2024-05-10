@@ -39,14 +39,14 @@ jobs:
 
     - name: cache-data
       id: cache-data
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/data
-        key: data-13
+        key: data-15
 
     - name: spack-build-and-test
       run: |
-        git clone -c feature.manyFiles=true https://github.com/spack/spack
+        git clone -c feature.manyFiles=true https://github.com/spack/spack -b releases/v0.21
         . spack/share/spack/setup-env.sh
         spack env create bufr-env $GITHUB_WORKSPACE/bufr/spack/spack.yaml
         spack env activate bufr-env
@@ -66,7 +66,7 @@ jobs:
         ls ${BUFR_LIB4} | grep -cE "/libbufr_4\."$suffix'$'
 
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: ${{ failure() }}
       with:
         name: spackci-ctest-output-${{ matrix.os }}-${{ matrix.variants }}

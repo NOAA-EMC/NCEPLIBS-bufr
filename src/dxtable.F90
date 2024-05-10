@@ -1148,7 +1148,7 @@ end function idxmsg
 !>    - 'A' = Table A
 !>    - 'B' = Table B
 !>    - 'D' = Table D
-!> @returns igetntbi - integer: Next available index for storing an entry within ctb
+!> @returns igetntbi - Next available index for storing an entry within ctb
 !>
 !> @author J. Ator @date 2009-03-23
 integer function igetntbi ( lun, ctb ) result(iret)

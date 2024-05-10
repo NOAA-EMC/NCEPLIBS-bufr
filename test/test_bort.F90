@@ -2050,6 +2050,9 @@ program test_bort
         call wrcmps(14)
      elseif (test_case .eq. '2') then
         call wrcmps(13)
+     elseif (test_case .eq. '3') then
+        call maxout(200)
+        call wrcmps(13)
      endif
   elseif (sub_name .eq. 'wrdesc') then
      if (test_case .eq. '1') then

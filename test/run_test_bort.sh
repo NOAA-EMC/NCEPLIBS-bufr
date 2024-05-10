@@ -542,6 +542,7 @@ for kind in "4" "d"; do
     # Check wrcmps().
     (./test_bort_$kind wrcmps 1) && exit 1
     (./test_bort_$kind wrcmps 2) && exit 1
+    (./test_bort_$kind wrcmps 3) && exit 1
 
     # Check wrdesc().
     (./test_bort_$kind wrdesc 1) && exit 1

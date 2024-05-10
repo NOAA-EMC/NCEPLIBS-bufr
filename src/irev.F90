@@ -22,8 +22,7 @@
 !> "big-endian", irev() simply returns a copy of the same integer that was
 !> input.
 !>
-!> @param n - integer word with bytes ordered according
-!> to the "big-endian" numbering scheme
+!> @param n - integer word with bytes ordered according to the "big-endian" numbering scheme
 !>
 !> @return - integer word with bytes ordered according to
 !> the numbering scheme of the local machine (either
@@ -31,7 +30,7 @@
 !> this is just a direct copy of n).
 !>
 !> @author Woollen @date 1994-01-06
-function irev(n) result(iret)
+integer function irev(n) result(iret)
 
   use modv_vars, only: nbytw, iordle
 
@@ -39,15 +38,12 @@ function irev(n) result(iret)
 
   integer, intent(in) :: n
 
-  integer int, jnt, i, iret
+  integer int, jnt, i
 
   character*8 cint,dint
 
   equivalence(cint,int)
   equivalence(dint,jnt)
-
-!----------------------------------------------------------------------
-!----------------------------------------------------------------------
 
 #ifdef BIG_ENDIAN
   iret = n

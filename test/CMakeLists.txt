@@ -138,6 +138,7 @@ list(APPEND test_scripts
   test_split_by_subset.sh
   test_debufr.sh
   test_xbfmg.sh
+  test_apxdx.sh
 )
 
 # Run the test scripts for the utils.
@@ -155,7 +156,7 @@ foreach(kind ${test_kinds})
   foreach(innum RANGE 1 12)
     create_test(intest ${kind} ${innum})
   endforeach()
-  foreach(outnum RANGE 1 10)
+  foreach(outnum RANGE 1 11)
     create_test(outtest ${kind} ${outnum})
   endforeach()
 endforeach()
@@ -189,6 +190,7 @@ list(APPEND utils
   readmp
   cmpbqm
   xbfmg
+  apxdx
 )
 
 # utility tests
