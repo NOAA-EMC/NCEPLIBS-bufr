@@ -1555,3 +1555,382 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
 
   return
 end subroutine ufbseq
+
+!> Explicitly initialize delayed replication factors
+!> and allocate a corresponding amount of space within internal arrays,
+!> thereby allowing the subsequent use of subroutine ufbseq() to write
+!> data into delayed replication sequences.
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param mdrf - Array of delayed replication factors, in one-to-one correspondence with the number of occurrences
+!> of drftag within the overall subset definition, and explicitly defining how much space (i.e. how many replications)
+!> to allocate within each successive occurrence
+!> @param ndrf - Number of delayed replication factors within mdrf
+!> @param drftag - Table D sequence mnemonic, bracketed by appropriate delayed replication notation (e.g. {}, () OR <>)
+!>
+!> Logical unit lunit should have already been opened for output
+!> operations (i.e. writing/encoding BUFR) via a previous call to
+!> subroutine openbf(), and a message for output should have already
+!> been opened via a previous call to one of the
+!> [message-writing subroutines].
+!>
+!> The use of this subroutine is only required when writing data
+!> into delayed replication sequences using ufbseq(), or for cases
+!> where ufbint() or ufbrep() are being used to write data into
+!> delayed replication sequences which occur more than once within
+!> an overall subset definition.  In such cases, the use of this
+!> subroutine allows the application code to explicitly specify how
+!> many replications of the sequence are to be allocated to each
+!> occurrence of the delayed replication sequence within the overall
+!> subset definition, prior to storing all of the actual data values
+!> themselves via a single subsequent call to ufbint() or ufbrep().
+!> In contrast, the use of this subroutine is not required when
+!> ufbint() or ufbrep() are to be called to store data values
+!> for a delayed replication sequence which only occurs one time
+!> within an overall subset definition, because in that case the
+!> same type of initialization and space allocation functionality
+!> will be automatically handled internally within subroutine
+!> ufbint() or ufbrep().
+!>
+!> @author J. Woollen @date 2002-05-14
+recursive subroutine drfini(lunit,mdrf,ndrf,drftag)
+
+  use modv_vars, only: im8b
+
+  use moda_usrint
+  use moda_tables
+
+  implicit none
+
+  character*(*), intent(in) :: drftag
+
+  integer, intent(in) :: mdrf(*), lunit, ndrf
+  integer, parameter :: mxdrf = 2000
+  integer my_mdrf(mxdrf), my_lunit, my_ndrf, mdrf4, ii, lun, il, im, m, n, node
+
+  ! Check for I8 integers
+  if(im8b) then
+    im8b=.false.
+    call x84(lunit,my_lunit,1)
+    do ii = 1, ndrf
+      call x84(mdrf(ii),mdrf4,1)
+      my_mdrf(ii) = mdrf4
+    enddo
+    call x84(ndrf,my_ndrf,1)
+    call drfini(my_lunit,my_mdrf,my_ndrf,drftag)
+    im8b=.true.
+    return
+  endif
+
+  call status(lunit,lun,il,im)
+  ! Conform the template to the delayed replication factors
+  m = 0
+  n = 0
+  do n = n+1, nval(lun)
+    node = inv(n,lun)
+    if(itp(node).eq.1 .and. tag(node).eq.drftag) then
+      m = m+1
+      call usrtpl(lun,n,mdrf(m))
+    endif
+  enddo
+
+  return
+end subroutine drfini
+
+!> Write or read specified values to or from
+!> the current BUFR data subset within internal arrays, with the
+!> direction of the data transfer determined by the context of io.
+!>
+!> The data values correspond to internal arrays representing parsed
+!> strings of mnemonics which are part of a delayed-replication
+!> sequence, or for which there is no replication at all.
+!>
+!> This subroutine should never be directly called by an application
+!> program; instead, an application program should directly call ufbint()
+!> which will internally call this subroutine.
+!>
+!> @param lun - File ID
+!> @param usr - Data values
+!> @param i1 - Length of first dimension of usr
+!> @param i2 - Length of second dimension of usr
+!> @param io - Status indicator for BUFR file associated with lun:
+!> - 0 input file
+!> - 1 output file
+!> @param iret - Number of "levels" of data values read from or written to data subset
+!> - -1 none of the mnemonics in the string passed to ufbint() were found in the data subset template
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine ufbrw(lun,usr,i1,i2,io,iret)
+
+  use modv_vars, only: bmiss
+
+  use moda_usrint
+  use moda_tables
+  use moda_msgcwd
+
+  implicit none
+
+  integer, intent(in) :: lun, i1, i2, io
+  integer, intent(out) :: iret
+  integer iprt, nnod, ncon, nods, nodc, ivls, kons, inc1, inc2, ins1, ins2, invn, i, j, invwin, ibfms, lstjpb
+
+  real*8, intent(inout) :: usr(i1,i2)
+
+  character*128 errstr
+  character*10 tagstr, subset
+
+  common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
+  common /quiet/ iprt
+
+  subset=tag(inode(lun))
+  iret = 0
+
+  ! Loop over condition windows
+  inc1 = 1
+  inc2 = 1
+  outer: do while (.true.)
+    call conwin(lun,inc1,inc2)
+    if(nnod.eq.0) then
+      iret = i2
+      return
+    elseif(inc1.eq.0) then
+      return
+    else
+      do j=1,nnod
+        if(nods(j).gt.0) then
+          ins2 = inc1
+          call getwin(nods(j),lun,ins1,ins2)
+          if(ins1.eq.0) return
+          do while (.true.)
+            ! Loop over store nodes
+            iret = iret+1
+            if(iprt.ge.2) then
+              call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+              call errwrt('UFBRW LEV TAG     IO   INS1   INVN   INS2  '//SUBSET)
+              call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+              do i=1,nnod
+                if(io==0) tagstr=tag(nods(i))(1:8)//' R'
+                if(io==1) tagstr=tag(nods(i))(1:8)//' W'
+                invn = invwin(nods(i),lun,ins1,ins2)
+                if(invn.eq.0.and.io==1) call drstpl(nods(i),lun,ins1,ins2,invn)
+                write(errstr,'("LEV=",I5,1X,A,3I7)') iret,tagstr,ins1,invn,ins2
+                call errwrt(errstr)
+              enddo
+            endif
+            ! Write user values
+            if(io.eq.1 .and. iret.le.i2) then
+              do i=1,nnod
+                if(nods(i).gt.0) then
+                  if(ibfms(usr(i,iret)).eq.0) then
+                    invn = invwin(nods(i),lun,ins1,ins2)
+                    if(invn.eq.0) then
+                      call drstpl(nods(i),lun,ins1,ins2,invn)
+                      if(invn.eq.0) then
+                        iret = 0
+                        return
+                      endif
+                      call newwin(lun,inc1,inc2)
+                      val(invn,lun) = usr(i,iret)
+                    elseif(lstjpb(nods(i),lun,'RPS').eq.0) then
+                      val(invn,lun) = usr(i,iret)
+                    elseif(ibfms(val(invn,lun)).ne.0) then
+                      val(invn,lun) = usr(i,iret)
+                    else
+                      call drstpl(nods(i),lun,ins1,ins2,invn)
+                      if(invn.eq.0) then
+                        iret = 0
+                        return
+                      ENDIF
+                      call newwin(lun,inc1,inc2)
+                      val(invn,lun) = usr(i,iret)
+                    endif
+                  endif
+                endif
+              enddo
+            endif
+            ! Read user values
+            if(io.eq.0 .and. iret.le.i2) then
+              do i=1,nnod
+                usr(i,iret) = bmiss
+                if(nods(i).gt.0) then
+                  invn = invwin(nods(i),lun,ins1,ins2)
+                  if(invn.gt.0) usr(i,iret) = val(invn,lun)
+                endif
+              enddo
+            endif
+            ! Decide what to do next
+            if(io.eq.1.and.iret.eq.i2) return
+            call nxtwin(lun,ins1,ins2)
+            if(ins1.gt.0 .and. ins1.lt.inc2) cycle
+            if(ncon.gt.0) cycle outer
+            return
+          enddo
+        endif
+      enddo
+      iret = -1
+      return
+    endif
+  enddo outer
+
+  return
+end subroutine ufbrw
+
+!> Write or read specified data values to or
+!> from the current BUFR data subset within internal arrays, with the
+!> direction of the data transfer determined by the context of io.
+!>
+!> The data values correspond to internal arrays representing parsed
+!> strings of mnemonics which are either part of a fixed (i.e. non-delayed)
+!> replication sequence, or for mnememonics which are replicated by being
+!> directly listed more than once within an overall subset definition.
+!>
+!> This subroutine should never be directly called by an application
+!> program; instead, an application program should directly call ufbrep()
+!> which will internally call this subroutine.
+!>
+!> @param lun - File ID
+!> @param usr - Data values
+!> @param i1 - Length of first dimension of usr
+!> @param i2 - Length of second dimension of usr
+!> @param io - Status indicator for BUFR file associated with lun:
+!> - 0 input file
+!> - 1 output file
+!> @param iret - Number of "levels" of data values read from or written to data subset
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine ufbrp(lun,usr,i1,i2,io,iret)
+
+  use moda_usrint
+
+  implicit none
+
+  integer, intent(in) :: lun, i1, i2, io
+  integer, intent(out) :: iret
+  integer nnod, ncon, nods, nodc, ivls, kons, ins1, ins2, invn, i, nz, invtag
+
+  real*8, intent(inout) :: usr(i1,i2)
+
+  common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
+
+  iret = 0
+  ins1 = 0
+  ins2 = 0
+
+  ! Find first non-zero node in string
+  do nz=1,nnod
+    if(nods(nz).gt.0) then
+      do while (.true.)
+        ! Frame a section of the buffer - return when no frame
+        if(ins1+1.gt.nval(lun)) return
+        if(io.eq.1 .and. iret.eq.i2) return
+        ins1 = invtag(nods(nz),lun,ins1+1,nval(lun))
+        if(ins1.eq.0) return
+        ins2 = invtag(nods(nz),lun,ins1+1,nval(lun))
+        if(ins2.eq.0) ins2 = nval(lun)
+        iret = iret+1
+        ! Read user values
+        if(io.eq.0 .and. iret.le.i2) then
+          do i=1,nnod
+            if(nods(i).gt.0) then
+              invn = invtag(nods(i),lun,ins1,ins2)
+              if(invn.gt.0) usr(i,iret) = val(invn,lun)
+            endif
+          enddo
+        endif
+        ! Write user values
+        if(io.eq.1 .and. iret.le.i2) then
+          do i=1,nnod
+            if(nods(i).gt.0) then
+              invn = invtag(nods(i),lun,ins1,ins2)
+              if(invn.gt.0) val(invn,lun) = usr(i,iret)
+            endif
+          enddo
+        endif
+      enddo
+    endif
+  enddo
+
+  return
+end subroutine ufbrp
+
+!> Write or read specified values to or
+!> from the current BUFR data subset within internal arrays, with the
+!> direction of the data transfer determined by the context of io.
+!>
+!> The data values correspond to internal arrays representing parsed
+!> strings of mnemonics which are either part of a fixed (i.e. non-delayed)
+!> replication sequence, or for mnememonics which are replicated by being
+!> directly listed more than once within an overall subset definition.
+!>
+!> This subroutine should never be directly called by an application
+!> program; instead, an application program should directly call ufbstp()
+!> which will internally call this subroutine.
+!>
+!> This subroutine is similar to subroutine ufbrp(), but it is designed
+!> for different use cases.  For a more detailed explanation of how
+!> subroutine ufbstp() differs from subroutine ufbrep(), and therefore
+!> how this subroutine differs from subroutine ufbrp(), see the
+!> discussion in [DX BUFR Tables](@ref ufbsubs).
+!>
+!> @param lun - File ID
+!> @param usr - Data values
+!> @param i1 - Length of first dimension of usr
+!> @param i2 - Length of second dimension of usr
+!> @param io - Status indicator for BUFR file associated with lun:
+!> - 0 input file
+!> - 1 output file
+!> @param iret - Number of "levels" of data values read from or written to data subset
+!>
+!> @author J. Woollen @date 1999-11-18
+subroutine ufbsp(lun,usr,i1,i2,io,iret)
+
+  use moda_usrint
+
+  implicit none
+
+  integer, intent(in) :: lun, i1, i2, io
+  integer, intent(out) :: iret
+  integer nnod, ncon, nods, nodc, ivls, kons, ins1, ins2, invn, invm, i, invtag
+
+  real*8, intent(inout) :: usr(i1,i2)
+
+  common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
+
+  iret = 0
+  ins1 = 0
+  ins2 = 0
+
+  do while (.true.)
+    ! Frame a section of the buffer - return when no frame
+    if(ins1+1.gt.nval(lun)) return
+    ins1 = invtag(nods(1),lun,ins1+1,nval(lun))
+    if(ins1.eq.0) return
+    ins2 = invtag(nods(1),lun,ins1+1,nval(lun))
+    if(ins2.eq.0) ins2 = nval(lun)
+    iret = iret+1
+    ! Read user values
+    if(io.eq.0 .and. iret.le.i2) then
+      invm = ins1
+      do i=1,nnod
+        if(nods(i).gt.0) then
+          invn = invtag(nods(i),lun,invm,ins2)
+          if(invn.gt.0) usr(i,iret) = val(invn,lun)
+          invm = max(invn,invm)
+        endif
+      enddo
+    endif
+    ! Write user values
+    if(io.eq.1 .and. iret.le.i2) then
+      invm = ins1
+      do i=1,nnod
+        if(nods(i).gt.0) then
+          invn = invtag(nods(i),lun,invm,ins2)
+          if(invn.gt.0) val(invn,lun) = usr(i,iret)
+          invm = max(invn,invm)
+        endif
+      enddo
+    endif
+  enddo
+
+  return
+end subroutine ufbsp
