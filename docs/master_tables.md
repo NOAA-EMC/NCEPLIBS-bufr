@@ -13,8 +13,6 @@ different value of IO is specified, then only a
 [DX BUFR tables](@ref dfbftab) file is normally required, and master
 BUFR tables are not needed.
 
-<br>
-
 Whenever master BUFR tables are used, they are read in by the BUFRLIB
 software as a corresponding set of four system files, from a directory
 on the local filesystem as specified within a separate preceding call
@@ -65,8 +63,6 @@ read the appropriate files depending on the corresponding values
 stored within Section 1 of each new message to be decoded. For more
 details about the above values, see the discussion on Section 1 within
 the official [WMO Manual 306, Volume I.2](@ref manual).
-
-<br>
 
 Now that we've discussed the content and naming conventions for master
 BUFR table files, let's turn our attention to the actual format of

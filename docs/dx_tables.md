@@ -14,8 +14,6 @@ information must be supplied, such as the example shown below. Such
 files must be syntactically correct and also complete, in the sense
 that all necessary mnemonics must exist and be fully-defined.
 
-<br>
-
 ## Mnemonics
 
 A <i>mnemonic</i> is a
@@ -26,8 +24,6 @@ descriptive, alphanumeric name for a data value.
 sequences composed of one or more Table B (or other Table D) mnemonics and which are themselves
 normally direct constituents of a particular Table A mnemonic.
 
-<br>
-
 At the highest level, we have a Table A mnemonic which completely
 describes a type of data subset (e.g. rawinsonde, wind profiler,
 etc.). This Table A mnemonic is defined as a sequence of one or more
@@ -37,13 +33,6 @@ mnemonics, and so on until the entire data subset can be equivalently
 described as a sequence of one or more Table B mnemonics which
 correspond to basic data values (e.g. pressure, temperature, humidity,
 etc.).
-
-<br>
-
-The entire sequence of data values that constitute a particular type
-of data subset is fully and unambiguously defined.
-
-<br>
 
 Mnemonics never themselves appear within actual BUFR messages.  Their
 only purpose is to make it easier for users to interact with the
@@ -69,8 +58,6 @@ more Table B (or other Table D) mnemonics.
 3. In the [third section](#section3), all previously-declared Table B
 mnemonics are defined in terms of their scale factor, reference value,
 bit width, and units.
-
-<br>
 
 <div id="section1">
 ### Section 1
