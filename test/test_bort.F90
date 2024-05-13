@@ -973,6 +973,13 @@ program test_bort
         call readerme(ibfmg, 31, char_val_8, jdate, iret)
      endif
   elseif (sub_name .eq. 'readlc') then
+     if (test_case .eq. '7') then
+        open(unit = 11, file = 'testfiles/OUT_1', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'IN', 11)
+        call readns(11, char_val_8, jdate, iret)
+        call readlc(11, char_1, 'ACRN')
+     endif
      open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
      if (ios .ne. 0) stop 3
      open(unit = 12, file = 'testfiles/IN_2_bufrtab', iostat = ios)
@@ -2096,11 +2103,6 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(11, 'IN', 11)
         call writlc(11, char_val_8, char_val_8)
-     elseif (test_case .eq. '2') then
-        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios .ne. 0) stop 3
-        call openbf(11, 'OUT', 12)
-        call writlc(11, char_val_8, char_val_8)
      elseif (test_case .eq. '3') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios .ne. 0) stop 3
@@ -2108,6 +2110,26 @@ program test_bort
         if (ios .ne. 0) stop 3
         call openbf(12, 'IN', 12)
         call writlc(11, char_val_8, char_val_8)
+     else
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios .ne. 0) stop 3
+        open(unit = 12, file = 'testfiles/IN_2_bufrtab', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(11, 'OUT', 12)
+        if (test_case .eq. '2') then
+          call writlc(11, char_val_8, char_val_8)
+        elseif (test_case .eq. '4') then
+          call openmb(11, 'NC005065', 20240512)
+          call writlc(11, char_val_8, 'BORG BBB')
+        elseif (test_case .eq. '5') then
+          call openmb(11, 'NC005065', 20240512)
+          call writsb(11)
+          call writlc(11, char_val_8, 'SAID')
+        elseif (test_case .eq. '6') then
+          call openmb(11, 'NC005065', 20240512)
+          call writcp(11)
+          call writlc(11, char_val_8, 'SAID')
+        endif
      endif
   elseif (sub_name .eq. 'writsa') then
      if (test_case .eq. '1') then

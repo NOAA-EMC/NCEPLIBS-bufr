@@ -273,6 +273,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind readlc 4) && exit 1
     (./test_bort_$kind readlc 5) && exit 1
     (./test_bort_$kind readlc 6) && exit 1
+    (./test_bort_$kind readlc 7) && exit 1
 
     # Check readmg().
     (./test_bort_$kind readmg 1) && exit 1
@@ -566,6 +567,9 @@ for kind in "4" "d"; do
     (./test_bort_$kind writlc 1) && exit 1
     (./test_bort_$kind writlc 2) && exit 1
     (./test_bort_$kind writlc 3) && exit 1
+    (./test_bort_$kind writlc 4) && exit 1
+    (./test_bort_$kind writlc 5) && exit 1
+    (./test_bort_$kind writlc 6) && exit 1
 
     # Check writsa().
     (./test_bort_$kind writsa 1) && exit 1
