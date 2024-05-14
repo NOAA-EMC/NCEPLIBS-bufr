@@ -93,6 +93,16 @@ for kind in "4" "d"; do
     (./test_bort_$kind elemdx 4) && exit 1
     (./test_bort_$kind elemdx 5) && exit 1
 
+    # Check getcfmng().
+    (./test_bort_$kind getcfmng 1) && exit 1
+    (./test_bort_$kind getcfmng 2) && exit 1
+    (./test_bort_$kind getcfmng 3) && exit 1
+    (./test_bort_$kind getcfmng 4) && exit 1
+    (./test_bort_$kind getcfmng 5) && exit 1
+    (./test_bort_$kind getcfmng 6) && exit 1
+    (./test_bort_$kind getcfmng 7) && exit 1
+    (./test_bort_$kind getcfmng 8) && exit 1
+
     # Check getntbe().
     (./test_bort_$kind getntbe 1) && exit 1
 

@@ -317,6 +317,44 @@ program test_bort
         card = '| MXTM     |    2 |           0 |  1x | DEGREES KELVIN           |-------------|'
         call elemdx(card,1)
      endif
+  elseif (sub_name .eq. 'getcfmng') then
+     open(unit = 11, file = 'testfiles/IN_4', form ='unformatted', iostat = ios)
+     if (ios .ne. 0) stop 3
+     if (test_case .eq. '1') then
+       call getcfmng(11, 'GCLONG', 254, ' ', -1, char_30, len, iret)
+     elseif (test_case .eq. '2') then
+       open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+       if (ios .ne. 0) stop 3
+       call openbf(12, 'OUT', 11)
+       call getcfmng(12, 'GCLONG', 254, ' ', -1, char_30, len, iret)
+     elseif (test_case .eq. '3') then
+       call openbf(11, 'IN', 11)
+       call getcfmng(11, 'GCLONG', 254, ' ', -1, char_30, len, iret)
+     elseif (test_case .eq. '4') then
+       call openbf(11, 'SEC3', 11)
+       call readns(11, char_val_8, jdate, iret)
+       call getcfmng(11, 'GCLONG', 254, ' ', -1, char_30, len, iret)
+     elseif (test_case .eq. '5') then
+       call openbf(11, 'SEC3', 11)
+       call readns(11, char_val_8, jdate, iret)
+       call codflg('Y')
+       call getcfmng(11, 'GXLONG', 254, ' ', -1, char_30, len, iret)
+     elseif (test_case .eq. '6') then
+       call openbf(11, 'SEC3', 11)
+       call readns(11, char_val_8, jdate, iret)
+       call codflg('Y')
+       call getcfmng(11, 'SSNY', 254, ' ', -1, char_30, len, iret)
+     elseif (test_case .eq. '7') then
+       call openbf(11, 'SEC3', 11)
+       call readns(11, char_val_8, jdate, iret)
+       call codflg('Y')
+       call getcfmng(11, 'SAID', 254, 'GXES', 7, char_30, len, iret)
+     elseif (test_case .eq. '8') then
+       call openbf(11, 'SEC3', 11)
+       call readns(11, char_val_8, jdate, iret)
+       call codflg('Y')
+       call getcfmng(11, 'SAID', 254, 'SSNX', 7, char_30, len, iret)
+     endif
   elseif (sub_name .eq. 'getntbe') then
      open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
      if (ios .ne. 0) stop 3
