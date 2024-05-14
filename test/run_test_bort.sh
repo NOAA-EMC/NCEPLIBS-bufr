@@ -132,6 +132,9 @@ for kind in "4" "d"; do
     (./test_bort_$kind igetrfel 2) && exit 1
     (./test_bort_$kind igetrfel 3) && exit 1
 
+    # Check igetsc().
+    (./test_bort_$kind igetsc 1) && exit 1
+
     # Check igettdi().
     (./test_bort_$kind igettdi 1) && exit 1
 

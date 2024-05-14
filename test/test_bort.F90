@@ -44,7 +44,7 @@ program test_bort
   integer imt, imtv, iogce, iltv
   integer*8 nval
 
-  integer*4 isize, iupm, iupvs01, isetprm, nmsub, igettdi
+  integer*4 isize, iupm, iupvs01, isetprm, nmsub, igettdi, igetsc
 
   character*25 filnam
   character bfmg(200000)
@@ -485,6 +485,10 @@ program test_bort
      call mtinfo('../tables', 80, 81)
      call readerme(ibfmg, 31, char_val_8, jdate, iret)
      call readsb(31, iret)
+  elseif (sub_name .eq. 'igetsc') then
+     if (test_case .eq. '1') then
+       iret = igetsc(11)
+     endif
   elseif (sub_name .eq. 'igettdi') then
      if (test_case .eq. '1') then
        iret = igettdi(0)

@@ -4,21 +4,21 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 list(APPEND fortran_src
-  modules_vars.F90 modules_arrs.F90 blocks.F90 borts.F90 capit.f cktaba.f
+  modules_vars.F90 modules_arrs.F90 blocks.F90 borts.F90 cktaba.f
   compress.F90 cnved4.f conwin.f copydata.F90 dumpdata.F90 drstpl.f dxtable.F90
   errwrt.F90 fstag.f getabdb.f getlens.f gettagpr.f
-  gettagre.f getwin.f ifbget.f fxy.F90 iokoper.f ipks.f isize.f
-  igetrfel.f igetsc.f imrkopr.f invcon.f invmrg.f invtag.f invwin.f
-  jstnum.f lcmgdf.f jumplink.F90 mastertable.F90 missing.F90 mesgbc.f mesgbf.f mrginv.f
+  gettagre.f getwin.f ifbget.f fxy.F90 iokoper.f ipks.f
+  igetrfel.f imrkopr.f invcon.f invmrg.f invtag.f invwin.f
+  lcmgdf.f jumplink.F90 mastertable.F90 missing.F90 mesgbc.f mesgbf.f mrginv.f
   nemdefs.f nemock.f nemspecs.f nemtab.f nemtba.f nemtbax.f nemtbb.f nemtbd.f nenubd.f nevn.f newwin.f
   numtab.f numtbd.f nvnwin.f nwords.f nxtwin.f openbt.f
   parstr.f parusr.f parutg.f ftbvs.F90 pktdd.f posapx.f rcstpl.f rdtree.f
   readwritemg.F90 readwritesb.F90 readwriteval.F90 rewnbf.f rsvfvm.f s013vals.F90 tankrcpt.F90
-  standard.F90 stntbi.f stntbia.f strbtm.f strcln.f string.f strnum.F90 strsuc.F90
+  standard.F90 stntbi.f stntbia.f strbtm.f strcln.f string.f
   trybump.f ufbcnt.f ufbcup.f ufbevn.f ufbget.f ufbin3.f ufbinx.f
   memmsgs.F90 ufbovr.f ufbpos.f ufbqcd.f ufbqcp.f
   ufbtab.f ciencode.F90 cidecode.F90
-  ups.f uptdd.f usrtpl.f wrtree.f arallocf.F90 irev.F90 openclosebf.F90
+  ups.f uptdd.f usrtpl.f wrtree.f arallocf.F90 openclosebf.F90
   bufr_interface.F90 bufr_c2f_interface.F90 x4884.F90 bufrlib.F90)
 
 list(APPEND c_src
@@ -27,10 +27,10 @@ list(APPEND c_src
 list(APPEND c_hdr
   cread.h mstabs.h bufr_interface.h bufrlib.h)
 
-# Create the bvers.f file and bfrini.F90 files
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bvers.f.in ${CMAKE_CURRENT_BINARY_DIR}/bvers.f @ONLY)
+# Create the misc.F90 file and bfrini.F90 files
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/misc.F90.in ${CMAKE_CURRENT_BINARY_DIR}/misc.F90 @ONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bfrini.F90.in ${CMAKE_CURRENT_BINARY_DIR}/bfrini.F90 @ONLY)
-list(APPEND fortran_src ${CMAKE_CURRENT_BINARY_DIR}/bvers.f ${CMAKE_CURRENT_BINARY_DIR}/bfrini.F90)
+list(APPEND fortran_src ${CMAKE_CURRENT_BINARY_DIR}/misc.F90 ${CMAKE_CURRENT_BINARY_DIR}/bfrini.F90)
 
 include(TestBigEndian)
 test_big_endian(IS_BIG_ENDIAN)
