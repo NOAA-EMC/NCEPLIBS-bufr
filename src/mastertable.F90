@@ -1175,3 +1175,291 @@ subroutine getntbe ( lunt, ifxyn, line, iret )
 
   return
 end subroutine getntbe
+
+!> Specify whether or not code and flag
+!> table information should be included during all future reads of
+!> master BUFR tables.
+!>
+!> @param cf - Flag indicating whether or not to include code and flag table information during all future reads of
+!> master BUFR tables
+!>   - 'N' = No (the default)
+!>   - 'Y' = Yes
+!>
+!> See [Master BUFR Tables](@ref dfbfmstab)
+!> for more information about master BUFR tables.  In particlar, note
+!> that Table B and Table D files are always read whenever master BUFR
+!> tables are being used, but the reading of Code/Flag table files is
+!> optional and should only be included if the user intends to make
+!> one or more future calls to subroutine getcfmng(); otherwise, the
+!> reading of Code/Flag table files will result in the unnecessary use
+!> of memory and other system resources.
+!>
+!> If Code/Flag tables are to be read and used, they must reside in
+!> the same directory as the master Table B and Table D files on the
+!> local filesystem, as specified within a separate call to
+!> subroutine mtinfo().
+!>
+!> This subroutine can be called at any time after the first call
+!> to subroutine openbf(), and the specified value for cf will remain
+!> in effect for all future reads of master BUFR tables, unless a
+!> subsequent call is made to this subroutine to reset the value of
+!> cf again.  If this subroutine is never called, a default value of
+!> 'N' is used for cf, as set within subroutine bfrini().
+!>
+!> @author J. Ator @date 2017-10-13
+subroutine codflg(cf)
+
+  implicit none
+
+  character, intent(in) :: cf
+  character cdmf
+
+  character*128 bort_str
+
+  common /tablef/ cdmf
+
+  call capit(cf)
+  if(cf.ne.'Y'.and. cf.ne.'N') then
+    write(bort_str,'("BUFRLIB: CODFLG - INPUT ARGUMENT IS ",A1,", IT MUST BE EITHER Y OR N")') cf
+    call bort(bort_str)
+  endif
+  cdmf = cf
+
+  return
+end subroutine codflg
+
+!> Decode the meaning of a numerical value from a code or flag table.
+!>
+!> Search for a specified Table B mnemonic and associated
+!> value (code figure or bit number) within the master Code/Flag tables,
+!> and if found return the associated meaning as a character string.
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param nemoi - Mnemonic to search for
+!> @param ivali - Value (code figure or bit number) associated with nemoi
+!> @param nemod - Optional second mnemonic upon which the values nemoi and ivali depend; set to all blank characters if the
+!> meanings of nemoi and ivali do not depend on the value of any other mnemonic
+!> @param ivald - Value (code figure or bit number) associated with nemod; set to (-1) whenever nemod is set to all blank characters
+!> @param cmeang - If the initial search of the master Code/Flag tables was successful, then this string contains the meaning
+!> corresponding to nemoi and ivali (and to nemod and ivald, if specified). However, if the initial search was unsuccessful,
+!> <b>and</b> if no optional second mnemonic and associated value were specified on input, <b>and</b> if a second search of the
+!> table determines that the meaning of nemoi and ivali indeed depends on one or more other possible second mnemonics, then
+!> those possible second mnemonics are returned within this string, as a series of iret successive 8-byte substrings.
+!> An example of this scenario is included below within the Remarks.
+!> @param lnmng - Length (in bytes) of string returned in cmeang
+!> @param iret - Return code
+!>    -  0 = meaning found and stored in cmeang string
+!>    - -1 = meaning not found
+!>    - >0 = meaning not found, <b>and</b> nemod and ivald were not specified on input, <b>and</b> the meaning of nemoi and ivali
+!>      depends on the value of one of the mnemonics stored in the first iret 8-byte substrings of cmeang
+!>
+!> As noted above, this subroutine first does an initial search of
+!> the master Code/Flag tables based on the mnemonics and values provided.
+!> The input parameters nemoi and ivali specify the mnemonic and
+!> corresponding numerical code or flag table value for which the meaning
+!> is sought, and the optional secondary parameters nemod and ivald are
+!> specified when needed to differentiate between multiple possible
+!> results. An example of this particular scenario is included below
+!> within the Remarks.  Otherwise, if the meaning of nemod and ivald
+!> does not depend on the value associated with any other mnemonic, then
+!> nemod should be set to a field of all blank characters, and ivald
+!> should be set to a value of (-1).
+!>
+!> Subroutine codflg() must be called with a cf value of 'Y' prior to
+!> calling this subroutine, in order to ensure that master Code/Flag
+!> tables have been read into internal memory.
+!>
+!> This subroutine can be called at any time after a BUFR message
+!> has been read into internal arrays by one of the NCEPLIBS-bufr
+!> [message-reading subroutines](@ref hierarchy), and it
+!> can be called for any code or flag table mnemonic defined within that
+!> particular message.  In most cases, this means that the mnemonic must
+!> be contained within the subset definition (Section 3) of that message.
+!> The only exceptions to this rule are for originating centers,
+!> originating subcenters, data types and data subtypes, since those can
+!> also be contained within the identification section (Section 1) of a
+!> BUFR message.
+!>
+!> It is the user's responsibility to provide sufficient allocated
+!> space in cmeang for the returned meaning string; otherwise, the
+!> returned string will be truncated.
+!>
+!> @remarks
+!> - An example of when secondary mnemonics nemod and ivald would be
+!> required is when a user is searching for the meaning of a numerical
+!> code table value for an originating sub-center (i.e. mnemonic GSES).
+!> The meaning of any originating sub-center value depends on the identity
+!> of the originating center for which the sub-center in question is a
+!> member, so in order for the subroutine to locate and return the proper
+!> one, information about the originating center must also be provided. So
+!> in this case the user would input GSES and the associated numerical
+!> value as nemoi and ivali, respectively, but the user would also need to
+!> specify an appropriate originating center mnemonic (e.g. GCLONG, OGCE
+!> or ORIGC) and associated value from the same BUFR message as input
+!> parameters nemod and ivald, respectively, and then the subroutine will
+!> be able to locate and return the appropriate meaning string. Otherwise,
+!> if this information was not provided, the subroutine would return with
+!> an iret value of 3, and with each of the mnemonics GCLONG, OGCE and
+!> ORIGC contained in successive 8-byte substrings of cmeang (and with a
+!> corresponding value of 24 returned for lnmng), as a hint to the user
+!> that more information needs to be input to the subroutine in order to
+!> achieve the desired result.
+!>
+!> @author J. Ator @date 2018-01-11
+recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng, iret )
+
+  use bufrlib
+
+  use modv_vars, only: im8b
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: lunit, ivali, ivald
+  integer, intent(out) :: lnmng, iret
+  integer ifxyd(10), my_lunit, my_ivali, my_ivald, lun, il, im, itmp, ii, ifxyi, lcmg, n, ntg, iret2, ierbd, ifxy, ireadmt
+
+  character*(*), intent(in) :: nemoi, nemod
+  character*(*), intent(out) :: cmeang
+  character*128 bort_str
+  character*8 nemo, my_nemoi, my_nemod
+  character cdmf, tab
+
+  common /tablef/ cdmf
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+
+    call x84(lunit,my_lunit,1)
+    call x84(ivali,my_ivali,1)
+    call x84(ivald,my_ivald,1)
+    call getcfmng(my_lunit,nemoi,my_ivali,nemod,my_ivald,cmeang,lnmng,iret)
+    call x48(lnmng,lnmng,1)
+    call x48(iret,iret,1)
+
+    im8b=.true.
+    return
+  endif
+
+  call status ( lunit, lun, il, im )
+  if ( il .eq. 0 ) call bort('BUFRLIB: GETCFMNG - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if ( il .gt. 0 ) call bort('BUFRLIB: GETCFMNG - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if ( im .eq. 0 ) call bort('BUFRLIB: GETCFMNG - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+
+  ! Make sure the appropriate code/flag information has already been read into internal memory.
+
+  if ( cdmf .ne. 'Y' ) call bort('BUFRLIB: GETCFMNG - TO USE THIS SUBROUTINE, MUST '// &
+    'FIRST CALL SUBROUTINE CODFLG WITH INPUT ARGUMENT SET TO Y')
+
+  itmp = ireadmt ( lun )
+
+  ! Check the validity of the input mnemonic(s).  Include special handling for originating centers, originating subcenters, data
+  ! types and data subtypes, since those can be reported in Section 1 of a BUFR message as well as in Section 3, so if a user
+  ! requests those mnemonics we can't necessarily assume they came from within Section 3.
+
+  lcmg = len ( cmeang )
+
+  my_nemoi = '        '
+  do ii = 1, min ( 8, len( nemoi ) )
+    my_nemoi(ii:ii) = nemoi(ii:ii)
+  end do
+  my_nemod = '        '
+  do ii = 1, min ( 8, len( nemod ) )
+    my_nemod(ii:ii) = nemod(ii:ii)
+  end do
+  if ( my_nemoi(1:4) .eq. 'GSES' ) then
+    if ( ( my_nemod(1:6) .eq. 'GCLONG' ) .or. ( my_nemod(1:4) .eq. 'OGCE' ) .or. ( my_nemod(1:5) .eq. 'ORIGC' ) ) then
+      ifxyi = ifxy ( '001034' )
+      ifxyd(1) = ifxy ( '001035' )
+    else
+      lnmng = min ( 24, lcmg )
+      if ( lnmng .eq. 24 ) then
+        iret = 3
+        cmeang(1:24) = 'GCLONG  OGCE    ORIGC   '
+      else
+        iret = -1
+      end if
+      return
+    end if
+  else if ( my_nemoi(1:6) .eq. 'GCLONG' ) then
+    ifxyi = ifxy ( '001031' )
+    ifxyd(1) = (-1)
+  else if ( my_nemoi(1:4) .eq. 'OGCE' ) then
+    ifxyi = ifxy ( '001033' )
+    ifxyd(1) = (-1)
+  else if ( my_nemoi(1:5) .eq. 'ORIGC' ) then
+    ifxyi = ifxy ( '001035' )
+    ifxyd(1) = (-1)
+  else if ( ( my_nemoi(1:7) .eq. 'TABLASS' ) .or. ( my_nemoi(1:7) .eq. 'TABLASL' ) ) then
+    if ( ( my_nemod(1:6) .eq. 'TABLAT' ) ) then
+      if ( my_nemoi(1:7) .eq. 'TABLASS' ) then
+        ifxyi = ifxy ( '055021' )
+      else
+        ifxyi = ifxy ( '055022' )
+      endif
+      ifxyd(1) = ifxy ( '055020' )
+    else
+      lnmng = min ( 8, lcmg )
+      if ( lnmng .eq. 8 ) then
+        iret = 1
+        cmeang(1:8) = 'TABLAT  '
+      else
+        iret = -1
+      end if
+      return
+    end if
+  else if ( my_nemoi(1:6) .eq. 'TABLAT' ) then
+    ifxyi = ifxy ( '055020' )
+    ifxyd(1) = (-1)
+  else
+    call parstr ( my_nemoi, nemo, 1, ntg, ' ', .true. )
+    call nemtab ( lun, nemo, ifxyi, tab, n )
+    if ( ( n .eq. 0 ) .or. ( tab .ne. 'B' ) ) then
+      write(bort_str,'("BUFRLIB: GETCFMNG - MNEMONIC ",A," NOT FOUND IN TABLE B")') nemo
+      call bort(bort_str)
+    endif
+    if ( ( tabb ( n, lun )(71:74) .ne. 'CODE' ) .and. ( tabb ( n, lun )(71:74) .ne. 'FLAG' ) ) then
+      write(bort_str,'("BUFRLIB: GETCFMNG - MNEMONIC ",A," IS NOT A CODE OR FLAG TABLE")') nemo
+      call bort(bort_str)
+    endif
+    if ( my_nemod(1:1) .ne. ' ' ) then
+      call parstr ( my_nemod, nemo, 1, ntg, ' ', .true. )
+      call nemtab ( lun, nemo, ifxyd(1), tab, n )
+      if ( ( n .eq. 0 ) .or. ( tab .ne. 'B' ) ) then
+        write(bort_str,'("BUFRLIB: GETCFMNG - MNEMONIC ",A," NOT FOUND IN TABLE B")') nemo
+        call bort(bort_str)
+      endif
+      if ( ( tabb ( n, lun )(71:74) .ne. 'CODE' ) .and. ( tabb ( n, lun )(71:74) .ne. 'FLAG' ) ) then
+        write(bort_str,'("BUFRLIB: GETCFMNG - MNEMONIC ",A," IS NOT A CODE OR FLAG TABLE")') nemo
+        call bort(bort_str)
+      endif
+    else
+      ifxyd(1) = (-1)
+    end if
+  end if
+
+  ! Search the internal table for the requested meaning.
+
+  call srchtbf_c ( ifxyi, ivali, ifxyd(1), 10, ivald, cmeang, lcmg, lnmng, iret )
+  if ( iret .le. 0 ) return
+
+  ! The meaning of this value is dependent on the value of another mnemonic in the report.
+
+  iret2 = iret
+  lnmng = 0
+  iret = 0
+  do ii = 1, iret2
+    call numtbd ( lun, ifxyd(ii), nemo, tab, ierbd )
+    if ( ( ierbd .gt. 0 ) .and. ( tab .eq. 'B' ) .and. ( lcmg .ge. ( lnmng + 8 ) ) ) then
+      iret = iret + 1
+      cmeang(lnmng+1:lnmng+8) = nemo
+      lnmng = lnmng + 8
+    end if
+  end do
+  if ( iret .eq. 0 ) iret = -1
+
+  return
+end subroutine getcfmng
