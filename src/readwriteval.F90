@@ -175,7 +175,7 @@ end function getvalnb
 !> occurrence to STR in each case.  For example, if there are 5
 !> occurrences of mnemonic LSTID within a given data subset definition,
 !> then 5 separate calls should be made to this subroutine, once each
-!> with STR set to 'LSTID#1', 'LSTID#2', 'LSTID#3', 'LSTID#4' and
+!> with str set to 'LSTID#1', 'LSTID#2', 'LSTID#3', 'LSTID#4' and
 !> 'LSTID#5'.  However, the first notation is superfluous, because
 !> omitting the ordinal number always defaults to the first occurrence
 !> of a particular string, so a user could just specify 'LSTID'
@@ -378,7 +378,7 @@ end subroutine writlc
 !> For example, if there are 5
 !> occurrences of mnemonic LSTID within a given data subset definition,
 !> then 5 separate calls should be made to this subroutine, once each
-!> with STR set to 'LSTID#1', 'LSTID#2', 'LSTID#3', 'LSTID#4' and
+!> with str set to 'LSTID#1', 'LSTID#2', 'LSTID#3', 'LSTID#4' and
 !> 'LSTID#5'.
 !>
 !> Omitting the ordinal number always defaults to the first occurrence
@@ -1934,3 +1934,116 @@ subroutine ufbsp(lun,usr,i1,i2,io,iret)
 
   return
 end subroutine ufbsp
+
+!> Write a long character string (greater than 8 bytes) to a data subset.
+!>
+!> Normally, subroutine writlc() is used to write a long character
+!> string to a data subset.  However, subroutine writlc() can only be
+!> called <b>after</b> a call to one of the
+!> [subset-writing subroutines](@ref hierarchy), so it will not work
+!> for cases when one of those subroutines flushes the message
+!> containing the data subset in question to logical unit lunit during
+!> the same call to that subroutine, such as when the data subset
+!> contains more than 65530 bytes.  When this happens, there is no
+!> longer any way for a subsequent writlc() call to write a long
+!> character string into that data subset, because the data subset has
+!> already been flushed from internal memory.  This subroutine solves
+!> that problem, by allowing a long character string to be specified
+!> <b>before</b> calling one of the
+!> [subset-writing subroutines](@ref hierarchy), and the string value
+!> will be held and stored automatically (via an internal call to
+!> subroutine writlc()) at the proper time during the subsequent call
+!> to the [subset-writing subroutines](@ref hierarchy).
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param chr - Value corresponding to str
+!> @param str - Table B mnemonic of long character string to be written, possibly supplemented with an ordinal
+!> occurrence notation
+!>
+!> If there is more than one occurrence of str within the data subset
+!> definition, then each occurrence can be written via a separate call
+!> to this subroutine, and by appending the ordinal number of the
+!> occurrence to str in each case.  For example, if there are 5
+!> occurrences of mnemonic LSTID within a given data subset definition,
+!> then 5 separate calls should be made to this subroutine, once each
+!> with str set to 'LSTID#1', 'LSTID#2', 'LSTID#3', 'LSTID#4' and
+!> 'LSTID#5'.  However, the first notation is superfluous, because
+!> omitting the ordinal number always defaults to the first occurrence
+!> of a particular string, so a user could just specify 'LSTID'
+!> instead of 'LSTID#1'.
+!>
+!> @remarks
+!> - Character strings which are 8 bytes or less in length can be
+!> written by converting the string into a real*8 value within the
+!> application program, and then using the real*8 usr array within a
+!> call to one of the NCEPLIBS-bufr
+!> [values-writing subroutines](@ref hierarchy)
+!> prior to calling one of the
+!> [subset-writing subroutines](@ref hierarchy)
+!> for the data subset.
+!>
+!> @author J. Ator @date 2014-02-05
+recursive subroutine hold4wlc(lunit,chr,str)
+
+  use modv_vars, only: im8b, mxh4wlc
+
+  use moda_h4wlc
+
+  implicit none
+
+  integer, intent(in) :: lunit
+  integer my_lunit, iprt, lens, lenc, i
+
+  character*(*), intent(in) :: chr, str
+
+  character*128 errstr
+  character*14 mystr
+
+  common /quiet/ iprt
+
+  ! Check for I8 integers
+  if(im8b) then
+    im8b=.false.
+    call x84(lunit,my_lunit,1)
+    call hold4wlc(my_lunit,chr,str)
+    im8b=.true.
+    return
+  endif
+
+  call strsuc( str, mystr, lens )
+  if ( lens .eq. -1 ) return
+
+  lenc = min( len( chr ), 120 )
+
+  ! If this subroutine has already been called with this mnemonic for this particular subset, then overwrite the
+  ! corresponding entry in the internal holding area
+  if ( nh4wlc .gt. 0 ) then
+    do i = 1, nh4wlc
+      if ( ( lunit .eq. luh4wlc(i) ) .and. ( mystr(1:lens) .eq. sth4wlc(i)(1:lens) ) ) then
+        chh4wlc(i) = ''
+        chh4wlc(i)(1:lenc) = chr(1:lenc)
+        return
+      endif
+    enddo
+  endif
+
+  ! Otherwise, use the next available unused entry in the holding area
+  if ( nh4wlc .ge. mxh4wlc ) then
+    if(iprt.ge.0) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      write ( unit=errstr, fmt='(A,A,I3)' ) 'BUFRLIB: HOLD4WLC - THE MAXIMUM NUMBER OF LONG CHARACTER ', &
+        'STRINGS THAT CAN BE HELD INTERNALLY IS ', mxh4wlc
+      call errwrt(errstr)
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+    endif
+  else
+    nh4wlc = nh4wlc + 1
+    luh4wlc(nh4wlc) = lunit
+    sth4wlc(nh4wlc) = ''
+    sth4wlc(nh4wlc)(1:lens) = mystr(1:lens)
+    chh4wlc(nh4wlc) = ''
+    chh4wlc(nh4wlc)(1:lenc) = chr(1:lenc)
+  endif
+
+  return
+end subroutine hold4wlc

@@ -1,0 +1,317 @@
+!> @file
+!> @brief Miscellaneous subroutines and functions
+!>
+!> @author J. Woollen @date 1994-01-06
+
+!> Decode an integer from a character string.
+!>
+!> The string may contain leading or trailing blanks, but otherwise should
+!> contain only digits and an (optional) leading sign ('+' or '-') character. 
+!> If the string is empty or contains all blank characters, then num
+!> is returned with a value of 0.
+!>
+!> @param str - String
+!> @param num - Value decoded from str
+!> @param iret - return code:
+!>   0 = success
+!>  -1 = string contained one or more illegal characters
+!>
+!> @author J. Woollen @date 1994-01-06
+recursive subroutine strnum( str, num, iret )
+  use modv_vars, only: im8b
+
+  implicit none
+
+  character*(*), intent(in) :: str
+
+  integer, intent(out) ::  num, iret
+
+  character str2*40
+
+  integer lens, ios
+
+  ! Check for I8 integers.
+  if (im8b) then
+    im8b = .false.
+    call strnum ( str, num, iret )
+    call x48 ( num, num, 1 )
+    call x48 ( iret, iret, 1 )
+    im8b = .true.
+    return
+  end if
+
+  ! Decode the integer from the string.
+  iret = 0
+  num = 0
+  call strsuc ( str, str2, lens )
+  if ( lens .eq. 0 ) return
+  read ( str2(1:lens), '(I40)', iostat = ios ) num
+  if ( ios .ne. 0 ) iret = -1
+
+  return
+end subroutine strnum
+
+!> Remove leading and trailing blanks from a character string.
+!>
+!> The string may not contain any embedded blanks.
+!>
+!> @param str1 - String
+!> @param str2 - Copy of str1 with leading and trailing blanks removed
+!> @param lens - Length of str2
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine strsuc(str1,str2,lens)
+  implicit none
+
+  character*(*), intent(in) :: str1
+  character*(*), intent(out) :: str2
+
+  integer, intent(out) :: lens
+
+  str2 = adjustl(str1)
+  lens = len_trim(str2)
+
+  return
+end subroutine strsuc
+
+!> Return a copy of an integer value with the bytes possibly reversed.
+!>
+!> Although, by definition (within WMO Manual 306),
+!> a BUFR message is a stream of individual octets (i.e., bytes)
+!> that is independent of any particular machine representation, the
+!> NCEPLIBS-bufr software often needs to interpret all or parts
+!> of two or more adjacent bytes as an integer.
+!> By default, the software uses the "big-endian" (left to
+!> right) scheme for numbering bytes within a machine word.
+!> By reversing the bytes, this routine allows an integer word to be properly read or written
+!> (depending on whether input or output operations, respectively, are being performed)
+!> on "little-endian" machines.
+!>
+!> If the local machine is "little-endian" (i.e., if it uses a right to left scheme for
+!> numbering the bytes within a machine word), then this routine returns a copy of the
+!> input integer value with the bytes reversed.  Otherwise, if the local machine is already
+!> "big-endian", then this routine simply returns a copy of the same integer value that was input.
+!>
+!> @param n - Value with bytes ordered according to the "big-endian" numbering scheme
+!>
+!> @return - Copy of n with bytes ordered according to the numbering scheme of the local machine
+!>
+!> @author Woollen @date 1994-01-06
+integer function irev(n) result(iret)
+
+  use modv_vars, only: nbytw, iordle
+
+  implicit none
+
+  integer, intent(in) :: n
+
+  integer int, jnt, i
+
+  character*8 cint,dint
+
+  equivalence(cint,int)
+  equivalence(dint,jnt)
+
+#ifdef BIG_ENDIAN
+  iret = n
+#else
+  int = n
+  do i=1,nbytw
+    dint(i:i) = cint(iordle(i):iordle(i))
+  enddo
+  iret = jnt
+#endif
+
+  return
+end function irev
+
+!> Left-justify a character string containing an
+!> encoded integer, by removing all leading blanks and any leading
+!> sign ('+' or '-') character.
+!>
+!> The input string is modified in place, and
+!> the sign is returned as a separate parameter.  If the input string
+!> contains only blank characters, then a call is made to subroutine
+!> bort().
+!>
+!> @param str - String
+!> @param sign - Sign of encoded integer value:
+!>   - '+' = positive value
+!>   - '-' = negative value
+!> @param iret - Return code:
+!>   - 0 = normal return
+!>   - -1 = input string contained non-blank characters which were also non-numeric
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine jstnum(str,sign,iret)
+
+  implicit none
+
+  integer, intent(out) :: iret
+  integer iprt, lstr, num, ier
+
+  character*(*), intent(inout) :: str
+  character, intent(out) :: sign
+  character*128 errstr
+
+  common /quiet/ iprt
+
+  iret = 0
+
+  if(str.eq.' ') call bort('BUFRLIB: JSTNUM - INPUT BLANK CHARACTER STRING NOT ALLOWED')
+
+  str = adjustl(str)
+  lstr = len(str)
+  if(str(1:1).eq.'+') then
+    str = str(2:lstr)
+    sign = '+'
+  elseif(str(1:1).eq.'-') then
+    str = str(2:lstr)
+    sign = '-'
+  else
+    sign = '+'
+  endif
+
+  call strnum(str,num,ier)
+  if(ier.lt.0) then
+    if(iprt.ge.0) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      errstr = 'BUFRLIB: JSTNUM: ENCODED VALUE WITHIN RESULTANT CHARACTER STRING (' // str // ') IS NOT AN INTEGER - '// &
+        'RETURN WITH IRET = -1'
+      call errwrt(errstr)
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+    iret = -1
+  endif
+
+  return
+end subroutine jstnum
+
+!> Capitalize all of the alphabetic characters in a string.
+!>
+!> The string is modified in place.
+!>
+!> @param str - String
+!>
+!> @author J. Woollen @date 2002-05-14
+subroutine capit(str)
+
+  implicit none
+
+  integer i, j
+
+  character*(*), intent(inout) :: str
+  character*26 upcs, lwcs
+
+  data upcs /'ABCDEFGHIJKLMNOPQRSTUVWXYZ'/
+  data lwcs /'abcdefghijklmnopqrstuvwxyz'/
+
+  do i=1,len(str)
+    do j=1,26
+      if(str(i:i).eq.lwcs(j:j)) then
+        str(i:i) = upcs(j:j)
+        exit
+      endif
+    enddo
+  enddo
+
+  return
+end subroutine capit
+
+!> Get the version number of the NCEPLIBS-bufr software.
+!>
+!> @param cverstr - Version string
+!>
+!> @author J. Ator @date 2009-03-23
+subroutine bvers (cverstr)
+
+  implicit none
+
+  character*(*), intent(out) :: cverstr
+
+  if (len(cverstr).lt.8) call bort('BUFRLIB: BVERS - INPUT STRING MUST CONTAIN SPACE FOR AT LEAST 8 CHARACTERS')
+
+  cverstr = '@PROJECT_VERSION@'
+
+  return
+end subroutine bvers
+
+!> Compute the number of characters needed to encode an integer as a string.
+!>
+!> This function does not
+!> actually encode the string but rather only figures out the required
+!> size. num must be an integer in the range of 0 to 99999.
+!>
+!> @param num - number
+!>
+!> @return - Number of characters necessary to encode num as a string
+!>
+!> @author Ator @date 2009-03-23
+integer function isize (num) result (iret)
+
+  implicit none
+
+  integer, intent(in) :: num
+
+  character*128 bort_str
+
+  if ( num .ge. 0 ) then
+    do iret = 1, 5
+      if ( num .lt. 10**iret ) return
+    enddo
+  endif
+  write(bort_str,'("BUFRLIB: ISIZE - INPUT NUMBER (",I7,") IS OUT OF RANGE")') num
+  call bort(bort_str)
+
+  return
+end function isize
+
+!> Check for an abnormal status code associated with the processing of a file.
+!>
+!> Return a status code associated with any file that
+!> was previously opened via a call to subroutine openbf(), so that
+!> the application program can check whether the NCEPLIBS-bufr software
+!> encountered any specific problems while processing the file.
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @return - Return code:
+!> - 0 = no problems were encountered
+!> - 1 = replication factor overflow in subroutine usrtpl()
+!>
+!> @remarks
+!> - Once subroutine openbf() has been called for lunit, this function
+!> can then be called any number of times and at any point throughout
+!> the remainder of the life of the application program.
+!>
+!> @author J. Ator @date 2010-05-11
+recursive integer function igetsc(lunit) result(iret)
+
+  use modv_vars, only: im8b
+
+  use moda_stcode
+
+  implicit none
+
+  integer, intent(in) :: lunit
+  integer my_lunit, lun, il, im
+
+  ! Check for I8 integers.
+  if (im8b) then
+    im8b = .false.
+    call x84(lunit,my_lunit,1)
+    iret = igetsc(my_lunit)
+    im8b = .true.
+    return
+  end if
+
+  iret = 0
+
+  ! Make sure the specified logical unit is connected to the library.
+  call status(lunit,lun,il,im)
+  if(il.eq.0) call bort('BUFRLIB: IGETSC - BUFR FILE IS CLOSED, IT MUST BE OPEN')
+
+  iret = iscodes(lun)
+
+  return
+end function igetsc
