@@ -133,6 +133,21 @@ program test_bort
      if (test_case .eq. '1') then
         call cmpmsg('W')
      endif
+  elseif (sub_name .eq. 'cnved4') then
+     open(unit = 31, file = '/dev/null')
+     if (test_case .eq. '1') then
+        call openbf(31, 'SEC3', 31)
+        filnam = 'testfiles/IN_1'
+     elseif (test_case .eq. '2') then
+        open(unit = 12, file = 'testfiles/OUT_3_bufrtab', iostat = ios)
+        if (ios .ne. 0) stop 3
+        call openbf(31, 'IN', 12)
+        filnam = 'testfiles/OUT_3'
+     endif
+     call cobfl_c( filnam, 'r' )
+     call crbmg_c(bfmg, 200000, msgl, iret)
+     call readerme(ibfmg, 31, char_val_8, jdate, iret)
+     call cnved4(ibfmg, 1, ibay)
   elseif (sub_name .eq. 'codflg') then
      if (test_case .eq. '1') then
         call codflg('W')

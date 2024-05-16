@@ -556,3 +556,62 @@ subroutine wtstat(lunit,lun,il,im)
 
   return
 end subroutine wtstat
+
+!> Get the current location of the file pointer within a BUFR file, in terms of a message number counting from the
+!> beginning of the file, and a data subset number counting from the beginning of that message.
+!>
+!> @remarks
+!> - Logical unit lunit should have already been opened via a previous
+!> call to subroutine openbf(). If lunit was opened for input
+!> operations, then kmsg is incremented with each call to any of the
+!> [message-reading subroutines](@ref hierarchy), and ksub is
+!> incremented with each call to any of the
+!> [subset-reading subroutines](@ref hierarchy) for that message.
+!> Otherwise, if lunit was opened for output operations, then kmsg is
+!> incremented with each call to any of the
+!> [message-writing subroutines](@ref hierarchy), and ksub is
+!> incremented with each call to any of the
+!> [subset-writing subroutines](@ref hierarchy) for that message.
+!> - The value returned for kmsg does <b>not</b> include any messages
+!> which contain DX BUFR tables information.
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param kmsg - Ordinal number of current message, counting from the beginning of the BUFR file, but
+!> not counting any messages which contain DX BUFR tables information
+!> @param ksub - Ordinal number of current data subset within (kmsg)th message, counting from the
+!> beginning of the message
+!>
+!> @author J. Woollen @date 1994-01-06
+recursive subroutine ufbcnt(lunit,kmsg,ksub)
+
+  use modv_vars, only: im8b
+
+  use moda_msgcwd
+
+  implicit none
+
+  integer, intent(in) :: lunit
+  integer, intent(out) :: kmsg, ksub
+  integer my_lunit, lun, il, im
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+    call x84(lunit,my_lunit,1)
+    call ufbcnt(my_lunit,kmsg,ksub)
+    call x48(kmsg,kmsg,1)
+    call x48(ksub,ksub,1)
+    im8b=.true.
+    return
+  endif
+
+  ! Check the file status - return the message and subset counters
+
+  call status(lunit,lun,il,im)
+  if(il.eq.0) call bort('BUFRLIB: UFBCNT - BUFR FILE IS CLOSED, IT MUST BE OPEN FOR EITHER INPUT OR OUTPUT')
+  kmsg = nmsg(lun)
+  ksub = nsub(lun)
+
+  return
+end subroutine ufbcnt

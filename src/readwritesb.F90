@@ -779,3 +779,188 @@ subroutine pad(ibay,ibit,ibyt,ipadb)
 
   return
 end subroutine pad
+
+!> Check whether the subset definition for a given message type contains any long character strings (greater than 8 bytes).
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param subset - Table A mnemonic of message type to be checked
+!> @returns lcmgdf - Return code:
+!>  - 0 = subset does not contain any long character strings
+!>  - 1 = subset contains at least one long character string
+!>
+!> @remarks
+!> - lunit may be open for either input or output operations via a
+!> previous call to subroutine openbf().  However, in either case,
+!> subset must already be defined within the BUFR tables that are
+!> associated with lunit, typically as [DX BUFR tables](@ref dfbftab)
+!> information supplied via argument lundx when openbf() was called,
+!> or, if openbf() was called with IO = 'SEC3', then as
+!> [master BUFR table](@ref dfbfmstab) information during a previous
+!> call to one of the [message-reading subroutines](@ref hierarchy).
+!> - Note that this function does not return mnemonic(s) associated
+!> with any long character string(s) found within subset; rather,
+!> it only checks whether at least one such mnemonic exists.  If any
+!> are found, the application program can process them via a
+!> separate call to subroutine readlc() (when reading BUFR data
+!> subsets) or subroutine writlc() (when writing BUFR data subsets).
+!>
+!> @author J. Ator @date 2009-07-09
+recursive integer function lcmgdf(lunit,subset) result(iret)
+
+  use modv_vars, only: im8b
+
+  use moda_tables
+
+  implicit none
+
+  integer, intent(in) :: lunit
+  integer my_lunit, lun, il, im, mtyp, msbt, inod, nte, i
+
+  character*8, intent(in) :: subset
+
+  ! Check for I8 integers.
+
+  if(im8b) then
+    im8b=.false.
+
+    call x84(lunit,my_lunit,1)
+    iret=lcmgdf(my_lunit,subset)
+
+    im8b=.true.
+    return
+  endif
+
+  iret = 0
+
+  ! Get lun from lunit.
+
+  call status(lunit,lun,il,im)
+  if (il.eq.0) call bort('BUFRLIB: LCMGDF - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN')
+
+  ! Confirm that subset is defined for this logical unit.
+
+  call nemtba(lun,subset,mtyp,msbt,inod)
+
+  ! Check if there's a long character string in the definition.
+
+  nte = isc(inod)-inod
+
+  do i = 1, nte
+    if ( (typ(inod+i).eq.'CHR') .and. (ibt(inod+i).gt.64) ) then
+      iret = 1
+      return
+    endif
+  enddo
+
+  iret = 0
+
+  return
+end function lcmgdf
+
+!> Jump forwards or backwards to a specified data subset within a BUFR file.
+!>
+!> Reposition the file pointer to the beginning of a
+!> specified data subset within a specified message of a BUFR file,
+!> then read that data subset into internal arrays so that it can be
+!> further processed via subsequent calls to any of the
+!> [values-reading subroutines](@ref hierarchy).
+!>
+!> The specified data subset may be before or after the current location of the file pointer within the BUFR file.
+!>
+!> @remarks
+!> - Logical unit lunit should have already been opened for input operations via a previous call to subroutine openbf().
+!> - The value specified for irec should <b>not</b> include any messages which contain DX BUFR tables information.
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param irec - Ordinal number of message to be read, counting from the beginning of the BUFR file, but not counting any
+!> messages which contain DX BUFR tables information
+!> @param isub - Ordinal number of data subset to be read from (irec)th message, counting from the beginning of the message
+!> @param subset - Table A mnemonic for type of BUFR message that was read
+!> (see [DX BUFR Tables](@ref dfbftab) for further information about Table A mnemonics)
+!> @param jdate - Date-time stored within Section 1 of BUFR message that was read, in format of either YYMMDDHH or YYYYMMDDHH,
+!> depending on the most recent call to subroutine datelen()
+!>
+!> @author J. Woollen @date 1995-11-22
+recursive subroutine ufbpos(lunit,irec,isub,subset,jdate)
+
+  use bufrlib
+
+  use modv_vars, only: im8b
+
+  use moda_msgcwd
+  use moda_bitbuf
+
+  implicit none
+
+  integer, intent(in) :: lunit, irec, isub
+  integer, intent(out) :: jdate
+  integer my_lunit, my_irec, my_isub, lun, il, im, jrec, jsub, iret
+
+  character*128 bort_str
+  character*8, intent(out) :: subset
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+    call x84(lunit,my_lunit,1)
+    call x84(irec,my_irec,1)
+    call x84(isub,my_isub,1)
+    call ufbpos(my_lunit,my_irec,my_isub,subset,jdate)
+    call x48(jdate,jdate,1)
+    im8b=.true.
+    return
+  endif
+
+  !  Make sure a file is open for input
+
+  call status(lunit,lun,il,im)
+  if(il.eq.0) call bort('BUFRLIB: UFBPOS - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il.gt.0) call bort('BUFRLIB: UFBPOS - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+
+  if(irec.le.0) then
+    write(bort_str,'("BUFRLIB: UFBPOS - REQUESTED MESSAGE NUMBER TO READ IN (",I5,") IS NOT VALID")') irec
+    call bort(bort_str)
+  endif
+  if(isub.le.0) then
+    write(bort_str,'("BUFRLIB: UFBPOS - REQUESTED SUBSET NUMBER TO READ IN (",I5,") IS NOT VALID")') isub
+    call bort(bort_str)
+  endif
+
+  !  See where pointers are currently located
+
+  call ufbcnt(lunit,jrec,jsub)
+
+  !  Rewind file if requested pointers are behind current pointers
+
+  if(irec.lt.jrec .or. (irec.eq.jrec.and.isub.lt.jsub)) then
+    call cewind_c(lun)
+    nmsg(lun) = 0
+    nsub(lun) = 0
+    call ufbcnt(lunit,jrec,jsub)
+  endif
+
+  ! Read subset #isub from message #irec from file
+
+  do while (irec.gt.jrec)
+    call readmg(lunit,subset,jdate,iret)
+    if(iret.lt.0) then
+      write(bort_str,'("BUFRLIB: UFBPOS - REQUESTED MESSAGE NUMBER '// &
+        'TO READ IN (",I5,") EXCEEDS THE NUMBER OF MESSAGES IN THE FILE (",I5,")")') irec, jrec
+      call bort(bort_str)
+    endif
+    call ufbcnt(lunit,jrec,jsub)
+  enddo
+
+  do while (isub.gt.jsub)
+    call readsb(lunit,iret)
+    if(iret.ne.0) then
+      write(bort_str,'("BUFRLIB: UFBPOS - REQ. SUBSET NUMBER TO READ'// &
+        ' IN (",I3,") EXCEEDS THE NUMBER OF SUBSETS (",I3,") IN THE REQ. MESSAGE (",I5,")")') isub, jsub, irec
+      call bort(bort_str)
+    endif
+    call ufbcnt(lunit,jrec,jsub)
+  enddo
+
+  return
+end subroutine ufbpos
