@@ -75,18 +75,101 @@ subroutine strbtm ( n, lun )
   return
 end subroutine strbtm
 
+!> Check whether a specified Table B mnemonic references another Table B mnemonic within the same data
+!> subset via an internal bitmap.
+!>
+!> If so, then the referenced mnemonic is returned along with its location within the subset.
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param tagi - Table B mnemonic
+!> @param ntagi - Ordinal occurrence of tagi for which tagre is to be returned, counting from the
+!> beginning of the overall subset definition
+!> @param tagre - Table B mnemonic referenced by tagi via an internal bitmap
+!> @param ntagre - Ordinal occurrence of tagre referenced by (ntagi)th occurrence of tagi, counting from
+!> the beginning of the overall subset definition
+!> @param iret - Return code
+!>    - 0 = normal return
+!>    - -1 = tagre could not be found, or some other error occurred
+!>
+!> A data subset must already be in scope within the NCEPLIBS-bufr
+!> internal arrays for lunit, either via a previous call to one
+!> of the [subset-reading subroutines](@ref hierarchy)
+!> (when reading BUFR data subsets) or via a previous call to one
+!> of the [message-writing subroutines](@ref hierarchy)
+!> (when writing BUFR data subsets).
+!>
+!> @author J. Ator @date 2016-06-07
+recursive subroutine gettagre ( lunit, tagi, ntagi, tagre, ntagre, iret )
+
+  use modv_vars, only: im8b
+
+  use moda_usrint
+  use moda_msgcwd
+  use moda_tables
+
+  implicit none
+
+  integer, intent(in) :: lunit, ntagi
+  integer, intent(out) :: iret, ntagre
+  integer my_lunit, my_ntagi, lun, il, im, ni, nre, ltre, ii
+
+  character*(*), intent(in) :: tagi
+  character*(*), intent(out) :: tagre
+  character*10 tagtmp
+
+  ! Check for I8 integers.
+
+  if(im8b) then
+    im8b=.false.
+    call x84(lunit,my_lunit,1)
+    call x84(ntagi,my_ntagi,1)
+    call gettagre(my_lunit,tagi,my_ntagi,tagre,ntagre,iret)
+    call x48(ntagre,ntagre,1)
+    call x48(iret,iret,1)
+    im8b=.true.
+    return
+  endif
+
+  iret = -1
+
+  ! Get lun from lunit.
+
+  call status( lunit, lun, il, im )
+  if ( il .eq. 0 ) return
+  if ( inode(lun) .ne. inv(1,lun) ) return
+
+  ! Get tagre and ntagre from the (ntagi)th occurrence of tagi.
+
+  call fstag( lun, tagi, ntagi, 1, ni, iret )
+  if ( iret .ne. 0 ) return
+  nre = nrfelm(ni,lun)
+  if ( nre .gt. 0 ) then
+    iret = 0
+    tagre = tag(inv(nre,lun))
+    call strsuc( tagre, tagtmp, ltre )
+    ntagre = 0
+    do ii = 1, nre
+      if ( tag(inv(ii,lun))(1:ltre) .eq. tagre(1:ltre) ) then
+        ntagre = ntagre + 1
+      end if
+    end do
+  end if
+
+  return
+end subroutine gettagre
+
 !> Check whether a subset element refers to a previous element within the same subset via an internal bitmap.
 !>
-!> If so, then return the referenced element. In addition, if
-!> the input element is a 2-XX-255 marker operator, then set its scale
-!> factor, bit width and reference values internally to match those
+!> If so, then the referenced element is returned. In addition, if
+!> the input element is a 2-XX-255 marker operator, then its scale
+!> factor, bit width and reference values are set internally to match those
 !> of the referenced element.
 !>
 !> @param n - Subset element
 !> @param lun - File ID
 !>
 !> @return Subset element referenced by element n within the same subset
-!> - 0 = input element does not refer to a previous element, or referenced element not found
+!> - 0 = Input element does not refer to a previous element, or referenced element not found
 !>
 !> @author J. Ator @date 2016-05-27
 integer function igetrfel ( n, lun ) result ( iret )
