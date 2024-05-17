@@ -5,20 +5,20 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 list(APPEND fortran_src
   modules_vars.F90 modules_arrs.F90 bitmaps.F90 blocks.F90 borts.F90 cktaba.f
-  compress.F90 conwin.f copydata.F90 dumpdata.F90 drstpl.f dxtable.F90
+  compress.F90 conwin.f copydata.F90 dumpdata.F90 dxtable.F90
   errwrt.F90 fstag.f getabdb.f gettagpr.f
   getwin.f ifbget.f fxy.F90 iokoper.f ipks.f
   invcon.f invmrg.f invtag.f invwin.f
   jumplink.F90 mastertable.F90 missing.F90 mesgbc.f mesgbf.f mrginv.f
   nemdefs.f nemock.f nemspecs.f nemtab.f nemtba.f nemtbax.f nemtbb.f nemtbd.f nenubd.f nevn.f newwin.f
   numtab.f numtbd.f nvnwin.f nwords.f nxtwin.f openbt.F90
-  parstr.f parusr.f parutg.f ftbvs.F90 pktdd.f posapx.f rcstpl.f rdtree.f
+  parstr.f parusr.f parutg.f ftbvs.F90 pktdd.f posapx.f rcstpl.f
   readwritemg.F90 readwritesb.F90 readwriteval.F90 rewnbf.f rsvfvm.f s013vals.F90 tankrcpt.F90
   standard.F90 stntbi.f stntbia.f strcln.f string.f
   trybump.f ufbcup.f ufbevn.f ufbget.f ufbin3.f ufbinx.f
   memmsgs.F90 ufbovr.f ufbqcd.f ufbqcp.f
   ufbtab.f ciencode.F90 cidecode.F90
-  ups.f uptdd.f usrtpl.f wrtree.f arallocf.F90 openclosebf.F90
+  ups.f uptdd.f usrtpl.f arallocf.F90 openclosebf.F90
   bufr_interface.F90 bufr_c2f_interface.F90 x4884.F90 bufrlib.F90)
 
 list(APPEND c_src

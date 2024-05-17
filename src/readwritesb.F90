@@ -956,7 +956,7 @@ recursive subroutine ufbpos(lunit,irec,isub,subset,jdate)
     call readsb(lunit,iret)
     if(iret.ne.0) then
       write(bort_str,'("BUFRLIB: UFBPOS - REQ. SUBSET NUMBER TO READ'// &
-        ' IN (",I3,") EXCEEDS THE NUMBER OF SUBSETS (",I3,") IN THE REQ. MESSAGE (",I5,")")') isub, jsub, irec
+        ' IN (",I5,") EXCEEDS THE NUMBER OF SUBSETS (",I5,") IN THE REQ. MESSAGE (",I5,")")') isub, jsub, irec
       call bort(bort_str)
     endif
     call ufbcnt(lunit,jrec,jsub)
@@ -964,3 +964,183 @@ recursive subroutine ufbpos(lunit,irec,isub,subset,jdate)
 
   return
 end subroutine ufbpos
+
+!> Read the next uncompressed BUFR data subset into internal arrays.
+!>
+!> Unpack the next uncompressed subset from the internal array mbay in module @ref moda_bitbuf, and
+!> store the resulting values within the internal array val(*,lun) in module @ref moda_usrint.
+!>
+!> @param lun - File ID
+!> @param iret - Return code:
+!>  - 0 normal return
+!>  - -1 An error occurred, possibly due to a corrupt subset in the input message
+!>
+!> @author Woollen @date 1994-01-06
+subroutine rdtree(lun,iret)
+
+  use modv_vars, only: bmiss
+
+  use moda_usrint
+  use moda_usrbit
+  use moda_ival
+  use moda_bitbuf
+  use moda_tables
+
+  implicit none
+
+  integer, intent(in) :: lun
+  integer, intent(out) :: iret
+  integer ier, n, node, kbit, nbt, icbfms
+
+  character*8 cval
+
+  real*8 rval, ups
+
+  equivalence (cval,rval)
+
+  iret = 0
+
+  ! Cycle through a subset setting up the template
+
+  mbit(1) = ibit
+  nbit(1) = 0
+  call rcstpl(lun,ier)
+  if(ier.ne.0) then
+    iret = -1
+    return
+  endif
+
+  ! Unpack a subset into the user array ival
+
+  do n=1,nval(lun)
+    call upb8(ival(n),nbit(n),mbit(n),mbay(1,lun))
+  enddo
+
+  ! Loop through each element of the subset, converting the unpacked values to the proper types
+
+  do n=1,nval(lun)
+    node = inv(n,lun)
+    if(itp(node).eq.1) then
+
+      ! The unpacked value is a delayed descriptor replication factor.
+
+      val(n,lun) = ival(n)
+    elseif(itp(node).eq.2) then
+
+      ! The unpacked value is a real.
+
+      if (ival(n).lt.2_8**ibt(node)-1) then
+        val(n,lun) = ups(ival(n),node)
+      else
+        val(n,lun) = bmiss
+      endif
+    elseif(itp(node).eq.3) then
+
+      ! The value is a character string, so unpack it using an equivalenced real*8 value.  Note that a maximum of 8 characters
+      ! will be unpacked here, so a separate subsequent call to subroutine readlc() will be needed to fully unpack any string
+      ! longer than 8 characters.
+
+      cval = ' '
+      kbit = mbit(n)
+      nbt = min(8,nbit(n)/8)
+      call upc(cval,nbt,mbay(1,lun),kbit,.true.)
+      if (nbit(n).le.64 .and. icbfms(cval,nbt).ne.0) then
+        val(n,lun) = bmiss
+      else
+        val(n,lun) = rval
+      endif
+    endif
+  enddo
+
+  ibit = nbit(nval(lun))+mbit(nval(lun))
+
+  return
+end subroutine rdtree
+
+!> Pack a BUFR data subset.
+!>
+!> Convert values from the internal array val(*,lun) (in module @ref moda_usrint) into scaled integers, and then pack
+!> those scaled integers into the internal array ibay in module @ref moda_bitbuf.
+!>
+!> @param lun - File ID
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine wrtree(lun)
+
+  use moda_usrint
+  use moda_ival
+  use moda_ufbcpl
+  use moda_bitbuf
+  use moda_tables
+
+  implicit none
+
+  integer, intent(in) :: lun
+  integer(8) ipks
+  integer n, node, ncr, numchr, jj, ibfms
+
+  character*120 lstr
+  character*8 cval
+
+  real*8 rval
+
+  equivalence (cval,rval)
+
+  ! Convert user numbers into scaled integers
+
+  do n=1,nval(lun)
+    node = inv(n,lun)
+    if(itp(node).eq.1) then
+      ival(n) = nint(val(n,lun))
+    elseif(typ(node).eq.'NUM') then
+      if( (ibfms(val(n,lun)).eq.1) .or. (val(n,lun).ne.val(n,lun)) ) then
+        ! The user number is either "missing" or NaN.
+        ival(n) = -1
+      else
+        ival(n) = ipks(val(n,lun),node)
+      endif
+    endif
+  enddo
+
+  ! Pack the user array into the subset buffer
+
+  ibit = 16
+
+  do n=1,nval(lun)
+    node = inv(n,lun)
+    if(itp(node).lt.3) then
+      ! The value to be packed is numeric.
+      call pkb8(ival(n),ibt(node),ibay,ibit)
+    else
+      ! The value to be packed is a character string.
+      ncr=ibt(node)/8
+      if ( ncr.gt.8 .and. luncpy(lun).ne.0 ) then
+        ! The string is longer than 8 characters and there was a preceeding call to ufbcpy() involving this output unit,
+        ! so read the long string with readlc() and then write it into the output buffer using pkc().
+        call readlc(luncpy(lun),lstr,tag(node))
+        call pkc(lstr,ncr,ibay,ibit)
+      else
+        rval = val(n,lun)
+        if(ibfms(rval).ne.0) then
+          ! The value is "missing", so set all bits to 1 before packing the field as a character string.
+          numchr = min(ncr,len(lstr))
+          do jj = 1, numchr
+            call ipkm(lstr(jj:jj),1,255)
+          enddo
+          call pkc(lstr,numchr,ibay,ibit)
+        else
+          ! The value is not "missing", so pack the equivalenced character string.  Note that a maximum of 8 characters
+          ! will be packed here, so a separate subsequent call to subroutine writlc() will be needed to fully encode any
+          ! string longer than 8 characters.
+          call pkc(cval,ncr,ibay,ibit)
+        endif
+      endif
+    endif
+  enddo
+
+  ! Reset ufbcpy() file pointer
+
+  luncpy(lun)=0
+
+  return
+end subroutine wrtree
