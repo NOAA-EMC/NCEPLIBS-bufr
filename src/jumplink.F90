@@ -871,3 +871,60 @@ integer function icmpdx(lud,lun) result(iret)
 
   return
 end function icmpdx
+
+!> Search for a specified mnemonic within unexpanded sequences of the internal jump/link table.
+!>
+!> This subroutine is called internally by subroutine
+!> ufbrw() whenever it can't find a mnemonic it wants to write within the
+!> current subset buffer. It looks for the mnemonic within any
+!> unexpanded "DRS" (stack) or "DRB" (1-bit delayed replication)
+!> sequences inside of the portion of the subset buffer bounded by the
+!> indices inv1 and inv2. If found, it expands the applicable "DRS" or
+!> "DRB" sequence to the point where the mnemonic in question now
+!> appears in the subset buffer, and in doing so it will also return
+!> a new value for inv2.
+!>
+!> @param inod - Jump/link table index of mnemonic to look for
+!> @param lun - File ID
+!> @param inv1 - Starting index of the portion of the subset buffer currently being processed by ufbrw()
+!> @param inv2 - Ending index
+!>  - On input, ending index of the portion of the subset buffer currently being processed by ufbrw()
+!>  - On output, if invn = 0 then inv2 is unchanged from its input value.
+!>    Otherwise, it contains the redefined ending index of the portion of the subset
+!>    buffer currently being processed by ufbrw(), since expanding a delayed
+!>    replication sequence will have necessarily increased the size of this buffer.
+!> @param invn - Location index of inod within subset buffer
+!>  - 0 = Not found
+!>
+!> @author Woollen @date 1994-01-06
+subroutine drstpl(inod,lun,inv1,inv2,invn)
+
+  use moda_tables
+
+  implicit none
+
+  integer, intent(in) :: inod, lun, inv1
+  integer, intent(inout) :: inv2
+  integer, intent(out) :: invn
+  integer node, invwin
+
+  do while (.true.)
+    node = inod
+    do while (.true.)
+      node = jmpb(node)
+      if(node.eq.0) return
+      if(typ(node).eq.'DRS' .or. typ(node).eq.'DRB') then
+        invn = invwin(node,lun,inv1,inv2)
+        if(invn.gt.0) then
+          call usrtpl(lun,invn,1)
+          call newwin(lun,inv1,inv2)
+          invn = invwin(inod,lun,invn,inv2)
+          if(invn.gt.0) return
+          exit
+        endif
+      endif
+    enddo
+  enddo
+
+  return
+end subroutine drstpl

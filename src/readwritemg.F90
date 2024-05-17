@@ -1188,3 +1188,200 @@ integer function lmsg(sec0) result(iret)
 
   return
 end function lmsg
+
+!> Read the section lengths of a BUFR message, up to a specified point in the message.
+!>
+!> This subroutine will work on any BUFR message encoded using BUFR edition 2, 3, or 4.
+!>
+!> @param mbay - BUFR message
+!> @param ll - Number of last section for which the length is to be read. In other words, setting ll = N means to
+!> read and return the lengths of Sections 0 through N (i.e. len0, len1,...,lenN).  Any section lengths that are not
+!> specified to be read are returned with a default placeholder value of -1.
+!> @param len0 - Length (in bytes) of Section 0
+!> @param len1 - Length (in bytes) of Section 1
+!> @param len2 - Length (in bytes) of Section 2
+!> @param len3 - Length (in bytes) of Section 3
+!> @param len4 - Length (in bytes) of Section 4
+!> @param len5 - Length (in bytes) of Section 5
+!>
+!> @remarks
+!> - The start of the BUFR message (i.e. the string 'BUFR') must be aligned on the first 4 bytes of mbay.
+!>
+!> @author J. Ator @date 2005-11-29
+recursive subroutine getlens (mbay,ll,len0,len1,len2,len3,len4,len5)
+
+  use modv_vars, only: im8b
+
+  implicit none
+
+  integer, intent(in) :: mbay(*), ll
+  integer, intent(out) :: len0, len1, len2, len3, len4, len5
+  integer my_ll, iad2, iad3, iad4, iupbs01, iupb
+
+  ! Check for I8 integers.
+  if(im8b) then
+    im8b=.false.
+    call x84(ll,my_ll,1)
+    call getlens(mbay,my_ll,len0,len1,len2,len3,len4,len5)
+    call x48(len0,len0,1)
+    call x48(len1,len1,1)
+    call x48(len2,len2,1)
+    call x48(len3,len3,1)
+    call x48(len4,len4,1)
+    call x48(len5,len5,1)
+    im8b=.true.
+    return
+  endif
+
+  len0 = -1
+  len1 = -1
+  len2 = -1
+  len3 = -1
+  len4 = -1
+  len5 = -1
+
+  if(ll.lt.0) return
+  len0 = iupbs01(mbay,'LEN0')
+
+  if(ll.lt.1) return
+  len1 = iupbs01(mbay,'LEN1')
+
+  if(ll.lt.2) return
+  iad2 = len0 + len1
+  len2 = iupb(mbay,iad2+1,24) * iupbs01(mbay,'ISC2')
+
+  if(ll.lt.3) return
+  iad3 = iad2 + len2
+  len3 = iupb(mbay,iad3+1,24)
+
+  if(ll.lt.4) return
+  iad4 = iad3 + len3
+  len4 = iupb(mbay,iad4+1,24)
+
+  if(ll.lt.5) return
+  len5 = 4
+
+  return
+end subroutine getlens
+
+!> Convert a BUFR edition 3 message to BUFR edition 4.
+!>
+!> This subroutine reads an input BUFR message encoded using BUFR
+!> edition 3, then outputs an equivalent BUFR message encoded using
+!> BUFR edition 4.
+!>
+!> This subroutine performs the same function as subroutine pkvs01()
+!> when the latter is called with s01mnem = 'BEN' and ival = 4, except
+!> that the latter subroutine operates on BUFR messages internally
+!> within the software, whereas this subroutine operates on a single
+!> BUFR message passed in via a memory array.
+!>
+!> @param msgin - BUFR message
+!> @param lmsgot - Dimensioned size (in integers) of msgot; used by the subroutine to ensure that it doesn't overflow
+!> the msgot array
+!> @param msgot - Copy of msgin encoded using BUFR edition 4
+!>
+!> @remarks
+!> - msgin and msgot must be separate arrays.
+!> - BUFR edition 4 messages are usually longer in length than their
+!> BUFR edition 3 counterparts, so it's usually a good idea to allow
+!> for extra space when allocating msgot within the application program.
+!>
+!> @author J. Ator @date 2005-11-29
+recursive subroutine cnved4(msgin,lmsgot,msgot)
+
+  use modv_vars, only: im8b, nbytw
+
+  implicit none
+
+  integer, intent(in) :: msgin(*), lmsgot
+  integer, intent(out) :: msgot(*)
+  integer my_lmsgot, i, nmw, len0, len1, len2, len3, l4, l5, iad2, iad4, lenm, lenmot, len1ot, len3ot, ibit, iupbs01, nmwrd
+
+  ! Check for I8 integers.
+
+  if(im8b) then
+    im8b=.false.
+    call x84 ( lmsgot, my_lmsgot, 1 )
+    call cnved4 ( msgin, my_lmsgot*2, msgot )
+    im8b=.true.
+    return
+  endif
+
+  if(iupbs01(msgin,'BEN').eq.4) then
+
+    ! The input message is already encoded using edition 4, so just copy it from msgin to msgot and then return.
+
+    nmw = nmwrd(msgin)
+    if(nmw.gt.lmsgot) &
+      call bort('BUFRLIB: CNVED4 - OVERFLOW OF OUTPUT (EDITION 4) MESSAGE ARRAY; TRY A LARGER DIMENSION FOR THIS ARRAY')
+    do i = 1, nmw
+      msgot(i) = msgin(i)
+    enddo
+    return
+  endif
+
+  ! Get some section lengths and addresses from the input message.
+
+  call getlens(msgin,3,len0,len1,len2,len3,l4,l5)
+
+  iad2 = len0 + len1
+  iad4 = iad2 + len2 + len3
+
+  lenm = iupbs01(msgin,'LENM')
+
+  ! Check for overflow of the output array.  Note that the new edition 4 message will be a total of 3 bytes longer than the
+  ! input message (i.e. 4 more bytes in Section 1, but 1 fewer byte in Section 3).
+
+  lenmot = lenm + 3
+  if(lenmot.gt.(lmsgot*nbytw)) &
+    call bort('BUFRLIB: CNVED4 - OVERFLOW OF OUTPUT (EDITION 4) MESSAGE ARRAY; TRY A LARGER DIMENSION FOR THIS ARRAY')
+
+  len1ot = len1 + 4
+  len3ot = len3 - 1
+
+  ! Write Section 0 of the new message into the output array.
+
+  call mvb ( msgin, 1, msgot, 1, 4 )
+  ibit = 32
+  call pkb ( lenmot, 24, msgot, ibit )
+  call pkb ( 4, 8, msgot, ibit )
+
+  ! Write Section 1 of the new message into the output array.
+
+  call pkb ( len1ot, 24, msgot, ibit )
+  call pkb ( iupbs01(msgin,'BMT'), 8, msgot, ibit )
+  call pkb ( iupbs01(msgin,'OGCE'), 16, msgot, ibit )
+  call pkb ( iupbs01(msgin,'GSES'), 16, msgot, ibit )
+  call pkb ( iupbs01(msgin,'USN'), 8, msgot, ibit )
+  call pkb ( iupbs01(msgin,'ISC2')*128, 8, msgot, ibit )
+  call pkb ( iupbs01(msgin,'MTYP'), 8, msgot, ibit )
+  ! Set a default of 255 for the international subcategory.
+  call pkb ( 255, 8, msgot, ibit )
+  call pkb ( iupbs01(msgin,'MSBT'), 8, msgot, ibit )
+  call pkb ( iupbs01(msgin,'MTV'), 8, msgot, ibit )
+  call pkb ( iupbs01(msgin,'MTVL'), 8, msgot, ibit )
+  call pkb ( iupbs01(msgin,'YEAR'), 16, msgot, ibit )
+  call pkb ( iupbs01(msgin,'MNTH'), 8, msgot, ibit )
+  call pkb ( iupbs01(msgin,'DAYS'), 8, msgot, ibit )
+  call pkb ( iupbs01(msgin,'HOUR'), 8, msgot, ibit )
+  call pkb ( iupbs01(msgin,'MINU'), 8, msgot, ibit )
+  ! Set a default of 0 for the second.
+  call pkb ( 0, 8, msgot, ibit )
+
+  ! Copy Section 2 (if it exists) through the next-to-last byte of Section 3 from the input array to the output array.
+
+  call mvb ( msgin, iad2+1, msgot, (ibit/8)+1, len2+len3-1 )
+
+  ! Store the length of the new Section 3.
+
+  ibit = ( len0 + len1ot + len2 ) * 8
+  call pkb ( len3ot, 24, msgot, ibit )
+
+  ! Copy Section 4 and Section 5 from the input array to the output array.
+
+  ibit = ibit + ( len3ot * 8 ) - 24
+  call mvb ( msgin, iad4+1, msgot, (ibit/8)+1, lenm-iad4 )
+
+  return
+end subroutine cnved4

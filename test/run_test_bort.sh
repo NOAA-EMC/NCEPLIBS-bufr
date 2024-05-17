@@ -42,6 +42,10 @@ for kind in "4" "d"; do
     # Check cmpmsg().
     (./test_bort_$kind cmpmsg 1) && exit 1
 
+    # Check cnved4().
+    (./test_bort_$kind cnved4 1) && exit 1
+    (./test_bort_$kind cnved4 2) && exit 1
+
     # Check codflg().
     (./test_bort_$kind codflg 1) && exit 1
 
@@ -158,6 +162,9 @@ for kind in "4" "d"; do
     
     # Check jstnum().
     (./test_bort_$kind jstnum 1) && exit 1
+
+    # Check lcmgdf().
+    (./test_bort_$kind lcmgdf 1) && exit 1
 
     # Check lstjpb().
     (./test_bort_$kind lstjpb 1) && exit 1
@@ -493,6 +500,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufbpos 3) && exit 1
     (./test_bort_$kind ufbpos 4) && exit 1
     (./test_bort_$kind ufbpos 5) && exit 1
+    (./test_bort_$kind ufbpos 6) && exit 1
 
     # Check ufbqcd().
     (./test_bort_$kind ufbqcd 1) && exit 1

@@ -16,7 +16,7 @@
 !> software automatically issues an internal call to errwrt when needed.
 !> Instead, the user simply needs to define his or her own version of
 !> this subroutine with the same name and calling sequence and include
-!> it within the compilation, and then the input string STR can be
+!> it within the compilation, and then the input string str can be
 !> logged or handled in any way of the user's choosing.
 !>
 !> @param str - Error message or other diagnostic to be printed to standard output (default) or
@@ -25,7 +25,7 @@
 !> @remarks
 !> - The amount and types of diagnostic messages generated for
 !> logging can be controlled via a separate call to subroutine
-!> openbf() with IO = 'QUIET'.
+!> openbf() with io = 'QUIET'.
 !>
 !> @author J. Ator @date 2009-04-21
 subroutine errwrt(str)
