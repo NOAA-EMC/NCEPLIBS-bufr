@@ -1497,3 +1497,154 @@ recursive subroutine nemdefs ( lunit, nemo, celem, cunit, iret )
 
   return
 end subroutine nemdefs
+
+!> Confirm that a mnemonic and FXY value haven't already been defined.
+!>
+!> Check a mnemonic and FXY value pair that were read
+!> from a user-supplied BUFR DX dictionary table in character format,
+!> in order to confirm that neither value has already been
+!> defined within internal BUFR table B or D (in module @ref moda_tababd) for
+!> the given lun. If either value has already been defined for this
+!> lun, then an appropriate call is made to subroutine bort().
+!>
+!> @param nemo - Mnemonic
+!> @param numb - FXY value associated with nemo
+!> @param lun - File ID
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine nenubd(nemo,numb,lun)
+
+  use moda_tababd
+
+  implicit none
+
+  character, intent(in) :: nemo*8, numb*6
+  character*128 bort_str
+
+  integer, intent(in) :: lun
+  integer n
+
+  do n=1,ntbb(lun)
+    if(numb.eq.tabb(n,lun)(1:6)) then
+      write(bort_str,'("BUFRLIB: NENUBD - TABLE B FXY VALUE (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') numb
+      call bort(bort_str)
+    endif
+    if(nemo.eq.tabb(n,lun)(7:14)) then
+      write(bort_str,'("BUFRLIB: NENUBD - TABLE B MNEMONIC (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') nemo
+      call bort(bort_str)
+    endif
+  enddo
+
+  do n=1,ntbd(lun)
+    if(numb.eq.tabd(n,lun)(1:6)) then
+      write(bort_str,'("BUFRLIB: NENUBD - TABLE D FXY VALUE (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') numb
+      call bort(bort_str)
+    endif
+    if(nemo.eq.tabd(n,lun)(7:14)) then
+      write(bort_str,'("BUFRLIB: NENUBD - TABLE D MNEMONIC (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') nemo
+      call bort(bort_str)
+    endif
+  enddo
+
+  return
+end subroutine nenubd
+
+!> Store a new entry within internal BUFR Table A
+!>
+!> @param[in] n - Storage index into internal Table A
+!> @param[in] lun - File ID
+!> @param[in] numb - FXY number for new Table A entry
+!> @param[in] nemo - Mnemonic corresponding to numb
+!> @param[in] celsq - Sequence description corresponding to numb
+!>
+!> @author Ator @date 2009-03-23
+subroutine stntbia ( n, lun, numb, nemo, celsq )
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: n, lun
+  integer i, mtyp, msbt
+
+  character*(*), intent(in) :: numb, nemo, celsq
+  character*128 bort_str
+
+  ! Confirm that neither nemo nor numb has already been defined within the internal BUFR Table A for the given lun.
+
+  do i=1,ntba(lun)
+    if(numb(4:6).eq.taba(i,lun)(1:3)) then
+      write(bort_str,'("BUFRLIB: STNTBIA - TABLE A FXY VALUE (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') numb
+      call bort(bort_str)
+    endif
+    if(nemo(1:8).eq.taba(i,lun)(4:11)) then
+      write(bort_str,'("BUFRLIB: STNTBIA - TABLE A MNEMONIC (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') nemo
+      call bort(bort_str)
+    endif
+  enddo
+
+  ! Store the values within the internal BUFR Table A.
+
+  taba(n,lun)(1:3) = numb(4:6)
+  taba(n,lun)(4:11) = nemo(1:8)
+  taba(n,lun)(13:67) = celsq(1:55)
+
+  ! Decode and store the message type and subtype.
+
+  if ( verify( nemo(3:8), '1234567890' ) == 0 ) then
+    ! Message type & subtype obtained directly from Table A mnemonic
+    read ( nemo,'(2X,2I3)') mtyp, msbt
+    idna(n,lun,1) = mtyp
+    idna(n,lun,2) = msbt
+  else
+    ! Message type obtained from Y value of Table A seq. descriptor
+    read ( numb(4:6),'(I3)') idna(n,lun,1)
+    ! Message subtype hardwired to zero
+    idna(n,lun,2) = 0
+  endif
+
+  ! Update the count of internal Table A entries.
+
+  ntba(lun) = n
+
+  return
+end subroutine stntbia
+
+!> Store a new entry within internal BUFR Table B or D
+!>
+!> @param[in] n - Storage index into internal Table B or D
+!> @param[in] lun - File ID
+!> @param[in] numb - FXY number for new Table B or D entry
+!> @param[in] nemo - Mnemonic corresponding to numb
+!> @param[in] celsq - Element or sequence description corresponding to numb
+!>
+!> @author Ator @date 2009-03-23
+subroutine stntbi ( n, lun, numb, nemo, celsq )
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: n, lun
+  integer ifxy
+
+  character*(*), intent(in) :: numb, nemo, celsq
+
+  call nenubd ( nemo, numb, lun )
+
+  if ( numb(1:1) .eq. '0') then
+    idnb(n,lun) = ifxy(numb)
+    tabb(n,lun)(1:6) = numb(1:6)
+    tabb(n,lun)(7:14) = nemo(1:8)
+    tabb(n,lun)(16:70) = celsq(1:55)
+    ntbb(lun) = n
+  else  ! numb(1:1) .eq. '3'
+    idnd(n,lun) = ifxy(numb)
+    tabd(n,lun)(1:6) = numb(1:6)
+    tabd(n,lun)(7:14) = nemo(1:8)
+    tabd(n,lun)(16:70) = celsq(1:55)
+    ntbd(lun) = n
+  endif
+
+  return
+end subroutine stntbi

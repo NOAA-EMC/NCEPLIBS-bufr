@@ -1463,3 +1463,48 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
 
   return
 end subroutine getcfmng
+
+!> Check a mnemonic for validity.
+!>
+!> For a mnemonic to be valid, it must have a length of between 1 and 8 characters, and it must only
+!> contain characters from the allowable character set.
+!>
+!> @param nemo - Mnemonic
+!> @returns nemock - Indicator as to whether nemo is valid:
+!>  - 0 = Yes
+!>  - -1 = No, the length is not between 1 and 8 characters
+!>  - -2 = No, it contains characters from outside of the allowable character set
+!>
+!> @author J. Woollen @date 1994-01-06
+integer function nemock(nemo) result(iret)
+
+  implicit none
+
+  integer i, lnemo
+
+  character*(*), intent(in) :: nemo
+
+  ! Get the length of nemo
+
+  lnemo = 0
+  do i=len(nemo),1,-1
+    if(nemo(i:i).ne.' ') then
+      lnemo = i
+      exit
+    endif
+  enddo
+  if(lnemo.lt.1 .or. lnemo.gt.8) then
+    iret = -1
+    return
+  endif
+
+  ! Scan nemo for allowable characters
+
+  if ( verify(nemo(1:lnemo),'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.') == 0 ) then
+    iret = 0
+  else
+    iret = -2
+  endif
+
+  return
+end function nemock

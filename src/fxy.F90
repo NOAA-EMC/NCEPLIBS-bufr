@@ -221,16 +221,16 @@ integer function igetfxy ( str, cfxy ) result ( iret )
   return
 end function igetfxy
 
-!> Check the input character string to determine whether it contains a valid FXY (descriptor) value.
+!> Check an FXY number for validity.
 !>
-!> @param numb - FXY value to be checked
+!> @param numb - FXY value
 !>
-!> @return indicator as to whether numb is valid:
-!> - 0 yes
-!> - -1 no, the first character ("F" value) is not '0', '1', '2', or '3'
-!> - -2 no, characters 2-6 ("X" and "Y" values) are not all numeric
-!> - -3 no, characters 2-3 ("X" value) are not between '00' and '63'
-!> - -4 no, characters 4-6 ("Y" value) are not between '000' and '255'
+!> @returns numbck - Indicator as to whether numb is valid:
+!> - 0 = Yes
+!> - -1 = No, the first character ("F" value) is not '0', '1', '2', or '3'
+!> - -2 = No, characters 2-6 ("X" and "Y" values) are not all numeric
+!> - -3 = No, characters 2-3 ("X" value) are not between '00' and '63'
+!> - -4 = No, characters 4-6 ("Y" value) are not between '000' and '255'
 !>
 !> @author Woollen @date 1994-01-06
 integer function numbck(numb) result(iret)

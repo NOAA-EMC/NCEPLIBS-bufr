@@ -10,11 +10,10 @@ list(APPEND fortran_src
   getwin.f ifbget.f fxy.F90 iokoper.f ipks.f
   invcon.f invmrg.f invtag.f invwin.f
   jumplink.F90 mastertable.F90 missing.F90 mesgbc.f mesgbf.f mrginv.f
-  nemock.f nenubd.f nevn.f newwin.f
-  nvnwin.f nwords.f nxtwin.f openbt.F90
+  nevn.f newwin.f nvnwin.f nwords.f nxtwin.f openbt.F90
   parstr.f parusr.f parutg.f ftbvs.F90 pktdd.f posapx.f rcstpl.f
   readwritemg.F90 readwritesb.F90 readwriteval.F90 rewnbf.f rsvfvm.f s013vals.F90 tankrcpt.F90
-  standard.F90 stntbi.f stntbia.f strcln.f string.f
+  standard.F90 strcln.f string.f
   trybump.f ufbcup.f ufbevn.f ufbget.f ufbin3.f ufbinx.f
   memmsgs.F90 ufbovr.f ufbqcd.f ufbqcp.f
   ufbtab.f ciencode.F90 cidecode.F90
