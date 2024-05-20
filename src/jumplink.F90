@@ -928,3 +928,119 @@ subroutine drstpl(inod,lun,inv1,inv2,invn)
 
   return
 end subroutine drstpl
+
+!> Get the scale factor, reference value and bit width associated with a specified occurrence of a Table B mnemonic
+!>
+!> Given a Table B mnemonic defined within a data subset, this
+!> subroutine returns the scale factor, reference value and bit
+!> width of a specified occurrence of that mnemonic within the
+!> overall data subset definition, counting from the beginning
+!> of the subset.
+!>
+!> The values returned include the application of any Table C
+!> operators (e.g. 2-01-YYY, 2-02-YYY, 2-03-YYY, 2-07-YYY,
+!> 2-08-YYY) which may be in effect for the specified occurrence
+!> of the mnemonic.
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param nemo - character*(*): Table B mnemonic
+!> @param nnemo - Ordinal occurrence of nemo for which information is to be returned, counting from the beginning of the
+!> overall subset definition
+!> @param nscl - Scale factor in effect for (nnemo)th occurrence of nemo
+!> @param nref - Reference value in effect for (nnemo)th occurrence of nemo
+!> @param nbts - Bit width in effect for (nnemo)th occurrence of nemo
+!> @param iret - Return code
+!>    - 0 = normal return
+!>    - -1 = nemo could not be found, or some other error occurred
+!>
+!> A data subset must already be in scope within the NCEPLIBS-bufr
+!> internal arrays for lunit, either via a previous call to one
+!> of the [subset-reading subroutines](@ref hierarchy)
+!> (when reading BUFR data subsets) or via a previous call to one
+!> of the [message-writing subroutines](@ref hierarchy)
+!> (when writing BUFR data subsets).
+!>
+!> @author J. Ator @date 2014-10-02
+recursive subroutine nemspecs ( lunit, nemo, nnemo, nscl, nref, nbts, iret )
+
+  use modv_vars, only: im8b
+
+  use moda_usrint
+  use moda_msgcwd
+  use moda_tables
+  use moda_nrv203
+
+  implicit none
+
+  integer, intent(in) :: lunit, nnemo
+  integer, intent(out) :: nscl, nref, nbts, iret
+  integer my_lunit, my_nnemo, lun, il, im, nidx, ierfst, node, ltn, jj
+
+  character*(*), intent(in) :: nemo
+  character*10 tagn
+
+  ! Check for I8 integers.
+
+  if(im8b) then
+    im8b=.false.
+
+    call x84(lunit,my_lunit,1)
+    call x84(nnemo,my_nnemo,1)
+    call nemspecs(my_lunit,nemo,my_nnemo,nscl,nref,nbts,iret)
+    call x48(nscl,nscl,1)
+    call x48(nref,nref,1)
+    call x48(nbts,nbts,1)
+    call x48(iret,iret,1)
+
+    im8b=.true.
+    return
+  endif
+
+  iret = -1
+
+  ! Get lun from lunit.
+
+  call status( lunit, lun, il, im )
+  if ( il .eq. 0 ) return
+  if ( inode(lun) .ne. inv(1,lun) ) return
+
+  ! Starting from the beginning of the subset, locate the (nnemo)th occurrence of nemo.
+
+  call fstag( lun, nemo, nnemo, 1, nidx, ierfst )
+  if ( ierfst .ne. 0 ) return
+
+  ! Confirm that nemo is a Table B mnemonic.
+
+  node = inv(nidx,lun)
+  if ( ( typ(node) .ne. 'NUM' ) .and. ( typ(node) .ne. 'CHR' ) ) return
+
+  ! Get the scale factor, reference value and bit width, including accounting for any Table C operators which may be in
+  ! scope for this particular occurrence of nemo.
+
+  iret = 0
+
+  nscl = isc(node)
+  nbts = ibt(node)
+  nref = irf(node)
+
+  if ( nnrv .gt. 0 ) then
+
+    ! There are nodes containing redefined reference values (from one or more 2-03-YYY operators) in the jump/link table,
+    ! so we need to check if this node is one of them.
+
+    tagn = ' '
+    call strsuc( nemo, tagn, ltn )
+    if ( ( ltn .le. 0 ) .or. ( ltn .gt. 8 ) ) return
+
+    do jj = 1, nnrv
+      if ( ( node .ne. inodnrv(jj) ) .and. ( tagn(1:8) .eq. tagnrv(jj) ) .and. &
+        ( node .ge. isnrv(jj) ) .and. ( node .le. ienrv(jj) ) ) then
+        nref = int(nrv(jj))
+        return
+      end if
+    end do
+
+  end if
+
+  return
+end subroutine nemspecs
