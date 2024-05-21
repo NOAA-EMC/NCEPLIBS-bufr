@@ -99,18 +99,17 @@ subroutine pkb8(nval,nbits,ibay,ibit)
 
   implicit none
 
-  integer(8), intent(in) :: nval
-  integer(4), intent(in) :: nbits
-  integer(4), intent(out) :: ibay(*)
-  integer(4), intent(inout) :: ibit
+  integer*8, intent(in) :: nval
+  integer, intent(in) :: nbits
+  integer, intent(out) :: ibay(*)
+  integer, intent(inout) :: ibit
 
-  integer(8) :: nval8
-  integer(4) :: nval4
-  integer(4) :: nvals(2)
+  integer*8 :: nval8
+  integer :: nval4, nvals(2)
 
   equivalence (nval8,nvals)
 
-  if(nbits<0 ) call bort('bufrlib: pkb8 - nbits < zero !!!!!')
+  if(nbits<0) call bort('bufrlib: pkb8 - nbits < zero !!!!!')
   if(nbits>64) call bort('bufrlib: pkb8 - nbits > 64   !!!!!')
 
   nval8=nval

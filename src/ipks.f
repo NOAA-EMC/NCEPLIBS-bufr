@@ -25,8 +25,8 @@ C> @author J. Ator @date 2012-03-02
         use moda_tables
         use moda_nrv203
 
-        integer(8) imask, ipks
-        REAL*8     TEN,VAL
+        integer*8 imask, ipks
+        REAL*8 TEN,VAL
 
         DATA TEN /10./
 

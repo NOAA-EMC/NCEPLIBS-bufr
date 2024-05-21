@@ -82,11 +82,11 @@ subroutine upb8(nval,nbits,ibit,ibay)
 
   implicit none
 
-  integer(4), intent(in) :: nbits,ibit,ibay(*)
-  integer(8), intent(out) :: nval
+  integer, intent(in) :: nbits,ibit,ibay(*)
+  integer*8, intent(out) :: nval
 
-  integer(4) :: nvals(2), jbit, ival
-  integer(8) :: nval8
+  integer :: nvals(2), jbit, ival
+  integer*8 :: nval8
 
   equivalence (nval8,nvals)
 
@@ -128,9 +128,9 @@ subroutine up8(nval,nbits,ibay,ibit)
 
   implicit none
 
-  integer(4), intent(in) :: nbits, ibay(*)
-  integer(4), intent(inout) :: ibit
-  integer(8), intent(out) :: nval
+  integer, intent(in) :: nbits, ibay(*)
+  integer, intent(inout) :: ibit
+  integer*8, intent(out) :: nval
 
   call upb8(nval,nbits,ibit,ibay)
   ibit = ibit+nbits

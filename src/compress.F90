@@ -123,7 +123,7 @@ subroutine rdcmps(lun)
   implicit none
 
   integer, intent(in) :: lun
-  integer(8) :: ival, lref, ninc, lps
+  integer*8 :: ival, lref, ninc, lps
   integer nsbs, jbit, lbit, nbit, n, node, ityp, linc, lre4, nin4, nbmp, nchr, lelm, ibsv, igetrfel, icbfms
 
   real*8 rval, ups
