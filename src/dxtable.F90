@@ -1648,3 +1648,128 @@ subroutine stntbi ( n, lun, numb, nemo, celsq )
 
   return
 end subroutine stntbi
+
+!> Store information about a child mnemonic within the internal BUFR Table D
+!>
+!> Store information about a child mnemonic within the internal BUFR table D entry (in module @ref moda_tababd)
+!> for a table D sequence (parent) mnemonic when the child mnemonic is contained within the sequence represented by
+!> the parent mnemonic (as determined within seqsdx()).
+!>
+!> @param id - Positional index of parent mnemonic within internal BUFR table D array tabd(*,*)
+!> @param lun - File ID
+!> @param idn - WMO bit-wise representation of FXY value corresponding to child mnemonic
+!> - 0 = Delete all information about all child mnemonics from within tabd(id,lun)
+!> @param iret - Total number of child mnemonics stored thus far (including idn) for the parent mnemonic given by tabd(id,lun)
+!> - 0 = Information was cleared from tabd(id,lun) because input idn value was 0
+!> - -1 = Bad counter value or maximum number of child mnemonics already stored for this parent mnemonic
+!>
+!> @author Woollen @date 1994-01-06
+subroutine pktdd(id,lun,idn,iret)
+
+  use modv_vars, only: maxcd
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: id, lun, idn
+  integer, intent(out) :: iret
+  integer maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, iprt, ldd, nd, idm, iupm
+
+  character*128 errstr
+  character*56 dxstr
+
+  common /dxtab/ maxdx, idxv, nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
+  common /quiet/ iprt
+
+  ! ldd points to the byte within tabd(id,lun) which contains (in packed integer format) a count of the number of child
+  ! mnemonics stored thus far for this parent mnemonic.
+  ldd = ldxd(idxv+1)+1
+
+  ! Zero the counter if idn is zero
+  if(idn.eq.0) then
+    call ipkm(tabd(id,lun)(ldd:ldd),1,0)
+    iret = 0
+    return
+  endif
+
+  ! Update the stored descriptor count for this Table D entry.  nd is the (unpacked) count of the number of child mnemonics
+  ! stored thus far for this parent mnemonic.
+  nd = iupm(tabd(id,lun)(ldd:ldd),8)
+
+  if(nd.lt.0 .or. nd.eq.maxcd) then
+    if(iprt.ge.0) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      if(nd.lt.0) then
+        write ( unit=errstr, FMT='(A,I4,A)' ) 'BUFRLIB: PKTDD - BAD COUNTER VALUE (=', nd, ') - RETURN WITH IRET = -1'
+      else
+        write ( unit=errstr, FMT='(A,I4,A,A)' ) 'BUFRLIB: PKTDD - MAXIMUM NUMBER OF CHILD MNEMONICS (=', &
+          maxcd, ') ALREADY STORED FOR THIS PARENT - RETURN WITH IRET = -1'
+      endif
+      call errwrt(errstr)
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+    iret = -1
+    return
+  else
+    nd = nd+1
+    call ipkm(tabd(id,lun)(ldd:ldd),1,nd)
+    iret = nd
+  endif
+
+  ! Pack and store the descriptor.  idm points to the starting byte within tabd(id,lun) at which the idn value for this
+  ! child mnemonic will be stored (as a packed integer of width = 2 bytes).
+  idm = ldd+1 + (nd-1)*2
+  call ipkm(tabd(id,lun)(idm:idm),2,idn)
+
+  return
+end subroutine pktdd
+
+!> Get the WMO bit-wise representation of the FXY value corresponding to a child mnemonic in a Table D sequence.
+!>
+!> For a description of the WMO bit-wise representation of the FXY value, see ifxy().
+!>
+!> @param id - Positional index of parent mnemonic within internal BUFR Table D array tabd
+!> @param lun - File ID
+!> @param ient - Ordinal indicator of child mnemonic to return from within tabd(id,lun) sequence
+!> - 0 = Return a count of the total number of child mnemonics within the sequence
+!> @param iret - Return value:
+!> - WMO bit-wise representation of FXY value corresponding to (ient)th child mnemonic, if input ient was > 0
+!> - Total number of child mnemonics, if input ient was 0
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine uptdd(id,lun,ient,iret)
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: id, lun, ient
+  integer, intent(out) :: iret
+  integer maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, ldd, ndsc, idsc, iupm
+
+  character*128 bort_str
+  character*56 dxstr
+
+  common /dxtab/ maxdx, idxv, nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
+
+  ! Check if ient is in bounds
+
+  ldd = ldxd(idxv+1)+1
+  ndsc = iupm(tabd(id,lun)(ldd:ldd),8)
+  if(ient.eq.0) then
+    iret = ndsc
+    return
+  elseif(ient.lt.0 .or. ient.gt.ndsc) then
+    write(bort_str,'("BUFRLIB: UPTDD - VALUE OF THIRD ARGUMENT IENT (INPUT) IS OUT OF RANGE (IENT =",I4,")")') ient
+    call bort(bort_str)
+  endif
+
+  ! Return the descriptor indicated by ient
+
+  idsc = ldd+1 + (ient-1)*2
+  iret = iupm(tabd(id,lun)(idsc:idsc),16)
+
+  return
+end subroutine uptdd

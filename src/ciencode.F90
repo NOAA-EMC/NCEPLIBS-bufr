@@ -231,3 +231,60 @@ recursive subroutine ipkm(cbay,nbyt,n)
 
   return
 end subroutine ipkm
+
+!> Pack a real*8 value into an integer by applying the proper scale and reference values.
+!>
+!> Normally the scale and reference values are obtained from index
+!> node of the internal jump/link table arrays isc(*) and irf(*);
+!> however, the reference value in irf(*) will be overridden if a
+!> 2-03 operator is in effect for this node.
+!>
+!> @param val - User value
+!> @param node - Index into internal jump/link tables
+!>
+!> @return ipks - Packed BUFR integer
+!>
+!> @remarks
+!> - This function is the logical inverse of function ups().
+!>
+!> @author J. Ator @date 2012-03-02
+integer*8 function ipks(val,node) result(i8ret)
+
+  use moda_tables
+  use moda_nrv203
+
+  implicit none
+
+  integer*8 imask
+  integer, intent(in) :: node
+  integer jj
+
+  real*8, parameter :: ten = 10.
+  real*8, intent(in) :: val
+
+  i8ret = nint(val * ten**isc(node),8) - irf(node)
+
+  if ( nnrv .gt. 0 ) then
+    ! There are redefined reference values in the jump/link table, so we need to check if this node is affected by any of them.
+    do jj = 1, nnrv
+      if ( node .eq. inodnrv(jj) ) then
+        ! This node contains a redefined reference value. Per the rules of BUFR, negative values should be encoded as positive
+        ! integers with the left-most bit set to 1.
+        nrv(jj) = nint(val)
+        if ( nrv(jj) .lt. 0 ) then
+          imask = 2_8**(ibt(node)-1)
+          i8ret = ior(abs(nrv(jj)),imask)
+        else
+          i8ret = nrv(jj)
+        end if
+        return
+      else if ( ( tag(node)(1:8) .eq. tagnrv(jj) ) .and. ( node .ge. isnrv(jj) ) .and. ( node .le. ienrv(jj) ) ) then
+        ! The corresponding redefinded reference value needs to be used when encoding this value.
+        i8ret = nint(val * ten**isc(node),8) - nrv(jj)
+        return
+      end if
+    end do
+  end if
+
+  return
+end function ipks
