@@ -1076,7 +1076,7 @@ subroutine wrtree(lun)
   implicit none
 
   integer, intent(in) :: lun
-  integer(8) ipks
+  integer*8 ipks
   integer n, node, ncr, numchr, jj, ibfms
 
   character*120 lstr

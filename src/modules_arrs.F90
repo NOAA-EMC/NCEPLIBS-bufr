@@ -136,9 +136,9 @@ module moda_comprs
   !> Number of data subsets in message.
   integer :: ncol
   !> Increment used when compressing non-character data values.
-  integer(8) :: incr
+  integer*8 :: incr
   !> Non-character data values for all data subsets in message.
-  integer(8), allocatable :: matx(:,:)
+  integer*8, allocatable :: matx(:,:)
   !> Character data values for all data subsets in message.
   character*(:), allocatable :: catx(:,:)
 end module moda_comprs
@@ -167,11 +167,11 @@ module moda_comprx
   !> to the corresponding output file. Otherwise set to .false.
   logical :: writ1
   !> Minimum of each data value across all data subsets in message.
-  integer(8), allocatable :: kmin(:)
+  integer*8, allocatable :: kmin(:)
   !> Maximum of each data value across all data subsets in message.
-  integer(8), allocatable :: kmax(:)
+  integer*8, allocatable :: kmax(:)
   !> "Missing" value used when compressing non-character data values.
-  integer(8) :: imiss
+  integer*8 :: imiss
   !> "Missing" values flag. Set to .true. if at least one occurrence
   !> of this data value is "missing" within any data subset of the
   !> message. Otherwise set to .false.
@@ -255,7 +255,7 @@ end module moda_idrdm
 !> @author J. Woollen @date 1994-01-06
 module moda_ival
   !> BUFR data subset values.
-  integer(8), allocatable :: ival(:)
+  integer*8, allocatable :: ival(:)
 end module moda_ival
 
 !> Declare arrays which provide working space in several

@@ -221,16 +221,16 @@ integer function igetfxy ( str, cfxy ) result ( iret )
   return
 end function igetfxy
 
-!> Check the input character string to determine whether it contains a valid FXY (descriptor) value.
+!> Check an FXY number for validity.
 !>
-!> @param numb - FXY value to be checked
+!> @param numb - FXY value
 !>
-!> @return indicator as to whether numb is valid:
-!> - 0 yes
-!> - -1 no, the first character ("F" value) is not '0', '1', '2', or '3'
-!> - -2 no, characters 2-6 ("X" and "Y" values) are not all numeric
-!> - -3 no, characters 2-3 ("X" value) are not between '00' and '63'
-!> - -4 no, characters 4-6 ("Y" value) are not between '000' and '255'
+!> @returns numbck - Indicator as to whether numb is valid:
+!> - 0 = Yes
+!> - -1 = No, the first character ("F" value) is not '0', '1', '2', or '3'
+!> - -2 = No, characters 2-6 ("X" and "Y" values) are not all numeric
+!> - -3 = No, characters 2-3 ("X" value) are not between '00' and '63'
+!> - -4 = No, characters 4-6 ("Y" value) are not between '000' and '255'
 !>
 !> @author Woollen @date 1994-01-06
 integer function numbck(numb) result(iret)
@@ -269,3 +269,231 @@ integer function numbck(numb) result(iret)
 
   return
 end function numbck
+
+!> Get information about a Table B or Table D descriptor, based on the WMO bit-wise representation of an FXY value.
+!>
+!> For a description of the WMO bit-wise representation of the FXY value, see ifxy().
+!>
+!> @param lun - File ID associated with DX BUFR tables
+!> @param idn - WMO bit-wise representation of FXY value for Table B or Table D descriptor
+!> @param nemo - Mnemonic associated with idn
+!> @param tab - Type associated with idn:
+!>  - 'B' Table B descriptor
+!>  - 'D' Table D descriptor
+!> @param iret - Return code:
+!>  - Positional index of idn within internal Table B, if tab = 'B'
+!>  - Positional index of idn within internal Table D, if tab = 'D'
+!>  - 0 otherwise
+!>
+!> @author J. Woollen @date 2002-05-14
+subroutine numtbd(lun,idn,nemo,tab,iret)
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: lun, idn
+  integer, intent(out) :: iret
+  integer i, ifxy
+
+  character*(*), intent(out) :: nemo
+  character, intent(out) :: tab
+
+  nemo = ' '
+  iret = 0
+  tab = ' '
+
+  if(idn.ge.ifxy('300000')) then
+    ! Look for idn in Table D
+    do i=1,ntbd(lun)
+      if(idn.eq.idnd(i,lun)) then
+        nemo = tabd(i,lun)(7:14)
+        tab  = 'D'
+        iret = i
+        return
+      endif
+    enddo
+  else
+    ! Look for idn in Table B
+    do i=1,ntbb(lun)
+      if(idn.eq.idnb(i,lun)) then
+        nemo = tabb(i,lun)(7:14)
+        tab  = 'B'
+        iret = i
+        return
+      endif
+    enddo
+  endif
+
+  return
+end subroutine numtbd
+
+!> Get information about a descriptor, based on the WMO bit-wise representation of an FXY value.
+!>
+!> For a description of the WMO bit-wise representation of the FXY value, see ifxy().
+!>
+!> @param lun - File ID associated with DX BUFR tables
+!> @param idn - WMO bit-wise representation of FXY value for descriptor
+!> @param nemo - Mnemonic associated with idn
+!> @param tab - Type associated with idn:
+!>  - 'B' Table B descriptor
+!>  - 'D' Table D descriptor
+!>  - 'C' Table C operator
+!>  - 'R' Replication descriptor
+!>  - 'F' Replication factor
+!> @param iret - Return code:
+!>  - Positional index of idn within internal Table B, if tab = 'B'
+!>  - Positional index of idn within internal Table D, if tab = 'D'
+!>  - The X portion of the FXY value in idn, if tab = 'C'
+!>  - ((-1) * the Y portion of the FXY value in idn), if tab = 'R' and the replication is regular (i.e. non-delayed)
+!>  - 5 if tab = 'R' or tab = 'F' and the replication is 1-bit delayed
+!>  - 4 if tab = 'R' or tab = 'F' and the replication is 8-bit delayed (stack)
+!>  - 3 if tab = 'R' or tab = 'F' and the replication is 8-bit delayed
+!>  - 2 if tab = 'R' or tab = 'F' and the replication is 16-bit delayed
+!>  - 0 otherwise
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine numtab(lun,idn,nemo,tab,iret)
+
+  implicit none
+
+  integer, intent(in) :: lun, idn
+  integer, intent(out) :: iret
+  integer idnr, lens, i, iokoper
+
+  character*(*), intent(out) :: nemo
+  character, intent(out) :: tab
+  character*6 adn30, cid
+  character*3 typs
+  character reps
+
+  common /reptab/ idnr(5,2),typs(5,2),reps(5,2),lens(5)
+
+  nemo = ' '
+  iret = 0
+  tab = ' '
+
+  ! Look for a replicator or a replication factor descriptor
+
+  if(idn.ge.idnr(1,1) .and. idn.le.idnr(1,2)) then
+    ! Note that the above test is checking whether idn is the bit-wise representation of a FXY (descriptor) value
+    ! denoting F=1 regular (i.e. non-delayed) replication, since, as was initialized within subroutine bfrini(),
+    ! idnr(1,1) = ifxy('101000'), AND idnr(1,2) = ifxy('101255').
+    tab = 'R'
+    iret = -mod(idn,256)
+    return
+  endif
+
+  do i=2,5
+    if(idn.eq.idnr(i,1)) then
+      tab = 'R'
+      iret = i
+      return
+    elseif(idn.eq.idnr(i,2)) then
+      tab = 'F'
+      iret = i
+      return
+    endif
+  enddo
+
+  ! Look for idn in Table B and Table D
+
+  call numtbd(lun,idn,nemo,tab,iret)
+  if(iret.ne.0) return
+
+  ! Look for idn in Table C
+
+  cid = adn30(idn,6)
+  if (iokoper(cid).eq.1) then
+    nemo = cid(1:6)
+    read(nemo,'(1X,I2)') iret
+    tab = 'C'
+    return
+  endif
+
+  return
+end subroutine numtab
+
+!> Get information about a descriptor, based on a mnemonic.
+!>
+!> @param lun - File ID associated with DX BUFR tables
+!> @param nemo - Mnemonic
+!> @param idn - WMO bit-wise representation of FXY value for descriptor for descriptor associated with nemo
+!> @param tab - Type associated with idn:
+!> - 'B' Table B descriptor.
+!> - 'D' Table D descriptor.
+!> - 'C' Table C operator.
+!> @param iret - Return code:
+!>  - Positional index of idn within internal Table B, if tab = 'B'
+!>  - Positional index of idn within internal Table D, if tab = 'D'
+!>  - The X portion of the FXY value in idn, if tab = 'C'.
+!>  - 0, otherwise
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine nemtab(lun,nemo,idn,tab,iret)
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: lun
+  integer, intent(out) :: idn, iret
+  integer i, j, ifxy, iokoper
+
+  character*(*), intent(in) :: nemo
+  character, intent(out) :: tab
+  character*8 nemt
+
+  logical folval
+
+  folval = nemo(1:1).eq.'.'
+  iret = 0
+  tab = ' '
+
+  ! Look for nemo in Table B
+
+  outer: do i=1,ntbb(lun)
+    nemt = tabb(i,lun)(7:14)
+    if(nemt.eq.nemo) then
+      idn = idnb(i,lun)
+      tab = 'B'
+      iret = i
+      return
+    elseif(folval.and.nemt(1:1).eq.'.') then
+      do j=2,len(nemt)
+        if(nemt(j:j).ne.'.' .and. nemt(j:j).ne.nemo(j:j)) cycle outer
+      enddo
+      idn = idnb(i,lun)
+      tab = 'B'
+      iret = i
+      return
+    endif
+  enddo outer
+
+  ! Don't look in Table D for following value-mnemonics
+
+  if(folval) return
+
+  ! Look in Table D if we got this far
+
+  do i=1,ntbd(lun)
+    nemt = tabd(i,lun)(7:14)
+    if(nemt.eq.nemo) then
+      idn = idnd(i,lun)
+      tab = 'D'
+      iret = i
+      return
+    endif
+  enddo
+
+  ! If still nothing, check for Table C operator descriptors
+
+  if (iokoper(nemo).eq.1) then
+    read(nemo,'(1X,I2)') iret
+    idn = ifxy(nemo)
+    tab = 'C'
+    return
+  endif
+
+  return
+end subroutine nemtab

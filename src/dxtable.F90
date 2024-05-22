@@ -1180,3 +1180,596 @@ integer function igetntbi ( lun, ctb ) result(iret)
 
   return
 end function igetntbi
+
+!> Get information about a Table A descriptor from the internal DX BUFR tables
+!>
+!> This subroutine is similar to subroutine nemtba(), except it returns
+!> an inod value of 0 if the descriptor is not found in Table A, whereas
+!> nemtba() will call subroutine bort() in such cases.
+!>
+!> @param lun - File ID associated with DX BUFR tables
+!> @param nemo - Mnemonic for Table A descriptor
+!> @param mtyp - Message type corresponding to nemo
+!> @param msbt - Message subtype corresponding to nemo
+!> @param inod - Positional index of nemo within internal Table A, if found
+!>  - 0 = nemo not found within internal Table A
+!>
+!> @author J. Woollen @date 1999-11-18
+subroutine nemtbax(lun,nemo,mtyp,msbt,inod)
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: lun
+  integer, intent(out) :: mtyp, msbt, inod
+  integer i
+
+  character*(*), intent(in) :: nemo
+  character*128 bort_str
+
+  inod = 0
+
+  ! Look for nemo in Table A
+
+  do i=1,ntba(lun)
+    if(taba(i,lun)(4:11).eq.nemo) then
+      mtyp = idna(i,lun,1)
+      msbt = idna(i,lun,2)
+      inod = mtab(i,lun)
+      if(mtyp.lt.0 .or. mtyp.gt.255) then
+        write(bort_str,'("BUFRLIB: NEMTBAX - INVALID MESSAGE TYPE (",I4,") RETURNED FOR MENMONIC ",A)') mtyp, nemo
+        call bort(bort_str)
+      endif
+      if(msbt.lt.0 .or. msbt.gt.255) then
+        write(bort_str,'("BUFRLIB: NEMTBAX - INVALID MESSAGE SUBTYPE (",I4,") RETURNED FOR MENMONIC ",A)') msbt, nemo
+        call bort(bort_str)
+      endif
+      exit
+    endif
+  enddo
+
+  return
+end subroutine nemtbax
+
+!> Get information about a Table A descriptor from the internal DX BUFR tables
+!>
+!> This subroutine is similar to subroutine nemtbax(), except that it calls
+!> subroutine bort() if the descriptor is not found in Table A,
+!> whereas nemtbax() will return an inod value of 0 in such cases.
+!>
+!> @param lun - File ID associated with DX BUFR tables
+!> @param nemo - Mnemonic for Table A descriptor
+!> @param mtyp - Message type corresponding to nemo
+!> @param msbt - Message subtype corresponding to nemo
+!> @param inod - Positional index of nemo within internal Table A, if found
+!>
+!> @author J. Woollen @date 1999-11-18
+subroutine nemtba(lun,nemo,mtyp,msbt,inod)
+
+  implicit none
+
+  integer, intent(in) :: lun
+  integer, intent(out) :: mtyp, msbt, inod
+
+  character*(*), intent(in) :: nemo
+  character*128 bort_str
+
+  ! Look for nemo in Table A
+
+  call nemtbax(lun,nemo,mtyp,msbt,inod)
+  if(inod.eq.0) then
+    write(bort_str,'("BUFRLIB: NEMTBA - CAN''T FIND MNEMONIC ",A)') nemo
+    call bort(bort_str)
+  endif
+
+  return
+end subroutine nemtba
+
+!> Get information about a Table B descriptor from the internal DX BUFR tables
+!>
+!> @param lun - File ID
+!> @param itab - Positional index of descriptor within internal Table B
+!> @param unit - Units of descriptor
+!> @param iscl - Scale factor of descriptor
+!> @param iref - Reference value of descriptor
+!> @param ibit - Bit width of descriptor
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine nemtbb(lun,itab,unit,iscl,iref,ibit)
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: lun, itab
+  integer, intent(out) :: iscl, iref, ibit
+  integer idn, ierns
+
+  character*128 bort_str
+  character*24, intent(out) :: unit
+  character*8 nemo
+
+  if(itab.le.0 .or. itab.gt.ntbb(lun)) then
+    write(bort_str,'("BUFRLIB: NEMTBB - ITAB (",I7,") NOT FOUND IN TABLE B")') itab
+    call bort(bort_str)
+  endif
+
+  ! Pull out Table B information
+
+  idn  = idnb(itab,lun)
+  nemo = tabb(itab,lun)( 7:14)
+  unit = tabb(itab,lun)(71:94)
+  call strnum(tabb(itab,lun)( 95: 98),iscl,ierns)
+  call strnum(tabb(itab,lun)( 99:109),iref,ierns)
+  call strnum(tabb(itab,lun)(110:112),ibit,ierns)
+
+  ! Check Table B contents
+
+  if(unit(1:5).ne.'CCITT' .and. ibit.gt.32) then
+    write(bort_str,'("BUFRLIB: NEMTBB - BIT WIDTH FOR NON-CHARACTER TABLE B MNEMONIC ",A," (",I7,") IS > 32")') nemo,ibit
+    call bort(bort_str)
+  endif
+  if(unit(1:5).eq.'CCITT' .and. mod(ibit,8).ne.0) then
+    write(bort_str,'("BUFRLIB: NEMTBB - BIT WIDTH FOR CHARACTER TABLE B MNEMONIC ",A," (",I7,") IS NOT A MULTIPLE OF 8")') &
+      nemo,ibit
+    call bort(bort_str)
+  endif
+
+  return
+end subroutine nemtbb
+
+!> Get information about a Table D descriptor from the internal DX BUFR tables
+!>
+!> @param lun - File ID associated with DX BUFR tables
+!> @param itab - Positional index of descriptor within internal Table D
+!> @param nseq - Number of child mnemonics for descriptor
+!> @param nems - Child mnemonics
+!> @param irps - Array of values corresponding to nems
+!>   - 5, if corresponding nems value is a Table D mnemonic using 1-bit delayed replication
+!>   - 4, if corresponding nems value is a Table D mnemonic using 8-bit delayed (stack) replication
+!>   - 3, if corresponding nems value is a Table D mnemonic using 8-bit delayed replication
+!>   - 2, if corresponding nems value is a Table D mnemonic using 16-bit delayed replication
+!>   - 1, if corresponding nems value is a Table D mnemonic using regular (non-delayed) replication
+!>   - 0, otherwise
+!> @param knts - Array of values corresponding to nems
+!>   - Number of replications, if corresponding nems value is a Table D mnemonic using regular (non-delayed) replication
+!>   - 0, otherwise
+!>
+!> @remarks
+!> - This subroutine does not recursively resolve any child mnemonics
+!> which may themselves be Table D mnemonics.  Instead, this subroutine
+!> only returns the list of mnemonics which are direct children of the
+!> descriptor referenced by itab.  This information should have already
+!> been stored into internal arrays via previous calls to subroutine pktdd().
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine nemtbd(lun,itab,nseq,nems,irps,knts)
+
+  use modv_vars, only: maxcd
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: lun, itab
+  integer, intent(out) :: nseq, irps(*), knts(*)
+  integer i, j, ndsc, idsc, iret
+
+  character*128 bort_str
+  character*8, intent(out) :: nems(*)
+  character*8 nemo, nemt, nemf
+  character tab
+
+  if(itab.le.0 .or. itab.gt.ntbd(lun)) then
+    write(bort_str,'("BUFRLIB: NEMTBD - ITAB (",I7,") NOT FOUND IN TABLE D")') itab
+    call bort(bort_str)
+  endif
+
+  ! Clear the return values
+
+  nseq = 0
+
+  do i=1,maxcd
+    nems(i) = ' '
+    irps(i) = 0
+    knts(i) = 0
+  enddo
+
+  ! Parse the Table D entry
+
+  nemo = tabd(itab,lun)(7:14)
+  idsc = idnd(itab,lun)
+  call uptdd(itab,lun,0,ndsc)
+
+  ! Loop through each child mnemonic
+
+  do j=1,ndsc
+    if(nseq+1.gt.maxcd) then
+      write(bort_str,'("BUFRLIB: NEMTBD - THERE ARE MORE THAN '// &
+        '(",I4,") DESCRIPTORS (THE LIMIT) IN TABLE D SEQUENCE MNEMONIC ",A)') maxcd, nemo
+      call bort(bort_str)
+    endif
+    call uptdd(itab,lun,j,idsc)
+    call numtab(lun,idsc,nemt,tab,iret)
+    if(tab.eq.'R') then
+      if(iret.lt.0) then
+        ! Regular (i.e. non-delayed) replication
+        irps(nseq+1) = 1
+        knts(nseq+1) = abs(iret)
+      elseif(iret.gt.0) then
+        ! Delayed replication
+        irps(nseq+1) = iret
+      endif
+    elseif(tab.eq.'F') then
+      ! Replication factor
+      irps(nseq+1) = iret
+    elseif(tab.eq.'D'.or.tab.eq.'C') then
+      nseq = nseq+1
+      nems(nseq) = nemt
+    elseif(tab.eq.'B') then
+      nseq = nseq+1
+      if((nemt(1:1).eq.'.').and.(j.lt.ndsc)) then
+        ! This is a "following value" mnemonic
+        call uptdd(itab,lun,j+1,idsc)
+        call numtab(lun,idsc,nemf,tab,iret)
+        call rsvfvm(nemt,nemf)
+      endif
+      nems(nseq) = nemt
+    endif
+  enddo
+
+  return
+end subroutine nemtbd
+
+!> Get the element name and units associated with a Table B descriptor
+!>
+!> Given a Table B mnemonic defined in the
+!> [DX BUFR Tables](@ref dfbftab) associated with a BUFR file
+!> (or in the [master BUFR tables](@ref dfbfmstab), if the file
+!> was opened in subroutine openbf() with io = 'SEC3'), this
+!> subroutine returns the element name and units associated
+!> with that mnemonic.
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param nemo - Mnemonic for Table B descriptor
+!> @param celem - Element name associated with nemo
+!> @param cunit - Units associated with nemo
+!> @param iret - Return code
+!>    - 0 normal return
+!>    - -1 nemo could not be found, or some other error occurred
+!>
+!> Logical unit lunit should have already been opened for
+!> input or output operations via a previous call to subroutine
+!> openbf().
+!>
+!> @author J. Ator @date 2014-10-02
+recursive subroutine nemdefs ( lunit, nemo, celem, cunit, iret )
+
+  use modv_vars, only: im8b
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: lunit
+  integer, intent(out) :: iret
+  integer my_lunit, lun, il, im, idn, iloc, ls
+
+  character*(*), intent(in) :: nemo
+  character*(*), intent(out) :: celem, cunit
+  character tab
+
+  ! Check for I8 integers.
+
+  if(im8b) then
+    im8b=.false.
+    call x84 ( lunit, my_lunit, 1 )
+    call nemdefs ( my_lunit, nemo, celem, cunit, iret )
+    call x48 ( iret, iret, 1 )
+    im8b=.true.
+    return
+  endif
+
+  iret = -1
+
+  ! Get lun from lunit.
+
+  call status( lunit, lun, il, im )
+  if ( il .eq. 0 ) return
+
+  ! Find the requested mnemonic in the internal Table B arrays.
+
+  call nemtab( lun, nemo, idn, tab, iloc )
+  if ( ( iloc .eq. 0 ) .or. ( tab .ne. 'B' ) ) return
+
+  ! Get the element name and units of the requested mnemonic.
+
+  celem = ' '
+  ls = min(len(celem),55)
+  celem(1:ls) = tabb(iloc,lun)(16:15+ls)
+
+  cunit = ' '
+  ls = min(len(cunit),24)
+  cunit(1:ls) = tabb(iloc,lun)(71:70+ls)
+
+  iret = 0
+
+  return
+end subroutine nemdefs
+
+!> Confirm that a mnemonic and FXY value haven't already been defined.
+!>
+!> Check a mnemonic and FXY value pair that were read
+!> from a user-supplied BUFR DX dictionary table in character format,
+!> in order to confirm that neither value has already been
+!> defined within internal BUFR table B or D (in module @ref moda_tababd) for
+!> the given lun. If either value has already been defined for this
+!> lun, then an appropriate call is made to subroutine bort().
+!>
+!> @param nemo - Mnemonic
+!> @param numb - FXY value associated with nemo
+!> @param lun - File ID
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine nenubd(nemo,numb,lun)
+
+  use moda_tababd
+
+  implicit none
+
+  character, intent(in) :: nemo*8, numb*6
+  character*128 bort_str
+
+  integer, intent(in) :: lun
+  integer n
+
+  do n=1,ntbb(lun)
+    if(numb.eq.tabb(n,lun)(1:6)) then
+      write(bort_str,'("BUFRLIB: NENUBD - TABLE B FXY VALUE (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') numb
+      call bort(bort_str)
+    endif
+    if(nemo.eq.tabb(n,lun)(7:14)) then
+      write(bort_str,'("BUFRLIB: NENUBD - TABLE B MNEMONIC (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') nemo
+      call bort(bort_str)
+    endif
+  enddo
+
+  do n=1,ntbd(lun)
+    if(numb.eq.tabd(n,lun)(1:6)) then
+      write(bort_str,'("BUFRLIB: NENUBD - TABLE D FXY VALUE (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') numb
+      call bort(bort_str)
+    endif
+    if(nemo.eq.tabd(n,lun)(7:14)) then
+      write(bort_str,'("BUFRLIB: NENUBD - TABLE D MNEMONIC (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') nemo
+      call bort(bort_str)
+    endif
+  enddo
+
+  return
+end subroutine nenubd
+
+!> Store a new entry within internal BUFR Table A
+!>
+!> @param[in] n - Storage index into internal Table A
+!> @param[in] lun - File ID
+!> @param[in] numb - FXY number for new Table A entry
+!> @param[in] nemo - Mnemonic corresponding to numb
+!> @param[in] celsq - Sequence description corresponding to numb
+!>
+!> @author Ator @date 2009-03-23
+subroutine stntbia ( n, lun, numb, nemo, celsq )
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: n, lun
+  integer i, mtyp, msbt
+
+  character*(*), intent(in) :: numb, nemo, celsq
+  character*128 bort_str
+
+  ! Confirm that neither nemo nor numb has already been defined within the internal BUFR Table A for the given lun.
+
+  do i=1,ntba(lun)
+    if(numb(4:6).eq.taba(i,lun)(1:3)) then
+      write(bort_str,'("BUFRLIB: STNTBIA - TABLE A FXY VALUE (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') numb
+      call bort(bort_str)
+    endif
+    if(nemo(1:8).eq.taba(i,lun)(4:11)) then
+      write(bort_str,'("BUFRLIB: STNTBIA - TABLE A MNEMONIC (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') nemo
+      call bort(bort_str)
+    endif
+  enddo
+
+  ! Store the values within the internal BUFR Table A.
+
+  taba(n,lun)(1:3) = numb(4:6)
+  taba(n,lun)(4:11) = nemo(1:8)
+  taba(n,lun)(13:67) = celsq(1:55)
+
+  ! Decode and store the message type and subtype.
+
+  if ( verify( nemo(3:8), '1234567890' ) == 0 ) then
+    ! Message type & subtype obtained directly from Table A mnemonic
+    read ( nemo,'(2X,2I3)') mtyp, msbt
+    idna(n,lun,1) = mtyp
+    idna(n,lun,2) = msbt
+  else
+    ! Message type obtained from Y value of Table A seq. descriptor
+    read ( numb(4:6),'(I3)') idna(n,lun,1)
+    ! Message subtype hardwired to zero
+    idna(n,lun,2) = 0
+  endif
+
+  ! Update the count of internal Table A entries.
+
+  ntba(lun) = n
+
+  return
+end subroutine stntbia
+
+!> Store a new entry within internal BUFR Table B or D
+!>
+!> @param[in] n - Storage index into internal Table B or D
+!> @param[in] lun - File ID
+!> @param[in] numb - FXY number for new Table B or D entry
+!> @param[in] nemo - Mnemonic corresponding to numb
+!> @param[in] celsq - Element or sequence description corresponding to numb
+!>
+!> @author Ator @date 2009-03-23
+subroutine stntbi ( n, lun, numb, nemo, celsq )
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: n, lun
+  integer ifxy
+
+  character*(*), intent(in) :: numb, nemo, celsq
+
+  call nenubd ( nemo, numb, lun )
+
+  if ( numb(1:1) .eq. '0') then
+    idnb(n,lun) = ifxy(numb)
+    tabb(n,lun)(1:6) = numb(1:6)
+    tabb(n,lun)(7:14) = nemo(1:8)
+    tabb(n,lun)(16:70) = celsq(1:55)
+    ntbb(lun) = n
+  else  ! numb(1:1) .eq. '3'
+    idnd(n,lun) = ifxy(numb)
+    tabd(n,lun)(1:6) = numb(1:6)
+    tabd(n,lun)(7:14) = nemo(1:8)
+    tabd(n,lun)(16:70) = celsq(1:55)
+    ntbd(lun) = n
+  endif
+
+  return
+end subroutine stntbi
+
+!> Store information about a child mnemonic within the internal BUFR Table D
+!>
+!> Store information about a child mnemonic within the internal BUFR table D entry (in module @ref moda_tababd)
+!> for a table D sequence (parent) mnemonic when the child mnemonic is contained within the sequence represented by
+!> the parent mnemonic (as determined within seqsdx()).
+!>
+!> @param id - Positional index of parent mnemonic within internal BUFR table D array tabd(*,*)
+!> @param lun - File ID
+!> @param idn - WMO bit-wise representation of FXY value corresponding to child mnemonic
+!> - 0 = Delete all information about all child mnemonics from within tabd(id,lun)
+!> @param iret - Total number of child mnemonics stored thus far (including idn) for the parent mnemonic given by tabd(id,lun)
+!> - 0 = Information was cleared from tabd(id,lun) because input idn value was 0
+!> - -1 = Bad counter value or maximum number of child mnemonics already stored for this parent mnemonic
+!>
+!> @author Woollen @date 1994-01-06
+subroutine pktdd(id,lun,idn,iret)
+
+  use modv_vars, only: maxcd
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: id, lun, idn
+  integer, intent(out) :: iret
+  integer maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, iprt, ldd, nd, idm, iupm
+
+  character*128 errstr
+  character*56 dxstr
+
+  common /dxtab/ maxdx, idxv, nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
+  common /quiet/ iprt
+
+  ! ldd points to the byte within tabd(id,lun) which contains (in packed integer format) a count of the number of child
+  ! mnemonics stored thus far for this parent mnemonic.
+  ldd = ldxd(idxv+1)+1
+
+  ! Zero the counter if idn is zero
+  if(idn.eq.0) then
+    call ipkm(tabd(id,lun)(ldd:ldd),1,0)
+    iret = 0
+    return
+  endif
+
+  ! Update the stored descriptor count for this Table D entry.  nd is the (unpacked) count of the number of child mnemonics
+  ! stored thus far for this parent mnemonic.
+  nd = iupm(tabd(id,lun)(ldd:ldd),8)
+
+  if(nd.lt.0 .or. nd.eq.maxcd) then
+    if(iprt.ge.0) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      if(nd.lt.0) then
+        write ( unit=errstr, FMT='(A,I4,A)' ) 'BUFRLIB: PKTDD - BAD COUNTER VALUE (=', nd, ') - RETURN WITH IRET = -1'
+      else
+        write ( unit=errstr, FMT='(A,I4,A,A)' ) 'BUFRLIB: PKTDD - MAXIMUM NUMBER OF CHILD MNEMONICS (=', &
+          maxcd, ') ALREADY STORED FOR THIS PARENT - RETURN WITH IRET = -1'
+      endif
+      call errwrt(errstr)
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+    iret = -1
+    return
+  else
+    nd = nd+1
+    call ipkm(tabd(id,lun)(ldd:ldd),1,nd)
+    iret = nd
+  endif
+
+  ! Pack and store the descriptor.  idm points to the starting byte within tabd(id,lun) at which the idn value for this
+  ! child mnemonic will be stored (as a packed integer of width = 2 bytes).
+  idm = ldd+1 + (nd-1)*2
+  call ipkm(tabd(id,lun)(idm:idm),2,idn)
+
+  return
+end subroutine pktdd
+
+!> Get the WMO bit-wise representation of the FXY value corresponding to a child mnemonic in a Table D sequence.
+!>
+!> For a description of the WMO bit-wise representation of the FXY value, see ifxy().
+!>
+!> @param id - Positional index of parent mnemonic within internal BUFR Table D array tabd
+!> @param lun - File ID
+!> @param ient - Ordinal indicator of child mnemonic to return from within tabd(id,lun) sequence
+!> - 0 = Return a count of the total number of child mnemonics within the sequence
+!> @param iret - Return value:
+!> - WMO bit-wise representation of FXY value corresponding to (ient)th child mnemonic, if input ient was > 0
+!> - Total number of child mnemonics, if input ient was 0
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine uptdd(id,lun,ient,iret)
+
+  use moda_tababd
+
+  implicit none
+
+  integer, intent(in) :: id, lun, ient
+  integer, intent(out) :: iret
+  integer maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, ldd, ndsc, idsc, iupm
+
+  character*128 bort_str
+  character*56 dxstr
+
+  common /dxtab/ maxdx, idxv, nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
+
+  ! Check if ient is in bounds
+
+  ldd = ldxd(idxv+1)+1
+  ndsc = iupm(tabd(id,lun)(ldd:ldd),8)
+  if(ient.eq.0) then
+    iret = ndsc
+    return
+  elseif(ient.lt.0 .or. ient.gt.ndsc) then
+    write(bort_str,'("BUFRLIB: UPTDD - VALUE OF THIRD ARGUMENT IENT (INPUT) IS OUT OF RANGE (IENT =",I4,")")') ient
+    call bort(bort_str)
+  endif
+
+  ! Return the descriptor indicated by ient
+
+  idsc = ldd+1 + (ient-1)*2
+  iret = iupm(tabd(id,lun)(idsc:idsc),16)
+
+  return
+end subroutine uptdd
