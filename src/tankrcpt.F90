@@ -243,7 +243,7 @@ end subroutine rtrcpt
 !> However, it's encoded by the NCEPLIBS-bufr software in such a way that its inclusion within an output BUFR message is
 !> still fully compliant with the regulations.
 !>
-!> @param cf - character*1: Flag indicating whether future BUFR output messages should include the tank receipt
+!> @param cf - Flag indicating whether future BUFR output messages should include the tank receipt
 !> time defined by iyr, imo, idy, ihr, and imi:
 !> - 'N' = No (the default)
 !> - 'Y' = Yes

@@ -4,17 +4,14 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 list(APPEND fortran_src
-  modules_vars.F90 modules_arrs.F90 bitmaps.F90 blocks.F90 borts.F90 cktaba.f
+  modules_vars.F90 modules_arrs.F90 bitmaps.F90 blocks.F90 borts.F90
   compress.F90 conwin.f copydata.F90 dumpdata.F90 dxtable.F90
-  errwrt.F90 fstag.f getabdb.f gettagpr.f
-  getwin.f ifbget.f fxy.F90
-  invcon.f invmrg.f invtag.f invwin.f
+  errwrt.F90 getabdb.f getwin.f ifbget.f fxy.F90 invcon.f invmrg.f invtag.f invwin.f
   jumplink.F90 mastertable.F90 missing.F90 mesgbc.f mesgbf.f mrginv.f
   nevn.f newwin.f nvnwin.f nwords.f nxtwin.f openbt.F90
   parstr.f parusr.f parutg.f ftbvs.F90 rcstpl.f
   readwritemg.F90 readwritesb.F90 readwriteval.F90 rewnbf.f rsvfvm.f s013vals.F90 tankrcpt.F90
-  standard.F90 strcln.f string.f
-  trybump.f ufbcup.f ufbevn.f ufbget.f ufbin3.f ufbinx.f
+  standard.F90 strcln.f string.f trybump.f ufbcup.f ufbevn.f ufbget.f ufbin3.f ufbinx.f
   memmsgs.F90 ufbovr.f ufbqcd.f ufbqcp.f
   ufbtab.f ciencode.F90 cidecode.F90 usrtpl.f arallocf.F90 openclosebf.F90
   bufr_interface.F90 bufr_c2f_interface.F90 x4884.F90 bufrlib.F90)

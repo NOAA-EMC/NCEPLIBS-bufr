@@ -1055,7 +1055,7 @@ end function igettdi
 !>
 !> @param luns - Fortran logical unit number for ASCII file containing standard table information
 !> @param lunl - Fortran logical unit number for ASCII file containing local table information
-!> @param tab - character: Type of table:
+!> @param tab - Type of table:
 !>    - 'B' = Table B
 !>    - 'D' = Table D
 !>    - 'F' = Code/Flag table
