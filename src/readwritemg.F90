@@ -205,7 +205,8 @@ end function ireadmg
 !> @param subset - Table A mnemonic for type of BUFR message that was read
 !> (see [DX BUFR Tables](@ref dfbftab) or further information about Table A mnemonics)
 !> @param jdate - Date-time stored within Section 1 of BUFR message that was read,
-!> in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to datelen()
+!> in format of either YYMMDDHH or YYYYMMDDHH, depending on the most recent call to
+!> subroutine datelen()
 !> @param iret - return code:
 !> - 0 mesg was successfully read
 !> - 11 mesg contained a DX BUFR table message
@@ -1385,3 +1386,51 @@ recursive subroutine cnved4(msgin,lmsgot,msgot)
 
   return
 end subroutine cnved4
+
+!> Check whether there are any more data subsets available to be read from a BUFR message.
+!>
+!> The message that will checked is the one that's currently open for reading via the most recent call to any of
+!> the [message-reading subroutines](@ref hierarchy) for the specified Fortran logical unit.
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @returns ifbget - Return code:
+!> - 0 = there's at least one more data subset to be read from the message
+!> - -1 = there are no more data subsets to be read from the message
+!>
+!> @author J. Woollen @date 1994-01-06
+recursive integer function ifbget(lunit) result(iret)
+
+  use modv_vars, only: im8b
+
+  use moda_msgcwd
+
+  implicit none
+
+  integer, intent(in) :: lunit
+  integer my_lunit, lun, il, im
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+    call x84(lunit,my_lunit,1)
+    iret=ifbget(my_lunit)
+    im8b=.true.
+    return
+  endif
+
+  iret = -1
+
+  ! Make sure a file/message is open for input
+
+  call status(lunit,lun,il,im)
+  if(il.eq.0) call bort('BUFRLIB: IFBGET - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il.gt.0) call bort('BUFRLIB: IFBGET - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(im.eq.0) call bort('BUFRLIB: IFBGET - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+
+  ! Check if there's another subset in the message
+
+  if(nsub(lun).lt.msub(lun)) iret = 0
+
+  return
+end function ifbget
