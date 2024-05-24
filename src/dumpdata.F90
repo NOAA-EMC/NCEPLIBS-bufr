@@ -1,5 +1,5 @@
 !> @file
-!> @brief Print the contents of a data subset.
+!> @brief Print the contents of a data subset or DX BUFR table.
 !>
 !> @authors J. Woollen, J. Ator, D. Keyser @date 1994-01-06
 
@@ -358,7 +358,7 @@ recursive subroutine ufdump(lunit,luprt)
           seqnam(nseq) = nemo2
           lsqnam(nseq) = lnm2
           idxrep(nseq) = 1
-        ELSE
+        else
           ! Don't bother
           nseq = nseq-1
         endif
@@ -662,7 +662,7 @@ recursive subroutine dxdump(lunit,ldxot)
       ! last of the Table A mnemonics, in which case an extra cardi1 line will be written to ldxot in order to separate
       ! the Table A mnemonics from the other Table D mnemonics.
       do na=1,ntba(lun)
-        if(taba(na,lun)(4:11).eq.tabd(n,lun)(7:14)) THEN
+        if(taba(na,lun)(4:11).eq.tabd(n,lun)(7:14)) then
           card(14:14)='A'
           if(na.eq.ntba(lun)) xtrci1=.true.
           exit
@@ -816,3 +816,73 @@ recursive subroutine dxdump(lunit,ldxot)
 
   return
 end subroutine dxdump
+
+!> Get Table B and Table D information from the internal DX BUFR tables.
+!>
+!> The information is returned in a memory array in a pre-defined ASCII format.
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param itab - Dimensioned size of tabdb array; used by the subroutine to ensure that it doesn't overflow the tabdb array
+!> @param tabdb - Internal Table B and Table D information
+!> @param jtab - Number of entries stored within tabdb
+!>
+!> @author J. Ator @date 2005-11-29
+recursive subroutine getabdb(lunit,tabdb,itab,jtab)
+
+  use modv_vars, only: im8b
+
+  use moda_tababd
+  use moda_nmikrp
+
+  implicit none
+
+  integer, intent(in) :: lunit, itab
+  integer, intent(out) :: jtab
+  integer my_lunit, my_itab, lun, il, im, i, j, k, nseq
+
+  character*128, intent(out) :: tabdb(*)
+  character*8 nemo
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+    call x84(lunit,my_lunit,1)
+    call x84(itab,my_itab,1)
+    call getabdb(my_lunit,tabdb,my_itab,jtab)
+    call x48(jtab,jtab,1)
+    im8b=.true.
+    return
+  endif
+
+  jtab = 0
+
+  ! Make sure the file is open
+
+  call status(lunit,lun,il,im)
+  if(il.eq.0) return
+
+  ! Write out the Table D entries for this file
+
+  do i=1,ntbd(lun)
+    nemo = tabd(i,lun)(7:14)
+    call nemtbd(lun,i,nseq,nem(1,1),irp(1,1),krp(1,1))
+    do j=1,nseq,10
+      jtab = jtab+1
+      if(jtab.le.itab) then
+        write(tabdb(jtab),fmt='(A,A8,10(1X,A10))') 'D ', nemo, (nem(k,1),k=j,min(j+9,nseq))
+      endif
+    enddo
+  enddo
+
+  ! Add the Table B entries
+
+  do i=1,ntbb(lun)
+    jtab = jtab+1
+    if(jtab.le.itab) then
+      write(tabdb(jtab),fmt='(A,A8,1X,A42)') 'B ', tabb(i,lun)(7:14), tabb(i,lun)(71:112)
+    endif
+  enddo
+
+  return
+end subroutine getabdb
