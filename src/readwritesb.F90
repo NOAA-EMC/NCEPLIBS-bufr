@@ -1144,3 +1144,344 @@ subroutine wrtree(lun)
 
   return
 end subroutine wrtree
+
+!> Initialize a subset template within internal arrays.
+!>
+!> Initialize space in internal subset arrays in modules @ref moda_usrint and @ref moda_usrbit,
+!> according to the subset definition from subroutine makestab().  This is in preparation for the
+!> actual unpacking of the subset in subroutine rdtree().
+!>
+!> @param lun - File ID
+!> @param iret - Return code:
+!> - 0 = Normal return
+!> - -1 = An error occurred, possibly due to a corrupt subset in the input message
+!>
+!> @author Woollen @date 1994-01-06
+subroutine rcstpl(lun,iret)
+
+  use modv_vars, only: bmiss, maxjl, maxss, maxrcr
+
+  use moda_usrint
+  use moda_usrbit
+  use moda_msgcwd
+  use moda_bitbuf
+  use moda_tables
+  use moda_usrtmp
+
+  implicit none
+
+  character*128 bort_str
+
+  integer, intent(in) :: lun
+  integer, intent(out) :: iret
+  integer nbmp(2,maxrcr), newn(2,maxrcr), knx(maxrcr), iprt, nodi, node, mbmp, knvn, nr, i, j, n, nn, n1, n2, new, &
+    idpri, igetrfel
+
+  common /quiet/ iprt
+
+  iret = 0
+
+  ! Set the initial values for the template
+
+  inv(1,lun) = inode(lun)
+  val(1,lun) = 0
+  nbmp(1,1) = 1
+  nbmp(2,1) = 1
+  nodi = inode(lun)
+  node = inode(lun)
+  mbmp = 1
+  knvn = 1
+  nr = 0
+
+  do i=1,maxrcr
+    knx(i) = 0
+  enddo
+
+  outer: do while (.true.)
+
+    ! Set up the parameters for a level of recursion
+
+    nr = nr+1
+    if(nr.gt.maxrcr) then
+      write(bort_str,'("BUFRLIB: RCSTPL - THE NUMBER OF RECURSION LEVELS EXCEEDS THE LIMIT (",I3,")")') maxrcr
+      call bort(bort_str)
+    endif
+    nbmp(1,nr) = 1
+    nbmp(2,nr) = mbmp
+
+    n1 = iseq(node,1)
+    n2 = iseq(node,2)
+    if(n1.eq.0) then
+      write(bort_str,'("BUFRLIB: RCSTPL - UNSET EXPANSION SEGMENT ",A)') tag(nodi)
+      call bort(bort_str)
+    endif
+    if(n2-n1+1.gt.maxjl) THEN
+      if(iprt.ge.0) then
+        call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+        call errwrt('BUFRLIB: RCSTPL - MAXJL OVERFLOW; SUBSET SKIPPED')
+        call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+      endif
+      iret = -1
+      return
+    endif
+    newn(1,nr) = 1
+    newn(2,nr) = n2-n1+1
+
+    do n=1,newn(2,nr)
+      nn = jseq(n+n1-1)
+      iutmp(n,nr) = nn
+      vutmp(n,nr) = vali(nn)
+    enddo
+
+    do while (.true.)
+
+      ! Store nodes at some recursion level
+
+      do i=nbmp(1,nr),nbmp(2,nr)
+        if(knx(nr).eq.0) knx(nr) = knvn
+        if(i.gt.nbmp(1,nr)) newn(1,nr) = 1
+        do j=newn(1,nr),newn(2,nr)
+          if(knvn+1.gt.maxss) then
+            if(iprt.ge.0) then
+              call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+              call errwrt('BUFRLIB: RCSTPL - MAXSS OVERFLOW; SUBSET SKIPPED')
+              call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+            endif
+            iret = -1
+            return
+          endif
+          knvn = knvn+1
+          node = iutmp(j,nr)
+          ! inv is positional index in internal jump/link table for packed subset element knvn in mbay
+          inv(knvn,lun) = node
+          ! mbit is the bit in mbay pointing to where the packed subset element knvn begins
+          mbit(knvn) = mbit(knvn-1)+nbit(knvn-1)
+          ! nbit is the number of bits in mbay occupied by packed subset element knvn
+          nrfelm(knvn,lun) = igetrfel(knvn,lun)
+          nbit(knvn) = ibt(node)
+          if(tag(node)(1:5).eq.'DPRI ') then
+            ! This is a bitmap entry, so get and store the corresponding value
+            call upbb(idpri,nbit(knvn),mbit(knvn),mbay(1,lun))
+            if(idpri.eq.0) then
+              val(knvn,lun) = 0.0
+            else
+              val(knvn,lun) = bmiss
+            endif
+            call strbtm(knvn,lun)
+          endif
+          ! Actual unpacked subset values are initialized here
+          val(knvn,lun) = vutmp(j,nr)
+          if(itp(node).eq.1) then
+            call upbb(mbmp,nbit(knvn),mbit(knvn),mbay(1,lun))
+            newn(1,nr) = j+1
+            nbmp(1,nr) = i
+            cycle outer
+          endif
+        enddo
+        new = knvn-knx(nr)
+        val(knx(nr)+1,lun) = val(knx(nr)+1,lun) + new
+        knx(nr) = 0
+      enddo
+
+      ! Check if we need to continue one recursion level back
+
+      if(nr-1 .eq. 0) exit outer
+      nr = nr-1
+    enddo
+
+  enddo outer
+
+  ! Finally store the length of (i.e. the number of elements in) the subset template
+
+  nval(lun) = knvn
+
+  return
+end subroutine rcstpl
+
+!> Expand a subset template within internal arrays.
+!>
+!> Update a subset template within the internal subset arrays in module @ref moda_usrint for cases of node expansion,
+!> such as when the node is either a Table A mnemonic or a delayed replication factor.
+!>
+!> @param lun - File ID
+!> @param invn - Starting jump/link table index of the node to be expanded within the subset template
+!> @param nbmp - Number of times by which invn is to be expanded (i.e. number of replications of node)
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine usrtpl(lun,invn,nbmp)
+
+  use modv_vars, only: maxjl, maxss
+
+  use moda_usrint
+  use moda_msgcwd
+  use moda_tables
+  use moda_ivttmp
+  use moda_stcode
+
+  implicit none
+
+  integer, intent(in) :: lun, invn, nbmp
+  integer iprt, i, j, ival, jval, n, n1, n2, nodi, node, newn, invr, knvn
+
+  character*128 bort_str, errstr
+
+  logical drp, drs, drb, drx
+
+  common /quiet/ iprt
+
+  if(iprt.ge.2) then
+    call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+    write ( unit=errstr, fmt='(A,I3,A,I7,A,I5,A,A10)' ) &
+      'BUFRLIB: USRTPL - LUN:INVN:NBMP:TAG(INODE(LUN)) = ', lun, ':', invn, ':', nbmp, ':', tag(inode(lun))
+    call errwrt(errstr)
+    call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+    call errwrt(' ')
+  endif
+
+  if(nbmp.le.0) then
+    if(iprt.ge.1) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt('BUFRLIB: USRTPL - NBMP .LE. 0 - IMMEDIATE RETURN')
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+    return
+  endif
+
+  drp = .false.
+  drs = .false.
+  drx = .false.
+
+  ! Set up a node expansion
+
+  if(invn.eq.1) then
+    ! The node is a Table A mnemonic
+    nodi = inode(lun)
+    inv(1,lun) = nodi
+    nval(lun) = 1
+    if(nbmp.ne.1) then
+      write(bort_str,'("BUFRLIB: USRTPL - THIRD ARGUMENT (INPUT) = ",'// &
+        'I4,", MUST BE 1 WHEN SECOND ARGUMENT (INPUT) IS 1 (SUBSET NODE) (",A,")")') nbmp, tag(nodi)
+      call bort(bort_str)
+    endif
+  elseif(invn.gt.0 .and. invn.le.nval(lun)) then
+    ! The node is (hopefully) a delayed replication factor
+    nodi = inv(invn,lun)
+    drp = typ(nodi) .eq. 'DRP'
+    drs = typ(nodi) .eq. 'DRS'
+    drb = typ(nodi) .eq. 'DRB'
+    drx = drp .or. drs .or. drb
+    ival = nint(val(invn,lun))
+    jval = 2**ibt(nodi)-1
+    val(invn,lun) = ival+nbmp
+    if(drb.and.nbmp.ne.1) then
+      write(bort_str,'("BUFRLIB: USRTPL - THIRD ARGUMENT (INPUT) = ",'// &
+        'I4,", MUST BE 1 WHEN NODE IS DRB (1-BIT DELAYED REPL. FACTOR) (",A,")")') nbmp, tag(nodi)
+      call bort(bort_str)
+    endif
+    if(.not.drx) then
+      write(bort_str,'("BUFRLIB: USRTPL - NODE IS OF TYPE ",A," - IT '// &
+        'MUST BE EITHER A SUBSET OR DELAYED REPL. FACTOR (",A,")")') typ(nodi), tag(nodi)
+      call bort(bort_str)
+    endif
+    if(ival.lt.0) then
+      write(bort_str,'("BUFRLIB: USRTPL - REPLICATION FACTOR IS NEGATIVE (=",I5,") (",A,")")') ival, tag(nodi)
+      call bort(bort_str)
+    endif
+    if(ival+nbmp.gt.jval) then
+      write(bort_str,'("BUFRLIB: USRTPL - REPLICATION FACTOR OVERFLOW (EXCEEDS MAXIMUM OF",I6," (",A,")")') jval, tag(nodi)
+      call errwrt(bort_str)
+      iscodes(lun) = 1
+      return
+    endif
+  else
+    write(bort_str,'("BUFRLIB: USRTPL - INVENTORY INDEX {FIRST '// &
+      'ARGUMENT (INPUT)} OUT OF BOUNDS (=",I5,", RANGE IS 1 TO",I6,") ")') invn, nval(lun)
+    call bort(bort_str)
+  endif
+
+  ! Recall a pre-fab node expansion segment
+
+  newn = 0
+  n1 = iseq(nodi,1)
+  n2 = iseq(nodi,2)
+
+  if(n1.eq.0) then
+    write(bort_str,'("BUFRLIB: USRTPL - UNSET EXPANSION SEGMENT (",A,")")') tag(nodi)
+    call bort(bort_str)
+  endif
+  if(n2-n1+1.gt.maxjl) then
+    write(bort_str,'("BUFRLIB: USRTPL - TEMPLATE ARRAY OVERFLOW, EXCEEDS THE LIMIT (",I6,") (",A,")")') maxjl, tag(nodi)
+    call bort(bort_str)
+  endif
+
+  do n=n1,n2
+    newn = newn+1
+    itmp(newn) = jseq(n)
+    vtmp(newn) = vali(jseq(n))
+  enddo
+
+  ! Move old nodes and store new ones
+
+  if(nval(lun)+newn*nbmp.gt.maxss) then
+    write(bort_str,'("BUFRLIB: USRTPL - INVENTORY OVERFLOW (",I6,"), EXCEEDS THE LIMIT (",I6,") (",A,")")') &
+      nval(lun)+newn*nbmp, maxss, tag(nodi)
+    call bort(bort_str)
+  endif
+
+  do j=nval(lun),invn+1,-1
+    inv(j+newn*nbmp,lun) = inv(j,lun)
+    val(j+newn*nbmp,lun) = val(j,lun)
+  enddo
+
+  if(drp.or.drs) vtmp(1) = newn
+  knvn = invn
+
+  do i=1,nbmp
+    do j=1,newn
+      knvn = knvn+1
+      inv(knvn,lun) = itmp(j)
+      val(knvn,lun) = vtmp(j)
+    enddo
+  enddo
+
+  ! Reset pointers and counters
+
+  nval(lun) = nval(lun) + newn*nbmp
+
+  if(iprt.ge.2) then
+    call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+    write ( unit=errstr, fmt='(A,A,A10,2(A,I5),A,I7)' ) 'BUFRLIB: USRTPL - TAG(INV(INVN,LUN)):NEWN:NBMP:', &
+      'NVAL(LUN) = ', tag(inv(invn,lun)), ':', newn, ':', nbmp, ':', nval(lun)
+    call errwrt(errstr)
+    do i=1,newn
+      write ( unit=errstr, fmt='(2(A,I5),A,A10)' ) 'For I = ', i, ', ITMP(I) = ', itmp(i), ', TAG(ITMP(I)) = ', tag(itmp(i))
+      call errwrt(errstr)
+    enddo
+    call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+    call errwrt(' ')
+  endif
+
+  if(drx) then
+    node = nodi
+    invr = invn
+    outer: do while (.true.)
+      node = jmpb(node)
+      if(node.le.0) exit
+      if(itp(node).eq.0) then
+        do invr=invr-1,1,-1
+          if(inv(invr,lun).eq.node) then
+            val(invr,lun) = val(invr,lun)+newn*nbmp
+            cycle outer
+          endif
+        enddo
+        write(bort_str,'("BUFRLIB: USRTPL - BAD BACKUP STRATEGY (",A,")")') tag(nodi)
+        call bort(bort_str)
+      else
+        cycle
+      endif
+    enddo outer
+  endif
+
+  return
+end subroutine usrtpl

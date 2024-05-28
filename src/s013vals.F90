@@ -1257,3 +1257,188 @@ recursive subroutine minimg(lunit,mini)
 
   return
 end subroutine minimg
+
+!> Get the Table A mnemonic from Sections 1 and 3 of a BUFR message
+!>
+!> The BUFR message must have been previously read from lun using one of the [message-reading subroutines](@ref hierarchy).
+!>
+!> @param lun - File ID
+!> @param subset - Table A mnemonic
+!>    - Returned as a string of all blank characters if iret is equal to 11 (see below) and if Section 3 isn't being used for decoding
+!> @param jdate - Date-time stored within Section 1 of BUFR, in format of either YYMMDDHH or YYYYMMDDHH depending on datelen() value
+!> @param iret - Return code:
+!>    - 0 = Normal return
+!>    - -1 = Unrecognized Table A (message type) value
+!>    - 11 = This is a BUFR table (dictionary) message
+!>
+!> @author Woollen @date 2000-09-19
+subroutine cktaba(lun,subset,jdate,iret)
+
+  use moda_msgcwd
+  use moda_sc3bfr
+  use moda_unptyp
+  use moda_bitbuf
+
+  implicit none
+
+  integer, intent(in) :: lun
+  integer, intent(out) :: jdate, iret
+  integer, parameter :: ncpfx = 3
+  integer ibct, ipd1, ipd2, ipd3, ipd4, iprt, mtyp, msbt, mty1, msb1, isub, ksub, len0, len1, len2, len3, l4, l5, lundx, ii, &
+    itab, inod, iad3, iad4, iyr, imo, idy, ihr, iupb, iupbs01, iupbs3, i4dy, igetdate
+
+  character*128 bort_str, errstr
+  character*8, intent(out) :: subset
+  character*2, parameter :: cpfx(ncpfx) = (/'NC','FR','FN'/)
+  character tab
+
+  logical trybt
+
+  common /padesc/ ibct, ipd1, ipd2, ipd3, ipd4
+  common /quiet/ iprt
+
+  iret = 0
+
+  trybt = .true.
+
+  ! Get the message type, subtype, and date from Section 1
+
+  mtyp = iupbs01(mbay(1,lun),'MTYP')
+  msbt = iupbs01(mbay(1,lun),'MSBT')
+  jdate = igetdate(mbay(1,lun),iyr,imo,idy,ihr)
+
+  if(mtyp.eq.11) then
+    ! This is a BUFR table (dictionary) message
+    iret = 11
+    ! There's no need to proceed any further unless Section 3 is being used for decoding
+    if(isc3(lun).eq.0) then
+      subset = "        "
+      return
+    endif
+  endif
+
+  ! Get the first and second descriptors from Section 3
+
+  call getlens(mbay(1,lun),3,len0,len1,len2,len3,l4,l5)
+  iad3 = len0+len1+len2
+  ksub = iupb(mbay(1,lun),iad3+8,16)
+  isub = iupb(mbay(1,lun),iad3+10,16)
+
+  ! Locate Section 4
+
+  iad4 = iad3+len3
+
+  ! Now, try to get the Table A mnemonic
+
+  outer: do while (.true.)
+
+    if(isc3(lun).ne.0) then
+      ! Section 3 is being used for decoding
+      subset = tamnem(lun)
+      call nemtbax(lun,subset,mty1,msb1,inod)
+      if(inod.gt.0) then
+        mbyt(lun) = 8*(iad4+4)
+        msgunp(lun) = 1
+        exit outer
+      endif
+    endif
+
+    inner: do while (.true.)
+
+      call numtab(lun,isub,subset,tab,itab)
+      call nemtbax(lun,subset,mty1,msb1,inod)
+      if(inod.gt.0) then
+        ! The second descriptor in Section 3 corresponds to the Table A mnemonic, so the message contains non-standard
+        ! NCEP extensions
+        mbyt(lun) = (iad4+4)
+        msgunp(lun) = 0
+        exit outer
+      endif
+
+      call numtab(lun,ksub,subset,tab,itab)
+      call nemtbax(lun,subset,mty1,msb1,inod)
+      if(inod.gt.0) then
+        ! The first descriptor in Section 3 corresponds to the Table A mnemonic, so the message is WMO-standard
+        mbyt(lun) = 8*(iad4+4)
+        msgunp(lun) = 1
+        exit outer
+      endif
+
+      ! OK, still no luck, so try "NCtttsss" (where ttt=mtyp and sss=msbt) as the Table A mnemonic, and if that doesn't work
+      ! then also try "FRtttsss" AND "FNtttsss"
+      ii=1
+      do while(ii.le.ncpfx)
+        write(subset,'(A2,2I3.3)') cpfx(ii),mtyp,msbt
+        call nemtbax(lun,subset,mty1,msb1,inod)
+        if(inod.gt.0) then
+          if(ksub.eq.ibct) then
+            mbyt(lun) = (iad4+4)
+            msgunp(lun) = 0
+          else
+            mbyt(lun) = 8*(iad4+4)
+            msgunp(lun) = 1
+          endif
+          exit outer
+        endif
+        ii=ii+1
+      enddo
+
+      if(trybt) then
+        ! Make one last desperate attempt by checking whether the application program contains an in-line version of
+        ! subroutine openbt() to override the default version in the library
+        trybt = .false.
+        if(iprt.ge.1) then
+          call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+          errstr = 'BUFRLIB: CKTABA - LAST RESORT, CHECK FOR EXTERNAL BUFR TABLE VIA CALL TO IN-LINE OPENBT'
+          call errwrt(errstr)
+          call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+          call errwrt(' ')
+        endif
+        call openbt(lundx,mtyp)
+        if(lundx.gt.0) then
+          ! There was an in-line replacement for the default library version of openbt(), so read DX table information from
+          ! the specified logical unit and look for the Table A mnemonic there
+          call rdusdx(lundx,lun)
+          cycle inner
+        endif
+      endif
+
+      ! Give up and report the bad news
+      if(iprt.ge.0) then
+        call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+        errstr = 'BUFRLIB: CKTABA - UNRECOGNIZED TABLE A MESSAGE TYPE (' // SUBSET // ') - RETURN WITH IRET = -1'
+        call errwrt(errstr)
+        call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+        call errwrt(' ')
+      endif
+      iret = -1
+      return
+
+    enddo inner
+
+  enddo outer
+
+  ! Confirm the validity of the message type and subtype, and also check for compression
+
+  if(isc3(lun).eq.0) then
+    if(mtyp.ne.mty1) then
+      write(bort_str,'("BUFRLIB: CKTABA - MESSAGE TYPE MISMATCH (SUBSET=",A8,", MTYP=",I3,", MTY1=",I3)') subset,mtyp,mty1
+      call bort(bort_str)
+    endif
+    if( msbt.ne.msb1 .and. ( verify(subset(3:8),'1234567890') == 0 ) ) then
+      write(bort_str,'("BUFRLIB: CKTABA - MESSAGE SUBTYPE MISMATCH (SUBSET=",A8,", MSBT=",I3,", MSB1=",I3)') subset,msbt,msb1
+      call bort(bort_str)
+    endif
+  endif
+  if(iupbs3(mbay(1,lun),'ICMP').gt.0) msgunp(lun) = 2
+
+  ! Update values in @ref moda_msgcwd
+
+  idate(lun) = i4dy(jdate)
+  inode(lun) = inod
+  msub(lun) = iupbs3(mbay(1,lun),'NSUB')
+  nsub(lun) = 0
+  if(iret.ne.11) nmsg(lun) = nmsg(lun)+1
+
+  return
+end subroutine cktaba

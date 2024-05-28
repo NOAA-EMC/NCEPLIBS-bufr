@@ -1551,11 +1551,11 @@ end subroutine nenubd
 
 !> Store a new entry within internal BUFR Table A
 !>
-!> @param[in] n - Storage index into internal Table A
-!> @param[in] lun - File ID
-!> @param[in] numb - FXY number for new Table A entry
-!> @param[in] nemo - Mnemonic corresponding to numb
-!> @param[in] celsq - Sequence description corresponding to numb
+!> @param n - Storage index into internal Table A
+!> @param lun - File ID
+!> @param numb - FXY number for new Table A entry
+!> @param nemo - Mnemonic corresponding to numb
+!> @param celsq - Sequence description corresponding to numb
 !>
 !> @author Ator @date 2009-03-23
 subroutine stntbia ( n, lun, numb, nemo, celsq )
@@ -1612,11 +1612,11 @@ end subroutine stntbia
 
 !> Store a new entry within internal BUFR Table B or D
 !>
-!> @param[in] n - Storage index into internal Table B or D
-!> @param[in] lun - File ID
-!> @param[in] numb - FXY number for new Table B or D entry
-!> @param[in] nemo - Mnemonic corresponding to numb
-!> @param[in] celsq - Element or sequence description corresponding to numb
+!> @param n - Storage index into internal Table B or D
+!> @param lun - File ID
+!> @param numb - FXY number for new Table B or D entry
+!> @param nemo - Mnemonic corresponding to numb
+!> @param celsq - Element or sequence description corresponding to numb
 !>
 !> @author Ator @date 2009-03-23
 subroutine stntbi ( n, lun, numb, nemo, celsq )

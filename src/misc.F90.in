@@ -24,7 +24,7 @@ recursive subroutine strnum( str, num, iret )
 
   character*(*), intent(in) :: str
 
-  integer, intent(out) ::  num, iret
+  integer, intent(out) :: num, iret
 
   character str2*40
 

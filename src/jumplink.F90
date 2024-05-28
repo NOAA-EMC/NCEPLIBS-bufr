@@ -943,7 +943,7 @@ end subroutine drstpl
 !> of the mnemonic.
 !>
 !> @param lunit - Fortran logical unit number for BUFR file
-!> @param nemo - character*(*): Table B mnemonic
+!> @param nemo - Table B mnemonic
 !> @param nnemo - Ordinal occurrence of nemo for which information is to be returned, counting from the beginning of the
 !> overall subset definition
 !> @param nscl - Scale factor in effect for (nnemo)th occurrence of nemo
@@ -1044,3 +1044,132 @@ recursive subroutine nemspecs ( lunit, nemo, nnemo, nscl, nref, nbts, iret )
 
   return
 end subroutine nemspecs
+
+!> Search for a specified occurrence of a specified mnemonic within a data subset definition, starting from a specified location.
+!>
+!> Search for the (nutag)th occurrence of mnemonic
+!> utag within the current overall subset definition, starting from
+!> parameter #(nin) within the subset.  The subroutine searches forward
+!> from nin if nutag is positive or else backward if nutag is negative.
+!>
+!> @param lun - File ID
+!> @param utag - Mnemonic
+!> @param nutag - Ordinal occurrence of utag to search for within the overall subset definition, counting from parameter #(nin)
+!> within the subset. The subroutine will search in a forward direction from parameter #(nin) if nutag is positive or else in a
+!> backward direction if nutag is negative.
+!> @param nin - Location within the overall subset definition from which to begin searching for utag
+!> @param nout - Location of (nutag)th occurrence of utag
+!> @param iret - Return code:
+!> - 0 = Normal return
+!> - -1 = Requested mnemonic could not be found, or some other error occurred
+!>
+!> @author J. Ator @date 2014-10-02
+subroutine fstag ( lun, utag, nutag, nin, nout, iret )
+
+  use moda_usrint
+  use moda_tables
+
+  implicit none
+
+  integer, intent(in) :: lun, nutag, nin
+  integer, intent(out) :: nout, iret
+  integer, parameter :: maxtg = 15
+  integer ntg, istep, itagct
+
+  character*(*), intent(in) :: utag
+  character*10 tgs(maxtg)
+
+  iret = -1
+
+  ! Confirm that there's only one mnemonic in the input string.
+
+  call parstr( utag, tgs, maxtg, ntg, ' ', .true. )
+  if ( ntg .ne. 1 ) return
+
+  ! Starting from nin, search either forward or backward for the (nutag)th occurrence of utag.
+
+  if ( nutag .eq. 0 ) return
+  istep = isign( 1, nutag )
+  itagct = 0
+  nout = nin + istep
+  do while ( ( nout .ge. 1 ) .and. ( nout .le. nval(lun) ) )
+    if ( tgs(1) .eq. tag(inv(nout,lun)) ) then
+      itagct = itagct + 1
+      if ( itagct .eq. iabs(nutag) ) then
+        iret = 0
+        return
+      endif
+    endif
+    nout = nout + istep
+  enddo
+
+  return
+end subroutine fstag
+
+!> Get the parent for a specified occurrence of a Table B or Table D mnemonic within a data subset definition.
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param tagch - Table B or Table D mnemonic
+!> @param ntagch - Ordinal occurrence of TAGCH for which the parent Table D mnemonic is to be returned, counting from the
+!> beginning of the overall subset definition
+!> @param tagpr - Table D mnemonic corresponding to parent sequence of (ntagch)th occurrence of tagch
+!> @param iret - Return code
+!>    - 0 = normal return
+!>    - -1 = tagpr could not be found, or some other error occurred
+!>
+!> A data subset must already be in scope within the NCEPLIBS-bufr
+!> internal arrays for LUNIT, either via a previous call to one
+!> of the [subset-reading subroutines](@ref hierarchy)
+!> (when reading BUFR data subsets) or via a previous call to one
+!> of the [message-writing subroutines](@ref hierarchy)
+!> (when writing BUFR data subsets).
+!>
+!> @author J. Ator @date 2012-09-12
+recursive subroutine gettagpr ( lunit, tagch, ntagch, tagpr, iret )
+
+  use modv_vars, only: im8b
+
+  use moda_usrint
+  use moda_msgcwd
+  use moda_tables
+
+  implicit none
+
+  integer, intent(in) :: lunit, ntagch
+  integer, intent(out) :: iret
+  integer my_lunit, my_ntagch, lun, il, im, nch
+
+  character*(*), intent(in) :: tagch
+  character*(*), intent(out) :: tagpr
+
+  ! Check for I8 integers.
+
+  if(im8b) then
+    im8b=.false.
+
+    call x84 ( lunit, my_lunit, 1 )
+    call x84 ( ntagch, my_ntagch, 1 )
+    call gettagpr ( my_lunit, tagch, my_ntagch, tagpr, iret )
+    call x48 ( iret, iret, 1 )
+
+    im8b=.true.
+    return
+  endif
+
+  iret = -1
+
+  ! Get lun from lunit.
+
+  call status( lunit, lun, il, im )
+  if ( il .eq. 0 ) return
+  if ( inode(lun) .ne. inv(1,lun) ) return
+
+  ! Get tagpr from the (ntagch)th occurrence of tagch.
+
+  call fstag( lun, tagch, ntagch, 1, nch, iret )
+  if ( iret .ne. 0 ) return
+
+  tagpr = tag(jmpb(inv(nch,lun)))
+
+  return
+end subroutine gettagpr
