@@ -224,7 +224,7 @@ end module moda_dscach
 !> @author J. Ator @date 2014-02-05
 module moda_h4wlc
   !> Number of long character strings being stored.
-  integer :: nh4wlc
+  integer :: nh4wlc = 0
   !> File ID for associated output file.
   integer, allocatable :: luh4wlc(:)
   !> Table B mnemonics associated with long character strings.
@@ -870,5 +870,28 @@ module moda_msgstd
   !> value which can be overridden by a subsequent call to subroutine stdmsg() within the application program:
   !> - 'N' = No (default)
   !> - 'Y' = Yes
-  character*1 :: csmf = 'N'
+  character :: csmf = 'N'
 end module moda_msgstd
+
+!> Declare a variable used to indicate whether output BUFR messages should be compressed.
+!>
+!> @author J. Ator @date 2024-05-29
+module moda_msgcmp
+  !> Flag indicating whether BUFR output messages are to be compressed; this variable is initialized to a default
+  !> value which can be overridden by a subsequent call to subroutine cmpmsg() within the application program:
+  !> - 'N' = No (default)
+  !> - 'Y' = Yes
+  character :: ccmf = 'N'
+end module moda_msgcmp
+
+!> Declare a variable used to indicate whether master code and flag tables should be read.
+!>
+!> @author J. Ator @date 2024-05-29
+module moda_tablef
+  !> Flag indicating whether to include code and flag table information during reads of master BUFR tables; this
+  !> variable is initialized to a default value which can be overridden by a subsequent call to subroutine codflg()
+  !> within the application program:
+  !> - 'N' = No (default)
+  !> - 'Y' = Yes
+  character :: cdmf = 'N'
+end module moda_tablef

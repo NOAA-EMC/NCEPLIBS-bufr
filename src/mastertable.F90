@@ -185,6 +185,7 @@ integer function ireadmt ( lun ) result ( iret )
   use moda_rdmtb
   use moda_sc3bfr
   use moda_s3list
+  use moda_tablef
 
   implicit none
 
@@ -196,13 +197,11 @@ integer function ireadmt ( lun ) result ( iret )
   character*(*), parameter :: bort_str2 = 'BUFRLIB: IREADMT - COULD NOT OPEN LOCAL FILE:'
   character*275 stdfil,locfil
   character*240 mtdir
-  character cdmf
 
   logical allstd
 
   common /quiet/ iprt
   common /mstinf/ lun1, lun2, lmtd, mtdir
-  common /tablef/ cdmf
 
   ! Initializing the following value ensures that new master tables are read during the first call to this subroutine.
 
@@ -1181,7 +1180,7 @@ end subroutine getntbe
 !> master BUFR tables.
 !>
 !> @param cf - Flag indicating whether or not to include code and flag table information during all future reads of
-!> master BUFR tables
+!> master BUFR tables:
 !>   - 'N' = No (the default)
 !>   - 'Y' = Yes
 !>
@@ -1199,24 +1198,22 @@ end subroutine getntbe
 !> local filesystem, as specified within a separate call to
 !> subroutine mtinfo().
 !>
-!> This subroutine can be called at any time after the first call
-!> to subroutine openbf(), and the specified value for cf will remain
+!> The specified value for cf will remain
 !> in effect for all future reads of master BUFR tables, unless a
 !> subsequent call is made to this subroutine to reset the value of
 !> cf again.  If this subroutine is never called, a default value of
-!> 'N' is used for cf, as set within subroutine bfrini().
+!> 'N' is used for cf.
 !>
 !> @author J. Ator @date 2017-10-13
 subroutine codflg(cf)
 
+  use moda_tablef
+
   implicit none
 
   character, intent(in) :: cf
-  character cdmf
 
   character*128 bort_str
-
-  common /tablef/ cdmf
 
   call capit(cf)
   if(cf.ne.'Y'.and. cf.ne.'N') then

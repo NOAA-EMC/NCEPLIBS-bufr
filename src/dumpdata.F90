@@ -234,6 +234,7 @@ recursive subroutine ufdump(lunit,luprt)
   use moda_msgcwd
   use moda_tababd
   use moda_tables
+  use moda_tablef
   use moda_nrv203
 
   implicit none
@@ -248,11 +249,9 @@ recursive subroutine ufdump(lunit,luprt)
   real*8 rval
 
   character cfmeang*120, lchr2*120, fmt*80, desc*64, unit*24, lchr*20, pmiss*20, nemo3*15, nemo*10, nemo2*10, tagrfe*10, &
-    seqnam(mxseq)*10, lsnemo(mxls)*10, nemod*8, cval*8, fmtf*7, numb*6, type*3, cdmf, tab, you
+    seqnam(mxseq)*10, lsnemo(mxls)*10, nemod*8, cval*8, fmtf*7, numb*6, type*3, tab, you
 
   logical track, found, rdrv
-
-  common /tablef/ cdmf
 
   equivalence (rval,cval)
 

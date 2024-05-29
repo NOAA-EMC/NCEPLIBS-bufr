@@ -24,7 +24,6 @@ subroutine bfrini
   use moda_bufrsr
   use moda_tababd
   use moda_usrint
-  use moda_h4wlc
   use moda_dscach
 
   implicit none
@@ -35,14 +34,10 @@ subroutine bfrini
   character*240 cmtdir
   character*56 dxstr
   character*6 dndx(25,10)
-  character*1 ccmf
-  character*1 cdmf
 
   common /padesc/ ibct, ipd1, ipd2, ipd3, ipd4
   common /dxtab/ maxdx, idxv, nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
   common /mrgcom/ nrpl,nmrg,namb,ntot
-  common /msgcmp/ ccmf
-  common /tablef/ cdmf
 
   data (dndx(i,1),i=1,25)/ &
     '102000','031001','000001','000002', &
@@ -63,10 +58,6 @@ subroutine bfrini
   ! Initialize module moda_bitbuf
 
   maxbyt = min(10000,mxmsgl)
-
-  ! Initialize module moda_h4wlc
-
-  nh4wlc = 0
 
   ! Initialize common /padesc/
 
@@ -158,14 +149,6 @@ subroutine bfrini
 
   ncnem = 0
 
-  ! Initialize common /msgcmp/
-
-  ccmf = 'N'
-
-  ! Initialize common /tablef/
-
-  cdmf = 'N'
-
   ! Initialize common /mstinf/
 
   cmtdir = &
@@ -184,7 +167,7 @@ end subroutine bfrini
 !>
 !> @param str - String
 !> @param num - Value decoded from str
-!> @param iret - return code:
+!> @param iret - Return code:
 !>   0 = success
 !>  -1 = string contained one or more illegal characters
 !>

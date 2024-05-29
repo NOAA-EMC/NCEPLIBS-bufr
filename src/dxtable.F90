@@ -911,11 +911,11 @@ recursive subroutine wrdxtb(lundx,lunot)
     mbit = 8*(mby4-1)
     call pkb(iupb(mgwa,mby4,24)+lda,24,mgwa,mbit)
     mbit = 8*(mbya-1)
-    call pkb(iupb(mgwa,mbya, 8)+  1, 8,mgwa,mbit)
+    call pkb(iupb(mgwa,mbya,8)+1,8,mgwa,mbit)
     mbit = 8*(mbyb-1)
     call pkc(taba(i,lot),lda,mgwa,mbit)
-    call pkb(          0,  8,mgwa,mbit)
-    call pkb(          0,  8,mgwa,mbit)
+    call pkb(0,8,mgwa,mbit)
+    call pkb(0,8,mgwa,mbit)
     mbyt = mbyt+lda
     mbyb = mbyb+lda
     mbyd = mbyd+lda
@@ -931,10 +931,10 @@ recursive subroutine wrdxtb(lundx,lunot)
     mbit = 8*(mby4-1)
     call pkb(iupb(mgwa,mby4,24)+ldb,24,mgwa,mbit)
     mbit = 8*(mbyb-1)
-    call pkb(iupb(mgwa,mbyb, 8)+  1, 8,mgwa,mbit)
+    call pkb(iupb(mgwa,mbyb,8)+1,8,mgwa,mbit)
     mbit = 8*(mbyd-1)
     call pkc(tabb(i,lot),ldb,mgwa,mbit)
-    call pkb(          0,  8,mgwa,mbit)
+    call pkb(0,8,mgwa,mbit)
     mbyt = mbyt+ldb
     mbyd = mbyd+ldb
   enddo
@@ -951,10 +951,10 @@ recursive subroutine wrdxtb(lundx,lunot)
     mbit = 8*(mby4-1)
     call pkb(iupb(mgwa,mby4,24)+lend,24,mgwa,mbit)
     mbit = 8*(mbyd-1)
-    call pkb(iupb(mgwa,mbyd, 8)+   1, 8,mgwa,mbit)
+    call pkb(iupb(mgwa,mbyd,8)+1,8,mgwa,mbit)
     mbit = 8*(mbyt-4)
     call pkc(tabd(i,lot),ldd,mgwa,mbit)
-    call pkb(       nseq,  8,mgwa,mbit)
+    call pkb(nseq,8,mgwa,mbit)
     do j=1,nseq
       jj  = ldd+2 + (j-1)*2
       idn = iupm(tabd(i,lot)(jj:jj),16)

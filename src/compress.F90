@@ -6,15 +6,13 @@
 !> Specify whether BUFR messages output by future calls to [message-writing subroutines](@ref hierarchy) and
 !> [subset-writing subroutines](@ref hierarchy) are to be compressed.
 !>
-!> This subroutine can be called at any time after the first call
-!> to subroutine openbf(), and the specified value for cf will remain
-!> in effect for all future calls to
+!> The specified value for cf will remain in effect for all future calls to
 !> [message-writing subroutines](@ref hierarchy) and
 !> [subset-writing subroutines](@ref hierarchy) for all Fortran logical
 !> units that are open for output within the application program, unless
 !> a subsequent call is made to this subroutine to reset the value of
 !> cf again.  If this subroutine is never called, a default value of
-!> 'N' is used for cf, as set within subroutine bfrini().
+!> 'N' is used for cf.
 !>
 !> When compression is activated, it is implemented using the
 !> algorithm for data subset compression prescribed within the
@@ -26,20 +24,19 @@
 !> compression may provide little to no benefit, and which is why
 !> it is not activated by default.
 !>
-!> @param cf - Flag indicating whether future BUFR output messages are to be compressed
+!> @param cf - Flag indicating whether future BUFR output messages are to be compressed:
 !>  - 'N' = No (the default)
 !>  - 'Y' = Yes
 !>
 !> @author J. Ator @date 2005-03-09
 subroutine cmpmsg(cf)
 
+  use moda_msgcmp
+
   implicit none
 
   character, intent(in) :: cf
-  character ccmf
   character*128 bort_str
-
-  common /msgcmp/ ccmf
 
   call capit(cf)
   if(cf.ne.'Y'.and. cf.ne.'N') then

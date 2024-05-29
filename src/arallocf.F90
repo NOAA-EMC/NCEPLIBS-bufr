@@ -905,10 +905,7 @@ subroutine exitbufr
 
   use moda_stbfr
   use moda_s01cm
-
-  common /tablef/ cdmf
-
-  character*1 cdmf
+  use moda_tablef
 
   ! Close any logical units that are open to the library.
 
