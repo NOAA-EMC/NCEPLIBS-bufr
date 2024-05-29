@@ -888,7 +888,7 @@ end subroutine ufbint
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
 
-  use modv_vars, only: im8b, bmiss
+  use modv_vars, only: im8b, bmiss, iac
 
   use moda_usrint
   use moda_msgcwd
@@ -902,10 +902,9 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
-  integer iprt, iac, ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, ia2, i, j
+  integer iprt, ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, iac_prev, i, j
 
   common /quiet/ iprt
-  common /acmode/ iac
 
   data ifirst1 /0/
 
@@ -971,20 +970,20 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
   ! Initialize usr array preceeding an input operation
   if(io.eq.0) then
     do j=1,i2
-      do i=1,I1
+      do i=1,i1
         usr(i,j) = bmiss
       enddo
     enddo
   endif
 
   ! Parse or recall the input string
-  ia2 = iac
+  iac_prev = iac
   iac = 1
   call string(str,lun,i1,io)
+  iac = iac_prev
 
   ! Call the mnemonic reader/writer
   call ufbrp(lun,usr,i1,i2,io,iret)
-  iac = ia2
 
   if(io.eq.1 .and. iret.lt.i2) then
     write(bort_str1,'("BUFRLIB: UFBREP - MNEMONIC STRING READ IN IS: ",A)') str

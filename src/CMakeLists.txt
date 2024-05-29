@@ -20,10 +20,9 @@ list(APPEND c_src
 list(APPEND c_hdr
   cread.h mstabs.h bufr_interface.h bufrlib.h)
 
-# Create the misc.F90 file and bfrini.F90 files
+# Create the misc.F90 file
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/misc.F90.in ${CMAKE_CURRENT_BINARY_DIR}/misc.F90 @ONLY)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bfrini.F90.in ${CMAKE_CURRENT_BINARY_DIR}/bfrini.F90 @ONLY)
-list(APPEND fortran_src ${CMAKE_CURRENT_BINARY_DIR}/misc.F90 ${CMAKE_CURRENT_BINARY_DIR}/bfrini.F90)
+list(APPEND fortran_src ${CMAKE_CURRENT_BINARY_DIR}/misc.F90)
 
 include(TestBigEndian)
 test_big_endian(IS_BIG_ENDIAN)

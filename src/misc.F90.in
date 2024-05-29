@@ -3,6 +3,178 @@
 !>
 !> @author J. Woollen @date 1994-01-06
 
+!> Initialize numerous global variables and arrays within internal modules and COMMON blocks throughout the
+!> NCEPLIBS-bufr software.
+!>
+!> This subroutine isn't normally called directly by any application
+!> program, because it's automatically called internally from within
+!> subroutine openbf() during the first time that subroutine is called
+!> by any application program.
+!>
+!> @authors J. Woollen J. Ator @date 1994-01-06
+subroutine bfrini
+
+  use modv_vars, only: maxtba, maxtbb, maxtbd, mxmsgl, nfiles, adsn, idnr
+
+  use moda_stbfr
+  use moda_idrdm
+  use moda_msglim
+  use moda_bitbuf
+  use moda_bufrmg
+  use moda_bufrsr
+  use moda_tababd
+  use moda_usrint
+  use moda_h4wlc
+  use moda_dscach
+
+  implicit none
+
+  integer ndndx(10), nldxa(10), nldxb(10), nldxd(10), nld30(10), ibct, ipd1, ipd2, ipd3, ipd4, nrpl, nmrg, namb, ntot, &
+    maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, i, j, i1, ifxy
+
+  character*240 cmtdir
+  character*56 dxstr
+  character*6 dndx(25,10)
+  character*1 ccmf
+  character*1 cdmf
+
+  common /padesc/ ibct, ipd1, ipd2, ipd3, ipd4
+  common /dxtab/ maxdx, idxv, nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
+  common /mrgcom/ nrpl,nmrg,namb,ntot
+  common /msgcmp/ ccmf
+  common /tablef/ cdmf
+
+  data (dndx(i,1),i=1,25)/ &
+    '102000','031001','000001','000002', &
+    '110000','031001','000010','000011','000012','000013','000015','000016','000017','000018','000019','000020', &
+    '107000','031001','000010','000011','000012','000013','101000','031001','000030'/
+
+  data (dndx(i,2),i=1,15)/ &
+    '103000','031001','000001','000002','000003', &
+    '101000','031001','300004', &
+    '105000','031001','300003','205064','101000','031001','000030'/
+
+  data ndndx /  25 ,  15 , 8*0 /
+  data nldxa /  35 ,  67 , 8*0 /
+  data nldxb /  80 , 112 , 8*0 /
+  data nldxd /  38 ,  70 , 8*0 /
+  data nld30 /   5 ,   6 , 8*0 /
+
+  ! Initialize module moda_bitbuf
+
+  maxbyt = min(10000,mxmsgl)
+
+  ! Initialize module moda_h4wlc
+
+  nh4wlc = 0
+
+  ! Initialize common /padesc/
+
+  ibct = ifxy('063000')
+  ipd1 = ifxy('102000')
+  ipd2 = ifxy('031001')
+  ipd3 = ifxy('206001')
+  ipd4 = ifxy('063255')
+
+  ! Initialize module moda_stbfr
+
+  do i=1,nfiles
+    iolun(i) = 0
+    iomsg(i) = 0
+  enddo
+
+  ! Initialize module moda_idrdm
+
+  do i=1,nfiles
+    idrdm(i) = 0
+  enddo
+
+  ! Initialize module moda_msglim
+
+  do i=1,nfiles
+    msglim(i) = 3
+  enddo
+
+  ! Initialize module moda_usrint
+
+  do i=1,nfiles
+    nval(i) = 0
+  enddo
+
+  ! Initialize idnr array
+
+  do i=1,10
+    idnr(i) = ifxy(adsn(i))
+  enddo
+
+  ! Initialize module moda_tababd
+
+  ! ntba(0) is the maximum number of entries within internal BUFR table A
+  ntba(0) = maxtba
+  ! ntbb(0) is the maximum number of entries within internal BUFR Table B
+  ntbb(0) = maxtbb
+  ! ntbd(0) is the maximum number of entries within internal BUFR Table D
+  ntbd(0) = maxtbd
+
+  ! Initialize common /dxtab/
+
+  maxdx = maxbyt
+  ! idxv is the version number of the local tables
+  idxv = 1
+
+  do j=1,10
+    ldxa(j)  = nldxa(j)
+    ldxb(j)  = nldxb(j)
+    ldxd(j)  = nldxd(j)
+    ld30(j)  = nld30(j)
+    dxstr(j) = '      '
+    nxstr(j) = ndndx(j)*2
+    do i=1,ndndx(j)
+      i1 = i*2-1
+      call ipkm(dxstr(j)(i1:i1),2,ifxy(dndx(i,j)))
+    enddo
+  enddo
+
+  ! Initialize module moda_bufrmg
+
+  do i=1,nfiles
+    msglen(i) = 0
+  enddo
+
+  ! Initialize common /mrgcom/
+
+  nrpl = 0
+  nmrg = 0
+  namb = 0
+  ntot = 0
+
+  ! Initialize module moda_bufrsr
+
+  do i=1,nfiles
+    jsr(i) = 0
+  enddo
+
+  ! Initialize module moda_dscach
+
+  ncnem = 0
+
+  ! Initialize common /msgcmp/
+
+  ccmf = 'N'
+
+  ! Initialize common /tablef/
+
+  cdmf = 'N'
+
+  ! Initialize common /mstinf/
+
+  cmtdir = &
+    '@MASTER_TABLE_DIR_F@'
+  call mtinfo(cmtdir,98,99)
+
+  return
+end subroutine bfrini
+
 !> Decode an integer from a character string.
 !>
 !> The string may contain leading or trailing blanks, but otherwise should

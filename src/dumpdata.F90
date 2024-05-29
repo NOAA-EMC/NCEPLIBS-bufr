@@ -579,7 +579,7 @@ end subroutine ufdump
 !> @author J. Ator @date 2004-08-18
 recursive subroutine dxdump(lunit,ldxot)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, reps
 
   use moda_tababd
   use moda_nmikrp
@@ -587,10 +587,9 @@ recursive subroutine dxdump(lunit,ldxot)
   implicit none
 
   integer, intent(in) :: lunit, ldxot
-  integer my_lunit, my_ldxot, lun, il, im, n, na, nc, nch, ic, icms, nseq, idnr, lens
+  integer my_lunit, my_ldxot, lun, il, im, n, na, nc, nch, ic, icms, nseq
 
-  character card*80, cardi1*80, cardi2*80, cardi3*80, cardi4*80, cmstr*20, wrk3*10, wrk1*8, wrk2*8, adn*6, typs*3, reps
-  common /reptab/ idnr(5,2),typs(5,2),reps(5,2),lens(5)
+  character card*80, cardi1*80, cardi2*80, cardi3*80, cardi4*80, cmstr*20, wrk3*10, wrk1*8, wrk2*8, adn*6
 
   logical tbskip, tdskip, xtrci1
 
@@ -725,14 +724,14 @@ recursive subroutine dxdump(lunit,ldxot)
           if(irp(nc,1).ne.0) then
             ! Add the opening replication tag.
             icms=icms+1
-            cmstr(icms:icms)=reps(irp(nc,1),1)
+            cmstr(icms:icms)=reps(irp(nc,1))
           end if
           cmstr(icms+1:icms+nch)=wrk2(1:nch)
           icms=icms+nch
           if(irp(nc,1).ne.0) then
             ! Add the closing replication tag.
             icms=icms+1
-            cmstr(icms:icms)=reps(irp(nc,1),2)
+            cmstr(icms:icms)=reps(irp(nc,1)+5)
           end if
           if(krp(nc,1).ne.0) then
             ! Add the fixed replication count.

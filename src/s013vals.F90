@@ -887,16 +887,14 @@ end subroutine upds3
 !> @author J. Woollen @date 1998-07-08
 recursive subroutine datelen(len)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, lendat
 
   implicit none
 
   integer, intent(in) :: len
-  integer my_len, lendat
+  integer my_len
 
   character*128 bort_str
-
-  common /dateln/ lendat
 
   ! Check for I8 integers
 
@@ -1022,15 +1020,13 @@ end subroutine datebf
 !> @author J. Ator @date 2005-11-29
 recursive integer function igetdate(mbay,iyr,imo,idy,ihr) result(iret)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, lendat
 
   implicit none
 
   integer, intent(in) :: mbay(*)
   integer, intent(out) :: iyr, imo, idy, ihr
-  integer lendat, iupbs01
-
-  common /dateln/ lendat
+  integer iupbs01
 
   ! Check for I8 integers.
 

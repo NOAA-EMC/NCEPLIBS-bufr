@@ -331,10 +331,12 @@ end subroutine rdusdx
 !> @author Woollen @date 1994-01-06
 subroutine seqsdx(card,lun)
 
+  use modv_vars, only: reps, idnr
+
   implicit none
 
   integer, intent(in) :: lun
-  integer idnr, lens, maxtgs, maxtag, ntag, idn, jdn, iseq, irep, i, j, n, itab, iret, ier, numr, nemock
+  integer maxtgs, maxtag, ntag, idn, jdn, iseq, irep, i, j, n, itab, iret, ier, numr, nemock
 
   character*128 bort_str1, bort_str2
   character*80 seqs
@@ -342,10 +344,7 @@ subroutine seqsdx(card,lun)
   character*12 atag, tags(250)
   character*8 nemo, nema, nemb
   character*6 adn30, clemon
-  character*3 typs
-  character reps, tab
-
-  common /reptab/ idnr(5,2), typs(5,2), reps(5,2), lens(5)
+  character tab
 
   data maxtgs /250/
   data maxtag /12/
@@ -381,12 +380,12 @@ subroutine seqsdx(card,lun)
     ! Check for a replicator
 
     outer: do i=1,5
-      if(atag(1:1).eq.reps(i,1)) then
-        ! Note that reps(*,*), which contains all of the symbols used to denote all of the various replication schemes that
+      if(atag(1:1).eq.reps(i)) then
+        ! Note that reps(*), which contains all of the symbols used to denote all of the various replication schemes that
         ! are possible within a user-supplied BUFR dictionary table in character format, was previously defined within
         ! subroutine bfrini().
         do j=2,maxtag
-          if(atag(j:j).eq.reps(i,2)) then
+          if(atag(j:j).eq.reps(i+5)) then
             ! Note that subroutine strnum() will return numr = 0 if the string passed to it contains all blanks
             ! (as *should* be the case whenever i = 2 '(' ')', 3 '{' '}', 4 '[' ']', or 5 '<' '>').
             ! However, when i = 1 '"' '"', then subroutine strnum() will return numr = (the number of replications for
@@ -440,7 +439,7 @@ subroutine seqsdx(card,lun)
     call nemtab(lun,atag,idn,tab,iret)
     if(iret.gt.0) then
       ! Note that the next code line checks that we are not trying to replicate a Table B mnemonic (which is currently not
-      ! allowed).  The logic works because, for replicated mnemonics, irep = i = (the index within reps(*,*) of the symbol
+      ! allowed).  The logic works because, for replicated mnemonics, irep = i = (the index within reps(*) of the symbol
       ! associated with the type of replication in question (e.g. "{, "<", etc.))
       if(tab.eq.'B' .and. irep.ne.0) then
         write(bort_str1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') card
@@ -483,9 +482,9 @@ subroutine seqsdx(card,lun)
     endif
 
     ! Write the descriptor string into the tabd array, but first look for a replication descriptor
-    if(irep.gt.0) call pktdd(iseq,lun,idnr(irep,1)+numr,iret)
+    if(irep.gt.0) call pktdd(iseq,lun,idnr(irep)+numr,iret)
     if(iret.lt.0) then
-      clemon = adn30(idnr(irep,1)+numr,6)
+      clemon = adn30(idnr(irep)+numr,6)
       write(bort_str1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') card
       write(bort_str2,'(9X,"TBL D (PARENT) MNEM. ",A," - BAD RETURN '// &
         'FROM PKTDD TRYING TO STORE REPL. DESC. ",A,", SEE PREV. WARNING MSG")') nemo,clemon
@@ -605,20 +604,19 @@ end subroutine elemdx
 !> @author Woollen @date 1994-01-06
 subroutine dxinit(lun,ioi)
 
+  use modv_vars, only: idnr
+
   use moda_tababd
 
   implicit none
 
   integer, intent(in) :: lun, ioi
-  integer idnr, lens, ibct, ipd1, ipd2, ipd3, ipd4, ninib, ninid, n, i, iret, ifxy
+  integer ibct, ipd1, ipd2, ipd3, ipd4, ninib, ninid, n, i, iret, ifxy
 
   character*8 inib(6,5),inid(5)
   character*6 adn30
-  character*3 typs
-  character reps
 
   common /padesc/ ibct, ipd1, ipd2, ipd3, ipd4
-  common /reptab/ idnr(5,2), typs(5,2), reps(5,2), lens(5)
 
   data inib  /'------','BYTCNT  ','BYTES  ','+0','+0','16', &
               '------','BITPAD  ','NONE   ','+0','+0','1 ', &
@@ -673,11 +671,11 @@ subroutine dxinit(lun,ioi)
 
   do i=2,ninid
     n = ntbd(lun)+1
-    idnd(n,lun) = idnr(i,1)
-    tabd(n,lun)(1: 6) = adn30(idnr(i,1),6)
+    idnd(n,lun) = idnr(i)
+    tabd(n,lun)(1: 6) = adn30(idnr(i),6)
     tabd(n,lun)(7:70) = inid(i)
-    call pktdd(n,lun,idnr(1,1),iret)
-    call pktdd(n,lun,idnr(i,2),iret)
+    call pktdd(n,lun,idnr(1),iret)
+    call pktdd(n,lun,idnr(i+5),iret)
     ntbd(lun) = n
   enddo
 
@@ -1023,7 +1021,7 @@ subroutine stbfdx(lun,mesg)
 
   idxs = iupbs01(mesg,'MSBT')+1
   if(idxs.gt.idxv+1) idxs = iupbs01(mesg,'MTVL')+1
-  if(ldxa(idxs).eq.0 .OR. ldxb(idxs).eq.0 .OR. ldxd(idxs).eq.0) call bort('BUFRLIB: STBFDX - UNEXPECTED DICTIONARY '// &
+  if(ldxa(idxs).eq.0 .or. ldxb(idxs).eq.0 .or. ldxd(idxs).eq.0) call bort('BUFRLIB: STBFDX - UNEXPECTED DICTIONARY '// &
     'MESSAGE SUBTYPE OR LOCAL VERSION NUMBER (E.G., L.V.N. HIGHER THAN KNOWN)')
 
   call getlens(mesg,3,len0,len1,len2,len3,l4,l5)

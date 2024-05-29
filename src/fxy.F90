@@ -355,19 +355,17 @@ end subroutine numtbd
 !> @author J. Woollen @date 1994-01-06
 subroutine numtab(lun,idn,nemo,tab,iret)
 
+  use modv_vars, only: idnr
+
   implicit none
 
   integer, intent(in) :: lun, idn
   integer, intent(out) :: iret
-  integer idnr, lens, i, iokoper
+  integer i, iokoper
 
   character*(*), intent(out) :: nemo
   character, intent(out) :: tab
   character*6 adn30, cid
-  character*3 typs
-  character reps
-
-  common /reptab/ idnr(5,2),typs(5,2),reps(5,2),lens(5)
 
   nemo = ' '
   iret = 0
@@ -375,21 +373,21 @@ subroutine numtab(lun,idn,nemo,tab,iret)
 
   ! Look for a replicator or a replication factor descriptor
 
-  if(idn.ge.idnr(1,1) .and. idn.le.idnr(1,2)) then
+  if(idn.ge.idnr(1) .and. idn.le.idnr(6)) then
     ! Note that the above test is checking whether idn is the bit-wise representation of a FXY (descriptor) value
     ! denoting F=1 regular (i.e. non-delayed) replication, since, as was initialized within subroutine bfrini(),
-    ! idnr(1,1) = ifxy('101000'), AND idnr(1,2) = ifxy('101255').
+    ! idnr(1) = ifxy('101000'), and idnr(6) = ifxy('101255').
     tab = 'R'
     iret = -mod(idn,256)
     return
   endif
 
   do i=2,5
-    if(idn.eq.idnr(i,1)) then
+    if(idn.eq.idnr(i)) then
       tab = 'R'
       iret = i
       return
-    elseif(idn.eq.idnr(i,2)) then
+    elseif(idn.eq.idnr(i+5)) then
       tab = 'F'
       iret = i
       return

@@ -70,7 +70,7 @@ C> @author J. Woollen @date 1994-01-06
 
       RECURSIVE SUBROUTINE UFBTAB(LUNIN,TAB,I1,I2,IRET,STR)
 
-      use modv_vars, only: im8b, bmiss
+      use modv_vars, only: im8b, bmiss, iac
 
       use moda_usrint
       use moda_msgcwd
@@ -79,7 +79,6 @@ C> @author J. Woollen @date 1994-01-06
       use moda_tables
 
       COMMON /USRSTR/ NNOD,NCON,NODS(20),NODC(10),IVLS(10),KONS(10)
-      COMMON /ACMODE/ IAC
       COMMON /QUIET / IPRT
 
       CHARACTER*(*) STR
@@ -121,7 +120,7 @@ C  --------------------
       IRET = 0
       IREC = 0
       ISUB = 0
-      IACC = IAC
+      iac_prev = IAC
 
 C  CHECK FOR COUNT SUBSET ONLY OPTION (RETURNING THE GLOBAL
 C  VALUE FOR MISSING IN OUTPUT ARRAY) INDICATED BY NEGATIVE UNIT
@@ -448,7 +447,7 @@ C  ---------------------------------------------------------------------
          CALL REWNBF(LUNIT,1)
       ENDIF
 
-      IAC = IACC
+      IAC = iac_prev
 
 C  EXITS
 C  -----
