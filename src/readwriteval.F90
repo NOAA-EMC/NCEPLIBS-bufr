@@ -1739,7 +1739,7 @@ subroutine ufbrw(lun,usr,i1,i2,io,iret)
                       if(invn.eq.0) then
                         iret = 0
                         return
-                      ENDIF
+                      endif
                       call newwin(lun,inc1,inc2)
                       val(invn,lun) = usr(i,iret)
                     endif

@@ -314,9 +314,9 @@ stseq(int lun, int *irepct, int idn, char *nemo,
 **          store that sequence within the internal Table D via a recursive call
 **          to this same routine.
 **
-**          See subroutine bfrini() and common /reptab/ for the source of the FXY
-**          values referenced in the following block.  Note we are guaranteed
-**          that 0 <= iy <= 255 since adn was generated using subroutine cadn30_f().
+**          See module @ref modv_vars for the source of the FXY values referenced
+**          in the following block.  Note we are guaranteed that 0 <= iy <= 255,
+**          since adn was generated using subroutine cadn30_f().
 */
             if ( iy == 0 ) {        /* delayed replication */
                 if ( ( i+1 ) >= ncdesc ) {

@@ -575,7 +575,7 @@ end subroutine tabsub
 !> @param nemo - Table B or D mnemonic to store in jump/link table
 !> @param tab - Internal BUFR table array ('B' or 'D') in which nemo is defined
 !> @param itab - Positional index of nemo within TAB
-!> @param irep - Positional index within common /reptab/ arrays, for use when nemo is replicated:
+!> @param irep - Positional index within internal arrays, for use when nemo is replicated:
 !>   - 0, if nemo is not replicated
 !> @param iknt - Number of replications, for use when nemo is replicated using F=1 regular (i.e., non-delayed) replication:
 !>   - 0, if nemo is not replicated using F=1 regular (i.e., non-delayed) replication

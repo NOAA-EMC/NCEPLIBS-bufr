@@ -269,7 +269,7 @@ recursive subroutine openbf(lunit,io,lundx)
     if(fileacc=='UNDEFINED') open(lunit)
     inquire(lunit,name=filename)
     filename=trim(filename)//char(0)
-  ENDIF
+  endif
 
   nmsg (lun) = 0
   nsub (lun) = 0
@@ -367,7 +367,7 @@ recursive subroutine closbf(lunit)
     call errwrt(errstr)
     call errwrt('++++++++++++++++++++WARNING++++++++++++++++++++++')
     return
-  ENDIF
+  endif
 
   call status(lunit,lun,il,im)
   if(il.gt.0 .and. im.ne.0) call closmg(lunit)

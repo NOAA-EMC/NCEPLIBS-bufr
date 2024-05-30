@@ -1771,3 +1771,46 @@ subroutine uptdd(id,lun,ient,iret)
 
   return
 end subroutine uptdd
+
+!> Process a "following value" mnemonic.
+!>
+!> Step through the "following value" mnemonic nem1 and, for each "." character encountered (except for the initial one),
+!> overwrite it with the next corresponding character from nem2.
+!>
+!> For example:
+!> <pre>
+!>     if, on input:    nem1 = ".DTH...."
+!>                      nem2 = "MXTM    "
+!>     then, on output: nem1 = ".DTHMXTM"
+!> </pre>
+!>
+!> @param nem1 - Mnemonic
+!> - on input, a "following value" mnemonic
+!> - on output, a copy of input nem1 with all "." characters (except the initial one) overwritten with corresponding
+!> characters from nem2
+!> @param nem2 - Mnemonic immediately following nem1 within DX BUFR table
+!>
+!> @author Woollen @date 1994-01-06
+subroutine rsvfvm(nem1,nem2)
+
+  implicit none
+
+  character*8, intent(inout) :: nem1
+  character*8, intent(in) :: nem2
+
+  integer i, j
+
+  do i=1,len(nem1)
+    if(i.eq.1) then
+      ! Skip the initial ".", and initialize J.
+      j = 1
+    else
+      if(nem1(i:i).eq.'.') then
+        nem1(i:i) = nem2(j:j)
+        j = j+1
+      endif
+    endif
+  enddo
+
+  return
+end subroutine rsvfvm
