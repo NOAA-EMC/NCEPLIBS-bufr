@@ -658,3 +658,488 @@ subroutine posapx(lunxx)
   enddo
 
 end subroutine posapx
+
+!> Store or restore parameters associated with a BUFR file.
+!>
+!> Depending on the value of isr, either:
+!> - Store the current parameters associated with a BUFR file
+!> connected to lunit (read/write pointers, etc.), set the file status
+!> to read, then rewind the BUFR file and position it such that the
+!> next BUFR message read will be the first message in the file
+!> containing actual subsets with data; or
+!> - Restore the BUFR file connected to lunit to the parameters
+!> it had prior to the previous call, and using the information that
+!> was saved previously
+!>
+!> This allows information to be extracted from a particular subset in
+!> a BUFR file which is in the midst of being read from or written to
+!> by an application program.  Note that, for any given BUFR file, a call
+!> to this subroutine with isr = 0 must precede a call to this same
+!> subroutine with isr = 1.  An application program might first
+!> call this subroutine with isr = 0, then call either
+!> subroutine rdmgsb() or ufbinx() to get information from a subset, then
+!> call this routine again with isr = 1 to restore the pointers in the
+!> BUFR file to their original location.  For example, this subroutine is
+!> called internally by subroutine ufbtab() whenever
+!> the BUFR file it is acting upon is already open for input or output.
+!>
+!> @param lunit - Fortran logical unit number for BUFR file.
+!> @param isr - Switch:
+!> - 0 = Store current parameters associated with BUFR file, set file status to read, and rewind
+!> file such that next message read is first message containing subset data
+!> - 1 = Restore BUFR file with parameters saved from the previous call to this routine with isr = 0
+!>
+!> @author Woollen @date 2003-11-04
+subroutine rewnbf(lunit,isr)
+
+  use bufrlib
+
+  use moda_msgcwd
+  use moda_bitbuf
+  use moda_bufrsr
+
+  implicit none
+
+  integer, intent(in) :: lunit, isr
+  integer lun, il, im, i, imsg, kdate, ier, i4dy
+
+  character*128 bort_str
+  character*8 subset
+
+  ! Try to trap bad call problems
+  if(isr.eq.0) then
+    call status(lunit,lun,il,im)
+    if(jsr(lun).ne.0) then
+      write(bort_str,'("BUFRLIB: REWNBF - ATTEMPING TO SAVE '// &
+        'PARAMETERS FOR FILE FOR WHICH THEY HAVE ALREADY BEEN SAVED (AND NOT YET RESTORED) (UNIT",I3,")")') lunit
+      call bort(bort_str)
+    endif
+    if(il.eq.0) then
+      write(bort_str,'("BUFRLIB: REWNBF - ATTEMPING TO SAVE '// &
+        'PARAMETERS FOR BUFR FILE WHICH IS NOT OPENED FOR EITHER INPUT OR OUTPUT) (UNIT",I3,")")') lunit
+      call bort(bort_str)
+    endif
+  elseif(isr.eq.1) then
+    if(junn.eq.0 .or. jsr(junn).ne.1) then
+      write(bort_str,'("BUFRLIB: REWNBF - ATTEMPING TO RESTORE '// &
+        'PARAMETERS TO BUFR FILE WHICH WERE NEVER SAVED (UNIT",I3,")")') lunit
+      call bort(bort_str)
+    endif
+    lun = junn
+  else
+     write(bort_str,'("BUFRLIB: REWNBF - SAVE/RESTORE SWITCH (INPUT '// &
+      'ARGUMENT ISR) IS NOT ZERO OR ONE (HERE =",I4,") (UNIT",I3,")")') isr, lunit
+     call bort(bort_str)
+  endif
+
+  if(isr.eq.0) then
+    ! Store file parameters and set for reading
+    junn = lun
+    jill = il
+    jimm = im
+    jbit = ibit
+    jbyt = mbyt(lun)
+    jmsg = nmsg(lun)
+    jsub = nsub(lun)
+    ksub = msub(lun)
+    jnod = inode(lun)
+    jdat = idate(lun)
+    do i=1,jbyt
+      jbay(i) = mbay(i,lun)
+    enddo
+    call wtstat(lunit,lun,-1,0)
+  endif
+
+  ! Rewind the file
+  call cewind_c(lun)
+
+  if(isr.eq.1) then
+    ! Restore file parameters and position it to where it was saved
+    lun = junn
+    il = jill
+    im = jimm
+    ibit = jbit
+    mbyt(lun) = jbyt
+    nmsg(lun) = jmsg
+    nsub(lun) = jsub
+    msub(lun) = ksub
+    inode(lun) = jnod
+    idate(lun) = i4dy(jdat)
+    do i=1,jbyt
+      mbay(i,lun) = jbay(i)
+    enddo
+    do imsg=1,jmsg
+      call readmg(lunit,subset,kdate,ier)
+      if(ier.lt.0) then
+        write(bort_str,'("BUFRLIB: REWNBF - HIT END OF FILE BEFORE '// &
+          'REPOSITIONING BUFR FILE IN UNIT",I3," TO ORIGINAL MESSAGE NO.",I5)') lunit, jmsg
+        call bort(bort_str)
+      endif
+    enddo
+    call wtstat(lunit,lun,il,im)
+  endif
+
+  jsr(lun) = mod(jsr(lun)+1,2)
+
+  return
+end subroutine rewnbf
+
+!> Read through every data subset in a BUFR file
+!> and return one or more specified data values from each subset.
+!>
+!> This provides a useful way to scan the ranges of one or more
+!> specified data values across all of the data subsets within an
+!> entire BUFR file.  It is similar to subroutine ufbtam(), except
+!> that ufbtam() works on data subsets within internal arrays.
+!>
+!> It is the user's responsibility to ensure that tab is dimensioned
+!> sufficiently large enough to accommodate the number of data values
+!> that are to be read from the BUFR file.  Specifically, each row of
+!> tab will contain the data values read from a different data subset,
+!> so the value i2 must be at least as large as the total number of data
+!> subsets in the BUFR file.
+!>
+!> If logical unit abs(lunin) has already been opened
+!> via a previous call to subroutine openbf(), then this subroutine
+!> will save the current file position, rewind the file to the
+!> beginning, read through the entire file, and then restore it to its
+!> previous file position.  Otherwise, if logical unit abs(lunin) has
+!> not already been opened via a previous call to subroutine openbf(),
+!> then this subroutine will open it via an internal call to
+!> subroutine openbf(), read through the entire file, and then close
+!> it via an internal call to subroutine closbf().
+!>
+!> @remarks
+!> - If lunin < 0, the number of data subsets in the BUFR file will
+!> still be returned in iret; however, str will be ignored,
+!> and all of the values returned in tab will contain the current
+!> placeholder value for "missing" data.
+!> - If any of the Table B mnemonics in str are replicated within the
+!> data subset definition for the BUFR file, then this subroutine will
+!> only return the value corresponding to the first occurrence of each
+!> such mnemonic (counting from the beginning of the data subset
+!> definition) within the corresponding row of tab.
+!> - There are a few additional special mnemonics that can be
+!> included within str when calling this subroutine, and which in turn
+!> will result in special information being returned within the
+!> corresponding location in tab:
+!>      - IREC - returns the number of the BUFR message within the file pointed to by abs(lunin) (counting from the
+!>        beginning of the file) in which the current data subset resides
+!>      - ISUB - returns the number of the current data subset within the BUFR message pointed to by IREC, counting from
+!>        the beginning of the message
+!>
+!> @param lunin - Absolute value is Fortran logical unit number for BUFR file
+!> @param tab - Data values
+!> @param i1 - First dimension of tab as allocated within the calling program
+!> @param i2 - Second dimension of tab as allocated within the calling program
+!> @param iret - Number of data subsets in BUFR file
+!> @param str - String of blank-separated Table B mnemonics, in one-to-one correspondence with the number of data values
+!> that will be read from each data subset within the first dimension of tab (see [DX BUFR Tables](@ref dfbftab) for
+!> further information about Table B mnemonics)
+!>
+!> @author J. Woollen @date 1994-01-06
+recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
+
+  use modv_vars, only: im8b, bmiss, iac
+
+  use moda_usrint
+  use moda_msgcwd
+  use moda_unptyp
+  use moda_bitbuf
+  use moda_tables
+
+  implicit none
+
+  integer*8 ival, lref, ninc, mps, lps
+  integer, intent(in) :: lunin, i1, i2
+  integer, intent(out) :: iret
+  integer, parameter :: maxtg = 100
+  integer nnod, ncon, nods, nodc, ivls, kons, iprt, my_lunin, my_i1, my_i2, lunit, lun, il, im, irec, isub, i, j, n, ntg, &
+    jdate, jbit, kbit, lbit, mbit, nbit, nibit, nbyt, nsb, node, nbmp, nrep, lret, linc, iac_prev, ityp, &
+    ireadmg, ireadsb, nmsub
+
+  character*(*), intent(in) :: str
+  character*128 errstr
+  character*40 cref
+  character*10 tgs(maxtg)
+  character*8 subset, cval
+
+  logical openit, overflow, just_count, need_node
+
+  real*8, intent(out) :: tab(i1,i2)
+  real*8 rval, ups
+
+  common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
+  common /quiet/ iprt
+
+  equivalence (cval,rval)
+
+  ! Statement functions
+  mps(node) = 2_8**(ibt(node))-1
+  lps(lbit) = max(2_8**(lbit)-1,1)
+
+  ! Check for I8 integers
+  if(im8b) then
+    im8b=.false.
+    call x84(lunin,my_lunin,1)
+    call x84(i1,my_i1,1)
+    call x84(i2,my_i2,1)
+    call ufbtab(my_lunin,tab,my_i1,my_i2,iret,str)
+    call x48(iret,iret,1)
+    im8b=.true.
+    return
+  endif
+
+  ! Make sure subroutine openbf() has been called at least once before trying to call subroutine status(); otherwise,
+  ! status() might try to access array space that hasn't yet been dynamically allocated.
+  call openbf(0,'FIRST',0)
+
+  lunit = abs(lunin)
+  call status(lunit,lun,il,im)
+  openit = il.eq.0
+
+  if(openit) then
+    ! Open BUFR file connected to unit lunit if it isn't already open
+    call openbf(lunit,'INX',lunit)
+  else
+    ! If BUFR file already opened, save position and rewind to first data message
+    call rewnbf(lunit,0)
+  endif
+
+  ! Initialize all of the output array values to the current value for "missing"
+  do j=1,i2
+    do i=1,i1
+      tab(i,j) = bmiss
+    enddo
+  enddo
+
+  ! Set counters to zero
+  iret = 0
+  irec = 0
+  isub = 0
+
+  iac_prev = iac
+  iac = 1
+
+  overflow = .false.
+
+  ! Check for count subset only option
+  just_count = lunin.lt.lunit
+  if(just_count) then
+    do while(ireadmg(-lunit,subset,jdate).ge.0)
+      iret = iret+nmsub(lunit)
+    enddo
+  else
+    ! Check for special tags in string
+    call parstr(str,tgs,maxtg,ntg,' ',.true.)
+    do i=1,ntg
+      if(tgs(i).eq.'IREC') irec = i
+      if(tgs(i).eq.'ISUB') isub = i
+    enddo
+  endif
+
+  outer: do while (.not. just_count)
+    ! Read the next message from the file
+    if(ireadmg(-lunit,subset,jdate).lt.0) exit
+    call string(str,lun,i1,0)
+    if(irec.gt.0) nods(irec) = 0
+    if(isub.gt.0) nods(isub) = 0
+
+    if(msgunp(lun).ne.2) then
+      ! The message is uncompressed
+
+      inner1: do while (.true.)
+        ! Get the next subset from the message
+        if(nsub(lun).eq.msub(lun)) cycle outer
+        if(iret+1.gt.i2) then
+          overflow = .true.
+          exit outer
+        endif
+        iret = iret+1
+        do i=1,nnod
+          nods(i) = abs(nods(i))
+        enddo
+        if(msgunp(lun)==0) then
+          mbit = mbyt(lun)*8 + 16
+        else
+          mbit = mbyt(lun)
+        endif
+        nbit = 0
+        n = 1
+        call usrtpl(lun,n,n)
+        inner2: do while (.true.)
+          ! Cycle through each node of the subset to look for the requested values
+          if(n+1.le.nval(lun)) then
+            n = n+1
+            node = inv(n,lun)
+            mbit = mbit+nbit
+            nbit = ibt(node)
+            if(itp(node).eq.1) then
+              call upb8(ival,nbit,mbit,mbay(1,lun))
+              nbmp=int(ival)
+              call usrtpl(lun,n,nbmp)
+            endif
+            do i=1,nnod
+              if(nods(i).eq.node) then
+                if(itp(node).eq.1) then
+                  call upb8(ival,nbit,mbit,mbay(1,lun))
+                  tab(i,iret) = ival
+                elseif(itp(node).eq.2) then
+                  call upb8(ival,nbit,mbit,mbay(1,lun))
+                  if(ival.lt.mps(node)) tab(i,iret) = ups(ival,node)
+                elseif(itp(node).eq.3) then
+                  cval = ' '
+                  kbit = mbit
+                  call upc(cval,nbit/8,mbay(1,lun),kbit,.true.)
+                  tab(i,iret) = rval
+                endif
+                nods(i) = -nods(i)
+                cycle inner2
+              endif
+            enddo
+            do i=1,nnod
+              if(nods(i).gt.0) cycle inner2
+            enddo
+          endif
+          exit
+        enddo inner2
+        ! Update the subset pointers
+        if(msgunp(lun)==0) then
+          ibit = mbyt(lun)*8
+          call upb(nbyt,16,mbay(1,lun),ibit)
+          mbyt(lun) = mbyt(lun) + nbyt
+        else
+          mbyt(lun) = mbit
+        endif
+        nsub(lun) = nsub(lun) + 1
+        if(irec.gt.0) tab(irec,iret) = nmsg(lun)
+        if(isub.gt.0) tab(isub,iret) = nsub(lun)
+      enddo inner1
+
+    else
+      ! The message is compressed
+
+      if(iret+msub(lun).gt.i2) then
+        overflow = .true.
+        exit outer
+      endif
+      if(irec.gt.0.or.isub.gt.0) then
+        do nsb=1,msub(lun)
+          if(irec.gt.0) tab(irec,iret+nsb) = nmsg(lun)
+          if(isub.gt.0) tab(isub,iret+nsb) = nsb
+        enddo
+      endif
+      call usrtpl(lun,1,1)
+      ibit = mbyt(lun)
+      n = 0
+      inner3: do n = n+1,nval(lun)
+        ! Cycle through each node of each subset to look for the requested values
+        node = inv(n,lun)
+        nbit = ibt(node)
+        ityp = itp(node)
+        if(n.eq.1) then
+          ! Reset the node indices
+          do i=1,nnod
+            nods(i) = abs(nods(i))
+          enddo
+        else
+          ! Are we still looking for more values?
+          need_node = .false.
+          do i=1,nnod
+            if(nods(i).gt.0) then
+              need_node = .true.
+              exit
+            endif
+          enddo
+          if(.not. need_node) exit inner3
+        endif
+        if(ityp.eq.1 .or. ityp.eq.2) then
+          call up8(lref,nbit,mbay(1,lun),ibit)
+          call upb(linc,6,mbay(1,lun),ibit)
+          nibit = ibit + linc*msub(lun)
+        elseif(ityp.eq.3) then
+          cref=' '
+          call upc(cref,nbit/8,mbay(1,lun),ibit,.true.)
+          call upb(linc,6,mbay(1,lun),ibit)
+          nibit = ibit + 8*linc*msub(lun)
+        else
+          cycle
+        endif
+        if(ityp.eq.1) then
+          ! This is a delayed replication node
+          jbit = ibit + linc
+          call up8(ninc,linc,mbay(1,lun),jbit)
+          ival = lref+ninc
+          call usrtpl(lun,n,int(ival))
+          cycle
+        endif
+        do i=1,nnod
+          if(node.eq.nods(i)) then
+            ! This is one of the requested values, so store the corresponding value from each subset in the message
+            nods(i) = -nods(i)
+            lret = iret
+            if(ityp.eq.1 .or. ityp.eq.2) then
+              do nsb=1,msub(lun)
+                jbit = ibit + linc*(nsb-1)
+                call up8(ninc,linc,mbay(1,lun),jbit)
+                ival = lref+ninc
+                lret = lret+1
+                if(ninc.lt.lps(linc)) tab(i,lret) = ups(ival,node)
+              enddo
+            elseif(ityp.eq.3) then
+              do nsb=1,msub(lun)
+                if(linc.eq.0) then
+                  cval = cref(1:8)
+                else
+                  jbit = ibit + linc*(nsb-1)*8
+                  cval = ' '
+                  call upc(cval,linc,mbay(1,lun),jbit,.true.)
+                endif
+                lret = lret+1
+                tab(i,lret) = rval
+              enddo
+            else
+              call bort('UFBTAB - INVALID ELEMENT TYPE SPECIFIED')
+            endif
+          endif
+        enddo
+        ibit = nibit
+      enddo inner3
+      iret = iret+msub(lun)
+
+    endif
+
+  enddo outer
+
+  if(overflow) then
+    nrep = iret
+    do while(ireadsb(lunit).eq.0)
+      nrep = nrep+1
+    enddo
+    do while(ireadmg(-lunit,subset,jdate).ge.0)
+      nrep = nrep+nmsub(lunit)
+    enddo
+    if(iprt.ge.0) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      write ( unit=errstr, fmt='(A,A,I8,A)' ) 'BUFRLIB: UFBTAB - THE NO. OF DATA SUBSETS IN THE BUFR FILE ', &
+        'IS .GT. LIMIT OF ', i2, ' IN THE 4TH ARG. (INPUT) - INCOMPLETE READ'
+      call errwrt(errstr)
+      write ( unit=errstr, fmt='(A,I8,A,I8,A)' ) '>>>UFBTAB STORED ', iret, ' REPORTS OUT OF ', nrep, '<<<'
+      call errwrt(errstr)
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+  endif
+
+  if(openit) then
+    ! Close BUFR file if it was opened here
+    call closbf(lunit)
+  else
+    ! Restore BUFR file to its previous status and position
+    call rewnbf(lunit,1)
+  endif
+
+  iac = iac_prev
+
+  return
+end subroutine ufbtab

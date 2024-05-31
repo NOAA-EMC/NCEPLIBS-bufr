@@ -9,9 +9,9 @@ list(APPEND fortran_src
   errwrt.F90 getwin.f fxy.F90 invcon.f invmrg.f invtag.f invwin.f
   jumplink.F90 mastertable.F90 missing.F90 mrginv.f
   nevn.f newwin.f nvnwin.f nwords.f nxtwin.f openbt.F90 cftbvs.F90
-  readwritemg.F90 readwritesb.F90 readwriteval.F90 rewnbf.f s013vals.F90 tankrcpt.F90
+  readwritemg.F90 readwritesb.F90 readwriteval.F90 s013vals.F90 tankrcpt.F90
   standard.F90 strings.F90 ufbevn.f ufbget.f ufbin3.f ufbinx.f
-  memmsgs.F90 ufbtab.f ciencode.F90 cidecode.F90 arallocf.F90 openclosebf.F90
+  memmsgs.F90 ciencode.F90 cidecode.F90 arallocf.F90 openclosebf.F90
   bufr_interface.F90 bufr_c2f_interface.F90 x4884.F90 bufrlib.F90)
 
 list(APPEND c_src
