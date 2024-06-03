@@ -268,9 +268,6 @@ subroutine arallocf
   allocate( jsr(nfiles), stat=iost )
   if ( iost .ne. 0 ) call bort( brtstr // 'JSR' )
 
-  allocate( jbay(mxmsgld4), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'JBAY' )
-
   ! Calculate mxdxm and mxdxw from mxdxts and mxmsgld4.
 
   mxdxm = mxdxts*3
@@ -720,7 +717,6 @@ subroutine ardllocf
   ! moda_bufrsr arrays.
 
   deallocate( jsr )
-  deallocate( jbay )
 
   ! moda_msgmem arrays.
 

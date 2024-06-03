@@ -701,7 +701,7 @@ subroutine rewnbf(lunit,isr)
   implicit none
 
   integer, intent(in) :: lunit, isr
-  integer lun, il, im, i, imsg, kdate, ier, i4dy
+  integer lun, il, im, i, kdate, ier
 
   character*128 bort_str
   character*8 subset
@@ -734,19 +734,13 @@ subroutine rewnbf(lunit,isr)
 
   if(isr.eq.0) then
     ! Store file parameters and set for reading
-    junn = lun
-    jill = il
-    jimm = im
     jbit = ibit
     jbyt = mbyt(lun)
     jmsg = nmsg(lun)
     jsub = nsub(lun)
-    ksub = msub(lun)
-    jnod = inode(lun)
-    jdat = idate(lun)
-    do i=1,jbyt
-      jbay(i) = mbay(i,lun)
-    enddo
+    junn = lun
+    jill = il
+    jimm = im
     call wtstat(lunit,lun,-1,0)
   endif
 
@@ -758,17 +752,10 @@ subroutine rewnbf(lunit,isr)
     lun = junn
     il = jill
     im = jimm
-    ibit = jbit
-    mbyt(lun) = jbyt
-    nmsg(lun) = jmsg
-    nsub(lun) = jsub
-    msub(lun) = ksub
-    inode(lun) = jnod
-    idate(lun) = i4dy(jdat)
-    do i=1,jbyt
-      mbay(i,lun) = jbay(i)
-    enddo
-    do imsg=1,jmsg
+    call wtstat(lunit,lun,il,im)
+    ! Reset nmsg(lun) to 0, so that the below jmsg calls to readmg() will internally restore nmsg(lun) to the correct value
+    nmsg(lun) = 0
+    do i=1,jmsg
       call readmg(lunit,subset,kdate,ier)
       if(ier.lt.0) then
         write(bort_str,'("BUFRLIB: REWNBF - HIT END OF FILE BEFORE '// &
@@ -776,7 +763,9 @@ subroutine rewnbf(lunit,isr)
         call bort(bort_str)
       endif
     enddo
-    call wtstat(lunit,lun,il,im)
+    ibit = jbit
+    mbyt(lun) = jbyt
+    nsub(lun) = jsub
   endif
 
   jsr(lun) = mod(jsr(lun)+1,2)

@@ -10,14 +10,14 @@
 module moda_bitbuf
   !> Maximum length of an output BUFR message.
   integer :: maxbyt
-  !> Bit pointer within ibay.
-  integer :: ibit
-  !> Current data subset.
-  integer, allocatable :: ibay(:)
+  !> Current BUFR message for each file ID.
+  integer, allocatable :: mbay(:,:)
   !> Length (in bytes) of current BUFR message for each file ID.
   integer, allocatable :: mbyt(:)
-  !> Current BUFR message for each internal file ID.
-  integer, allocatable :: mbay(:,:)
+  !> Current data subset.
+  integer, allocatable :: ibay(:)
+  !> Bit pointer within ibay.
+  integer :: ibit
 end module moda_bitbuf
 
 !> Declare arrays and variables used to store
@@ -111,17 +111,8 @@ module moda_bufrsr
   !> Sequential number of BUFR data subset, counting from the beginning
   !> of the current BUFR message.
   integer :: jsub
-  !> WMO bit-wise (integer) representation of FXY value associated with
-  !> Table A mnemonic for BUFR message.
-  integer :: ksub
-  !> Positional index of Table A mnemonic within internal Table A.
-  integer :: jnod
-  !> Section 1 date-time of BUFR message.
-  integer :: jdat
   !> Indicator of stack status when entering subroutine rewnbf().
   integer, allocatable :: jsr(:)
-  !> BUFR message.
-  integer, allocatable :: jbay(:)
 end module moda_bufrsr
 
 !> Declare arrays and variables needed for the

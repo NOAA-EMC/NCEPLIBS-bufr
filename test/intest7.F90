@@ -184,5 +184,11 @@ program intest7
   if (idx .eq. 0) stop 28
   if (.not. (all(jdatearr .eq. -1) .and. all(jdumparr .eq. -1))) stop 29
 
+  ! Rewind the file and check an error message within UFBTAB.
+  errstr_len = 0
+  call ufbtab ( 11, r8arr, mxr8pm, mxr8lv, nsub, 'CLATH' )
+  idx = index(errstr(1:errstr_len), "BUFRLIB: UFBTAB - THE NO. OF DATA SUBSETS IN THE BUFR FILE IS .GT. LIMIT OF")
+  if ( (idx .eq. 0) .or. ( nsub .ne. 5 ) .or. ( r8arr(1,2)*100000 .ne. 5012537 ) ) stop 30
+
   print *, 'SUCCESS!'
 end program intest7
