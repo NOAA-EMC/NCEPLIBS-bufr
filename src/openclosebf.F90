@@ -733,14 +733,21 @@ subroutine rewnbf(lunit,isr)
   endif
 
   if(isr.eq.0) then
-    ! Store file parameters and set for reading
-    jbit = ibit
-    jbyt = mbyt(lun)
+    ! Store the existing file parameters
     jmsg = nmsg(lun)
     jsub = nsub(lun)
+    if ( il > 0 ) then
+      ! The file is open for writing
+      jbit = ibit
+      jbyt = mbyt(lun)
+      do i=1,jbyt
+        jbay(i) = mbay(i,lun)
+      enddo
+    endif
     junn = lun
     jill = il
     jimm = im
+    ! Reset the file for reading
     call wtstat(lunit,lun,-1,0)
   endif
 
@@ -748,13 +755,14 @@ subroutine rewnbf(lunit,isr)
   call cewind_c(lun)
 
   if(isr.eq.1) then
-    ! Restore file parameters and position it to where it was saved
-    lun = junn
-    il = jill
-    im = jimm
-    call wtstat(lunit,lun,il,im)
-    ! Reset nmsg(lun) to 0, so that the below jmsg calls to readmg() will internally restore nmsg(lun) to the correct value
+    ! Restore the previous file parameters. Note that we already restored the previous value of lun earlier in this routine.
+
+    ! Reset nmsg(lun) to 0, so that the below calls to readmg() will internally restore nmsg(lun) to the correct value.
     nmsg(lun) = 0
+
+    ! Note that the below calls to readmg() are valid even if the file was previously open for writing, because we haven't yet
+    ! called wtstat() to restore the file to its previous I/O status.  So until then we can still read from it as though it
+    ! was an input file.
     do i=1,jmsg
       call readmg(lunit,subset,kdate,ier)
       if(ier.lt.0) then
@@ -763,11 +771,29 @@ subroutine rewnbf(lunit,isr)
         call bort(bort_str)
       endif
     enddo
-    ibit = jbit
-    mbyt(lun) = jbyt
-    nsub(lun) = jsub
+
+    if ( jill < 0 ) then
+      ! The file was previously open for reading
+      do i=1,jsub
+        call readsb(lunit,ier)
+      enddo
+    else
+      ! The file was previously open for writing
+      do i=1,jbyt
+        mbay(i,lun) = jbay(i)
+      enddo
+      nsub(lun) = jsub
+      mbyt(lun) = jbyt
+      ibit = jbit
+    endif
+
+    ! Now restore the file to its previous I/O status
+    il = jill
+    im = jimm
+    call wtstat(lunit,lun,il,im)
   endif
 
+  ! Toggle the stack status indicator
   jsr(lun) = mod(jsr(lun)+1,2)
 
   return

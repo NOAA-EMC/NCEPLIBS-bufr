@@ -27,7 +27,9 @@ while bufr.advance() == 0:
     if nmsg == 15: break
     nmsg += 1
 bufr.restore()
-bufr.load_subset()
+# As of PR 599, a bug has been fixed in library subroutine rewnbf(), so the following
+# statement is no longer needed.
+#bufr.load_subset()
 hdr = bufr.read_subset(hdstr).squeeze()
 station_id = hdr[0].tostring()
 obs = bufr.read_subset(obstr)

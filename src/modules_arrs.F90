@@ -101,15 +101,15 @@ module moda_bufrsr
   integer :: jill
   !> Message status indicator of BUFR file.
   integer :: jimm
+  !> BUFR message.
+  integer, allocatable :: jbay(:)
   !> Bit pointer within BUFR message.
   integer :: jbit
   !> Length (in bytes) of BUFR message.
   integer :: jbyt
-  !> Sequential number of BUFR message, counting from the beginning of
-  !> the file.
+  !> Sequential number of BUFR message, counting from the beginning of the file.
   integer :: jmsg
-  !> Sequential number of BUFR data subset, counting from the beginning
-  !> of the current BUFR message.
+  !> Sequential number of BUFR data subset, counting from the beginning of the current BUFR message.
   integer :: jsub
   !> Indicator of stack status when entering subroutine rewnbf().
   integer, allocatable :: jsr(:)
