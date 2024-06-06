@@ -147,11 +147,13 @@ end subroutine strcln
 !> @author Woollen @date 1994-01-06
 subroutine parusr(str,lun,i1,io)
 
+  use modv_vars, only: iac
+
   implicit none
 
   integer, intent(in) :: lun, i1, io
   integer, parameter :: maxusr = 30, maxnod = 20, maxcon = 10
-  integer nnod, ncon, nods, nodc, ivls, kons, iac, i, j, n, ntot, nod, kon, irpc, lstjpb
+  integer nnod, ncon, nods, nodc, ivls, kons, i, j, n, ntot, nod, kon, irpc, lstjpb
 
   character*(*), intent(in) :: str
   character*128 bort_str1, bort_str2
@@ -163,7 +165,6 @@ subroutine parusr(str,lun,i1,io)
   logical bump
 
   common /usrstr/ nnod, ncon, nods(maxnod), nodc(maxcon), ivls(maxcon), kons(maxcon)
-  common /acmode/ iac
 
   ust  = str
   if(len(str).gt.80) then

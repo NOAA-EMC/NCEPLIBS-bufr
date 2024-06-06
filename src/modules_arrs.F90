@@ -10,14 +10,14 @@
 module moda_bitbuf
   !> Maximum length of an output BUFR message.
   integer :: maxbyt
-  !> Bit pointer within ibay.
-  integer :: ibit
-  !> Current data subset.
-  integer, allocatable :: ibay(:)
+  !> Current BUFR message for each file ID.
+  integer, allocatable :: mbay(:,:)
   !> Length (in bytes) of current BUFR message for each file ID.
   integer, allocatable :: mbyt(:)
-  !> Current BUFR message for each internal file ID.
-  integer, allocatable :: mbay(:,:)
+  !> Current data subset.
+  integer, allocatable :: ibay(:)
+  !> Bit pointer within ibay.
+  integer :: ibit
 end module moda_bitbuf
 
 !> Declare arrays and variables used to store
@@ -101,27 +101,18 @@ module moda_bufrsr
   integer :: jill
   !> Message status indicator of BUFR file.
   integer :: jimm
+  !> BUFR message.
+  integer, allocatable :: jbay(:)
   !> Bit pointer within BUFR message.
   integer :: jbit
   !> Length (in bytes) of BUFR message.
   integer :: jbyt
-  !> Sequential number of BUFR message, counting from the beginning of
-  !> the file.
+  !> Sequential number of BUFR message, counting from the beginning of the file.
   integer :: jmsg
-  !> Sequential number of BUFR data subset, counting from the beginning
-  !> of the current BUFR message.
+  !> Sequential number of BUFR data subset, counting from the beginning of the current BUFR message.
   integer :: jsub
-  !> WMO bit-wise (integer) representation of FXY value associated with
-  !> Table A mnemonic for BUFR message.
-  integer :: ksub
-  !> Positional index of Table A mnemonic within internal Table A.
-  integer :: jnod
-  !> Section 1 date-time of BUFR message.
-  integer :: jdat
   !> Indicator of stack status when entering subroutine rewnbf().
   integer, allocatable :: jsr(:)
-  !> BUFR message.
-  integer, allocatable :: jbay(:)
 end module moda_bufrsr
 
 !> Declare arrays and variables needed for the
@@ -224,7 +215,7 @@ end module moda_dscach
 !> @author J. Ator @date 2014-02-05
 module moda_h4wlc
   !> Number of long character strings being stored.
-  integer :: nh4wlc
+  integer :: nh4wlc = 0
   !> File ID for associated output file.
   integer, allocatable :: luh4wlc(:)
   !> Table B mnemonics associated with long character strings.
@@ -870,5 +861,28 @@ module moda_msgstd
   !> value which can be overridden by a subsequent call to subroutine stdmsg() within the application program:
   !> - 'N' = No (default)
   !> - 'Y' = Yes
-  character*1 :: csmf = 'N'
+  character :: csmf = 'N'
 end module moda_msgstd
+
+!> Declare a variable used to indicate whether output BUFR messages should be compressed.
+!>
+!> @author J. Ator @date 2024-05-29
+module moda_msgcmp
+  !> Flag indicating whether BUFR output messages are to be compressed; this variable is initialized to a default
+  !> value which can be overridden by a subsequent call to subroutine cmpmsg() within the application program:
+  !> - 'N' = No (default)
+  !> - 'Y' = Yes
+  character :: ccmf = 'N'
+end module moda_msgcmp
+
+!> Declare a variable used to indicate whether master code and flag tables should be read.
+!>
+!> @author J. Ator @date 2024-05-29
+module moda_tablef
+  !> Flag indicating whether to include code and flag table information during reads of master BUFR tables; this
+  !> variable is initialized to a default value which can be overridden by a subsequent call to subroutine codflg()
+  !> within the application program:
+  !> - 'N' = No (default)
+  !> - 'Y' = Yes
+  character :: cdmf = 'N'
+end module moda_tablef

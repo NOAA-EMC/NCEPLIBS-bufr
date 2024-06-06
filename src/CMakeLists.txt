@@ -7,11 +7,11 @@ list(APPEND fortran_src
   modules_vars.F90 modules_arrs.F90 bitmaps.F90 blocks.F90 borts.F90
   compress.F90 conwin.f copydata.F90 dumpdata.F90 dxtable.F90
   errwrt.F90 getwin.f fxy.F90 invcon.f invmrg.f invtag.f invwin.f
-  jumplink.F90 mastertable.F90 missing.F90 mesgbc.f mesgbf.f mrginv.f
+  jumplink.F90 mastertable.F90 missing.F90 mrginv.f
   nevn.f newwin.f nvnwin.f nwords.f nxtwin.f openbt.F90 cftbvs.F90
-  readwritemg.F90 readwritesb.F90 readwriteval.F90 rewnbf.f rsvfvm.f s013vals.F90 tankrcpt.F90
-  standard.F90 strings.F90 trybump.f ufbcup.f ufbevn.f ufbget.f ufbin3.f ufbinx.f
-  memmsgs.F90 ufbovr.f ufbtab.f ciencode.F90 cidecode.F90 arallocf.F90 openclosebf.F90
+  readwritemg.F90 readwritesb.F90 readwriteval.F90 s013vals.F90 tankrcpt.F90
+  standard.F90 strings.F90 ufbget.f ufbinx.f
+  memmsgs.F90 ciencode.F90 cidecode.F90 arallocf.F90 openclosebf.F90
   bufr_interface.F90 bufr_c2f_interface.F90 x4884.F90 bufrlib.F90)
 
 list(APPEND c_src
@@ -20,10 +20,9 @@ list(APPEND c_src
 list(APPEND c_hdr
   cread.h mstabs.h bufr_interface.h bufrlib.h)
 
-# Create the misc.F90 file and bfrini.F90 files
+# Create the misc.F90 file
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/misc.F90.in ${CMAKE_CURRENT_BINARY_DIR}/misc.F90 @ONLY)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bfrini.F90.in ${CMAKE_CURRENT_BINARY_DIR}/bfrini.F90 @ONLY)
-list(APPEND fortran_src ${CMAKE_CURRENT_BINARY_DIR}/misc.F90 ${CMAKE_CURRENT_BINARY_DIR}/bfrini.F90)
+list(APPEND fortran_src ${CMAKE_CURRENT_BINARY_DIR}/misc.F90)
 
 include(TestBigEndian)
 test_big_endian(IS_BIG_ENDIAN)

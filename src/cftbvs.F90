@@ -223,6 +223,7 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
   use modv_vars, only: im8b
 
   use moda_tababd
+  use moda_tablef
 
   implicit none
 
@@ -234,9 +235,7 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
   character*(*), intent(out) :: cmeang
   character*128 bort_str
   character*8 nemo, my_nemoi, my_nemod
-  character cdmf, tab
-
-  common /tablef/ cdmf
+  character tab
 
   ! Check for I8 integers
 

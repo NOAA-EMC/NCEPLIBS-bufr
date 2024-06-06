@@ -17,8 +17,17 @@ module modv_vars
   !> Number of bits within an integer.
   integer, parameter :: nbitw = nbytw * 8
 
+  !> Status indicator to keep track of whether all future calls to
+  !> NCEPLIBS-bufr subroutines and functions from a Fortran application
+  !> program will be made using 8-byte integer arguments.
+  !> The default value is .false., meaning that all future calls to
+  !> NCEPLIBS-bufr subroutines and functions will be made using 4-byte
+  !> integer arguments.  This value can be changed at any time via a
+  !> call to subroutine setim8b().
+  logical :: im8b = .false.
+
   !> Status indicator to keep track of whether all future BUFR output
-  !> messages should be encapsulated with IEEE Fortran control words.
+  !> messages should be encapsulated with IEEE Fortran control words:
   !> - -1 = Yes, using little-endian control words
   !> - 0 = No
   !> - 1 = Yes, using big-endian control words
@@ -31,20 +40,41 @@ module modv_vars
   !> time via a call to subroutine setbmiss().
   real*8 :: bmiss = 10E10_8
 
-  !> Status indicator to keep track of whether subroutine openbf() has
-  !> already been called:
+  !> Status indicator to keep track of whether subroutine openbf() has already been called:
   !> - 0 = No
   !> - 1 = Yes
   integer :: ifopbf = 0
 
-  !> Status indicator to keep track of whether all future calls to
-  !> NCEPLIBS-bufr subroutines and functions from a Fortran application
-  !> program will be made using 8-byte integer arguments.
-  !> The default value is .false., meaning that all future calls to
-  !> NCEPLIBS-bufr subroutines and functions will be made using 4-byte
-  !> integer arguments.  This value can be changed at any time via a
-  !> call to subroutine setim8b().
-  logical :: im8b = .false.
+  !> Status indicator to keep track of whether future calls to subroutine parusr() should
+  !> allow an input mnemonic to exist in multiple replication sequences:
+  !> - 0 = No
+  !> - 1 = Yes
+  integer :: iac = 0
+
+  !> Length of Section 1 date-time values to be output by all future calls to message-reading
+  !> subroutines.  The default value is 8, meaning that future date-time values will be
+  !> output in YYMMDDHH (2-digit year) format.  However, this value can be changed to 10 via
+  !> a call to subroutine datelen(), and in which case future date-time values will be output
+  !> in YYYYMMDDHH (4-digit year) format.
+  integer :: lendat = 8
+
+  !> Replication indicators used in DX BUFR tables.
+  character, parameter :: reps(10) =    (/     '"',     '(',     '{',     '[',     '<', &
+                                               '"',     ')',     '}',     ']',     '>'/)
+
+  !> Replication tags corresponding to reps.
+  character*3, parameter :: typs(10) =  (/   'REP',   'DRP',   'DRP',   'DRS',   'DRB', &
+                                             'SEQ',   'RPC',   'RPC',   'RPS',   'SEQ'/)
+
+  !> FXY values corresponding to reps.
+  character*6, parameter :: adsn(10) =  (/'101000','360001','360002','360003','360004', &
+                                          '101255','031002','031001','031001','031000'/)
+
+  !> WMO bit-wise representations of FXY values corresponding to reps.
+  integer :: idnr(10)
+
+  !> Lengths of delayed replication factors corresponding to each type of replication in reps.
+  integer, parameter :: lens(5) =       (/       0,      16,       8,       8,       1/)
 
   !> Maximum number of child descriptors that can be included within
   !> the sequence definition of a Table D descriptor, not counting the

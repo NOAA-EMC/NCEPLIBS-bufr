@@ -303,14 +303,12 @@ recursive subroutine writsb(lunit)
 
   use modv_vars, only: im8b
 
+  use moda_msgcmp
+
   implicit none
 
   integer, intent(in) :: lunit
   integer my_lunit, lun, il, im
-
-  character*1 ccmf
-
-  common /msgcmp/ ccmf
 
   ! Check for I8 integers
 
@@ -426,16 +424,13 @@ recursive subroutine writsa(lunxx,lmsgt,msgt,msgl)
   use modv_vars, only: im8b
 
   use moda_bufrmg
+  use moda_msgcmp
 
   implicit none
 
   integer, intent(in) :: lunxx, lmsgt
   integer, intent(out) :: msgt(*), msgl
   integer my_lunxx, my_lmsgt, lunit, lun, il, im, n
-
-  character*1 ccmf
-
-  common /msgcmp/ ccmf
 
   ! Check for I8 integers
 

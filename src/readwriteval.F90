@@ -888,7 +888,7 @@ end subroutine ufbint
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
 
-  use modv_vars, only: im8b, bmiss
+  use modv_vars, only: im8b, bmiss, iac
 
   use moda_usrint
   use moda_msgcwd
@@ -902,10 +902,9 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
-  integer iprt, iac, ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, ia2, i, j
+  integer iprt, ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, iac_prev, i, j
 
   common /quiet/ iprt
-  common /acmode/ iac
 
   data ifirst1 /0/
 
@@ -971,20 +970,20 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
   ! Initialize usr array preceeding an input operation
   if(io.eq.0) then
     do j=1,i2
-      do i=1,I1
+      do i=1,i1
         usr(i,j) = bmiss
       enddo
     enddo
   endif
 
   ! Parse or recall the input string
-  ia2 = iac
+  iac_prev = iac
   iac = 1
   call string(str,lun,i1,io)
+  iac = iac_prev
 
   ! Call the mnemonic reader/writer
   call ufbrp(lun,usr,i1,i2,io,iret)
-  iac = ia2
 
   if(io.eq.1 .and. iret.lt.i2) then
     write(bort_str1,'("BUFRLIB: UFBREP - MNEMONIC STRING READ IN IS: ",A)') str
@@ -1740,7 +1739,7 @@ subroutine ufbrw(lun,usr,i1,i2,io,iret)
                       if(invn.eq.0) then
                         iret = 0
                         return
-                      ENDIF
+                      endif
                       call newwin(lun,inc1,inc2)
                       val(invn,lun) = usr(i,iret)
                     endif
@@ -2047,3 +2046,590 @@ recursive subroutine hold4wlc(lunit,chr,str)
 
   return
 end subroutine hold4wlc
+
+!> Try to expand a delayed replication sequence.
+!>
+!> Check the first node associated with a character string (parsed into arrays in common block /usrstr/) in
+!> order to determine if it represents a delayed replication sequence.  If so, then the delayed replication
+!> sequence is initialized and expanded (i.e. "bumped") to the value of input argument i2.
+!> A call is then made to subroutine ufbrw() in order to write user data
+!> into the newly expanded replication sequence.
+!>
+!> This subroutine is usually called from ufbint() whenever that routine receives a
+!> non-zero return code from ufbrw().  The cause of a bad return from ufbrw() is usually a delayed replication
+!> sequence which isn't expanded enough to hold the array of data the user is trying to
+!> write.  So this subroutine is one last chance to try to resolve that situation.
+!>
+!> @note Argument io is always passed in with a value of 1 at the present time.  In the future the subroutine
+!> may be expanded to allow it to operate on input files.
+!>
+!> @param lun - File ID
+!> @param usr - Data values
+!> @param i1 - First dimension of usr as allocated within the calling program
+!> @param i2 - Number of levels of data values that are to be written to the data subset
+!> @param io - Status indicator for BUFR file:
+!> - 0 = Input file (possible future use)
+!> - 1 = Output file
+!> @param iret - Number of ldevels of data values that were written to the data subset
+!>
+!> @author Woollen @date 1994-01-06
+subroutine trybump(lun,usr,i1,i2,io,iret)
+
+  use moda_usrint
+
+  implicit none
+
+  integer, intent(in) :: lun, i1, i2, io
+  integer, intent(out) :: iret
+  integer nnod, ncon, nods, nodc, ivls, kons, ndrp, invn, jnvn, knvn, invwin, lstjpb
+
+  real*8, intent(inout) :: usr(i1,i2)
+
+  common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
+
+  ! See if there's a delayed replication group involved
+
+  ndrp = lstjpb(nods(1),lun,'DRP')
+  if(ndrp.le.0) return
+
+  ! If so, clean it out and bump it to i2
+
+  invn = invwin(ndrp,lun,1,nval(lun))
+  val(invn,lun) = 0
+  jnvn = invn+1
+  do while(nint(val(jnvn,lun)).gt.0)
+    jnvn = jnvn+nint(val(jnvn,lun))
+  enddo
+  do knvn=1,nval(lun)-jnvn+1
+    inv(invn+knvn,lun) = inv(jnvn+knvn-1,lun)
+    val(invn+knvn,lun) = val(jnvn+knvn-1,lun)
+  enddo
+  nval(lun) = nval(lun)-(jnvn-invn-1)
+  call usrtpl(lun,invn,i2)
+
+  ! Call the mnemonic writer
+
+  call ufbrw(lun,usr,i1,i2,io,iret)
+
+  return
+end subroutine trybump
+
+!> Overwrite one or more data values within a data subset.
+!>
+!> Overwrite specified values which exist in current internal BUFR subset arrays in a file open for output.
+!> The data values correspond to mnemonics which are part of a delayed-replication sequence, or for which
+!> there is no replication at all.  Either subroutine openmg() or openmb() must have been previously called
+!> to open and initialize a BUFR message within memory for this lunit.  In addition, subroutine writsb() or
+!> invmrg() must have previously been called to store the data values that are now intended to be overwritten
+!> within the internal output subset arrays.
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param usr - Data values
+!> @param i1 - First dimension of usr as allocated within the calling program
+!> @param i2 - Number of replications of str that are to be written to the data subset
+!> @param iret - Number of replications of str that were written to the data subset
+!> @param str - String of blank-separated Table B mnemonics in one-to-one correspondence with the number of data values
+!> that will be written to the data subset within the first dimension of usr (see [DX BUFR Tables](@ref dfbftab)
+!> for further information about Table B mnemonics)
+!>
+!> @author Woollen @date 1994-01-06
+recursive subroutine ufbovr(lunit,usr,i1,i2,iret,str)
+
+  use modv_vars, only: im8b
+
+  use moda_usrint
+  use moda_msgcwd
+
+  implicit none
+
+  integer, intent(in) :: lunit, i1, i2
+  integer, intent(out) :: iret
+  integer iprt, ifirst1, my_lunit, my_i1, my_i2, lun, il, im, io
+
+  character*(*), intent(in) :: str
+  character*128 bort_str1, bort_str2, errstr
+
+  real*8, intent(inout) :: usr(i1,i2)
+
+  common /quiet/ iprt
+
+  data ifirst1 /0/
+
+  save ifirst1
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+    call x84(lunit,my_lunit,1)
+    call x84(i1,my_i1,1)
+    call x84(i2,my_i2,1)
+    call ufbovr(my_lunit,usr,my_i1,my_i2,iret,str)
+    call x48(iret,iret,1)
+    im8b=.true.
+    return
+  endif
+
+  iret = 0
+
+  ! Check the file status and inode
+
+  call status(lunit,lun,il,im)
+  if(il.eq.0) call bort('BUFRLIB: UFBOVR - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
+  if(il.lt.0) call bort('BUFRLIB: UFBOVR - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
+  if(im.eq.0) call bort('BUFRLIB: UFBOVR - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
+  if(inode(lun).ne.inv(1,lun)) call bort('BUFRLIB: UFBOVR - LOCATION OF INTERNAL TABLE FOR '// &
+    'OUTPUT BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN INTERNAL SUBSET ARRAY')
+
+  io = min(max(0,il),1)
+
+  if(i1.le.0) then
+    if(iprt.ge.0) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      errstr = 'BUFRLIB: UFBOVR - 3rd ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+      call errwrt(errstr)
+      call errwrt(str)
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+    return
+  elseif(i2.le.0) then
+    if(iprt.eq.-1) ifirst1 = 1
+    if(io.eq.0 .or. ifirst1.eq.0 .or. iprt.ge.1) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      errstr = 'BUFRLIB: UFBOVR - 4th ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
+      call errwrt(errstr)
+      call errwrt(str)
+      if(iprt.eq.0 .and. io.eq.1) then
+        errstr = 'Note: Only the first occurrence of this WARNING ' // &
+          'message is printed, there may be more.  To output all such messages,'
+        call errwrt(errstr)
+        errstr = 'modify your application program to add ' // &
+          '"CALL OPENBF(0,''QUIET'',1)" prior to the first call to a BUFRLIB routine.'
+        call errwrt(errstr)
+      endif
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+      ifirst1 = 1
+    endif
+    return
+  endif
+
+  ! Parse or recall the input string - write values
+
+  call string(str,lun,i1,io)
+  call trybump(lun,usr,i1,i2,io,iret)
+
+  if(io.eq.1 .and. iret.ne.i2) then
+    write(bort_str1,'("BUFRLIB: UFBOVR - MNEMONIC STRING READ IN IS: ",A)') str
+    write(bort_str2,'(18X,"THE NUMBER OF ''LEVELS'' ACTUALLY '// &
+      'WRITTEN (",I3,") DOES NOT EQUAL THE NUMBER REQUESTED (",I3,") - INCOMPLETE WRITE")') iret, i2
+    call bort2(bort_str1,bort_str2)
+  endif
+
+  return
+end subroutine ufbovr
+
+!> Read one or more data values from an NCEP prepbufr file.
+!>
+!> This subroutine is specifically designed for use with NCEP prepbufr files,
+!> which contain a third dimension of data events for every
+!> reported data value at every replicated vertical level.  It is
+!> similar to subroutine ufbin3(), except that ufbin3() is used
+!> for NCEP prepfits files and has one extra argument containing
+!> the maximum number of data events for any data value, whereas
+!> this subroutine is used for NCEP prepbufr files and stores the
+!> same information internally within a common block.
+!>
+!> It is the user's responsibility to ensure that usr is dimensioned
+!> sufficiently large enough to accommodate the number of data values
+!> that are to be read from the data subset.  Note also
+!> that usr is an array of real*8 values; therefore, any
+!> character (i.e. CCITT IA5) value in the data subset will be
+!> returned in real*8 format and must be converted back into character
+!> format by the application program before it can be used as such.
+!>
+!> "Missing" values in usr are always denoted by a unique
+!> placeholder value.  This placeholder value is initially set
+!> to a default value of 10E10_8, but it can be reset to
+!> any substitute value of the user's choice via a separate
+!> call to subroutine setbmiss().  In any case, any
+!> returned value in usr can be easily checked for equivalence to the
+!> current placeholder value via a call to function ibfms(), and a
+!> positive result means that the value for the corresponding mnemonic
+!> was encoded as "missing" in BUFR (i.e. all bits set to 1) within the
+!> original data subset.
+!>
+!> @param lunit - Fortran logical unit number for NCEP prepbufr file
+!> @param usr - Data values
+!> @param i1 - First dimension of usr as allocated within the calling program
+!> @param i2 - Second dimension of usr as allocated within the calling program
+!> @param i3 - Third dimension of usr as allocated within the calling program
+!> @param iret - Number of replications of str that were read from the data subset, corresponding to the second dimension
+!> of usr
+!> @param str - String of blank-separated Table B mnemonics in one-to-one correspondence with the number of data values
+!> that will be read/written from/to the data subset within the first dimension of usr (see [DX BUFR Tables](@ref dfbftab)
+!> for further information about Table B mnemonics)
+!>
+!> @author J. Woollen @date 1994-01-06
+recursive subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str)
+
+  use modv_vars, only: im8b, bmiss
+
+  use moda_usrint
+  use moda_msgcwd
+
+  implicit none
+
+  character*(*), intent(in) :: str
+  character*128 errstr
+
+  integer, intent(in) :: lunit, i1, i2, i3
+  integer, intent(out) :: iret
+  integer invn(255), nnod, ncon, nods, nodc, ivls, kons, maxevn, iprt, my_lunit, my_i1, my_i2, my_i3, i, j, k, lun, il, im, &
+    ins1, ins2, inc1, inc2, nnvn, nvnwin
+
+  real*8, intent(out) :: usr(i1,i2,i3)
+
+  logical nodgt0
+
+  common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
+  common /ufbn3c/ maxevn
+  common /quiet/ iprt
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+    call x84(lunit,my_lunit,1)
+    call x84(i1,my_i1,1)
+    call x84(i2,my_i2,1)
+    call x84(i3,my_i3,1)
+    call ufbevn(my_lunit,usr,my_i1,my_i2,my_i3,iret,str)
+    call x48(iret,iret,1)
+    im8b=.true.
+    return
+  endif
+
+  maxevn = 0
+  iret = 0
+
+  ! Check the file status and inode
+
+  call status(lunit,lun,il,im)
+  if(il.eq.0) call bort('BUFRLIB: UFBEVN - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il.gt.0) call bort('BUFRLIB: UFBEVN - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(im.eq.0) call bort('BUFRLIB: UFBEVN - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+  if(inode(lun).ne.inv(1,lun)) call bort('BUFRLIB: UFBEVN - LOCATION OF INTERNAL TABLE FOR '// &
+    'INPUT BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN INTERNAL SUBSET ARRAY')
+
+  if(i1.le.0) then
+    if(iprt.ge.0) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      errstr = 'BUFRLIB: UFBEVN - 3rd ARG. (INPUT) IS .LE. 0, SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) ='
+      call errwrt(errstr)
+      call errwrt(str)
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+    return
+  elseif(i2.le.0) then
+    if(iprt.ge.0) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      errstr = 'BUFRLIB: UFBEVN - 4th ARG. (INPUT) IS .LE. 0, SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) ='
+      call errwrt(errstr)
+      call errwrt(str)
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+    return
+  elseif(i3.le.0) then
+    if(iprt.ge.0) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      errstr = 'BUFRLIB: UFBEVN - 5th ARG. (INPUT) IS .LE. 0, SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) ='
+      call errwrt(errstr)
+      call errwrt(str)
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+    return
+  endif
+
+  ! Parse or recall the input string
+
+  call string(str,lun,i1,0)
+
+  ! Initialize usr array
+
+  do k=1,i3
+    do j=1,i2
+      do i=1,i1
+        usr(i,j,k) = bmiss
+      enddo
+    enddo
+  enddo
+
+  ! Loop over condition windows
+
+  inc1 = 1
+  inc2 = 1
+  outer: do while (.true.)
+    call conwin(lun,inc1,inc2)
+    if(nnod.eq.0) then
+      iret = i2
+      return
+    elseif(inc1.eq.0) then
+      return
+    else
+      nodgt0 = .false.
+      do i=1,nnod
+        if(nods(i).gt.0) then
+          ins2 = inc1
+          call getwin(nods(i),lun,ins1,ins2)
+          if(ins1.eq.0) return
+          nodgt0 = .true.
+          exit
+        endif
+      enddo
+      if(.not.nodgt0) then
+        ins1 = inc1
+        ins2 = inc2
+      endif
+      ! Read push down stack data into 3D arrays
+      inner: do while (.true.)
+        iret = iret+1
+        if(iret.le.i2) then
+          do j=1,nnod
+            if(nods(j).gt.0) then
+              nnvn = nvnwin(nods(j),lun,ins1,ins2,invn,i3)
+              maxevn = max(nnvn,maxevn)
+              do k=1,nnvn
+                usr(j,iret,k) = val(invn(k),lun)
+              enddo
+            endif
+          enddo
+        endif
+        ! Decide what to do next
+        call nxtwin(lun,ins1,ins2)
+        if(ins1.le.0 .or. ins1.ge.inc2) exit inner
+      enddo inner
+      if(ncon.le.0) exit outer
+    endif
+  enddo outer
+
+  if(iret.eq.0) then
+    if(iprt.ge.1) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      errstr = 'BUFRLIB: UFBEVN - NO SPECIFIED VALUES READ IN, SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) ='
+      call errwrt(errstr)
+      call errwrt(str)
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+  endif
+
+  return
+end subroutine ufbevn
+
+!> Read one or more data values from an NCEP prepfits file.
+!>
+!> This subroutine is specifically designed for use with NCEP prepfits files,
+!> which contain a third dimension of data events for every
+!> reported data value at every replicated vertical level.  It is
+!> similar to subroutine ufbevn(), except that ufbevn() is used
+!> for NCEP prepbufr files and stores the maximum number of data
+!> events for any data value within an internal common block,
+!> whereas this subroutine is used for NCEP prepfits files and
+!> has one extra argument which returns the same information to
+!> the calling program.
+!>
+!> It is the user's responsibility to ensure that usr is dimensioned
+!> sufficiently large enough to accommodate the number of data values
+!> that are to be read from the data subset.  Note also
+!> that usr is an array of real*8 values; therefore, any
+!> character (i.e. CCITT IA5) value in the data subset will be
+!> returned in real*8 format and must be converted back into character
+!> format by the application program before it can be used as such.
+!>
+!> "Missing" values in usr are always denoted by a unique
+!> placeholder value.  This placeholder value is initially set
+!> to a default value of 10E10_8, but it can be reset to
+!> any substitute value of the user's choice via a separate
+!> call to subroutine setbmiss().  In any case, any
+!> returned value in usr can be easily checked for equivalence to the
+!> current placeholder value via a call to function ibfms(), and a
+!> positive result means that the value for the corresponding mnemonic
+!> was encoded as "missing" in BUFR (i.e. all bits set to 1) within the
+!> original data subset.
+!>
+!> @param lunit - Fortran logical unit number for NCEP prepfits file
+!> @param usr - Data values
+!> @param i1 - First dimension of usr as allocated within the calling program
+!> @param i2 - Second dimension of usr as allocated within the calling program
+!> @param i3 - Third dimension of usr as allocated within the calling program
+!> @param iret - Number of replications of str that were read from the data subset, corresponding to the second dimension
+!> of usr
+!> @param jret - Maximum number of data events for any data value that was read from the data subset at any replicated
+!> vertical level, and corresponding to the third dimension of usr
+!> @param str - String of blank-separated Table B mnemonics in one-to-one correspondence with the number of data values
+!> that will be read/written from/to the data subset within the first dimension of usr (see [DX BUFR Tables](@ref dfbftab)
+!> for further information about Table B mnemonics)
+!>
+!> @author J. Woollen @date 2003-11-04
+recursive subroutine ufbin3(lunit,usr,i1,i2,i3,iret,jret,str)
+
+  use modv_vars, only: im8b, bmiss
+
+  use moda_usrint
+  use moda_msgcwd
+
+  implicit none
+
+  character*(*), intent(in) :: str
+  character*128 errstr
+
+  integer, intent(in) :: lunit, i1, i2, i3
+  integer, intent(out) :: iret, jret
+  integer nnod, ncon, nods, nodc, ivls, kons, iprt, my_lunit, my_i1, my_i2, my_i3, i, j, k, lun, il, im, &
+    ins1, ins2, inc1, inc2, nnvn, nevn
+
+  real*8, intent(out) :: usr(i1,i2,i3)
+
+  logical nodgt0
+
+  common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
+  common /quiet/ iprt
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+    call x84(lunit,my_lunit,1)
+    call x84(i1,my_i1,1)
+    call x84(i2,my_i2,1)
+    call x84(i3,my_i3,1)
+    call ufbin3(my_lunit,usr,my_i1,my_i2,my_i3,iret,jret,str)
+    call x48(iret,iret,1)
+    call x48(jret,jret,1)
+    im8b=.true.
+    return
+  endif
+
+  iret = 0
+  jret = 0
+
+  ! Check the file status and inode
+
+  call status(lunit,lun,il,im)
+  if(il.eq.0) call bort('BUFRLIB: UFBIN3 - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il.gt.0) call bort('BUFRLIB: UFBIN3 - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(im.eq.0) call bort('BUFRLIB: UFBIN3 - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+  if(inode(lun).ne.inv(1,lun)) call bort('BUFRLIB: UFBIN3 - LOCATION OF INTERNAL TABLE FOR '// &
+    'INPUT BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN INTERNAL SUBSET ARRAY')
+
+  if(i1.le.0) then
+    if(iprt.ge.0) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      errstr = 'BUFRLIB: UFBIN3 - 3rd ARG. (INPUT) IS .LE. 0, ' // &
+        'SO RETURN WITH 6th AND 7th ARGS. (IRET, JRET) = 0; 8th ARG. (STR) ='
+      call errwrt(errstr)
+      call errwrt(str)
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+    return
+  elseif(i2.le.0) then
+    if(iprt.ge.0) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      errstr = 'BUFRLIB: UFBIN3 - 4th ARG. (INPUT) IS .LE. 0, ' // &
+        'SO RETURN WITH 6th AND 7th ARGS. (IRET, JRET) = 0; 8th ARG. (STR) ='
+      call errwrt(errstr)
+      call errwrt(str)
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+    return
+  elseif(i3.le.0) then
+    if(iprt.ge.0) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      errstr = 'BUFRLIB: UFBIN3 - 5th ARG. (INPUT) IS .LE. 0, ' // &
+        'SO RETURN WITH 6th AND 7th ARGS. (IRET, JRET) = 0; 8th ARG. (STR) ='
+      call errwrt(errstr)
+      call errwrt(str)
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+    return
+  endif
+
+  ! Parse or recall the input string
+
+  call string(str,lun,i1,0)
+
+  ! Initialize usr array
+
+  do k=1,i3
+    do j=1,i2
+      do i=1,i1
+        usr(i,j,k) = bmiss
+      enddo
+    enddo
+  enddo
+
+  ! Loop over condition windows
+
+  inc1 = 1
+  inc2 = 1
+  outer: do while (.true.)
+    call conwin(lun,inc1,inc2)
+    if(nnod.eq.0) then
+      iret = i2
+      return
+    elseif(inc1.eq.0) then
+      return
+    else
+      nodgt0 = .false.
+      do i=1,nnod
+        if(nods(i).gt.0) then
+          ins2 = inc1
+          call getwin(nods(i),lun,ins1,ins2)
+          if(ins1.eq.0) return
+          nodgt0 = .true.
+          exit
+        endif
+      enddo
+      if(.not.nodgt0) then
+        ins1 = inc1
+        ins2 = inc2
+      endif
+      ! Read push down stack data into 3D arrays
+      inner: do while (.true.)
+        iret = iret+1
+        if(iret.le.i2) then
+          do j=1,nnod
+            nnvn = nevn(nods(j),lun,ins1,ins2,i1,i2,i3,usr(j,iret,1))
+            jret = max(jret,nnvn)
+          enddo
+        endif
+        ! Decide what to do next
+        call nxtwin(lun,ins1,ins2)
+        if(ins1.le.0 .or. ins1.ge.inc2) exit inner
+      enddo inner
+      if(ncon.le.0) exit outer
+    endif
+  enddo outer
+
+  if(iret.eq.0 .or. jret.eq.0) then
+    if(iprt.ge.1) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      errstr = 'BUFRLIB: UFBIN3 - NO SPECIFIED VALUES READ IN, ' // &
+        'SO RETURN WITH 6th AND/OR 7th ARGS. (IRET, JRET) = 0; 8th ARG. (STR) ='
+      call errwrt(errstr)
+      call errwrt(str)
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+  endif
+
+  return
+end subroutine ufbin3

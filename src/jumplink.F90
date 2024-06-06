@@ -575,7 +575,7 @@ end subroutine tabsub
 !> @param nemo - Table B or D mnemonic to store in jump/link table
 !> @param tab - Internal BUFR table array ('B' or 'D') in which nemo is defined
 !> @param itab - Positional index of nemo within TAB
-!> @param irep - Positional index within common /reptab/ arrays, for use when nemo is replicated:
+!> @param irep - Positional index within internal arrays, for use when nemo is replicated:
 !>   - 0, if nemo is not replicated
 !> @param iknt - Number of replications, for use when nemo is replicated using F=1 regular (i.e., non-delayed) replication:
 !>   - 0, if nemo is not replicated using F=1 regular (i.e., non-delayed) replication
@@ -584,7 +584,7 @@ end subroutine tabsub
 !> @author Woollen @date 1994-01-06
 subroutine tabent(lun,nemo,tab,itab,irep,iknt,jum0)
 
-  use modv_vars, only: mxnrv
+  use modv_vars, only: mxnrv, typs, reps, lens
 
   use moda_tables
   use moda_nrv203
@@ -592,16 +592,13 @@ subroutine tabent(lun,nemo,tab,itab,irep,iknt,jum0)
   implicit none
 
   integer, intent(in) :: lun, itab, irep, iknt, jum0
-  integer idnr, lens, icdw, icsc, icrv, incw, i, jm0, node, iscl, iref, ibit
+  integer icdw, icsc, icrv, incw, i, jm0, node, iscl, iref, ibit
 
   character*24 unit
   character*10 rtag
   character*8, intent(in) :: nemo
   character, intent(in) :: tab
-  character*3 typs, typt
-  character reps
-
-  common /reptab/ idnr(5,2), typs(5,2), reps(5,2), lens(5)
+  character*3 typt
 
   common /tabccc/ icdw, icsc, icrv, incw
 
@@ -610,11 +607,11 @@ subroutine tabent(lun,nemo,tab,itab,irep,iknt,jum0)
   ! Make a jump/link table entry for a replicator
 
   if(irep.ne.0) then
-    rtag = reps(irep,1)//nemo
+    rtag = reps(irep)//nemo
     do i=1,10
       if(rtag(i:i).eq.' ') then
-        rtag(i:i) = reps(irep,2)
-        call inctab(rtag,typs(irep,1),node)
+        rtag(i:i) = reps(irep+5)
+        call inctab(rtag,typs(irep),node)
         jump(node) = node+1
         jmpb(node) = jm0
         link(node) = 0
@@ -669,7 +666,7 @@ subroutine tabent(lun,nemo,tab,itab,irep,iknt,jum0)
     if(irep.eq.0) then
       typt = 'SEQ'
     else
-      typt = typs(irep,2)
+      typt = typs(irep+5)
     endif
     call inctab(nemo,typt,node)
     jump(node) = node+1

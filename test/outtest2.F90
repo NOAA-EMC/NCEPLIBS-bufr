@@ -8,11 +8,11 @@ program outtest2
 
   integer*4 igetsc, iupbs01
 
-  integer nsc, nrf, nbt, ierns, nlv, lmgbf, mxbfmg
+  integer nsc, nrf, nbt, ierns, nlv, nutb, lmgbf, mxbfmg
   parameter ( mxbfmg = 50000 )
   integer mgbf ( mxbfmg ), mgbf2 ( mxbfmg )
 
-  real*8 r8ymd(3,1), r8ltl(2,1), r8oth(10,1)
+  real*8 r8ymd(3,1), r8ltl(2,1), r8oth(10,1), r8utb(3,45000)
   real*8 rpid(1,1), pkftbv, xmiss, getbmiss
 
   character libvrsn*8, cpid*8
@@ -57,13 +57,20 @@ program outtest2
   call pkvs01 ( 'OGCE', 160 )
   call pkvs01 ( 'BEN', 4 )
 
+  ! Test calling ufbtab to read out some data values from a logical unit that's currently in the process
+  ! of being written.  Note that ufbtab will internally call rewnbf, since the logical unit in question is
+  ! already open to the library.
+  call ufbtab ( 11, r8utb, 3, 45000, nutb, 'CLATH CLONH SLHD1')
+  if ( ( nutb .ne. 41541 ) .or. ( nint(r8utb(1,1)*100000) .ne. 6108965 ) .or. ( nint(r8utb(1,2)*100000) .ne. 6106049 ) &
+    .or. ( nint(r8utb(2,3)*100000) .ne. 16179889 ) .or. ( nint(r8utb(3,3)*1000000) .ne. 338688 ) ) stop 2
+
   ! First subset.
 
   call openmb ( 11, 'NC031112', 2012101712 )
 
   ! Check some mnemonic specifications.
   call nemspecs ( 11, 'TMBRST', 1, nsc, nrf, nbt, ierns )
-  if ( ( ierns .ne. 0 ) .or. ( nsc .ne. 3 ) .or. ( nbt .ne. 19 ) ) stop 2
+  if ( ( ierns .ne. 0 ) .or. ( nsc .ne. 3 ) .or. ( nbt .ne. 19 ) ) stop 3
 
   r8ymd(1,1) = 2012
   r8ymd(2,1) = 10
@@ -102,18 +109,18 @@ program outtest2
   call ufbint ( 11, rpid, 1, 1, nlv, 'RPID' )
 
   ! Confirm the "missing" value is still the same value that was set previously via the call to setxmiss.
-  IF ( nint(xmiss) .ne. nint(getbmiss()) ) stop 3
+  if ( nint(xmiss) .ne. nint(getbmiss()) ) stop 4
 
   ! Test cnved4 to cover im8b=.true. case
   call writsa ( 11, mxbfmg, mgbf, lmgbf )
   call cnved4(mgbf,mxbfmg,mgbf2)
-  if ( iupbs01(mgbf2, 'BEN') .ne. 4 ) stop 4
+  if ( iupbs01(mgbf2, 'BEN') .ne. 4 ) stop 5
   ! Re-converting to BUFR ed. 4 should leave the message unchanged
   call cnved4(mgbf2,mxbfmg,mgbf)
-  if ( .not. all( mgbf(1:lmgbf) .eq. mgbf2(1:lmgbf) )) stop 5
+  if ( .not. all( mgbf(1:lmgbf) .eq. mgbf2(1:lmgbf) )) stop 6
 
   ! Call pkftbv with some bogus values to ensure that the "missing" value is properly returned.
-  if ( nint(pkftbv(0,0)) .ne. nint(getbmiss()) ) stop 6
+  if ( nint(pkftbv(0,0)) .ne. nint(getbmiss()) ) stop 7
 
   ! Close the output file.
   call closbf ( 11 )

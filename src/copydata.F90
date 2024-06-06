@@ -745,3 +745,96 @@ subroutine mvb(ib1,nb1,ib2,nb2,nbm)
 
   return
 end subroutine mvb
+
+!> Copy unique elements of a data subset.
+!>
+!> Copy each unique element from an input subset into the identical mnemonic slot in the output subset.
+!>
+!> Before this subroutine is called:
+!> - The input file must be opened for input via openbf()
+!> - The output file must be opened for output via openbf()
+!> - A message must be read from the input file via one of the [message-reading subroutines](@ref hierarchy)
+!> - A data subset must be read from the input message via one of the [subset-reading subroutines](@ref hierarchy)
+!> - A message must open for writing within the output file via one of the [message-writing subroutines](@ref hierarchy)
+!>
+!> After this subroutine is called, one of the [subset-writing subroutines](@ref hierarchy) must be called on the output
+!> file to write the subset to file.
+!>
+!> @param lubin - Fortran logical unit number for input BUFR file
+!> @param lubot - Fortran logical unit number for output BUFR file
+!>
+!> @author Woollen @date 1994-01-06
+recursive subroutine ufbcup(lubin,lubot)
+
+  use modv_vars, only: im8b
+
+  use moda_usrint
+  use moda_msgcwd
+  use moda_tables
+  use moda_ivttmp
+
+  implicit none
+
+  integer, intent(in) :: lubin, lubot
+  integer my_lubin, my_lubot, lui, luo, il, im, ntag, ni, no, nv, nin
+
+  character*10 tago
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+    call x84(lubin,my_lubin,1)
+    call x84(lubot,my_lubot,1)
+    call ufbcup(my_lubin,my_lubot)
+    im8b=.true.
+    return
+  endif
+
+  ! Check the file statuses and inode
+
+  call status(lubin,lui,il,im)
+  if(il.eq.0) call bort('BUFRLIB: UFBCUP - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il.gt.0) call bort('BUFRLIB: UFBCUP - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(im.eq.0) call bort('BUFRLIB: UFBCUP - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+  if(inode(lui).ne.inv(1,lui)) call bort('BUFRLIB: UFBCUP - LOCATION OF INTERNAL TABLE FOR '// &
+    'INPUT BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN INTERNAL SUBSET ARRAY')
+
+  call status(lubot,luo,il,im)
+  if(il.eq.0) call bort('BUFRLIB: UFBCUP - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
+  if(il.lt.0) call bort('BUFRLIB: UFBCUP - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
+  if(im.eq.0) call bort('BUFRLIB: UFBCUP - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
+
+  ! Make a list of unique tags in the input buffer
+
+  ntag = 0
+
+  outer1: do ni=1,nval(lui)
+    nin = inv(ni,lui)
+    if(itp(nin).ge.2) then
+      do nv=1,ntag
+        if(ttmp(nv).eq.tag(nin)) cycle outer1
+      enddo
+      ntag = ntag+1
+      itmp(ntag) = ni
+      ttmp(ntag) = tag(nin)
+    endif
+  enddo outer1
+
+  if(ntag.eq.0) call bort('BUFRLIB: UFBCUP - THERE ARE NO ELEMENTS (TAGS) IN INPUT SUBSET BUFFER')
+
+  ! Now, using the list of unique tags, make one copy of the common elements to the output buffer
+
+  outer2: do nv=1,ntag
+    ni = itmp(nv)
+    do no=1,nval(luo)
+      tago = tag(inv(no,luo))
+      if(ttmp(nv).eq.tago) then
+        val(no,luo) = val(ni,lui)
+        cycle outer2
+      endif
+    enddo
+  enddo outer2
+
+  return
+end subroutine ufbcup

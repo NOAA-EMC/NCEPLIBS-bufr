@@ -887,16 +887,14 @@ end subroutine upds3
 !> @author J. Woollen @date 1998-07-08
 recursive subroutine datelen(len)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, lendat
 
   implicit none
 
   integer, intent(in) :: len
-  integer my_len, lendat
+  integer my_len
 
   character*128 bort_str
-
-  common /dateln/ lendat
 
   ! Check for I8 integers
 
@@ -1022,15 +1020,13 @@ end subroutine datebf
 !> @author J. Ator @date 2005-11-29
 recursive integer function igetdate(mbay,iyr,imo,idy,ihr) result(iret)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, lendat
 
   implicit none
 
   integer, intent(in) :: mbay(*)
   integer, intent(out) :: iyr, imo, idy, ihr
-  integer lendat, iupbs01
-
-  common /dateln/ lendat
+  integer iupbs01
 
   ! Check for I8 integers.
 
@@ -1442,3 +1438,171 @@ subroutine cktaba(lun,subset,jdate,iret)
 
   return
 end subroutine cktaba
+
+!> Return the message type (from Section 1) and message compression
+!> indicator (from Section 3) of a BUFR message.
+!>
+!> @author D. Keyser @date 2003-11-04
+!>
+!> The message to be examined is obtained in one of two different
+!> ways, depending on the sign of lunin:
+!> - If lunin > 0, the subroutine reads and examines Section 1 of each
+!> message in a BUFR file starting from the beginning of the file, and
+!> continuing until it reaches the first message which actually contains
+!> report data.  This means it will skip any messages containing DX BUFR
+!> table information, as well as any "dummy" messages containing the
+!> dump center time or dump initiation time within NCEP dump files.
+!> It then returns the message type and compression indicator from the
+!> first message containing report data.  When used this way, the
+!> BUFR file in question should not have already been opened via a call
+!> to subroutine openbf(), though it should already be associated with
+!> Fortran logical unit number lunin.  In this situation, the
+!> subroutine is similar to subroutine mesgbf(), except that mesgbf()
+!> doesn't skip past any "dummy" messages within NCEP dump files, nor
+!> does it return a compression indicator.
+!> - If lunin < 0, the subroutine simply returns the message type and
+!> compression indicator for the BUFR message currently stored in the
+!> internal arrays via the most recent call to one of the
+!> [message-reading subroutines](@ref hierarchy) for Fortran logical
+!> unit number abs(lunin).
+!>
+!> @param lunin - Absolute value is Fortran logical unit number for BUFR file
+!> @param mesgtyp - Message type
+!> - When lunin > 0, a mesgtyp value of -256 means that there was an error reading the BUFR file, or that no messages were
+!> read from the file.  Otherwise, any other mesgtyp value < 0 means that none of the messages in the BUFR file contained
+!> any report data.
+!> @param icomp - Message compression indicator
+!> - -3 = BUFR file does not exist
+!> - -2 = none of the messages in the BUFR file contained any report data
+!> - 0 = message is not compressed
+!> - 1 = message is compressed
+!>
+!> @author D. Keyser @date 2003-11-04
+recursive subroutine mesgbc(lunin,mesgtyp,icomp)
+
+  use modv_vars, only: im8b
+
+  use moda_bitbuf
+  use moda_mgwa
+
+  implicit none
+
+  integer, intent(in) :: lunin
+  integer, intent(out) :: mesgtyp, icomp
+  integer my_lunin, lunit, irec, ier, i, lun, il, im, iupbs01, iupbs3, idxmsg
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+    call x84(lunin,my_lunin,1)
+    call mesgbc(my_lunin,mesgtyp,icomp)
+    call x48(mesgtyp,mesgtyp,1)
+    call x48(icomp,icomp,1)
+    im8b=.true.
+    return
+  endif
+
+  mesgtyp = -256
+
+  lunit = abs(lunin)
+
+  if(lunit.eq.lunin) then
+    ! Open the file, read past any DX BUFR tables and "dummy" messages, and return the first message type found
+    irec = 0
+    call openbf(lunit,'INX',lunit)
+    do while (.true.)
+      call rdmsgw(lunit,mgwa,ier)
+      if(ier.eq.-1) then
+        if(irec.eq.0) then
+          mesgtyp = -256
+          icomp = -3
+        else
+          if(mesgtyp.ge.0) mesgtyp = -mesgtyp
+          icomp = -2
+        endif
+        call closbf(lunit)
+        return
+      endif
+      irec = irec + 1
+      mesgtyp = iupbs01(mgwa,'MTYP')
+      if( (idxmsg(mgwa).ne.1) .and. (iupbs3(mgwa,'NSUB').ne.0) ) exit
+    enddo
+    call closbf(lunit)
+  else
+    ! Return message type for message currently stored in memory
+    call status(lunit,lun,il,im)
+    do i=1,12
+      mgwa(i) = mbay(i,lun)
+    enddo
+    mesgtyp = iupbs01(mgwa,'MTYP')
+  end if
+
+  ! Set the compression switch
+  icomp = iupbs3(mgwa,'ICMP')
+
+  return
+end subroutine mesgbc
+
+!> Read through a BUFR file (starting from the beginning
+!> of the file) and return the message type (from Section 1) of the
+!> first message encountered which does not contain DX BUFR table
+!> information.
+!>
+!> The BUFR file should not have already been opened via a call
+!> to subroutine openbf(); however, it should already be associated
+!> with Fortran logical unit number lunit.
+!>
+!> This subroutine is similar to subroutine mesgbc(), except that
+!> this subroutine will only skip past DX BUFR table messages at the
+!> beginning of a file, whereas mesgbc() will also skip past any "dummy"
+!> messages containing the dump center time or dump initiation time
+!> within NCEP dump files.  Furthermore, mesgbc() also returns a
+!> message compression indicator, and it also has an option to operate
+!> on a BUFR message that has already been read into the internal arrays.
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param mesgtyp - Message type
+!>    - -1 = error reading the BUFR file, or no messages were read from the file
+!>    - 11 = BUFR file only contained DX BUFR table messages
+!>
+!> @author J. Woollen @date 1994-01-06
+recursive subroutine mesgbf(lunit,mesgtyp)
+
+  use modv_vars, only: im8b
+
+  use moda_mgwa
+
+  implicit none
+
+  integer, intent(in) :: lunit
+  integer, intent(out) :: mesgtyp
+  integer my_lunit, ier, iupbs01, idxmsg
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+    call x84(lunit,my_lunit,1)
+    call mesgbf(my_lunit,mesgtyp)
+    call x48(mesgtyp,mesgtyp,1)
+    im8b=.true.
+    return
+  endif
+
+  mesgtyp = -1
+
+  call openbf(lunit,'INX',lunit)
+
+  do while (.true.)
+    call rdmsgw(lunit,mgwa,ier)
+    if(ier.eq.0) then
+      mesgtyp = iupbs01(mgwa,'MTYP')
+      if(idxmsg(mgwa).ne.1) exit
+    endif
+  enddo
+
+  call closbf(lunit)
+
+  return
+end subroutine mesgbf
