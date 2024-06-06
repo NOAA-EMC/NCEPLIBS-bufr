@@ -1480,3 +1480,116 @@ subroutine usrtpl(lun,invn,nbmp)
 
   return
 end subroutine usrtpl
+
+!> Merge parts of data subsets which have duplicate space and time coordinates but different or unique observational data.
+!>
+!> @param lubfi - Fortran logical unit number for input BUFR file
+!> @param lubfj - Fortran logical unit number for output BUFR file
+!>
+!> Logical unit lubfi should have already been opened for input operations via a previous call to subroutine openbf().
+!>
+!> Logical unit lubfj should have already been opened for output operations via a previous call to subroutine openbf().
+!>
+!> @remarks
+!> - This subroutine cannot merge parts of data subsets which are contained within replication sequences.
+!>
+!> @author J. Woollen @date 1996-10-09
+recursive subroutine invmrg(lubfi,lubfj)
+
+  use modv_vars, only: im8b
+
+  use moda_usrint
+  use moda_tables
+
+  implicit none
+
+  integer, intent(in) :: lubfi, lubfj
+  integer nrpl, nmrg, namb, ntot, my_lubfi, my_lubfj, luni, il, im, lunj, jl, jm, is, js, node, nodj, ityp, iwrds, jwrds, &
+    n, ioff, nwords, ibfms
+
+  character*128 bort_str
+
+  logical herei, herej, missi, missj, samei
+
+  common /mrgcom/ nrpl, nmrg, namb, ntot
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+    call x84(lubfi,my_lubfi,1)
+    call x84(lubfj,my_lubfj,1)
+    call invmrg(my_lubfi,my_lubfj)
+    im8b=.true.
+    return
+  endif
+
+  is = 1
+  js = 1
+
+  ! Get the unit pointers
+
+  call status(lubfi,luni,il,im)
+  call status(lubfj,lunj,jl,jm)
+
+  ! Step through the buffers comparing the inventory and merging data
+
+  do while(is.le.nval(luni))
+    ! Confirm we're at the same node in each buffer
+    node = inv(is,luni)
+    nodj = inv(js,lunj)
+    if(node.ne.nodj) then
+      write(bort_str,'("BUFRLIB: INVMRG - NODE FROM INPUT BUFR FILE '// &
+        '(",I7,") DOES NOT EQUAL NODE FROM OUTPUT BUFR FILE (",I7,"), TABULAR MISMATCH")') node, nodj
+      call bort(bort_str)
+    endif
+
+    ityp = itp(node)
+    if(ityp.eq.1) then
+      ! Do an entire sequence replacement
+      if(typ(node).eq.'DRB') then
+        ioff = 0
+      else
+        ioff = 1
+      endif
+      iwrds = nwords(is,luni)+ioff
+      jwrds = nwords(js,lunj)+ioff
+      if(iwrds.gt.ioff .and. jwrds.eq.ioff) then
+        do n=nval(lunj),js+1,-1
+          inv(n+iwrds-jwrds,lunj) = inv(n,lunj)
+          val(n+iwrds-jwrds,lunj) = val(n,lunj)
+        enddo
+        do n=0,iwrds
+          inv(js+n,lunj) = inv(is+n,luni)
+          val(js+n,lunj) = val(is+n,luni)
+        enddo
+        nval(lunj) = nval(lunj)+iwrds-jwrds
+        jwrds = iwrds
+        nrpl = nrpl+1
+      endif
+      is = is+iwrds
+      js = js+jwrds
+    elseif((ityp.eq.2).or.(ityp.eq.3)) then
+      ! Fill missing values
+      herei = ibfms(val(is,luni)).eq.0
+      herej = ibfms(val(js,lunj)).eq.0
+      missi = .not.(herei)
+      missj = .not.(herej)
+      samei = val(is,luni).eq.val(js,lunj)
+      if(herei.and.missj) then
+        val(js,lunj) = val(is,luni)
+        nmrg = nmrg+1
+      elseif(herei.and.herej.and..not.samei) then
+        namb = namb+1
+      endif
+    endif
+
+    ! Bump the counters and go check the next pair
+    is = is + 1
+    js = js + 1
+  enddo
+
+  ntot = ntot+1
+
+  return
+end subroutine invmrg

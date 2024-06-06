@@ -505,3 +505,39 @@ integer function iokoper(nemo) result(iret)
 
   return
 end function iokoper
+
+!> Print a summary of merge activity.
+!>
+!> @author J. Woollen @date 1996-10-09
+subroutine mrginv
+
+  implicit none
+
+  integer nrpl, nmrg, namb, ntot, iprt
+
+  character*128 errstr
+
+  common /mrgcom/ nrpl, nmrg, namb, ntot
+  common /quiet/ iprt
+
+  if(iprt.ge.0) then
+    call errwrt('+++++++++++++++++++++BUFRLIB+++++++++++++++++++++++')
+    call errwrt('---------------------------------------------------')
+    call errwrt('INVENTORY FROM MERGE PROCESS IN SUBROUTINE INVMRG:')
+    call errwrt('---------------------------------------------------')
+    write ( unit=errstr, fmt='(A,I8)' ) 'NUMBER OF DRB EXPANSIONS  = ', nrpl
+    call errwrt(errstr)
+    write ( unit=errstr, fmt='(A,I8)' ) 'NUMBER OF MERGES          = ', nmrg
+    call errwrt(errstr)
+    write ( unit=errstr, fmt='(A,I8)' ) 'NUMBER THAT ARE AMBIGUOUS = ', namb
+    call errwrt(errstr)
+    call errwrt('---------------------------------------------------')
+    write ( unit=errstr, fmt='(A,I9)' ) 'TOTAL NUMBER OF VISITS    = ', ntot
+    call errwrt(errstr)
+    call errwrt('---------------------------------------------------')
+    call errwrt('+++++++++++++++++++++BUFRLIB+++++++++++++++++++++++')
+    call errwrt(' ')
+  endif
+
+  return
+end subroutine mrginv
