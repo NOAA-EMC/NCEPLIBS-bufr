@@ -1470,3 +1470,163 @@ integer function invcon(nc,lun,inv1,inv2) result(iret)
 
   return
 end function invcon
+
+!> Compute the ending index of the window.
+!>
+!> Given an index within the internal jump/link table which
+!> points to the start of an "RPC" window (which is the iteration of an 8-bit
+!> or 16-bit delayed replication sequence), this subroutine computes
+!> the ending index of the window.  Alternatively, if the given index
+!> points to the start of a "SUB" window (which is the first node of a
+!> subset), then the subroutine returns the index of the last node.
+!>
+!> See the docblock in subroutine getwin() for an explanation of "windows" within the context of a BUFR data subset.
+!>
+!> @param lun - File ID
+!> @param iwin - Starting index of window iteration
+!> @param jwin - Ending index of window iteration
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine newwin(lun,iwin,jwin)
+
+  use moda_usrint
+
+  implicit none
+
+  integer, intent(in) :: lun, iwin
+  integer, intent(out) :: jwin
+  integer node, lstjpb
+
+  character*128 bort_str
+
+  if(iwin.eq.1) then
+    ! This is a "SUB" (subset) node, so return jwin as pointing to the last value of the entire subset.
+    jwin = nval(lun)
+    return
+  endif
+
+  ! Confirm that iwin points to an "RPC" node and then compute jwin.
+  node = inv(iwin,lun)
+  if(lstjpb(node,lun,'RPC').ne.node) then
+    write(bort_str,'("BUFRLIB: NEWWIN - LSTJPB FOR NODE",I6,'// &
+      '" (LSTJPB=",I5,") DOES NOT EQUAL VALUE OF NODE, NOT RPC (IWIN =",I8,")")') node, lstjpb(node,lun,'RPC'), iwin
+    call bort(bort_str)
+  endif
+  jwin = iwin+nint(val(iwin,lun))
+
+  return
+end subroutine newwin
+
+!> Compute the start and end indices of the next window.
+!>
+!> Given indices within the internal jump/link table which
+!> point to the start and end of an "RPC" window (which is an iteration of
+!> an 8-bit or 16-bit delayed replication sequence), this subroutine
+!> computes the start and end indices of the next sequential window.
+!>
+!> See the docblock in subroutine getwin() for an explanation of "windows" within the context of a BUFR data subset.
+!>
+!> @param lun - File ID
+!> @param iwin - Starting index:
+!>  - On input, contains starting index of current window iteration.
+!>  - On output, contains starting index of next window iteration.
+!> @param jwin - Ending index:
+!>  - On input, contains ending index of current window iteration.
+!>  - On output, contains ending index of next window iteration.
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine nxtwin(lun,iwin,jwin)
+
+  use moda_usrint
+
+  implicit none
+
+  integer, intent(in) :: lun
+  integer, intent(inout) :: iwin, jwin
+  integer node, lstjpb
+
+  character*128 bort_str
+
+  if(jwin.eq.nval(lun)) then
+    iwin = 0
+    return
+  endif
+
+  node = inv(iwin,lun)
+  if(lstjpb(node,lun,'RPC').ne.node) then
+    write(bort_str,'("BUFRLIB: NXTWIN - LSTJPB FOR NODE",I6," '// &
+      '(LSTJPB=",I5,") DOES NOT EQUAL VALUE OF NODE, NOT RPC (IWIN =",I8,")")') node, lstjpb(node,lun,'RPC'), iwin
+    call bort(bort_str)
+  endif
+  if(val(jwin,lun).eq.0) then
+    iwin = 0
+  else
+    iwin = jwin
+    jwin = iwin+nint(val(iwin,lun))
+  endif
+
+  return
+end subroutine nxtwin
+
+!> Search for all occurrences of a specified node within a specified portion of the current data subset.
+!>
+!> Search for and return all occurrences of a
+!> specified node within the portion of the current subset buffer
+!> bounded by the indices inv1 and inv2. The resulting list is a
+!> stack of "event" indices for the requested node.
+!>
+!> @param node - Jump/link table index to look for
+!> @param lun - File ID
+!> @param inv1 - Starting index of the portion of the subset buffer in which to look
+!> @param inv2 - Ending index of the portion of the subset buffer in which to look
+!> @param invn - Array of stack "event" indices for node
+!> @param nmax - Dimensioned size of invn; used by the function to ensure that it doesn't overflow the invn array
+!>
+!> @return - Number of indices within invn.
+!>
+!> @author Woollen @date 1994-01-06
+integer function nvnwin(node,lun,inv1,inv2,invn,nmax) result(iret)
+
+  use moda_usrint
+
+  implicit none
+
+  integer, intent(in) :: node, lun, inv1, inv2, nmax
+  integer, intent(out) :: invn(*)
+  integer iprt, i, n
+
+  character*128 bort_str
+
+  common /quiet/ iprt
+
+  iret = 0
+
+  if(node.eq.0) then
+    if(iprt.ge.1) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt('BUFRLIB: NVNWIN - NODE=0, IMMEDIATE RETURN')
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+    return
+  endif
+
+  do i=1,nmax
+    invn(i) = 1E9
+  enddo
+
+  ! Search between inv1 and inv2
+
+  do n=inv1,inv2
+    if(inv(n,lun).eq.node) then
+      if(iret+1.gt.nmax) then
+        write(bort_str,'("BUFRLIB: NVNWIN - THE NUMBER OF EVENTS EXCEEDS THE LIMIT NMAX (",I5,")")') nmax
+        call bort(bort_str)
+      endif
+      iret = iret+1
+      invn(iret) = n
+    endif
+  enddo
+
+  return
+end function nvnwin
