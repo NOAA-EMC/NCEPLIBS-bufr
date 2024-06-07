@@ -1,5 +1,5 @@
 !> @file
-!> @brief Build the internal jump/link table.
+!> @brief Read or write jump/link table information.
 !>
 !> @author J. Woollen @date 1994-01-06
 
@@ -1170,3 +1170,99 @@ recursive subroutine gettagpr ( lunit, tagch, ntagch, tagpr, iret )
 
   return
 end subroutine gettagpr
+
+!> Search for a specified mnemonic within a specified portion of the current data subset.
+!>
+!> This function is similar to library function invwin(),
+!> except that invwin() searches based on the actual node within the
+!> internal jump/link table, rather than on the mnemonic corresponding
+!> to that node.
+!>
+!> @param node - Jump/link table index of mnemonic to look for
+!> @param lun - File ID
+!> @param inv1 - Starting index of the portion of the subset buffer in which to look
+!> @param inv2 - Ending index of the portion of the subset buffer in which to look
+!>
+!> @return - Location index of node within specified portion of subset buffer:
+!> - 0 = Not found
+!>
+!> @author Woollen @date 1994-01-06
+integer function invtag(node,lun,inv1,inv2) result(iret)
+
+  use moda_usrint
+  use moda_tables
+
+  implicit none
+
+  integer, intent(in) :: node, lun, inv1, inv2
+  integer iprt
+
+  character*10 tagn
+
+  common /quiet/ iprt
+
+  if(node.ne.0) then
+    tagn = tag(node)
+    ! Search between inv1 and inv2
+    do iret=inv1,inv2
+      if(tag(inv(iret,lun)).eq.tagn) return
+    enddo
+  endif
+
+  iret = 0
+
+  if(iprt.ge.2) then
+    call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+    call errwrt('BUFRLIB: INVTAG - RETURNING WITH A VALUE OF 0')
+    call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+    call errwrt(' ')
+  endif
+
+  return
+end function invtag
+
+!> Search for a specified node within a specified portion of the current data subset.
+!>
+!> This function is similar to library function invtag(), except that
+!> invtag() searches based on the mnemonic corresponding to the node.
+!>
+!> @param node - Jump/link table index to look for
+!> @param lun - File ID
+!> @param inv1 - Starting index of the portion of the subset buffer in which to look
+!> @param inv2 - Ending index of the portion of the subset buffer in which to look
+!>
+!> @return - Location index of node within specified portion of subset buffer:
+!> - 0 = Not found
+!>
+!> @author Woollen @date 1994-01-06
+integer function invwin(node,lun,inv1,inv2) result(iret)
+
+  use moda_usrint
+
+  implicit none
+
+  integer, intent(in) :: node, lun, inv1, inv2
+  integer iprt, idx
+
+  character*80 errstr
+
+  common /quiet/ iprt
+
+  iret = 0
+  if(node.ne.0) then
+    ! Search between inv1 and inv2
+    do idx=inv1,inv2
+      if(inv(idx,lun).eq.node) then
+        iret = idx
+        exit
+      endif
+    enddo
+  endif
+
+  if(iprt>=3) then
+    write(errstr,'(a,3i8)') 'invwin i1,i2,in ', inv1, inv2, iret
+    call errwrt(errstr)
+  endif
+
+  return
+end function invwin

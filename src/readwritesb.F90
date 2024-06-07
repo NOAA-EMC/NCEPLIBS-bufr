@@ -1593,3 +1593,29 @@ recursive subroutine invmrg(lubfi,lubfj)
 
   return
 end subroutine invmrg
+
+!> Compute the length of a specified delayed replication sequence within a data subset.
+!>
+!> @param n - Starting index of delayed replication sequence
+!> @param lun - File ID
+!>
+!> @return Complete length of delayed replication sequence within data subset
+!>
+!> @author Woollen @date 1996-10-09
+integer function nwords(n,lun) result(iret)
+
+  use moda_usrint
+
+  implicit none
+
+  integer, intent(in) :: n, lun
+  integer k
+
+  iret = 0
+
+  do k=1,nint(val(n,lun))
+    iret = iret + nint(val(iret+n+1,lun))
+  enddo
+
+  return
+end function nwords

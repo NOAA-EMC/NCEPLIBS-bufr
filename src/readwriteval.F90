@@ -2860,3 +2860,72 @@ recursive subroutine ufbget(lunit,tab,i1,iret,str)
 
   return
 end subroutine ufbget
+
+!> Read one or more data values from a stacked data event within a specified portion of the current data subset.
+!>
+!> Search for all stacked data events within the portion of the current
+!> subset buffer bounded by the indices inv1 and inv2.  All such
+!> events are accumulated and returned to the calling program within
+!> array usr.  The value of the function itself is the total number
+!> of events found.
+!>
+!> @param node - Jump/link table index of node for which to return stacked values
+!> @param lun  - File ID
+!> @param inv1 - Starting index of the portion of the subset buffer in which to look for stack values
+!> @param inv2 - Ending index of the portion of the subset buffer in which to look for stack values
+!> @param i1 - First dimension of usr as allocated within the calling program
+!> @param i2 - Second dimension of usr as allocated within the calling program
+!> @param i3 - Third dimension of usr as allocated within the calling program
+!> @param usr - Starting address of data values read from data subset; events are returned in the third dimension for a
+!> particular data value and level in the first and second dimensions
+!> @returns - Number of events in stack (must be less than or equal to i3)
+!>
+!> @note: This routine should only be called by routine ufbin3(), which itself is called only by verification
+!> application program gridtobs, where it was previously an in-line subroutine.  In general, nevn() does not work
+!> properly in other application programs at this time.
+!>
+!> @author J. Woollen @date 2003-11-04
+integer function nevn(node,lun,inv1,inv2,i1,i2,i3,usr) result(iret)
+
+  use moda_usrint
+
+  implicit none
+
+  integer, intent(in) :: node, lun, inv1, inv2, i1, i2, i3
+  integer ndrs, invn, n1, n2, l, n, invwin, lstjpb
+
+  character*128 bort_str
+
+  real*8, intent(out) :: usr(i1,i2,i3)
+
+  iret = 0
+
+  ! Find the enclosing event stack descriptor
+
+  ndrs = lstjpb(node,lun,'DRS')
+  if(ndrs.le.0) return
+
+  invn = invwin(ndrs,lun,inv1,inv2)
+  if(invn.eq.0) call bort('BUFRLIB: iret - CAN''T FIND THE EVENT STACK!!!!!!')
+
+  iret = nint(val(invn,lun))
+  if(iret.gt.i3) then
+    write(bort_str,'("BUFRLIB: NEVN - THE NO. OF EVENTS FOR THE '// &
+      'REQUESTED STACK (",I3,") EXCEEDS THE VALUE OF THE 3RD DIM. OF THE USR ARRAY (",I3,")")') iret, i3
+    call bort(bort_str)
+  endif
+
+  ! Search each stack level for the requested node and copy the value
+
+  n2 = invn + 1
+
+  do l=1,iret
+    n1 = n2
+    n2 = n2 + nint(val(n1,lun))
+    do n=n1,n2
+      if(inv(n,lun).eq.node) usr(1,1,l) = val(n,lun)
+    enddo
+  enddo
+
+  return
+end function nevn
