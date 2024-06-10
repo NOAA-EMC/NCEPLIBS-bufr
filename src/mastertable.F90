@@ -1,5 +1,5 @@
 !> @file
-!> @brief Read master table information.
+!> @brief Read or write master table information.
 !>
 !> @author J. Ator @date 2009-03-23
 

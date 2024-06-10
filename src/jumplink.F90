@@ -1,5 +1,5 @@
 !> @file
-!> @brief Build the internal jump/link table.
+!> @brief Read or write jump/link table information.
 !>
 !> @author J. Woollen @date 1994-01-06
 
@@ -1170,3 +1170,463 @@ recursive subroutine gettagpr ( lunit, tagch, ntagch, tagpr, iret )
 
   return
 end subroutine gettagpr
+
+!> Search for a specified mnemonic within a specified portion of the current data subset.
+!>
+!> This function is similar to function invwin(),
+!> except that invwin() searches based on the actual node within the
+!> internal jump/link table, rather than on the mnemonic corresponding
+!> to that node.
+!>
+!> @param node - Jump/link table index of mnemonic to look for
+!> @param lun - File ID
+!> @param inv1 - Starting index of the portion of the subset buffer in which to look
+!> @param inv2 - Ending index of the portion of the subset buffer in which to look
+!>
+!> @return - Location index of node within specified portion of subset buffer:
+!> - 0 = Not found
+!>
+!> @author Woollen @date 1994-01-06
+integer function invtag(node,lun,inv1,inv2) result(iret)
+
+  use moda_usrint
+  use moda_tables
+
+  implicit none
+
+  integer, intent(in) :: node, lun, inv1, inv2
+  integer iprt
+
+  character*10 tagn
+
+  common /quiet/ iprt
+
+  if(node.ne.0) then
+    tagn = tag(node)
+    ! Search between inv1 and inv2
+    do iret=inv1,inv2
+      if(tag(inv(iret,lun)).eq.tagn) return
+    enddo
+  endif
+
+  iret = 0
+
+  if(iprt.ge.2) then
+    call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+    call errwrt('BUFRLIB: INVTAG - RETURNING WITH A VALUE OF 0')
+    call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+    call errwrt(' ')
+  endif
+
+  return
+end function invtag
+
+!> Search for a specified node within a specified portion of the current data subset.
+!>
+!> This function is similar to function invtag(), except that
+!> invtag() searches based on the mnemonic corresponding to the node.
+!>
+!> @param node - Jump/link table index to look for
+!> @param lun - File ID
+!> @param inv1 - Starting index of the portion of the subset buffer in which to look
+!> @param inv2 - Ending index of the portion of the subset buffer in which to look
+!>
+!> @return - Location index of node within specified portion of subset buffer:
+!> - 0 = Not found
+!>
+!> @author Woollen @date 1994-01-06
+integer function invwin(node,lun,inv1,inv2) result(iret)
+
+  use moda_usrint
+
+  implicit none
+
+  integer, intent(in) :: node, lun, inv1, inv2
+  integer iprt, idx
+
+  character*80 errstr
+
+  common /quiet/ iprt
+
+  iret = 0
+  if(node.ne.0) then
+    ! Search between inv1 and inv2
+    do idx=inv1,inv2
+      if(inv(idx,lun).eq.node) then
+        iret = idx
+        exit
+      endif
+    enddo
+  endif
+
+  if(iprt>=3) then
+    write(errstr,'(a,3i8)') 'invwin i1,i2,in ', inv1, inv2, iret
+    call errwrt(errstr)
+  endif
+
+  return
+end function invwin
+
+!> Look for a window containing a specified node within the internal jump/link table.
+!>
+!> Given a node index within the internal jump/link table, this
+!> subroutine looks within the current subset buffer for a "window"
+!> (see below remarks) which contains this node. If found, it returns
+!> the starting and ending indices of this window within the current
+!> subset buffer. For example, if the node is found within the subset
+!> but is not part of a delayed replication sequence, then the returned
+!> indices define the start and end of the entire subset buffer.
+!> Otherwise, the returned indices define the start and end of the next
+!> available delayed replication sequence iteration which contains the
+!> node. If no further iterations of the sequence can be found, then
+!> the starting index is returned with a value of zero.
+!>
+!> @note
+!> This is one of a number of subroutines which operate on "windows"
+!> (i.e. contiguous portions) of the internal subset buffer. The
+!> subset buffer is an array of values arranged according to the
+!> overall template definition for a subset. A window can be any
+!> contiguous portion of the subset buffer up to and including the
+!> entire subset buffer itself. For the purposes of these "window
+!> operator" subroutines, a window essentially consists of all of the
+!> elements within a particular delayed replication group, since such
+!> groups effectively define the dimensions within a BUFR subset for
+!> subroutines such as ufbint(), ufbin3(), etc.
+!> which read/write individual data values. A BUFR subset with no
+!> delayed replication groups is considered to have only one
+!> dimension, and therefore only one "window" which spans the entire
+!> subset. On the other hand, each delayed replication sequence
+!> within a BUFR subset consists of some number of "windows", which
+!> are a de-facto second dimension of the subset and where the number
+!> of windows is the delayed descriptor replication factor (i.e. the
+!> number of iterations) of the sequence. If nested delayed
+!> replication is used, then there may be three or more dimensions
+!> within the subset.
+!>
+!> @param node - Jump/link table index of mnemonic to look for
+!> @param lun - File ID
+!> @param iwin - Starting index of the current window iteration which contains node
+!>     - 0 = Not found or no more iterations available
+!> @param jwin - Ending index of the current window iteration which contains node
+!>
+!> @author Woollen @date 1994-01-06
+subroutine getwin(node,lun,iwin,jwin)
+
+  use moda_usrint
+
+  implicit none
+
+  integer, intent(in) :: node, lun
+  integer, intent(out) :: iwin, jwin
+  integer irpc, lstjpb, invwin
+
+  character*128 bort_str
+
+  irpc = lstjpb(node,lun,'RPC')
+
+  if(irpc.eq.0) then
+    iwin = invwin(node,lun,jwin,nval(lun))
+    if(iwin.eq.0 .and. jwin.gt.1) return
+    iwin = 1
+    jwin = nval(lun)
+    return
+  else
+    iwin = invwin(irpc,lun,jwin,nval(lun))
+    if(iwin.eq.0) return
+    if(val(iwin,lun).eq.0.) then
+      iwin = 0
+      return
+    endif
+  endif
+
+  jwin = invwin(irpc,lun,iwin+1,nval(lun))
+  if(jwin.eq.0) then
+    write(bort_str,'("BUFRLIB: GETWIN - SEARCHED BETWEEN",I5," AND",I5,", MISSING BRACKET")') iwin+1, nval(lun)
+    call bort(bort_str)
+  endif
+
+  return
+end subroutine getwin
+
+!> Search consecutive subset buffer segments for a conditional node.
+!>
+!> Search consecutive subset buffer segments for an
+!> element identified in the user string as a conditional node. A conditional
+!> node is an element which must meet a condition in order to be read
+!> from or written to a data subset. If a conditional element is
+!> found and it conforms to the condition, then return the internal subset
+!> buffer indices of the "window" (see below).
+!>
+!> The four conditions which can be exercised are:
+!> - '<' - less than
+!> - '>' - greater than
+!> - '=' - equal
+!> - '!' - not equal
+!>
+!> Each condition in a string is applied to one element, and all
+!> conditions are 'and'ed to evaluate an outcome. For example, if the
+!> condition string is: "POB<500 TOB>30 TQM<4" then the only levels of
+!> data read or written are those with pressure less than 500 mb, temperature
+!> greater than 30 degrees, and temperature quality mark less than 4.
+!>
+!> See the docblock in subroutine getwin() for an explanation of "windows" within the context of a BUFR data subset.
+!>
+!> Subroutine conwin() works with function invcon() to identify subset
+!> buffer segments which conform to the set of conditions.
+!>
+!> @param lun - File ID
+!> @param inc1 - Subset buffer start index
+!> @param inc2 - Subset buffer ending index
+!>
+!> @author Woollen @date 1994-01-06
+subroutine conwin(lun,inc1,inc2)
+
+  use moda_usrint
+
+  implicit none
+
+  integer, intent(in) :: lun
+  integer, intent(out) :: inc1, inc2
+  integer nnod, ncon, nods, nodc, ivls, kons, nc, invcon
+
+  common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
+
+  if(ncon.eq.0) then
+    ! There are no condition nodes in the string
+    inc1 = 1
+    inc2 = nval(lun)
+    return
+  endif
+
+  outer: do while (.true.)
+    call getwin(nodc(1),lun,inc1,inc2)
+    if(inc1.gt.0) then
+      do nc=1,ncon
+        if(invcon(nc,lun,inc1,inc2).eq.0) cycle outer
+      enddo
+    endif
+    exit
+  enddo outer
+
+  return
+end subroutine conwin
+
+!> Search a specified window for a conditional node.
+!>
+!> Search a "window" (see below remarks) for an
+!> element identified in the user string as a conditional node.
+!> A conditional node is an element which must meet a condition in order to be
+!> read from or written to a data subset.
+!> If a conditional element is found and it conforms to the
+!> condition, then the index of the element within the window is returned;
+!> otherwise a value of zero is returned.
+!>
+!> See the docblock in subroutine getwin() for an explanation of "windows" within the context of a BUFR data subset.
+!>
+!> @param nc - Condition code:
+!> - 1 = '=' (equal)
+!> - 2 = '!' (not equal)
+!> - 3 = '<' (less than)
+!> - 4 = '>' (greater than)
+!> @param lun - File ID
+!> @param inv1 - First index of window to search
+!> @param inv2 - Last index of window to search
+!>
+!> @return integer: index within window of conditional node
+!> conforming to specified condition.
+!> - 0 none found.
+!>
+!> @author Woollen @date 1994-01-06
+integer function invcon(nc,lun,inv1,inv2) result(iret)
+
+  use moda_usrint
+
+  implicit none
+
+  integer, intent(in) :: nc, lun, inv1, inv2
+  integer nnod, ncon, nods, nodc, ivls, kons, iprt
+
+  common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
+  common /quiet/ iprt
+
+  if(inv1.gt.0 .and. inv1.le.nval(lun) .and. inv2.gt.0 .and. inv2.le.nval(lun)) then
+    do iret=inv1,inv2
+      if(inv(iret,lun).eq.nodc(nc)) then
+        if(kons(nc).eq.1 .and. val(iret,lun).eq.ivls(nc)) return
+        if(kons(nc).eq.2 .and. val(iret,lun).ne.ivls(nc)) return
+        if(kons(nc).eq.3 .and. val(iret,lun).lt.ivls(nc)) return
+        if(kons(nc).eq.4 .and. val(iret,lun).gt.ivls(nc)) return
+      endif
+    enddo
+  endif
+
+  iret = 0
+  if(iprt.ge.2) then
+    call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+    call errwrt('BUFRLIB: INVCON - RETURNING WITH A VALUE OF 0')
+    call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
+    call errwrt(' ')
+  endif
+
+  return
+end function invcon
+
+!> Compute the ending index of the window.
+!>
+!> Given an index within the internal jump/link table which
+!> points to the start of an "RPC" window (which is the iteration of an 8-bit
+!> or 16-bit delayed replication sequence), this subroutine computes
+!> the ending index of the window.  Alternatively, if the given index
+!> points to the start of a "SUB" window (which is the first node of a
+!> subset), then the subroutine returns the index of the last node.
+!>
+!> See the docblock in subroutine getwin() for an explanation of "windows" within the context of a BUFR data subset.
+!>
+!> @param lun - File ID
+!> @param iwin - Starting index of window iteration
+!> @param jwin - Ending index of window iteration
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine newwin(lun,iwin,jwin)
+
+  use moda_usrint
+
+  implicit none
+
+  integer, intent(in) :: lun, iwin
+  integer, intent(out) :: jwin
+  integer node, lstjpb
+
+  character*128 bort_str
+
+  if(iwin.eq.1) then
+    ! This is a "SUB" (subset) node, so return jwin as pointing to the last value of the entire subset.
+    jwin = nval(lun)
+    return
+  endif
+
+  ! Confirm that iwin points to an "RPC" node and then compute jwin.
+  node = inv(iwin,lun)
+  if(lstjpb(node,lun,'RPC').ne.node) then
+    write(bort_str,'("BUFRLIB: NEWWIN - LSTJPB FOR NODE",I6,'// &
+      '" (LSTJPB=",I5,") DOES NOT EQUAL VALUE OF NODE, NOT RPC (IWIN =",I8,")")') node, lstjpb(node,lun,'RPC'), iwin
+    call bort(bort_str)
+  endif
+  jwin = iwin+nint(val(iwin,lun))
+
+  return
+end subroutine newwin
+
+!> Compute the start and end indices of the next window.
+!>
+!> Given indices within the internal jump/link table which
+!> point to the start and end of an "RPC" window (which is an iteration of
+!> an 8-bit or 16-bit delayed replication sequence), this subroutine
+!> computes the start and end indices of the next sequential window.
+!>
+!> See the docblock in subroutine getwin() for an explanation of "windows" within the context of a BUFR data subset.
+!>
+!> @param lun - File ID
+!> @param iwin - Starting index:
+!>  - On input, contains starting index of current window iteration.
+!>  - On output, contains starting index of next window iteration.
+!> @param jwin - Ending index:
+!>  - On input, contains ending index of current window iteration.
+!>  - On output, contains ending index of next window iteration.
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine nxtwin(lun,iwin,jwin)
+
+  use moda_usrint
+
+  implicit none
+
+  integer, intent(in) :: lun
+  integer, intent(inout) :: iwin, jwin
+  integer node, lstjpb
+
+  character*128 bort_str
+
+  if(jwin.eq.nval(lun)) then
+    iwin = 0
+    return
+  endif
+
+  node = inv(iwin,lun)
+  if(lstjpb(node,lun,'RPC').ne.node) then
+    write(bort_str,'("BUFRLIB: NXTWIN - LSTJPB FOR NODE",I6," '// &
+      '(LSTJPB=",I5,") DOES NOT EQUAL VALUE OF NODE, NOT RPC (IWIN =",I8,")")') node, lstjpb(node,lun,'RPC'), iwin
+    call bort(bort_str)
+  endif
+  if(val(jwin,lun).eq.0) then
+    iwin = 0
+  else
+    iwin = jwin
+    jwin = iwin+nint(val(iwin,lun))
+  endif
+
+  return
+end subroutine nxtwin
+
+!> Search for all occurrences of a specified node within a specified portion of the current data subset.
+!>
+!> Search for and return all occurrences of a
+!> specified node within the portion of the current subset buffer
+!> bounded by the indices inv1 and inv2. The resulting list is a
+!> stack of "event" indices for the requested node.
+!>
+!> @param node - Jump/link table index to look for
+!> @param lun - File ID
+!> @param inv1 - Starting index of the portion of the subset buffer in which to look
+!> @param inv2 - Ending index of the portion of the subset buffer in which to look
+!> @param invn - Array of stack "event" indices for node
+!> @param nmax - Dimensioned size of invn; used by the function to ensure that it doesn't overflow the invn array
+!>
+!> @return - Number of indices within invn.
+!>
+!> @author Woollen @date 1994-01-06
+integer function nvnwin(node,lun,inv1,inv2,invn,nmax) result(iret)
+
+  use moda_usrint
+
+  implicit none
+
+  integer, intent(in) :: node, lun, inv1, inv2, nmax
+  integer, intent(out) :: invn(*)
+  integer iprt, i, n
+
+  character*128 bort_str
+
+  common /quiet/ iprt
+
+  iret = 0
+
+  if(node.eq.0) then
+    if(iprt.ge.1) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt('BUFRLIB: NVNWIN - NODE=0, IMMEDIATE RETURN')
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt(' ')
+    endif
+    return
+  endif
+
+  do i=1,nmax
+    invn(i) = 1E9
+  enddo
+
+  ! Search between inv1 and inv2
+
+  do n=inv1,inv2
+    if(inv(n,lun).eq.node) then
+      if(iret+1.gt.nmax) then
+        write(bort_str,'("BUFRLIB: NVNWIN - THE NUMBER OF EVENTS EXCEEDS THE LIMIT NMAX (",I5,")")') nmax
+        call bort(bort_str)
+      endif
+      iret = iret+1
+      invn(iret) = n
+    endif
+  enddo
+
+  return
+end function nvnwin

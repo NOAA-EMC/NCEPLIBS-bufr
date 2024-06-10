@@ -540,9 +540,7 @@ recursive subroutine readlc(lunit,chr,str)
   return
 end subroutine readlc
 
-!> Read or write one or more data values from or to
-!> the BUFR data subset that is currently open within the NCEPLIBS-bufr
-!> internal arrays.
+!> Read or write one or more data values from or to a data subset.
 !>
 !> The direction of the data transfer is determined by the context of abs(lunin):
 !> - If abs(lunin) points to a file that was previously opened for
@@ -790,9 +788,7 @@ recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
   return
 end subroutine ufbint
 
-!> Read or write one or more data values from or to
-!> the BUFR data subset that is currently open within the NCEPLIBS-bufr
-!> internal arrays.
+!> Read or write one or more data values from or to a data subset.
 !>
 !> The direction of the data transfer is determined by the context of abs(lunin):
 !> - If abs(lunin) points to a file that was previously opened for
@@ -1004,9 +1000,7 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
   return
 end subroutine ufbrep
 
-!> Read or write one or more data values from or to
-!> the BUFR data subset that is currently open within the NCEPLIBS-bufr
-!> internal arrays.
+!> Read or write one or more data values from or to a data subset.
 !>
 !> The direction of the data transfer is determined by the context of abs(lunin):
 !> - If abs(lunin) points to a file that was previously opened for
@@ -1216,9 +1210,7 @@ recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
   return
 end subroutine ufbstp
 
-!> Read or write an entire sequence of data values
-!> from or to the BUFR data subset that is currently open within the
-!> NCEPLIBS_bufr internal arrays.
+!> Read or write an entire sequence of data values from or to a data subset.
 !>
 !> The direction of the data transfer is determined by the context of abs(lunin):
 !> - If abs(lunin) points to a file that was previously opened for
@@ -2633,3 +2625,307 @@ recursive subroutine ufbin3(lunit,usr,i1,i2,i3,iret,jret,str)
 
   return
 end subroutine ufbin3
+
+!> Read one or more data values from a specified data subset.
+!>
+!> If logical unit lunit has already been opened for input operations
+!> via a previous call to subroutine openbf(), then this subroutine
+!> will save the current file position, rewind the file to the
+!> beginning, reposition the file to a specified data subset
+!> within a specified message, read one or more specified data values
+!> from that data subset via an internal call to ufbint(), and then
+!> restore the file to its previous position.
+!>
+!> Otherwise, if logical unit lunit has not already been opened for
+!> input operations via a previous call to subroutine openbf(),
+!> then this subroutine will open it via an internal call to
+!> subroutine openbf(), position the file to a specified data subset
+!> within a specified message, read one or more specified data values
+!> from that data subset via an internal call to ufbint(), and then
+!> close the file via an internal call to subroutine closbf().
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param imsg - Number of BUFR message to be read from the
+!> BUFR file, counting from the beginning of the file, but <b>not</b>
+!> counting any DX BUFR table messages which may be present in the file
+!> @param isub - Number of data subset to be read from the
+!> (imsg)th BUFR message, counting from the beginning of the message
+!> @param usr - Data values
+!> @param i1 - First dimension of usr as allocated within the calling program
+!> @param i2 - Second dimension of usr as allocated within the calling program
+!> @param iret - Number of replications of str that were read from the data subset
+!> @param str - String of blank-separated Table B mnemonics in one-to-one correspondence with the number of data values
+!> that will be read from the data subset within the first dimension of usr (see [DX BUFR Tables](@ref dfbftab)
+!> for further information about Table B mnemonics)
+!>
+!> @author Woollen @date 2003-11-04
+recursive subroutine ufbinx(lunit,imsg,isub,usr,i1,i2,iret,str)
+
+  use modv_vars, only: im8b
+
+  use moda_msgcwd
+  use moda_bitbuf
+
+  implicit none
+
+  integer, intent(in) :: lunit, imsg, isub, i1, i2
+  integer, intent(out) :: iret
+  integer my_lunit, my_imsg, my_isub, my_i1, my_i2, lun, il, im, jdate, jret, i
+
+  character*(*), intent(in) :: str
+  character*128 bort_str
+  character*8 subset
+
+  real*8, intent(out) :: usr(i1,i2)
+
+  logical openit
+
+  ! Check for I8 integers
+  if(im8b) then
+    im8b=.false.
+    call x84(lunit,my_lunit,1)
+    call x84(imsg,my_imsg,1)
+    call x84(isub,my_isub,1)
+    call x84(i1,my_i1,1)
+    call x84(i2,my_i2,1)
+    call ufbinx(my_lunit,my_imsg,my_isub,usr,my_i1,my_i2,iret,str)
+    call x48(iret,iret,1)
+    im8b=.true.
+    return
+  endif
+
+  call status(lunit,lun,il,im)
+  openit = il.eq.0
+
+  if(openit) then
+    ! Open BUFR file connected to unit lunit if it isn't already open
+    call openbf(lunit,'INX',lunit)
+  else
+    ! If BUFR file already opened, save position and rewind to first data message
+    call rewnbf(lunit,0)
+  endif
+
+  ! Skip to the requested message
+  do i=1,imsg
+    call readmg(lunit,subset,jdate,jret)
+    if(jret.lt.0) then
+      write(bort_str,'("BUFRLIB: UFBINX - HIT END OF FILE BEFORE '// &
+        'READING REQUESTED MESSAGE NO.",I5," IN BUFR FILE CONNECTED TO UNIT",I4)')  imsg, lunit
+      call bort(bort_str)
+    endif
+  enddo
+
+  ! Position at the requested subset
+  do i=1,isub
+    call readsb(lunit,jret)
+    if(jret.ne.0) then
+      write(bort_str,'("BUFRLIB: UFBINX - ALL SUBSETS READ BEFORE '// &
+        'READING REQ. SUBSET NO.",I3," IN REQ. MSG NO.",I5," IN BUFR FILE CONNECTED TO UNIT",I4)') isub, imsg, lunit
+      call bort(bort_str)
+    endif
+  enddo
+
+  ! Read the requested data values
+  call ufbint(lunit,usr,i1,i2,iret,str)
+
+  if(openit) then
+    ! Close BUFR file if it was opened here
+    call closbf(lunit)
+  else
+    ! Restore BUFR file to its previous status and position
+    call rewnbf(lunit,1)
+  endif
+
+  return
+end subroutine ufbinx
+
+!> Read one or more data values from a data subset without advancing the subset pointer.
+!>
+!> The data values to be read must be one-dimensional (i.e. non-replicated).
+!>
+!> @param lunit - Fortran logical unit number for BUFR file
+!> @param tab - Data values
+!> @param i1 - Size of tab as allocated within the calling program
+!> @param iret - Return code:
+!> - 0 = Normal return
+!> - -1 = There are no more subsets in the BUFR message
+!> @param str - String of blank-separated Table B mnemonics in one-to-one correspondence with the number of data values
+!> that will be read from the data subset into tab
+!>
+!> @author Woollen @date 1994-01-06
+recursive subroutine ufbget(lunit,tab,i1,iret,str)
+
+  use modv_vars, only: im8b, bmiss
+
+  use moda_usrint
+  use moda_usrbit
+  use moda_msgcwd
+  use moda_bitbuf
+  use moda_tables
+
+  implicit none
+
+  integer*8 ival
+  integer, intent(in) :: lunit, i1
+  integer, intent(out) :: iret
+  integer nnod, ncon, nods, nodc, ivls, kons, my_lunit, my_i1, lun, il, im, i, n, node, nbmp, kbit, invn, invwin
+
+  character*(*), intent(in) :: str
+  character*8 cval
+
+  real*8, intent(out) :: tab(i1)
+  real*8 rval, ups
+
+  common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
+
+  equivalence (cval,rval)
+
+  ! Check for I8 integers
+
+  if(im8b) then
+    im8b=.false.
+    call x84(lunit,my_lunit,1)
+    call x84(i1,my_i1,1)
+    call ufbget(my_lunit,tab,my_i1,iret,str)
+    call x48(iret,iret,1)
+    im8b=.true.
+    return
+  endif
+
+  iret = 0
+
+  do i=1,i1
+    tab(i) = bmiss
+  enddo
+
+  ! Make sure a file/message is open for input
+
+  call status(lunit,lun,il,im)
+  if(il.eq.0) call bort('BUFRLIB: UFBGET - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il.gt.0) call bort('BUFRLIB: UFBGET - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(im.eq.0) call bort('BUFRLIB: UFBGET - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+
+  ! See if there's another subset in the message
+
+  if(nsub(lun).eq.msub(lun)) then
+    iret = -1
+    return
+  endif
+
+  ! Parse the string
+
+  call string(str,lun,i1,0)
+
+  ! Expand the template for this subset as little as possible
+
+  n = 1
+  nbit(n) = 0
+  mbit(n) = mbyt(lun)*8 + 16
+  call usrtpl(lun,n,n)
+  do n=n+1,nval(lun)
+    node = inv(n,lun)
+    nbit(n) = ibt(node)
+    mbit(n) = mbit(n-1)+nbit(n-1)
+    if(node.eq.nods(nnod)) then
+      nval(lun) = n
+      exit
+    elseif(itp(node).eq.1) then
+      call upb8(ival,nbit(n),mbit(n),mbay(1,lun))
+      nbmp=int(ival)
+      call usrtpl(lun,n,nbmp)
+    endif
+  enddo
+
+  ! Unpack only the nodes found in the string
+
+  do i=1,nnod
+    node = nods(i)
+    invn = invwin(node,lun,1,nval(lun))
+    if(invn.gt.0) then
+      call upb8(ival,nbit(invn),mbit(invn),mbay(1,lun))
+      if(itp(node).eq.1) then
+        tab(i) = ival
+      elseif(itp(node).eq.2) then
+        if(ival.lt.2_8**(ibt(node))-1) tab(i) = ups(ival,node)
+      elseif(itp(node).eq.3) then
+        cval = ' '
+        kbit = mbit(invn)
+        call upc(cval,nbit(invn)/8,mbay(1,lun),kbit,.true.)
+        tab(i) = rval
+      endif
+    else
+      tab(i) = bmiss
+    endif
+  enddo
+
+  return
+end subroutine ufbget
+
+!> Read one or more data values from a stacked data event within a specified portion of the current data subset.
+!>
+!> Search for all stacked data events within the portion of the current
+!> subset buffer bounded by the indices inv1 and inv2.  All such
+!> events are accumulated and returned to the calling program within
+!> array usr.  The value of the function itself is the total number
+!> of events found.
+!>
+!> @param node - Jump/link table index of node for which to return stacked values
+!> @param lun  - File ID
+!> @param inv1 - Starting index of the portion of the subset buffer in which to look for stack values
+!> @param inv2 - Ending index of the portion of the subset buffer in which to look for stack values
+!> @param i1 - First dimension of usr as allocated within the calling program
+!> @param i2 - Second dimension of usr as allocated within the calling program
+!> @param i3 - Third dimension of usr as allocated within the calling program
+!> @param usr - Starting address of data values read from data subset; events are returned in the third dimension for a
+!> particular data value and level in the first and second dimensions
+!> @returns - Number of events in stack (must be less than or equal to i3)
+!>
+!> @note: This routine should only be called by routine ufbin3(), which itself is called only by verification
+!> application program gridtobs, where it was previously an in-line subroutine.  In general, nevn() does not work
+!> properly in other application programs at this time.
+!>
+!> @author J. Woollen @date 2003-11-04
+integer function nevn(node,lun,inv1,inv2,i1,i2,i3,usr) result(iret)
+
+  use moda_usrint
+
+  implicit none
+
+  integer, intent(in) :: node, lun, inv1, inv2, i1, i2, i3
+  integer ndrs, invn, n1, n2, l, n, invwin, lstjpb
+
+  character*128 bort_str
+
+  real*8, intent(out) :: usr(i1,i2,i3)
+
+  iret = 0
+
+  ! Find the enclosing event stack descriptor
+
+  ndrs = lstjpb(node,lun,'DRS')
+  if(ndrs.le.0) return
+
+  invn = invwin(ndrs,lun,inv1,inv2)
+  if(invn.eq.0) call bort('BUFRLIB: iret - CAN''T FIND THE EVENT STACK!!!!!!')
+
+  iret = nint(val(invn,lun))
+  if(iret.gt.i3) then
+    write(bort_str,'("BUFRLIB: NEVN - THE NO. OF EVENTS FOR THE '// &
+      'REQUESTED STACK (",I3,") EXCEEDS THE VALUE OF THE 3RD DIM. OF THE USR ARRAY (",I3,")")') iret, i3
+    call bort(bort_str)
+  endif
+
+  ! Search each stack level for the requested node and copy the value
+
+  n2 = invn + 1
+
+  do l=1,iret
+    n1 = n2
+    n2 = n2 + nint(val(n1,lun))
+    do n=n1,n2
+      if(inv(n,lun).eq.node) usr(1,1,l) = val(n,lun)
+    enddo
+  enddo
+
+  return
+end function nevn
