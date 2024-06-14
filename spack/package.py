@@ -67,6 +67,7 @@ class Bufr(CMakePackage):
             self.define_from_variant("ENABLE_PYTHON", "python"),
             self.define_from_variant("BUILD_SHARED_LIBS", "shared"),
             self.define("BUILD_TESTS", self.run_tests),
+            self.define("BUILD_TESTING", self.run_tests),
             self.define_from_variant("BUILD_UTILS", "utils"),
         ]
 
