@@ -46,9 +46,9 @@ recursive subroutine copybf(lunin,lunot)
   ! Check BUFR file statuses
 
   call status(lunin,lun,il,im)
-  if(il.ne.0) call bort ('BUFRLIB: COPYBF - INPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')
+  if(il/=0) call bort ('BUFRLIB: COPYBF - INPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')
   call status(lunot,lun,il,im)
-  if(il.ne.0) call bort ('BUFRLIB: COPYBF - OUTPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')
+  if(il/=0) call bort ('BUFRLIB: COPYBF - OUTPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')
 
   ! Connect the files for reading/writing to the C I/O interface
 
@@ -58,9 +58,9 @@ recursive subroutine copybf(lunin,lunot)
   ! Read and copy a BUFR file from unit lunin to unit lunot
 
   ier = 0
-  do while (ier.eq.0)
+  do while (ier==0)
     call rdmsgw(lunin,mgwa,ier)
-    if(ier.eq.0) call msgwrt(lunot,mgwa,iupbs01(mgwa,'LENM'))
+    if(ier==0) call msgwrt(lunot,mgwa,iupbs01(mgwa,'LENM'))
   enddo
 
   ! Free up the file connections for the two files
@@ -135,20 +135,20 @@ recursive subroutine copymg(lunin,lunot)
   ! Check the file statuses
 
   call status(lunin,lin,il,im)
-  if(il.eq.0) call bort('BUFRLIB: COPYMG - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
-  if(il.gt.0) call bort('BUFRLIB: COPYMG - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
-  if(im.eq.0) call bort('BUFRLIB: COPYMG - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+  if(il==0) call bort('BUFRLIB: COPYMG - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il>0) call bort('BUFRLIB: COPYMG - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(im==0) call bort('BUFRLIB: COPYMG - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
 
   call status(lunot,lot,il,im)
-  if(il.eq.0) call bort('BUFRLIB: COPYMG - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
-  if(il.lt.0) call bort('BUFRLIB: COPYMG - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
-  if(im.ne.0) call bort('BUFRLIB: COPYMG - ALL MESSAGES MUST BE CLOSED IN OUTPUT BUFR FILE, A MESSAGE IS OPEN')
+  if(il==0) call bort('BUFRLIB: COPYMG - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
+  if(il<0) call bort('BUFRLIB: COPYMG - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
+  if(im/=0) call bort('BUFRLIB: COPYMG - ALL MESSAGES MUST BE CLOSED IN OUTPUT BUFR FILE, A MESSAGE IS OPEN')
 
   ! Make sure both files have the same tables
 
   subset = tag(inode(lin))(1:8)
   call nemtba(lot,subset,mtyp,msbt,inod)
-  if(inode(lin).ne.inod .and. iok2cpy(lin,lot).ne.1) &
+  if(inode(lin)/=inod .and. iok2cpy(lin,lot)/=1) &
     call bort('BUFRLIB: COPYMG - INPUT AND OUTPUT BUFR FILES MUST HAVE THE SAME INTERNAL TABLES, THEY ARE DIFFERENT HERE')
 
   ! Everything okay, so copy a message
@@ -232,22 +232,22 @@ recursive subroutine copysb(lunin,lunot,iret)
   ! Check the file statuses
 
   call status(lunin,lin,il,im)
-  if(il.eq.0) call bort('BUFRLIB: COPYSB - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
-  if(il.gt.0) call bort('BUFRLIB: COPYSB - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
-  if(im.eq.0) call bort('BUFRLIB: COPYSB - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+  if(il==0) call bort('BUFRLIB: COPYSB - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il>0) call bort('BUFRLIB: COPYSB - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(im==0) call bort('BUFRLIB: COPYSB - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
 
-  if(lunot.gt.0) then
+  if(lunot>0) then
     call status(lunot,lot,il,im)
-    if(il.eq.0) call bort('BUFRLIB: COPYSB - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
-    if(il.lt.0) call bort('BUFRLIB: COPYSB - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
-    if(im.eq.0) call bort('BUFRLIB: COPYSB - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
-    if( (inode(lin).ne.inode(lot)) .and. ( (tag(inode(lin)).ne.tag(inode(lot))) .or. (iok2cpy(lin,lot).ne.1) ) ) &
+    if(il==0) call bort('BUFRLIB: COPYSB - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
+    if(il<0) call bort('BUFRLIB: COPYSB - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
+    if(im==0) call bort('BUFRLIB: COPYSB - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
+    if( (inode(lin)/=inode(lot)) .and. ( (tag(inode(lin))/=tag(inode(lot))) .or. (iok2cpy(lin,lot)/=1) ) ) &
       call bort('BUFRLIB: COPYSB - INPUT AND OUTPUT BUFR FILES MUST HAVE THE SAME INTERNAL TABLES, THEY ARE DIFFERENT HERE')
   endif
 
   ! See if there is another subset in the message
 
-  if(nsub(lin).eq.msub(lin)) then
+  if(nsub(lin)==msub(lin)) then
     iret = -1
     return
   endif
@@ -256,12 +256,12 @@ recursive subroutine copysb(lunin,lunot,iret)
 
   call mesgbc(-lunin, mest, icmp)
 
-  if(icmp.eq.1) then
+  if(icmp==1) then
 
     ! The input message is compressed, so read in the next subset and copy it as compressed to the output message.
 
     call readsb(lunin,iret)
-    if(lunot.gt.0) then
+    if(lunot>0) then
       call ufbcpy(lunin,lunot)
       call cmpmsg('Y')
       call writsb(lunot)
@@ -273,9 +273,9 @@ recursive subroutine copysb(lunin,lunot,iret)
 
     ibit = (mbyt(lin))*8
     call upb(nbyt,16,mbay(1,lin),ibit)
-    if (nbyt.gt.65530) then
+    if (nbyt>65530) then
       ! This is an oversized subset, so we can't rely on the value of nbyt as being the true size (in bytes) of the subset.
-      if ( (nsub(lin).eq.0) .and. (msub(lin).eq.1) ) then
+      if ( (nsub(lin)==0) .and. (msub(lin)==1) ) then
         ! But it's also the first and only subset in the message, so we can determine its true size in a different way.
         call getlens(mbay(1,lin), 4, len0, len1, len2, len3, len4, l5)
         nbyt = len4 - 4
@@ -285,7 +285,7 @@ recursive subroutine copysb(lunin,lunot,iret)
         return
       endif
     endif
-    if(lunot.gt.0) call cpyupd(lunot, lin, lot, nbyt)
+    if(lunot>0) call cpyupd(lunot, lin, lot, nbyt)
     mbyt(lin) = mbyt(lin) + nbyt
     nsub(lin) = nsub(lin) + 1
   endif
@@ -367,7 +367,7 @@ integer function iok2cpy(lui,luo) result(iret)
 
   ! Do both logical units have the same internal table information?
 
-  if ( icmpdx(lui,luo) .eq. 1 ) then
+  if ( icmpdx(lui,luo) == 1 ) then
     iret = 1
     return
   endif
@@ -377,20 +377,20 @@ integer function iok2cpy(lui,luo) result(iret)
 
   subset = tag(inode(lui))(1:8)
   call nemtbax(luo,subset,mtyp,msbt,inod)
-  if ( inod .eq. 0 ) return
+  if ( inod == 0 ) return
 
   ! The Table A mnemonic is defined within the dictionary tables for both units, so now make sure the definitions are identical.
 
   ntei = isc(inode(lui))-inode(lui)
   nteo = isc(inod)-inod
-  if ( ntei .ne. nteo ) return
+  if ( ntei /= nteo ) return
 
   do i = 1, ntei
-    if ( tag(inode(lui)+i) .ne. tag(inod+i) ) return
-    if ( typ(inode(lui)+i) .ne. typ(inod+i) ) return
-    if ( isc(inode(lui)+i) .ne. isc(inod+i) ) return
-    if ( irf(inode(lui)+i) .ne. irf(inod+i) ) return
-    if ( ibt(inode(lui)+i) .ne. ibt(inod+i) ) return
+    if ( tag(inode(lui)+i) /= tag(inod+i) ) return
+    if ( typ(inode(lui)+i) /= typ(inod+i) ) return
+    if ( isc(inode(lui)+i) /= isc(inod+i) ) return
+    if ( irf(inode(lui)+i) /= irf(inod+i) ) return
+    if ( ibt(inode(lui)+i) /= ibt(inod+i) ) return
   enddo
 
   iret = 1
@@ -461,18 +461,18 @@ recursive subroutine cpymem(lunot)
   ! Check the file statuses
 
   call status(munit,lin,il,im)
-  if(im.eq.0) call bort('BUFRLIB: CPYMEM - A MESSAGE MUST BE OPEN IN INPUT BUFR MESSAGES IN INTERNAL MEMORY, NONE ARE')
+  if(im==0) call bort('BUFRLIB: CPYMEM - A MESSAGE MUST BE OPEN IN INPUT BUFR MESSAGES IN INTERNAL MEMORY, NONE ARE')
 
   call status(lunot,lot,il,im)
-  if(il.eq.0) call bort('BUFRLIB: CPYMEM - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
-  if(il.lt.0) call bort('BUFRLIB: CPYMEM - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
-  if(im.ne.0) call bort('BUFRLIB: CPYMEM - ALL MESSAGES MUST BE CLOSED IN OUTPUT BUFR FILE, A MESSAGE IS OPEN')
+  if(il==0) call bort('BUFRLIB: CPYMEM - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
+  if(il<0) call bort('BUFRLIB: CPYMEM - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
+  if(im/=0) call bort('BUFRLIB: CPYMEM - ALL MESSAGES MUST BE CLOSED IN OUTPUT BUFR FILE, A MESSAGE IS OPEN')
 
   ! Make sure both files have the same tables
 
   subset = tag(inode(lin))(1:8)
   call nemtba(lot,subset,mtyp,msbt,inod)
-  if(inode(lin).ne.inod .and. iok2cpy(lin,lot).ne.1) &
+  if(inode(lin)/=inod .and. iok2cpy(lin,lot)/=1) &
     call bort('BUFRLIB: CPYMEM - INPUT BUFR MESSAGES IN INTERNAL MEMORY AND OUTPUT BUFR FILE MUST HAVE SAME INTERNAL '// &
       'TABLES (DIFFERENT HERE)')
 
@@ -529,7 +529,7 @@ subroutine cpyupd(lunit,lin,lun,ibyt)
 
   ! Check whether the new subset should be written into the currently open message
 
-  if(msgfull(mbyt(lun),ibyt,maxbyt) .or. ((ibyt.gt.65530).and.(nsub(lun).gt.0))) then
+  if(msgfull(mbyt(lun),ibyt,maxbyt) .or. ((ibyt>65530).and.(nsub(lun)>0))) then
     ! NO it should not, either because:
     !  1) it doesn't fit,
     !          -- OR --
@@ -570,8 +570,8 @@ subroutine cpyupd(lunit,lin,lun,ibyt)
   ! in this message because their beginning would be beyond the upper limit of 65535 in the 16-bit byte counter, meaning
   ! they could not be located!)
 
-  if(ibyt.gt.65530) then
-    if(iprt.ge.1) then
+  if(ibyt>65530) then
+    if(iprt>=1) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       write ( unit=errstr, fmt='(A,I7,A,A)') 'BUFRLIB: CPYUPD - SUBSET HAS BYTE COUNT = ',ibyt,' > UPPER LIMIT OF 65535'
       call errwrt(errstr)
@@ -638,19 +638,19 @@ recursive subroutine ufbcpy(lubin,lubot)
   ! Check the file statuses and inode
 
   call status(lubin,lui,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFBCPY - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
-  if(il.gt.0) call bort('BUFRLIB: UFBCPY - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
-  if(im.eq.0) call bort('BUFRLIB: UFBCPY - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
-  if(inode(lui).ne.inv(1,lui)) &
+  if(il==0) call bort('BUFRLIB: UFBCPY - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il>0) call bort('BUFRLIB: UFBCPY - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(im==0) call bort('BUFRLIB: UFBCPY - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+  if(inode(lui)/=inv(1,lui)) &
     call bort('BUFRLIB: UFBCPY - LOCATION OF INTERNAL TABLE FOR INPUT BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION '// &
       'IN INTERNAL SUBSET ARRAY')
 
   call status(lubot,luo,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFBCPY - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
-  if(il.lt.0) call bort('BUFRLIB: UFBCPY - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
-  if(im.eq.0) call bort('BUFRLIB: UFBCPY - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
+  if(il==0) call bort('BUFRLIB: UFBCPY - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
+  if(il<0) call bort('BUFRLIB: UFBCPY - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
+  if(im==0) call bort('BUFRLIB: UFBCPY - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
 
-  if( (inode(lui).ne.inode(luo)) .and. ( (tag(inode(lui)).ne.tag(inode(luo))) .or. (iok2cpy(lui,luo).ne.1) ) ) &
+  if( (inode(lui)/=inode(luo)) .and. ( (tag(inode(lui))/=tag(inode(luo))) .or. (iok2cpy(lui,luo)/=1) ) ) &
     call bort('BUFRLIB: UFBCPY - INPUT AND OUTPUT BUFR FILES MUST HAVE THE SAME INTERNAL TABLES, THEY ARE DIFFERENT HERE')
 
   ! Everything okay, so copy user array from lui to luo
@@ -794,16 +794,16 @@ recursive subroutine ufbcup(lubin,lubot)
   ! Check the file statuses and inode
 
   call status(lubin,lui,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFBCUP - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
-  if(il.gt.0) call bort('BUFRLIB: UFBCUP - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
-  if(im.eq.0) call bort('BUFRLIB: UFBCUP - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
-  if(inode(lui).ne.inv(1,lui)) call bort('BUFRLIB: UFBCUP - LOCATION OF INTERNAL TABLE FOR '// &
+  if(il==0) call bort('BUFRLIB: UFBCUP - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il>0) call bort('BUFRLIB: UFBCUP - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(im==0) call bort('BUFRLIB: UFBCUP - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+  if(inode(lui)/=inv(1,lui)) call bort('BUFRLIB: UFBCUP - LOCATION OF INTERNAL TABLE FOR '// &
     'INPUT BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN INTERNAL SUBSET ARRAY')
 
   call status(lubot,luo,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFBCUP - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
-  if(il.lt.0) call bort('BUFRLIB: UFBCUP - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
-  if(im.eq.0) call bort('BUFRLIB: UFBCUP - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
+  if(il==0) call bort('BUFRLIB: UFBCUP - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
+  if(il<0) call bort('BUFRLIB: UFBCUP - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
+  if(im==0) call bort('BUFRLIB: UFBCUP - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
 
   ! Make a list of unique tags in the input buffer
 
@@ -811,9 +811,9 @@ recursive subroutine ufbcup(lubin,lubot)
 
   outer1: do ni=1,nval(lui)
     nin = inv(ni,lui)
-    if(itp(nin).ge.2) then
+    if(itp(nin)>=2) then
       do nv=1,ntag
-        if(ttmp(nv).eq.tag(nin)) cycle outer1
+        if(ttmp(nv)==tag(nin)) cycle outer1
       enddo
       ntag = ntag+1
       itmp(ntag) = ni
@@ -821,7 +821,7 @@ recursive subroutine ufbcup(lubin,lubot)
     endif
   enddo outer1
 
-  if(ntag.eq.0) call bort('BUFRLIB: UFBCUP - THERE ARE NO ELEMENTS (TAGS) IN INPUT SUBSET BUFFER')
+  if(ntag==0) call bort('BUFRLIB: UFBCUP - THERE ARE NO ELEMENTS (TAGS) IN INPUT SUBSET BUFFER')
 
   ! Now, using the list of unique tags, make one copy of the common elements to the output buffer
 
@@ -829,7 +829,7 @@ recursive subroutine ufbcup(lubin,lubot)
     ni = itmp(nv)
     do no=1,nval(luo)
       tago = tag(inv(no,luo))
-      if(ttmp(nv).eq.tago) then
+      if(ttmp(nv)==tago) then
         val(no,luo) = val(ni,lui)
         cycle outer2
       endif

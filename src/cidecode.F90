@@ -52,7 +52,7 @@ subroutine upc(chr,nchr,ibay,ibit,cnvnull)
   numchr = min(nchr,len(chr))
   do i=1,numchr
     call upb(ival(1),8,ibay,ibit)
-    if((ival(1).eq.0).and.(cnvnull)) then
+    if((ival(1)==0).and.(cnvnull)) then
       chr(i:i) = ' '
     else
       chr(i:i) = cval(lb)
@@ -162,7 +162,7 @@ subroutine upbb(nval,nbits,ibit,ibay)
 
   !  If nbits=0, then just set nval=0 and return
 
-  if(nbits.eq.0) then
+  if(nbits==0) then
     nval=0
     return
   endif
@@ -172,7 +172,7 @@ subroutine upbb(nval,nbits,ibit,ibay)
   int = ishft(irev(ibay(nwd)),nbt)
   int = ishft(int,nbits-nbitw)
   lbt = nbt+nbits
-  if(lbt.gt.nbitw) then
+  if(lbt>nbitw) then
     jnt = irev(ibay(nwd+1))
     int = ior(int,ishft(jnt,lbt-2*nbitw))
   endif
@@ -289,7 +289,7 @@ recursive integer function iupm(cbay,nbits) result(iret)
   endif
 
   iret = 0
-  if(nbits.gt.nbitw) then
+  if(nbits>nbitw) then
     write(bort_str,'("BUFRLIB: IUPM - NUMBER OF BITS BEING UNPACKED'// &
       ', NBITS (",I4,"), IS > THE INTEGER WORD LENGTH ON THIS MACHINE, NBITW (",I3,")")') nbits,nbitw
     call bort(bort_str)
@@ -331,21 +331,21 @@ real*8 function ups(ival,node) result(r8ret)
 
   r8ret = ( ival + irf(node) ) * ten**(-isc(node))
 
-  if ( nnrv .gt. 0 ) then
+  if ( nnrv > 0 ) then
     ! There are redefined reference values in the jump/link table, so we need to check if this node is affected by any of them.
     do jj = 1, nnrv
-      if ( node .eq. inodnrv(jj) ) then
+      if ( node == inodnrv(jj) ) then
         ! This node contains a redefined reference value.  Per the rules of BUFR, negative values may be encoded as positive
         ! integers with the left-most bit set to 1.
         imask = 2_8**(ibt(node)-1)
-        if ( iand(ival,imask) .gt. 0 ) then
+        if ( iand(ival,imask) > 0 ) then
           nrv(jj) = (-1) * ( ival - imask )
         else
           nrv(jj) = ival
         end if
         r8ret = nrv(jj)
         return
-      else if ( ( tag(node)(1:8) .eq. tagnrv(jj) ) .and. ( node .ge. isnrv(jj) ) .and. ( node .le. ienrv(jj) ) ) then
+      else if ( ( tag(node)(1:8) == tagnrv(jj) ) .and. ( node >= isnrv(jj) ) .and. ( node <= ienrv(jj) ) ) then
         ! The corresponding redefinded reference value needs to be used when decoding this value.
         r8ret = ( ival + nrv(jj) ) * ten**(-isc(node))
         return

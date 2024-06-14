@@ -76,7 +76,7 @@ recursive subroutine ufbdmp(lunin,luprt)
     return
   endif
 
-  if(luprt.eq.0) then
+  if(luprt==0) then
     luout = 6
   else
     luout = luprt
@@ -86,16 +86,16 @@ recursive subroutine ufbdmp(lunin,luprt)
 
   lunit = abs(lunin)
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFBDMP - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
-  if(il.gt.0) call bort('BUFRLIB: UFBDMP - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
-  if(im.eq.0) call bort('BUFRLIB: UFBDMP - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
-  if(inode(lun).ne.inv(1,lun)) call bort('BUFRLIB: UFBDMP - LOCATION OF INTERNAL TABLE FOR '// &
+  if(il==0) call bort('BUFRLIB: UFBDMP - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il>0) call bort('BUFRLIB: UFBDMP - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(im==0) call bort('BUFRLIB: UFBDMP - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+  if(inode(lun)/=inv(1,lun)) call bort('BUFRLIB: UFBDMP - LOCATION OF INTERNAL TABLE FOR '// &
     'INPUT BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN INTERNAL SUBSET ARRAY')
 
   ! Dump the contents of @ref moda_usrint for unit abs(lunin)
 
   do nv=1,nval(lun)
-    if(luprt.eq.0 .and. mod(nv,20).eq.0) then
+    if(luprt==0 .and. mod(nv,20)==0) then
 
       ! When luprt=0, the output will be scrolled, 20 elements at a time
 
@@ -105,7 +105,7 @@ recursive subroutine ufbdmp(lunin,luprt)
       ! If the terminal enters "q" followed by "<enter>", then scrolling will end and the subroutine will return to the
       ! calling program
 
-      if(you.eq.'q') THEN
+      if(you=='q') then
         print*
         print*,'==> You have chosen to stop the dumping of this subset'
         print*
@@ -124,22 +124,22 @@ recursive subroutine ufbdmp(lunin,luprt)
     lk = link(nd)
     jb = jmpb(nd)
     tg_rj = adjustr(tg)
-    if(tp.ne.'CHR') then
+    if(tp/='CHR') then
       bits = '              '
-      if(it.eq.2) then
+      if(it==2) then
         call nemtab(lun,tg,idn,tab,n)
-        if(tabb(n,lun)(71:75).eq.'FLAG') then
+        if(tabb(n,lun)(71:75)=='FLAG') then
 
           ! Print a listing of the bits corresponding to this value.
 
           call upftbv(lunit,tg,vl,mxfv,ifv,nifv)
-          if(nifv.gt.0) then
+          if(nifv>0) then
             bits(1:1) = '('
             ipt = 2
             do ii=1,nifv
               isz = isize(ifv(ii))
               write(fmtf,'(A2,I1,A4)') '(I', isz, ',A1)'
-              if((ipt+isz).le.14) then
+              if((ipt+isz)<=14) then
                 write(bits(ipt:ipt+isz),fmtf) ifv(ii), ','
                 ipt = ipt + isz + 1
               else
@@ -151,10 +151,10 @@ recursive subroutine ufbdmp(lunin,luprt)
           endif
         endif
       endif
-      if(ibfms(vl).ne.0) then
+      if(ibfms(vl)/=0) then
         write(luout,'(I5,1X,A3,A1,I1,1X,A10,1X,   A20,  14X,7(1X,I5))') nv,tp,'-',it,tg_rj,pmiss,ib,is,ir,nd,jp,lk,jb
       else
-        if(lunit.eq.lunin) then
+        if(lunit==lunin) then
           write(luout,'(I5,1X,A3,A1,I1,1X,A10,5X,G15.6,1X,A14,7(1X,I5))') nv,tp,'-',it,tg_rj,vl,bits,ib,is,ir,nd,jp,lk,jb
         else
           write(luout,'(I5,1X,A3,A1,I1,1X,A10,5X,F15.6,1X,A14,7(1X,I5))') nv,tp,'-',it,tg_rj,vl,bits,ib,is,ir,nd,jp,lk,jb
@@ -162,21 +162,21 @@ recursive subroutine ufbdmp(lunin,luprt)
       endif
     else
       nchr=ib/8
-      if(nchr.gt.8) then
+      if(nchr>8) then
         call readlc(lunit,lchr2,tg_rj)
-        if (icbfms(lchr2,nchr).ne.0) then
+        if (icbfms(lchr2,nchr)/=0) then
           lchr = pmiss
         else
           lchr = lchr2(1:20)
         endif
       else
-        if(ibfms(vl).ne.0) then
+        if(ibfms(vl)/=0) then
           lchr = pmiss
         else
           lchr = vc
         endif
       endif
-      if ( nchr.le.20 .or. lchr.eq.pmiss ) then
+      if ( nchr<=20 .or. lchr==pmiss ) then
         lchr = adjustr(lchr)
         write(luout,'(I5,1X,A3,A1,I1,1X,A10,1X,   A20,  14X,7(1X,I5))') nv,tp,'-',it,tg_rj,lchr,ib,is,ir,nd,jp,lk,jb
       else
@@ -275,7 +275,7 @@ recursive subroutine ufdump(lunit,luprt)
   nls = 0
   lcfmeang = len(cfmeang)
 
-  if(luprt.eq.0) then
+  if(luprt==0) then
     luout = 6
   else
     luout = luprt
@@ -284,10 +284,10 @@ recursive subroutine ufdump(lunit,luprt)
   ! Check the file status and inode
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFDUMP - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
-  if(il.gt.0) call bort('BUFRLIB: UFDUMP - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
-  if(im.eq.0) call bort('BUFRLIB: UFDUMP - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
-  if(inode(lun).ne.inv(1,lun)) call bort('BUFRLIB: UFDUMP - LOCATION OF INTERNAL TABLE FOR '// &
+  if(il==0) call bort('BUFRLIB: UFDUMP - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il>0) call bort('BUFRLIB: UFDUMP - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(im==0) call bort('BUFRLIB: UFDUMP - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+  if(inode(lun)/=inv(1,lun)) call bort('BUFRLIB: UFDUMP - LOCATION OF INTERNAL TABLE FOR '// &
     'INPUT BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN INTERNAL SUBSET ARRAY')
 
   write(luout,'(/,2A,/)') 'MESSAGE TYPE ',tag(inode(lun))
@@ -295,12 +295,12 @@ recursive subroutine ufdump(lunit,luprt)
   ! If code/flag table details are being printed, and if this is the first subset of a new message, then
   ! make sure the appropriate master tables have been read in to memory for this message.
 
-  if(cdmf.eq.'Y' .and. nsub(lun).eq.1) itmp = ireadmt(lun)
+  if(cdmf=='Y' .and. nsub(lun)==1) itmp = ireadmt(lun)
 
   ! Dump the contents of @ref moda_usrint for unit lunit
 
   do nv=1,nval(lun)
-    if(luprt.eq.0 .and. mod(nv,20).eq.0) then
+    if(luprt==0 .and. mod(nv,20)==0) then
 
       ! When luprt=0, the output will be scrolled, 20 elements at a time
 
@@ -310,7 +310,7 @@ recursive subroutine ufdump(lunit,luprt)
       ! If the terminal enters "q" followed by "<enter>", then scrolling will end and the subroutine will return to the
       ! calling program
 
-      if(you.eq.'q') then
+      if(you=='q') then
         print*
         print*,'==> You have chosen to stop the dumping of this subset'
         print*
@@ -323,7 +323,7 @@ recursive subroutine ufdump(lunit,luprt)
     ityp = itp(node)
     type = typ(node)
 
-    if(ityp.ge.1.and.ityp.le.3) then
+    if(ityp>=1.and.ityp<=3) then
       call nemtab(lun,nemo,idn,tab,n)
       if(n>0) then
          numb = tabb(n,lun)(1:6)
@@ -333,16 +333,16 @@ recursive subroutine ufdump(lunit,luprt)
       rval = val(nv,lun)
     endif
 
-    if((ityp.eq.0).or.(ityp.eq.1)) then
+    if((ityp==0).or.(ityp==1)) then
 
       ! Sequence descriptor or delayed descriptor replication factor
 
-      if((type.eq.'REP').or.(type.eq.'DRP').or.(type.eq.'DRB').or.(type.eq.'DRS')) then
+      if((type=='REP').or.(type=='DRP').or.(type=='DRB').or.(type=='DRS')) then
 
         ! Print the number of replications
         nseq = nseq+1
-        if(nseq.gt.mxseq) call bort('BUFRLIB: UFDUMP - MXSEQ OVERFLOW')
-        if(type.eq.'REP') then
+        if(nseq>mxseq) call bort('BUFRLIB: UFDUMP - MXSEQ OVERFLOW')
+        if(type=='REP') then
           numrep(nseq) = irf(node)
         else
           numrep(nseq) = nint(rval)
@@ -352,7 +352,7 @@ recursive subroutine ufdump(lunit,luprt)
         write(luout,fmt) nemo2(1:lnm2), numrep(nseq), 'REPLICATIONS'
 
         ! How many times is this sequence replicated?
-        if(numrep(nseq).gt.1) then
+        if(numrep(nseq)>1) then
           ! Track the sequence
           seqnam(nseq) = nemo2
           lsqnam(nseq) = lnm2
@@ -361,19 +361,19 @@ recursive subroutine ufdump(lunit,luprt)
           ! Don't bother
           nseq = nseq-1
         endif
-      elseif( ((type.eq.'SEQ').or.(type.eq.'RPC').or.(type.eq.'RPS')) .and. (nseq.gt.0) ) then
+      elseif( ((type=='SEQ').or.(type=='RPC').or.(type=='RPS')) .and. (nseq>0) ) then
 
         ! Is this one of the sequences being tracked?
         ii = nseq
         track = .false.
         call strsuc(nemo,nemo2,lnm2)
-        do while ((ii.ge.1).and.(.not.track))
-          if(nemo2(1:lnm2).eq.seqnam(ii)(2:lsqnam(ii)-1)) then
+        do while ((ii>=1).and.(.not.track))
+          if(nemo2(1:lnm2)==seqnam(ii)(2:lsqnam(ii)-1)) then
             track = .true.
             ! Mark this level in the output
             fmt = '(4X,A,2X,A,2X,A,I6,2X,A)'
             write(luout,fmt) '++++++', nemo2(1:lnm2), 'REPLICATION #', idxrep(ii), '++++++'
-            if(idxrep(ii).lt.numrep(ii)) then
+            if(idxrep(ii)<numrep(ii)) then
               ! There are more levels to come
               idxrep(ii) = idxrep(ii)+1
             else
@@ -385,15 +385,15 @@ recursive subroutine ufdump(lunit,luprt)
           endif
         enddo
       endif
-    elseif(ityp.eq.2) then
+    elseif(ityp==2) then
 
       ! Numeric value.
 
       ! First check if this node contains a redefined reference value.  If so, modify the desc field to label it as such.
       jj = 1
       rdrv = .false.
-      do while ((jj.le.nnrv).and.(.not.rdrv))
-        if (node.eq.inodnrv(jj)) then
+      do while ((jj<=nnrv).and.(.not.rdrv))
+        if (node==inodnrv(jj)) then
           rdrv = .true.
           desc = 'New reference value for ' // nemo
           unit = ' '
@@ -405,38 +405,38 @@ recursive subroutine ufdump(lunit,luprt)
       ! Next check if this element refers to another element via a bitmap.  If so, modify the desc field to identify the
       ! referred element.
       nrfe = nrfelm(nv,lun)
-      if(nrfe.gt.0) then
+      if(nrfe>0) then
         tagrfe = tag(inv(nrfe,lun))
         jj = 48
-        do while((jj.ge.1).and.(desc(jj:jj).eq.' '))
+        do while((jj>=1).and.(desc(jj:jj)==' '))
           jj = jj - 1
         enddo
-        if(jj.le.33) desc(jj+1:jj+15) = ' for ' // tagrfe
+        if(jj<=33) desc(jj+1:jj+15) = ' for ' // tagrfe
       endif
 
       ! Now print the value
-      if(ibfms(rval).ne.0) then
+      if(ibfms(rval)/=0) then
         ! The value is "missing".
         fmt = '(A6,2X,A10,2X,A20,2X,A24,6X,A48)'
         write(luout,fmt) numb,nemo,pmiss,unit,desc
       else
         fmt = '(A6,2X,A10,2X,      ,2X,A24,6X,A48)'
         ! Based upon the corresponding scale factor, select an appropriate format for the printing of this value.
-        if(isc(node).gt.0) then
+        if(isc(node)>0) then
           write(fmt(15:20),'(A,I2)') 'F20.', isc(node)
         else
           write(fmt(18:20),'(A)') 'I20'
         endif
-        if(unit(1:4).eq.'FLAG') then
+        if(unit(1:4)=='FLAG') then
           ! Print a listing of the bits corresponding to this value.
            call upftbv(lunit,nemo,rval,mxfv,ifv,nifv)
-           if(nifv.gt.0) then
+           if(nifv>0) then
              unit(11:11) = '('
              ipt = 12
              do ii=1,nifv
                isz = isize(ifv(ii))
                write(fmtf,'(A2,I1,A4)') '(I', isz, ',A1)'
-               if((ipt+isz).le.24) then
+               if((ipt+isz)<=24) then
                  write(unit(ipt:ipt+isz),fmtf) ifv(ii), ','
                  ipt = ipt + isz + 1
                else
@@ -447,25 +447,25 @@ recursive subroutine ufdump(lunit,luprt)
              unit(ipt-1:ipt-1) = ')'
            endif
         endif
-        if(isc(node).gt.0) then
+        if(isc(node)>0) then
           write(luout,fmt) numb,nemo,rval,unit,desc
         else
           ival = nint(rval,8)
           write(luout,fmt) numb,nemo,ival,unit,desc
         endif
-        if( (unit(1:4).eq.'FLAG' .or. unit(1:4).eq.'CODE') .and. (cdmf.eq.'Y') ) then
+        if( (unit(1:4)=='FLAG' .or. unit(1:4)=='CODE') .and. (cdmf=='Y') ) then
           ! Print the meanings of the code and flag values.
           fmt = '(31X,I8,A,A)'
-          if(unit(1:4).eq.'CODE') then
+          if(unit(1:4)=='CODE') then
             nifv = 1
             ifv(nifv) = nint(rval)
           endif
           do ii=1,nifv
             icfdp(1) = (-1)
             call srchtbf_c(idn,ifv(ii),icfdp(1),mxcfdp,-1,cfmeang,lcfmeang,lcfmg,iersf)
-            if(iersf.eq.0) then
+            if(iersf==0) then
               write(luout,fmt) ifv(ii),' = ',cfmeang(1:lcfmg)
-            elseif(iersf.lt.0) then
+            elseif(iersf<0) then
               write(luout,fmt) ifv(ii),' = ','***THIS IS AN ILLEGAL/UNDEFINED VALUE***'
             else
               ! The meaning of this value is dependent on the value of another mnemonic in the report.  Look for
@@ -473,37 +473,37 @@ recursive subroutine ufdump(lunit,luprt)
               ! the proper meaning from the code/flag tables.
               ierft = (-1)
               jj = 0
-              do while((jj.lt.iersf).and.(ierft.lt.0))
+              do while((jj<iersf).and.(ierft<0))
                 jj = jj + 1
                 call numtbd(lun,icfdp(jj),nemod,tab,ierbd)
-                if((ierbd.gt.0).and.(tab.eq.'B')) call fstag(lun,nemod,-1,nv,nout,ierft)
+                if((ierbd>0).and.(tab=='B')) call fstag(lun,nemod,-1,nv,nout,ierft)
               enddo
-              if(ierft.eq.0) then
+              if(ierft==0) then
                 ifvd = nint(val(nout,lun))
-                if(jj.gt.1) icfdp(1) = icfdp(jj)
+                if(jj>1) icfdp(1) = icfdp(jj)
                 call srchtbf_c(idn,ifv(ii),icfdp(1),mxcfdp,ifvd,cfmeang,lcfmeang,lcfmg,iersf)
-                if(iersf.eq.0) write(luout,fmt) ifv(ii),' = ', cfmeang(1:lcfmg)
+                if(iersf==0) write(luout,fmt) ifv(ii),' = ', cfmeang(1:lcfmg)
               endif
             endif
           enddo
         endif
       endif
-    elseif(ityp.eq.3) then
+    elseif(ityp==3) then
 
       ! Character (CCITT IA5) value
 
       nchr = ibt(node)/8
 
-      if(ibfms(rval).ne.0) then
+      if(ibfms(rval)/=0) then
         lchr = pmiss
-      else if(nchr.le.8) then
+      else if(nchr<=8) then
         lchr = cval
       else
         ! Track the number of occurrences of this long character string, so that we can properly output each one.
         ii = 1
         found = .false.
-        do while((ii.le.nls).and.(.not.found))
-          if(nemo.eq.lsnemo(ii)) then
+        do while((ii<=nls).and.(.not.found))
+          if(nemo==lsnemo(ii)) then
             found = .true.
           else
             ii = ii + 1
@@ -511,7 +511,7 @@ recursive subroutine ufdump(lunit,luprt)
         enddo
         if(.not.found) then
           nls = nls+1
-          if(nls.gt.mxls) call bort('BUFRLIB: UFDUMP - MXLS OVERFLOW')
+          if(nls>mxls) call bort('BUFRLIB: UFDUMP - MXLS OVERFLOW')
           lsnemo(nls) = nemo
           lsct(nls) = 1
           nemo3 = nemo
@@ -523,14 +523,14 @@ recursive subroutine ufdump(lunit,luprt)
         endif
 
         call readlc(lunit,lchr2,nemo3)
-        if (icbfms(lchr2,nchr).ne.0) then
+        if (icbfms(lchr2,nchr)/=0) then
           lchr = pmiss
         else
           lchr = lchr2(1:20)
         endif
       endif
 
-      if ( nchr.le.20 .or. lchr.eq.pmiss ) then
+      if ( nchr<=20 .or. lchr==pmiss ) then
         lchr = adjustr(lchr)
         fmt = '(A6,2X,A10,2X,A20,2X,"(",I2,")",A24,2X,A48)'
         write(luout,fmt) numb,nemo,lchr,nchr,unit,desc
@@ -598,8 +598,8 @@ recursive subroutine dxdump(lunit,ldxot)
   data cardi4  /'|------------------------------------------------------------------------------|'/
 
   ! Statement functions
-  tbskip(adn) = ((adn.eq.'063000').or.(adn.eq.'063255').or.(adn.eq.'031000').or.(adn.eq.'031001').or.(adn.eq.'031002'))
-  tdskip(adn) = ((adn.eq.'360001').or.(adn.eq.'360002').or.(adn.eq.'360003').or.(adn.eq.'360004'))
+  tbskip(adn) = ((adn=='063000').or.(adn=='063255').or.(adn=='031000').or.(adn=='031001').or.(adn=='031002'))
+  tdskip(adn) = ((adn=='360001').or.(adn=='360002').or.(adn=='360003').or.(adn=='360004'))
 
   ! Check for I8 integers.
 
@@ -617,7 +617,7 @@ recursive subroutine dxdump(lunit,ldxot)
   ! Determine lun from lunit.
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: DXDUMP - BUFR FILE IS CLOSED, IT MUST BE OPEN')
+  if(il==0) call bort('BUFRLIB: DXDUMP - BUFR FILE IS CLOSED, IT MUST BE OPEN')
 
   ! Create and write out (to ldxot) the header cards for the descriptor definition section.
 
@@ -660,9 +660,9 @@ recursive subroutine dxdump(lunit,ldxot)
       ! last of the Table A mnemonics, in which case an extra cardi1 line will be written to ldxot in order to separate
       ! the Table A mnemonics from the other Table D mnemonics.
       do na=1,ntba(lun)
-        if(taba(na,lun)(4:11).eq.tabd(n,lun)(7:14)) then
+        if(taba(na,lun)(4:11)==tabd(n,lun)(7:14)) then
           card(14:14)='A'
-          if(na.eq.ntba(lun)) xtrci1=.true.
+          if(na==ntba(lun)) xtrci1=.true.
           exit
         end if
       end do
@@ -715,24 +715,24 @@ recursive subroutine dxdump(lunit,ldxot)
       ! Get the list of child mnemonics for this Table D descriptor, and then add each one (including any replication tags)
       ! to the sequence definition card for this Table D descriptor.
       call nemtbd(lun,n,nseq,nem(1,1),irp(1,1),krp(1,1))
-      if(nseq.gt.0) then
+      if(nseq>0) then
         do nc=1,nseq
           cmstr=' '
           icms=0
           call strsuc(nem(nc,1),wrk2,nch)
-          if(irp(nc,1).ne.0) then
+          if(irp(nc,1)/=0) then
             ! Add the opening replication tag.
             icms=icms+1
             cmstr(icms:icms)=reps(irp(nc,1))
           end if
           cmstr(icms+1:icms+nch)=wrk2(1:nch)
           icms=icms+nch
-          if(irp(nc,1).ne.0) then
+          if(irp(nc,1)/=0) then
             ! Add the closing replication tag.
             icms=icms+1
             cmstr(icms:icms)=reps(irp(nc,1)+5)
           end if
-          if(krp(nc,1).ne.0) then
+          if(krp(nc,1)/=0) then
             ! Add the fixed replication count.
             wrk1=' '
             write (wrk1,'(I3)') krp(nc,1)
@@ -742,7 +742,7 @@ recursive subroutine dxdump(lunit,ldxot)
           end if
           ! Will this child (and its replication tags, if any) fit into the current sequence definition card?  If not, then
           ! write out (to ldxot) the current card and initialize a new one to hold this child.
-          if(ic.gt.(79-icms)) then
+          if(ic>(79-icms)) then
             write (ldxot,'(A)') card
             card=cardi2
             card( 3:10)=tabd(n,lun)( 7:14)
@@ -791,11 +791,11 @@ recursive subroutine dxdump(lunit,ldxot)
       ! Add the scale factor.
       call strsuc(tabb(n,lun)(96:98),wrk2,nch)
       card(17-nch+1:17)=wrk2
-      if(tabb(n,lun)(95:95).eq.'-') card(17-nch:17-nch)='-'
+      if(tabb(n,lun)(95:95)=='-') card(17-nch:17-nch)='-'
       ! Add the reference value.
       call strsuc(tabb(n,lun)(100:109),wrk3,nch)
       card(31-nch+1:31)=wrk3
-      if(tabb(n,lun)(99:99).eq.'-') card(31-nch:31-nch)='-'
+      if(tabb(n,lun)(99:99)=='-') card(31-nch:31-nch)='-'
       ! Add the bit width.
       call strsuc(tabb(n,lun)(110:112),wrk2,nch)
       card(37-nch+1:37)=wrk2
@@ -858,7 +858,7 @@ recursive subroutine getabdb(lunit,tabdb,itab,jtab)
   ! Make sure the file is open
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) return
+  if(il==0) return
 
   ! Write out the Table D entries for this file
 
@@ -867,7 +867,7 @@ recursive subroutine getabdb(lunit,tabdb,itab,jtab)
     call nemtbd(lun,i,nseq,nem(1,1),irp(1,1),krp(1,1))
     do j=1,nseq,10
       jtab = jtab+1
-      if(jtab.le.itab) then
+      if(jtab<=itab) then
         write(tabdb(jtab),fmt='(A,A8,10(1X,A10))') 'D ', nemo, (nem(k,1),k=j,min(j+9,nseq))
       endif
     enddo
@@ -877,7 +877,7 @@ recursive subroutine getabdb(lunit,tabdb,itab,jtab)
 
   do i=1,ntbb(lun)
     jtab = jtab+1
-    if(jtab.le.itab) then
+    if(jtab<=itab) then
       write(tabdb(jtab),fmt='(A,A8,1X,A42)') 'B ', tabb(i,lun)(7:14), tabb(i,lun)(71:112)
     endif
   enddo

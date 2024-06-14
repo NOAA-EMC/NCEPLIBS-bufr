@@ -56,7 +56,7 @@ recursive subroutine atrcpt(msgin,lmsgot,msgot)
   ! Check for overflow of the output array.  Note that the new message will be 6 bytes longer than the input message.
 
   lenmot = lenm + 6
-  if(lenmot.gt.(lmsgot*nbytw)) &
+  if(lenmot>(lmsgot*nbytw)) &
     call bort('BUFRLIB: ATRCPT - OVERFLOW OF OUTPUT MESSAGE ARRAY; TRY A LARGER DIMENSION FOR THIS ARRAY')
 
   len1ot = len1 + 6
@@ -141,12 +141,12 @@ recursive subroutine rtrcptb(mbay,iyr,imo,idy,ihr,imi,iret)
 
   ! Check whether the message contains a tank receipt time.
 
-  if(iupbs01(mbay,'BEN').eq.4) then
+  if(iupbs01(mbay,'BEN')==4) then
     is1byt = 23
   else
     is1byt = 19
   endif
-  if( (is1byt+5) .gt. iupbs01(mbay,'LEN1') ) return
+  if( (is1byt+5) > iupbs01(mbay,'LEN1') ) return
 
   ! Unpack the tank receipt time.
 
@@ -216,9 +216,9 @@ recursive subroutine rtrcpt(lunit,iyr,imo,idy,ihr,imi,iret)
   ! Check the file status.
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: RTRCPT - INPUT BUFR FILE IS CLOSED; IT MUST BE OPEN FOR INPUT')
-  if(il.gt.0) call bort('BUFRLIB: RTRCPT - INPUT BUFR FILE IS OPEN FOR OUTPUT; IT MUST BE OPEN FOR INPUT')
-  if(im.eq.0) call bort('BUFRLIB: RTRCPT - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE; NONE ARE')
+  if(il==0) call bort('BUFRLIB: RTRCPT - INPUT BUFR FILE IS CLOSED; IT MUST BE OPEN FOR INPUT')
+  if(il>0) call bort('BUFRLIB: RTRCPT - INPUT BUFR FILE IS OPEN FOR OUTPUT; IT MUST BE OPEN FOR INPUT')
+  if(im==0) call bort('BUFRLIB: RTRCPT - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE; NONE ARE')
 
   ! Unpack the tank receipt time.
 
@@ -285,13 +285,13 @@ recursive subroutine strcpt(cf,iyr,imo,idy,ihr,imi)
   endif
 
   call capit(cf)
-  if(cf.ne.'Y' .and. cf.ne.'N') then
+  if(cf/='Y' .and. cf/='N') then
     write(bort_str,'("BUFRLIB: STRCPT - INPUT ARGUMENT IS ",A1,", IT MUST BE EITHER Y OR N")') cf
     call bort(bort_str)
   endif
 
   ctrt = cf
-  if(ctrt.eq.'Y') then
+  if(ctrt=='Y') then
     itryr = iyr
     itrmo = imo
     itrdy = idy

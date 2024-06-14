@@ -138,7 +138,7 @@
       do while(ireadsb(lubfr)==0)
       call ufbcnt(lubfr,irec,isub)
 
-      IF(msg.ne.' ' .and. msg.ne.subset) exit
+      IF(msg/=' ' .and. msg/=subset) exit
 
       if(dump) then
          call ufdump(lubfr,6)
@@ -154,23 +154,23 @@
       jrt = nint(hdr(6))
       jtp = nint(hdr(7))
       jkx = nint(hdr(8))
-      IF(STA.NE.' ' .AND. STA.NE.SID(1:nsta)) cycle
-      IF(irt.ne.0   .and. irt.ne.jrt) cycle
-      IF(itp.ne.0   .and. itp.ne.jtp) cycle
-      IF(ikx.ne.0   .and. ikx.ne.jkx) cycle
+      IF(STA/=' ' .AND. STA/=SID(1:nsta)) cycle
+      IF(irt/=0   .and. irt/=jrt) cycle
+      IF(itp/=0   .and. itp/=jtp) cycle
+      IF(ikx/=0   .and. ikx/=jkx) cycle
       if(window) then
-         if(.not.(xob.ge.x1 .and. xob.le.x2))cycle
-         if(.not.(yob.ge.y1 .and. yob.le.y2))cycle
+         if(.not.(xob>=x1 .and. xob<=x2))cycle
+         if(.not.(yob>=y1 .and. yob<=y2))cycle
       endif
 
       CALL UFBINT(LUBFR,OBS,10,255,NLEV,OSTR)
       CALL UFBINT(LUBFR,QMS,10,255,NLEQ,QSTR)
-      IF(NLEV.NE.NLEQ) STOP 'NLEV<>NLEQ'
+      IF(NLEV/=NLEQ) STOP 'NLEV<>NLEQ'
 
 !  MOVE CAT 8 DATA TO PRINT RANGE
 !  ------------------------------
       DO L=1,NLEV
-      IF(OBS(1,L).EQ.8) THEN
+      IF(OBS(1,L)==8) THEN
          OBS(2,L) = OBS(9,L)
          OBS(3,L) = OBS(10,L)
       ENDIF

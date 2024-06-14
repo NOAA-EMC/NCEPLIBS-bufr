@@ -27,20 +27,20 @@ subroutine strbtm ( n, lun )
 
   node = inv( n, lun )
 
-  if ( tag(node)(1:5) .eq. 'DPRI ' ) then
+  if ( tag(node)(1:5) == 'DPRI ' ) then
     ! Confirm that this is really an entry within a bitmap.  Although it's rare, it is possible for a DPRI element
     ! to appear in a subset definition outside of a bitmap.
     isbtme = .false.
-    if ( ntamc .gt. 0 ) then
+    if ( ntamc > 0 ) then
       nodtam = lstjpb( node, lun, 'SUB' )
       do ii = 1, ntamc
-        if ( nodtam .eq. inodtamc(ii) ) then
+        if ( nodtam == inodtamc(ii) ) then
           do jj = 1, ntco(ii)
-            if ( ( inodtco(ii,jj) .ge. inode(lun) ) .and. ( inodtco(ii,jj) .le. isc(inode(lun)) ) .and. &
-              ( inodtco(ii,jj) .lt. node ) ) then
-              if ( ctco(ii,jj) .eq. '236000' ) then
+            if ( ( inodtco(ii,jj) >= inode(lun) ) .and. ( inodtco(ii,jj) <= isc(inode(lun)) ) .and. &
+              ( inodtco(ii,jj) < node ) ) then
+              if ( ctco(ii,jj) == '236000' ) then
                 isbtme = .true.
-              else if ( ( ctco(ii,jj) .eq. '235000' ) .or. ( ctco(ii,jj) .eq. '237255' ) ) then
+              else if ( ( ctco(ii,jj) == '235000' ) .or. ( ctco(ii,jj) == '237255' ) ) then
                 isbtme = .false.
               end if
             end if
@@ -54,7 +54,7 @@ subroutine strbtm ( n, lun )
     endif
     if ( .not. linbtm ) then
       ! This is the start of a new bitmap.
-      if ( nbtm .ge. mxbtm ) call bort('BUFRLIB: STRBTM - MXBTM OVERFLOW')
+      if ( nbtm >= mxbtm ) call bort('BUFRLIB: STRBTM - MXBTM OVERFLOW')
       nbtm = nbtm + 1
       istbtm(nbtm) = n
       iszbtm(nbtm) = 0
@@ -62,13 +62,13 @@ subroutine strbtm ( n, lun )
       linbtm = .true.
     end if
     iszbtm(nbtm) = iszbtm(nbtm) + 1
-    if ( ibfms(val(n,lun)) .eq. 0 ) then
+    if ( ibfms(val(n,lun)) == 0 ) then
       ! This is a "set" (value=0) entry in the bitmap.
-      if ( nbtmse(nbtm) .ge. mxbtmse ) call bort('BUFRLIB: STRBTM - MXBTMSE OVERFLOW')
+      if ( nbtmse(nbtm) >= mxbtmse ) call bort('BUFRLIB: STRBTM - MXBTMSE OVERFLOW')
       nbtmse(nbtm) = nbtmse(nbtm) + 1
       ibtmse(nbtm,nbtmse(nbtm)) = iszbtm(nbtm)
     end if
-  else if ( itp(node) .gt. 1 ) then
+  else if ( itp(node) > 1 ) then
     linbtm = .false.
   end if
 
@@ -135,21 +135,21 @@ recursive subroutine gettagre ( lunit, tagi, ntagi, tagre, ntagre, iret )
   ! Get lun from lunit.
 
   call status( lunit, lun, il, im )
-  if ( il .eq. 0 ) return
-  if ( inode(lun) .ne. inv(1,lun) ) return
+  if ( il == 0 ) return
+  if ( inode(lun) /= inv(1,lun) ) return
 
   ! Get tagre and ntagre from the (ntagi)th occurrence of tagi.
 
   call fstag( lun, tagi, ntagi, 1, ni, iret )
-  if ( iret .ne. 0 ) return
+  if ( iret /= 0 ) return
   nre = nrfelm(ni,lun)
-  if ( nre .gt. 0 ) then
+  if ( nre > 0 ) then
     iret = 0
     tagre = tag(inv(nre,lun))
     call strsuc( tagre, tagtmp, ltre )
     ntagre = 0
     do ii = 1, nre
-      if ( tag(inv(ii,lun))(1:ltre) .eq. tagre(1:ltre) ) then
+      if ( tag(inv(ii,lun))(1:ltre) == tagre(1:ltre) ) then
         ntagre = ntagre + 1
       end if
     end do
@@ -196,8 +196,8 @@ integer function igetrfel ( n, lun ) result ( iret )
 
   node = inv( n, lun )
 
-  if ( itp(node) .gt. 1 ) then
-    if ( node .eq. lstnod ) then
+  if ( itp(node) > 1 ) then
+    if ( node == lstnod ) then
       lstnodct = lstnodct + 1
     else
       lstnod = node
@@ -205,38 +205,38 @@ integer function igetrfel ( n, lun ) result ( iret )
     end if
     ! Does this subset definition contain any Table C operators with an X value of 21 or greater?
     idxta = 0
-    if ( ntamc .gt. 0 ) then
+    if ( ntamc > 0 ) then
       nodtam = lstjpb( node, lun, 'SUB' )
       do ii = 1, ntamc
-        if ( nodtam .eq. inodtamc(ii) ) then
+        if ( nodtam == inodtamc(ii) ) then
           idxta = ii
           ntc = ntco(ii)
         end if
       end do
     end if
-    if ( ( idxta .gt. 0 ) .and. ( nbtm .gt. 0 ) ) then
+    if ( ( idxta > 0 ) .and. ( nbtm > 0 ) ) then
       ! Check whether this element references a previous element in the same subset via an internal bitmap.  To do this,
       ! we first need to determine the appropriate "follow" operator (if any) corresponding to this element.
       cflwopr = 'XXXXXX'
-      if ( imrkopr(tag(node)) .eq. 1 ) then
+      if ( imrkopr(tag(node)) == 1 ) then
         cflwopr = tag(node)(1:3) // '000'
       else
         call nemtab( lun, tag(node), idn, tab, nn )
-        if ( tab .eq. 'B' ) then
+        if ( tab == 'B' ) then
           fxy = adn30(idn,6)
-          if ( fxy(2:3) .eq. '33' ) cflwopr = '222000'
+          if ( fxy(2:3) == '33' ) cflwopr = '222000'
         end if
       end if
-      if ( cflwopr .eq. 'XXXXXX' ) return
+      if ( cflwopr == 'XXXXXX' ) return
       ! Now, check whether the appropriate "follow" operator was  actually present in the subset.  If there are multiple
       ! occurrences, we want the one that most recently precedes the element in question.
       nodflw = 0
       do jj = 1, ntc
-        if ( ( ctco(idxta,jj) .eq. cflwopr ) .and. ( inodtco(idxta,jj) .ge. inode(lun) ) .and. &
-          ( inodtco(idxta,jj) .le. isc(inode(lun)) ) .and. ( inodtco(idxta,jj) .lt. node ) )  nodflw = inodtco(idxta,jj)
+        if ( ( ctco(idxta,jj) == cflwopr ) .and. ( inodtco(idxta,jj) >= inode(lun) ) .and. &
+          ( inodtco(idxta,jj) <= isc(inode(lun)) ) .and. ( inodtco(idxta,jj) < node ) )  nodflw = inodtco(idxta,jj)
       enddo
-      if ( nodflw .eq. 0 ) then
-        if ( imrkopr(tag(node)) .eq. 1 ) then
+      if ( nodflw == 0 ) then
+        if ( imrkopr(tag(node)) == 1 ) then
           write(bort_str,'("BUFRLB: IGETRFEL - UNABLE TO FIND FOLLOW OPERATOR ",A," IN SUBSET")') cflwopr
           call bort(bort_str)
         endif
@@ -247,30 +247,30 @@ integer function igetrfel ( n, lun ) result ( iret )
       nodl236 = 0
       nodbmap = 0
       jj = 1
-      do while ( ( jj .le. ntc ) .and. ( inodtco(idxta,jj) .ge. inode(lun) ) .and. &
-        ( inodtco(idxta,jj) .le. isc(inode(lun)) ) .and. ( nodbmap .eq. 0 ) )
-        if ( ctco(idxta,jj) .eq. '236000' ) then
+      do while ( ( jj <= ntc ) .and. ( inodtco(idxta,jj) >= inode(lun) ) .and. &
+        ( inodtco(idxta,jj) <= isc(inode(lun)) ) .and. ( nodbmap == 0 ) )
+        if ( ctco(idxta,jj) == '236000' ) then
           nodl236 = inodtco(idxta,jj)
-          if ( inodtco(idxta,jj) .eq. nodflw ) nodbmap = nodflw
-        else if ( ( ctco(idxta,jj) .eq. '235000' ) .or. ( ctco(idxta,jj) .eq. '237255' ) ) then
+          if ( inodtco(idxta,jj) == nodflw ) nodbmap = nodflw
+        else if ( ( ctco(idxta,jj) == '235000' ) .or. ( ctco(idxta,jj) == '237255' ) ) then
           nodl236 = 0
-        else if ( ( ctco(idxta,jj) .eq. '237000' ) .and. ( inodtco(idxta,jj) .eq. nodflw ) .and. ( nodl236 .ne. 0 ) ) then
+        else if ( ( ctco(idxta,jj) == '237000' ) .and. ( inodtco(idxta,jj) == nodflw ) .and. ( nodl236 /= 0 ) ) then
           nodbmap = nodl236
         end if
         jj = jj + 1
       end do
-      if ( nodbmap .eq. 0 ) then
+      if ( nodbmap == 0 ) then
         ! There was no valid bitmap indicator, so we'll just look for a bitmap after the "follow" indicator.
         nodbmap = nodflw
       end if
       ! Find the corresponding bitmap.
       nn = 1
       idxbtm = 0
-      do while ( ( idxbtm .eq. 0 ) .and. ( nn .le. nval(lun) ) )
-        if ( inv( nn, lun ) .gt. nodbmap ) then
+      do while ( ( idxbtm == 0 ) .and. ( nn <= nval(lun) ) )
+        if ( inv( nn, lun ) > nodbmap ) then
           ii = 1
-          do while ( ( idxbtm .eq. 0 ) .and. ( ii .le. nbtm ) )
-            if ( nn .eq. istbtm(ii) ) then
+          do while ( ( idxbtm == 0 ) .and. ( ii <= nbtm ) )
+            if ( nn == istbtm(ii) ) then
               idxbtm = ii
             else
               ii = ii + 1
@@ -279,8 +279,8 @@ integer function igetrfel ( n, lun ) result ( iret )
         end if
         nn = nn + 1
       end do
-      if ( idxbtm .eq. 0 ) then
-        if ( imrkopr(tag(node)) .eq. 1 ) then
+      if ( idxbtm == 0 ) then
+        if ( imrkopr(tag(node)) == 1 ) then
           write(bort_str,'("BUFRLB: IGETRFEL - UNABLE TO FIND BITMAP FOR MARKER OPERATOR ",A)') tag(node)
           call bort(bort_str)
         endif
@@ -288,47 +288,47 @@ integer function igetrfel ( n, lun ) result ( iret )
       end if
       ! Use the bitmap to find the previous element in the subset that is referenced by the current element.
       ! Search backwards from the start of the bitmap, but make sure not to cross a 2-35-000 operator.
-      if ( lstnodct .gt. nbtmse(idxbtm) ) then
-        if ( imrkopr(tag(node)) .eq. 1 ) call bort( bort_str_mrkopr // tag(node) )
+      if ( lstnodct > nbtmse(idxbtm) ) then
+        if ( imrkopr(tag(node)) == 1 ) call bort( bort_str_mrkopr // tag(node) )
         return
       end if
       iemrk = iszbtm(idxbtm) - ibtmse(idxbtm,lstnodct) + 1
       iect = 0
-      do while ( ( nn .ge. 1 ) .and. ( iret .eq. 0 ) )
+      do while ( ( nn >= 1 ) .and. ( iret == 0 ) )
         nodnn = inv( nn, lun )
-        if ( nodnn .le. nodbmap ) then
+        if ( nodnn <= nodbmap ) then
           do jj = 1, ntc
-            if ( ( nodnn .eq. inodtco(idxta,jj) ) .and. ( ctco(idxta,jj) .eq. '235000' ) ) then
-              if ( imrkopr(tag(node)) .eq. 1 ) call bort( bort_str_mrkopr // tag(node) )
+            if ( ( nodnn == inodtco(idxta,jj) ) .and. ( ctco(idxta,jj) == '235000' ) ) then
+              if ( imrkopr(tag(node)) == 1 ) call bort( bort_str_mrkopr // tag(node) )
               return
             end if
           end do
-          if ( itp(nodnn) .gt. 1 ) then
+          if ( itp(nodnn) > 1 ) then
             iect = iect + 1
-            if ( iect .eq. iemrk ) iret = nn
+            if ( iect == iemrk ) iret = nn
           end if
         end if
         nn = nn - 1
       end do
-      if ( iret .eq. 0 ) then
-        if ( imrkopr(tag(node)) .eq. 1 ) call bort( bort_str_mrkopr // tag(node) )
+      if ( iret == 0 ) then
+        if ( imrkopr(tag(node)) == 1 ) call bort( bort_str_mrkopr // tag(node) )
         return
       end if
-      if ( imrkopr(tag(node)) .eq. 1 ) then
+      if ( imrkopr(tag(node)) == 1 ) then
         ! This element is a marker operator, so set the scale, reference value and bit width accordingly based on
         ! those of the previous referenced element.
         nodrfe = inv( iret, lun )
         isc(node) = isc(nodrfe)
-        if ( tag(node)(1:3) .eq. '225' ) then
+        if ( tag(node)(1:3) == '225' ) then
           ibt(node) = ibt(nodrfe) + 1
           irf(node) = -1 * (2 ** ibt(nodrfe))
         else
           ibt(node) = ibt(nodrfe)
           irf(node) = irf(nodrfe)
-          if ( nnrv .gt. 0 ) then
+          if ( nnrv > 0 ) then
             do ii = 1, nnrv
-              if ( ( nodrfe .ne. inodnrv(ii) ) .and. ( tag(nodrfe)(1:8) .eq. tagnrv(ii) ) .and. &
-                ( nodrfe .ge. isnrv(ii) ) .and. ( nodrfe .le. ienrv(ii) ) ) then
+              if ( ( nodrfe /= inodnrv(ii) ) .and. ( tag(nodrfe)(1:8) == tagnrv(ii) ) .and. &
+                ( nodrfe >= isnrv(ii) ) .and. ( nodrfe <= ienrv(ii) ) ) then
                 irf(node) = int(nrv(ii))
                 return
               end if
@@ -356,10 +356,10 @@ integer function imrkopr(nemo) result(iret)
 
   character*(*), intent(in) :: nemo
 
-  if (len(nemo).lt.6) then
+  if (len(nemo)<6) then
     iret = 0
-  else if ( ( nemo(4:6).eq.'255' ) .and. &
-    ( ( nemo(1:3).eq.'223' ) .or. ( nemo(1:3).eq.'224' ) .or. ( nemo(1:3).eq.'225' ) .or. ( nemo(1:3).eq.'232' ) ) ) then
+  else if ( ( nemo(4:6)=='255' ) .and. &
+    ( ( nemo(1:3)=='223' ) .or. ( nemo(1:3)=='224' ) .or. ( nemo(1:3)=='225' ) .or. ( nemo(1:3)=='232' ) ) ) then
     iret = 1
   else
     iret = 0

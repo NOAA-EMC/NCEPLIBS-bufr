@@ -49,7 +49,7 @@ subroutine pkc(chr,nchr,ibay,ibit)
   nbit = 8
 
   do i=1,nchr
-    if(i.le.len(chr)) then
+    if(i<=len(chr)) then
       cval(lb) = chr(i:i)
     else
       cval(lb) = ' '
@@ -62,7 +62,7 @@ subroutine pkc(chr,nchr,ibay,ibit)
     msk = ishft(  -1,nbitw-nbit)
     msk = ishft(msk,-nbt)
     ibay(nwd) = irev(ior(iand(irev(ibay(nwd)),not(msk)),int))
-    if(nbt+nbit.gt.nbitw) then
+    if(nbt+nbit>nbitw) then
 
       ! This character will not fit within the current word (i.e. array member) of ibay, because there
       ! are less than 8 bits of space left.  Store as many bits as will fit within the current
@@ -149,7 +149,7 @@ subroutine pkb(nval,nbits,ibay,ibit)
 
   character*156 bort_str
 
-  if(nbits.gt.nbitw) then
+  if(nbits>nbitw) then
     write(bort_str,'("BUFRLIB: PKB - NUMBER OF BITS BEING PACKED '// &
       ', NBITS (",I4,"), IS > THE INTEGER WORD LENGTH ON THIS MACHINE, NBITW (",I3,")")') nbits,nbitw
     call bort(bort_str)
@@ -158,13 +158,13 @@ subroutine pkb(nval,nbits,ibay,ibit)
   nwd  = ibit/nbitw + 1
   nbt  = mod(ibit,nbitw)
   ival = nval
-  if(ishft(ival,-nbits).gt.0) ival = -1
+  if(ishft(ival,-nbits)>0) ival = -1
   int = ishft(ival,nbitw-nbits)
   int = ishft(int,-nbt)
   msk = ishft(-1,nbitw-nbits)
   msk = ishft(msk,-nbt)
   ibay(nwd) = irev(ior(iand(irev(ibay(nwd)),not(msk)),int))
-  if(nbt+nbits.gt.nbitw) then
+  if(nbt+nbits>nbitw) then
 
     ! There are less than nbits bits remaining within the current word (i.e. array member) of ibay,
     ! so store as many bits as will fit within the current word and then store the remaining bits
@@ -218,7 +218,7 @@ recursive subroutine ipkm(cbay,nbyt,n)
     return
   endif
 
-  if(nbyt.gt.nbytw) then
+  if(nbyt>nbytw) then
     write(bort_str,'("BUFRLIB: IPKM - NUMBER OF BYTES BEING PACKED '// &
       ', NBYT (",I4,"), IS > THE INTEGER WORD LENGTH ON THIS MACHINE, NBYTW (",I3,")")') nbyt,nbytw
     call bort(bort_str)
@@ -264,21 +264,21 @@ integer*8 function ipks(val,node) result(i8ret)
 
   i8ret = nint(val * ten**isc(node),8) - irf(node)
 
-  if ( nnrv .gt. 0 ) then
+  if ( nnrv > 0 ) then
     ! There are redefined reference values in the jump/link table, so we need to check if this node is affected by any of them.
     do jj = 1, nnrv
-      if ( node .eq. inodnrv(jj) ) then
+      if ( node == inodnrv(jj) ) then
         ! This node contains a redefined reference value. Per the rules of BUFR, negative values should be encoded as positive
         ! integers with the left-most bit set to 1.
         nrv(jj) = nint(val)
-        if ( nrv(jj) .lt. 0 ) then
+        if ( nrv(jj) < 0 ) then
           imask = 2_8**(ibt(node)-1)
           i8ret = ior(abs(nrv(jj)),imask)
         else
           i8ret = nrv(jj)
         end if
         return
-      else if ( ( tag(node)(1:8) .eq. tagnrv(jj) ) .and. ( node .ge. isnrv(jj) ) .and. ( node .le. ienrv(jj) ) ) then
+      else if ( ( tag(node)(1:8) == tagnrv(jj) ) .and. ( node >= isnrv(jj) ) .and. ( node <= ienrv(jj) ) ) then
         ! The corresponding redefinded reference value needs to be used when encoding this value.
         i8ret = nint(val * ten**isc(node),8) - nrv(jj)
         return

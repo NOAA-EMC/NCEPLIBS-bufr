@@ -71,7 +71,7 @@ program intest9
   do ii = 1, 2
     if ( ireadmg ( 11, cmgtag, imgdt ) /= 0 ) stop 3
   end do
-  if ( cmgtag .ne. 'ADPUPA  ' ) stop 4
+  if ( cmgtag /= 'ADPUPA  ' ) stop 4
   if ( ireadsb (11) /= 0 ) stop 5
   call ufbin3 ( 11, r8vals, mxr8pm, mxr8lv, mxr8en, iret, jret, 'POB QOB UOB CAPE VENT' )
   if ( ( iret /= 49 ) .or. ( jret /= 1 ) .or. &
@@ -82,7 +82,7 @@ program intest9
   ! Now, read the 7th subset from the 4th message of the prepfits file, and check some wind
   ! values for levels where the pressure is between 800mb and 400mb.
   if ( ireadmg ( 11, cmgtag, imgdt ) /= 0 ) stop 7
-  if ( cmgtag .ne. 'VADWND  ' ) stop 8
+  if ( cmgtag /= 'VADWND  ' ) stop 8
   do ii = 1, 7
     if ( ireadsb (11) /= 0 ) stop 9
   end do
@@ -99,13 +99,13 @@ program intest9
   ! Test some errwrt cases in ufbin3
   errstr_len = 0
   call ufbin3 ( 11, r8vals, (-1)*mxr8pm, mxr8lv, mxr8en, iret, jret, 'POB QOB UOB CAPE VENT' )
-  if ( ( index( errstr(1:errstr_len), 'UFBIN3 - 3rd ARG. (INPUT) IS .LE. 0' ) .eq. 0 ) ) stop 12
+  if ( ( index( errstr(1:errstr_len), 'UFBIN3 - 3rd ARG. (INPUT) IS .LE. 0' ) == 0 ) ) stop 12
   errstr_len = 0
   call ufbin3 ( 11, r8vals, mxr8pm, (-1)*mxr8lv, mxr8en, iret, jret, 'POB QOB UOB CAPE VENT' )
-  if ( ( index( errstr(1:errstr_len), 'UFBIN3 - 4th ARG. (INPUT) IS .LE. 0' ) .eq. 0 ) ) stop 13
+  if ( ( index( errstr(1:errstr_len), 'UFBIN3 - 4th ARG. (INPUT) IS .LE. 0' ) == 0 ) ) stop 13
   errstr_len = 0
   call ufbin3 ( 11, r8vals, mxr8pm, mxr8lv, (-1)*mxr8en, iret, jret, 'POB QOB UOB CAPE VENT' )
-  if ( ( index( errstr(1:errstr_len), 'UFBIN3 - 5th ARG. (INPUT) IS .LE. 0' ) .eq. 0 ) ) stop 14
+  if ( ( index( errstr(1:errstr_len), 'UFBIN3 - 5th ARG. (INPUT) IS .LE. 0' ) == 0 ) ) stop 14
 
   print *, 'SUCCESS!'
 end program intest9
