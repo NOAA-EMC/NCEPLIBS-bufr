@@ -7,13 +7,13 @@
 !
 ! Adding additional testing in ufbrw
 !
-! J Woollen  4/14/23  
+! J Woollen  4/14/23
 
       program test_ufbrw
 
-      character(255)file     
+      character(255)file
       character(55) brr(56),line,str1,str2
-      character(20) cond    
+      character(20) cond
       character(8)  subset
       real(8)       arr(10,255)
 
@@ -124,7 +124,7 @@
 
       call openbf(20,'IN ',20)
       call openbf(50,'OUT',20)
-      
+
       write(55,*);write(55,*)'read/write from unit 20'
 
       do while(ireadmg(20,subset,idate)==0)
@@ -142,7 +142,7 @@
 
       call closbf(50)
       open(50,file='ufbrw_bufr_out',form='unformatted')
-      call openbf(50,'IN',50) 
+      call openbf(50,'IN',50)
 
       write(55,*);write(55,*)'read/write from unit 50'
 
@@ -160,13 +160,13 @@
 
 ! verify the testfile contents against output stored in brr array strings
 
-      do n=1,56     
+      do n=1,56
         read(55,'(a55)',iostat=iret) line
         call strsuc(line  ,str1,len1)
         call strsuc(brr(n),str2,len2)
         if(n<=55.and.iret==0.and.str1/=str2) then
-          print*,"str1:",str1  
-          print*,"str2:",str2 
+          print*,"str1:",str1
+          print*,"str2:",str2
           stop 98
         elseif(n>55.and.iret==0) then
           stop 99

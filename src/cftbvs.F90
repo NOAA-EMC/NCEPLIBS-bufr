@@ -40,7 +40,7 @@ recursive real*8 function pkftbv(nbits,ibit) result(r8val)
     return
   endif
 
-  if((nbits.le.0).or.(ibit.le.0).or.(ibit.gt.nbits)) then
+  if((nbits<=0).or.(ibit<=0).or.(ibit>nbits)) then
     r8val = bmiss
   else
     r8val = (2.)**(nbits-ibit)
@@ -103,14 +103,14 @@ recursive subroutine upftbv(lunit,nemo,val,mxib,ibit,nib)
   ! Perform some sanity checks.
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UPFTBV - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il==0) call bort('BUFRLIB: UPFTBV - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
 
   call nemtab(lun,nemo,idn,tab,n)
-  if(n.eq.0) then
+  if(n==0) then
     write(bort_str,'("BUFRLIB: UPFTBV - MNEMONIC ",A," NOT FOUND IN TABLE B")') nemo
     call bort(bort_str)
   endif
-  if(tabb(n,lun)(71:74).ne.'FLAG') then
+  if(tabb(n,lun)(71:74)/='FLAG') then
     write(bort_str,'("BUFRLIB: UPFTBV - MNEMONIC ",A," IS NOT A FLAG TABLE")') nemo
     call bort(bort_str)
   endif
@@ -122,14 +122,14 @@ recursive subroutine upftbv(lunit,nemo,val,mxib,ibit,nib)
   call strnum(tabb(n,lun)(110:112),nbits,iersn)
   do i=(nbits-1),0,-1
     r82i = (2.)**i
-    if(abs(r8val-r82i).lt.(0.005)) then
+    if(abs(r8val-r82i)<(0.005)) then
       nib = nib + 1
-      if(nib.gt.mxib) call bort('BUFRLIB: UPFTBV - IBIT ARRAY OVERFLOW')
+      if(nib>mxib) call bort('BUFRLIB: UPFTBV - IBIT ARRAY OVERFLOW')
       ibit(nib) = nbits-i
       return
-    elseif(r82i.lt.r8val) then
+    elseif(r82i<r8val) then
       nib = nib + 1
-      if(nib.gt.mxib) call bort('BUFRLIB: UPFTBV - IBIT ARRAY OVERFLOW')
+      if(nib>mxib) call bort('BUFRLIB: UPFTBV - IBIT ARRAY OVERFLOW')
       ibit(nib) = nbits-i
       r8val = r8val - r82i
     endif
@@ -254,13 +254,13 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
   endif
 
   call status ( lunit, lun, il, im )
-  if ( il .eq. 0 ) call bort('BUFRLIB: GETCFMNG - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
-  if ( il .gt. 0 ) call bort('BUFRLIB: GETCFMNG - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
-  if ( im .eq. 0 ) call bort('BUFRLIB: GETCFMNG - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+  if ( il == 0 ) call bort('BUFRLIB: GETCFMNG - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if ( il > 0 ) call bort('BUFRLIB: GETCFMNG - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if ( im == 0 ) call bort('BUFRLIB: GETCFMNG - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
 
   ! Make sure the appropriate code/flag information has already been read into internal memory.
 
-  if ( cdmf .ne. 'Y' ) call bort('BUFRLIB: GETCFMNG - TO USE THIS SUBROUTINE, MUST '// &
+  if ( cdmf /= 'Y' ) call bort('BUFRLIB: GETCFMNG - TO USE THIS SUBROUTINE, MUST '// &
     'FIRST CALL SUBROUTINE CODFLG WITH INPUT ARGUMENT SET TO Y')
 
   itmp = ireadmt ( lun )
@@ -279,13 +279,13 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
   do ii = 1, min ( 8, len( nemod ) )
     my_nemod(ii:ii) = nemod(ii:ii)
   end do
-  if ( my_nemoi(1:4) .eq. 'GSES' ) then
-    if ( ( my_nemod(1:6) .eq. 'GCLONG' ) .or. ( my_nemod(1:4) .eq. 'OGCE' ) .or. ( my_nemod(1:5) .eq. 'ORIGC' ) ) then
+  if ( my_nemoi(1:4) == 'GSES' ) then
+    if ( ( my_nemod(1:6) == 'GCLONG' ) .or. ( my_nemod(1:4) == 'OGCE' ) .or. ( my_nemod(1:5) == 'ORIGC' ) ) then
       ifxyi = ifxy ( '001034' )
       ifxyd(1) = ifxy ( '001035' )
     else
       lnmng = min ( 24, lcmg )
-      if ( lnmng .eq. 24 ) then
+      if ( lnmng == 24 ) then
         iret = 3
         cmeang(1:24) = 'GCLONG  OGCE    ORIGC   '
       else
@@ -293,18 +293,18 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
       end if
       return
     end if
-  else if ( my_nemoi(1:6) .eq. 'GCLONG' ) then
+  else if ( my_nemoi(1:6) == 'GCLONG' ) then
     ifxyi = ifxy ( '001031' )
     ifxyd(1) = (-1)
-  else if ( my_nemoi(1:4) .eq. 'OGCE' ) then
+  else if ( my_nemoi(1:4) == 'OGCE' ) then
     ifxyi = ifxy ( '001033' )
     ifxyd(1) = (-1)
-  else if ( my_nemoi(1:5) .eq. 'ORIGC' ) then
+  else if ( my_nemoi(1:5) == 'ORIGC' ) then
     ifxyi = ifxy ( '001035' )
     ifxyd(1) = (-1)
-  else if ( ( my_nemoi(1:7) .eq. 'TABLASS' ) .or. ( my_nemoi(1:7) .eq. 'TABLASL' ) ) then
-    if ( ( my_nemod(1:6) .eq. 'TABLAT' ) ) then
-      if ( my_nemoi(1:7) .eq. 'TABLASS' ) then
+  else if ( ( my_nemoi(1:7) == 'TABLASS' ) .or. ( my_nemoi(1:7) == 'TABLASL' ) ) then
+    if ( ( my_nemod(1:6) == 'TABLAT' ) ) then
+      if ( my_nemoi(1:7) == 'TABLASS' ) then
         ifxyi = ifxy ( '055021' )
       else
         ifxyi = ifxy ( '055022' )
@@ -312,7 +312,7 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
       ifxyd(1) = ifxy ( '055020' )
     else
       lnmng = min ( 8, lcmg )
-      if ( lnmng .eq. 8 ) then
+      if ( lnmng == 8 ) then
         iret = 1
         cmeang(1:8) = 'TABLAT  '
       else
@@ -320,28 +320,28 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
       end if
       return
     end if
-  else if ( my_nemoi(1:6) .eq. 'TABLAT' ) then
+  else if ( my_nemoi(1:6) == 'TABLAT' ) then
     ifxyi = ifxy ( '055020' )
     ifxyd(1) = (-1)
   else
     call parstr ( my_nemoi, nemo, 1, ntg, ' ', .true. )
     call nemtab ( lun, nemo, ifxyi, tab, n )
-    if ( ( n .eq. 0 ) .or. ( tab .ne. 'B' ) ) then
+    if ( ( n == 0 ) .or. ( tab /= 'B' ) ) then
       write(bort_str,'("BUFRLIB: GETCFMNG - MNEMONIC ",A," NOT FOUND IN TABLE B")') nemo
       call bort(bort_str)
     endif
-    if ( ( tabb ( n, lun )(71:74) .ne. 'CODE' ) .and. ( tabb ( n, lun )(71:74) .ne. 'FLAG' ) ) then
+    if ( ( tabb ( n, lun )(71:74) /= 'CODE' ) .and. ( tabb ( n, lun )(71:74) /= 'FLAG' ) ) then
       write(bort_str,'("BUFRLIB: GETCFMNG - MNEMONIC ",A," IS NOT A CODE OR FLAG TABLE")') nemo
       call bort(bort_str)
     endif
-    if ( my_nemod(1:1) .ne. ' ' ) then
+    if ( my_nemod(1:1) /= ' ' ) then
       call parstr ( my_nemod, nemo, 1, ntg, ' ', .true. )
       call nemtab ( lun, nemo, ifxyd(1), tab, n )
-      if ( ( n .eq. 0 ) .or. ( tab .ne. 'B' ) ) then
+      if ( ( n == 0 ) .or. ( tab /= 'B' ) ) then
         write(bort_str,'("BUFRLIB: GETCFMNG - MNEMONIC ",A," NOT FOUND IN TABLE B")') nemo
         call bort(bort_str)
       endif
-      if ( ( tabb ( n, lun )(71:74) .ne. 'CODE' ) .and. ( tabb ( n, lun )(71:74) .ne. 'FLAG' ) ) then
+      if ( ( tabb ( n, lun )(71:74) /= 'CODE' ) .and. ( tabb ( n, lun )(71:74) /= 'FLAG' ) ) then
         write(bort_str,'("BUFRLIB: GETCFMNG - MNEMONIC ",A," IS NOT A CODE OR FLAG TABLE")') nemo
         call bort(bort_str)
       endif
@@ -353,7 +353,7 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
   ! Search the internal table for the requested meaning.
 
   call srchtbf_c ( ifxyi, ivali, ifxyd(1), 10, ivald, cmeang, lcmg, lnmng, iret )
-  if ( iret .le. 0 ) return
+  if ( iret <= 0 ) return
 
   ! The meaning of this value is dependent on the value of another mnemonic in the report.
 
@@ -362,13 +362,13 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
   iret = 0
   do ii = 1, iret2
     call numtbd ( lun, ifxyd(ii), nemo, tab, ierbd )
-    if ( ( ierbd .gt. 0 ) .and. ( tab .eq. 'B' ) .and. ( lcmg .ge. ( lnmng + 8 ) ) ) then
+    if ( ( ierbd > 0 ) .and. ( tab == 'B' ) .and. ( lcmg >= ( lnmng + 8 ) ) ) then
       iret = iret + 1
       cmeang(lnmng+1:lnmng+8) = nemo
       lnmng = lnmng + 8
     end if
   end do
-  if ( iret .eq. 0 ) iret = -1
+  if ( iret == 0 ) iret = -1
 
   return
 end subroutine getcfmng
@@ -419,16 +419,16 @@ recursive subroutine ufbqcd(lunit,nemo,iqcd)
   endif
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFBQCD - BUFR FILE IS CLOSED, IT MUST BE OPEN')
+  if(il==0) call bort('BUFRLIB: UFBQCD - BUFR FILE IS CLOSED, IT MUST BE OPEN')
 
   call nemtab(lun,nemo,idn,tab,iret)
-  if(tab.ne.'D') then
+  if(tab/='D') then
     write(bort_str,'("BUFRLIB: UFBQCD - INPUT MNEMONIC ",A," NOT DEFINED AS A SEQUENCE DESCRIPTOR IN BUFR TABLE")') nemo
     call bort(bort_str)
   endif
 
   fxy = adn30(idn,6)
-  if(fxy(2:3).ne.'63') then
+  if(fxy(2:3)/='63') then
     write(bort_str,'("BUFRLIB: UFBQCD - BUFR TABLE SEQ. DESCRIPTOR '// &
       'ASSOC. WITH INPUT MNEMONIC ",A," HAS INVALID CATEGORY ",A," - CATEGORY MUST BE 63")') nemo, fxy(2:3)
     call bort(bort_str)
@@ -476,7 +476,7 @@ recursive subroutine ufbqcp(lunit,iqcp,nemo)
   endif
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFBQCP - BUFR FILE IS CLOSED, IT MUST BE OPEN')
+  if(il==0) call bort('BUFRLIB: UFBQCP - BUFR FILE IS CLOSED, IT MUST BE OPEN')
 
   idn = ifxy('363000')+iqcp
   call numtab(lun,idn,nemo,tab,iret)

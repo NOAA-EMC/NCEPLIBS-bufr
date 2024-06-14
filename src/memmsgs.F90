@@ -73,7 +73,7 @@ recursive subroutine ufbmem(lunit,inew,iret,iunit)
 
   call openbf(lunit,'IN',lunit)
 
-  if(inew.eq.0) then
+  if(inew==0) then
     msgp(0) = 0
     munit = 0
     mlast = 0
@@ -99,19 +99,19 @@ recursive subroutine ufbmem(lunit,inew,iret,iunit)
 
   ! If a table was indeed present at the beginning of the file, then set the flag to indicate that this table is now in scope.
 
-  if ((itemp+1).eq.ndxts) ldxts = ndxts
+  if ((itemp+1)==ndxts) ldxts = ndxts
 
   ! Transfer messages from file to memory and set message pointers
 
   do while (.true.)
     call rdmsgw(lunit,mgwa,ier)
-    if(ier.eq.-1) exit
-    if(ier.eq.-2) then
+    if(ier==-1) exit
+    if(ier==-2) then
       write(bort_str,'("BUFRLIB: UFBMEM - ERROR READING MESSAGE NUMBER",I5," INTO MEMORY FROM UNIT",I3)') nmsg+1,lunit
       call bort(bort_str)
     endif
 
-    if(idxmsg(mgwa).eq.1) then
+    if(idxmsg(mgwa)==1) then
       ! New "embedded" BUFR dictionary table messages have been found in this file.  Copy them into @ref moda_msgmem
       ! for later use.
       call backbufr_c(lun)  ! Backspace lunit
@@ -120,11 +120,11 @@ recursive subroutine ufbmem(lunit,inew,iret,iunit)
     endif
 
     nmsg = nmsg+1
-    if(nmsg.gt.maxmsg) iflg = 1
+    if(nmsg>maxmsg) iflg = 1
     lmem = nmwrd(mgwa)
-    if(lmem+mlast.gt.maxmem) iflg = 2
+    if(lmem+mlast>maxmem) iflg = 2
 
-    if(iflg.eq.0) then
+    if(iflg==0) then
       iret = iret+1
       do i=1,lmem
         msgs(mlast+i) = mgwa(i)
@@ -132,7 +132,7 @@ recursive subroutine ufbmem(lunit,inew,iret,iunit)
       msgp(0) = nmsg
       msgp(nmsg) = mlast+1
     else
-      if(itim.eq.0) then
+      if(itim==0) then
         mlast0 = mlast
         itim=1
       endif
@@ -140,9 +140,9 @@ recursive subroutine ufbmem(lunit,inew,iret,iunit)
     mlast = mlast+lmem
   enddo
 
-  if(iflg.eq.1) then
+  if(iflg==1) then
     ! Emergency room treatment for maxmsg array overflow
-    if(iprt.ge.0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       write ( unit=errstr, fmt='(A,A,I8,A)' ) 'BUFRLIB: UFBMEM - THE NO. OF MESSAGES REQUIRED TO STORE ', &
         'ALL MESSAGES INTERNALLY EXCEEDS MAXIMUM (', maxmsg, ') - INCOMPLETE READ'
@@ -157,9 +157,9 @@ recursive subroutine ufbmem(lunit,inew,iret,iunit)
     mlast=mlast0
   endif
 
-  if(iflg.eq.2) then
+  if(iflg==2) then
     ! Emergency room treatment for maxmem array overflow
-    if(iprt.ge.0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       write ( unit=errstr, fmt='(A,A,I8,A)' ) 'BUFRLIB: UFBMEM - THE NO. OF BYTES REQUIRED TO STORE ', &
         'ALL MESSAGES INTERNALLY EXCEEDS MAXIMUM (', maxmem, ') - INCOMPLETE READ'
@@ -174,11 +174,11 @@ recursive subroutine ufbmem(lunit,inew,iret,iunit)
     mlast=mlast0
   endif
 
-  if(iret.eq.0) then
+  if(iret==0) then
     call closbf(lunit)
   else
-    if(munit.ne.0) call closbf(lunit)
-    if(munit.eq.0) munit = lunit
+    if(munit/=0) call closbf(lunit)
+    if(munit==0) munit = lunit
   endif
   iunit = munit
 
@@ -238,7 +238,7 @@ recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
     call x84(lunit(1),my_lunit(1),1)
     call x84(lundx(1),my_lundx(1),1)
     call x84(inew(1),my_inew(1),1)
-    if (my_inew(1).eq.0) then
+    if (my_inew(1)==0) then
       nmesg = 0
     else
       nmesg = msgp(0)
@@ -256,7 +256,7 @@ recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
 
   call openbf(lunit(1),'IN',lundx(1))
 
-  if(inew(1).eq.0) then
+  if(inew(1)==0) then
     msgp(0) = 0
     munit = 0
     mlast = 0
@@ -281,19 +281,19 @@ recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
 
   do while (.true.)
     call rdmsgw(lunit(1),mgwa,ier)
-    if(ier.eq.-1) exit
-    if(ier.eq.-2) then
+    if(ier==-1) exit
+    if(ier==-2) then
       write(bort_str,'("BUFRLIB: UFBMEX - ERROR READING MESSAGE NUMBER",I5," INTO MEMORY FROM UNIT",I3)') nmsg+1,lunit(1)
       call bort(bort_str)
     endif
 
     nmsg = nmsg+1
     mesg(nmsg) = iupbs01(mgwa,'MTYP')
-    if(nmsg.gt.maxmsg) iflg = 1
+    if(nmsg>maxmsg) iflg = 1
     lmem = nmwrd(mgwa)
-    if(lmem+mlast.gt.maxmem) iflg = 2
+    if(lmem+mlast>maxmem) iflg = 2
 
-    if(iflg.eq.0) then
+    if(iflg==0) then
       iret(1) = iret(1)+1
       do i=1,lmem
         msgs(mlast+i) = mgwa(i)
@@ -301,7 +301,7 @@ recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
       msgp(0) = nmsg
       msgp(nmsg) = mlast+1
     else
-      if(itim.eq.0) then
+      if(itim==0) then
         mlast0 = mlast
         itim=1
       endif
@@ -309,9 +309,9 @@ recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
     mlast = mlast+lmem
   enddo
 
-  if(iflg.eq.1) then
+  if(iflg==1) then
     ! Emergency room treatment for maxmsg array overflow
-    if(iprt.ge.0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       write ( unit=errstr, fmt='(A,A,I8,A)' ) 'BUFRLIB: UFBMEX - THE NO. OF MESSAGES REQUIRED TO STORE ', &
         'ALL MESSAGES INTERNALLY EXCEEDS MAXIMUM (', maxmsg, ') - INCOMPLETE READ'
@@ -326,9 +326,9 @@ recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
     mlast=mlast0
   endif
 
-  if(iflg.eq.2) then
+  if(iflg==2) then
     ! Emergency room treatment for maxmem array overflow
-    if(iprt.ge.0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       write ( unit=errstr, fmt='(A,A,I8,A)' ) 'BUFRLIB: UFBMEX - THE NO. OF BYTES REQUIRED TO STORE ', &
         'ALL MESSAGES INTERNALLY EXCEEDS MAXIMUM (', maxmem, ') - INCOMPLETE READ'
@@ -343,11 +343,11 @@ recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
     mlast=mlast0
   endif
 
-  if(iret(1).eq.0) then
+  if(iret(1)==0) then
     call closbf(lunit(1))
   else
-    if(munit.ne.0) call closbf(lunit(1))
-    if(munit.eq.0) munit = lunit(1)
+    if(munit/=0) call closbf(lunit(1))
+    if(munit==0) munit = lunit(1)
   endif
 
   return
@@ -525,11 +525,11 @@ recursive subroutine rdmemm(imsg,subset,jdate,iret)
   call wtstat(munit,lun,il,1)
   iret = 0
 
-  if(imsg.eq.0 .or.imsg.gt.msgp(0)) then
+  if(imsg==0 .or.imsg>msgp(0)) then
     call wtstat(munit,lun,il,0)
-    if(iprt.ge.1) then
+    if(iprt>=1) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      if(imsg.eq.0) then
+      if(imsg==0) then
         errstr = 'BUFRLIB: RDMEMM - REQUESTED MEMORY MESSAGE NUMBER {FIRST (INPUT) ARGUMENT} IS 0, RETURN WITH IRET = -1'
       else
         write ( unit=errstr, fmt='(A,I6,A,I6,A)' ) 'BUFRLIB: RDMEMM - REQ. MEMORY MESSAGE #', imsg, &
@@ -547,8 +547,8 @@ recursive subroutine rdmemm(imsg,subset,jdate,iret)
 
   known = .false.
   jj = ndxts
-  do while ((.not.known).and.(jj.ge.1))
-    if (ipmsgs(jj).le.imsg) then
+  do while ((.not.known).and.(jj>=1))
+    if (ipmsgs(jj)<=imsg) then
       known = .true.
     else
       jj = jj - 1
@@ -561,11 +561,11 @@ recursive subroutine rdmemm(imsg,subset,jdate,iret)
 
   ! Is this table the one that is currently in scope?
 
-  if (jj.ne.ldxts) then
+  if (jj/=ldxts) then
 
     ! No, so reset the software to use the proper table.
 
-    if(iprt.ge.2) then
+    if(iprt>=2) then
       call errwrt('+++++++++++++++++++++++++++++++++++++++++++++')
       write ( unit=errstr, fmt='(A,I3,A,I3,A,I6)' ) 'BUFRLIB: RDMEMM - RESETTING TO USE DX TABLE #', jj, &
         ' INSTEAD OF DX TABLE #', ldxts, ' FOR REQUESTED MESSAGE #', imsg
@@ -578,7 +578,7 @@ recursive subroutine rdmemm(imsg,subset,jdate,iret)
     ! Store each of the DX dictionary messages which constitute this table.
 
     do ii = ifdxts(jj), (ifdxts(jj)+icdxts(jj)-1)
-      if (ii.eq.ndxm) then
+      if (ii==ndxm) then
         nwrd = ldxm - ipdxm(ii) + 1
       else
         nwrd = ipdxm(ii+1) - ipdxm(II)
@@ -598,8 +598,8 @@ recursive subroutine rdmemm(imsg,subset,jdate,iret)
   ! Read memory message number imsg into a message buffer.
 
   iptr = msgp(imsg)
-  if(imsg.lt.msgp(0)) lptr = msgp(imsg+1)-iptr
-  if(imsg.eq.msgp(0)) lptr = mlast-iptr+1
+  if(imsg<msgp(0)) lptr = msgp(imsg+1)-iptr
+  if(imsg==msgp(0)) lptr = mlast-iptr+1
   iptr = iptr-1
 
   do ii=1,lptr
@@ -666,15 +666,15 @@ recursive subroutine rdmems(isub,iret)
   ! Check the message request and file status
 
   call status(munit,lun,il,im)
-  if(im.eq.0) call bort('BUFRLIB: RDMEMS - A MEMORY MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
-  if(nsub(lun).ne.0) then
+  if(im==0) call bort('BUFRLIB: RDMEMS - A MEMORY MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+  if(nsub(lun)/=0) then
     write(bort_str,'("BUFRLIB: RDMEMS - UPON ENTRY, SUBSET POINTER IN MEMORY MESSAGE IS NOT AT BEGINNING (",I3," '// &
       'SUBSETS HAVE BEEN READ, SHOULD BE 0)")') nsub(lun)
     call bort(bort_str)
   endif
 
-  if(isub.gt.msub(lun)) then
-    if(iprt.ge.0) then
+  if(isub>msub(lun)) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       write ( unit=errstr, fmt='(A,I5,A,A,I5,A)' ) 'BUFRLIB: RDMEMS - REQ. SUBSET #', isub, ' (= 1st INPUT ', &
         'ARG.) > # OF SUBSETS IN MEMORY MESSAGE (', msub(lun), ')'
@@ -692,12 +692,12 @@ recursive subroutine rdmems(isub,iret)
 
   ! Position to subset number isub in memory message
 
-  if(msgunp(lun).eq.0) then
+  if(msgunp(lun)==0) then
     nsub(lun) = isub-1
     do i=1,isub-1
       mbyt(lun) = mbyt(lun) + iupb(mbay(1,lun),mbyt(lun)+1,16)
     enddo
-  elseif(msgunp(lun).eq.1) then
+  elseif(msgunp(lun)==1) then
     ! message with "standard" Section 3
     do i=1,isub-1
       call readsb(munit,iret)
@@ -710,7 +710,7 @@ recursive subroutine rdmems(isub,iret)
   ! Now read subset number isub from memory message
 
   call readsb(munit,iret)
-  if(iret.ne.0) call bort('BUFRLIB: RDMEMS - CALL TO ROUTINE READSB RETURNED WITH IRET = -1 (EITHER MEMORY MESSAGE '// &
+  if(iret/=0) call bort('BUFRLIB: RDMEMS - CALL TO ROUTINE READSB RETURNED WITH IRET = -1 (EITHER MEMORY MESSAGE '// &
      'NOT OPEN OR ALL SUBSETS IN MESSAGE READ')
 
   ! Reset subset pointer back to zero (beginning of message) and return
@@ -746,7 +746,7 @@ subroutine cpdxmm( lunit )
 
   common /quiet/ iprt
 
-  if ( ndxts .ge. mxdxts ) call bort('BUFRLIB: CPDXMM - MXDXTS OVERFLOW')
+  if ( ndxts >= mxdxts ) call bort('BUFRLIB: CPDXMM - MXDXTS OVERFLOW')
 
   ict = 0
   done = .false.
@@ -756,8 +756,8 @@ subroutine cpdxmm( lunit )
 
   do while ( .not. done )
     call rdmsgw ( lunit, mgwa, ier )
-    if ( ier .eq. -2 ) call bort('BUFRLIB: CPDXMM - UNEXPECTED READ ERROR')
-    if ( ier .eq. -1 ) then
+    if ( ier == -2 ) call bort('BUFRLIB: CPDXMM - UNEXPECTED READ ERROR')
+    if ( ier == -1 ) then
 
       ! Don't abort for an end-of-file condition, since it may be possible for a file to end with dictionary messages.
       ! Instead, backspace the file pointer and let the calling routine diagnose the end-of-file condition and deal with
@@ -765,14 +765,14 @@ subroutine cpdxmm( lunit )
 
       call backbufr_c(lun)
       done = .true.
-    else if ( idxmsg(mgwa) .ne. 1 ) then
+    else if ( idxmsg(mgwa) /= 1 ) then
 
       ! This is a non-DX dictionary message.  Assume we've reached the end of the dictionary table, and backspace lunit so
       ! that the next read (e.g. in the calling routine) will get this same message.
 
       call backbufr_c(lun)
       done = .true.
-    else if ( iupbs3(mgwa,'nsub') .eq. 0 ) then
+    else if ( iupbs3(mgwa,'nsub') == 0 ) then
 
       ! This is a DX dictionary message, but it doesn't contain any actual dictionary information.  Assume we've reached the
       ! end of the dictionary table.
@@ -783,10 +783,10 @@ subroutine cpdxmm( lunit )
       ! Store this message into @ref moda_msgmem.
 
       ict = ict + 1
-      if ( ( ndxm + ict ) .gt. mxdxm ) call bort('BUFRLIB: CPDXMM - MXDXM OVERFLOW')
+      if ( ( ndxm + ict ) > mxdxm ) call bort('BUFRLIB: CPDXMM - MXDXM OVERFLOW')
       ipdxm(ndxm+ict) = ldxm + 1
       lmem = nmwrd(mgwa)
-      if ( ( ldxm + lmem ) .gt. mxdxw ) call bort('BUFRLIB: CPDXMM - MXDXW OVERFLOW')
+      if ( ( ldxm + lmem ) > mxdxw ) call bort('BUFRLIB: CPDXMM - MXDXW OVERFLOW')
       do j = 1, lmem
         mdx(ldxm+j) = mgwa(j)
       enddo
@@ -796,13 +796,13 @@ subroutine cpdxmm( lunit )
 
   ! Update the table information within @ref moda_msgmem.
 
-  if ( ict .gt. 0 ) then
+  if ( ict > 0 ) then
     ifdxts(ndxts+1) = ndxm + 1
     icdxts(ndxts+1) = ict
     ipmsgs(ndxts+1) = msgp(0) + 1
     ndxm = ndxm + ict
     ndxts = ndxts + 1
-    if ( iprt .ge. 2 ) then
+    if ( iprt >= 2 ) then
       call errwrt('+++++++++++++++++++++++++++++++++++++++++++++')
       write ( unit=errstr, fmt='(A,I3,A,I3,A)') 'BUFRLIB: CPDXMM - STORED NEW DX TABLE #', ndxts, &
         ' CONSISTING OF ', ict, ' MESSAGES'
@@ -870,8 +870,8 @@ recursive subroutine ufbmms(imsg,isub,subset,jdate)
   ! Read subset #isub from memory message #imsg
 
   call rdmemm(imsg,subset,jdate,iret)
-  if(iret.lt.0) then
-    if(imsg.gt.0)  then
+  if(iret<0) then
+    if(imsg>0)  then
       write(bort_str,'("BUFRLIB: UFBMMS - REQUESTED MEMORY MESSAGE NUMBER TO READ IN (",I5,") EXCEEDS THE NUMBER OF '// &
         'MESSAGES IN MEMORY (",I5,")")') imsg,msgp(0)
     else
@@ -880,7 +880,7 @@ recursive subroutine ufbmms(imsg,isub,subset,jdate)
     call bort(bort_str)
   endif
   call rdmems(isub,iret)
-  if(iret.ne.0) then
+  if(iret/=0) then
     call status(munit,lun,il,im)
     write(bort_str,'("BUFRLIB: UFBMMS - REQ. SUBSET NUMBER TO READ IN (",I3,") EXCEEDS THE NUMBER OF SUBSETS (",I3,") '// &
       'IN THE REG. MEMORY MESSAGE (",I5,")")') isub,msub(lun),imsg
@@ -941,8 +941,8 @@ recursive subroutine ufbmns(irep,subset,idate)
 
   ! Read subset #irep
 
-  do while(ireadmm(imsg,subset,idate).eq.0)
-    if(jrep+nmsub(munit).ge.irep) then
+  do while(ireadmm(imsg,subset,idate)==0)
+    if(jrep+nmsub(munit)>=irep) then
        call rdmems(irep-jrep,iret)
        return
     endif
@@ -1011,8 +1011,8 @@ recursive subroutine ufbrms(imsg,isub,usr,i1,i2,iret,str)
   endif
 
   iret = 0
-  if(i1.le.0) then
-    if(iprt.ge.0) then
+  if(i1<=0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBRMS - 4th ARG. (INPUT) IS .LE. 0, SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) ='
       call errwrt(errstr)
@@ -1021,8 +1021,8 @@ recursive subroutine ufbrms(imsg,isub,usr,i1,i2,iret,str)
       call errwrt(' ')
     endif
     return
-  elseif(i2.le.0) then
-    if(iprt.ge.0) then
+  elseif(i2<=0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBRMS - 5th ARG. (INPUT) IS .LE. 0, SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) ='
       call errwrt(errstr)
@@ -1036,8 +1036,8 @@ recursive subroutine ufbrms(imsg,isub,usr,i1,i2,iret,str)
   ! Read requested values from subset #isub within memory message #imsg
 
   call rdmemm(imsg,subset,jdate,iret)
-  if(iret.lt.0) then
-    if(imsg.gt.0)  then
+  if(iret<0) then
+    if(imsg>0)  then
       write(bort_str,'("BUFRLIB: UFBRMS - REQUESTED MEMORY MESSAGE NUMBER TO READ IN (",I5,") EXCEEDS THE NUMBER OF '// &
         'MESSAGES IN MEMORY (",I5,")")') imsg,msgp(0)
     else
@@ -1046,7 +1046,7 @@ recursive subroutine ufbrms(imsg,isub,usr,i1,i2,iret,str)
     call bort(bort_str)
   endif
   call rdmems(isub,iret)
-  if(iret.ne.0) then
+  if(iret/=0) then
     call status(munit,lun,il,im)
     write(bort_str,'("BUFRLIB: UFBRMS - REQ. SUBSET NUMBER TO READ IN (",I3,") EXCEEDS THE NUMBER OF SUBSETS (",I3,") '// &
       'IN THE REG. MEMORY MESSAGE (",I5,")")') isub,msub(lun),imsg
@@ -1151,7 +1151,7 @@ recursive subroutine ufbtam(tab,i1,i2,iret,str)
 
   iret = 0
 
-  if(msgp(0).eq.0) return
+  if(msgp(0)==0) return
 
   do j=1,i2
     do i=1,i1
@@ -1166,9 +1166,9 @@ recursive subroutine ufbtam(tab,i1,i2,iret,str)
   isub = 0
   itbl = 0
   do i=1,ntg
-    if(tgs(i).eq.'IREC') irec = i
-    if(tgs(i).eq.'ISUB') isub = i
-    if(tgs(i).eq.'ITBL') itbl = i
+    if(tgs(i)=='IREC') irec = i
+    if(tgs(i)=='ISUB') isub = i
+    if(tgs(i)=='ITBL') itbl = i
   enddo
 
   call status(munit,lun,il,im)
@@ -1177,32 +1177,32 @@ recursive subroutine ufbtam(tab,i1,i2,iret,str)
 
   outer: do imsg=1,msgp(0)
     call rdmemm(imsg,subset,jdate,mret)
-    if(mret.lt.0) then
+    if(mret<0) then
       write(bort_str,'("BUFRLIB: UFBTAM - HIT END-OF-FILE READING MESSAGE NUMBER",I5," IN INTERNAL MEMORY")') imsg
       call bort(bort_str)
     endif
 
     call string(str,lun,i1,0)
-    if(irec.gt.0) nods(irec) = 0
-    if(isub.gt.0) nods(isub) = 0
-    if(itbl.gt.0) nods(itbl) = 0
+    if(irec>0) nods(irec) = 0
+    if(isub>0) nods(isub) = 0
+    if(itbl>0) nods(itbl) = 0
 
     ! Process all the subsets in the memory message
 
-    do while (nsub(lun).lt.msub(lun))
-      if(iret+1.gt.i2) then
+    do while (nsub(lun)<msub(lun))
+      if(iret+1>i2) then
         ! Emergency room treatment for array overflow
         call rdmemm(0,subset,jdate,mret)
         nrep = 0
         do kmsg=1,msgp(0)
           call rdmemm(kmsg,subset,jdate,mret)
-          if(mret.lt.0) then
+          if(mret<0) then
             write(bort_str,'("BUFRLIB: UFBTAM - HIT END-OF-FILE READING MESSAGE NUMBER",I5," IN INTERNAL MEMORY")') kmsg
             call bort(bort_str)
           endif
           nrep = nrep+nmsub(munit)
         enddo
-        if(iprt.ge.0) then
+        if(iprt>=0) then
           call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
           write ( unit=errstr, fmt='(A,A,I8,A,A)' ) 'BUFRLIB: UFBTAM - THE NO. OF DATA SUBSETS IN MEMORY ', &
             'IS .GT. LIMIT OF ', I2, ' IN THE 3RD ARG. (INPUT) - INCOMPLETE READ'
@@ -1226,25 +1226,25 @@ recursive subroutine ufbtam(tab,i1,i2,iret,str)
       nbit = 0
       n = 1
 
-      inner: do while(n+1.le.nval(lun))
+      inner: do while(n+1<=nval(lun))
         n = n+1
         node = inv(n,lun)
         mbit = mbit+nbit
         nbit = ibt(node)
-        if(itp(node).eq.1) then
+        if(itp(node)==1) then
           call upb8(ival,nbit,mbit,mbay(1,lun))
           nbmp=int(ival)
           call usrtpl(lun,n,nbmp)
         endif
         do i=1,nnod
-          if(nods(i).eq.node) then
-            if(itp(node).eq.1) then
+          if(nods(i)==node) then
+            if(itp(node)==1) then
               call upb8(ival,nbit,mbit,mbay(1,lun))
               tab(i,iret) = ival
-            elseif(itp(node).eq.2) then
+            elseif(itp(node)==2) then
               call upb8(ival,nbit,mbit,mbay(1,lun))
-              if(ival.lt.mps(node)) tab(i,iret) = ups(ival,node)
-            elseif(itp(node).eq.3) then
+              if(ival<mps(node)) tab(i,iret) = ups(ival,node)
+            elseif(itp(node)==3) then
               cval = ' '
               kbit = mbit
               call upc(cval,nbit/8,mbay(1,lun),kbit,.true.)
@@ -1255,7 +1255,7 @@ recursive subroutine ufbtam(tab,i1,i2,iret,str)
           endif
         enddo
         do i=1,nnod
-          if(nods(i).gt.0) cycle inner
+          if(nods(i)>0) cycle inner
         enddo
       enddo inner
 
@@ -1265,9 +1265,9 @@ recursive subroutine ufbtam(tab,i1,i2,iret,str)
       call upb(nbyt,16,mbay(1,lun),ibit)
       mbyt(lun) = mbyt(lun) + nbyt
       nsub(lun) = nsub(lun) + 1
-      if(irec.gt.0) tab(irec,iret) = nmsg(lun)
-      if(isub.gt.0) tab(isub,iret) = nsub(lun)
-      if(itbl.gt.0) tab(itbl,iret) = ldxts
+      if(irec>0) tab(irec,iret) = nmsg(lun)
+      if(isub>0) tab(isub,iret) = nsub(lun)
+      if(itbl>0) tab(itbl,iret) = ldxts
     enddo
 
   enddo outer

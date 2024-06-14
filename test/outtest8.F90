@@ -49,7 +49,7 @@ program outtest8
   call maxout ( 25000 )
 
   ! Copy all of the data subsets into an output message.
-  do while ( ireadns ( 11, cmgtag, imgdt ) .eq. 0 )
+  do while ( ireadns ( 11, cmgtag, imgdt ) == 0 )
     call openmb ( 12, cmgtag, imgdt )
     call ufbcpy ( 11, 12 )
     call writsa ( 12, mxbfd4, ibfmg, lenbmg )
@@ -57,7 +57,7 @@ program outtest8
 
   ! Get the completed output message.
   call writsa ( -12, mxbfd4, ibfmg, lenbmg )
-  if ( lenbmg .eq. 0 ) stop 2
+  if ( lenbmg == 0 ) stop 2
 
   ! Open the output file.
   call cobfl_c ( filnam, filost )
@@ -68,7 +68,7 @@ program outtest8
   ! For some reason the following code line squawks with a -Wconversion warning, so for now we'll just
   ! hardcode a workaround since lenbmg should have a value of 2237 when using 8-byte integers.
   !   nbyt = int(lenbmg,4) * 8
-  if ( lenbmg .ne. 2237 ) stop 3
+  if ( lenbmg /= 2237 ) stop 3
   nbyt = 2237 * 8
 #else
   nbyt = lenbmg * 4
@@ -82,7 +82,7 @@ program outtest8
   iusno = iupbs01( ibfmg, 'USN' )
   call pkbs1( 1, ibfmg, 'USN' )
   iusnn = iupbs01( ibfmg, 'USN' )
-  if ( any( (/imtvo,imtvn,iusno,iusnn/) .ne. (/36,39,0,1/) ) ) stop 4
+  if ( any( (/imtvo,imtvn,iusno,iusnn/) /= (/36,39,0,1/) ) ) stop 4
 
   ! Close the output file.
   call ccbfl_c()

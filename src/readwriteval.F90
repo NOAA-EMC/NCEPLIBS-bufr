@@ -68,16 +68,16 @@ recursive subroutine setvalnb ( lunit, tagpv, ntagpv, tagnb, ntagnb, r8val, iret
 
   ! Get lun from lunit.
   call status (lunit, lun, il, im )
-  if ( il .le. 0 ) return
-  if ( inode(lun) .ne. inv(1,lun) ) return
+  if ( il <= 0 ) return
+  if ( inode(lun) /= inv(1,lun) ) return
 
   ! Starting from the beginning of the subset, locate the (ntagpv)th occurrence of tagpv.
   call fstag( lun, tagpv, ntagpv, 1, npv, ierft )
-  if ( ierft .ne. 0 ) return
+  if ( ierft /= 0 ) return
 
   ! Now, starting from the (ntagpv)th occurrence of tagpv, search forward or backward for the (ntagnb)th occurrence of tagnb.
   call fstag( lun, tagnb, ntagnb, npv, nnb, ierft )
-  if ( ierft .ne. 0 ) return
+  if ( ierft /= 0 ) return
 
   iret = 0
   val(nnb,lun) = r8val
@@ -148,16 +148,16 @@ recursive real*8 function getvalnb ( lunit, tagpv, ntagpv, tagnb, ntagnb ) resul
 
   ! Get lun from lunit.
   call status (lunit, lun, il, im )
-  if ( il .ge. 0 ) return
-  if ( inode(lun) .ne. inv(1,lun) ) return
+  if ( il >= 0 ) return
+  if ( inode(lun) /= inv(1,lun) ) return
 
   ! Starting from the beginning of the subset, locate the (ntagpv)th occurrence of tagpv.
   call fstag( lun, tagpv, ntagpv, 1, npv, ierft )
-  if ( ierft .ne. 0 ) return
+  if ( ierft /= 0 ) return
 
   ! Now, starting from the (ntagpv)th occurrence of tagpv, search forward or backward for the (ntagnb)th occurrence of tagnb.
   call fstag( lun, tagnb, ntagnb, npv, nnb, ierft )
-  if ( ierft .ne. 0 ) return
+  if ( ierft /= 0 ) return
 
   r8val = val(nnb,lun)
 
@@ -234,13 +234,13 @@ recursive subroutine writlc(lunit,chr,str)
 
   ! Check the file status.
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: WRITLC - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
-  if(il.lt.0) call bort('BUFRLIB: WRITLC - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
-  if(im.eq.0) call bort('BUFRLIB: WRITLC - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
+  if(il==0) call bort('BUFRLIB: WRITLC - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
+  if(il<0) call bort('BUFRLIB: WRITLC - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
+  if(im==0) call bort('BUFRLIB: WRITLC - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
 
   ! Check for tags (mnemonics) in input string (there can only be one)
   call parstr(str,tgs,maxtg,ntg,' ',.true.)
-  if(ntg.gt.1) then
+  if(ntg>1) then
     write(bort_str,'("BUFRLIB: WRITLC - THERE CANNOT BE MORE THAN '// &
       ' ONE MNEMONIC IN THE INPUT STRING (",A,") (HERE THERE ARE",I4,")")') str,ntg
     call bort(bort_str)
@@ -248,12 +248,12 @@ recursive subroutine writlc(lunit,chr,str)
 
   ! Check if a specific occurrence of the input string was requested; if not, then the default is to write the first occurrence
   call parutg(lun,1,tgs(1),nnod,kon,roid)
-  if(kon.eq.6) then
+  if(kon==6) then
     ioid=nint(roid)
-    if(ioid.le.0) ioid = 1
+    if(ioid<=0) ioid = 1
     ctag = ' '
     ii = 1
-    do while((ii.le.10).and.(tgs(1)(ii:ii).ne.'#'))
+    do while((ii<=10).and.(tgs(1)(ii:ii)/='#'))
       ctag(ii:ii)=tgs(1)(ii:ii)
       ii = ii + 1
     enddo
@@ -262,21 +262,21 @@ recursive subroutine writlc(lunit,chr,str)
     ctag = tgs(1)(1:10)
   endif
 
-  if(iupbs3(mbay(1,lun),'ICMP').gt.0) then
+  if(iupbs3(mbay(1,lun),'ICMP')>0) then
     ! The message is compressed
     n = 1
     itagct = 0
     call usrtpl(lun,n,n)
-    do while (n+1.le.nval(lun))
+    do while (n+1<=nval(lun))
       n = n+1
       node = inv(n,lun)
-      if(itp(node).eq.1) then
+      if(itp(node)==1) then
         nbmp=int(matx(n,ncol))
         call usrtpl(lun,n,nbmp)
-      elseif(ctag.eq.tag(node)) then
+      elseif(ctag==tag(node)) then
         itagct = itagct + 1
-        if(itagct.eq.ioid) then
-          if(itp(node).ne.3) then
+        if(itagct==ioid) then
+          if(itp(node)/=3) then
             write(bort_str,'("BUFRLIB: WRITLC - MNEMONIC ",A," DOES NOT REPRESENT A CHARACTER ELEMENT (TYP=",A,")")') &
               ctag,typ(node)
             call bort(bort_str)
@@ -297,14 +297,14 @@ recursive subroutine writlc(lunit,chr,str)
     mbyte = len0 + len1 + len2 + len3 + 4
     nsubs = 1
     ! Find the most recently written subset in the message.
-    do while(nsubs.lt.nsub(lun))
+    do while(nsubs<nsub(lun))
       ibit = mbyte*8
       call upb(nbyt,16,mbay(1,lun),ibit)
       mbyte = mbyte + nbyt
       nsubs = nsubs + 1
     enddo
-    if(nsubs.ne.nsub(lun)) then
-      if(iprt.ge.0) then
+    if(nsubs/=nsub(lun)) then
+      if(iprt>=0) then
         call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
         errstr = 'BUFRLIB: WRITLC - COULDN''T WRITE VALUE FOR ' // ctag // &
           ' INTO SUBSET, BECAUSE NO SUBSET WAS OPEN FOR WRITING'
@@ -320,18 +320,18 @@ recursive subroutine writlc(lunit,chr,str)
     nbit = 0
     n = 1
     call usrtpl(lun,n,n)
-    do while (n+1.le.nval(lun))
+    do while (n+1<=nval(lun))
       n = n+1
       node = inv(n,lun)
       mbit = mbit+nbit
       nbit = ibt(node)
-      if(itp(node).eq.1) then
+      if(itp(node)==1) then
         call upbb(ival,nbit,mbit,mbay(1,lun))
         call usrtpl(lun,n,ival)
-      elseif(ctag.eq.tag(node)) then
+      elseif(ctag==tag(node)) then
         itagct = itagct + 1
-        if(itagct.eq.ioid) then
-          if(itp(node).ne.3) then
+        if(itagct==ioid) then
+          if(itp(node)/=3) then
             write(bort_str,'("BUFRLIB: WRITLC - MNEMONIC ",A," DOES NOT REPRESENT A CHARACTER ELEMENT (TYP=",A,")")') &
               ctag,typ(node)
             call bort(bort_str)
@@ -350,7 +350,7 @@ recursive subroutine writlc(lunit,chr,str)
   endif
 
   ! If we made it here, then we couldn't find the requested string.
-  if(iprt.ge.0) then
+  if(iprt>=0) then
     call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
     errstr = 'BUFRLIB: WRITLC - COULDN''T WRITE VALUE FOR ' // ctag // ' INTO SUBSET, BECAUSE IT WASN''T FOUND IN THE ' // &
       'SUBSET DEFINITION'
@@ -446,13 +446,13 @@ recursive subroutine readlc(lunit,chr,str)
 
   ! Check the file status
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: READLC - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
-  if(il.gt.0) call bort('BUFRLIB: READLC - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
-  if(im.eq.0) call bort('BUFRLIB: READLC - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+  if(il==0) call bort('BUFRLIB: READLC - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il>0) call bort('BUFRLIB: READLC - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(im==0) call bort('BUFRLIB: READLC - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
 
   ! Check for tags (mnemonics) in input string (there can only be one)
   call parstr(str,tgs,maxtg,ntg,' ',.true.)
-  if(ntg.gt.1) then
+  if(ntg>1) then
     write(bort_str,'("BUFRLIB: READLC - THERE CANNOT BE MORE THAN '// &
        'ONE MNEMONIC IN THE INPUT STRING (",A,") (HERE THERE ARE ",I3,")")') str,ntg
     call bort(bort_str)
@@ -461,12 +461,12 @@ recursive subroutine readlc(lunit,chr,str)
   ! Check if a specific occurrence of the input string was requested; if not, then the default is to return the
   ! first occurrence.
   call parutg(lun,0,tgs(1),nnod,kon,roid)
-  if(kon.eq.6) then
+  if(kon==6) then
     ioid=nint(roid)
-    if(ioid.le.0) ioid = 1
+    if(ioid<=0) ioid = 1
     ctag = ' '
     ii = 1
-    do while((ii.le.10).and.(tgs(1)(ii:ii).ne.'#'))
+    do while((ii<=10).and.(tgs(1)(ii:ii)/='#'))
       ctag(ii:ii)=tgs(1)(ii:ii)
       ii = ii + 1
     enddo
@@ -476,21 +476,21 @@ recursive subroutine readlc(lunit,chr,str)
   endif
 
   ! Locate and decode the long character string
-  if(msgunp(lun).eq.0.or.msgunp(lun).eq.1) then
+  if(msgunp(lun)==0.or.msgunp(lun)==1) then
     ! The message is not compressed
     itagct = 0
     do n=1,nval(lun)
       nod = inv(n,lun)
-      if(ctag.eq.tag(nod)) then
+      if(ctag==tag(nod)) then
         itagct = itagct + 1
-        if(itagct.eq.ioid) then
-          if(itp(nod).ne.3) then
+        if(itagct==ioid) then
+          if(itp(nod)/=3) then
             write(bort_str,'("BUFRLIB: READLC - MNEMONIC ",A," DOES NOT '// &
               'REPRESENT A CHARACTER ELEMENT (ITP=",I2,")")') tgs(1),itp(nod)
             call bort(bort_str)
           endif
           nchr = nbit(n)/8
-          if(nchr.gt.lchr) Then
+          if(nchr>lchr) then
             write(bort_str,'("BUFRLIB: READLC - MNEMONIC ",A," IS A '// &
             'CHARACTER STRING OF LENGTH",I4," BUT SPACE WAS PROVIDED FOR ONLY",I4, " CHARACTERS")') tgs(1),nchr,lchr
             call bort(bort_str)
@@ -503,14 +503,14 @@ recursive subroutine readlc(lunit,chr,str)
     enddo
   else
     ! The message is compressed
-    if(nrst.gt.0) then
+    if(nrst>0) then
       itagct = 0
       do ii=1,nrst
-        if(ctag.eq.crtag(ii)) then
+        if(ctag==crtag(ii)) then
           itagct = itagct + 1
-          if(itagct.eq.ioid) then
+          if(itagct==ioid) then
             nchr = irnch(ii)
-            if(nchr.gt.lchr) then
+            if(nchr>lchr) then
               write(bort_str,'("BUFRLIB: READLC - MNEMONIC ",A," IS A '// &
                 'CHARACTER STRING OF LENGTH",I4," BUT SPACE WAS PROVIDED FOR ONLY",I4, " CHARACTERS")') tgs(1),nchr,lchr
               call bort(bort_str)
@@ -525,7 +525,7 @@ recursive subroutine readlc(lunit,chr,str)
   endif
 
   ! If we made it here, then we couldn't find the requested string.
-  if(iprt.ge.0) then
+  if(iprt>=0) then
     call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
     errstr = 'BUFRLIB: READLC - MNEMONIC ' // tgs(1) // &
       ' NOT LOCATED IN REPORT SUBSET - RETURN WITH MISSING STRING FOR CHARACTER DATA ELEMENT'
@@ -684,16 +684,16 @@ recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
   ! Check the file status and inode
   lunit = abs(lunin)
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFBINT - BUFR FILE IS CLOSED, IT MUST BE OPEN')
-  if(im.eq.0) call bort('BUFRLIB: UFBINT - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE')
-  if(inode(lun).ne.inv(1,lun)) call bort('BUFRLIB: UFBINT - LOCATION OF INTERNAL TABLE FOR BUFR FILE DOES NOT AGREE ' // &
+  if(il==0) call bort('BUFRLIB: UFBINT - BUFR FILE IS CLOSED, IT MUST BE OPEN')
+  if(im==0) call bort('BUFRLIB: UFBINT - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE')
+  if(inode(lun)/=inv(1,lun)) call bort('BUFRLIB: UFBINT - LOCATION OF INTERNAL TABLE FOR BUFR FILE DOES NOT AGREE ' // &
     'WITH EXPECTED LOCATION IN INTERNAL SUBSET ARRAY')
 
   io = min(max(0,il),1)
-  if(lunit.ne.lunin) io = 0
+  if(lunit/=lunin) io = 0
 
-  if(i1.le.0) then
-    if(iprt.ge.0) then
+  if(i1<=0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBINT - 3rd ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
       call errwrt(errstr)
@@ -702,14 +702,14 @@ recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
       call errwrt(' ')
     endif
     return
-  elseif(i2.le.0) then
-    if(iprt.eq.-1) ifirst1 = 1
-    if(io.eq.0 .or. ifirst1.eq.0 .or. iprt.ge.1)  then
+  elseif(i2<=0) then
+    if(iprt==-1) ifirst1 = 1
+    if(io==0 .or. ifirst1==0 .or. iprt>=1)  then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBINT - 4th ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
       call errwrt(errstr)
       call errwrt(str)
-      if(iprt.eq.0 .and. io.eq.1) then
+      if(iprt==0 .and. io==1) then
         errstr = 'Note: Only the first occurrence of this WARNING message is printed, there may be more.  To output ' // &
           'all such messages,'
         call errwrt(errstr)
@@ -728,7 +728,7 @@ recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
   call string(str,lun,i1,io)
 
   ! Initialize usr array preceeding an input operation
-  if(io.eq.0) then
+  if(io==0) then
     do j=1,i2
       do i=1,I1
         usr(i,j) = bmiss
@@ -740,21 +740,21 @@ recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
   call ufbrw(lun,usr,i1,i2,io,iret)
 
   ! If incomplete write try to initialize replication sequence or return
-  if(io.eq.1 .and. iret.ne.i2 .and. iret.ge.0) then
+  if(io==1 .and. iret/=i2 .and. iret>=0) then
     call trybump(lun,usr,i1,i2,io,iret)
-    if(iret.ne.i2) then
+    if(iret/=i2) then
       write(bort_str1,'("BUFRLIB: UFBINT - MNEMONIC STRING READ IN IS: ",A)') str
       write(bort_str2,'(18X,"THE NUMBER OF ''LEVELS'' ACTUALLY '// &
         'WRITTEN (",I3,") DOES NOT EQUAL THE NUMBER REQUESTED (",I3,") - INCOMPLETE WRITE")')  iret,i2
       call bort2(bort_str1,bort_str2)
     endif
-  elseif(iret.eq.-1) then
+  elseif(iret==-1) then
     iret = 0
   endif
 
-  if(iret.eq.0) then
-    if(io.eq.0) then
-      if(iprt.ge.1) then
+  if(iret==0) then
+    if(io==0) then
+      if(iprt>=1) then
         call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
         errstr = 'BUFRLIB: UFBINT - NO SPECIFIED VALUES READ IN, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
         call errwrt(errstr)
@@ -763,14 +763,14 @@ recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
         call errwrt(' ')
       endif
     else
-      if(iprt.eq.-1) ifirst2 = 1
-      if(ifirst2.eq.0 .or. iprt.ge.1) then
+      if(iprt==-1) ifirst2 = 1
+      if(ifirst2==0 .or. iprt>=1) then
         call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
         errstr = 'BUFRLIB: UFBINT - NO SPECIFIED VALUES WRITTEN OUT, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
         call errwrt(errstr)
         call errwrt(str)
         call errwrt('MAY NOT BE IN THE BUFR TABLE(?)')
-        if(iprt.eq.0) then
+        if(iprt==0) then
           errstr = 'Note: Only the first occurrence of this WARNING message is printed, there may be more.  To output ' // &
             'all such messages,'
           call errwrt(errstr)
@@ -923,16 +923,16 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
   ! Check the file status and inode
   lunit = abs(lunin)
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFBREP - BUFR FILE IS CLOSED, IT MUST BE OPEN')
-  if(im.eq.0) call bort('BUFRLIB: UFBREP - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE')
-  if(inode(lun).ne.inv(1,lun)) call bort('BUFRLIB: UFBREP - LOCATION OF INTERNAL TABLE FOR BUFR FILE DOES NOT AGREE ' // &
+  if(il==0) call bort('BUFRLIB: UFBREP - BUFR FILE IS CLOSED, IT MUST BE OPEN')
+  if(im==0) call bort('BUFRLIB: UFBREP - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE')
+  if(inode(lun)/=inv(1,lun)) call bort('BUFRLIB: UFBREP - LOCATION OF INTERNAL TABLE FOR BUFR FILE DOES NOT AGREE ' // &
     'WITH EXPECTED LOCATION IN INTERNAL SUBSET ARRAY')
 
   io = min(max(0,il),1)
-  if(lunit.ne.lunin) io = 0
+  if(lunit/=lunin) io = 0
 
-  if(i1.le.0) then
-    if(iprt.ge.0) then
+  if(i1<=0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBREP - 3rd ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
       call errwrt(errstr)
@@ -941,14 +941,14 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
       call errwrt(' ')
     endif
     return
-  elseif(i2.le.0) then
-    if(iprt.eq.-1) ifirst1 = 1
-    if(io.eq.0 .or. ifirst1.eq.0 .or. iprt.ge.1)  then
+  elseif(i2<=0) then
+    if(iprt==-1) ifirst1 = 1
+    if(io==0 .or. ifirst1==0 .or. iprt>=1)  then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBREP - 4th ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
       call errwrt(errstr)
       call errwrt(str)
-      if(iprt.eq.0 .and. io.eq.1) then
+      if(iprt==0 .and. io==1) then
         errstr = 'Note: Only the first occurrence of this WARNING message is printed, there may be more.  To output ' // &
           'all such messages,'
         call errwrt(errstr)
@@ -964,7 +964,7 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
   endif
 
   ! Initialize usr array preceeding an input operation
-  if(io.eq.0) then
+  if(io==0) then
     do j=1,i2
       do i=1,i1
         usr(i,j) = bmiss
@@ -981,14 +981,14 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
   ! Call the mnemonic reader/writer
   call ufbrp(lun,usr,i1,i2,io,iret)
 
-  if(io.eq.1 .and. iret.lt.i2) then
+  if(io==1 .and. iret<i2) then
     write(bort_str1,'("BUFRLIB: UFBREP - MNEMONIC STRING READ IN IS: ",A)') str
     write(bort_str2,'(18X,"THE NUMBER OF ''LEVELS'' ACTUALLY '// &
       'WRITTEN (",I3,") LESS THAN THE NUMBER REQUESTED (",I3,") - INCOMPLETE WRITE")')  iret,i2
     call bort2(bort_str1,bort_str2)
   endif
 
-  if(iret.eq.0 .and. io.eq.0 .and. iprt.ge.1) then
+  if(iret==0 .and. io==0 .and. iprt>=1) then
     call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
     errstr = 'BUFRLIB: UFBREP - NO SPECIFIED VALUES READ IN, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
     call errwrt(errstr)
@@ -1136,16 +1136,16 @@ recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
   ! Check the file status and inode
   lunit = abs(lunin)
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFBSTP - BUFR FILE IS CLOSED, IT MUST BE OPEN')
-  if(im.eq.0) call bort('BUFRLIB: UFBSTP - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE')
-  if(inode(lun).ne.inv(1,lun)) call bort('BUFRLIB: UFBSTP - LOCATION OF INTERNAL TABLE FOR BUFR FILE DOES NOT AGREE ' // &
+  if(il==0) call bort('BUFRLIB: UFBSTP - BUFR FILE IS CLOSED, IT MUST BE OPEN')
+  if(im==0) call bort('BUFRLIB: UFBSTP - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE')
+  if(inode(lun)/=inv(1,lun)) call bort('BUFRLIB: UFBSTP - LOCATION OF INTERNAL TABLE FOR BUFR FILE DOES NOT AGREE ' // &
     'WITH EXPECTED LOCATION IN INTERNAL SUBSET ARRAY')
 
   io = min(max(0,il),1)
-  if(lunit.ne.lunin) io = 0
+  if(lunit/=lunin) io = 0
 
-  if(i1.le.0) then
-    if(iprt.ge.0) then
+  if(i1<=0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBSTP - 3rd ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
       call errwrt(errstr)
@@ -1154,14 +1154,14 @@ recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
       call errwrt(' ')
     endif
     return
-  elseif(i2.le.0) then
-    if(iprt.eq.-1) ifirst1 = 1
-    if(io.eq.0 .or. ifirst1.eq.0 .or. iprt.ge.1)  then
+  elseif(i2<=0) then
+    if(iprt==-1) ifirst1 = 1
+    if(io==0 .or. ifirst1==0 .or. iprt>=1)  then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBSTP - 4th ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
       call errwrt(errstr)
       call errwrt(str)
-      if(iprt.eq.0 .and. io.eq.1) then
+      if(iprt==0 .and. io==1) then
         errstr = 'Note: Only the first occurrence of this WARNING message is printed, there may be more.  To output ' // &
           'all such messages,'
         call errwrt(errstr)
@@ -1177,7 +1177,7 @@ recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
   endif
 
   ! Initialize usr array preceeding an input operation
-  if(io.eq.0) then
+  if(io==0) then
     do j=1,i2
       do i=1,I1
         usr(i,j) = bmiss
@@ -1191,14 +1191,14 @@ recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
   ! Call the mnemonic reader/writer
   call ufbsp(lun,usr,i1,i2,io,iret)
 
-  if(io.eq.1 .and. iret.ne.i2) then
+  if(io==1 .and. iret/=i2) then
     write(bort_str1,'("BUFRLIB: UFBSTP - MNEMONIC STRING READ IN IS: ",A)') str
     write(bort_str2,'(18X,"THE NUMBER OF ''LEVELS'' ACTUALLY '// &
       'WRITTEN (",I3,") DOES NOT EQUAL THE NUMBER REQUESTED (",I3,") - INCOMPLETE WRITE")')  iret,i2
     call bort2(bort_str1,bort_str2)
   endif
 
-  if(iret.eq.0 .and. io.eq.0 .and. iprt.ge.1) then
+  if(iret==0 .and. io==0 .and. iprt>=1) then
     call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
     errstr = 'BUFRLIB: UFBSTP - NO SPECIFIED VALUES READ IN, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
     call errwrt(errstr)
@@ -1362,14 +1362,14 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
   ! Check the file status and inode
   lunit = abs(lunin)
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFBSEQ - BUFR FILE IS CLOSED, IT MUST BE OPEN')
-  if(im.eq.0) call bort('BUFRLIB: UFBSEQ - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE')
+  if(il==0) call bort('BUFRLIB: UFBSEQ - BUFR FILE IS CLOSED, IT MUST BE OPEN')
+  if(im==0) call bort('BUFRLIB: UFBSEQ - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE')
 
   io = min(max(0,il),1)
-  if(lunit.ne.lunin) io = 0
+  if(lunit/=lunin) io = 0
 
-  if(i1.le.0) then
-    if(iprt.ge.0) then
+  if(i1<=0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBSEQ - 3rd ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
       call errwrt(errstr)
@@ -1378,14 +1378,14 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
       call errwrt(' ')
     endif
     return
-  elseif(i2.le.0) then
-    if(iprt.eq.-1) ifirst1 = 1
-    if(io.eq.0 .or. ifirst1.eq.0 .or. iprt.ge.1)  then
+  elseif(i2<=0) then
+    if(iprt==-1) ifirst1 = 1
+    if(io==0 .or. ifirst1==0 .or. iprt>=1)  then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBSEQ - 4th ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
       call errwrt(errstr)
       call errwrt(str)
-      if(iprt.eq.0 .and. io.eq.1) then
+      if(iprt==0 .and. io==1) then
         errstr = 'Note: Only the first occurrence of this WARNING message is printed, there may be more.  To output ' // &
           'all such messages,'
         call errwrt(errstr)
@@ -1402,20 +1402,20 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
 
   ! Check for valid sequence and sequence length arguments
   call parstr(str,tags,mtag,ntag,' ',.true.)
-  if(ntag.lt.1) then
+  if(ntag<1) then
     write(bort_str,'("BUFRLIB: UFBSEQ - THE INPUT STRING (",A,") DOES NOT CONTAIN ANY MNEMONICS!!")') str
     call bort(bort_str)
   endif
-  if(ntag.gt.1) then
+  if(ntag>1) then
     write(bort_str,'("BUFRLIB: UFBSEQ - THERE CANNOT BE MORE THAN '// &
       'ONE MNEMONIC IN THE INPUT STRING (",A,") (HERE THERE ARE ",I3,")")') str,ntag
     call bort(bort_str)
   endif
-  if(inode(lun).ne.inv(1,lun)) call bort('BUFRLIB: UFBSEQ - LOCATION OF INTERNAL TABLE FOR '// &
+  if(inode(lun)/=inv(1,lun)) call bort('BUFRLIB: UFBSEQ - LOCATION OF INTERNAL TABLE FOR '// &
     'BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN INTERNAL SUBSET ARRAY')
 
   ! Initialize usr array preceeding an input operation
-  if(io.eq.0) then
+  if(io==0) then
     do j=1,i2
       do i=1,I1
         usr(i,j) = bmiss
@@ -1425,28 +1425,28 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
 
   ! Find the parameters of the specified sequence
   outer: do node=inode(lun),isc(inode(lun))
-    if(str.eq.tag(node)) then
-      if(typ(node).eq.'SEQ' .or. typ(node).eq.'RPC') then
+    if(str==tag(node)) then
+      if(typ(node)=='SEQ' .or. typ(node)=='RPC') then
         ins1 = 1
         do while (.true.)
           ins1 = invtag(node,lun,ins1,nval(lun))
-          if(ins1.eq.0) exit outer
-          if(typ(node).ne.'RPC' .or. val(ins1,lun).ne.0.) exit
+          if(ins1==0) exit outer
+          if(typ(node)/='RPC' .or. val(ins1,lun)/=0.) exit
           ins1 = ins1+1
         enddo
         ins2 = invtag(node,lun,ins1+1,nval(lun))
-        if(ins2.eq.0) ins2 = 10E5
+        if(ins2==0) ins2 = 10E5
         nods = node
-        do while(link(nods).eq.0 .and. jmpb(nods).gt.0)
+        do while(link(nods)==0 .and. jmpb(nods)>0)
           nods = jmpb(nods)
         enddo
-        if(link(nods).eq.0) then
+        if(link(nods)==0) then
           insx = nval(lun)
-        elseif(link(nods).gt.0) then
+        elseif(link(nods)>0) then
           insx = invwin(link(nods),lun,ins1+1,nval(lun))-1
         endif
         ins2 = min(ins2,insx)
-      elseif(typ(node).eq.'SUB') then
+      elseif(typ(node)=='SUB') then
         ins1 = 1
         ins2 = nval(lun)
       else
@@ -1457,9 +1457,9 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
       nseq = 0
       do isq=ins1,ins2
         ityp = itp(inv(isq,lun))
-        if(ityp.gt.1) nseq = nseq+1
+        if(ityp>1) nseq = nseq+1
       enddo
-      if(nseq.gt.i1) then
+      if(nseq>i1) then
         write(bort_str,'("BUFRLIB: UFBSEQ - INPUT SEQ. MNEM. ",A," CONSISTS OF",I4," TABLE B MNEM., .GT. THE MAX. '// &
           'SPECIFIED IN (INPUT) ARGUMENT 3 (",I3,")")') tags(1),nseq,i1
         call bort(bort_str)
@@ -1467,13 +1467,13 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
       ! Frame a section of the buffer - return when no frame
       inner: do while (.true.)
         ins1 = invtag(node,lun,ins1,nval(lun))
-        if(ins1.gt.nval(lun)) exit outer
-        if(ins1.gt.0) then
-          if(typ(node).eq.'RPC' .and. val(ins1,lun).eq.0.) then
+        if(ins1>nval(lun)) exit outer
+        if(ins1>0) then
+          if(typ(node)=='RPC' .and. val(ins1,lun)==0.) then
             ins1 = ins1+1
             cycle
-          elseif(io.eq.0 .and. iret+1.gt.i2) then
-            if(iprt.ge.0) then
+          elseif(io==0 .and. iret+1>i2) then
+            if(iprt>=0) then
               call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
               write ( unit=errstr, fmt='(A,I5,A,A,A)' ) 'BUFRLIB: UFBSEQ - INCOMPLETE READ; ONLY THE FIRST ', i2, &
                 ' (=4TH INPUT ARG.) ''LEVELS'' OF INPUT MNEMONIC ', tags(1), ' WERE READ'
@@ -1483,8 +1483,8 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
             endif
             exit outer
           endif
-        elseif(ins1.eq.0) then
-          if(io.eq.1 .and. iret.lt.i2) then
+        elseif(ins1==0) then
+          if(io==1 .and. iret<i2) then
             write(bort_str,'("BUFRLIB: UFBSEQ - NO. OF ''LEVELS'' WRITTEN (",I5,") .LT. NO. REQUESTED (",I5,") - '// &
               'INCOMPLETE WRITE (INPUT MNEMONIC IS ",A,")")') iret,i2,tags(1)
             call bort(bort_str)
@@ -1494,26 +1494,26 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
             'IS ",A)') ins1,tags(1)
           call bort(bort_str)
         endif
-        if(ins1.eq.0 .or. iret.eq.i2) exit outer
+        if(ins1==0 .or. iret==i2) exit outer
         iret = iret+1
         ins1 = ins1+1
         ! Read/write user values
         j = ins1
         do i=1,nseq
-          do while(itp(inv(j,lun)).lt.2)
+          do while(itp(inv(j,lun))<2)
             j = j+1
           enddo
-          if(io.eq.0) usr(i,iret) = val(j,lun)
-          if(io.eq.1) val(j,lun) = usr(i,iret)
+          if(io==0) usr(i,iret) = val(j,lun)
+          if(io==1) val(j,lun) = usr(i,iret)
           j = j+1
         enddo
       enddo inner
     endif
   enddo outer
 
-  if(iret.eq.0) then
-    if(io.eq.0) then
-      if(iprt.ge.1) then
+  if(iret==0) then
+    if(io==0) then
+      if(iprt>=1) then
         call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
         errstr = 'BUFRLIB: UFBSEQ - NO SPECIFIED VALUES READ IN, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
         call errwrt(errstr)
@@ -1522,14 +1522,14 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
         call errwrt(' ')
       endif
     else
-      if(iprt.eq.-1) ifirst2 = 1
-      if(ifirst2.eq.0 .or. iprt.ge.1) then
+      if(iprt==-1) ifirst2 = 1
+      if(ifirst2==0 .or. iprt>=1) then
         call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
         errstr = 'BUFRLIB: UFBSEQ - NO SPECIFIED VALUES WRITTEN OUT, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
         call errwrt(errstr)
         call errwrt(str)
         call errwrt('MAY NOT BE IN THE BUFR TABLE(?)')
-        if(iprt.eq.0) then
+        if(iprt==0) then
           errstr = 'Note: Only the first occurrence of this WARNING message is printed, there may be more.  To output ' // &
            'all such messages,'
           call errwrt(errstr)
@@ -1619,7 +1619,7 @@ recursive subroutine drfini(lunit,mdrf,ndrf,drftag)
   n = 0
   do n = n+1, nval(lun)
     node = inv(n,lun)
-    if(itp(node).eq.1 .and. tag(node).eq.drftag) then
+    if(itp(node)==1 .and. tag(node)==drftag) then
       m = m+1
       call usrtpl(lun,n,mdrf(m))
     endif
@@ -1681,21 +1681,21 @@ subroutine ufbrw(lun,usr,i1,i2,io,iret)
   inc2 = 1
   outer: do while (.true.)
     call conwin(lun,inc1,inc2)
-    if(nnod.eq.0) then
+    if(nnod==0) then
       iret = i2
       return
-    elseif(inc1.eq.0) then
+    elseif(inc1==0) then
       return
     else
       do j=1,nnod
-        if(nods(j).gt.0) then
+        if(nods(j)>0) then
           ins2 = inc1
           call getwin(nods(j),lun,ins1,ins2)
-          if(ins1.eq.0) return
+          if(ins1==0) return
           do while (.true.)
             ! Loop over store nodes
             iret = iret+1
-            if(iprt.ge.2) then
+            if(iprt>=2) then
               call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
               call errwrt('UFBRW LEV TAG     IO   INS1   INVN   INS2  '//SUBSET)
               call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
@@ -1703,32 +1703,32 @@ subroutine ufbrw(lun,usr,i1,i2,io,iret)
                 if(io==0) tagstr=tag(nods(i))(1:8)//' R'
                 if(io==1) tagstr=tag(nods(i))(1:8)//' W'
                 invn = invwin(nods(i),lun,ins1,ins2)
-                if(invn.eq.0.and.io==1) call drstpl(nods(i),lun,ins1,ins2,invn)
+                if(invn==0.and.io==1) call drstpl(nods(i),lun,ins1,ins2,invn)
                 write(errstr,'("LEV=",I5,1X,A,3I7)') iret,tagstr,ins1,invn,ins2
                 call errwrt(errstr)
               enddo
             endif
             ! Write user values
-            if(io.eq.1 .and. iret.le.i2) then
+            if(io==1 .and. iret<=i2) then
               do i=1,nnod
-                if(nods(i).gt.0) then
-                  if(ibfms(usr(i,iret)).eq.0) then
+                if(nods(i)>0) then
+                  if(ibfms(usr(i,iret))==0) then
                     invn = invwin(nods(i),lun,ins1,ins2)
-                    if(invn.eq.0) then
+                    if(invn==0) then
                       call drstpl(nods(i),lun,ins1,ins2,invn)
-                      if(invn.eq.0) then
+                      if(invn==0) then
                         iret = 0
                         return
                       endif
                       call newwin(lun,inc1,inc2)
                       val(invn,lun) = usr(i,iret)
-                    elseif(lstjpb(nods(i),lun,'RPS').eq.0) then
+                    elseif(lstjpb(nods(i),lun,'RPS')==0) then
                       val(invn,lun) = usr(i,iret)
-                    elseif(ibfms(val(invn,lun)).ne.0) then
+                    elseif(ibfms(val(invn,lun))/=0) then
                       val(invn,lun) = usr(i,iret)
                     else
                       call drstpl(nods(i),lun,ins1,ins2,invn)
-                      if(invn.eq.0) then
+                      if(invn==0) then
                         iret = 0
                         return
                       endif
@@ -1740,20 +1740,20 @@ subroutine ufbrw(lun,usr,i1,i2,io,iret)
               enddo
             endif
             ! Read user values
-            if(io.eq.0 .and. iret.le.i2) then
+            if(io==0 .and. iret<=i2) then
               do i=1,nnod
                 usr(i,iret) = bmiss
-                if(nods(i).gt.0) then
+                if(nods(i)>0) then
                   invn = invwin(nods(i),lun,ins1,ins2)
-                  if(invn.gt.0) usr(i,iret) = val(invn,lun)
+                  if(invn>0) usr(i,iret) = val(invn,lun)
                 endif
               enddo
             endif
             ! Decide what to do next
-            if(io.eq.1.and.iret.eq.i2) return
+            if(io==1.and.iret==i2) return
             call nxtwin(lun,ins1,ins2)
-            if(ins1.gt.0 .and. ins1.lt.inc2) cycle
-            if(ncon.gt.0) cycle outer
+            if(ins1>0 .and. ins1<inc2) cycle
+            if(ncon>0) cycle outer
             return
           enddo
         endif
@@ -1809,31 +1809,31 @@ subroutine ufbrp(lun,usr,i1,i2,io,iret)
 
   ! Find first non-zero node in string
   do nz=1,nnod
-    if(nods(nz).gt.0) then
+    if(nods(nz)>0) then
       do while (.true.)
         ! Frame a section of the buffer - return when no frame
-        if(ins1+1.gt.nval(lun)) return
-        if(io.eq.1 .and. iret.eq.i2) return
+        if(ins1+1>nval(lun)) return
+        if(io==1 .and. iret==i2) return
         ins1 = invtag(nods(nz),lun,ins1+1,nval(lun))
-        if(ins1.eq.0) return
+        if(ins1==0) return
         ins2 = invtag(nods(nz),lun,ins1+1,nval(lun))
-        if(ins2.eq.0) ins2 = nval(lun)
+        if(ins2==0) ins2 = nval(lun)
         iret = iret+1
         ! Read user values
-        if(io.eq.0 .and. iret.le.i2) then
+        if(io==0 .and. iret<=i2) then
           do i=1,nnod
-            if(nods(i).gt.0) then
+            if(nods(i)>0) then
               invn = invtag(nods(i),lun,ins1,ins2)
-              if(invn.gt.0) usr(i,iret) = val(invn,lun)
+              if(invn>0) usr(i,iret) = val(invn,lun)
             endif
           enddo
         endif
         ! Write user values
-        if(io.eq.1 .and. iret.le.i2) then
+        if(io==1 .and. iret<=i2) then
           do i=1,nnod
-            if(nods(i).gt.0) then
+            if(nods(i)>0) then
               invn = invtag(nods(i),lun,ins1,ins2)
-              if(invn.gt.0) val(invn,lun) = usr(i,iret)
+              if(invn>0) val(invn,lun) = usr(i,iret)
             endif
           enddo
         endif
@@ -1893,30 +1893,30 @@ subroutine ufbsp(lun,usr,i1,i2,io,iret)
 
   do while (.true.)
     ! Frame a section of the buffer - return when no frame
-    if(ins1+1.gt.nval(lun)) return
+    if(ins1+1>nval(lun)) return
     ins1 = invtag(nods(1),lun,ins1+1,nval(lun))
-    if(ins1.eq.0) return
+    if(ins1==0) return
     ins2 = invtag(nods(1),lun,ins1+1,nval(lun))
-    if(ins2.eq.0) ins2 = nval(lun)
+    if(ins2==0) ins2 = nval(lun)
     iret = iret+1
     ! Read user values
-    if(io.eq.0 .and. iret.le.i2) then
+    if(io==0 .and. iret<=i2) then
       invm = ins1
       do i=1,nnod
-        if(nods(i).gt.0) then
+        if(nods(i)>0) then
           invn = invtag(nods(i),lun,invm,ins2)
-          if(invn.gt.0) usr(i,iret) = val(invn,lun)
+          if(invn>0) usr(i,iret) = val(invn,lun)
           invm = max(invn,invm)
         endif
       enddo
     endif
     ! Write user values
-    if(io.eq.1 .and. iret.le.i2) then
+    if(io==1 .and. iret<=i2) then
       invm = ins1
       do i=1,nnod
-        if(nods(i).gt.0) then
+        if(nods(i)>0) then
           invn = invtag(nods(i),lun,invm,ins2)
-          if(invn.gt.0) val(invn,lun) = usr(i,iret)
+          if(invn>0) val(invn,lun) = usr(i,iret)
           invm = max(invn,invm)
         endif
       enddo
@@ -2002,15 +2002,15 @@ recursive subroutine hold4wlc(lunit,chr,str)
   endif
 
   call strsuc( str, mystr, lens )
-  if ( lens .eq. -1 ) return
+  if ( lens == -1 ) return
 
   lenc = min( len( chr ), 120 )
 
   ! If this subroutine has already been called with this mnemonic for this particular subset, then overwrite the
   ! corresponding entry in the internal holding area
-  if ( nh4wlc .gt. 0 ) then
+  if ( nh4wlc > 0 ) then
     do i = 1, nh4wlc
-      if ( ( lunit .eq. luh4wlc(i) ) .and. ( mystr(1:lens) .eq. sth4wlc(i)(1:lens) ) ) then
+      if ( ( lunit == luh4wlc(i) ) .and. ( mystr(1:lens) == sth4wlc(i)(1:lens) ) ) then
         chh4wlc(i) = ''
         chh4wlc(i)(1:lenc) = chr(1:lenc)
         return
@@ -2019,8 +2019,8 @@ recursive subroutine hold4wlc(lunit,chr,str)
   endif
 
   ! Otherwise, use the next available unused entry in the holding area
-  if ( nh4wlc .ge. mxh4wlc ) then
-    if(iprt.ge.0) then
+  if ( nh4wlc >= mxh4wlc ) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       write ( unit=errstr, fmt='(A,A,I3)' ) 'BUFRLIB: HOLD4WLC - THE MAXIMUM NUMBER OF LONG CHARACTER ', &
         'STRINGS THAT CAN BE HELD INTERNALLY IS ', mxh4wlc
@@ -2082,14 +2082,14 @@ subroutine trybump(lun,usr,i1,i2,io,iret)
   ! See if there's a delayed replication group involved
 
   ndrp = lstjpb(nods(1),lun,'DRP')
-  if(ndrp.le.0) return
+  if(ndrp<=0) return
 
   ! If so, clean it out and bump it to i2
 
   invn = invwin(ndrp,lun,1,nval(lun))
   val(invn,lun) = 0
   jnvn = invn+1
-  do while(nint(val(jnvn,lun)).gt.0)
+  do while(nint(val(jnvn,lun))>0)
     jnvn = jnvn+nint(val(jnvn,lun))
   enddo
   do knvn=1,nval(lun)-jnvn+1
@@ -2167,16 +2167,16 @@ recursive subroutine ufbovr(lunit,usr,i1,i2,iret,str)
   ! Check the file status and inode
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFBOVR - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
-  if(il.lt.0) call bort('BUFRLIB: UFBOVR - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
-  if(im.eq.0) call bort('BUFRLIB: UFBOVR - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
-  if(inode(lun).ne.inv(1,lun)) call bort('BUFRLIB: UFBOVR - LOCATION OF INTERNAL TABLE FOR '// &
+  if(il==0) call bort('BUFRLIB: UFBOVR - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
+  if(il<0) call bort('BUFRLIB: UFBOVR - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
+  if(im==0) call bort('BUFRLIB: UFBOVR - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
+  if(inode(lun)/=inv(1,lun)) call bort('BUFRLIB: UFBOVR - LOCATION OF INTERNAL TABLE FOR '// &
     'OUTPUT BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN INTERNAL SUBSET ARRAY')
 
   io = min(max(0,il),1)
 
-  if(i1.le.0) then
-    if(iprt.ge.0) then
+  if(i1<=0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBOVR - 3rd ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
       call errwrt(errstr)
@@ -2185,14 +2185,14 @@ recursive subroutine ufbovr(lunit,usr,i1,i2,iret,str)
       call errwrt(' ')
     endif
     return
-  elseif(i2.le.0) then
-    if(iprt.eq.-1) ifirst1 = 1
-    if(io.eq.0 .or. ifirst1.eq.0 .or. iprt.ge.1) then
+  elseif(i2<=0) then
+    if(iprt==-1) ifirst1 = 1
+    if(io==0 .or. ifirst1==0 .or. iprt>=1) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBOVR - 4th ARG. (INPUT) IS .LE. 0, SO RETURN WITH 5th ARG. (IRET) = 0; 6th ARG. (STR) ='
       call errwrt(errstr)
       call errwrt(str)
-      if(iprt.eq.0 .and. io.eq.1) then
+      if(iprt==0 .and. io==1) then
         errstr = 'Note: Only the first occurrence of this WARNING ' // &
           'message is printed, there may be more.  To output all such messages,'
         call errwrt(errstr)
@@ -2212,7 +2212,7 @@ recursive subroutine ufbovr(lunit,usr,i1,i2,iret,str)
   call string(str,lun,i1,io)
   call trybump(lun,usr,i1,i2,io,iret)
 
-  if(io.eq.1 .and. iret.ne.i2) then
+  if(io==1 .and. iret/=i2) then
     write(bort_str1,'("BUFRLIB: UFBOVR - MNEMONIC STRING READ IN IS: ",A)') str
     write(bort_str2,'(18X,"THE NUMBER OF ''LEVELS'' ACTUALLY '// &
       'WRITTEN (",I3,") DOES NOT EQUAL THE NUMBER REQUESTED (",I3,") - INCOMPLETE WRITE")') iret, i2
@@ -2309,14 +2309,14 @@ recursive subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str)
   ! Check the file status and inode
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFBEVN - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
-  if(il.gt.0) call bort('BUFRLIB: UFBEVN - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
-  if(im.eq.0) call bort('BUFRLIB: UFBEVN - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
-  if(inode(lun).ne.inv(1,lun)) call bort('BUFRLIB: UFBEVN - LOCATION OF INTERNAL TABLE FOR '// &
+  if(il==0) call bort('BUFRLIB: UFBEVN - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il>0) call bort('BUFRLIB: UFBEVN - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(im==0) call bort('BUFRLIB: UFBEVN - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+  if(inode(lun)/=inv(1,lun)) call bort('BUFRLIB: UFBEVN - LOCATION OF INTERNAL TABLE FOR '// &
     'INPUT BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN INTERNAL SUBSET ARRAY')
 
-  if(i1.le.0) then
-    if(iprt.ge.0) then
+  if(i1<=0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBEVN - 3rd ARG. (INPUT) IS .LE. 0, SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) ='
       call errwrt(errstr)
@@ -2325,8 +2325,8 @@ recursive subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str)
       call errwrt(' ')
     endif
     return
-  elseif(i2.le.0) then
-    if(iprt.ge.0) then
+  elseif(i2<=0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBEVN - 4th ARG. (INPUT) IS .LE. 0, SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) ='
       call errwrt(errstr)
@@ -2335,8 +2335,8 @@ recursive subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str)
       call errwrt(' ')
     endif
     return
-  elseif(i3.le.0) then
-    if(iprt.ge.0) then
+  elseif(i3<=0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBEVN - 5th ARG. (INPUT) IS .LE. 0, SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) ='
       call errwrt(errstr)
@@ -2367,18 +2367,18 @@ recursive subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str)
   inc2 = 1
   outer: do while (.true.)
     call conwin(lun,inc1,inc2)
-    if(nnod.eq.0) then
+    if(nnod==0) then
       iret = i2
       return
-    elseif(inc1.eq.0) then
+    elseif(inc1==0) then
       return
     else
       nodgt0 = .false.
       do i=1,nnod
-        if(nods(i).gt.0) then
+        if(nods(i)>0) then
           ins2 = inc1
           call getwin(nods(i),lun,ins1,ins2)
-          if(ins1.eq.0) return
+          if(ins1==0) return
           nodgt0 = .true.
           exit
         endif
@@ -2390,9 +2390,9 @@ recursive subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str)
       ! Read push down stack data into 3D arrays
       inner: do while (.true.)
         iret = iret+1
-        if(iret.le.i2) then
+        if(iret<=i2) then
           do j=1,nnod
-            if(nods(j).gt.0) then
+            if(nods(j)>0) then
               nnvn = nvnwin(nods(j),lun,ins1,ins2,invn,i3)
               maxevn = max(nnvn,maxevn)
               do k=1,nnvn
@@ -2403,14 +2403,14 @@ recursive subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str)
         endif
         ! Decide what to do next
         call nxtwin(lun,ins1,ins2)
-        if(ins1.le.0 .or. ins1.ge.inc2) exit inner
+        if(ins1<=0 .or. ins1>=inc2) exit inner
       enddo inner
-      if(ncon.le.0) exit outer
+      if(ncon<=0) exit outer
     endif
   enddo outer
 
-  if(iret.eq.0) then
-    if(iprt.ge.1) then
+  if(iret==0) then
+    if(iprt>=1) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBEVN - NO SPECIFIED VALUES READ IN, SO RETURN WITH 6th ARG. (IRET) = 0; 7th ARG. (STR) ='
       call errwrt(errstr)
@@ -2513,14 +2513,14 @@ recursive subroutine ufbin3(lunit,usr,i1,i2,i3,iret,jret,str)
   ! Check the file status and inode
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFBIN3 - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
-  if(il.gt.0) call bort('BUFRLIB: UFBIN3 - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
-  if(im.eq.0) call bort('BUFRLIB: UFBIN3 - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
-  if(inode(lun).ne.inv(1,lun)) call bort('BUFRLIB: UFBIN3 - LOCATION OF INTERNAL TABLE FOR '// &
+  if(il==0) call bort('BUFRLIB: UFBIN3 - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il>0) call bort('BUFRLIB: UFBIN3 - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(im==0) call bort('BUFRLIB: UFBIN3 - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+  if(inode(lun)/=inv(1,lun)) call bort('BUFRLIB: UFBIN3 - LOCATION OF INTERNAL TABLE FOR '// &
     'INPUT BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN INTERNAL SUBSET ARRAY')
 
-  if(i1.le.0) then
-    if(iprt.ge.0) then
+  if(i1<=0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBIN3 - 3rd ARG. (INPUT) IS .LE. 0, ' // &
         'SO RETURN WITH 6th AND 7th ARGS. (IRET, JRET) = 0; 8th ARG. (STR) ='
@@ -2530,8 +2530,8 @@ recursive subroutine ufbin3(lunit,usr,i1,i2,i3,iret,jret,str)
       call errwrt(' ')
     endif
     return
-  elseif(i2.le.0) then
-    if(iprt.ge.0) then
+  elseif(i2<=0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBIN3 - 4th ARG. (INPUT) IS .LE. 0, ' // &
         'SO RETURN WITH 6th AND 7th ARGS. (IRET, JRET) = 0; 8th ARG. (STR) ='
@@ -2541,8 +2541,8 @@ recursive subroutine ufbin3(lunit,usr,i1,i2,i3,iret,jret,str)
       call errwrt(' ')
     endif
     return
-  elseif(i3.le.0) then
-    if(iprt.ge.0) then
+  elseif(i3<=0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBIN3 - 5th ARG. (INPUT) IS .LE. 0, ' // &
         'SO RETURN WITH 6th AND 7th ARGS. (IRET, JRET) = 0; 8th ARG. (STR) ='
@@ -2574,18 +2574,18 @@ recursive subroutine ufbin3(lunit,usr,i1,i2,i3,iret,jret,str)
   inc2 = 1
   outer: do while (.true.)
     call conwin(lun,inc1,inc2)
-    if(nnod.eq.0) then
+    if(nnod==0) then
       iret = i2
       return
-    elseif(inc1.eq.0) then
+    elseif(inc1==0) then
       return
     else
       nodgt0 = .false.
       do i=1,nnod
-        if(nods(i).gt.0) then
+        if(nods(i)>0) then
           ins2 = inc1
           call getwin(nods(i),lun,ins1,ins2)
-          if(ins1.eq.0) return
+          if(ins1==0) return
           nodgt0 = .true.
           exit
         endif
@@ -2597,7 +2597,7 @@ recursive subroutine ufbin3(lunit,usr,i1,i2,i3,iret,jret,str)
       ! Read push down stack data into 3D arrays
       inner: do while (.true.)
         iret = iret+1
-        if(iret.le.i2) then
+        if(iret<=i2) then
           do j=1,nnod
             nnvn = nevn(nods(j),lun,ins1,ins2,i1,i2,i3,usr(j,iret,1))
             jret = max(jret,nnvn)
@@ -2605,14 +2605,14 @@ recursive subroutine ufbin3(lunit,usr,i1,i2,i3,iret,jret,str)
         endif
         ! Decide what to do next
         call nxtwin(lun,ins1,ins2)
-        if(ins1.le.0 .or. ins1.ge.inc2) exit inner
+        if(ins1<=0 .or. ins1>=inc2) exit inner
       enddo inner
-      if(ncon.le.0) exit outer
+      if(ncon<=0) exit outer
     endif
   enddo outer
 
-  if(iret.eq.0 .or. jret.eq.0) then
-    if(iprt.ge.1) then
+  if(iret==0 .or. jret==0) then
+    if(iprt>=1) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       errstr = 'BUFRLIB: UFBIN3 - NO SPECIFIED VALUES READ IN, ' // &
         'SO RETURN WITH 6th AND/OR 7th ARGS. (IRET, JRET) = 0; 8th ARG. (STR) ='
@@ -2695,7 +2695,7 @@ recursive subroutine ufbinx(lunit,imsg,isub,usr,i1,i2,iret,str)
   endif
 
   call status(lunit,lun,il,im)
-  openit = il.eq.0
+  openit = il==0
 
   if(openit) then
     ! Open BUFR file connected to unit lunit if it isn't already open
@@ -2708,7 +2708,7 @@ recursive subroutine ufbinx(lunit,imsg,isub,usr,i1,i2,iret,str)
   ! Skip to the requested message
   do i=1,imsg
     call readmg(lunit,subset,jdate,jret)
-    if(jret.lt.0) then
+    if(jret<0) then
       write(bort_str,'("BUFRLIB: UFBINX - HIT END OF FILE BEFORE '// &
         'READING REQUESTED MESSAGE NO.",I5," IN BUFR FILE CONNECTED TO UNIT",I4)')  imsg, lunit
       call bort(bort_str)
@@ -2718,7 +2718,7 @@ recursive subroutine ufbinx(lunit,imsg,isub,usr,i1,i2,iret,str)
   ! Position at the requested subset
   do i=1,isub
     call readsb(lunit,jret)
-    if(jret.ne.0) then
+    if(jret/=0) then
       write(bort_str,'("BUFRLIB: UFBINX - ALL SUBSETS READ BEFORE '// &
         'READING REQ. SUBSET NO.",I3," IN REQ. MSG NO.",I5," IN BUFR FILE CONNECTED TO UNIT",I4)') isub, imsg, lunit
       call bort(bort_str)
@@ -2801,13 +2801,13 @@ recursive subroutine ufbget(lunit,tab,i1,iret,str)
   ! Make sure a file/message is open for input
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFBGET - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
-  if(il.gt.0) call bort('BUFRLIB: UFBGET - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
-  if(im.eq.0) call bort('BUFRLIB: UFBGET - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+  if(il==0) call bort('BUFRLIB: UFBGET - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il>0) call bort('BUFRLIB: UFBGET - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(im==0) call bort('BUFRLIB: UFBGET - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
 
   ! See if there's another subset in the message
 
-  if(nsub(lun).eq.msub(lun)) then
+  if(nsub(lun)==msub(lun)) then
     iret = -1
     return
   endif
@@ -2826,10 +2826,10 @@ recursive subroutine ufbget(lunit,tab,i1,iret,str)
     node = inv(n,lun)
     nbit(n) = ibt(node)
     mbit(n) = mbit(n-1)+nbit(n-1)
-    if(node.eq.nods(nnod)) then
+    if(node==nods(nnod)) then
       nval(lun) = n
       exit
-    elseif(itp(node).eq.1) then
+    elseif(itp(node)==1) then
       call upb8(ival,nbit(n),mbit(n),mbay(1,lun))
       nbmp=int(ival)
       call usrtpl(lun,n,nbmp)
@@ -2841,13 +2841,13 @@ recursive subroutine ufbget(lunit,tab,i1,iret,str)
   do i=1,nnod
     node = nods(i)
     invn = invwin(node,lun,1,nval(lun))
-    if(invn.gt.0) then
+    if(invn>0) then
       call upb8(ival,nbit(invn),mbit(invn),mbay(1,lun))
-      if(itp(node).eq.1) then
+      if(itp(node)==1) then
         tab(i) = ival
-      elseif(itp(node).eq.2) then
-        if(ival.lt.2_8**(ibt(node))-1) tab(i) = ups(ival,node)
-      elseif(itp(node).eq.3) then
+      elseif(itp(node)==2) then
+        if(ival<2_8**(ibt(node))-1) tab(i) = ups(ival,node)
+      elseif(itp(node)==3) then
         cval = ' '
         kbit = mbit(invn)
         call upc(cval,nbit(invn)/8,mbay(1,lun),kbit,.true.)
@@ -2903,13 +2903,13 @@ integer function nevn(node,lun,inv1,inv2,i1,i2,i3,usr) result(iret)
   ! Find the enclosing event stack descriptor
 
   ndrs = lstjpb(node,lun,'DRS')
-  if(ndrs.le.0) return
+  if(ndrs<=0) return
 
   invn = invwin(ndrs,lun,inv1,inv2)
-  if(invn.eq.0) call bort('BUFRLIB: iret - CAN''T FIND THE EVENT STACK!!!!!!')
+  if(invn==0) call bort('BUFRLIB: iret - CAN''T FIND THE EVENT STACK!!!!!!')
 
   iret = nint(val(invn,lun))
-  if(iret.gt.i3) then
+  if(iret>i3) then
     write(bort_str,'("BUFRLIB: NEVN - THE NO. OF EVENTS FOR THE '// &
       'REQUESTED STACK (",I3,") EXCEEDS THE VALUE OF THE 3RD DIM. OF THE USR ARRAY (",I3,")")') iret, i3
     call bort(bort_str)
@@ -2923,7 +2923,7 @@ integer function nevn(node,lun,inv1,inv2,i1,i2,i3,usr) result(iret)
     n1 = n2
     n2 = n2 + nint(val(n1,lun))
     do n=n1,n2
-      if(inv(n,lun).eq.node) usr(1,1,l) = val(n,lun)
+      if(inv(n,lun)==node) usr(1,1,l) = val(n,lun)
     enddo
   enddo
 

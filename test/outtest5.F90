@@ -56,7 +56,7 @@ program outtest5
 
   ! Write out each data subset using both UFDUMP and UFBDMP.
   nsub = 0
-  do while ( ireadns ( 11, cmgtag, imgdt ) .eq. 0 )
+  do while ( ireadns ( 11, cmgtag, imgdt ) == 0 )
     nsub = nsub + 1
     write ( 13, fmt = '(///,A,I1,A)' ) '------------------------------ SUBSET #', nsub, '------------------------------'
     write ( 13, fmt = '(//,A)' ) '------------ UFDUMP ------------'

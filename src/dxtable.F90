@@ -42,9 +42,9 @@ subroutine readdx(lunit,lun,lundx)
 
   ! Read a dictionary table from the indicated source
 
-  if (lunit.eq.lundx) then
+  if (lunit==lundx) then
     ! Source is input BUFR file in lunit
-    if(iprt.ge.2) then
+    if(iprt>=2) then
       call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
       write ( unit=errstr, fmt='(A,A,I3,A)' ) 'BUFRLIB: READDX - READING BUFR DICTIONARY TABLE FROM ', &
         'INPUT BUFR FILE IN UNIT ', lundx, ' INTO INTERNAL ARRAYS'
@@ -54,9 +54,9 @@ subroutine readdx(lunit,lun,lundx)
     endif
     rewind lunit
     call rdbfdx(lunit,lun)
-  elseif(ildx.eq.-1) then
+  elseif(ildx==-1) then
     ! Source is input BUFR file in lundx; BUFR file in lunit may be input or output
-    if(iprt.ge.2) then
+    if(iprt>=2) then
       call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
       write ( unit=errstr, fmt='(A,A,I3,A,A,I3)' ) 'BUFRLIB: READDX - COPYING BUFR DCTY TBL FROM INTERNAL ', &
         'ARRAYS ASSOC. W/ INPUT UNIT ', lundx, ' TO THOSE ASSOC. W/ UNIT ', lunit
@@ -66,9 +66,9 @@ subroutine readdx(lunit,lun,lundx)
     endif
     call cpbfdx(lud,lun)
     call makestab
-  elseif(ildx.eq.1) then
+  elseif(ildx==1) then
     ! Source is output BUFR file in lundx; BUFR file in lunit may be input or output
-    if(iprt.ge.2) then
+    if(iprt>=2) then
       call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
       write ( unit=errstr, fmt='(A,A,I3,A,A,I3)' ) 'BUFRLIB: READDX - COPYING BUFR DCTY TBL FROM INTERNAL ', &
         'ARRAYS ASSOC. W/ OUTPUT UNIT ', lundx, ' TO THOSE ASSOC. W/ UNIT ', lunit
@@ -78,9 +78,9 @@ subroutine readdx(lunit,lun,lundx)
     endif
     call cpbfdx(lud,lun)
     call makestab
-  elseif(ildx.eq.0) then
+  elseif(ildx==0) then
     ! Source is user-supplied character table in lundx; BUFR file in lunit may be input or output
-    if(iprt.ge.2) then
+    if(iprt>=2) then
       call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
       write ( unit=errstr, fmt='(A,A,I3,A)' ) 'BUFRLIB: READDX - READING BUFR DICTIONARY TABLE FROM ', &
         'USER-SUPPLIED TEXT FILE IN UNIT ', lundx, ' INTO INTERNAL ARRAYS'
@@ -143,20 +143,20 @@ subroutine rdbfdx(lunit,lun)
 
   do while ( .not. done )
     call rdmsgw ( lunit, mgwa, ier )
-    if ( ier .eq. -1 ) then
+    if ( ier == -1 ) then
       ! Don't abort for an end-of-file condition, since it may be possible for a file to end with dictionary messages.
       ! Instead, backspace the file pointer and let the calling routine diagnose the end-of-file condition and deal with
       ! it as it sees fit.
       call backbufr_c(lun)
       done = .true.
-    else if ( ier .eq. -2 ) then
+    else if ( ier == -2 ) then
       call bort('BUFRLIB: RDBFDX - ERROR READING A BUFR DICTIONARY MESSAGE')
-    else if ( idxmsg(mgwa) .ne. 1 ) then
+    else if ( idxmsg(mgwa) /= 1 ) then
       ! This is a non-DX dictionary message.  Assume we've reached the end of the dictionary table, and backspace lunit
       ! so that the next read (e.g. in the calling routine) will get this same message.
       call backbufr_c(lun)
       done = .true.
-    else if ( iupbs3(mgwa,'NSUB') .eq. 0 ) then
+    else if ( iupbs3(mgwa,'NSUB') == 0 ) then
       ! This is a DX dictionary message, but it doesn't contain any actual dictionary information.  Assume we've reached
       ! the end of the dictionary table.
       done = .true.
@@ -167,7 +167,7 @@ subroutine rdbfdx(lunit,lun)
     endif
   enddo
 
-  if ( iprt .ge. 2 ) then
+  if ( iprt >= 2 ) then
     call errwrt('+++++++++++++++++++++++++++++++++++++++++++++++++')
     write ( unit=errstr, fmt='(A,I3,A)' ) 'BUFRLIB: RDBFDX - STORED NEW DX TABLE CONSISTING OF (', ict, ') MESSAGES;'
     call errwrt(errstr)
@@ -218,62 +218,62 @@ subroutine rdusdx(lundx,lun)
   do while (.true.)
 
     read(lundx, '(A80)', iostat = ios) card
-    if (ios.ne.0) then
+    if (ios/=0) then
       call makestab
       return
     endif
 
-    if(card(1: 1).eq.       '*') cycle  ! comment line
-    if(card(3:10).eq.'--------') cycle  ! separation line
-    if(card(3:10).eq.'        ') cycle  ! blank line
-    if(card(3:10).eq.'MNEMONIC') cycle  ! header line
-    if(card(3:10).eq.'TABLE  D') cycle  ! header line
-    if(card(3:10).eq.'TABLE  B') cycle  ! header line
+    if(card(1: 1)==       '*') cycle  ! comment line
+    if(card(3:10)=='--------') cycle  ! separation line
+    if(card(3:10)=='        ') cycle  ! blank line
+    if(card(3:10)=='MNEMONIC') cycle  ! header line
+    if(card(3:10)=='TABLE  D') cycle  ! header line
+    if(card(3:10)=='TABLE  B') cycle  ! header line
 
-    if(card(12:12).eq.'|' .and. card(21:21).eq.'|') then
+    if(card(12:12)=='|' .and. card(21:21)=='|') then
 
       ! Parse a descriptor definition card
       nemo = card(3:10)  ! nemo is the (up to) 8-character mnemonic
       iret=nemock(nemo)
-      if(iret.eq.-2) then
+      if(iret==-2) then
         write(bort_str1,'("BUFRLIB: RDUSDX - CARD READ IN IS: ",A)') card
         write(bort_str2,'(18X,"MNEMONIC ",A," IN USER DICTIONARY HAS INVALID CHARACTERS")') nemo
         call bort2(bort_str1,bort_str2)
       endif
       numb = card(14:19) ! numb is the 6-character FXY value corresponding to nemo
       nmb2 = numb
-      if(nmb2(1:1).eq.'A') nmb2(1:1) = '3'
+      if(nmb2(1:1)=='A') nmb2(1:1) = '3'
       iret=numbck(nmb2)
-      if(iret.eq.-1) then
+      if(iret==-1) then
         write(bort_str1,'("BUFRLIB: RDUSDX - CARD READ IN IS: ",A)') card
         write(bort_str2,'(18X,"DESCRIPTOR NUMBER ",A," IN USER '// &
           'DICTIONARY HAS AN INVALID FIRST CHARACTER (F VALUE) - MUST BE A, 0 OR 3")') numb
         call bort2(bort_str1,bort_str2)
       endif
-      if(iret.eq.-2) then
+      if(iret==-2) then
         write(bort_str1,'("BUFRLIB: RDUSDX - CARD READ IN IS: ",A)') card
         write(bort_str2,'(18X,"DESCRIPTOR NUMBER ",A," IN USER '// &
           'DICTIONARY HAS NON-NUMERIC VALUES IN CHARACTERS 2-6 (X AND Y VALUES)")') numb
         call bort2(bort_str1,bort_str2)
       endif
-      if(iret.eq.-3) then
+      if(iret==-3) then
         write(bort_str1,'("BUFRLIB: RDUSDX - CARD READ IN IS: ",A)') card
         write(bort_str2,'(18X,"DESCRIPTOR NUMBER ",A," IN USER '// &
           'DICTIONARY HAS INVALID NUMBER IN CHARACTERS 2-3 (X VALUE) - MUST BE BETWEEN 00 AND 63")') numb
         call bort2(bort_str1,bort_str2)
       endif
-      if(iret.eq.-4) then
+      if(iret==-4) then
         write(bort_str1,'("BUFRLIB: RDUSDX - CARD READ IN IS: ",A)') card
         write(bort_str2,'(18X,"DESCRIPTOR NUMBER ",A," IN USER '// &
           'DICTIONARY HAS INVALID NUMBER IN CHARACTERS 4-6 (Y VALUE) - MUST BE BETWEEN 000 AND 255")') numb
         call bort2(bort_str1,bort_str2)
       endif
 
-      if(numb(1:1).eq.'A') then
+      if(numb(1:1)=='A') then
         ! Table A descriptor found
         n = igetntbi ( lun, 'A' )
         call stntbia ( n, lun, numb, nemo, card(23:) )
-        if ( idna(n,lun,1) .eq. 11 ) then
+        if ( idna(n,lun,1) == 11 ) then
           write(bort_str1,'("BUFRLIB: RDUSDX - CARD READ IN IS: ",A)') card
           write(bort_str2,'(18X,"USER-DEFINED MESSAGE TYPE ""011"" IS RESERVED FOR DICTIONARY MESSAGES")')
           call bort2(bort_str1,bort_str2)
@@ -282,13 +282,13 @@ subroutine rdusdx(lundx,lun)
         numb(1:1) = '3'
       endif
 
-      if(numb(1:1).eq.'0') then
+      if(numb(1:1)=='0') then
         ! Table B descriptor found
         call stntbi ( igetntbi(lun,'B'), lun, numb, nemo, card(23:) )
         cycle
       endif
 
-      if(numb(1:1).eq.'3') then
+      if(numb(1:1)=='3') then
         ! Table D descriptor found
         call stntbi ( igetntbi(lun,'D'), lun, numb, nemo, card(23:) )
         cycle
@@ -301,13 +301,13 @@ subroutine rdusdx(lundx,lun)
 
     endif
 
-    if(card(12:12).eq.'|' .and. card(19:19).ne.'|') then
+    if(card(12:12)=='|' .and. card(19:19)/='|') then
       ! Parse a sequence definition card
       call seqsdx(card,lun)
       cycle
     endif
 
-    if(card(12:12).eq.'|' .and. card(19:19).eq.'|') then
+    if(card(12:12)=='|' .and. card(19:19)=='|') then
       ! Parse an element definition card
       call elemdx(card,lun)
       cycle
@@ -361,13 +361,13 @@ subroutine seqsdx(card,lun)
   ! can access the entry and then add the decoded sequence information to it.
 
   call nemtab(lun,nemo,idn,tab,iseq)
-  if(tab.ne.'D') then
+  if(tab/='D') then
     write(bort_str1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') card
     write(bort_str2,'(18X,"MNEMONIC ",A," IS NOT A TABLE D ENTRY (UNDEFINED, TAB=",A,")")') nemo,tab
     call bort2(bort_str1,bort_str2)
   endif
   call parstr(seqs,tags,maxtgs,ntag,' ',.true.)
-  if(ntag.eq.0) then
+  if(ntag==0) then
     write(bort_str1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') card
     write(bort_str2,'(18X,"TABLE D SEQUENCE (PARENT) MNEMONIC ",A," DOES NOT CONTAIN ANY CHILD MNEMONICS")') nemo
     call bort2(bort_str1,bort_str2)
@@ -380,30 +380,30 @@ subroutine seqsdx(card,lun)
     ! Check for a replicator
 
     outer: do i=1,5
-      if(atag(1:1).eq.reps(i)) then
+      if(atag(1:1)==reps(i)) then
         ! Note that reps(*), which contains all of the symbols used to denote all of the various replication schemes that
         ! are possible within a user-supplied BUFR dictionary table in character format, was previously defined within
         ! subroutine bfrini().
         do j=2,maxtag
-          if(atag(j:j).eq.reps(i+5)) then
+          if(atag(j:j)==reps(i+5)) then
             ! Note that subroutine strnum() will return numr = 0 if the string passed to it contains all blanks
             ! (as *should* be the case whenever i = 2 '(' ')', 3 '{' '}', 4 '[' ']', or 5 '<' '>').
             ! However, when i = 1 '"' '"', then subroutine strnum() will return numr = (the number of replications for
             ! the mnemonic using F=1 "regular" (i.e. non-delayed) replication).
             call strnum(atag(j+1:maxtag),numr,ier)
-            if(i.eq.1 .and. numr.le.0) then
+            if(i==1 .and. numr<=0) then
               write(bort_str1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') card
               write(bort_str2,'(9X,"TBL D MNEM. ",A," CONTAINS REG. REPL. '// &
                 'CHILD MNEM. ",A," W/ INVALID # OF REPLICATIONS (",I3,") AFTER 2ND QUOTE")') nemo,tags(n),numr
               call bort2(bort_str1,bort_str2)
             endif
-            if(i.eq.1 .and. numr.gt.255) then
+            if(i==1 .and. numr>255) then
               write(bort_str1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') card
               write(bort_str2,'(18X,"TBL D MNEM. ",A," CONTAINS REG. REPL. '// &
                 'CHILD MNEM. ",A," W/ # OF REPLICATIONS (",I3,") > LIMIT OF 255")') nemo,tags(n),numr
               call bort2(bort_str1,bort_str2)
             endif
-            if(i.ne.1 .and. numr.ne.0) then
+            if(i/=1 .and. numr/=0) then
               write(bort_str1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') card
               write(bort_str2,'(18X,"TBL D MNEM. ",A," CONTAINS DELAYED REPL. '// &
                 'CHILD MNEM. ",A," W/ # OF REPL. (",I3,") SPECIFIED - A NO-NO")') nemo,tags(n),numr
@@ -424,34 +424,34 @@ subroutine seqsdx(card,lun)
     ! Check for a valid tag
 
     iret=nemock(atag)
-    if(iret.eq.-1) then
+    if(iret==-1) then
       write(bort_str1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') card
       write(bort_str2,'(18X,"TABLE D (PARENT) MNEMONIC ",A," CONTAINS'// &
         ' A CHILD MNEMONIC ",A," NOT BETWEEN 1 & 8 CHARACTERS")') nemo,tags(n)
       call bort2(bort_str1,bort_str2)
     endif
-    if(iret.eq.-2) then
+    if(iret==-2) then
       write(bort_str1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') card
       write(bort_str2,'(18X,"TABLE D (PARENT) MNEMONIC ",A," CONTAINS'// &
         ' A CHILD MNEMONIC ",A," WITH INVALID CHARACTERS")') nemo,tags(n)
       call bort2(bort_str1,bort_str2)
     endif
     call nemtab(lun,atag,idn,tab,iret)
-    if(iret.gt.0) then
+    if(iret>0) then
       ! Note that the next code line checks that we are not trying to replicate a Table B mnemonic (which is currently not
       ! allowed).  The logic works because, for replicated mnemonics, irep = i = (the index within reps(*) of the symbol
       ! associated with the type of replication in question (e.g. "{, "<", etc.))
-      if(tab.eq.'B' .and. irep.ne.0) then
+      if(tab=='B' .and. irep/=0) then
         write(bort_str1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') card
         write(bort_str2,'(18X,"TABLE D (PARENT) MNEMONIC ",A," CONTAINS'// &
           ' A REPLICATED CHILD TABLE B MNEMONIC ",A," - A NO-NO")') nemo,tags(n)
         call bort2(bort_str1,bort_str2)
       endif
-      if(atag(1:1).eq.'.') then
+      if(atag(1:1)=='.') then
         ! This mnemonic is a "following value" mnemonic (i.e. it relates to the mnemonic that immediately follows it within
         ! the user-supplied character-format BUFR dictionary table sequence), so confirm that it contains, as a substring,
         ! this mnemonic that immediately follows it.
-        if(n.eq.ntag) then
+        if(n==ntag) then
           write(bort_str1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') card
           write(bort_str2,'(18X,"TBL D (PARENT) MNEM. ",A," CONTAINS A '// &
             '''FOLLOWING VALUE'' MNEMONIC WHICH IS LAST IN THE STRING")') nemo
@@ -461,13 +461,13 @@ subroutine seqsdx(card,lun)
         call numtab(lun,idn,nema,tab,itab)
         call nemtab(lun,nemb,jdn,tab,iret)
         call rsvfvm(nema,nemb)
-        if(nema.ne.atag) then
+        if(nema/=atag) then
           write(bort_str1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') card
           write(bort_str2,'(18X,"TBL D (PARENT) MNEM. ",A," CONTAINS AN '// &
             'INVALID ''FOLLOWING VALUE'' MNEMONIC ",A,"(SHOULD BE ",A,")")') nemo,tags(n),nema
           call bort2(bort_str1,bort_str2)
         endif
-        if(tab.ne.'B') then
+        if(tab/='B') then
           write(bort_str1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') card
           write(bort_str2,'(18X,"TBL D (PARENT) MNEM. ",A,", THE MNEM. ",'// &
             'A," FOLLOWING A ''FOLLOWING VALUE'' MNEM. IS NOT A TBL B ENTRY")') nemo,nemb
@@ -482,8 +482,8 @@ subroutine seqsdx(card,lun)
     endif
 
     ! Write the descriptor string into the tabd array, but first look for a replication descriptor
-    if(irep.gt.0) call pktdd(iseq,lun,idnr(irep)+numr,iret)
-    if(iret.lt.0) then
+    if(irep>0) call pktdd(iseq,lun,idnr(irep)+numr,iret)
+    if(iret<0) then
       clemon = adn30(idnr(irep)+numr,6)
       write(bort_str1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') card
       write(bort_str2,'(9X,"TBL D (PARENT) MNEM. ",A," - BAD RETURN '// &
@@ -491,7 +491,7 @@ subroutine seqsdx(card,lun)
       call bort2(bort_str1,bort_str2)
     endif
     call pktdd(iseq,lun,idn,iret)
-    if(iret.lt.0) then
+    if(iret<0) then
       write(bort_str1,'("BUFRLIB: SEQSDX - CARD READ IN IS: ",A)') card
       write(bort_str2,'(9X,"TBL D (PARENT) MNEM. ",A," - BAD RETURN '// &
         'FROM PKTDD TRYING TO STORE CHILD MNEM. ",A,", SEE PREV. WARNING MSG")') nemo,tags(n)
@@ -545,7 +545,7 @@ subroutine elemdx(card,lun)
   ! so that we can access the entry and then add the scale factor, reference value, bit width, and units to it.
 
   call nemtab(lun,nemo,idsn,tab,iele)
-  if(tab.ne.'B') then
+  if(tab/='B') then
     write(bort_str1,'("BUFRLIB: ELEMDX - CARD READ IN IS: ",A)') card
     write(bort_str2,'(18X,"MNEMONIC ",A," IS NOT A TABLE B ENTRY (UNDEFINED, TAB=",A,")")') nemo,tab
     call bort2(bort_str1,bort_str2)
@@ -554,7 +554,7 @@ subroutine elemdx(card,lun)
   ! Left justify and store characteristics
 
   unit = adjustl(unit)
-  if(unit.eq.' ') then
+  if(unit==' ') then
     write(bort_str1,'("BUFRLIB: ELEMDX - CARD READ IN IS: ",A)') card
     write(bort_str2,'(18X,"UNITS FIELD IS EMPTY")')
     call bort2(bort_str1,bort_str2)
@@ -563,7 +563,7 @@ subroutine elemdx(card,lun)
 
   scal_orig=scal
   call jstnum(scal,sign,iret)
-  if(iret.ne.0) then
+  if(iret/=0) then
     write(bort_str1,'("BUFRLIB: ELEMDX - CARD READ IN IS: ",A)') card
     write(bort_str2,'(18X,"PARSED SCALE VALUE (=",A,") IS NOT NUMERIC")') scal_orig
     call bort2(bort_str1,bort_str2)
@@ -573,7 +573,7 @@ subroutine elemdx(card,lun)
 
   refr_orig=refr
   call jstnum(refr,sign,iret)
-  if(iret.ne.0) then
+  if(iret/=0) then
     write(bort_str1,'("BUFRLIB: ELEMDX - CARD READ IN IS: ",A)') card
     write(bort_str2,'(18X,"PARSED REFERENCE VALUE (=",A,") IS NOT NUMERIC")') refr_orig
     call bort2(bort_str1,bort_str2)
@@ -583,7 +583,7 @@ subroutine elemdx(card,lun)
 
   bitw_orig=bitw
   call jstnum(bitw,sign,iret)
-  if(iret.ne.0 .or. sign.eq.'-') then
+  if(iret/=0 .or. sign=='-') then
     write(bort_str1,'("BUFRLIB: ELEMDX - CARD READ IN IS: ",A)') card
     write(bort_str2,'(18X,"PARSED BIT WIDTH VALUE (=",A,") IS NOT NUMERIC")') bitw_orig
     call bort2(bort_str1,bort_str2)
@@ -651,7 +651,7 @@ subroutine dxinit(lun,ioi)
     call pktdd(i,lun,0,iret)
   enddo
 
-  if(ioi.eq.0) return
+  if(ioi==0) return
 
   ! Initialize table with apriori Table B and D entries
 
@@ -738,7 +738,7 @@ subroutine dxmini(mbay,mbyt,mb4,mba,mbb,mbd)
   nby5 = 4
   mbyt = nby0+nby1+nby2+nby3+nby4+nby5
 
-  if(mod(nby3,2).ne.0) call bort ('BUFRLIB: DXMINI - LENGTH OF SECTION 3 IS NOT A MULTIPLE OF 2')
+  if(mod(nby3,2)/=0) call bort ('BUFRLIB: DXMINI - LENGTH OF SECTION 3 IS NOT A MULTIPLE OF 2')
 
   ! Section 0
 
@@ -788,7 +788,7 @@ subroutine dxmini(mbay,mbyt,mb4,mba,mbb,mbd)
   mbd = mbit/8+1
   call pkb(     0 ,  8 , mbay,mbit)
 
-  if(mbit/8+nby5.ne.mbyt) then
+  if(mbit/8+nby5/=mbyt) then
     write(bort_str,'("BUFRLIB: DXMINI - NUMBER OF BYTES STORED FOR '// &
       'A MESSAGE (",I6,") IS NOT THE SAME AS FIRST CALCULATED, MBYT (",I6)') mbit/8+nby5,mbyt
     call bort(bort_str)
@@ -818,7 +818,7 @@ subroutine writdx(lunit,lun,lundx)
 
   ! The table must be coming from an input file
 
-  if(lunit.eq.lundx) then
+  if(lunit==lundx) then
     write(bort_str,'("BUFRLIB: WRITDX - FILES CONTAINING BUFR DATA '// &
       'AND DICTIONARY TABLE CANNOT BE THE SAME (HERE BOTH SHARE FORTRAN UNIT NUMBER ",I3,")")') lunit
     call bort(bort_str)
@@ -882,15 +882,15 @@ recursive subroutine wrdxtb(lundx,lunot)
   ! Check file statuses
 
   call status(lunot,lot,il,im)
-  if(il.eq.0) call bort('BUFRLIB: WRDXTB - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
-  if(il.lt.0) call bort('BUFRLIB: WRDXTB - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
+  if(il==0) call bort('BUFRLIB: WRDXTB - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
+  if(il<0) call bort('BUFRLIB: WRDXTB - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
 
   call status(lundx,ldx,il,im)
-  if(il.eq.0) call bort('BUFRLIB: WRDXTB - DX TABLE FILE IS CLOSED, IT MUST BE OPEN')
+  if(il==0) call bort('BUFRLIB: WRDXTB - DX TABLE FILE IS CLOSED, IT MUST BE OPEN')
 
   ! If files are different, copy internal table information from lundx to lunot
 
-  if(lundx.ne.lunot) call cpbfdx(ldx,lot)
+  if(lundx/=lunot) call cpbfdx(ldx,lot)
 
   ! Generate and write out BUFR dictionary messages to lunot
 
@@ -904,7 +904,7 @@ recursive subroutine wrdxtb(lundx,lunot)
   ! Table A information
 
   do i=1,ntba(lot)
-    if(msgfull(mbyt,lda,maxdx).or.(iupb(mgwa,mbya,8).eq.255)) then
+    if(msgfull(mbyt,lda,maxdx).or.(iupb(mgwa,mbya,8)==255)) then
       call msgwrt(lunot,mgwa,mbyt)
       call dxmini(mgwa,mbyt,mby4,mbya,mbyb,mbyd)
     endif
@@ -924,7 +924,7 @@ recursive subroutine wrdxtb(lundx,lunot)
   ! Table B information
 
   do i=1,ntbb(lot)
-    if(msgfull(mbyt,ldb,maxdx).or.(iupb(mgwa,mbyb,8).eq.255)) then
+    if(msgfull(mbyt,ldb,maxdx).or.(iupb(mgwa,mbyb,8)==255)) then
       call msgwrt(lunot,mgwa,mbyt)
       call dxmini(mgwa,mbyt,mby4,mbya,mbyb,mbyd)
     endif
@@ -944,7 +944,7 @@ recursive subroutine wrdxtb(lundx,lunot)
   do i=1,ntbd(lot)
     nseq = iupm(tabd(i,lot)(ldd+1:ldd+1),8)
     lend = ldd+1 + l30*nseq
-    if(msgfull(mbyt,lend,maxdx).or.(iupb(mgwa,mbyd,8).eq.255)) then
+    if(msgfull(mbyt,lend,maxdx).or.(iupb(mgwa,mbyd,8)==255)) then
       call msgwrt(lunot,mgwa,mbyt)
       call dxmini(mgwa,mbyt,mby4,mbya,mbyb,mbyd)
     endif
@@ -1020,8 +1020,8 @@ subroutine stbfdx(lun,mesg)
   ! Get some preliminary information from the message
 
   idxs = iupbs01(mesg,'MSBT')+1
-  if(idxs.gt.idxv+1) idxs = iupbs01(mesg,'MTVL')+1
-  if(ldxa(idxs).eq.0 .or. ldxb(idxs).eq.0 .or. ldxd(idxs).eq.0) call bort('BUFRLIB: STBFDX - UNEXPECTED DICTIONARY '// &
+  if(idxs>idxv+1) idxs = iupbs01(mesg,'MTVL')+1
+  if(ldxa(idxs)==0 .or. ldxb(idxs)==0 .or. ldxd(idxs)==0) call bort('BUFRLIB: STBFDX - UNEXPECTED DICTIONARY '// &
     'MESSAGE SUBTYPE OR LOCAL VERSION NUMBER (E.G., L.V.N. HIGHER THAN KNOWN)')
 
   call getlens(mesg,3,len0,len1,len2,len3,l4,l5)
@@ -1029,7 +1029,7 @@ subroutine stbfdx(lun,mesg)
   dxcmp = ' '
   jbit = 8*(i3+7)
   call upc(dxcmp,nxstr(idxs),mesg,jbit,.false.)
-  if(dxcmp.ne.dxstr(idxs)) call bort('BUFRLIB: STBFDX - UNEXPECTED DICTIONARY MESSAGE CONTENTS')
+  if(dxcmp/=dxstr(idxs)) call bort('BUFRLIB: STBFDX - UNEXPECTED DICTIONARY MESSAGE CONTENTS')
 
   ! Section 4 - read definitions for Tables A, B and D
 
@@ -1089,7 +1089,7 @@ subroutine stbfdx(lun,mesg)
     call nenubd(nemo,numb,lun)
     idnd(n,lun) = ifxy(numb)
     nd = iupb(mesg,id+ldd+1,8)
-    if(nd.gt.maxcd) then
+    if(nd>maxcd) then
       write(bort_str,'("BUFRLIB: STBFDX - NUMBER OF DESCRIPTORS IN '// &
         'TABLE D ENTRY ",A," IN BUFR TABLE (",I4,") EXCEEDS THE LIMIT (",I4,")")') nemo,nd,maxcd
       call bort(bort_str)
@@ -1100,10 +1100,10 @@ subroutine stbfdx(lun,mesg)
       call upc(cidn,l30,mesg,jbit,.true.)
       idn = idn30(cidn,l30)
       call pktdd(n,lun,idn,iret)
-      if(iret.lt.0) call bort('BUFRLIB: STBFDX - BAD RETURN FROM BUFRLIB ROUTINE PKTDD, SEE PREVIOUS WARNING MESSAGE')
+      if(iret<0) call bort('BUFRLIB: STBFDX - BAD RETURN FROM BUFRLIB ROUTINE PKTDD, SEE PREVIOUS WARNING MESSAGE')
     enddo
     id = id+ldd+1 + nd*l30
-    if(iupb(mesg,id+1,8).eq.0) id = id+1
+    if(iupb(mesg,id+1,8)==0) id = id+1
     ntbd(lun) = n
   enddo
 
@@ -1129,8 +1129,8 @@ integer function idxmsg( mesg ) result( iret )
   ! Note that the following test relies upon logic within subroutine dxmini() which zeroes out the Section 1 date of
   ! all DX dictionary messages.
 
-  if ( (iupbs01(mesg,'MTYP').eq.11) .and. &
-         (iupbs01(mesg,'MNTH').eq.0) .and. (iupbs01(mesg,'DAYS').eq.0) .and. (iupbs01(mesg,'HOUR').eq.0) ) then
+  if ( (iupbs01(mesg,'MTYP')==11) .and. &
+         (iupbs01(mesg,'MNTH')==0) .and. (iupbs01(mesg,'DAYS')==0) .and. (iupbs01(mesg,'HOUR')==0) ) then
     iret = 1
   else
     iret = 0
@@ -1161,17 +1161,17 @@ integer function igetntbi ( lun, ctb ) result(iret)
   character, intent(in) :: ctb
   character*128 bort_str
 
-  if ( ctb .eq. 'A' ) then
+  if ( ctb == 'A' ) then
     iret = ntba(lun) + 1
     imax = ntba(0)
-  else if ( ctb .eq. 'B' ) then
+  else if ( ctb == 'B' ) then
     iret = ntbb(lun) + 1
     imax = ntbb(0)
-  else  ! ctb .eq. 'D'
+  else  ! ctb == 'D'
     iret = ntbd(lun) + 1
     imax = ntbd(0)
   endif
-  if ( iret .gt. imax ) then
+  if ( iret > imax ) then
     write(bort_str,'("BUFRLIB: IGETNTBI - NUMBER OF INTERNAL TABLE",A1," ENTRIES EXCEEDS THE LIMIT (",I4,")")') ctb, imax
     call bort(bort_str)
   endif
@@ -1211,15 +1211,15 @@ subroutine nemtbax(lun,nemo,mtyp,msbt,inod)
   ! Look for nemo in Table A
 
   do i=1,ntba(lun)
-    if(taba(i,lun)(4:11).eq.nemo) then
+    if(taba(i,lun)(4:11)==nemo) then
       mtyp = idna(i,lun,1)
       msbt = idna(i,lun,2)
       inod = mtab(i,lun)
-      if(mtyp.lt.0 .or. mtyp.gt.255) then
+      if(mtyp<0 .or. mtyp>255) then
         write(bort_str,'("BUFRLIB: NEMTBAX - INVALID MESSAGE TYPE (",I4,") RETURNED FOR MENMONIC ",A)') mtyp, nemo
         call bort(bort_str)
       endif
-      if(msbt.lt.0 .or. msbt.gt.255) then
+      if(msbt<0 .or. msbt>255) then
         write(bort_str,'("BUFRLIB: NEMTBAX - INVALID MESSAGE SUBTYPE (",I4,") RETURNED FOR MENMONIC ",A)') msbt, nemo
         call bort(bort_str)
       endif
@@ -1256,7 +1256,7 @@ subroutine nemtba(lun,nemo,mtyp,msbt,inod)
   ! Look for nemo in Table A
 
   call nemtbax(lun,nemo,mtyp,msbt,inod)
-  if(inod.eq.0) then
+  if(inod==0) then
     write(bort_str,'("BUFRLIB: NEMTBA - CAN''T FIND MNEMONIC ",A)') nemo
     call bort(bort_str)
   endif
@@ -1288,7 +1288,7 @@ subroutine nemtbb(lun,itab,unit,iscl,iref,ibit)
   character*24, intent(out) :: unit
   character*8 nemo
 
-  if(itab.le.0 .or. itab.gt.ntbb(lun)) then
+  if(itab<=0 .or. itab>ntbb(lun)) then
     write(bort_str,'("BUFRLIB: NEMTBB - ITAB (",I7,") NOT FOUND IN TABLE B")') itab
     call bort(bort_str)
   endif
@@ -1304,11 +1304,11 @@ subroutine nemtbb(lun,itab,unit,iscl,iref,ibit)
 
   ! Check Table B contents
 
-  if(unit(1:5).ne.'CCITT' .and. ibit.gt.32) then
+  if(unit(1:5)/='CCITT' .and. ibit>32) then
     write(bort_str,'("BUFRLIB: NEMTBB - BIT WIDTH FOR NON-CHARACTER TABLE B MNEMONIC ",A," (",I7,") IS > 32")') nemo,ibit
     call bort(bort_str)
   endif
-  if(unit(1:5).eq.'CCITT' .and. mod(ibit,8).ne.0) then
+  if(unit(1:5)=='CCITT' .and. mod(ibit,8)/=0) then
     write(bort_str,'("BUFRLIB: NEMTBB - BIT WIDTH FOR CHARACTER TABLE B MNEMONIC ",A," (",I7,") IS NOT A MULTIPLE OF 8")') &
       nemo,ibit
     call bort(bort_str)
@@ -1359,7 +1359,7 @@ subroutine nemtbd(lun,itab,nseq,nems,irps,knts)
   character*8 nemo, nemt, nemf
   character tab
 
-  if(itab.le.0 .or. itab.gt.ntbd(lun)) then
+  if(itab<=0 .or. itab>ntbd(lun)) then
     write(bort_str,'("BUFRLIB: NEMTBD - ITAB (",I7,") NOT FOUND IN TABLE D")') itab
     call bort(bort_str)
   endif
@@ -1383,31 +1383,31 @@ subroutine nemtbd(lun,itab,nseq,nems,irps,knts)
   ! Loop through each child mnemonic
 
   do j=1,ndsc
-    if(nseq+1.gt.maxcd) then
+    if(nseq+1>maxcd) then
       write(bort_str,'("BUFRLIB: NEMTBD - THERE ARE MORE THAN '// &
         '(",I4,") DESCRIPTORS (THE LIMIT) IN TABLE D SEQUENCE MNEMONIC ",A)') maxcd, nemo
       call bort(bort_str)
     endif
     call uptdd(itab,lun,j,idsc)
     call numtab(lun,idsc,nemt,tab,iret)
-    if(tab.eq.'R') then
-      if(iret.lt.0) then
+    if(tab=='R') then
+      if(iret<0) then
         ! Regular (i.e. non-delayed) replication
         irps(nseq+1) = 1
         knts(nseq+1) = abs(iret)
-      elseif(iret.gt.0) then
+      elseif(iret>0) then
         ! Delayed replication
         irps(nseq+1) = iret
       endif
-    elseif(tab.eq.'F') then
+    elseif(tab=='F') then
       ! Replication factor
       irps(nseq+1) = iret
-    elseif(tab.eq.'D'.or.tab.eq.'C') then
+    elseif(tab=='D'.or.tab=='C') then
       nseq = nseq+1
       nems(nseq) = nemt
-    elseif(tab.eq.'B') then
+    elseif(tab=='B') then
       nseq = nseq+1
-      if((nemt(1:1).eq.'.').and.(j.lt.ndsc)) then
+      if((nemt(1:1)=='.').and.(j<ndsc)) then
         ! This is a "following value" mnemonic
         call uptdd(itab,lun,j+1,idsc)
         call numtab(lun,idsc,nemf,tab,iret)
@@ -1474,12 +1474,12 @@ recursive subroutine nemdefs ( lunit, nemo, celem, cunit, iret )
   ! Get lun from lunit.
 
   call status( lunit, lun, il, im )
-  if ( il .eq. 0 ) return
+  if ( il == 0 ) return
 
   ! Find the requested mnemonic in the internal Table B arrays.
 
   call nemtab( lun, nemo, idn, tab, iloc )
-  if ( ( iloc .eq. 0 ) .or. ( tab .ne. 'B' ) ) return
+  if ( ( iloc == 0 ) .or. ( tab /= 'B' ) ) return
 
   ! Get the element name and units of the requested mnemonic.
 
@@ -1523,22 +1523,22 @@ subroutine nenubd(nemo,numb,lun)
   integer n
 
   do n=1,ntbb(lun)
-    if(numb.eq.tabb(n,lun)(1:6)) then
+    if(numb==tabb(n,lun)(1:6)) then
       write(bort_str,'("BUFRLIB: NENUBD - TABLE B FXY VALUE (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') numb
       call bort(bort_str)
     endif
-    if(nemo.eq.tabb(n,lun)(7:14)) then
+    if(nemo==tabb(n,lun)(7:14)) then
       write(bort_str,'("BUFRLIB: NENUBD - TABLE B MNEMONIC (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') nemo
       call bort(bort_str)
     endif
   enddo
 
   do n=1,ntbd(lun)
-    if(numb.eq.tabd(n,lun)(1:6)) then
+    if(numb==tabd(n,lun)(1:6)) then
       write(bort_str,'("BUFRLIB: NENUBD - TABLE D FXY VALUE (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') numb
       call bort(bort_str)
     endif
-    if(nemo.eq.tabd(n,lun)(7:14)) then
+    if(nemo==tabd(n,lun)(7:14)) then
       write(bort_str,'("BUFRLIB: NENUBD - TABLE D MNEMONIC (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') nemo
       call bort(bort_str)
     endif
@@ -1571,11 +1571,11 @@ subroutine stntbia ( n, lun, numb, nemo, celsq )
   ! Confirm that neither nemo nor numb has already been defined within the internal BUFR Table A for the given lun.
 
   do i=1,ntba(lun)
-    if(numb(4:6).eq.taba(i,lun)(1:3)) then
+    if(numb(4:6)==taba(i,lun)(1:3)) then
       write(bort_str,'("BUFRLIB: STNTBIA - TABLE A FXY VALUE (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') numb
       call bort(bort_str)
     endif
-    if(nemo(1:8).eq.taba(i,lun)(4:11)) then
+    if(nemo(1:8)==taba(i,lun)(4:11)) then
       write(bort_str,'("BUFRLIB: STNTBIA - TABLE A MNEMONIC (",A,") HAS ALREADY BEEN DEFINED (DUPLICATE)")') nemo
       call bort(bort_str)
     endif
@@ -1630,13 +1630,13 @@ subroutine stntbi ( n, lun, numb, nemo, celsq )
 
   call nenubd ( nemo, numb, lun )
 
-  if ( numb(1:1) .eq. '0') then
+  if ( numb(1:1) == '0') then
     idnb(n,lun) = ifxy(numb)
     tabb(n,lun)(1:6) = numb(1:6)
     tabb(n,lun)(7:14) = nemo(1:8)
     tabb(n,lun)(16:70) = celsq(1:55)
     ntbb(lun) = n
-  else  ! numb(1:1) .eq. '3'
+  else  ! numb(1:1) == '3'
     idnd(n,lun) = ifxy(numb)
     tabd(n,lun)(1:6) = numb(1:6)
     tabd(n,lun)(7:14) = nemo(1:8)
@@ -1685,7 +1685,7 @@ subroutine pktdd(id,lun,idn,iret)
   ldd = ldxd(idxv+1)+1
 
   ! Zero the counter if idn is zero
-  if(idn.eq.0) then
+  if(idn==0) then
     call ipkm(tabd(id,lun)(ldd:ldd),1,0)
     iret = 0
     return
@@ -1695,10 +1695,10 @@ subroutine pktdd(id,lun,idn,iret)
   ! stored thus far for this parent mnemonic.
   nd = iupm(tabd(id,lun)(ldd:ldd),8)
 
-  if(nd.lt.0 .or. nd.eq.maxcd) then
-    if(iprt.ge.0) then
+  if(nd<0 .or. nd==maxcd) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-      if(nd.lt.0) then
+      if(nd<0) then
         write ( unit=errstr, FMT='(A,I4,A)' ) 'BUFRLIB: PKTDD - BAD COUNTER VALUE (=', nd, ') - RETURN WITH IRET = -1'
       else
         write ( unit=errstr, FMT='(A,I4,A,A)' ) 'BUFRLIB: PKTDD - MAXIMUM NUMBER OF CHILD MNEMONICS (=', &
@@ -1756,10 +1756,10 @@ subroutine uptdd(id,lun,ient,iret)
 
   ldd = ldxd(idxv+1)+1
   ndsc = iupm(tabd(id,lun)(ldd:ldd),8)
-  if(ient.eq.0) then
+  if(ient==0) then
     iret = ndsc
     return
-  elseif(ient.lt.0 .or. ient.gt.ndsc) then
+  elseif(ient<0 .or. ient>ndsc) then
     write(bort_str,'("BUFRLIB: UPTDD - VALUE OF THIRD ARGUMENT IENT (INPUT) IS OUT OF RANGE (IENT =",I4,")")') ient
     call bort(bort_str)
   endif
@@ -1801,11 +1801,11 @@ subroutine rsvfvm(nem1,nem2)
   integer i, j
 
   do i=1,len(nem1)
-    if(i.eq.1) then
+    if(i==1) then
       ! Skip the initial ".", and initialize J.
       j = 1
     else
-      if(nem1(i:i).eq.'.') then
+      if(nem1(i:i)=='.') then
         nem1(i:i) = nem2(j:j)
         j = j+1
       endif

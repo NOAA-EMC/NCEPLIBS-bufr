@@ -88,9 +88,9 @@ program intest8
   if ( iqcd /= 14 ) stop 5
 
   call ufbqcp ( 11, 2, mnem )
-  if ( mnem(1:7) .ne. 'SYNDATA' ) stop 6
+  if ( mnem(1:7) /= 'SYNDATA' ) stop 6
   call ufbqcp ( 11, 8, mnem )
-  if ( mnem(1:6) .ne. 'VIRTMP' ) stop 7
+  if ( mnem(1:6) /= 'VIRTMP' ) stop 7
 
   r8v = 224.
   call upftbv ( 11, 'RSRD', r8v, 6, ibit, nib )
@@ -102,13 +102,13 @@ program intest8
   ! Test some errwrt cases in ufbevn
   errstr_len = 0
   call ufbevn ( 11, r8vals, (-1)*mxr8pm, mxr8lv, mxr8en, ilv, 'QOB QQM QPC QRC' )
-  if ( ( index( errstr(1:errstr_len), 'UFBEVN - 3rd ARG. (INPUT) IS .LE. 0' ) .eq. 0 ) ) stop 10
+  if ( ( index( errstr(1:errstr_len), 'UFBEVN - 3rd ARG. (INPUT) IS .LE. 0' ) == 0 ) ) stop 10
   errstr_len = 0
   call ufbevn ( 11, r8vals, mxr8pm, (-1)*mxr8lv, mxr8en, ilv, 'QOB QQM QPC QRC' )
-  if ( ( index( errstr(1:errstr_len), 'UFBEVN - 4th ARG. (INPUT) IS .LE. 0' ) .eq. 0 ) ) stop 11
+  if ( ( index( errstr(1:errstr_len), 'UFBEVN - 4th ARG. (INPUT) IS .LE. 0' ) == 0 ) ) stop 11
   errstr_len = 0
   call ufbevn ( 11, r8vals, mxr8pm, mxr8lv, (-1)*mxr8en, ilv, 'QOB QQM QPC QRC' )
-  if ( ( index( errstr(1:errstr_len), 'UFBEVN - 5th ARG. (INPUT) IS .LE. 0' ) .eq. 0 ) ) stop 12
+  if ( ( index( errstr(1:errstr_len), 'UFBEVN - 5th ARG. (INPUT) IS .LE. 0' ) == 0 ) ) stop 12
 
   print *, 'SUCCESS!'
 end program intest8

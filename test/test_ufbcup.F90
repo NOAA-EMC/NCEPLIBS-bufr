@@ -13,7 +13,7 @@ program test_ufbcup
   character*8 station
   equivalence(station, hdr(1, 1))
   integer*4 ibfms
-  
+
   print *, 'Testing ufbcup.'
 
 #ifdef KIND_8
@@ -30,11 +30,11 @@ program test_ufbcup
 
   ! Read a message.
   call readmg(11, subset, jdate, iret)
-  if (iret .ne. 0 .or. subset .ne. 'ADPSFC' .or. jdate .ne. 23022519) stop 10
+  if (iret /= 0 .or. subset /= 'ADPSFC' .or. jdate /= 23022519) stop 10
 
   ! Load a subset of data.
   call readsb(11, iret)
-  if (iret .ne. 0) stop 20
+  if (iret /= 0) stop 20
 
   ! Create a new message in the output file.
   call openmg(12, subset, jdate)
@@ -54,15 +54,15 @@ program test_ufbcup
 
   ! Open the file, and read the 1st subset of the 1st message.
   call rdmgsb(12, 1, 1)
-  
+
   ! Get SID, the station ID.
   call ufbint(12, hdr, 1, 1, iret, 'SID')
-  if (station .ne. 'CWGN    ') stop 31
+  if (station /= 'CWGN    ') stop 31
 
   ! Get the MISSING value.
   call ufbint(12, hdr, 1, 1, iret, 'NUL')
-  if (ibfms(hdr(1, 1)) .ne. 1) stop 32
-  
+  if (ibfms(hdr(1, 1)) /= 1) stop 32
+
   ! Get and check more values.
   call ufbint(12, hdr, 1, 1, iret, 'XOB')
   if (abs(hdr(1, 1) - 262.43) > EPSILON) stop 40
@@ -77,12 +77,12 @@ program test_ufbcup
   call ufbint(12, hdr, 1, 1, iret, 'T29')
   if (abs(hdr(1, 1) - 512.0) > EPSILON) stop 45
   call ufbint(12, hdr, 1, 1, iret, 'ITP')
-  if (ibfms(hdr(1, 1)) .ne. 1) stop 46
+  if (ibfms(hdr(1, 1)) /= 1) stop 46
 
   ! Read a replication.
   call ufbrep(12, hdr, 1, 1, iret, '{PLEVL}')
-  if (iret .ne. 1) stop 50
-  if (hdr(1, 1) .ne. 0 .or. iret .ne. 1) stop 50
+  if (iret /= 1) stop 50
+  if (hdr(1, 1) /= 0 .or. iret /= 1) stop 50
 
   ! Close the files.
   call closbf(12)

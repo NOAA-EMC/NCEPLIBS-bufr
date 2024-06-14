@@ -20,8 +20,8 @@ program outtest11
   open ( unit = 11, file = 'testfiles/OUT_11_infile1', form = 'unformatted', iostat = ios1 )
   open ( unit = 12, file = 'testfiles/OUT_11_infile2', form = 'unformatted', iostat = ios2 )
   open ( unit = 50, file = 'out11.bufr', form = 'unformatted', iostat = ios3  )
-  if ( any( (/ios1,ios2,ios3/) .ne. (/0,0,0/) ) ) stop 1
-  if ( isetprm ( 'MXCSB', 50 ) .ne. 0 ) stop 2
+  if ( any( (/ios1,ios2,ios3/) /= (/0,0,0/) ) ) stop 1
+  if ( isetprm ( 'MXCSB', 50 ) /= 0 ) stop 2
 
   call pkvs01 ( 'MTV', 40 )
   ! Specify that output messages should be BUFR edition 4.
@@ -37,7 +37,7 @@ program outtest11
   call cmpmsg ( 'Y' )
 
   ! Copy all of the data subsets from the first input file to the output file.
-  do while ( ireadns ( 11, cmgtag, imgdt ) .eq. 0 )
+  do while ( ireadns ( 11, cmgtag, imgdt ) == 0 )
     call openmb ( 50, cmgtag, imgdt )
     call ufbcpy ( 11, 50 )
     call writsb ( 50 )
@@ -55,7 +55,7 @@ program outtest11
   call maxout ( 5000 )
 
   ! Copy all of the data subsets from the second input file and append them to the output file.
-  do while ( ireadns ( 12, cmgtag, imgdt ) .eq. 0 )
+  do while ( ireadns ( 12, cmgtag, imgdt ) == 0 )
     call openmb ( 50, cmgtag, imgdt )
     call ufbcpy ( 12, 50 )
     call writsb ( 50 )
@@ -68,8 +68,8 @@ program outtest11
 
   open ( unit = 13, file = 'testfiles/OUT_11_infile3', form = 'unformatted', iostat = ios1 )
   open ( unit = 50, file = 'out11.bufr', form = 'unformatted', iostat = ios2  )
-  if ( any( (/ios1,ios2/) .ne. (/0,0/) ) ) stop 3
-  if ( isetprm ( 'MXCSB', 30 ) .ne. 0 ) stop 4
+  if ( any( (/ios1,ios2/) /= (/0,0/) ) ) stop 3
+  if ( isetprm ( 'MXCSB', 30 ) /= 0 ) stop 4
 
   ! Specify that output messages should be BUFR edition 4.
   call pkvs01 ( 'BEN', 4 )
@@ -88,7 +88,7 @@ program outtest11
   call maxout ( 11500 )
 
   ! Copy all of the data subsets from the third input file to the output file.
-  do while ( ireadns ( 13, cmgtag, imgdt ) .eq. 0 )
+  do while ( ireadns ( 13, cmgtag, imgdt ) == 0 )
     call openmb ( 50, cmgtag, imgdt )
     call ufbcpy ( 13, 50 )
     call writsb ( 50 )

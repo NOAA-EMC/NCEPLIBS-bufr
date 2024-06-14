@@ -48,7 +48,7 @@ subroutine blocks(mbay,mwrd)
   equivalence(cint,iint)
   equivalence(dint,jint)
 
-  if(iblock.eq.0) return
+  if(iblock==0) return
 
   ! make room in mbay for control words - one at each end of the record
 
@@ -61,13 +61,13 @@ subroutine blocks(mbay,mwrd)
   iint=mwrd*4
 
   do i=1,nbytw
-    if(iblock.eq.-1) then
+    if(iblock==-1) then
 #ifdef BIG_ENDIAN
       dint(i)=cint(iordle(i))
 #else
       dint(i)=cint(i)
 #endif
-    elseif(iblock.eq.1) then
+    elseif(iblock==1) then
 #ifdef LITTLE_ENDIAN
       dint(i)=cint(iordle(i))
 #else

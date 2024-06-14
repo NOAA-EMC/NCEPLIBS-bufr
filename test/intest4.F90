@@ -53,62 +53,62 @@ program intest4
   open(unit = 11, file = '/dev/null')
   call openbf(11, 'SEC3', 11)
 
-  ! Specify location of master BUFR tables on local file system.  
+  ! Specify location of master BUFR tables on local file system.
   call mtinfo('../tables', 90, 91)
 
   ! Read the BUFR message from the BUFR file.
   call crbmg_c(bfmg, mxbf, nbyt, ierr)
-  if (ierr .ne. 0) stop 1
+  if (ierr /= 0) stop 1
 
   ! Check some values in Section 1 of the message.
-  if (iupbs01(ibfmg, 'MTYP') .ne. 5 .or. iupbs01(ibfmg, 'MTV' ) .ne. 12 &
-       .or. iupbs01(ibfmg, 'LENM') .ne. 3588) stop 2
+  if (iupbs01(ibfmg, 'MTYP') /= 5 .or. iupbs01(ibfmg, 'MTV' ) /= 12 &
+       .or. iupbs01(ibfmg, 'LENM') /= 3588) stop 2
 
   ! Check some values in Section 3 of the message.
-  if (iupbs3(ibfmg, 'NSUB') .ne. 31 .or. iupbs3(ibfmg, 'ICMP') .ne. 1) stop 3
+  if (iupbs3(ibfmg, 'NSUB') /= 31 .or. iupbs3(ibfmg, 'ICMP') /= 1) stop 3
 
   call upds3(ibfmg, mxds3, cds3, nds3)
-  if (nds3 .ne. 51 .or. cds3(1) .ne. '310023' .or. cds3(5) .ne. '031031' .or. &
-       cds3(32) .ne. '237000' .or. cds3(44) .ne. '224255') stop 4
+  if (nds3 /= 51 .or. cds3(1) /= '310023' .or. cds3(5) /= '031031' .or. &
+       cds3(32) /= '237000' .or. cds3(44) /= '224255') stop 4
 
   ! Pass the message into the library so that Section 4 data can be read.
   call readerme(ibfmg, 11, cmgtag, imgdt, ier)
-  if (ier .ne. 0 .or. cmgtag .ne. 'MSTTB001' .or. imgdt .ne. 2016041815 ) stop 5
+  if (ier /= 0 .or. cmgtag /= 'MSTTB001' .or. imgdt /= 2016041815 ) stop 5
 
   ! Read a data subset from the BUFR message.
-  if (ireadsb(11) .ne. 0) stop 6
-  
+  if (ireadsb(11) /= 0) stop 6
+
   ! Check some data values in the data subset.
   call ufbint(11, r8arr, mxr8pm, mxr8lv, nr8lv, 'CLONH SAID SAZA HITE')
-  if (nr8lv .ne. 1 .or. nint(r8arr(1,1)*100000) .ne. -4246453 .or. &
-       nint(r8arr(2,1)) .ne. 57 .or. nint(r8arr(3,1)*100) .ne. 5407 .or. &
-       ibfms(r8arr(4,1)) .ne. 1) stop 7
+  if (nr8lv /= 1 .or. nint(r8arr(1,1)*100000) /= -4246453 .or. &
+       nint(r8arr(2,1)) /= 57 .or. nint(r8arr(3,1)*100) /= 5407 .or. &
+       ibfms(r8arr(4,1)) /= 1) stop 7
 
   call ufbrep(11, r8arr, mxr8pm, mxr8lv, nr8lv, 'PCCF')
-  if ( nr8lv .ne. 180 .or. nint(r8arr(1,12)) .ne. 86 .or. nint(r8arr(1,15)) .ne. 38 .or. &
-       nint(r8arr(1,102)) .ne. 88 .or. nint(r8arr(1,141)) .ne. 10 ) stop 8
+  if ( nr8lv /= 180 .or. nint(r8arr(1,12)) /= 86 .or. nint(r8arr(1,15)) /= 38 .or. &
+       nint(r8arr(1,102)) /= 88 .or. nint(r8arr(1,141)) /= 10 ) stop 8
   call ufbrep(11, r8arr, mxr8pm, mxr8lv, nr8lv, '224255')
-  if ( nr8lv .ne. 72 .or. nint(r8arr(1,12)*10) .ne. 6 .or. nint(r8arr(1,33)*10) .ne. 4) stop 9
+  if ( nr8lv /= 72 .or. nint(r8arr(1,12)*10) /= 6 .or. nint(r8arr(1,33)*10) /= 4) stop 9
 
   ! Check some bitmap and marker operator references in the data subset.
   call gettagre(11, 'PCCF', 57, tag, ntag, ier)
-  if ( ier .ne. 0 .or. ntag .ne. 7 .or. tag .ne. 'TMBRST  ' ) stop 10
+  if ( ier /= 0 .or. ntag /= 7 .or. tag /= 'TMBRST  ' ) stop 10
   call gettagre(11, 'PCCF', 154, tag, ntag, ier)
-  if ( ier .ne. 0 .or. ntag .ne. 4 .or. tag .ne. 'SPRD    ' ) stop 11
+  if ( ier /= 0 .or. ntag /= 4 .or. tag /= 'SPRD    ' ) stop 11
   call gettagre(11, '224255', 65, tag, ntag, ier)
-  if ( ier .ne. 0 .or. ntag .ne. 10 .or. tag .ne. 'RDNE    ' ) stop 12
+  if ( ier /= 0 .or. ntag /= 10 .or. tag /= 'RDNE    ' ) stop 12
 
   ! Check the output from lmsg, nmwrd, ipkm, and iupm.
   do ii = 1, 8
     sec0(ii:ii) = bfmg(ii)
   end do
-  if ( lmsg(sec0) .ne. 898 ) stop 13
-  if ( nmwrd(ibfmg) .ne. 898 ) stop 14
+  if ( lmsg(sec0) /= 898 ) stop 13
+  if ( nmwrd(ibfmg) /= 898 ) stop 14
   call ipkm(cbay,3,3588)
   do ii = 1, 3
-    if ( cbay(ii:ii) .ne. sec0(ii+4:ii+4) ) stop 15
+    if ( cbay(ii:ii) /= sec0(ii+4:ii+4) ) stop 15
   end do
-  if ( iupm(cbay(1:3),24) .ne. 3588 ) stop 16
+  if ( iupm(cbay(1:3),24) /= 3588 ) stop 16
 
   ! Close the test file.
   call ccbfl_c()
