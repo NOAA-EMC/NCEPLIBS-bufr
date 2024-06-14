@@ -39,7 +39,7 @@ subroutine cmpmsg(cf)
   character*128 bort_str
 
   call capit(cf)
-  if(cf.ne.'Y'.and. cf.ne.'N') then
+  if(cf/='Y'.and. cf/='N') then
     write(bort_str,'("BUFRLIB: CMPMSG - INPUT ARGUMENT IS ",A1,", IT MUST BE EITHER Y OR N")') cf
     call bort(bort_str)
   endif
@@ -164,7 +164,7 @@ subroutine rdcmps(lun)
     ! dictate that the "local reference value" will be equal to this value, the 6-bit increment length indicator will have a
     ! value of zero, and the actual increments themselves will be omitted from the message.
 
-    if(ityp.eq.1.or.ityp.eq.2) then
+    if(ityp==1.or.ityp==2) then
       ! This is a numeric element.
       if(nbit<=32) then
         call upb(lre4,nbit,mbay(1,lun),ibit)
@@ -179,21 +179,21 @@ subroutine rdcmps(lun)
         jbit = ibit + linc*(nsbs-1)
         call up8(ninc,linc,mbay(1,lun),jbit)
       endif
-      if(ninc.eq.lps(linc)) then
+      if(ninc==lps(linc)) then
         ival = lps(nbit)
       else
         ival = lref + ninc
       endif
-      if(ityp.eq.1) then
+      if(ityp==1) then
         nbmp = int(ival)
         call usrtpl(lun,n,nbmp)
-        if (iscodes(lun) .ne. 0) return
+        if (iscodes(lun) /= 0) return
         goto 11
       endif
-      if(ival.lt.lps(nbit)) val(n,lun) = ups(ival,node)
+      if(ival<lps(nbit)) val(n,lun) = ups(ival,node)
       call strbtm(n,lun)
       ibit = ibit + linc*msub(lun)
-    elseif(ityp.eq.3) then
+    elseif(ityp==3) then
       ! This is a character element.  If there are more than 8 characters, then only the first 8 will be unpacked by this
       ! routine, and a separate subsequent call to subroutine readlc() will be required to unpack the remainder of the string.
       ! In this case, pointers will be saved within common /rlccmn/ for later use within readlc().
@@ -202,10 +202,10 @@ subroutine rdcmps(lun)
       ibsv = ibit
       cref = ' '
       call upc(cref,nchr,mbay(1,lun),ibit,.true.)
-      if(lelm.gt.8) then
+      if(lelm>8) then
         ibit = ibit + (lelm-8)*8
         nrst = nrst + 1
-        if(nrst.gt.mxrst) then
+        if(nrst>mxrst) then
           write(bort_str,'("BUFRLIB: RDCMPS - NUMBER OF LONG CHARACTER STRINGS EXCEEDS THE LIMIT (",I4,")")') mxrst
           call bort(bort_str)
         endif
@@ -213,15 +213,15 @@ subroutine rdcmps(lun)
       endif
       ! Unpack the increment length indicator.  For character elements, this length is in bytes rather than bits.
       call upb(linc,6,mbay(1,lun),ibit)
-      if(linc.eq.0) then
-        if(lelm.gt.8) then
+      if(linc==0) then
+        if(lelm>8) then
           irnch(nrst) = lelm
           irbit(nrst) = ibsv
         endif
         cval = cref
       else
         jbit = ibit + linc*(nsbs-1)*8
-        if(lelm.gt.8) then
+        if(lelm>8) then
           irnch(nrst) = linc
           irbit(nrst) = jbit
         endif
@@ -229,7 +229,7 @@ subroutine rdcmps(lun)
         cval = ' '
         call upc(cval,nchr,mbay(1,lun),jbit,.true.)
       endif
-      if (lelm.le.8 .and. icbfms(cval,nchr).ne.0) then
+      if (lelm<=8 .and. icbfms(cval,nchr)/=0) then
         val(n,lun) = bmiss
       else
         val(n,lun) = rval
@@ -275,7 +275,7 @@ subroutine cmsgini(lun,mesg,subset,idate,nsub,nbyt)
 
   call nemtba(lun,subset,mtyp,msbt,inod)
   call nemtab(lun,subset,isub,tab,iret)
-  if(iret.eq.0) then
+  if(iret==0) then
     write(bort_str,'("BUFRLIB: CMSGINI - TABLE A MESSAGE TYPE MNEMONIC ",A," NOT FOUND IN INTERNAL TABLE D ARRAYS")') subset
     call bort(bort_str)
   endif
@@ -288,7 +288,7 @@ subroutine cmsgini(lun,mesg,subset,idate,nsub,nbyt)
   mour = mod(jdate      ,100)
   mmin = 0
 
-  if(mear.eq.0) then
+  if(mear==0) then
     mcen = mcen-1
     mear = 100
   endif
@@ -438,10 +438,10 @@ subroutine wrcmps(lunix)
       call cmsgini(lun,mbay(1,lun),subset,idate(lun),ncol,kbyt)
       ! Check the edition number of the BUFR message to be created
       edge4 = .false.
-      if(ns01v.gt.0) then
+      if(ns01v>0) then
         i = 1
-        do while ( (.not.edge4) .and. (i.le.ns01v) )
-          if( (cmnem(i).eq.'BEN') .and. (ivmnem(i).ge.4) ) then
+        do while ( (.not.edge4) .and. (i<=ns01v) )
+          if( (cmnem(i)=='BEN') .and. (ivmnem(i)>=4) ) then
             edge4 = .true.
           else
             i = i+1
@@ -450,39 +450,39 @@ subroutine wrcmps(lunix)
       endif
     endif
 
-    if(lun.ne.lunc) then
+    if(lun/=lunc) then
       write(bort_str,'("BUFRLIB: WRCMPS - FILE ID FOR THIS CALL (",I3,") .NE. FILE ID FOR INITIAL CALL (",I3,")'// &
         ' - UNIT NUMBER NOW IS",I4)') lun,lunc,lunix
       call bort(bort_str)
     endif
 
     cmpres = .true.
-    if(lunix.lt.0) then
+    if(lunix<0) then
       ! This is a "flush" call, so clear out the buffer (note that there is no current subset to be stored!) and prepare
       ! to write the final compressed BUFR message.
-      if(ncol.le.0) return
+      if(ncol<=0) return
       flush = .true.
       writ1 = .true.
       icol = 1
-    elseif(ncol+1.gt.mxcsb) then
+    elseif(ncol+1>mxcsb) then
       ! There's no more room in the internal compression arrays for another subset, so we'll need to write out a message
       ! containing all of the data in those arrays, then initialize a new message to hold the current subset.
       cmpres = .false.
     else
       ! Check on some other possibly problematic situations
-      if(nval(lun).ne.nrow) then
+      if(nval(lun)/=nrow) then
         writ1 = .true.
         icol = 1
-      elseif(nval(lun).gt.mxcdv) then
+      elseif(nval(lun)>mxcdv) then
         write(bort_str,'("BUFRLIB: WRCMPS - NO. OF ELEMENTS IN THE '// &
           'SUBSET (",I6,") .GT. THE NO. OF ROWS ALLOCATED FOR THE COMPRESSION MATRIX (",I6,")")') nval(lun),mxcdv
         call bort(bort_str)
-      elseif(ncol.gt.0) then
+      elseif(ncol>0) then
         ! Confirm that all of the nodes are the same as in the previous subset for this same BUFR message.  If not, then
         ! there may be different nested replication sequences activated in the current subset vs. in the previous subset,
         ! even though the total number of nodes is the same.
         do i = 1, nval(lun)
-          if ( inv(i,lun) .ne. jlnode(i) ) then
+          if ( inv(i,lun) /= jlnode(i) ) then
             writ1 = .true.
             icol = 1
             exit
@@ -499,9 +499,9 @@ subroutine wrcmps(lunix)
           jlnode(i) = node
           ityp(i) = itp(node)
           iwid(i) = ibt(node)
-          if(ityp(i).eq.1.or.ityp(i).eq.2) then
+          if(ityp(i)==1.or.ityp(i)==2) then
             call up8(matx(i,ncol),ibt(node),ibay,ibit)
-          elseif(ityp(i).eq.3) then
+          elseif(ityp(i)==3) then
             catx(i,ncol) = ' '
             call upc(catx(i,ncol),ibt(node)/8,ibay,ibit,.true.)
           endif
@@ -513,7 +513,7 @@ subroutine wrcmps(lunix)
     ! by re-computing all of the local reference values, increments, etc. to determine the new Section 4 length.
 
     do while (cmpres)
-      if(ncol.le.0) then
+      if(ncol<=0) then
         write(bort_str,'("BUFRLIB: WRCMPS - NO. OF COLUMNS CALCULATED '// &
           'FOR COMPRESSION MAXRIX IS .LE. 0 (=",I6,")")') ncol
         call bort(bort_str)
@@ -522,47 +522,47 @@ subroutine wrcmps(lunix)
       ! subsets in the message
       ldata = 0
       do i=1,nrow
-        if(ityp(i).eq.1 .or. ityp(i).eq.2) then
+        if(ityp(i)==1 .or. ityp(i)==2) then
           ! Row i of the compression matrix contains numeric values, so kmis(i) will store .true. if any such values are
           ! "missing", or .false. otherwise
           imiss = 2_8**iwid(i)-1
-          if(icol.eq.1) then
+          if(icol==1) then
             kmin(i) = imiss
             kmax(i) = 0
             kmis(i) = .false.
           endif
           do j=icol,ncol
-            if(matx(i,j).lt.imiss) then
+            if(matx(i,j)<imiss) then
               kmin(i) = min(kmin(i),matx(i,j))
               kmax(i) = max(kmax(i),matx(i,j))
             else
               kmis(i) = .true.
             endif
           enddo
-          kmiss = kmis(i) .and. kmin(i).lt.imiss
+          kmiss = kmis(i) .and. kmin(i)<imiss
           range = real(max(1,kmax(i)-kmin(i)+1))
-          if(ityp(i).eq.2 .and. (range.gt.1. .or. kmiss)) then
+          if(ityp(i)==2 .and. (range>1. .or. kmiss)) then
             ! The data values in row i of the compression matrix are numeric values that aren't all identical.  Compute the
             ! number of bits needed to hold the largest of the increments.
             kbit(i) = nint(log(range)*rln2)
-            if(2**kbit(i)-1.le.range) kbit(i) = kbit(i)+1
+            if(2**kbit(i)-1<=range) kbit(i) = kbit(i)+1
             ! However, under no circumstances should this number ever exceed the width of the original underlying descriptor!
-            if(kbit(i).gt.iwid(i)) kbit(i) = iwid(i)
+            if(kbit(i)>iwid(i)) kbit(i) = iwid(i)
           else
             ! The data values in row i of the compression matrix are numeric values that are all identical, so the increments
             ! will be omitted from the message.
             kbit(i) = 0
           endif
           ldata = ldata + iwid(i) + 6 + ncol*kbit(i)
-        elseif(ityp(i).eq.3) then
+        elseif(ityp(i)==3) then
           ! Row i of the compression matrix contains character values, so kmis(i) will store .false. if all such values are
           ! identical, OR .true. otherwise
-          if(icol.eq.1) then
+          if(icol==1) then
             cstr(i) = catx(i,1)
             kmis(i) = .false.
           endif
           do j=icol,ncol
-            if ( (.not.kmis(i)) .and. (cstr(i).ne.catx(i,j)) ) then
+            if ( (.not.kmis(i)) .and. (cstr(i)/=catx(i,j)) ) then
               kmis(i) = .true.
             endif
           enddo
@@ -580,7 +580,7 @@ subroutine wrcmps(lunix)
       ! Round data length up to a whole byte count
       ibyt = (ldata+8-mod(ldata,8))/8
       ! Depending on the edition number of the message, we need to ensure that we round to an even byte count
-      if( (.not.edge4) .and. (mod(ibyt,2).ne.0) ) ibyt = ibyt+1
+      if( (.not.edge4) .and. (mod(ibyt,2)/=0) ) ibyt = ibyt+1
       jbit = ibyt*8-ldata
       if(msgfull(ibyt,kbyt,maxbyt)) then
         ! The current subset will not fit into the current message.  Set the flag to indicate that a message write is needed,
@@ -609,12 +609,12 @@ subroutine wrcmps(lunix)
 
     ibit = ibyt*8
     do i=1,nrow
-      if(ityp(i).eq.1.or.ityp(i).eq.2) then
+      if(ityp(i)==1.or.ityp(i)==2) then
         call pkb8(kmin(i),iwid(i),mgwa,ibit)
         call pkb(kbit(i),6,mgwa,ibit)
-        if(kbit(i).gt.0) then
+        if(kbit(i)>0) then
           do j=1,ncol
-            if(matx(i,j).lt.2_8**iwid(i)-1) then
+            if(matx(i,j)<2_8**iwid(i)-1) then
               incr = matx(i,j)-kmin(i)
             else
               incr = 2_8**kbit(i)-1
@@ -622,9 +622,9 @@ subroutine wrcmps(lunix)
             call pkb8(incr,kbit(i),mgwa,ibit)
           enddo
         endif
-      elseif(ityp(i).eq.3) then
+      elseif(ityp(i)==3) then
         nchr = iwid(i)/8
-        if(kbit(i).gt.0) then
+        if(kbit(i)>0) then
           call ipkm(czero,1,0)
           do j=1,nchr
             call pkc(czero,1,mgwa,ibit)
@@ -650,11 +650,11 @@ subroutine wrcmps(lunix)
 
     ! Check that the message byte counters agree, then write the message
 
-    if(mod(ibit,8).ne.0) call bort('BUFRLIB: WRCMPS - THE NUMBER OF BITS IN THE '// &
+    if(mod(ibit,8)/=0) call bort('BUFRLIB: WRCMPS - THE NUMBER OF BITS IN THE '// &
       'COMPRESSED BUFR MSG IS NOT A MULTIPLE OF 8 - MSG MUST END ON A BYTE BOUNDARY')
     lbyt = iupbs01(mgwa,'LENM')
     nbyt = ibit/8
-    if(nbyt.ne.lbyt) then
+    if(nbyt/=lbyt) then
       write(bort_str,'("BUFRLIB: WRCMPS - OUTPUT MESSAGE LENGTH FROM '// &
        'SECTION 0",I6," DOES NOT EQUAL FINAL PACKED MESSAGE LENGTH (",I6,")")') lbyt,nbyt
       call bort(bort_str)

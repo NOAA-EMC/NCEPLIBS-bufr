@@ -23,7 +23,7 @@ program outtest3
   ! First message.
 
   ! Set some custom array sizes.
-  if ( ( isetprm ( 'NFILES', 2 ) .ne. 0 ) .or. ( isetprm ( 'MXMSGL', 8000 ) .ne. 0 ) ) stop 1
+  if ( ( isetprm ( 'NFILES', 2 ) /= 0 ) .or. ( isetprm ( 'MXMSGL', 8000 ) /= 0 ) ) stop 1
 
   ! Set some custom Section 1 values.
   call pkvs01 ( 'MTV', 18 )
@@ -35,7 +35,7 @@ program outtest3
   call openbf ( 11, 'OUT', 12 )
 
   ! Confirm the values from the previous isetprm settings.
-  if ( ( igetprm ( 'NFILES' ) .ne. 2 ) .or. ( igetprm ( 'MXMSGL' ) .ne. 8000 ) ) stop 2
+  if ( ( igetprm ( 'NFILES' ) /= 2 ) .or. ( igetprm ( 'MXMSGL' ) /= 8000 ) ) stop 2
 
   ! Write a standard message.
   call stdmsg ('Y')
@@ -94,7 +94,7 @@ program outtest3
   ! Second message.
 
   ! Set some new custom array sizes.
-  if ( ( isetprm ( 'NFILES', 5 ) .ne. 0 ) .or. ( isetprm ( 'MXMSGL', 12000 ) .ne. 0 ) ) stop 3
+  if ( ( isetprm ( 'NFILES', 5 ) /= 0 ) .or. ( isetprm ( 'MXMSGL', 12000 ) /= 0 ) ) stop 3
 
   ! Set some new custom Section 1 values.
   call pkvs01 ( 'BEN', 4 )
@@ -107,7 +107,7 @@ program outtest3
   call openbf ( 11, 'APX', 12 )
 
   ! Confirm the values from the previous isetprm settings.
-  if ( ( igetprm ( 'NFILES' ) .ne. 5 ) .or. ( igetprm ( 'MXMSGL' ) .ne. 12000 ) ) stop 4
+  if ( ( igetprm ( 'NFILES' ) /= 5 ) .or. ( igetprm ( 'MXMSGL' ) /= 12000 ) ) stop 4
 
   ! Write a standard message.
   call stdmsg ('Y')

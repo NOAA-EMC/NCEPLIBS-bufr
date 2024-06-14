@@ -17,7 +17,7 @@ program test_misc
   integer iupb
   integer isbyt, iwid
   character*6 cfxy
-  
+
 #ifndef KIND_8
   character*5 char5
   character sign
@@ -53,86 +53,86 @@ program test_misc
 
   ! This prints a warning because no file is open, but otherwise has
   ! no effect.
-  call closbf(11)  
+  call closbf(11)
 
-  ! Test a special case in arallocf when mod(MXMSGL,4) .ne. 0
+  ! Test a special case in arallocf when mod(MXMSGL,4) /= 0
   iret = isetprm('MXMSGL', 600006)
-  if (iret .ne. 0) stop 2
+  if (iret /= 0) stop 2
   call openbf(15, 'FIRST', 15)
 
   ! testing status()
   open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-  if (ios .ne. 0) stop 3
+  if (ios /= 0) stop 3
   call openbf(11, 'IN', 11)
   call status(11, lun, il, im)
-  if (lun .ne. 1 .or. il .ne. -1 .or. im .ne. 0) stop 4
+  if (lun /= 1 .or. il /= -1 .or. im /= 0) stop 4
   call closbf(11)
 
   ! Try again.
   open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-  if (ios .ne. 0) stop 5
+  if (ios /= 0) stop 5
   call openbf(11, 'IN', 11)
   call status(11, lun, il, im)
-  if (lun .ne. 1 .or. il .ne. -1 .or. im .ne. 0) stop 6
+  if (lun /= 1 .or. il /= -1 .or. im /= 0) stop 6
   call closbf(11)
 
   ! Test ireadmm()
   open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
-  if (ios .ne. 0) stop 7
+  if (ios /= 0) stop 7
   call ufbmem(11, 0, iret, iunit)
-  if (iret .ne. 5 .or. iunit .ne. 11) stop 8
+  if (iret /= 5 .or. iunit /= 11) stop 8
   imsg = 1
-  if (ireadmm(imsg, subset, idate) .ne. 0) stop 9
-  if (imsg .ne. 2 .or. subset .ne. 'ADPSFC' .or. idate .ne. 23022519) stop 10
+  if (ireadmm(imsg, subset, idate) /= 0) stop 9
+  if (imsg /= 2 .or. subset /= 'ADPSFC' .or. idate /= 23022519) stop 10
   call closbf(11)
 
   ! Test iupb().
   mbay(1) = 1
   mbay(2) = 2
-  if (iupb(mbay, 1, 1) .ne. 0) stop 11
+  if (iupb(mbay, 1, 1) /= 0) stop 11
 
   ! Test gets1loc for YCEN and CENT positions
   call gets1loc('YCEN', 4, isbyt, iwid, iret)
-  if ( iret .ne. -1 ) stop 12
+  if ( iret /= -1 ) stop 12
   call gets1loc('CENT', 4, isbyt, iwid, iret)
-  if ( iret .ne. -1 ) stop 13
+  if ( iret /= -1 ) stop 13
   call gets1loc('YCEN', 3, isbyt, iwid, iret)
-  if ( any((/isbyt,iwid,iret/).ne.(/13,8,0/)) ) stop 14
+  if ( any((/isbyt,iwid,iret/)/=(/13,8,0/)) ) stop 14
   call gets1loc('CENT', 3, isbyt, iwid, iret)
-  if ( any((/isbyt,iwid,iret/).ne.(/18,8,0/)) ) stop 15
+  if ( any((/isbyt,iwid,iret/)/=(/18,8,0/)) ) stop 15
   ! Nonexistent Section 1 value deisgnation should return -1
   call gets1loc('NONEXISTENT', 3, isbyt, iwid, iret)
-  if ( iret .ne. -1 ) stop 16
-  
+  if ( iret /= -1 ) stop 16
+
   ! Testing copysb for "no more subsets" condition
   open(unit = 11, file = 'testfiles/OUT_4_infile1', form = 'UNFORMATTED', iostat = ios)
-  if (ios .ne. 0) stop 17
+  if (ios /= 0) stop 17
   call openbf(11, 'IN', 11)
   call readns(11, subset, idate, iret)
   open(unit = 12, file = 'testfiles/test_misc_OUT', form = 'UNFORMATTED', iostat = ios)
-  if (ios .ne. 0) stop 18
+  if (ios /= 0) stop 18
   call openbf(12, 'OUT', 11)
   call openmg(12, 'NC007000', 2021022312)
   call copysb(11, 12, iret)
-  if ( iret .ne. -1 ) stop 19
+  if ( iret /= -1 ) stop 19
   call closbf(11)
   call closbf(12)
 
   ! Testing strnum
   call strnum('8DUMMY8',num,iret)
-  if (iret .ne. -1) stop 400
+  if (iret /= -1) stop 400
   call strnum('',num,iret)
-  if ((iret .ne. 0) .or. (num .ne. 0)) stop 401
+  if ((iret /= 0) .or. (num /= 0)) stop 401
   call strnum(' ',num,iret)
-  if ((iret .ne. 0) .or. (num .ne. 0)) stop 402
+  if ((iret /= 0) .or. (num /= 0)) stop 402
   call strnum('    ',num,iret)
-  if ((iret .ne. 0) .or. (num .ne. 0)) stop 403
+  if ((iret /= 0) .or. (num /= 0)) stop 403
 
   ! Test various igetfxy() cases.
   iret = igetfxy("SHORT", cfxy)
-  if (iret .ne. -1) stop 900
+  if (iret /= -1) stop 900
   iret = igetfxy("352003", cfxy)
-  if (iret .ne. 0) stop 901
+  if (iret /= 0) stop 901
 
   ! The following tests are only for the _4 and _d runs of test_misc, because many
   ! of the routines below aren't intended to ever be called directly by users, and
@@ -143,96 +143,96 @@ program test_misc
 
   ! adn30/idn30.
   char5 = adn30(42, 5)
-  if (char5 .ne. '00042') stop 100
+  if (char5 /= '00042') stop 100
   a = idn30(char5, 5)
-  if (a .ne. 42) stop 101
+  if (a /= 42) stop 101
   idn = 42
   call cadn30(idn, adn_char)
-  if (adn_char .ne. '000042') stop 103
+  if (adn_char /= '000042') stop 103
 
   ! Testing jstnum().
   char5 = '  +42'
   call jstnum(char5, sign, ierr)
-  if ( ierr .ne. 0 .or. char5 .ne. '42   ' .or. sign .ne. '+' ) stop 104
+  if ( ierr /= 0 .or. char5 /= '42   ' .or. sign /= '+' ) stop 104
   char5 = 'DUMMY'
   call jstnum(char5, sign, ierr)
-  if ( ierr .ne. -1 ) stop 105
+  if ( ierr /= -1 ) stop 105
 
   ! Testing nemock()
   ierr = nemock('')
-  if (ierr .ne. -1) stop 202
+  if (ierr /= -1) stop 202
   ierr = nemock('012345678')
-  if (ierr .ne. -1) stop 203
+  if (ierr /= -1) stop 203
   ierr = nemock('???')
-  if (ierr .ne. -2) stop 204
+  if (ierr /= -2) stop 204
 
   ! Testing numbck()
   iret = numbck('ABCDEF')
-  if (iret .ne. -1) stop 250
+  if (iret /= -1) stop 250
   iret = numbck('01CDEF')
-  if (iret .ne. -2) stop 251
+  if (iret /= -2) stop 251
 
   ! Testing nemtbax()
   open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-  if (ios .ne. 0) stop 3
+  if (ios /= 0) stop 3
   call openbf(11, 'IN', 11)
   call nemtbax(11, 'DUMB', mtyp, msbt, inod)
-  if (inod .ne. 0) stop 300
+  if (inod /= 0) stop 300
   call closbf(11)
 
   ! Test igetprm().
   open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-  if (ios .ne. 0) stop 3
+  if (ios /= 0) stop 3
   call openbf(11, 'IN', 11)
-  if (igetprm('MXMSGL') .ne. 600006) stop 610
-  if (igetprm('MXMTBB') .ne. 4000) stop 611
-  if (igetprm('MXMTBD') .ne. 1000) stop 612
-  if (igetprm('MXMTBF') .ne. 25000) stop 613
-  if (igetprm('MXNRV') .ne. 15) stop 614
-  if (igetprm('MXRST') .ne. 50) stop 615
-  if (igetprm('MXS01V') .ne. 10) stop 616
-  if (igetprm('MXTAMC') .ne. 15) stop 617
-  if (igetprm('MXTCO') .ne. 30) stop 618
-  if (igetprm('NFILES') .ne. 32) stop 619
-  if (igetprm('MAXSS') .ne. 120000) stop 620
-  if (igetprm('MXDXTS') .ne. 200) stop 621
-  if (igetprm('MAXMSG') .ne. 200000) stop 622
-  if (igetprm('MAXMEM') .ne. 50000000) stop 623
-  if (igetprm('MAXTBA') .ne. 150) stop 624
-  if (igetprm('MAXTBB') .ne. 500) stop 625
-  if (igetprm('MAXTBD') .ne. 500) stop 626
-  if (igetprm('MXBTM') .ne. 5) stop 627
-  if (igetprm('MXBTMSE') .ne. 500) stop 628
-  if (igetprm('MXCDV') .ne. 3000) stop 629
-  if (igetprm('MXCSB') .ne. 4000) stop 630
-  if (igetprm('MXDXTS') .ne. 200) stop 631
-  if (igetprm('MXLCC') .ne. 32) stop 632
-  if (igetprm('MAXJL') .ne. 96000) stop 634
-  if (igetprm('MXH4WLC') .ne. 10) stop 635
-  if (igetprm('MXCNEM') .ne. 450) stop 636
-  if (igetprm('MAXNC') .ne. 600) stop 637
-  if (igetprm('MXNAF') .ne. 4) stop 638
+  if (igetprm('MXMSGL') /= 600006) stop 610
+  if (igetprm('MXMTBB') /= 4000) stop 611
+  if (igetprm('MXMTBD') /= 1000) stop 612
+  if (igetprm('MXMTBF') /= 25000) stop 613
+  if (igetprm('MXNRV') /= 15) stop 614
+  if (igetprm('MXRST') /= 50) stop 615
+  if (igetprm('MXS01V') /= 10) stop 616
+  if (igetprm('MXTAMC') /= 15) stop 617
+  if (igetprm('MXTCO') /= 30) stop 618
+  if (igetprm('NFILES') /= 32) stop 619
+  if (igetprm('MAXSS') /= 120000) stop 620
+  if (igetprm('MXDXTS') /= 200) stop 621
+  if (igetprm('MAXMSG') /= 200000) stop 622
+  if (igetprm('MAXMEM') /= 50000000) stop 623
+  if (igetprm('MAXTBA') /= 150) stop 624
+  if (igetprm('MAXTBB') /= 500) stop 625
+  if (igetprm('MAXTBD') /= 500) stop 626
+  if (igetprm('MXBTM') /= 5) stop 627
+  if (igetprm('MXBTMSE') /= 500) stop 628
+  if (igetprm('MXCDV') /= 3000) stop 629
+  if (igetprm('MXCSB') /= 4000) stop 630
+  if (igetprm('MXDXTS') /= 200) stop 631
+  if (igetprm('MXLCC') /= 32) stop 632
+  if (igetprm('MAXJL') /= 96000) stop 634
+  if (igetprm('MXH4WLC') /= 10) stop 635
+  if (igetprm('MXCNEM') /= 450) stop 636
+  if (igetprm('MAXNC') /= 600) stop 637
+  if (igetprm('MXNAF') /= 4) stop 638
   call closbf(11)
 
   ! Test imrkopr().
-  if (imrkopr('nn') .ne. 0) stop 700
-  if (imrkopr('223255') .ne. 1) stop 701
-  if (imrkopr('224255') .ne. 1) stop 702
-  if (imrkopr('225255') .ne. 1) stop 703
-  if (imrkopr('232255') .ne. 1) stop 704
-  if (imrkopr('123456') .ne. 0) stop 705
+  if (imrkopr('nn') /= 0) stop 700
+  if (imrkopr('223255') /= 1) stop 701
+  if (imrkopr('224255') /= 1) stop 702
+  if (imrkopr('225255') /= 1) stop 703
+  if (imrkopr('232255') /= 1) stop 704
+  if (imrkopr('123456') /= 0) stop 705
 
   ! testing iupbs01 and iupbs3
   filnam = 'testfiles/data/debufr_4'
   call cobfl_c ( filnam, 'r' )
   do i = 1, 27  ! skip to the 27th message in the file which is BUFR edition 3
     call crbmg_c ( bfmg, 15000, lenmg, ierrb )
-    if ( ierrb .ne. 0 ) stop 20
+    if ( ierrb /= 0 ) stop 20
   enddo
-  if ( iupbs3( ibfmg, 'DUMMY' ) .ne. -1 ) stop 21
+  if ( iupbs3( ibfmg, 'DUMMY' ) /= -1 ) stop 21
   ibit = 200
   call pkb(30, 8, ibfmg, ibit) ! overwrite the century byte with a bogus value
-  if ( iupbs01( ibfmg, 'CENT' ) .ne. -1 ) stop 22
+  if ( iupbs01( ibfmg, 'CENT' ) /= -1 ) stop 22
 
   ! Test cpdxmm() on a file which contains DX table messages at the end of the file
   open(unit = 11, file = 'testfiles/OUT_2_preAPX', iostat = ios)
@@ -272,33 +272,33 @@ program test_misc
   call openbf(11, 'IN', 11)
   call readns(11, subset, idate, iret)
   call openbf(11, 'QUIET', 2)
-  if (invcon(1, 1, 0, 3) .ne. 0) stop 706
-  if (invcon(1, 1, 3, 0) .ne. 0) stop 707
-  if (invtag(0, 1, 3, 0) .ne. 0) stop 708
+  if (invcon(1, 1, 0, 3) /= 0) stop 706
+  if (invcon(1, 1, 3, 0) /= 0) stop 707
+  if (invtag(0, 1, 3, 0) /= 0) stop 708
   call openbf(11, 'QUIET', 0)
   call closbf(11)
 
   ! Test rcstpl() passing non-zero iret values back through rdtree() and readsb()
   open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
-  if (ios .ne. 0) stop 3
+  if (ios /= 0) stop 3
   call openbf(11, 'IN', 11)
   call readmg(11, subset, idate, iret)
   iret = isetprm('MAXJL', 20)
   call openbf(11, 'QUIET', 1)
   call readsb(11, iret)
-  if ( iret .ne. -1 ) stop 709
+  if ( iret /= -1 ) stop 709
   iret = isetprm('MAXJL', 96000)
   iret = isetprm('MAXSS', 20)
   call readmg(11, subset, idate, iret)
   call readsb(11, iret)
-  if ( iret .ne. -1 ) stop 710
+  if ( iret /= -1 ) stop 710
   call closbf(11)
   open(unit = 11, file = 'testfiles/IN_1', form = 'UNFORMATTED', iostat = ios)
-  if (ios .ne. 0) stop 3
+  if (ios /= 0) stop 3
   call openbf(11, 'SEC3', 11)
   call mtinfo('../tables', 80, 81)
   call readns(11, subset, idate, iret)
-  if ( iret .ne. -1 ) stop 711
+  if ( iret /= -1 ) stop 711
   iret = isetprm('MAXSS', 120000)
   call openbf(11, 'QUIET', 0)
   call closbf(11)
@@ -308,7 +308,7 @@ program test_misc
     'MXMTBF ', 'MXS01V ', 'MXBTM  ', 'MXBTMSE', 'MXTAMC ', 'MXTCO  ', 'MXRST  ', 'MAXNC  ' /)
   do i = 1, size(prms, 1)
     iret = isetprm(trim(prms(i)), 42+i)
-    if ( (iret .ne. 0) .or. (igetprm(trim(prms(i))) .ne. 42+i) ) then
+    if ( (iret /= 0) .or. (igetprm(trim(prms(i))) /= 42+i) ) then
       print*, prms(i)
       stop 800
     endif
@@ -316,32 +316,32 @@ program test_misc
 
   ! Test rdmtbb()
   open(unit = 11, file = 'testfiles/test_misc_rdmtb_std', iostat = ios)
-  if (ios .ne. 0) stop 3
+  if (ios /= 0) stop 3
   open(unit = 12, file = 'testfiles/test_misc_rdmtb_loc', iostat = ios)
-  if (ios .ne. 0) stop 3
+  if (ios /= 0) stop 3
   card = 'Table B STD |  0 | 38                                                           '
   write (11,'(A)') card
   card = ' 0-01-001 |  0 |     0 |   7 | Numeric   | WMOB   ; ; WMO block number          '
   write (11,'(A)') card
   close (11)
   open(unit = 11, file = 'testfiles/test_misc_rdmtb_std', iostat = ios)
-  if (ios .ne. 0) stop 3
+  if (ios /= 0) stop 3
   card = 'Table B LOC |  0 | 7 |  1                                                       '
   write (12,'(A)') card
   close (12)
   open(unit = 12, file = 'testfiles/test_misc_rdmtb_loc', iostat = ios)
-  if (ios .ne. 0) stop 3
+  if (ios /= 0) stop 3
   call rdmtbb(11, 12, 1, imt, imtv, iogce, iltv, iret, &
               int_1d, char_4, char_12, char_4, char_24, char_8, char_4, char_120)
-  if ( iret .ne. 1 ) stop 801
+  if ( iret /= 1 ) stop 801
   close (11)
   close (12)
 
   ! Test rdmtbd()
   open(unit = 11, file = 'testfiles/test_misc_rdmtb_std', iostat = ios)
-  if (ios .ne. 0) stop 3
+  if (ios /= 0) stop 3
   open(unit = 12, file = 'testfiles/test_misc_rdmtb_loc', iostat = ios)
-  if (ios .ne. 0) stop 3
+  if (ios /= 0) stop 3
   card = 'Table D STD |  0 | 38                                                           '
   write (11,'(A)') card
   card = '   3-01-058 | UNTFROLD   ;     ; Universal lightning event                      '
@@ -358,7 +358,7 @@ program test_misc
   write (11,'(A)') card
   close (11)
   open(unit = 11, file = 'testfiles/test_misc_rdmtb_std', iostat = ios)
-  if (ios .ne. 0) stop 3
+  if (ios /= 0) stop 3
   card = 'Table D LOC |  0 | 7 |  1                                                       '
   write (12,'(A)') card
   card = '   3-01-055 | LOWRESSQ   ;     ; Low-resolution data sequence                   '
@@ -371,18 +371,18 @@ program test_misc
   write (12,'(A)') card
   close (12)
   open(unit = 12, file = 'testfiles/test_misc_rdmtb_loc', iostat = ios)
-  if (ios .ne. 0) stop 3
+  if (ios /= 0) stop 3
   call rdmtbd(11, 12, 2, 5, imt, imtv, iogce, iltv, iret, &
               int_1d_2, char_8_2, char_4_2, char_120_2, int_1d_3, int_2d, char_120_2d)
-  if ( iret .ne. 2 ) stop 802
+  if ( iret /= 2 ) stop 802
   close (11)
   close (12)
 
   ! Test rdmtbf()
   open(unit = 11, file = 'testfiles/test_misc_rdmtb_std', iostat = ios)
-  if (ios .ne. 0) stop 3
+  if (ios /= 0) stop 3
   open(unit = 12, file = 'testfiles/test_misc_rdmtb_loc', iostat = ios)
-  if (ios .ne. 0) stop 3
+  if (ios /= 0) stop 3
   card = 'Table F STD |  0 | 38                                                           '
   write (11,'(A)') card
   card = '   0-02-002 | TIWM ; FLAG                                                       '
@@ -395,12 +395,12 @@ program test_misc
   write (11,'(A)') card
   close (11)
   open(unit = 11, file = 'testfiles/test_misc_rdmtb_std', iostat = ios)
-  if (ios .ne. 0) stop 3
+  if (ios /= 0) stop 3
   card = 'Table F LOC |  0 | 7 |  1                                                       '
   write (12,'(A)') card
   close (12)
   open(unit = 12, file = 'testfiles/test_misc_rdmtb_loc', iostat = ios)
-  if (ios .ne. 0) stop 3
+  if (ios /= 0) stop 3
   call rdmtbf(11, 12)
   close (11)
   close (12)
@@ -409,7 +409,7 @@ program test_misc
   card = '  0-00-007 |   0 |           0 |  16                                            '
   iret = 0
   call sntbbe(0, card, 1, iret, int_1d, char_4, char_12, char_4, char_24, char_8, char_4, char_120)
-  if ( char_24(1) .ne. ' ' ) stop 803
+  if ( char_24(1) /= ' ' ) stop 803
 
 #endif
 

@@ -51,7 +51,7 @@ recursive subroutine openbt(lundx,mtyp)
     return
   endif
 
-  if(iprt.ge.0) then
+  if(iprt>=0) then
     call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
     errstr = 'BUFRLIB: OPENBT - THIS IS A DUMMY BUFRLIB ROUTINE'// &
       ' CALLED BY CKTABA OR APPL. PGM; OPENBT SHOULD BE INCL. IN-LINE IN APPL. PGM'

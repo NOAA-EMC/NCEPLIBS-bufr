@@ -88,7 +88,7 @@ program sinv
   write(*,*)
   do i=0,1000
      do j=0,1000
-        if(isat(i,j).gt.0) then
+        if(isat(i,j)>0) then
            jsat=jsat+isat(i,j)
            call satcode(lunbf,i,ci,j,cj)
            write(*,'(i3.3,2x,a,2x,i10,2x,i3.3,6x,a)')i,ci,isat(i,j),j,trim(adjustl(cj))

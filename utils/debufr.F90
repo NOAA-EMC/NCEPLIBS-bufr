@@ -132,16 +132,16 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
     call crbmg_c ( bfmg, mxbf, nbyt, ierr )
 
-    if ( ierr .ne. 0 ) then
+    if ( ierr /= 0 ) then
 
-      if ( ierr .eq. -1 ) then
+      if ( ierr == -1 ) then
         write ( 51, fmt = '( /, A, I7, A, I9, A )') 'Reached end of BUFR file; it contained a total of', nmsg, &
           ' messages and', nsubt, ' subsets'
       else
         write ( 51, fmt = '( /, A, I4 )' ) 'Error while reading BUFR file; the return code from CRBMG = ', ierr
       end if
 
-      if ( ( basic_f .eq. 'N' ) .and. ( opened .eq. 'Y' ) ) then
+      if ( ( basic_f == 'N' ) .and. ( opened == 'Y' ) ) then
         write (51, fmt = '( /, A, / )' ) 'Here is the DX table that was generated:'
         call dxdump ( lunit, 51 )
       end if
@@ -156,26 +156,26 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
       return
     end if
 
-    if ( opened .eq. 'N' ) then
+    if ( opened == 'N' ) then
 
-      if ( ( isetprm ( 'MAXCD', mxds3 ) .ne. 0 ) .or. ( isetprm ( 'MXMSGL', mxbf ) .ne. 0 ) .or. &
-           ( isetprm ( 'MAXSS', 300000 ) .ne. 0 ) .or. ( isetprm ( 'NFILES', 2 ) .ne. 0 ) ) then
+      if ( ( isetprm ( 'MAXCD', mxds3 ) /= 0 ) .or. ( isetprm ( 'MXMSGL', mxbf ) /= 0 ) .or. &
+           ( isetprm ( 'MAXSS', 300000 ) /= 0 ) .or. ( isetprm ( 'NFILES', 2 ) /= 0 ) ) then
         print *, 'Error: Bad return from isetprm'
         return
       end if
 
       ! Process any dynamic allocation parameters that were passed in on the command line.
 
-      if ( prmstg_f(1:8) .ne. 'NULLPSTG' ) then
+      if ( prmstg_f(1:8) /= 'NULLPSTG' ) then
         call parstr ( prmstg_f, ptag, mxprms, nptag, ',', .false. )
-        if ( nptag .gt. 0 ) then
+        if ( nptag > 0 ) then
           do ii = 1, nptag
             call parstr ( ptag(ii), pvtag, 2, npvtag, '=', .false. )
-            if ( npvtag .eq. 2 ) then
+            if ( npvtag == 2 ) then
               call strsuc ( pvtag(1), cprmnm, lcprmnm )
               call strnum ( pvtag(2), ipval, iersn )
-              if ( ( lcprmnm .gt. 0 ) .and. ( iersn .ne. -1 ) ) then
-                if ( isetprm ( cprmnm(1:lcprmnm), ipval ) .ne. 0 ) then
+              if ( ( lcprmnm > 0 ) .and. ( iersn /= -1 ) ) then
+                if ( isetprm ( cprmnm(1:lcprmnm), ipval ) /= 0 ) then
                   print *, 'Error: Bad return from isetprm for parameter: ', cprmnm(1:lcprmnm)
                   return
                 end if
@@ -187,13 +187,13 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
       ! Decide how to process the file.
 
-      if ( ( idxmsg ( ibfmg ) .eq. 1 ) .and. ( forcemt_f .eq. 'N' ) ) then
+      if ( ( idxmsg ( ibfmg ) == 1 ) .and. ( forcemt_f == 'N' ) ) then
 
         ! The first message in the file is a DX dictionary message, so assume there's an embedded table at the
         ! front of the file, and use this table to decode it.
 
         call openbf ( lunit, 'INUL', lunit )
-      else if ( ( tblfil_f(1:8) .ne. 'NULLFILE' ) .and. ( forcemt_f .eq. 'N' ) ) then
+      else if ( ( tblfil_f(1:8) /= 'NULLFILE' ) .and. ( forcemt_f == 'N' ) ) then
 
         ! A DX dictionary tables file was specified on the command line, so use it to decode the BUFR file.
 
@@ -203,7 +203,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
           return
         end if
         open ( unit = 91, file = tblfil_f, iostat = ier )
-        if ( ier .ne. 0 ) then
+        if ( ier /= 0 ) then
           print *, 'Error: Could not open file ', tblfil_f
           return
         endif
@@ -219,10 +219,10 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
       opened = 'Y'
 
       call mtinfo ( tbldir_f, 90, 91 )
-      if ( cfms_f .eq. 'Y' ) call codflg ( 'Y' )
+      if ( cfms_f == 'Y' ) call codflg ( 'Y' )
     end if
 
-    if ( basic_f .eq. 'N' ) then
+    if ( basic_f == 'N' ) then
 
       ! Pass the message to the decoder.
 
@@ -231,7 +231,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
     ! If this is a DX dictionary message, then don't generate any output unless master tables are being used for decoding.
 
-    if ( ( idxmsg ( ibfmg ) .ne. 1 ) .or. ( usemt .eq. 'Y' ) ) then
+    if ( ( idxmsg ( ibfmg ) /= 1 ) .or. ( usemt == 'Y' ) ) then
 
       nmsg = nmsg + 1
 
@@ -250,18 +250,18 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
       iogce = iupbs01 ( ibfmg, 'OGCE' )
       igses = iupbs01 ( ibfmg, 'GSES' )
-      if ( ( basic_f .eq. 'Y' ) .or. ( cfms_f .eq. 'N' ) ) then
+      if ( ( basic_f == 'Y' ) .or. ( cfms_f == 'N' ) ) then
         write ( 51, fmt= '( A, I5 )' ) '    Originating center:       ', iogce
         write ( 51, fmt= '( A, I4 )' ) ' Originating subcenter:        ', igses
       else
         call getcfmng ( lunit, 'ORIGC', iogce, ' ', -1, cmorgc, lcmorgc, ierorgc )
-        if ( ierorgc .eq. 0 ) then
+        if ( ierorgc == 0 ) then
           write ( 51, fmt= '( A, I5, 3A )' ) '    Originating center:       ', iogce, ' (= ', cmorgc(1:lcmorgc), ')'
         else
           write ( 51, fmt= '( A, I5 )' ) '    Originating center:       ', iogce
         end if
         call getcfmng ( lunit, 'GSES', igses, 'ORIGC', iogce, cmgses, lcmgses, iergses )
-        if ( iergses .eq. 0 ) then
+        if ( iergses == 0 ) then
           write ( 51, fmt= '( A, I4, 3A )' ) ' Originating subcenter:        ', igses, ' (= ', cmgses(1:lcmgses), ')'
         else
           write ( 51, fmt= '( A, I4 )' ) ' Originating subcenter:        ', igses
@@ -270,7 +270,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
       write ( 51, fmt= '( A, I4 )' ) ' Update sequence numbr:        ',  iupbs01 ( ibfmg, 'USN' )
 
-      if ( iupbs01 ( ibfmg, 'ISC2' ) .eq. 1 ) then
+      if ( iupbs01 ( ibfmg, 'ISC2' ) == 1 ) then
         write ( 51, fmt = '( A )')  '    Section 2 present?: Yes'
       else
         write ( 51, fmt = '( A )')  '    Section 2 present?: No'
@@ -279,25 +279,25 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
       mtyp = iupbs01 ( ibfmg, 'MTYP' )
       msbt = iupbs01 ( ibfmg, 'MSBT' )
       msbti = iupbs01 ( ibfmg, 'MSBTI' )
-      if ( ( basic_f .eq. 'Y' ) .or. ( cfms_f .eq. 'N' ) ) then
+      if ( ( basic_f == 'Y' ) .or. ( cfms_f == 'N' ) ) then
         write ( 51, fmt= '( A, I4 )' ) '         Data category:        ', mtyp
         write ( 51, fmt= '( A, I4 )' ) '     Local subcategory:        ', msbt
         write ( 51, fmt= '( A, I4 )' ) ' Internatl subcategory:        ', msbti
       else
         call getcfmng ( lunit, 'TABLAT', mtyp, ' ', -1, cmmtyp, lcmmtyp, iermtyp )
-        if ( iermtyp .eq. 0 ) then
+        if ( iermtyp == 0 ) then
           write ( 51, fmt= '( A, I4, 3A )' ) '         Data category:        ', mtyp, ' (= ', cmmtyp(1:lcmmtyp), ')'
         else
           write ( 51, fmt= '( A, I4 )' ) '         Data category:        ', mtyp
         end if
         call getcfmng ( lunit, 'TABLASL', msbt, 'TABLAT', mtyp, cmmsbt, lcmmsbt, iermsbt )
-        if ( ( iermsbt .eq. 0 ) .and. ( iogce .eq. 7 ) ) then
+        if ( ( iermsbt == 0 ) .and. ( iogce == 7 ) ) then
           write ( 51, fmt= '( A, I4, 3A )' ) '     Local subcategory:        ', msbt, ' (= ', cmmsbt(1:lcmmsbt), ')'
         else
           write ( 51, fmt= '( A, I4 )' ) '     Local subcategory:        ', msbt
         end if
         call getcfmng ( lunit, 'TABLASS', msbti, 'TABLAT', mtyp, cmmsbti, lcmmsbti, iermsbti )
-        if ( iermsbti .eq. 0 ) then
+        if ( iermsbti == 0 ) then
           write ( 51, fmt= '( A, I4, 3A )' ) ' Internatl subcategory:        ', msbti, ' (= ', cmmsbti(1:lcmmsbti), ')'
         else
           write ( 51, fmt= '( A, I4 )' ) ' Internatl subcategory:        ', msbti
@@ -312,9 +312,9 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
       write ( 51, fmt= '( A, I4 )' ) '                  Hour:        ', iupbs01 ( ibfmg, 'HOUR' )
       write ( 51, fmt= '( A, I4 )' ) '                Minute:        ', iupbs01 ( ibfmg, 'MINU' )
       write ( 51, fmt= '( A, I4 )' ) '                Second:        ', iupbs01 ( ibfmg, 'SECO' )
-      if ( ( iogce .eq. 7 ) .and. ( igses .eq. 3 ) ) then
+      if ( ( iogce == 7 ) .and. ( igses == 3 ) ) then
         call rtrcptb ( ibfmg, iryr, irmo, irdy, irhr, irmi, irtret )
-        if ( irtret .eq. 0 ) then
+        if ( irtret == 0 ) then
           write ( 51, fmt= '( A, I4 )' ) '   NCEP tank rcpt year:        ', iryr
           write ( 51, fmt= '( A, I4 )' ) '  NCEP tank rcpt month:        ', irmo
           write ( 51, fmt= '( A, I4 )' ) '    NCEP tank rcpt day:        ', irdy
@@ -329,13 +329,13 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
       write ( 51, fmt= '( /, A, I4 )' ) ' Number of data subsets:        ', nsub
       nsubt = nsubt + nsub
 
-      if ( iupbs3 ( ibfmg, 'IOBS' ) .eq. 1 ) then
+      if ( iupbs3 ( ibfmg, 'IOBS' ) == 1 ) then
         write ( 51, fmt = '( A )') '     Data are observed?: Yes'
       else
         write ( 51, fmt = '( A )') '     Data are observed?: No'
       end if
 
-      if ( iupbs3 ( ibfmg, 'ICMP' ) .eq. 1 ) then
+      if ( iupbs3 ( ibfmg, 'ICMP' ) == 1 ) then
         write ( 51, fmt = '( A )') '   Data are compressed?: Yes'
       else
         write ( 51, fmt = '( A )') '   Data are compressed?: No'
@@ -347,13 +347,13 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
         write ( 51, fmt = '( 5X, I4, A, A6)' ) jj, ": ", cds3 ( jj )
       end do
 
-      if ( ( basic_f .eq. 'N' ) .and. ( ierme .ge. 0 ) ) then
+      if ( ( basic_f == 'N' ) .and. ( ierme >= 0 ) ) then
 
         ! Decode and output the data from Section 4.
 
         write ( 51, fmt = '( /, A, I7, 3A, I10, A, I6, A )' ) &
           'BUFR message #', nmsg, ' of type ', cmgtag, ' and date ', imgdt, ' contains ', nsub, ' subsets:'
-        do while ( ireadsb ( lunit ) .eq. 0 )
+        do while ( ireadsb ( lunit ) == 0 )
           call ufdump ( lunit, 51 )
         end do
       end if

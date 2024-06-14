@@ -29,7 +29,7 @@ integer function ibfms ( r8val ) result ( iret )
 
   real*8, intent(in) :: r8val
 
-  if ( r8val .eq. bmiss ) then
+  if ( r8val == bmiss ) then
     iret = 1
   else
     iret = 0
@@ -92,13 +92,13 @@ recursive integer function icbfms ( str, lstr ) result ( iret )
   ! "missing" string by storing the real*8 value of 10E10 into the string.  So for consistency with historical archives,
   ! the following logic attempts to identify some of these earlier cases, at least for strings between 4 and 8 bytes in length.
 
-  if ( numchr.ge.4 .and. numchr.le.8 ) then
+  if ( numchr>=4 .and. numchr<=8 ) then
     do ii = 1, numchr
       strz(ii:ii) = str(ii:ii)
     end do
     write (zz,'(z16.16)') rl8z
     ii = 2*(8-numchr)+1
-    if ( zz(ii:16).eq.zm_be(ii:16) .or. zz(ii:16).eq.zm_le(ii:16) ) then
+    if ( zz(ii:16)==zm_be(ii:16) .or. zz(ii:16)==zm_le(ii:16) ) then
       iret = 1
       return
     end if
@@ -109,7 +109,7 @@ recursive integer function icbfms ( str, lstr ) result ( iret )
 
   do ii=1,numchr
     strz(1:1) = str(ii:ii)
-    if ( iupm(strz(1:1),8).ne.255 ) return
+    if ( iupm(strz(1:1),8)/=255 ) return
   enddo
 
   iret = 1

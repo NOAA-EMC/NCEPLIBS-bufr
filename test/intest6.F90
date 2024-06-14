@@ -35,7 +35,7 @@ program intest6
   use Share_errstr_intest6
 
   implicit none
- 
+
   integer*4 nmsub
 
   integer iyr, imon, iday, ihour, imgdt, ier, icnt, iunt, nsub
@@ -63,47 +63,47 @@ program intest6
 
   ! Verify the Section 1 date-time in the first data message of one of the input files.
   call datebf ( 22, iyr, imon, iday, ihour, imgdt )
-  if ( ( imgdt .ne. 21031900 ) .or. ( iyr .ne. 21 ) .or. ( iday .ne. 19 ) ) stop 1
+  if ( ( imgdt /= 21031900 ) .or. ( iyr /= 21 ) .or. ( iday /= 19 ) ) stop 1
 
   ! Rewind that input file.
   rewind ( 22 )
 
   ! Open both input files and read the contents into internal arrays.
   call ufbmem ( 21, 0, icnt, iunt )
-  if ( ( icnt .ne. 926 ) .or. ( iunt .ne. 21 ) ) stop 2
+  if ( ( icnt /= 926 ) .or. ( iunt /= 21 ) ) stop 2
   call ufbmem ( 22, 1, icnt, iunt )
-  if ( ( icnt .ne. 344 ) .or. ( iunt .ne. 21 ) ) stop 3
+  if ( ( icnt /= 344 ) .or. ( iunt /= 21 ) ) stop 3
 
   ! Locate message #167 within the internal arrays and verify some values.
   call rdmemm ( 167, cmgtag, imgdt, ier )
-  if ( ( cmgtag .ne. 'NC004002' ) .or. ( imgdt .ne. 21031713 ) .or. ( nmsub(iunt) .ne. 3 ) ) stop 4
+  if ( ( cmgtag /= 'NC004002' ) .or. ( imgdt /= 21031713 ) .or. ( nmsub(iunt) /= 3 ) ) stop 4
 
   ! Locate subset #18364 within the internal arrays and verify some values.
   ! Also check an errwrt case while doing this.
   call openbf ( 21, 'QUIET', 2 )
   errstr_len = 0
   call ufbmns ( 18364, cmgtag, imgdt )
-  if ( ( cmgtag .ne. 'NC002003' ) .or. ( imgdt .ne. 21031900 ) .or. ( nmsub(iunt) .ne. 2 ) ) stop 5
-  if ( ( index( errstr(1:errstr_len), 'RDMEMM - RESETTING TO USE DX TABLE #' ) .eq. 0 ) ) stop 6
+  if ( ( cmgtag /= 'NC002003' ) .or. ( imgdt /= 21031900 ) .or. ( nmsub(iunt) /= 2 ) ) stop 5
+  if ( ( index( errstr(1:errstr_len), 'RDMEMM - RESETTING TO USE DX TABLE #' ) == 0 ) ) stop 6
   call openbf ( 21, 'QUIET', 0 )
 
   ! Scan for certain values across all of the data subsets in the internal arrays, and verify some of them.
   call ufbtam ( r8vals, mxr8pm, mxr8lv, nsub, 'CLAT CLON' )
-  if ( ( nsub .ne. 18447 ) .or. &
-      ( nint(r8vals(1,1285)*100) .ne. 4328 ) .or. ( nint(r8vals(2,1285)*100) .ne. -7910 ) .or. &
-      ( nint(r8vals(1,5189)*100) .ne. 3918 ) .or. ( nint(r8vals(2,5189)*100) .ne. 11638 ) .or. &
-      ( nint(r8vals(1,17961)*100) .ne. 3070 ) .or. ( nint(r8vals(2,17961)*100) .ne. 10383 ) ) stop 7
+  if ( ( nsub /= 18447 ) .or. &
+      ( nint(r8vals(1,1285)*100) /= 4328 ) .or. ( nint(r8vals(2,1285)*100) /= -7910 ) .or. &
+      ( nint(r8vals(1,5189)*100) /= 3918 ) .or. ( nint(r8vals(2,5189)*100) /= 11638 ) .or. &
+      ( nint(r8vals(1,17961)*100) /= 3070 ) .or. ( nint(r8vals(2,17961)*100) /= 10383 ) ) stop 7
   call ufbtam ( r8vals, mxr8pm, mxr8lv, nsub, 'BUHD' )
-  if ( nsub .ne. 18447 ) stop 8
+  if ( nsub /= 18447 ) stop 8
   r8val = r8vals(1, 6314)
-  if (c8val(1:6) .ne. 'IUAD01') stop 9
+  if (c8val(1:6) /= 'IUAD01') stop 9
   r8val = r8vals(1, 17888)
-  if (c8val(1:6) .ne. 'IUSN08') stop 10
+  if (c8val(1:6) /= 'IUSN08') stop 10
 
   ! Test an errwrt case in ufbtam.
   errstr_len = 0
   call ufbtam ( r8vals, mxr8pm, 1000, nsub, 'BUHD' )
-  if ( ( index( errstr(1:errstr_len), 'UFBTAM - THE NO. OF DATA SUBSETS IN MEMORY IS .GT. LIMIT' ) .eq. 0 ) ) stop 11
+  if ( ( index( errstr(1:errstr_len), 'UFBTAM - THE NO. OF DATA SUBSETS IN MEMORY IS .GT. LIMIT' ) == 0 ) ) stop 11
 
   print *, 'SUCCESS!'
 end program intest6

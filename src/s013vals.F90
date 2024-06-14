@@ -74,116 +74,116 @@ recursive subroutine gets1loc(s1mnem,iben,isbyt,iwid,iret)
   iret = 0
   iwid = 8
 
-  if(s1mnem.eq.'LEN1') then
+  if(s1mnem=='LEN1') then
     isbyt = 1
     iwid = 24
-  else if(s1mnem.eq.'BMT') then
+  else if(s1mnem=='BMT') then
     isbyt = 4
-  else if(s1mnem.eq.'OGCE') then
-    if(iben.eq.3) then
+  else if(s1mnem=='OGCE') then
+    if(iben==3) then
       isbyt = 6
     else
       ! Note that this location is actually the same for both edition 2 and edition 4 of BUFR
       isbyt = 5
       iwid = 16
     endif
-  else if(s1mnem.eq.'GSES') then
-    if(iben.eq.3) then
+  else if(s1mnem=='GSES') then
+    if(iben==3) then
       isbyt = 5
-    else if(iben.eq.4) then
+    else if(iben==4) then
       isbyt = 7
       iwid = 16
     else
       iret = -1
     endif
-  else if(s1mnem.eq.'USN') then
-    if(iben.eq.4) then
+  else if(s1mnem=='USN') then
+    if(iben==4) then
       isbyt = 9
     else
       isbyt = 7
     endif
-  else if(s1mnem.eq.'ISC2') then
+  else if(s1mnem=='ISC2') then
     iwid = 1
-    if(iben.eq.4) then
+    if(iben==4) then
       isbyt = 10
     else
       isbyt = 8
     endif
-  else if(s1mnem.eq.'MTYP') then
-    if(iben.eq.4) then
+  else if(s1mnem=='MTYP') then
+    if(iben==4) then
       isbyt = 11
     else
       isbyt = 9
     endif
-  else if(s1mnem.eq.'MSBTI') then
-    if(iben.eq.4) then
+  else if(s1mnem=='MSBTI') then
+    if(iben==4) then
       isbyt = 12
     else
       iret = -1
     endif
-  else if(s1mnem.eq.'MSBT') then
-    if(iben.eq.4) then
+  else if(s1mnem=='MSBT') then
+    if(iben==4) then
       isbyt = 13
     else
       isbyt = 10
     endif
-  else if(s1mnem.eq.'MTV') then
-    if(iben.eq.4) then
+  else if(s1mnem=='MTV') then
+    if(iben==4) then
       isbyt = 14
     else
       isbyt = 11
     endif
-  else if(s1mnem.eq.'MTVL') then
-    if(iben.eq.4) then
+  else if(s1mnem=='MTVL') then
+    if(iben==4) then
       isbyt = 15
     else
       isbyt = 12
     endif
-  else if(s1mnem.eq.'YEAR') then
-    if(iben.eq.4) then
+  else if(s1mnem=='YEAR') then
+    if(iben==4) then
       isbyt = 16
       iwid = 16
     else
       iret = -1
     endif
-  else if(s1mnem.eq.'YCEN') then
-    if(iben.lt.4) then
+  else if(s1mnem=='YCEN') then
+    if(iben<4) then
       isbyt = 13
     else
       iret = -1
     endif
-  else if(s1mnem.eq.'CENT') then
-    if(iben.lt.4) then
+  else if(s1mnem=='CENT') then
+    if(iben<4) then
       isbyt = 18
     else
       iret = -1
     endif
-  else if(s1mnem.eq.'MNTH') then
-    if(iben.eq.4) then
+  else if(s1mnem=='MNTH') then
+    if(iben==4) then
       isbyt = 18
     else
       isbyt = 14
     endif
-  else if(s1mnem.eq.'DAYS') then
-    if(iben.eq.4) then
+  else if(s1mnem=='DAYS') then
+    if(iben==4) then
       isbyt = 19
     else
       isbyt = 15
     endif
-  else if(s1mnem.eq.'HOUR') then
-    if(iben.eq.4) then
+  else if(s1mnem=='HOUR') then
+    if(iben==4) then
       isbyt = 20
     else
       isbyt = 16
     endif
-  else if(s1mnem.eq.'MINU') then
-    if(iben.eq.4) then
+  else if(s1mnem=='MINU') then
+    if(iben==4) then
       isbyt = 21
     else
       isbyt = 17
     endif
-  else if(s1mnem.eq.'SECO') then
-    if(iben.eq.4) then
+  else if(s1mnem=='SECO') then
+    if(iben==4) then
       isbyt = 22
     else
       iret = -1
@@ -257,7 +257,7 @@ recursive integer function iupbs01(mbay,s01mnem) result(iret)
   logical ok4cent
 
   ! This statement function checks whether its input value contains a valid century value.
-  ok4cent(ival) = ((ival.ge.19).and.(ival.le.21))
+  ok4cent(ival) = ((ival>=19).and.(ival<=21))
 
   ! Check for I8 integers.
 
@@ -272,13 +272,13 @@ recursive integer function iupbs01(mbay,s01mnem) result(iret)
 
   ! Handle some simple requests that do not depend on the BUFR edition number.
 
-  if(s01mnem.eq.'LENM') then
+  if(s01mnem=='LENM') then
     iret = iupb(mbay,5,24)
     return
   endif
 
   len0 = 8
-  if(s01mnem.eq.'LEN0') then
+  if(s01mnem=='LEN0') then
     iret = len0
     return
   endif
@@ -286,7 +286,7 @@ recursive integer function iupbs01(mbay,s01mnem) result(iret)
   ! Get the BUFR edition number.
 
   iben = iupb(mbay,8,8)
-  if(s01mnem.eq.'BEN') then
+  if(s01mnem=='BEN') then
     iret = iben
     return
   endif
@@ -294,15 +294,15 @@ recursive integer function iupbs01(mbay,s01mnem) result(iret)
   ! Use the BUFR edition number to handle any other requests.
 
   call gets1loc(s01mnem,iben,isbyt,iwid,iretgs)
-  if(iretgs.eq.0) then
+  if(iretgs==0) then
     iret = iupb(mbay,len0+isbyt,iwid)
-    if(s01mnem.eq.'CENT') then
+    if(s01mnem=='CENT') then
 
       ! Test whether the returned value was a valid century value.
 
       if(.not.ok4cent(iret)) iret = -1
     endif
-  else if( (s01mnem.eq.'YEAR') .and. (iben.lt.4) ) then
+  else if( (s01mnem=='YEAR') .and. (iben<4) ) then
 
     ! Calculate the 4-digit year.
 
@@ -374,11 +374,11 @@ recursive integer function iupbs3(mbay,s3mnem) result(iret)
 
   ! Unpack the requested value.
 
-  if(s3mnem.eq.'NSUB') then
+  if(s3mnem=='NSUB') then
     iret = iupb(mbay,ipt+5,16)
-  else if( (s3mnem.eq.'IOBS') .or. (s3mnem.eq.'ICMP') ) then
+  else if( (s3mnem=='IOBS') .or. (s3mnem=='ICMP') ) then
     ival = iupb(mbay,ipt+7,8)
-    if(s3mnem.eq.'IOBS') then
+    if(s3mnem=='IOBS') then
       imask = 128
     else
       imask = 64
@@ -469,9 +469,9 @@ recursive integer function iupvs01(lunit,s01mnem) result(iret)
   ! Check the file status
 
   call status(lunit,lun,ilst,imst)
-  if(ilst.eq.0) call bort('BUFRLIB: IUPVS01 - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
-  if(ilst.gt.0) call bort('BUFRLIB: IUPVS01 - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
-  if(imst.eq.0) call bort('BUFRLIB: IUPVS01 - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
+  if(ilst==0) call bort('BUFRLIB: IUPVS01 - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(ilst>0) call bort('BUFRLIB: IUPVS01 - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(imst==0) call bort('BUFRLIB: IUPVS01 - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE')
 
   ! Unpack the requested value
 
@@ -548,11 +548,11 @@ recursive subroutine pkbs1(ival,mbay,s1mnem)
   ! Determine where to store the value.
 
   call gets1loc(s1mnem,iben,isbyt,iwid,iret)
-  if ( (iret.eq.0) .and. &
-      ( (s1mnem.eq.'USN') .or. (s1mnem.eq.'BMT') .or. (s1mnem.eq.'OGCE') .or. (s1mnem.eq.'GSES') .or. (s1mnem.eq.'MTYP') .or. &
-       (s1mnem.eq.'MSBTI') .or. (s1mnem.eq.'MSBT') .or. (s1mnem.eq.'MTV') .or. (s1mnem.eq.'MTVL') .or. (s1mnem.eq.'YCEN') .or.&
-       (s1mnem.eq.'CENT') .or. (s1mnem.eq.'YEAR') .or. (s1mnem.eq.'MNTH') .or. (s1mnem.eq.'DAYS') .or. (s1mnem.eq.'HOUR') .or.&
-       (s1mnem.eq.'MINU') .or. (s1mnem.eq.'SECO') ) ) then
+  if ( (iret==0) .and. &
+      ( (s1mnem=='USN') .or. (s1mnem=='BMT') .or. (s1mnem=='OGCE') .or. (s1mnem=='GSES') .or. (s1mnem=='MTYP') .or. &
+       (s1mnem=='MSBTI') .or. (s1mnem=='MSBT') .or. (s1mnem=='MTV') .or. (s1mnem=='MTVL') .or. (s1mnem=='YCEN') .or.&
+       (s1mnem=='CENT') .or. (s1mnem=='YEAR') .or. (s1mnem=='MNTH') .or. (s1mnem=='DAYS') .or. (s1mnem=='HOUR') .or.&
+       (s1mnem=='MINU') .or. (s1mnem=='SECO') ) ) then
     ! Store the value.
     ibit = (iupbs01(mbay,'LEN0')+isbyt-1)*8
     call pkb(ival,iwid,mbay,ibit)
@@ -652,9 +652,9 @@ recursive subroutine pkvs01(s01mnem,ival)
   ! If an ival has already been assigned for this particular s01mnem, then overwrite that entry in module @ref moda_s01cm
   ! using the new ival.
 
-  if(ns01v.gt.0) then
+  if(ns01v>0) then
     do i=1,ns01v
-      if(s01mnem.eq.cmnem(i)) then
+      if(s01mnem==cmnem(i)) then
         ivmnem(i) = ival
         return
       endif
@@ -663,7 +663,7 @@ recursive subroutine pkvs01(s01mnem,ival)
 
   ! Otherwise, use the next available unused entry in module @ref moda_s01cm.
 
-  if(ns01v.ge.mxs01v) then
+  if(ns01v>=mxs01v) then
     write(bort_str,'("BUFRLIB: PKVS01 - CANNOT OVERWRITE MORE THAN ",I2," DIFFERENT LOCATIONS WITHIN SECTION 0 '// &
       'OR SECTION 1")') mxs01v
     call bort(bort_str)
@@ -710,7 +710,7 @@ subroutine reads3 ( lun )
 
   ! Check whether the appropriate BUFR master table information has already been read into internal memory for this message.
 
-  if ( ireadmt ( lun ) .eq. 1 ) then
+  if ( ireadmt ( lun ) == 1 ) then
     ! NO (i.e. we just had to read in new master table information for this message), so reset some corresponding values in
     ! other parts of the library.
     call dxinit ( lun, 0 )
@@ -733,14 +733,14 @@ subroutine reads3 ( lun )
   ! bypassed whenever a list is already in the cache.
 
   incach = .false.
-  if ( ncnem .gt. 0 ) then
+  if ( ncnem > 0 ) then
     ii = 1
-    do while ( (.not.incach) .and. (ii.le.ncnem) )
-      if ( ncds3 .eq. ndc(ii) ) then
+    do while ( (.not.incach) .and. (ii<=ncnem) )
+      if ( ncds3 == ndc(ii) ) then
         jj = 1
         incach = .true.
-        do while ( (incach) .and. (jj.le.ncds3) )
-          if ( ids3(jj) .eq. idcach(ii,jj) ) then
+        do while ( (incach) .and. (jj<=ncds3) )
+          if ( ids3(jj) == idcach(ii,jj) ) then
             jj = jj + 1
           else
             incach = .false.
@@ -750,7 +750,7 @@ subroutine reads3 ( lun )
 
           ! The list is already in the cache, so store the corresponding Table A mnemonic into module @ref moda_sc3bfr and return.
 
-          if ( iprt .ge. 2 ) then
+          if ( iprt >= 2 ) then
             call errwrt('+++++++++++++++++++++++++++++++++++++++++++++++++')
             errstr = 'BUFRLIB: READS3 - RE-USED CACHE LIST FOR ' // cnem(ii)
             call errwrt(errstr)
@@ -777,13 +777,13 @@ subroutine reads3 ( lun )
   ! Store the Table A mnemonic and sequence into the cache.
 
   ncnem = ncnem + 1
-  if ( ncnem .gt. mxcnem ) call bort('BUFRLIB: READS3 - MXCNEM OVERFLOW')
+  if ( ncnem > mxcnem ) call bort('BUFRLIB: READS3 - MXCNEM OVERFLOW')
   cnem(ncnem) = tamnem(lun)
   ndc(ncnem) = ncds3
   do jj = 1, ncds3
     idcach(ncnem,jj) = ids3(jj)
   enddo
-  if ( iprt .ge. 2 ) then
+  if ( iprt >= 2 ) then
     call errwrt('+++++++++++++++++++++++++++++++++++++++++++++++++')
     errstr = 'BUFRLIB: READS3 - STORED CACHE LIST FOR ' // cnem(ncnem)
     call errwrt(errstr)
@@ -861,7 +861,7 @@ recursive subroutine upds3(mbay,lcds3,cds3,nds3)
   nds3 = 0
   do jj = 8,(len3-1),2
    nds3 = nds3 + 1
-   if(nds3.gt.lcds3) call bort('BUFRLIB: UPDS3 - OVERFLOW OF OUTPUT DESCRIPTOR ARRAY; TRY A LARGER DIMENSION FOR THIS ARRAY')
+   if(nds3>lcds3) call bort('BUFRLIB: UPDS3 - OVERFLOW OF OUTPUT DESCRIPTOR ARRAY; TRY A LARGER DIMENSION FOR THIS ARRAY')
    cds3(nds3) = adn30(iupb(mbay,ipt+jj,16),6)
   enddo
 
@@ -908,7 +908,7 @@ recursive subroutine datelen(len)
     return
   endif
 
-  if(len.ne.8 .and. len.ne.10) then
+  if(len/=8 .and. len/=10) then
     write(bort_str,'("BUFRLIB: DATELEN - INPUT ARGUMENT IS",I4," - IT MUST BE EITHER 8 OR 10")') len
     call bort(bort_str)
   endif
@@ -973,7 +973,7 @@ recursive subroutine datebf(lunit,mear,mmon,mday,mour,idate)
   ! See if the file is already open to the library (a no-no!).
 
   call status(lunit,lun,jl,jm)
-  if(jl.ne.0) call bort ('BUFRLIB: DATEBF - INPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')
+  if(jl/=0) call bort ('BUFRLIB: DATEBF - INPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')
 
   ! Read to the first data message and pick out the date.
 
@@ -981,8 +981,8 @@ recursive subroutine datebf(lunit,mear,mmon,mday,mour,idate)
   idx = 1
   do while (idx==1)
     call rdmsgw(lunit,mgwa,ier)
-    if(ier.lt.0) then
-      if (iprt.ge.1) then
+    if(ier<0) then
+      if (iprt>=1) then
         call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
         errstr = 'BUFRLIB: DATEBF - SECTION 1 DATE COULD NOT BE LOCATED - RETURN WITH IDATE = -1'
         call errwrt(errstr)
@@ -1047,7 +1047,7 @@ recursive integer function igetdate(mbay,iyr,imo,idy,ihr) result(iret)
   imo = iupbs01(mbay,'MNTH')
   idy = iupbs01(mbay,'DAYS')
   ihr = iupbs01(mbay,'HOUR')
-  if(lendat.ne.10) iyr = mod(iyr,100)
+  if(lendat/=10) iyr = mod(iyr,100)
   iret = (iyr*1000000) + (imo*10000) + (idy*100) + ihr
 
   return
@@ -1087,9 +1087,9 @@ recursive integer function i4dy(idate) result(iret)
     return
   endif
 
-  if(idate.lt.10**8) then
+  if(idate<10**8) then
     iy = idate/10**6
-    if(iy.gt.40) then
+    if(iy>40) then
        iret = idate + 19*100000000
     else
        iret = idate + 20*100000000
@@ -1170,23 +1170,23 @@ recursive subroutine dumpbf(lunit,jdate,jdump)
   ! See if the file is already open to the library (a no-no!).
 
   call status(lunit,lun,jl,jm)
-  if(jl.ne.0) call bort('BUFRLIB: DUMPBF - INPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')
+  if(jl/=0) call bort('BUFRLIB: DUMPBF - INPUT BUFR FILE IS OPEN, IT MUST BE CLOSED')
   call openbf(lunit,'INX',lunit)
 
   do while (.true.)
     call rdmsgw(lunit,mgwa,ier)
-    if(ier.ne.0) exit
-    if(idxmsg(mgwa).eq.1) cycle   ! Skip past any dictionary messages
+    if(ier/=0) exit
+    if(idxmsg(mgwa)==1) cycle   ! Skip past any dictionary messages
 
     ! The dump center YY,MM,DD,HH,MM should be in this message, which is the first message containing zero subsets
-    if(iupbs3(mgwa,'NSUB').ne.0) exit
+    if(iupbs3(mgwa,'NSUB')/=0) exit
     ii = igetdate(mgwa,jdate(1),jdate(2),jdate(3),jdate(4))
     jdate(5) = iupbs01(mgwa,'MINU')
 
     ! The dump clock YY,MM,DD,HH,MM should be in the next message, which is the second message containing zero subsets
     call rdmsgw(lunit,mgwa,ier)
-    if(ier.ne.0) exit
-    if(iupbs3(mgwa,'NSUB').ne.0) exit
+    if(ier/=0) exit
+    if(iupbs3(mgwa,'NSUB')/=0) exit
     ii = igetdate(mgwa,jdump(1),jdump(2),jdump(3),jdump(4))
     jdump(5) = iupbs01(mgwa,'MINU')
 
@@ -1194,13 +1194,13 @@ recursive subroutine dumpbf(lunit,jdate,jdump)
     return
   enddo
 
-  if (iprt.ge.1 .and. (jdate(1).eq.-1.or.jdump(1).eq.-1)) then
+  if (iprt>=1 .and. (jdate(1)==-1.or.jdump(1)==-1)) then
     call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-    if(jdate(1).eq.-1) then
+    if(jdate(1)==-1) then
       errstr = 'BUFRLIB: DUMPBF - FIRST  EMPTY BUFR MESSAGE SECTION 1 DATE COULD NOT BE LOCATED - RETURN WITH JDATE = 5*-1'
       call errwrt(errstr)
     endif
-    if(jdump(1).eq.-1) then
+    if(jdump(1)==-1) then
       errstr = 'BUFRLIB: DUMPBF - SECOND EMPTY BUFR MESSAGE SECTION 1 DATE COULD NOT BE LOCATED - RETURN WITH JDUMP = 5*-1'
       call errwrt(errstr)
     endif
@@ -1245,9 +1245,9 @@ recursive subroutine minimg(lunit,mini)
   endif
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: MINIMG - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
-  if(il.lt.0) call bort('BUFRLIB: MINIMG - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
-  if(im.eq.0) call bort('BUFRLIB: MINIMG - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
+  if(il==0) call bort('BUFRLIB: MINIMG - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
+  if(il<0) call bort('BUFRLIB: MINIMG - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
+  if(im==0) call bort('BUFRLIB: MINIMG - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
 
   call pkbs1(mini,mbay(1,lun),'MINU')
 
@@ -1303,11 +1303,11 @@ subroutine cktaba(lun,subset,jdate,iret)
   msbt = iupbs01(mbay(1,lun),'MSBT')
   jdate = igetdate(mbay(1,lun),iyr,imo,idy,ihr)
 
-  if(mtyp.eq.11) then
+  if(mtyp==11) then
     ! This is a BUFR table (dictionary) message
     iret = 11
     ! There's no need to proceed any further unless Section 3 is being used for decoding
-    if(isc3(lun).eq.0) then
+    if(isc3(lun)==0) then
       subset = "        "
       return
     endif
@@ -1328,11 +1328,11 @@ subroutine cktaba(lun,subset,jdate,iret)
 
   outer: do while (.true.)
 
-    if(isc3(lun).ne.0) then
+    if(isc3(lun)/=0) then
       ! Section 3 is being used for decoding
       subset = tamnem(lun)
       call nemtbax(lun,subset,mty1,msb1,inod)
-      if(inod.gt.0) then
+      if(inod>0) then
         mbyt(lun) = 8*(iad4+4)
         msgunp(lun) = 1
         exit outer
@@ -1343,7 +1343,7 @@ subroutine cktaba(lun,subset,jdate,iret)
 
       call numtab(lun,isub,subset,tab,itab)
       call nemtbax(lun,subset,mty1,msb1,inod)
-      if(inod.gt.0) then
+      if(inod>0) then
         ! The second descriptor in Section 3 corresponds to the Table A mnemonic, so the message contains non-standard
         ! NCEP extensions
         mbyt(lun) = (iad4+4)
@@ -1353,7 +1353,7 @@ subroutine cktaba(lun,subset,jdate,iret)
 
       call numtab(lun,ksub,subset,tab,itab)
       call nemtbax(lun,subset,mty1,msb1,inod)
-      if(inod.gt.0) then
+      if(inod>0) then
         ! The first descriptor in Section 3 corresponds to the Table A mnemonic, so the message is WMO-standard
         mbyt(lun) = 8*(iad4+4)
         msgunp(lun) = 1
@@ -1363,11 +1363,11 @@ subroutine cktaba(lun,subset,jdate,iret)
       ! OK, still no luck, so try "NCtttsss" (where ttt=mtyp and sss=msbt) as the Table A mnemonic, and if that doesn't work
       ! then also try "FRtttsss" AND "FNtttsss"
       ii=1
-      do while(ii.le.ncpfx)
+      do while(ii<=ncpfx)
         write(subset,'(A2,2I3.3)') cpfx(ii),mtyp,msbt
         call nemtbax(lun,subset,mty1,msb1,inod)
-        if(inod.gt.0) then
-          if(ksub.eq.ibct) then
+        if(inod>0) then
+          if(ksub==ibct) then
             mbyt(lun) = (iad4+4)
             msgunp(lun) = 0
           else
@@ -1383,7 +1383,7 @@ subroutine cktaba(lun,subset,jdate,iret)
         ! Make one last desperate attempt by checking whether the application program contains an in-line version of
         ! subroutine openbt() to override the default version in the library
         trybt = .false.
-        if(iprt.ge.1) then
+        if(iprt>=1) then
           call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
           errstr = 'BUFRLIB: CKTABA - LAST RESORT, CHECK FOR EXTERNAL BUFR TABLE VIA CALL TO IN-LINE OPENBT'
           call errwrt(errstr)
@@ -1391,7 +1391,7 @@ subroutine cktaba(lun,subset,jdate,iret)
           call errwrt(' ')
         endif
         call openbt(lundx,mtyp)
-        if(lundx.gt.0) then
+        if(lundx>0) then
           ! There was an in-line replacement for the default library version of openbt(), so read DX table information from
           ! the specified logical unit and look for the Table A mnemonic there
           call rdusdx(lundx,lun)
@@ -1400,7 +1400,7 @@ subroutine cktaba(lun,subset,jdate,iret)
       endif
 
       ! Give up and report the bad news
-      if(iprt.ge.0) then
+      if(iprt>=0) then
         call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
         errstr = 'BUFRLIB: CKTABA - UNRECOGNIZED TABLE A MESSAGE TYPE (' // SUBSET // ') - RETURN WITH IRET = -1'
         call errwrt(errstr)
@@ -1416,17 +1416,17 @@ subroutine cktaba(lun,subset,jdate,iret)
 
   ! Confirm the validity of the message type and subtype, and also check for compression
 
-  if(isc3(lun).eq.0) then
-    if(mtyp.ne.mty1) then
+  if(isc3(lun)==0) then
+    if(mtyp/=mty1) then
       write(bort_str,'("BUFRLIB: CKTABA - MESSAGE TYPE MISMATCH (SUBSET=",A8,", MTYP=",I3,", MTY1=",I3)') subset,mtyp,mty1
       call bort(bort_str)
     endif
-    if( msbt.ne.msb1 .and. ( verify(subset(3:8),'1234567890') == 0 ) ) then
+    if( msbt/=msb1 .and. ( verify(subset(3:8),'1234567890') == 0 ) ) then
       write(bort_str,'("BUFRLIB: CKTABA - MESSAGE SUBTYPE MISMATCH (SUBSET=",A8,", MSBT=",I3,", MSB1=",I3)') subset,msbt,msb1
       call bort(bort_str)
     endif
   endif
-  if(iupbs3(mbay(1,lun),'ICMP').gt.0) msgunp(lun) = 2
+  if(iupbs3(mbay(1,lun),'ICMP')>0) msgunp(lun) = 2
 
   ! Update values in @ref moda_msgcwd
 
@@ -1434,7 +1434,7 @@ subroutine cktaba(lun,subset,jdate,iret)
   inode(lun) = inod
   msub(lun) = iupbs3(mbay(1,lun),'NSUB')
   nsub(lun) = 0
-  if(iret.ne.11) nmsg(lun) = nmsg(lun)+1
+  if(iret/=11) nmsg(lun) = nmsg(lun)+1
 
   return
 end subroutine cktaba
@@ -1507,18 +1507,18 @@ recursive subroutine mesgbc(lunin,mesgtyp,icomp)
 
   lunit = abs(lunin)
 
-  if(lunit.eq.lunin) then
+  if(lunit==lunin) then
     ! Open the file, read past any DX BUFR tables and "dummy" messages, and return the first message type found
     irec = 0
     call openbf(lunit,'INX',lunit)
     do while (.true.)
       call rdmsgw(lunit,mgwa,ier)
-      if(ier.eq.-1) then
-        if(irec.eq.0) then
+      if(ier==-1) then
+        if(irec==0) then
           mesgtyp = -256
           icomp = -3
         else
-          if(mesgtyp.ge.0) mesgtyp = -mesgtyp
+          if(mesgtyp>=0) mesgtyp = -mesgtyp
           icomp = -2
         endif
         call closbf(lunit)
@@ -1526,7 +1526,7 @@ recursive subroutine mesgbc(lunin,mesgtyp,icomp)
       endif
       irec = irec + 1
       mesgtyp = iupbs01(mgwa,'MTYP')
-      if( (idxmsg(mgwa).ne.1) .and. (iupbs3(mgwa,'NSUB').ne.0) ) exit
+      if( (idxmsg(mgwa)/=1) .and. (iupbs3(mgwa,'NSUB')/=0) ) exit
     enddo
     call closbf(lunit)
   else
@@ -1596,9 +1596,9 @@ recursive subroutine mesgbf(lunit,mesgtyp)
 
   do while (.true.)
     call rdmsgw(lunit,mgwa,ier)
-    if(ier.eq.0) then
+    if(ier==0) then
       mesgtyp = iupbs01(mgwa,'MTYP')
-      if(idxmsg(mgwa).ne.1) exit
+      if(idxmsg(mgwa)/=1) exit
     endif
   enddo
 

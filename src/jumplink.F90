@@ -65,26 +65,26 @@ subroutine makestab
 
   do lun=1,nfiles
     xtab(lun) = .false.
-    if(iolun(lun).eq.0) then
+    if(iolun(lun)==0) then
       ! Logical unit iolun(lun) is not defined to NCEPLIBS-bufr.
       lus(lun) = 0
-    else if(mtab(1,lun).eq.0) then
+    else if(mtab(1,lun)==0) then
       ! New dictionary table information has been read for logical unit iolun(lun) since the last call to this subroutine.
       xtab(lun) = .true.
-      if(lus(lun).ne.0) then
-        if(iolun(abs(lus(lun))).eq.0) then
+      if(lus(lun)/=0) then
+        if(iolun(abs(lus(lun)))==0) then
           lus(lun) = 0
-        else if(lus(lun).gt.0) then
+        else if(lus(lun)>0) then
           ! iolun(lun) was sharing table information with logical unit iolun(lus(lun)), so check whether the table information
           ! has really changed.  If not, then iolun(lun) just re-read a copy of the exact same table information as before,
           ! and therefore it can continue to share with logical unit iolun(lus(lun)).
-          if(icmpdx(lus(lun),lun).eq.1) then
+          if(icmpdx(lus(lun),lun)==1) then
             xtab(lun) = .false.
             call cpbfdx(lus(lun),lun)
           else
             lus(lun) = (-1)*lus(lun)
           endif
-        else if(icmpdx(abs(lus(lun)),lun).eq.1) then
+        else if(icmpdx(abs(lus(lun)),lun)==1) then
           ! iolun(lun) was not sharing table information with logical unit iolun(lus(lun)), but it did at one point in the past
           ! and now once again has the same table information as that logical unit.  Since the two units shared table
           ! information at one point in the past, allow them to do so again.
@@ -93,22 +93,22 @@ subroutine makestab
           call cpbfdx(lus(lun),lun)
         endif
       endif
-    else if(lus(lun).gt.0) then
+    else if(lus(lun)>0) then
       ! Logical unit iolun(lun) is sharing table information with logical unit iolun(lus(lun)), so make sure that the latter
       ! unit is still defined to NCEPLIBS-bufr.
-      if(iolun(lus(lun)).eq.0) then
+      if(iolun(lus(lun))==0) then
         lus(lun) = 0
-      else if( xtab(lus(lun)) .and. (icmpdx(lus(lun),lun).eq.0) ) then
+      else if( xtab(lus(lun)) .and. (icmpdx(lus(lun),lun)==0) ) then
         ! The table information for logical unit iolun(lus(lun)) just changed (in midstream).  If iolun(lun) is an output
         ! file, then we will have to update it with the new table information later on in this subroutine.  Otherwise,
         ! iolun(lun) is an input file and is no longer sharing tables with iolun(lus(lun)).
-        if(iolun(lun).lt.0) lus(lun) = (-1)*lus(lun)
+        if(iolun(lun)<0) lus(lun) = (-1)*lus(lun)
       endif
     else
       ! Determine whether logical unit iolun(lun) is sharing table information with any other logical units.
       lum = 1
-      do while ((lum.lt.lun).and.(lus(lun).eq.0))
-        if(ishrdx(lum,lun).eq.1) then
+      do while ((lum<lun).and.(lus(lun)==0))
+        if(ishrdx(lum,lun)==1) then
           lus(lun) = lum
         else
           lum = lum+1
@@ -120,10 +120,10 @@ subroutine makestab
   ! Initialize jump/link tables with subsets/sequences/elements.
 
   do lun=1,nfiles
-    if(iolun(lun).ne.0 .and. ntba(lun).gt.0) then
+    if(iolun(lun)/=0 .and. ntba(lun)>0) then
       ! Reset any existing inventory pointers.
-      if(iomsg(lun).ne.0) then
-        if(lus(lun).le.0) then
+      if(iomsg(lun)/=0) then
+        if(lus(lun)<=0) then
           inc = (ntab+1)-mtab(1,lun)
         else
           inc = mtab(1,lus(lun))-mtab(1,lun)
@@ -132,7 +132,7 @@ subroutine makestab
           inv(n,lun) = inv(n,lun)+inc
         enddo
       endif
-      if(lus(lun).le.0) then
+      if(lus(lun)<=0) then
         ! The dictionary table information corresponding to logical unit iolun(lun) has not yet been written into the internal
         ! jump/link table, so add it in now.
         call chekstab(lun)
@@ -143,13 +143,13 @@ subroutine makestab
           mtab(itba,lun) = inod
           isc(inod) = ntab
         enddo
-      else if( xtab(lus(lun)) .and. (icmpdx(lus(lun),lun).eq.0) ) then
+      else if( xtab(lus(lun)) .and. (icmpdx(lus(lun),lun)==0) ) then
         ! Logical unit iolun(lun) is an output file that is sharing table information with logical unit iolun(lus(lun)) whose
         ! table just changed (in midstream).  Flush any existing data messages from iolun(lun), then update the table information
         ! for this logical unit with the corresponding new table information from iolun(lus(lun)), then update iolun(lun) itself
         ! with a copy of the new table information.
         lunit = abs(iolun(lun))
-        if(iomsg(lun).ne.0) call closmg(lunit)
+        if(iomsg(lun)/=0) call closmg(lunit)
         call cpbfdx(lus(lun),lun)
         lundx = abs(iolun(lus(lun)))
         call wrdxtb(lundx,lunit)
@@ -160,43 +160,43 @@ subroutine makestab
   ! Store types and initial values and counts
 
   do node=1,ntab
-    if(typ(node).eq.'SUB') then
+    if(typ(node)=='SUB') then
       vali(node) = 0
       knti(node) = 1
       itp (node) = 0
-    elseif(typ(node).eq.'SEQ') then
+    elseif(typ(node)=='SEQ') then
       vali(node) = 0
       knti(node) = 1
       itp (node) = 0
-    elseif(typ(node).eq.'RPC') then
+    elseif(typ(node)=='RPC') then
       vali(node) = 0
       knti(node) = 0
       itp (node) = 0
-    elseif(typ(node).eq.'RPS') then
+    elseif(typ(node)=='RPS') then
       vali(node) = 0
       knti(node) = 0
       itp (node) = 0
-    elseif(typ(node).eq.'REP') then
+    elseif(typ(node)=='REP') then
       vali(node) = bmiss
       knti(node) = irf(node)
       itp (node) = 0
-    elseif(typ(node).eq.'DRS') then
+    elseif(typ(node)=='DRS') then
       vali(node) = 0
       knti(node) = 1
       itp (node) = 1
-    elseif(typ(node).eq.'DRP') then
+    elseif(typ(node)=='DRP') then
       vali(node) = 0
       knti(node) = 1
       itp (node) = 1
-    elseif(typ(node).eq.'DRB') then
+    elseif(typ(node)=='DRB') then
       vali(node) = 0
       knti(node) = 0
       itp (node) = 1
-    elseif(typ(node).eq.'NUM') then
+    elseif(typ(node)=='NUM') then
       vali(node) = bmiss
       knti(node) = 1
       itp (node) = 2
-    else ! typ(node).eq.'CHR'
+    else ! typ(node)=='CHR'
       vali(node) = bmiss
       knti(node) = 1
       itp (nodE) = 3
@@ -210,7 +210,7 @@ subroutine makestab
   do n=1,ntab
     iseq(n,1) = 0
     iseq(n,2) = 0
-    expand = typ(n).eq.'SUB' .or. typ(n).eq.'DRP' .or. typ(n).eq.'DRS' .or. typ(n).eq.'REP' .or. typ(n).eq.'DRB'
+    expand = typ(n)=='SUB' .or. typ(n)=='DRP' .or. typ(n)=='DRS' .or. typ(n)=='REP' .or. typ(n)=='DRB'
     if(expand) then
       iseq(n,1) = newn+1
       noda = n
@@ -218,7 +218,7 @@ subroutine makestab
       do k=1,maxjl
         knt(k) = 0
       enddo
-      if(typ(noda).eq.'REP') then
+      if(typ(noda)=='REP') then
         knt(node) = knti(noda)
       else
         knt(node) = 1
@@ -226,23 +226,23 @@ subroutine makestab
 
       outer: do while (.true.)
         newn = newn+1
-        if(newn.gt.maxjl) then
+        if(newn>maxjl) then
           write(bort_str,'("BUFRLIB: MAKESTAB - NUMBER OF JSEQ ENTRIES IN JUMP/LINK TABLE EXCEEDS THE LIMIT (",I6,")")') maxjl
           call bort(bort_str)
         endif
         jseq(newn) = node
         knt(node) = max(knti(node),knt(node))
         inner: do while (.true.)
-          if(jump(node)*knt(node).gt.0) then
+          if(jump(node)*knt(node)>0) then
             node = jump(node)
             cycle outer
-          else if(link(node).gt.0) then
+          else if(link(node)>0) then
             node = link(node)
             cycle outer
           else
             node = jmpb(node)
-            if(node.eq.noda) exit outer
-            if(node.eq.0) then
+            if(node==noda) exit outer
+            if(node==0) then
               write(bort_str,'("BUFRLIB: MAKESTAB - NODE IS ZERO, FAILED TO CIRCULATE (TAG IS ",A,")")') tag(n)
               call bort(bort_str)
             endif
@@ -256,7 +256,7 @@ subroutine makestab
 
   ! Print the sequence tables
 
-  if(iprt.ge.2) then
+  if(iprt>=2) then
     call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
       do n=1,ntab
         write ( unit=errstr, fmt='(A,I5,2X,A10,A5,6I8)' ) &
@@ -293,16 +293,16 @@ subroutine chekstab(lun)
 
   ! There must be entries in Tables A, B, and D
 
-  if(ntba(lun).eq.0) call bort ('BUFRLIB: CHEKSTAB - EMPTY TABLE A IN INTERNAL BUFR TABLES')
-  if(ntbb(lun).eq.0) call bort ('BUFRLIB: CHEKSTAB - EMPTY TABLE B IN INTERNAL BUFR TABLES')
-  if(ntbd(lun).eq.0) call bort ('BUFRLIB: CHEKSTAB - EMPTY TABLE D IN INTERNAL BUFR TABLES')
+  if(ntba(lun)==0) call bort ('BUFRLIB: CHEKSTAB - EMPTY TABLE A IN INTERNAL BUFR TABLES')
+  if(ntbb(lun)==0) call bort ('BUFRLIB: CHEKSTAB - EMPTY TABLE B IN INTERNAL BUFR TABLES')
+  if(ntbd(lun)==0) call bort ('BUFRLIB: CHEKSTAB - EMPTY TABLE D IN INTERNAL BUFR TABLES')
 
   ! Make sure each Table A entry is defined as a sequence
 
   do itab=1,ntba(lun)
     nemo = taba(itab,lun)(4:11)
     call nemtab(lun,nemo,idn,tab,iret)
-    if(tab.ne.'D') then
+    if(tab/='D') then
       write(bort_str,'("BUFRLIB: CHEKSTAB - TABLE A ENTRY: ",A," NOT DEFINED AS A SEQUENCE")') nemo
       call bort(bort_str)
     endif
@@ -362,7 +362,7 @@ subroutine tabsub(lun,nemo)
   ! Table D mnemonics within internal BUFR Table D array tabd(*,lun).  So the following test is valid.
 
   call nemtab(lun,nemo,idn,tab,itab)
-  if(tab.ne.'D') then
+  if(tab/='D') then
     write(bort_str,'("BUFRLIB: TABSUB - SUBSET NODE NOT IN TABLE D (TAB=",A,") FOR INPUT MNEMONIC ",A)') tab,nemo
     call bort(bort_str)
   endif
@@ -392,7 +392,7 @@ subroutine tabsub(lun,nemo)
   ibtnrv = 0
   ipfnrv = 0
 
-  if(ntamc+1.gt.mxtamc) call bort('BUFRLIB: TABSUB - MXTAMC OVERFLOW')
+  if(ntamc+1>mxtamc) call bort('BUFRLIB: TABSUB - MXTAMC OVERFLOW')
   inodtamc(ntamc+1) = node
   ntco(ntamc+1) = 0
   ltamc = .false.
@@ -402,17 +402,17 @@ subroutine tabsub(lun,nemo)
   11 do n=ntag(limb,1),ntag(limb,2)
 
     ntag(limb,1) = n+1
-    drop(limb) = n.eq.ntag(limb,2)
+    drop(limb) = n==ntag(limb,2)
 
     call nemtab(lun,nem(n,limb),idn,tab,itab)
     nems = nem(n,limb)
 
-    if(tab.eq.'C') then
+    if(tab=='C') then
       ! Special treatment for certain operator descriptors.
       read(nems,'(3X,I3)') iyyy
-      if(itab.eq.1) then
-        if(iyyy.ne.0) then
-          if(icdw.ne.0) then
+      if(itab==1) then
+        if(iyyy/=0) then
+          if(icdw/=0) then
             write(bort_str,'("BUFRLIB: TABSUB - THERE ARE TWO SIMULTANEOUS '// &
               'CHANGE DATA WIDTH OPERATIONS IN THE TREE BUILT FROM INPUT MNEMONIC ",A)') nemo
             call bort(bort_str)
@@ -421,9 +421,9 @@ subroutine tabsub(lun,nemo)
         else
           icdw = 0
         endif
-      elseif(itab.eq.2) then
-        if(iyyy.ne.0) then
-          if(icsc.ne.0) then
+      elseif(itab==2) then
+        if(iyyy/=0) then
+          if(icsc/=0) then
             write(bort_str,'("BUFRLIB: TABSUB - THERE ARE TWO SIMULTANEOUS '// &
               'CHANGE DATA SCALE OPERATIONS IN THE TREE BUILT FROM INPUT MNEMONIC ",A)') nemo
             call bort(bort_str)
@@ -432,10 +432,10 @@ subroutine tabsub(lun,nemo)
         else
           icsc = 0
         endif
-      elseif(itab.eq.3) then
-        if(iyyy.eq.0) then
+      elseif(itab==3) then
+        if(iyyy==0) then
           ! Stop applying new reference values to subset nodes.  Instead, revert to the use of standard Table B values.
-          if(ipfnrv.eq.0) then
+          if(ipfnrv==0) then
             write(bort_str,'("BUFRLIB: TABSUB - A 2-03-000 OPERATOR WAS '// &
               'ENCOUNTERED WITHOUT ANY PRIOR 2-03-YYY OPERATOR FOR INPUT MNEMONIC ",A)') nemo
             call bort(bort_str)
@@ -444,26 +444,26 @@ subroutine tabsub(lun,nemo)
             ienrv(jj) = ntab
           enddo
           ipfnrv = 0
-        elseif(iyyy.eq.255) then
+        elseif(iyyy==255) then
           ! End the definition of new reference values.
           ibtnrv = 0
         else
           ! Begin the definition of new reference values.
-          if(ibtnrv.ne.0) then
+          if(ibtnrv/=0) then
             write(bort_str,'("BUFRLIB: TABSUB - THERE ARE TWO SIMULTANEOUS '// &
               'CHANGE REF VALUE OPERATIONS IN THE TREE BUILT FROM INPUT MNEMONIC ",A)') nemo
             call bort(bort_str)
           endif
           ibtnrv = iyyy
         endif
-      elseif(itab.eq.7) then
-        if(iyyy.gt.0) then
-          if(icdw.ne.0) then
+      elseif(itab==7) then
+        if(iyyy>0) then
+          if(icdw/=0) then
             write(bort_str,'("BUFRLIB: TABSUB - THERE ARE TWO SIMULTANEOUS '// &
               'CHANGE DATA WIDTH OPERATIONS IN THE TREE BUILT FROM INPUT MNEMONIC ",A)') nemo
             call bort(bort_str)
           endif
-          if(icsc.ne.0) then
+          if(icsc/=0) then
             write(bort_str,'("BUFRLIB: TABSUB - THERE ARE TWO SIMULTANEOUS '// &
               'CHANGE DATA SCALE OPERATIONS IN THE TREE BUILT FROM INPUT MNEMONIC ",A)') nemo
             call bort(bort_str)
@@ -476,15 +476,15 @@ subroutine tabsub(lun,nemo)
           icdw = 0
           icrv = 1
         endif
-      elseif(itab.eq.8) then
+      elseif(itab==8) then
         incw = iyyy
-      elseif((itab.ge.21).and.(iokoper(nems).eq.1)) then
+      elseif((itab>=21).and.(iokoper(nems)==1)) then
         ! Save the location of this operator within the jump/link table, for possible later use.
         if(.not.ltamc) then
           ltamc = .true.
           ntamc = ntamc+1
         end if
-        if(ntco(ntamc)+1.gt.mxtco) call bort('BUFRLIB: TABSUB - MXTCO OVERFLOW')
+        if(ntco(ntamc)+1>mxtco) call bort('BUFRLIB: TABSUB - MXTCO OVERFLOW')
         ntco(ntamc) = ntco(ntamc)+1
         ctco(ntamc,ntco(ntamc)) = nems(1:6)
         inodtco(ntamc,ntco(ntamc)) = ntab
@@ -497,11 +497,11 @@ subroutine tabsub(lun,nemo)
       call tabent(lun,nems,tab,itab,irep,iknt,jum0)
     endif
 
-    if(tab.eq.'D') then
+    if(tab=='D') then
       ! Note here how a new tree "limb" is created (and is then immediately recursively resolved) whenever a Table D mnemonic
       ! contains another Table D mnemonic as one of its children.
       limb = limb+1
-      if(limb.gt.maxlim) then
+      if(limb>maxlim) then
         write(bort_str,'("BUFRLIB: TABSUB - THERE ARE TOO MANY NESTED '// &
           'TABLE D SEQUENCES (TREES) WITHIN INPUT MNEMONIC ",A," - THE LIMIT IS",I4)') nemo,maxlim
         call bort(bort_str)
@@ -515,33 +515,33 @@ subroutine tabsub(lun,nemo)
       do while (.true.)
         link(nodl(limb)) = 0
         limb = limb-1
-        if(limb.eq.0) then
-          if(icrv.ne.1) then
+        if(limb==0) then
+          if(icrv/=1) then
             write(bort_str,'("BUFRLIB: TABSUB - A 2-07-YYY OPERATOR WAS '// &
               'NOT CANCELLED IN THE TREE BUILT FROM INPUT MNEMONIC ",A)') nemo
             call bort(bort_str)
           endif
-          if(icdw.ne.0) then
+          if(icdw/=0) then
             write(bort_str,'("BUFRLIB: TABSUB - A 2-01-YYY OPERATOR WAS '// &
               'NOT CANCELLED IN THE TREE BUILT FROM INPUT MNEMONIC ",A)') nemo
             call bort(bort_str)
           endif
-          if(icsc.ne.0) then
+          if(icsc/=0) then
             write(bort_str,'("BUFRLIB: TABSUB - A 2-02-YYY OPERATOR WAS '// &
               'NOT CANCELLED IN THE TREE BUILT FROM INPUT MNEMONIC ",A)') nemo
             call bort(bort_str)
           endif
-          if(incw.ne.0) then
+          if(incw/=0) then
             write(bort_str,'("BUFRLIB: TABSUB - A 2-08-YYY OPERATOR WAS '// &
               'NOT CANCELLED IN THE TREE BUILT FROM INPUT MNEMONIC ",A)') nemo
             call bort(bort_str)
           endif
-          if(ibtnrv.ne.0) then
+          if(ibtnrv/=0) then
             write(bort_str,'("BUFRLIB: TABSUB - A 2-03-YYY OPERATOR WAS '// &
               'APPLIED WITHOUT ANY SUBSEQUENT 2-03-255 OPERATOR FOR INPUT MNEMONIC ",A)') nemo
             call bort(bort_str)
           endif
-          if(ipfnrv.ne.0) then
+          if(ipfnrv/=0) then
             ! One or more new reference values were defined for this subset, but there was no subsequent 2-03-000 operator,
             ! so set all IENRV(*) values for this subset to point to the last element of the subset within the jump/link table.
             ! Note that, if there had been a subsequent 2-03-000 operator, then these IENRV(*) values would have already been
@@ -556,7 +556,7 @@ subroutine tabsub(lun,nemo)
       enddo
       link(nodl(limb)) = ntab+1
       goto 11
-    elseif(tab.ne.'C') then
+    elseif(tab/='C') then
       link(nodl(limb)) = ntab+1
     endif
 
@@ -606,10 +606,10 @@ subroutine tabent(lun,nemo,tab,itab,irep,iknt,jum0)
 
   ! Make a jump/link table entry for a replicator
 
-  if(irep.ne.0) then
+  if(irep/=0) then
     rtag = reps(irep)//nemo
     do i=1,10
-      if(rtag(i:i).eq.' ') then
+      if(rtag(i:i)==' ') then
         rtag(i:i) = reps(irep+5)
         call inctab(rtag,typs(irep),node)
         jump(node) = node+1
@@ -618,7 +618,7 @@ subroutine tabent(lun,nemo,tab,itab,irep,iknt,jum0)
         ibt (node) = lens(irep)
         irf (node) = 0
         isc (node) = 0
-        if(irep.eq.1) irf(node) = iknt
+        if(irep==1) irf(node) = iknt
         jm0 = node
         exit
       endif
@@ -627,9 +627,9 @@ subroutine tabent(lun,nemo,tab,itab,irep,iknt,jum0)
 
   ! Make a jump/link entry for an element or a sequence
 
-  if(tab.eq.'B') then
+  if(tab=='B') then
     call nemtbb(lun,itab,unit,iscl,iref,ibit)
-    if(unit(1:5).eq.'CCITT') then
+    if(unit(1:5)=='CCITT') then
       typt = 'CHR'
     else
       typt = 'NUM'
@@ -641,29 +641,29 @@ subroutine tabent(lun,nemo,tab,itab,irep,iknt,jum0)
     ibt (node) = ibit
     irf (node) = iref
     isc (node) = iscl
-    if(unit(1:4).eq.'CODE') then
+    if(unit(1:4)=='CODE') then
       typt = 'COD'
-    elseif(unit(1:4).eq.'FLAG') then
+    elseif(unit(1:4)=='FLAG') then
       typt = 'FLG'
     endif
-    if( (typt.eq.'NUM') .and. (ibtnrv.ne.0) ) then
+    if( (typt=='NUM') .and. (ibtnrv/=0) ) then
       ! This node contains a new (redefined) reference value.
-      if(nnrv+1.gt.mxnrv) call bort('BUFRLIB: TABENT - MXNRV OVERFLOW')
+      if(nnrv+1>mxnrv) call bort('BUFRLIB: TABENT - MXNRV OVERFLOW')
       nnrv = nnrv+1
       tagnrv(nnrv) = nemo
       inodnrv(nnrv) = node
       isnrv(nnrv) = node+1
       ibt(node) = ibtnrv
-      if(ipfnrv.eq.0) ipfnrv = nnrv
-    elseif( (typt.eq.'NUM') .and. (nemo(1:3).ne.'204') ) then
+      if(ipfnrv==0) ipfnrv = nnrv
+    elseif( (typt=='NUM') .and. (nemo(1:3)/='204') ) then
       ibt(node) = ibt(node) + icdw
       isc(node) = isc(node) + icsc
       irf(node) = irf(node) * icrv
-    elseif( (typt.eq.'CHR') .and. (incw.gt.0) ) then
+    elseif( (typt=='CHR') .and. (incw>0) ) then
       ibt(node) = incw * 8
     endif
-  else ! tab.eq.'D'
-    if(irep.eq.0) then
+  else ! tab=='D'
+    if(irep==0) then
       typt = 'SEQ'
     else
       typt = typs(irep+5)
@@ -706,7 +706,7 @@ subroutine inctab(atag,atyp,node)
   character*128 bort_str
 
   ntab = ntab+1
-  if(ntab.gt.maxjl) then
+  if(ntab>maxjl) then
     write(bort_str,'("BUFRLIB: INCTAB - THE NUMBER OF JUMP/LINK TABLE ENTRIES EXCEEDS THE LIMIT, MAXJL (",I7,")")') maxjl
     call bort(bort_str)
   endif
@@ -750,11 +750,11 @@ integer function lstjpb(node,lun,jbtyp) result(iret)
   character*(*), intent(in) :: jbtyp
   character*128 bort_str
 
-  if(node.lt.inode(lun)) then
+  if(node<inode(lun)) then
     write(bort_str,'("BUFRLIB: LSTJPB - TABLE NODE (",I7,") IS OUT OF BOUNDS, < LOWER BOUNDS (",I7,")")') node,inode(lun)
     call bort(bort_str)
   endif
-  if(node.gt.isc(inode(lun))) then
+  if(node>isc(inode(lun))) then
     write(bort_str,'("BUFRLIB: LSTJPB - TABLE NODE (",I7,") IS OUT OF BOUNDS, > UPPER BOUNDS (",I7,")")') node,isc(inode(lun))
     call bort(bort_str)
   endif
@@ -763,8 +763,8 @@ integer function lstjpb(node,lun,jbtyp) result(iret)
 
   !  Find this or the previous node of type jbtyp
 
-  do while (nod.ne.0)
-    if(typ(nod).eq.jbtyp) exit
+  do while (nod/=0)
+    if(typ(nod)==jbtyp) exit
     nod = jmpb(nod)
   enddo
 
@@ -796,11 +796,11 @@ integer function ishrdx(lud,lun) result(iret)
   ! for each of the Table A mnemonics that is currently defined for that luX value.  Thus, if all of these indices are
   ! identical for two different luX values, then the associated logical units are sharing table information.
 
-  if ( ( ntba(lud) .ge. 1 ) .and. ( ntba(lud) .eq. ntba(lun) ) ) then
+  if ( ( ntba(lud) >= 1 ) .and. ( ntba(lud) == ntba(lun) ) ) then
     ii = 1
     iret = 1
-    do while ( ( ii .le. ntba(lud) ) .and. ( iret .eq. 1 ) )
-      if ( ( mtab(ii,lud) .ne. 0 ) .and. ( mtab(ii,lud) .eq. mtab(ii,lun) ) ) then
+    do while ( ( ii <= ntba(lud) ) .and. ( iret == 1 ) )
+      if ( ( mtab(ii,lud) /= 0 ) .and. ( mtab(ii,lud) == mtab(ii,lun) ) ) then
         ii = ii + 1
       else
         iret = 0
@@ -841,27 +841,27 @@ integer function icmpdx(lud,lun) result(iret)
   ! If so, then they obviously have the same table information.
 
   iret = ishrdx(lud,lun)
-  if ( iret .eq. 1 ) return
+  if ( iret == 1 ) return
 
   ! Otherwise, check whether the internal Table A, B and D entries are all identical between the two units.
 
-  if ( ( ntba(lud) .eq. 0 ) .or. ( ntba(lun) .ne. ntba(lud) ) ) return
+  if ( ( ntba(lud) == 0 ) .or. ( ntba(lun) /= ntba(lud) ) ) return
   do i = 1, ntba(lud)
-    if ( idna(i,lun,1) .ne. idna(i,lud,1) ) return
-    if ( idna(i,lun,2) .ne. idna(i,lud,2) ) return
-    if ( taba(i,lun) .ne. taba(i,lud) ) return
+    if ( idna(i,lun,1) /= idna(i,lud,1) ) return
+    if ( idna(i,lun,2) /= idna(i,lud,2) ) return
+    if ( taba(i,lun) /= taba(i,lud) ) return
   enddo
 
-  if ( ( ntbb(lud) .eq. 0 ) .or. ( ntbb(lun) .ne. ntbb(lud) ) ) return
+  if ( ( ntbb(lud) == 0 ) .or. ( ntbb(lun) /= ntbb(lud) ) ) return
   do i = 1, ntbb(lud)
-    if ( idnb(i,lun) .ne. idnb(i,lud) ) return
-    if ( tabb(i,lun) .ne. tabb(i,lud) ) return
+    if ( idnb(i,lun) /= idnb(i,lud) ) return
+    if ( tabb(i,lun) /= tabb(i,lud) ) return
   enddo
 
-  if ( ( ntbd(lud) .eq. 0 ) .or. ( ntbd(lun) .ne. ntbd(lud) ) ) return
+  if ( ( ntbd(lud) == 0 ) .or. ( ntbd(lun) /= ntbd(lud) ) ) return
   do i = 1, ntbd(lud)
-    if ( idnd(i,lun) .ne. idnd(i,lud) ) return
-    if ( tabd(i,lun) .ne. tabd(i,lud) ) return
+    if ( idnd(i,lun) /= idnd(i,lud) ) return
+    if ( tabd(i,lun) /= tabd(i,lud) ) return
   enddo
 
   iret = 1
@@ -909,14 +909,14 @@ subroutine drstpl(inod,lun,inv1,inv2,invn)
     node = inod
     do while (.true.)
       node = jmpb(node)
-      if(node.eq.0) return
-      if(typ(node).eq.'DRS' .or. typ(node).eq.'DRB') then
+      if(node==0) return
+      if(typ(node)=='DRS' .or. typ(node)=='DRB') then
         invn = invwin(node,lun,inv1,inv2)
-        if(invn.gt.0) then
+        if(invn>0) then
           call usrtpl(lun,invn,1)
           call newwin(lun,inv1,inv2)
           invn = invwin(inod,lun,invn,inv2)
-          if(invn.gt.0) return
+          if(invn>0) return
           exit
         endif
       endif
@@ -998,18 +998,18 @@ recursive subroutine nemspecs ( lunit, nemo, nnemo, nscl, nref, nbts, iret )
   ! Get lun from lunit.
 
   call status( lunit, lun, il, im )
-  if ( il .eq. 0 ) return
-  if ( inode(lun) .ne. inv(1,lun) ) return
+  if ( il == 0 ) return
+  if ( inode(lun) /= inv(1,lun) ) return
 
   ! Starting from the beginning of the subset, locate the (nnemo)th occurrence of nemo.
 
   call fstag( lun, nemo, nnemo, 1, nidx, ierfst )
-  if ( ierfst .ne. 0 ) return
+  if ( ierfst /= 0 ) return
 
   ! Confirm that nemo is a Table B mnemonic.
 
   node = inv(nidx,lun)
-  if ( ( typ(node) .ne. 'NUM' ) .and. ( typ(node) .ne. 'CHR' ) ) return
+  if ( ( typ(node) /= 'NUM' ) .and. ( typ(node) /= 'CHR' ) ) return
 
   ! Get the scale factor, reference value and bit width, including accounting for any Table C operators which may be in
   ! scope for this particular occurrence of nemo.
@@ -1020,18 +1020,18 @@ recursive subroutine nemspecs ( lunit, nemo, nnemo, nscl, nref, nbts, iret )
   nbts = ibt(node)
   nref = irf(node)
 
-  if ( nnrv .gt. 0 ) then
+  if ( nnrv > 0 ) then
 
     ! There are nodes containing redefined reference values (from one or more 2-03-YYY operators) in the jump/link table,
     ! so we need to check if this node is one of them.
 
     tagn = ' '
     call strsuc( nemo, tagn, ltn )
-    if ( ( ltn .le. 0 ) .or. ( ltn .gt. 8 ) ) return
+    if ( ( ltn <= 0 ) .or. ( ltn > 8 ) ) return
 
     do jj = 1, nnrv
-      if ( ( node .ne. inodnrv(jj) ) .and. ( tagn(1:8) .eq. tagnrv(jj) ) .and. &
-        ( node .ge. isnrv(jj) ) .and. ( node .le. ienrv(jj) ) ) then
+      if ( ( node /= inodnrv(jj) ) .and. ( tagn(1:8) == tagnrv(jj) ) .and. &
+        ( node >= isnrv(jj) ) .and. ( node <= ienrv(jj) ) ) then
         nref = int(nrv(jj))
         return
       end if
@@ -1081,18 +1081,18 @@ subroutine fstag ( lun, utag, nutag, nin, nout, iret )
   ! Confirm that there's only one mnemonic in the input string.
 
   call parstr( utag, tgs, maxtg, ntg, ' ', .true. )
-  if ( ntg .ne. 1 ) return
+  if ( ntg /= 1 ) return
 
   ! Starting from nin, search either forward or backward for the (nutag)th occurrence of utag.
 
-  if ( nutag .eq. 0 ) return
+  if ( nutag == 0 ) return
   istep = isign( 1, nutag )
   itagct = 0
   nout = nin + istep
-  do while ( ( nout .ge. 1 ) .and. ( nout .le. nval(lun) ) )
-    if ( tgs(1) .eq. tag(inv(nout,lun)) ) then
+  do while ( ( nout >= 1 ) .and. ( nout <= nval(lun) ) )
+    if ( tgs(1) == tag(inv(nout,lun)) ) then
       itagct = itagct + 1
-      if ( itagct .eq. iabs(nutag) ) then
+      if ( itagct == iabs(nutag) ) then
         iret = 0
         return
       endif
@@ -1158,13 +1158,13 @@ recursive subroutine gettagpr ( lunit, tagch, ntagch, tagpr, iret )
   ! Get lun from lunit.
 
   call status( lunit, lun, il, im )
-  if ( il .eq. 0 ) return
-  if ( inode(lun) .ne. inv(1,lun) ) return
+  if ( il == 0 ) return
+  if ( inode(lun) /= inv(1,lun) ) return
 
   ! Get tagpr from the (ntagch)th occurrence of tagch.
 
   call fstag( lun, tagch, ntagch, 1, nch, iret )
-  if ( iret .ne. 0 ) return
+  if ( iret /= 0 ) return
 
   tagpr = tag(jmpb(inv(nch,lun)))
 
@@ -1201,17 +1201,17 @@ integer function invtag(node,lun,inv1,inv2) result(iret)
 
   common /quiet/ iprt
 
-  if(node.ne.0) then
+  if(node/=0) then
     tagn = tag(node)
     ! Search between inv1 and inv2
     do iret=inv1,inv2
-      if(tag(inv(iret,lun)).eq.tagn) return
+      if(tag(inv(iret,lun))==tagn) return
     enddo
   endif
 
   iret = 0
 
-  if(iprt.ge.2) then
+  if(iprt>=2) then
     call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
     call errwrt('BUFRLIB: INVTAG - RETURNING WITH A VALUE OF 0')
     call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
@@ -1249,10 +1249,10 @@ integer function invwin(node,lun,inv1,inv2) result(iret)
   common /quiet/ iprt
 
   iret = 0
-  if(node.ne.0) then
+  if(node/=0) then
     ! Search between inv1 and inv2
     do idx=inv1,inv2
-      if(inv(idx,lun).eq.node) then
+      if(inv(idx,lun)==node) then
         iret = idx
         exit
       endif
@@ -1324,23 +1324,23 @@ subroutine getwin(node,lun,iwin,jwin)
 
   irpc = lstjpb(node,lun,'RPC')
 
-  if(irpc.eq.0) then
+  if(irpc==0) then
     iwin = invwin(node,lun,jwin,nval(lun))
-    if(iwin.eq.0 .and. jwin.gt.1) return
+    if(iwin==0 .and. jwin>1) return
     iwin = 1
     jwin = nval(lun)
     return
   else
     iwin = invwin(irpc,lun,jwin,nval(lun))
-    if(iwin.eq.0) return
-    if(val(iwin,lun).eq.0.) then
+    if(iwin==0) return
+    if(val(iwin,lun)==0.) then
       iwin = 0
       return
     endif
   endif
 
   jwin = invwin(irpc,lun,iwin+1,nval(lun))
-  if(jwin.eq.0) then
+  if(jwin==0) then
     write(bort_str,'("BUFRLIB: GETWIN - SEARCHED BETWEEN",I5," AND",I5,", MISSING BRACKET")') iwin+1, nval(lun)
     call bort(bort_str)
   endif
@@ -1391,7 +1391,7 @@ subroutine conwin(lun,inc1,inc2)
 
   common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
 
-  if(ncon.eq.0) then
+  if(ncon==0) then
     ! There are no condition nodes in the string
     inc1 = 1
     inc2 = nval(lun)
@@ -1400,9 +1400,9 @@ subroutine conwin(lun,inc1,inc2)
 
   outer: do while (.true.)
     call getwin(nodc(1),lun,inc1,inc2)
-    if(inc1.gt.0) then
+    if(inc1>0) then
       do nc=1,ncon
-        if(invcon(nc,lun,inc1,inc2).eq.0) cycle outer
+        if(invcon(nc,lun,inc1,inc2)==0) cycle outer
       enddo
     endif
     exit
@@ -1449,19 +1449,19 @@ integer function invcon(nc,lun,inv1,inv2) result(iret)
   common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
   common /quiet/ iprt
 
-  if(inv1.gt.0 .and. inv1.le.nval(lun) .and. inv2.gt.0 .and. inv2.le.nval(lun)) then
+  if(inv1>0 .and. inv1<=nval(lun) .and. inv2>0 .and. inv2<=nval(lun)) then
     do iret=inv1,inv2
-      if(inv(iret,lun).eq.nodc(nc)) then
-        if(kons(nc).eq.1 .and. val(iret,lun).eq.ivls(nc)) return
-        if(kons(nc).eq.2 .and. val(iret,lun).ne.ivls(nc)) return
-        if(kons(nc).eq.3 .and. val(iret,lun).lt.ivls(nc)) return
-        if(kons(nc).eq.4 .and. val(iret,lun).gt.ivls(nc)) return
+      if(inv(iret,lun)==nodc(nc)) then
+        if(kons(nc)==1 .and. val(iret,lun)==ivls(nc)) return
+        if(kons(nc)==2 .and. val(iret,lun)/=ivls(nc)) return
+        if(kons(nc)==3 .and. val(iret,lun)<ivls(nc)) return
+        if(kons(nc)==4 .and. val(iret,lun)>ivls(nc)) return
       endif
     enddo
   endif
 
   iret = 0
-  if(iprt.ge.2) then
+  if(iprt>=2) then
     call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
     call errwrt('BUFRLIB: INVCON - RETURNING WITH A VALUE OF 0')
     call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
@@ -1499,7 +1499,7 @@ subroutine newwin(lun,iwin,jwin)
 
   character*128 bort_str
 
-  if(iwin.eq.1) then
+  if(iwin==1) then
     ! This is a "SUB" (subset) node, so return jwin as pointing to the last value of the entire subset.
     jwin = nval(lun)
     return
@@ -1507,7 +1507,7 @@ subroutine newwin(lun,iwin,jwin)
 
   ! Confirm that iwin points to an "RPC" node and then compute jwin.
   node = inv(iwin,lun)
-  if(lstjpb(node,lun,'RPC').ne.node) then
+  if(lstjpb(node,lun,'RPC')/=node) then
     write(bort_str,'("BUFRLIB: NEWWIN - LSTJPB FOR NODE",I6,'// &
       '" (LSTJPB=",I5,") DOES NOT EQUAL VALUE OF NODE, NOT RPC (IWIN =",I8,")")') node, lstjpb(node,lun,'RPC'), iwin
     call bort(bort_str)
@@ -1547,18 +1547,18 @@ subroutine nxtwin(lun,iwin,jwin)
 
   character*128 bort_str
 
-  if(jwin.eq.nval(lun)) then
+  if(jwin==nval(lun)) then
     iwin = 0
     return
   endif
 
   node = inv(iwin,lun)
-  if(lstjpb(node,lun,'RPC').ne.node) then
+  if(lstjpb(node,lun,'RPC')/=node) then
     write(bort_str,'("BUFRLIB: NXTWIN - LSTJPB FOR NODE",I6," '// &
       '(LSTJPB=",I5,") DOES NOT EQUAL VALUE OF NODE, NOT RPC (IWIN =",I8,")")') node, lstjpb(node,lun,'RPC'), iwin
     call bort(bort_str)
   endif
-  if(val(jwin,lun).eq.0) then
+  if(val(jwin,lun)==0) then
     iwin = 0
   else
     iwin = jwin
@@ -1601,8 +1601,8 @@ integer function nvnwin(node,lun,inv1,inv2,invn,nmax) result(iret)
 
   iret = 0
 
-  if(node.eq.0) then
-    if(iprt.ge.1) then
+  if(node==0) then
+    if(iprt>=1) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       call errwrt('BUFRLIB: NVNWIN - NODE=0, IMMEDIATE RETURN')
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
@@ -1618,8 +1618,8 @@ integer function nvnwin(node,lun,inv1,inv2,invn,nmax) result(iret)
   ! Search between inv1 and inv2
 
   do n=inv1,inv2
-    if(inv(n,lun).eq.node) then
-      if(iret+1.gt.nmax) then
+    if(inv(n,lun)==node) then
+      if(iret+1>nmax) then
         write(bort_str,'("BUFRLIB: NVNWIN - THE NUMBER OF EVENTS EXCEEDS THE LIMIT NMAX (",I5,")")') nmax
         call bort(bort_str)
       endif
