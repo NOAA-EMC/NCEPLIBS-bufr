@@ -48,7 +48,7 @@ subroutine string(str,lun,i1,io)
   nxt = 0
   ust = str
   ind = inode(lun)
-  if(len(str).gt.80) then
+  if(len(str)>80) then
     write(bort_str1,'("BUFRLIB: STRING - INPUT STRING (",A,") HAS")') str
     write(bort_str2,'(18X,"LENGTH (",I4,"), > LIMIT OF 80 CHAR.")') len(str)
     call bort2(bort_str1,bort_str2)
@@ -58,13 +58,13 @@ subroutine string(str,lun,i1,io)
 
   incache = .false.
   do n=1,nstr
-    if(lux(iord(n),2).eq.ind) then
+    if(lux(iord(n),2)==ind) then
       iorx(nxt+1) = iord(n)
       nxt = nxt+1
     endif
   enddo
   do n=1,nxt
-    if(ust.eq.usr(iorx(n))) then
+    if(ust==usr(iorx(n))) then
 
       ! Yes, so copy parameters from the cache
 
@@ -97,7 +97,7 @@ subroutine string(str,lun,i1,io)
     iord(1) = lstr
   endif
 
-  if(jcon(1).gt.i1) then
+  if(jcon(1)>i1) then
     write(bort_str1,'("BUFRLIB: STRING - INPUT STRING (",A,")")') str
     write(bort_str2,'(18X,"HAS",I5," STORE NODES (MNEMONICS) - THE LIMIT (THIRD INPUT ARGUMENT) IS",I5)') jcon(1), i1
     call bort2(bort_str1,bort_str2)
@@ -167,7 +167,7 @@ subroutine parusr(str,lun,i1,io)
   common /usrstr/ nnod, ncon, nods(maxnod), nodc(maxcon), ivls(maxcon), kons(maxcon)
 
   ust  = str
-  if(len(str).gt.80) then
+  if(len(str)>80) then
     write(bort_str1,'("BUFRLIB: PARUSR - INPUT STRING (",A,") HAS ")') str
     write(bort_str2,'(18X,"LENGTH (",I4,"), > LIMIT OF 80 CHAR.")') len(str)
     call bort2(bort_str1,bort_str2)
@@ -183,10 +183,10 @@ subroutine parusr(str,lun,i1,io)
   do n=1,ntot
     ! For each mnemonic, determine if it's a condition node or a store node
     call parutg(lun,io,utg(n),nod,kon,val)
-    if(kon.ne.0) then
+    if(kon/=0) then
       ! It's a condition node
       ncon = ncon+1
-      if(ncon.gt.maxcon) then
+      if(ncon>maxcon) then
         write(bort_str1,'("BUFRLIB: PARUSR - THE NUMBER OF CONDITION NODES IN INPUT STRING")')
         write(bort_str2,'(18X,A,") EXCEEDS THE MAXIMUM (",I3,")")') str,maxcon
         call bort2(bort_str1,bort_str2)
@@ -197,7 +197,7 @@ subroutine parusr(str,lun,i1,io)
     else
       ! It's a store node
       nnod = nnod+1
-      if(nnod.gt.maxnod) then
+      if(nnod>maxnod) then
         write(bort_str1,'("BUFRLIB: PARUSR - THE NUMBER OF STORE NODES IN INPUT STRING")')
         write(bort_str2,'(18X,A,") EXCEEDS THE MAXIMUM (",I3,")")') str,maxnod
         call bort2(bort_str1,bort_str2)
@@ -210,7 +210,7 @@ subroutine parusr(str,lun,i1,io)
 
   do i=1,ncon
     do j=i+1,ncon
-      if(nodc(i).gt.nodc(j)) then
+      if(nodc(i)>nodc(j)) then
         nod = nodc(i)
         nodc(i) = nodc(j)
         nodc(j) = nod
@@ -228,13 +228,13 @@ subroutine parusr(str,lun,i1,io)
 
   bump = .false.
   do n=1,ncon
-    if(kons(n).eq.5) then
-      if(io.eq.0) then
+    if(kons(n)==5) then
+      if(io==0) then
         write(bort_str1,'("BUFRLIB: PARUSR - BUMP NODE (^ IN INPUT STRING ",A)') str
         write(bort_str2,'(18X,"IS SPECIFIED FOR A BUFR FILE OPEN FOR INPUT, THE BUFR FILE MUST BE OPEN FOR OUTPUT")')
         call bort2(bort_str1,bort_str2)
       endif
-      if(n.ne.ncon) then
+      if(n/=ncon) then
         write(bort_str1,'("BUFRLIB: PARUSR - INPUT STRING (",A,") CONTAINS")') str
         write(bort_str2,'(18X,"CONDITIONAL NODES IN ADDITION TO BUMP NODE - THE BUMP MUST BE ON THE INNER NODE")')
         call bort2(bort_str1,bort_str2)
@@ -245,12 +245,12 @@ subroutine parusr(str,lun,i1,io)
 
   ! Check store node count and alignment
 
-  if(.not.bump .and. nnod.eq.0) then
+  if(.not.bump .and. nnod==0) then
     write(bort_str1,'("BUFRLIB: PARUSR - INPUT STRING (",A,") HAS")') str
     write(bort_str2,'(18X,"NO STORE NODES")')
     call bort2(bort_str1,bort_str2)
   endif
-  if(nnod.gt.i1) then
+  if(nnod>i1) then
     write(bort_str1,'("BUFRLIB: PARUSR - INPUT STRING (",A,")")') str
     write(bort_str2,'(18X,"HAS",I5," STORE NODES (MNEMONICS) - THE LIMIT {THIRD (INPUT) ARGUMENT} IS",I5)') nnod,i1
     call bort2(bort_str1,bort_str2)
@@ -258,9 +258,9 @@ subroutine parusr(str,lun,i1,io)
 
   irpc = -1
   do i=1,nnod
-    if(nods(i).gt.0) then
-      if(irpc.lt.0) irpc = lstjpb(nods(i),lun,'RPC')
-      if(irpc.ne.lstjpb(nods(i),lun,'RPC').and.iac.eq.0) then
+    if(nods(i)>0) then
+      if(irpc<0) irpc = lstjpb(nods(i),lun,'RPC')
+      if(irpc/=lstjpb(nods(i),lun,'RPC').and.iac==0) then
         write(bort_str1,'("BUFRLIB: PARUSR - INPUT STRING (",A,") CONTAINS")') str
         write(bort_str2,'(18X,"STORE NODES (MNEMONICS) THAT ARE IN MORE THAN ONE REPLICATION GROUP")')
         call bort2(bort_str1,bort_str2)
@@ -381,13 +381,13 @@ subroutine parutg(lun,io,utg,nod,kon,val)
 
   ! But first, take care of the special case where utg denotes the short (i.e. 1-bit) delayed replication of a Table D
   ! mnemonic.  This will prevent confusion later on since '<' and '>' are each also valid as condition characters.
-  if((utg(1:1).eq.'<').and.(index(utg(3:),'>').ne.0)) then
+  if((utg(1:1)=='<').and.(index(utg(3:),'>')/=0)) then
     atag = utg
   else
     outer: do i=1,ltg
-      if(utg(i:i).eq.' ') exit
+      if(utg(i:i)==' ') exit
       do j=1,ncond
-        if(utg(i:i).eq.cond(j)) then
+        if(utg(i:i)==cond(j)) then
           kon = j
           icv = i+1
           exit outer
@@ -401,30 +401,30 @@ subroutine parutg(lun,io,utg,nod,kon,val)
 
   inod = inode(lun)
   do nod=inod,isc(inod)
-    if(atag.eq.tag(nod)) then
+    if(atag==tag(nod)) then
       ! We found it, now make sure it has a valid node type
-      if(kon.eq.5) then
+      if(kon==5) then
         ! Condition char "^" must be associated with a delayed replication sequence (this is a "bump" node).  This is an
         ! obsolete feature but remains in the library for compatibility with older application programs.
-        if(typ(nod-1).ne.'DRP' .and. typ(nod-1).ne.'DRS') then
+        if(typ(nod-1)/='DRP' .and. typ(nod-1)/='DRS') then
           write(bort_str1,'("BUFRLIB: PARUTG - BUMP NODE (MNEMONIC ",A,")'// &
             ' MUST REFER TO A DELAYED REPLICATION SEQUENCE, HERE TYPE IS ",A)') atag,typ(nod-1)
           call bort(bort_str1)
         endif
-      elseif(kon.ne.6) then
+      elseif(kon/=6) then
         ! Allow reading (but not writing) of delayed replication factors.
         atyp = typ(nod)
         do i=1,nchk
-          if(atyp.eq.btyp(i) .and. io.gt.iok(i)) then
+          if(atyp==btyp(i) .and. io>iok(i)) then
             write(bort_str1,'("BUFRLIB: PARUTG - ILLEGAL NODE TYPE: ",A," FOR MNEMONIC ",A)') atyp,atag
             call bort(bort_str1)
           endif
         enddo
       endif
       ! If it's a condition node, then get the condition value which is a number following it
-      if(kon.ne.0) then
+      if(kon/=0) then
         call strnum(utg(icv:ltg),num,ier)
-        if(ier.lt.0) then
+        if(ier<0) then
           write(bort_str1,'("BUFRLIB: PARUTG - CONDITION VALUE IN MNEMONIC ",A," CONTAINS NON-NUMERIC CHARACTERS")') utg
           call bort(bort_str1)
         endif
@@ -443,7 +443,7 @@ subroutine parutg(lun,io,utg,nod,kon,val)
   ! (and quietly, if iprt happened to be set to -1 in common /quiet/) not actually store the value corresponding to such
   ! mnemonics, rather than loudly complaining and aborting.
 
-  if(kon.eq.0 .and. (io.eq.0 .or. atag.eq.'NUL' .or. .not.picky)) then
+  if(kon==0 .and. (io==0 .or. atag=='NUL' .or. .not.picky)) then
     nod = 0
   else
     write(bort_str1,'("BUFRLIB: PARUTG - TRYING TO WRITE A MNEMONIC'// &
@@ -487,7 +487,7 @@ subroutine parstr(str,tags,mtag,ntag,sep,limit80)
 
   lstr = len(str)
   ltag = len(tags(1))
-  if( limit80 .and. (lstr.gt.80) ) then
+  if( limit80 .and. (lstr>80) ) then
     write(bort_str1,'("BUFRLIB: PARSTR - INPUT STRING (",A,") HAS ")') str
     write(bort_str2,'(18X,"LENGTH (",I4,"), > LIMIT OF 80 CHAR.")') lstr
     call bort2(bort_str1,bort_str2)
@@ -497,20 +497,20 @@ subroutine parstr(str,tags,mtag,ntag,sep,limit80)
   substr = .false.
 
   do i=1,lstr
-    if( .not.substr .and. (str(i:i).ne.sep) ) then
+    if( .not.substr .and. (str(i:i)/=sep) ) then
       ntag = ntag+1
-      if(ntag.gt.mtag) then
+      if(ntag>mtag) then
         write(bort_str1,'("BUFRLIB: PARSTR - INPUT STRING (",A,") CONTAINS",I4)') str,ntag
         write(bort_str2,'(18X,"SUBSTRINGS, EXCEEDING THE LIMIT {",I4," - THIRD (INPUT) ARGUMENT}")') mtag
         call bort2(bort_str1,bort_str2)
       endif
       tags(ntag) = ' '
     endif
-    if( substr .and. (str(i:i).eq.sep) ) nchr = 0
-    substr = str(i:i).ne.sep
+    if( substr .and. (str(i:i)==sep) ) nchr = 0
+    substr = str(i:i)/=sep
     if(substr) then
       nchr = nchr+1
-      if(nchr.gt.ltag) then
+      if(nchr>ltag) then
         write(bort_str1,'("BUFRLIB: PARSTR - INPUT STRING (",A,") ")') str
         write(bort_str2,'(18X,"CONTAINS A PARSED SUBSTRING WITH LENGTH EXCEEDING THE MAXIMUM OF",I4," CHARACTERS")') ltag
         call bort2(bort_str1,bort_str2)

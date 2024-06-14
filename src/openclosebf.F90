@@ -212,15 +212,15 @@ recursive subroutine openbf(lunit,io,lundx)
 
   ! If this is the first call to this subroutine, initialize iprt in /quiet/ as 0
 
-  if(ifopbf.eq.0) iprt = 0
+  if(ifopbf==0) iprt = 0
 
-  if(io.eq.'QUIET') then
+  if(io=='QUIET') then
     ! override previous iprt value (printout indicator)
     iprtprv = iprt
     iprt = lundx
-    if(iprt.lt.-1) iprt = -1
-    if(iprt.gt.3) iprt =  3
-    if(iprt.ge.0) then
+    if(iprt<-1) iprt = -1
+    if(iprt>3) iprt =  3
+    if(iprt>=0) then
       call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
       write ( unit=errstr, FMT='(A,I3,A,A,I3,A)' ) 'BUFRLIB: OPENBF - DEGREE OF MESSAGE PRINT INDICATOR CHNGED FROM', &
         iprtprv,cprint(iprtprv+1),' TO',iprt,cprint(iprt+1)
@@ -230,7 +230,7 @@ recursive subroutine openbf(lunit,io,lundx)
     endif
   endif
 
-  if(ifopbf.eq.0) then
+  if(ifopbf==0) then
     ! This is the first call to this subroutine, so take care of some initial housekeeping tasks.
     ! Note that arallocf and arallocc_c must be called before calling bfrini.
 
@@ -243,17 +243,17 @@ recursive subroutine openbf(lunit,io,lundx)
 
     ifopbf = 1
   endif
-  if( (io.eq.'FIRST') .or. (io.eq.'QUIET') ) return
+  if( (io=='FIRST') .or. (io=='QUIET') ) return
 
   ! See if a file can be opened
 
   call status(lunit,lun,il,im)
-  if(lun.eq.0) then
+  if(lun==0) then
     write(bort_str,'("BUFRLIB: OPENBF - THERE ARE ALREADY",I3," BUFR FILES OPENED, CANNOT OPEN FILE CONNECTED TO UNIT",I4)') &
       nfiles,lunit
     call bort(bort_str)
   endif
-  if(il.ne.0) then
+  if(il/=0) then
     write(bort_str,'("BUFRLIB: OPENBF - THE FILE CONNECTED TO UNIT",I5," IS ALREADY OPEN")') lunit
     call bort(bort_str)
   endif
@@ -264,7 +264,7 @@ recursive subroutine openbf(lunit,io,lundx)
 
   ! Use inquire to obtain the filename associated with unit lunit
 
-  if (io.ne.'NUL' .and. io.ne.'INUL') then
+  if (io/='NUL' .and. io/='INUL') then
     inquire(lunit,access=fileacc)
     if(fileacc=='UNDEFINED') open(lunit)
     inquire(lunit,name=filename)
@@ -279,41 +279,41 @@ recursive subroutine openbf(lunit,io,lundx)
 
   ! Decide how to open the file and setup the dictionary
 
-  if(io.eq.'IN') then
+  if(io=='IN') then
     call openrb_c(lun,filename)
     call wtstat(lunit,lun,-1,0)
     call readdx(lunit,lun,lundx)
-  else if(io.eq.'INUL') then
+  else if(io=='INUL') then
     call wtstat(lunit,lun,-1,0)
-    if(lunit.ne.lundx) call readdx(lunit,lun,lundx)
+    if(lunit/=lundx) call readdx(lunit,lun,lundx)
     null(lun) = 1
-  else if(io.eq.'NUL') then
+  else if(io=='NUL') then
     call wtstat(lunit,lun,1,0)
-    if(lunit.ne.lundx) call readdx(lunit,lun,lundx)
+    if(lunit/=lundx) call readdx(lunit,lun,lundx)
     null(lun) = 1
-  else if(io.eq.'INX') then
+  else if(io=='INX') then
     call openrb_c(lun,filename)
     call wtstat(lunit,lun,-1,0)
     null(lun) = 1
-  else if(io.eq.'OUX') then
+  else if(io=='OUX') then
     call openwb_c(lun,filename)
     call wtstat(lunit,lun,1,0)
-  else if(io.eq.'SEC3') then
+  else if(io=='SEC3') then
     call openrb_c(lun,filename)
     call wtstat(lunit,lun,-1,0)
     isc3(lun) = 1
-  else if(io.eq.'OUT') then
+  else if(io=='OUT') then
     call openwb_c(lun,filename)
     call wtstat(lunit,lun,1,0)
     call writdx(lunit,lun,lundx)
-  else if(io.eq.'NODX') then
+  else if(io=='NODX') then
     call openwb_c(lun,filename)
     call wtstat(lunit,lun,1,0)
     call readdx(lunit,lun,lundx)
-  else if(io.eq.'APN' .or. io.eq.'APX') then
+  else if(io=='APN' .or. io=='APX') then
     call openab_c(lun,filename)
     call wtstat(lunit,lun,1,0)
-    if(lunit.ne.lundx) call readdx(lunit,lun,lundx)
+    if(lunit/=lundx) call readdx(lunit,lun,lundx)
     call posapx(lunit)
   else
     call bort('BUFRLIB: OPENBF - ILLEGAL SECOND (INPUT) ARGUMENT')
@@ -370,13 +370,13 @@ recursive subroutine closbf(lunit)
   endif
 
   call status(lunit,lun,il,im)
-  if(il.gt.0 .and. im.ne.0) call closmg(lunit)
-  if(il.ne.0 .and. null(lun).eq.0) call closfb_c(lun)
+  if(il>0 .and. im/=0) call closmg(lunit)
+  if(il/=0 .and. null(lun)==0) call closfb_c(lun)
   call wtstat(lunit,lun,0,0)
 
   ! Close Fortran unit if null(lun) = 0
 
-  if(null(lun).eq.0) close(lunit)
+  if(null(lun)==0) close(lunit)
 
   return
 end subroutine closbf
@@ -431,7 +431,7 @@ recursive subroutine status(lunit,lun,il,im)
     return
   endif
 
-  if(lunit.le.0 .or. lunit.gt.99) then
+  if(lunit<=0 .or. lunit>99) then
     write(bort_str,'("BUFRLIB: STATUS - INPUT UNIT NUMBER (",I3,") OUTSIDE LEGAL RANGE OF 1-99")') lunit
     call bort(bort_str)
   endif
@@ -453,14 +453,14 @@ recursive subroutine status(lunit,lun,il,im)
   endif
 
   do i=1,nfiles
-    if(abs(iolun(i)).eq.lunit) lun = i
+    if(abs(iolun(i))==lunit) lun = i
   enddo
 
   ! If not, try to define it so as to connect it to the library
 
-  if(lun.eq.0) then
+  if(lun==0) then
     do i=1,nfiles
-      if(iolun(i).eq.0) then
+      if(iolun(i)==0) then
         ! File space is available, return with lun > 0, il and im remain 0
         lun = i
         return
@@ -517,20 +517,20 @@ subroutine wtstat(lunit,lun,il,im)
 
   ! Check on the arguments
 
-  if(lunit.le.0) then
+  if(lunit<=0) then
     write(bort_str,'("BUFRLIB: WTSTAT - INVALID UNIT NUMBER PASSED INTO FIRST ARGUMENT (INPUT) (=",I3,")")') lunit
     call bort(bort_str)
   endif
-  if(lun.le.0) then
+  if(lun<=0) then
     write(bort_str,'("BUFRLIB: WTSTAT - INVALID FILE ID PASSED INTO SECOND ARGUMENT (INPUT) (=",I3,")")') lun
     call bort(bort_str)
   endif
-  if(il.lt.-1 .or. il.gt.1) then
+  if(il<-1 .or. il>1) then
     write(bort_str,'("BUFRLIB: WTSTAT - INVALID LOGICAL UNIT STATUS INDICATOR PASSED INTO THIRD ARGUMENT '// &
       '(INPUT) (=",I4,")")') il
     call bort(bort_str)
   endif
-  if(im.lt. 0 .or. im.gt.1) then
+  if(im< 0 .or. im>1) then
     write(bort_str,'("BUFRLIB: WTSTAT - INVALID BUFR MESSAGE STATUS INDICATOR PASSED INTO FOURTH ARGUMENT '// &
       '(INPUT) (=",I4,")")') im
     call bort(bort_str)
@@ -538,7 +538,7 @@ subroutine wtstat(lunit,lun,il,im)
 
   ! Check on lunit-lun combination
 
-  if(abs(iolun(lun)).ne.lunit .and. (iolun(lun).ne.0)) then
+  if(abs(iolun(lun))/=lunit .and. (iolun(lun)/=0)) then
     write(bort_str,'("BUFRLIB: WTSTAT - ATTEMPTING TO REDEFINE EXISTING FILE UNIT (LOGICAL UNIT '// &
       'NUMBER ",I3,")")') iolun(lun)
     call bort(bort_str)
@@ -546,7 +546,7 @@ subroutine wtstat(lunit,lun,il,im)
 
   ! Reset the file statuses
 
-  if(il.ne.0) then
+  if(il/=0) then
     iolun(lun) = sign(lunit,il)
     iomsg(lun) = im
   else
@@ -609,7 +609,7 @@ recursive subroutine ufbcnt(lunit,kmsg,ksub)
   ! Check the file status - return the message and subset counters
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFBCNT - BUFR FILE IS CLOSED, IT MUST BE OPEN FOR EITHER INPUT OR OUTPUT')
+  if(il==0) call bort('BUFRLIB: UFBCNT - BUFR FILE IS CLOSED, IT MUST BE OPEN FOR EITHER INPUT OR OUTPUT')
   kmsg = nmsg(lun)
   ksub = nsub(lun)
 
@@ -641,15 +641,15 @@ subroutine posapx(lunxx)
   lunit = abs(lunxx)
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: POSAPX - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
-  if(il.lt.0) call bort('BUFRLIB: POSAPX - INPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
+  if(il==0) call bort('BUFRLIB: POSAPX - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
+  if(il<0) call bort('BUFRLIB: POSAPX - INPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
 
   ! Try to read to the end of the file
 
   do while (.true.)
     call rdmsgw(lunit,mgwa,ier)
-    if(ier.lt.0) return
-    if(idxmsg(mgwa).eq.1) then
+    if(ier<0) return
+    if(idxmsg(mgwa)==1) then
       ! This is an internal dictionary message that was generated by the NCEPLIBS-bufr software.  Backspace the file pointer
       ! and then read and store all such dictionary messages (they should be stored consecutively!) and reset the internal tables.
       call backbufr_c(lun)
@@ -707,20 +707,20 @@ subroutine rewnbf(lunit,isr)
   character*8 subset
 
   ! Try to trap bad call problems
-  if(isr.eq.0) then
+  if(isr==0) then
     call status(lunit,lun,il,im)
-    if(jsr(lun).ne.0) then
+    if(jsr(lun)/=0) then
       write(bort_str,'("BUFRLIB: REWNBF - ATTEMPING TO SAVE '// &
         'PARAMETERS FOR FILE FOR WHICH THEY HAVE ALREADY BEEN SAVED (AND NOT YET RESTORED) (UNIT",I3,")")') lunit
       call bort(bort_str)
     endif
-    if(il.eq.0) then
+    if(il==0) then
       write(bort_str,'("BUFRLIB: REWNBF - ATTEMPING TO SAVE '// &
         'PARAMETERS FOR BUFR FILE WHICH IS NOT OPENED FOR EITHER INPUT OR OUTPUT) (UNIT",I3,")")') lunit
       call bort(bort_str)
     endif
-  elseif(isr.eq.1) then
-    if(junn.eq.0 .or. jsr(junn).ne.1) then
+  elseif(isr==1) then
+    if(junn==0 .or. jsr(junn)/=1) then
       write(bort_str,'("BUFRLIB: REWNBF - ATTEMPING TO RESTORE '// &
         'PARAMETERS TO BUFR FILE WHICH WERE NEVER SAVED (UNIT",I3,")")') lunit
       call bort(bort_str)
@@ -732,7 +732,7 @@ subroutine rewnbf(lunit,isr)
      call bort(bort_str)
   endif
 
-  if(isr.eq.0) then
+  if(isr==0) then
     ! Store the existing file parameters
     jmsg = nmsg(lun)
     jsub = nsub(lun)
@@ -754,7 +754,7 @@ subroutine rewnbf(lunit,isr)
   ! Rewind the file
   call cewind_c(lun)
 
-  if(isr.eq.1) then
+  if(isr==1) then
     ! Restore the previous file parameters. Note that we already restored the previous value of lun earlier in this routine.
 
     ! Reset nmsg(lun) to 0, so that the below calls to readmg() will internally restore nmsg(lun) to the correct value.
@@ -765,7 +765,7 @@ subroutine rewnbf(lunit,isr)
     ! was an input file.
     do i=1,jmsg
       call readmg(lunit,subset,kdate,ier)
-      if(ier.lt.0) then
+      if(ier<0) then
         write(bort_str,'("BUFRLIB: REWNBF - HIT END OF FILE BEFORE '// &
           'REPOSITIONING BUFR FILE IN UNIT",I3," TO ORIGINAL MESSAGE NO.",I5)') lunit, jmsg
         call bort(bort_str)
@@ -911,7 +911,7 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
 
   lunit = abs(lunin)
   call status(lunit,lun,il,im)
-  openit = il.eq.0
+  openit = il==0
 
   if(openit) then
     ! Open BUFR file connected to unit lunit if it isn't already open
@@ -939,34 +939,34 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
   overflow = .false.
 
   ! Check for count subset only option
-  just_count = lunin.lt.lunit
+  just_count = lunin<lunit
   if(just_count) then
-    do while(ireadmg(-lunit,subset,jdate).ge.0)
+    do while(ireadmg(-lunit,subset,jdate)>=0)
       iret = iret+nmsub(lunit)
     enddo
   else
     ! Check for special tags in string
     call parstr(str,tgs,maxtg,ntg,' ',.true.)
     do i=1,ntg
-      if(tgs(i).eq.'IREC') irec = i
-      if(tgs(i).eq.'ISUB') isub = i
+      if(tgs(i)=='IREC') irec = i
+      if(tgs(i)=='ISUB') isub = i
     enddo
   endif
 
   outer: do while (.not. just_count)
     ! Read the next message from the file
-    if(ireadmg(-lunit,subset,jdate).lt.0) exit
+    if(ireadmg(-lunit,subset,jdate)<0) exit
     call string(str,lun,i1,0)
-    if(irec.gt.0) nods(irec) = 0
-    if(isub.gt.0) nods(isub) = 0
+    if(irec>0) nods(irec) = 0
+    if(isub>0) nods(isub) = 0
 
-    if(msgunp(lun).ne.2) then
+    if(msgunp(lun)/=2) then
       ! The message is uncompressed
 
       inner1: do while (.true.)
         ! Get the next subset from the message
-        if(nsub(lun).eq.msub(lun)) cycle outer
-        if(iret+1.gt.i2) then
+        if(nsub(lun)==msub(lun)) cycle outer
+        if(iret+1>i2) then
           overflow = .true.
           exit outer
         endif
@@ -984,25 +984,25 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
         call usrtpl(lun,n,n)
         inner2: do while (.true.)
           ! Cycle through each node of the subset to look for the requested values
-          if(n+1.le.nval(lun)) then
+          if(n+1<=nval(lun)) then
             n = n+1
             node = inv(n,lun)
             mbit = mbit+nbit
             nbit = ibt(node)
-            if(itp(node).eq.1) then
+            if(itp(node)==1) then
               call upb8(ival,nbit,mbit,mbay(1,lun))
               nbmp=int(ival)
               call usrtpl(lun,n,nbmp)
             endif
             do i=1,nnod
-              if(nods(i).eq.node) then
-                if(itp(node).eq.1) then
+              if(nods(i)==node) then
+                if(itp(node)==1) then
                   call upb8(ival,nbit,mbit,mbay(1,lun))
                   tab(i,iret) = ival
-                elseif(itp(node).eq.2) then
+                elseif(itp(node)==2) then
                   call upb8(ival,nbit,mbit,mbay(1,lun))
-                  if(ival.lt.mps(node)) tab(i,iret) = ups(ival,node)
-                elseif(itp(node).eq.3) then
+                  if(ival<mps(node)) tab(i,iret) = ups(ival,node)
+                elseif(itp(node)==3) then
                   cval = ' '
                   kbit = mbit
                   call upc(cval,nbit/8,mbay(1,lun),kbit,.true.)
@@ -1013,7 +1013,7 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
               endif
             enddo
             do i=1,nnod
-              if(nods(i).gt.0) cycle inner2
+              if(nods(i)>0) cycle inner2
             enddo
           endif
           exit
@@ -1027,21 +1027,21 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
           mbyt(lun) = mbit
         endif
         nsub(lun) = nsub(lun) + 1
-        if(irec.gt.0) tab(irec,iret) = nmsg(lun)
-        if(isub.gt.0) tab(isub,iret) = nsub(lun)
+        if(irec>0) tab(irec,iret) = nmsg(lun)
+        if(isub>0) tab(isub,iret) = nsub(lun)
       enddo inner1
 
     else
       ! The message is compressed
 
-      if(iret+msub(lun).gt.i2) then
+      if(iret+msub(lun)>i2) then
         overflow = .true.
         exit outer
       endif
-      if(irec.gt.0.or.isub.gt.0) then
+      if(irec>0.or.isub>0) then
         do nsb=1,msub(lun)
-          if(irec.gt.0) tab(irec,iret+nsb) = nmsg(lun)
-          if(isub.gt.0) tab(isub,iret+nsb) = nsb
+          if(irec>0) tab(irec,iret+nsb) = nmsg(lun)
+          if(isub>0) tab(isub,iret+nsb) = nsb
         enddo
       endif
       call usrtpl(lun,1,1)
@@ -1052,7 +1052,7 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
         node = inv(n,lun)
         nbit = ibt(node)
         ityp = itp(node)
-        if(n.eq.1) then
+        if(n==1) then
           ! Reset the node indices
           do i=1,nnod
             nods(i) = abs(nods(i))
@@ -1061,18 +1061,18 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
           ! Are we still looking for more values?
           need_node = .false.
           do i=1,nnod
-            if(nods(i).gt.0) then
+            if(nods(i)>0) then
               need_node = .true.
               exit
             endif
           enddo
           if(.not. need_node) exit inner3
         endif
-        if(ityp.eq.1 .or. ityp.eq.2) then
+        if(ityp==1 .or. ityp==2) then
           call up8(lref,nbit,mbay(1,lun),ibit)
           call upb(linc,6,mbay(1,lun),ibit)
           nibit = ibit + linc*msub(lun)
-        elseif(ityp.eq.3) then
+        elseif(ityp==3) then
           cref=' '
           call upc(cref,nbit/8,mbay(1,lun),ibit,.true.)
           call upb(linc,6,mbay(1,lun),ibit)
@@ -1080,7 +1080,7 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
         else
           cycle
         endif
-        if(ityp.eq.1) then
+        if(ityp==1) then
           ! This is a delayed replication node
           jbit = ibit + linc
           call up8(ninc,linc,mbay(1,lun),jbit)
@@ -1089,21 +1089,21 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
           cycle
         endif
         do i=1,nnod
-          if(node.eq.nods(i)) then
+          if(node==nods(i)) then
             ! This is one of the requested values, so store the corresponding value from each subset in the message
             nods(i) = -nods(i)
             lret = iret
-            if(ityp.eq.1 .or. ityp.eq.2) then
+            if(ityp==1 .or. ityp==2) then
               do nsb=1,msub(lun)
                 jbit = ibit + linc*(nsb-1)
                 call up8(ninc,linc,mbay(1,lun),jbit)
                 ival = lref+ninc
                 lret = lret+1
-                if(ninc.lt.lps(linc)) tab(i,lret) = ups(ival,node)
+                if(ninc<lps(linc)) tab(i,lret) = ups(ival,node)
               enddo
-            elseif(ityp.eq.3) then
+            elseif(ityp==3) then
               do nsb=1,msub(lun)
-                if(linc.eq.0) then
+                if(linc==0) then
                   cval = cref(1:8)
                 else
                   jbit = ibit + linc*(nsb-1)*8
@@ -1128,13 +1128,13 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
 
   if(overflow) then
     nrep = iret
-    do while(ireadsb(lunit).eq.0)
+    do while(ireadsb(lunit)==0)
       nrep = nrep+1
     enddo
-    do while(ireadmg(-lunit,subset,jdate).ge.0)
+    do while(ireadmg(-lunit,subset,jdate)>=0)
       nrep = nrep+nmsub(lunit)
     enddo
-    if(iprt.ge.0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       write ( unit=errstr, fmt='(A,A,I8,A)' ) 'BUFRLIB: UFBTAB - THE NO. OF DATA SUBSETS IN THE BUFR FILE ', &
         'IS .GT. LIMIT OF ', i2, ' IN THE 4TH ARG. (INPUT) - INCOMPLETE READ'

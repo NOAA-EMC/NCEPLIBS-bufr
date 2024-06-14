@@ -42,7 +42,7 @@ subroutine stdmsg(cf)
   character*128 bort_str
 
   call capit(cf)
-  if(cf.ne.'Y'.and. cf.ne.'N') then
+  if(cf/='Y'.and. cf/='N') then
     write(bort_str,'("BUFRLIB: STDMSG - INPUT ARGUMENT IS ",A1,", IT MUST BE EITHER Y OR N")') cf
     call bort(bort_str)
   endif
@@ -110,7 +110,7 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
   ! lunit must point to an open bufr file.
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: STNDRD - BUFR FILE IS CLOSED, IT MUST BE OPEN')
+  if(il==0) call bort('BUFRLIB: STNDRD - BUFR FILE IS CLOSED, IT MUST BE OPEN')
 
   ! Identify the section lengths and addresses in msgin.
 
@@ -123,7 +123,7 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
 
   lenm = iupbs01(msgin,'LENM')
 
-  if(lenn.ne.lenm) then
+  if(lenn/=lenm) then
     write(bort_str,'("BUFRLIB: STNDRD - INPUT MESSAGE LENGTH FROM SECTION 0",I6," DOES NOT EQUAL SUM OF ALL INDIVIDUAL '// &
       'SECTION LENGTHS (",I6,")")') lenm,lenn
     call bort(bort_str)
@@ -131,7 +131,7 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
 
   mbit = (lenn-4)*8
   call upc(sevn,4,msgin,mbit,.true.)
-  if(sevn.ne.'7777') then
+  if(sevn/='7777') then
     write(bort_str,'("BUFRLIB: STNDRD - INPUT MESSAGE DOES NOT END WITH ""7777"" (ENDS WITH ",A)') sevn
     call bort(bort_str)
   endif
@@ -141,25 +141,25 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
   mxbyto = (lmsgot*nbytw) - 8
 
   lbyto = iad3+7
-  if(lbyto.gt.mxbyto) call bort(bort_arrayoverflow)
+  if(lbyto>mxbyto) call bort(bort_arrayoverflow)
   call mvb(msgin,1,msgot,1,lbyto)
 
   ! Rewrite new Section 3 in a standard form.  First, locate the top-level Table A descriptor.
 
   found = .false.
   ii = 10
-  do while ((.not.found).and.(ii.ge.8))
+  do while ((.not.found).and.(ii>=8))
     isub = iupb(msgin,iad3+ii,16)
     call numtab(lun,isub,subset,tab,itab)
-    if((itab.ne.0).and.(tab.eq.'D')) then
+    if((itab/=0).and.(tab=='D')) then
       call nemtbax(lun,subset,mtyp,msbt,inod)
-      if(inod.ne.0) found = .true.
+      if(inod/=0) found = .true.
     endif
     ii = ii - 2
   enddo
   if(.not.found) call bort('BUFRLIB: STNDRD - TABLE A SUBSET DESCRIPTOR NOT FOUND')
 
-  if (istdesc(isub).eq.0) then
+  if (istdesc(isub)==0) then
     ! isub is a non-standard Table A descriptor and needs to be expanded into an equivalent standard sequence
     call restd_c(lun,isub,ncd,ids3)
   else
@@ -172,11 +172,11 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
 
   len3 = 7+(ncd*2)
   iben = iupbs01(msgin,'BEN')
-  if(iben.lt.4) then
+  if(iben<4) then
     len3 = len3+1
   endif
   lbyto = lbyto + len3 - 7
-  if(lbyto.gt.mxbyto) call bort(bort_arrayoverflow)
+  if(lbyto>mxbyto) call bort(bort_arrayoverflow)
 
   ! Store the descriptors into the new Section 3.
 
@@ -187,7 +187,7 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
 
   ! Depending on the edition number, pad out the new Section 3 with an additional zeroed-out byte to ensure an even byte count.
 
-  if(iben.lt.4) then
+  if(iben<4) then
     call pkb(0,8,msgot,ibit)
   endif
 
@@ -198,11 +198,11 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
 
   ! Now the tricky part - new Section 4.
 
-  if(iupbs3(msgin,'ICMP').eq.1) then
+  if(iupbs3(msgin,'ICMP')==1) then
 
     ! The data in Section 4 is compressed and is therefore already standardized, so copy it "as is" into the new Section 4.
 
-    if((lbyto+len4+4).gt.mxbyto) call bort(bort_arrayoverflow)
+    if((lbyto+len4+4)>mxbyto) call bort(bort_arrayoverflow)
 
     call mvb(msgin,iad4+1,msgot,lbyto+1,len4)
     jbit = (lbyto+len4)*8
@@ -222,25 +222,25 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
 
     subset_copy: do i=1,nsub
       call upb(lsub,16,msgin,ibit)
-      if(nsub.gt.1) then
+      if(nsub>1) then
         ! Use the byte counter to copy this subset.
         islen = lsub-2
       else
         ! This is the only subset in the message, and it could possibly be an overlarge (> 65530 bytes) subset, in
         ! which case we can't rely on the value stored in the byte counter.  either way, we don't really need it.
         islen = iad4+len4-(ibit/8)
-        if (mod(len4,2).eq.0) islen = islen - 1
+        if (mod(len4,2)==0) islen = islen - 1
       endif
       do l=1,islen
         call upb(nval,8,msgin,ibit)
         lbyto = lbyto + 1
-        if(lbyto.gt.mxbyto) call bort(bort_arrayoverflow)
+        if(lbyto>mxbyto) call bort(bort_arrayoverflow)
         call pkb(nval,8,msgot,jbit)
       enddo
       do k=1,8
         kbit = ibit-k-8
         call upb(kval,8,msgin,kbit)
-        if(kval.eq.k) then
+        if(kval==k) then
           jbit = jbit-k-8
           cycle subset_copy
         endif
@@ -252,18 +252,18 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
     ! standardized message (i.e. we will need (at most) 2 more zeroed-out bytes in Section 4, plus the 4 bytes '7777' in
     ! Section 5), so do a final msgot overflow check now.
 
-    if(lbyto+6.gt.mxbyto) call bort(bort_arrayoverflow)
+    if(lbyto+6>mxbyto) call bort(bort_arrayoverflow)
 
     ! Pad the new Section 4 with zeroes up to the next whole byte boundary.
 
-    do while(.not.(mod(jbit,8).eq.0))
+    do while(.not.(mod(jbit,8)==0))
      call pkb(0,1,msgot,jbit)
     enddo
 
     ! Depending on the edition number, we may need to further pad the new Section 4 with an additional zeroed-out byte in
     ! order to ensure that the padding is up to an even byte boundary.
 
-    if( (iben.lt.4) .and. (mod(jbit/8,2).ne.0) ) then
+    if( (iben<4) .and. (mod(jbit/8,2)/=0) ) then
       call pkb(0,8,msgot,jbit)
     endif
 
@@ -306,13 +306,13 @@ integer function istdesc( idn ) result( iret )
   adsc = adn30( idn, 6 )
 
   read(adsc,'(I1,I2,I3)') if,ix,iy
-  if ( if .eq. 1 ) then
+  if ( if == 1 ) then
     ! adsc is a replication descriptor and therefore standard by default
     iret = 1
-  else if ( if .eq. 2 ) then
+  else if ( if == 2 ) then
     ! adsc is an operator descriptor
     iret = iokoper( adsc )
-  else if ( ( ix .lt. 48 ) .and. ( iy .lt. 192 ) ) then
+  else if ( ( ix < 48 ) .and. ( iy < 192 ) ) then
     iret = 1
   else
     iret = 0

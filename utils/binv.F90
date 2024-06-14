@@ -50,13 +50,13 @@ PROGRAM BINV
   !  ---------------------------------------
 
   CALL OPENBF(LUNBF,'IN',LUNBF)
-  DO WHILE(IREADMG(LUNBF,SUBSET,IDATE).EQ.0)
+  DO WHILE(IREADMG(LUNBF,SUBSET,IDATE)==0)
      ISUB = 0
      DO I=1,NSUB
-        IF(SUBSET.EQ.SUB(I)) ISUB = I
+        IF(SUBSET==SUB(I)) ISUB = I
      ENDDO
-     IF(ISUB.EQ.0) THEN
-        IF(NSUB+1.GT.MAXSUB) CALL BORT('NSUB TOO BIG')
+     IF(ISUB==0) THEN
+        IF(NSUB+1>MAXSUB) CALL BORT('NSUB TOO BIG')
         SUB(NSUB+1) = SUBSET
         NSUB = NSUB+1
         ISUB = NSUB
@@ -76,7 +76,7 @@ PROGRAM BINV
      xmsg = ninv(1,j)
      xsub = ninv(2,j)
      print'(a8,2x,2(i10,4x),i11,4x,f8.2)',sub(j),(ninv(i,j),i=1,3),xsub/xmsg
-     IF(J.GT.1) THEN
+     IF(J>1) THEN
         NINV(1,1) = NINV(1,1)+NINV(1,J)
         NINV(2,1) = NINV(2,1)+NINV(2,J)
         NINV(3,1) = NINV(3,1)+NINV(3,J)

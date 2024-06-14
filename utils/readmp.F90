@@ -39,12 +39,12 @@
 ! open the file to bufr and dump the subsets to standard outout one at a time
 
   call openbf(lunit,'IN',lunit)
-  do while(ireadmg(lunit,subset,idate).eq.0)
-     do while(ireadsb(lunit).eq.0)
+  do while(ireadmg(lunit,subset,idate)==0)
+     do while(ireadsb(lunit)==0)
         print*,'message date=',i4dy(idate)
         call ufdump(lunit,6)
-        if(go.ne.'q') read(5,'(a)') go
-        if(go.eq.'q') stop
+        if(go/='q') read(5,'(a)') go
+        if(go=='q') stop
      enddo
   enddo
 

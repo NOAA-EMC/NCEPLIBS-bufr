@@ -67,7 +67,7 @@ subroutine arallocf
 
   common /quiet/ iprt
 
-  if ( iprt .ge. 1 ) then
+  if ( iprt >= 1 ) then
     call errwrt ('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
     call errwrt ('BUFRLIB: ARRAYS WILL BE DYNAMICALLY ALLOCATED USING THE FOLLOWING VALUES:')
     write ( errstr, '(a,i7)' ) '    MAXSS = ', maxss
@@ -130,106 +130,106 @@ subroutine arallocf
   ! moda_usrint arrays.
 
   allocate( nval(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'NVAL' )
+  if ( iost /= 0 ) call bort( brtstr // 'NVAL' )
 
   allocate( inv(maxss,nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'INV' )
+  if ( iost /= 0 ) call bort( brtstr // 'INV' )
 
   allocate( nrfelm(maxss,nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'NRFELM' )
+  if ( iost /= 0 ) call bort( brtstr // 'NRFELM' )
 
   allocate( val(maxss,nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'VAL' )
+  if ( iost /= 0 ) call bort( brtstr // 'VAL' )
 
   ! moda_usrbit arrays.
 
   allocate( nbit(maxss), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'NBIT' )
+  if ( iost /= 0 ) call bort( brtstr // 'NBIT' )
 
   allocate( mbit(maxss), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'MBIT' )
+  if ( iost /= 0 ) call bort( brtstr // 'MBIT' )
 
   ! moda_ival arrays.
 
   allocate( ival(maxss), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IVAL' )
+  if ( iost /= 0 ) call bort( brtstr // 'IVAL' )
 
   ! moda_msgcwd arrays.
 
   allocate( nmsg(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'NMSG' )
+  if ( iost /= 0 ) call bort( brtstr // 'NMSG' )
 
   allocate( nsub(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'NSUB' )
+  if ( iost /= 0 ) call bort( brtstr // 'NSUB' )
 
   allocate( msub(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'MSUB' )
+  if ( iost /= 0 ) call bort( brtstr // 'MSUB' )
 
   allocate( inode(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'INODE' )
+  if ( iost /= 0 ) call bort( brtstr // 'INODE' )
 
   allocate( idate(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IDATE' )
+  if ( iost /= 0 ) call bort( brtstr // 'IDATE' )
 
   ! moda_stbfr arrays.
 
   allocate( iolun(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IOLUN' )
+  if ( iost /= 0 ) call bort( brtstr // 'IOLUN' )
 
   allocate( iomsg(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IOMSG' )
+  if ( iost /= 0 ) call bort( brtstr // 'IOMSG' )
 
   ! moda_ufbcpl arrays.
 
   allocate( luncpy(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'LUNCPY' )
+  if ( iost /= 0 ) call bort( brtstr // 'LUNCPY' )
 
   ! moda_sc3bfr arrays.
 
   allocate( isc3(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'ISC3' )
+  if ( iost /= 0 ) call bort( brtstr // 'ISC3' )
 
   allocate( tamnem(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'TAMNEM' )
+  if ( iost /= 0 ) call bort( brtstr // 'TAMNEM' )
 
   ! moda_unptyp arrays.
 
   allocate( msgunp(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'MSGUNP' )
+  if ( iost /= 0 ) call bort( brtstr // 'MSGUNP' )
 
   ! moda_lushr arrays.
 
   allocate( lus(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'LUS' )
+  if ( iost /= 0 ) call bort( brtstr // 'LUS' )
 
   ! moda_nulbfr arrays.
 
   allocate( null(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'NULL' )
+  if ( iost /= 0 ) call bort( brtstr // 'NULL' )
 
   ! moda_stcode arrays.
 
   allocate( iscodes(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'ISCODES' )
+  if ( iost /= 0 ) call bort( brtstr // 'ISCODES' )
 
   ! moda_idrdm arrays.
 
   allocate( idrdm(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IDRDM' )
+  if ( iost /= 0 ) call bort( brtstr // 'IDRDM' )
 
   ! moda_xtab arrays.
 
   allocate( xtab(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'XTAB' )
+  if ( iost /= 0 ) call bort( brtstr // 'XTAB' )
 
   ! moda_msglim arrays.
 
   allocate( msglim(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'MSGLIM' )
+  if ( iost /= 0 ) call bort( brtstr // 'MSGLIM' )
 
   ! Calculate mxmsgld4 from mxmsgl.
 
-  if ( mod(mxmsgl,4) .eq. 0 ) then
+  if ( mod(mxmsgl,4) == 0 ) then
       mxmsgld4 = mxmsgl/4
   else
       mxmsgld4 = mxmsgl/4 + 1
@@ -238,38 +238,38 @@ subroutine arallocf
   ! moda_bitbuf arrays.
 
   allocate( ibay(mxmsgld4), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IBAY' )
+  if ( iost /= 0 ) call bort( brtstr // 'IBAY' )
 
   allocate( mbyt(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'MBYT' )
+  if ( iost /= 0 ) call bort( brtstr // 'MBYT' )
 
   allocate( mbay(mxmsgld4,nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'MBAY' )
+  if ( iost /= 0 ) call bort( brtstr // 'MBAY' )
 
   ! moda_mgwa arrays.
 
   allocate( mgwa(mxmsgld4), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'MGWA' )
+  if ( iost /= 0 ) call bort( brtstr // 'MGWA' )
 
   ! moda_mgwb arrays.
 
   allocate( mgwb(mxmsgld4), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'MGWB' )
+  if ( iost /= 0 ) call bort( brtstr // 'MGWB' )
 
   ! moda_bufrmg arrays.
 
   allocate( msglen(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'MSGLEN' )
+  if ( iost /= 0 ) call bort( brtstr // 'MSGLEN' )
   allocate( msgtxt(mxmsgld4,nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'MSGTXT' )
+  if ( iost /= 0 ) call bort( brtstr // 'MSGTXT' )
 
   ! moda_bufrsr arrays.
 
   allocate( jsr(nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'JSR' )
+  if ( iost /= 0 ) call bort( brtstr // 'JSR' )
 
   allocate( jbay(mxmsgld4), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'JBAY' )
+  if ( iost /= 0 ) call bort( brtstr // 'JBAY' )
 
   ! Calculate mxdxm and mxdxw from mxdxts and mxmsgld4.
 
@@ -279,309 +279,309 @@ subroutine arallocf
   ! moda_msgmem arrays.
 
   allocate( msgp(0:maxmsg), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'MSGP' )
+  if ( iost /= 0 ) call bort( brtstr // 'MSGP' )
 
   allocate( msgs(maxmem), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'MSGS' )
+  if ( iost /= 0 ) call bort( brtstr // 'MSGS' )
 
   allocate( mdx(mxdxw), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'MDX' )
+  if ( iost /= 0 ) call bort( brtstr // 'MDX' )
 
   allocate( ipdxm(mxdxm), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IPDXM' )
+  if ( iost /= 0 ) call bort( brtstr // 'IPDXM' )
 
   allocate( ifdxts(mxdxts), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'ifDXTS' )
+  if ( iost /= 0 ) call bort( brtstr // 'ifDXTS' )
 
   allocate( icdxts(mxdxts), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'ICDXTS' )
+  if ( iost /= 0 ) call bort( brtstr // 'ICDXTS' )
 
   allocate( ipmsgs(mxdxts), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IPMSGS' )
+  if ( iost /= 0 ) call bort( brtstr // 'IPMSGS' )
 
   ! moda_tababd arrays.
 
   allocate( ntba(0:nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'NTBA' )
+  if ( iost /= 0 ) call bort( brtstr // 'NTBA' )
 
   allocate( ntbb(0:nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'NTBB' )
+  if ( iost /= 0 ) call bort( brtstr // 'NTBB' )
 
   allocate( ntbd(0:nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'NTBD' )
+  if ( iost /= 0 ) call bort( brtstr // 'NTBD' )
 
   allocate( mtab(maxtba,nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'MTAB' )
+  if ( iost /= 0 ) call bort( brtstr // 'MTAB' )
 
   allocate( idna(maxtba,nfiles,2), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IDNA' )
+  if ( iost /= 0 ) call bort( brtstr // 'IDNA' )
 
   allocate( idnb(maxtbb,nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IDNB' )
+  if ( iost /= 0 ) call bort( brtstr // 'IDNB' )
 
   allocate( idnd(maxtbd,nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IDND' )
+  if ( iost /= 0 ) call bort( brtstr // 'IDND' )
 
   allocate( taba(maxtba,nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'TABA' )
+  if ( iost /= 0 ) call bort( brtstr // 'TABA' )
 
   allocate( tabb(maxtbb,nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'TABB' )
+  if ( iost /= 0 ) call bort( brtstr // 'TABB' )
 
   allocate( tabd(maxtbd,nfiles), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'TABD' )
+  if ( iost /= 0 ) call bort( brtstr // 'TABD' )
 
   ! moda_tables arrays.
 
   allocate( tag(maxjl), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'TAG' )
+  if ( iost /= 0 ) call bort( brtstr // 'TAG' )
 
   allocate( typ(maxjl), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'TYP' )
+  if ( iost /= 0 ) call bort( brtstr // 'TYP' )
 
   allocate( knt(maxjl), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'KNT' )
+  if ( iost /= 0 ) call bort( brtstr // 'KNT' )
 
   allocate( jump(maxjl), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'JUMP' )
+  if ( iost /= 0 ) call bort( brtstr // 'JUMP' )
 
   allocate( link(maxjl), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'LINK' )
+  if ( iost /= 0 ) call bort( brtstr // 'LINK' )
 
   allocate( jmpb(maxjl), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'JMPB' )
+  if ( iost /= 0 ) call bort( brtstr // 'JMPB' )
 
   allocate( ibt(maxjl), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IBT' )
+  if ( iost /= 0 ) call bort( brtstr // 'IBT' )
 
   allocate( irf(maxjl), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IRF' )
+  if ( iost /= 0 ) call bort( brtstr // 'IRF' )
 
   allocate( isc(maxjl), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'ISC' )
+  if ( iost /= 0 ) call bort( brtstr // 'ISC' )
 
   allocate( itp(maxjl), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'ITP' )
+  if ( iost /= 0 ) call bort( brtstr // 'ITP' )
 
   allocate( vali(maxjl), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'VALI' )
+  if ( iost /= 0 ) call bort( brtstr // 'VALI' )
 
   allocate( knti(maxjl), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'KNTI' )
+  if ( iost /= 0 ) call bort( brtstr // 'KNTI' )
 
   allocate( iseq(maxjl,2), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'ISEQ' )
+  if ( iost /= 0 ) call bort( brtstr // 'ISEQ' )
 
   allocate( jseq(maxjl), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'JSEQ' )
+  if ( iost /= 0 ) call bort( brtstr // 'JSEQ' )
 
   ! moda_usrtmp arrays.
 
   allocate( iutmp(maxjl,maxrcr), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IUTMP' )
+  if ( iost /= 0 ) call bort( brtstr // 'IUTMP' )
 
   allocate( vutmp(maxjl,maxrcr), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'VUTMP' )
+  if ( iost /= 0 ) call bort( brtstr // 'VUTMP' )
 
   ! moda_ivttmp arrays.
 
   allocate( ttmp(maxjl), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'TTMP' )
+  if ( iost /= 0 ) call bort( brtstr // 'TTMP' )
 
   allocate( itmp(maxjl), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'ITMP' )
+  if ( iost /= 0 ) call bort( brtstr // 'ITMP' )
 
   allocate( vtmp(maxjl), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'VTMP' )
+  if ( iost /= 0 ) call bort( brtstr // 'VTMP' )
 
   ! moda_comprx arrays.
 
   allocate( kmin(mxcdv), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'KMIN' )
+  if ( iost /= 0 ) call bort( brtstr // 'KMIN' )
 
   allocate( kmax(mxcdv), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'KMAX' )
+  if ( iost /= 0 ) call bort( brtstr // 'KMAX' )
 
   allocate( kmis(mxcdv), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'KMIS' )
+  if ( iost /= 0 ) call bort( brtstr // 'KMIS' )
 
   allocate( kbit(mxcdv), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'KBIT' )
+  if ( iost /= 0 ) call bort( brtstr // 'KBIT' )
 
   allocate( ityp(mxcdv), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'ITYP' )
+  if ( iost /= 0 ) call bort( brtstr // 'ITYP' )
 
   allocate( iwid(mxcdv), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IWID' )
+  if ( iost /= 0 ) call bort( brtstr // 'IWID' )
 
   allocate( character*(mxlcc) :: cstr(mxcdv), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CSTR' )
+  if ( iost /= 0 ) call bort( brtstr // 'CSTR' )
 
   allocate( jlnode(mxcdv), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'JLNODE' )
+  if ( iost /= 0 ) call bort( brtstr // 'JLNODE' )
 
   ! moda_comprs arrays.
 
   allocate( matx(mxcdv,mxcsb), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'MATX' )
+  if ( iost /= 0 ) call bort( brtstr // 'MATX' )
 
   allocate( character*(mxlcc) :: catx(mxcdv,mxcsb), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CATX' )
+  if ( iost /= 0 ) call bort( brtstr // 'CATX' )
 
   ! moda_mstabs arrays.
 
   allocate( ibfxyn(mxmtbb), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IBFXYN' )
+  if ( iost /= 0 ) call bort( brtstr // 'IBFXYN' )
 
   allocate( cbscl(4,mxmtbb), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CBSCL' )
+  if ( iost /= 0 ) call bort( brtstr // 'CBSCL' )
 
   allocate( cbsref(12,mxmtbb), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CBSREF' )
+  if ( iost /= 0 ) call bort( brtstr // 'CBSREF' )
 
   allocate( cbbw(4,mxmtbb), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CBBW' )
+  if ( iost /= 0 ) call bort( brtstr // 'CBBW' )
 
   allocate( cbunit(24,mxmtbb), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CBUNIT' )
+  if ( iost /= 0 ) call bort( brtstr // 'CBUNIT' )
 
   allocate( cbmnem(8,mxmtbb), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CBMNEM' )
+  if ( iost /= 0 ) call bort( brtstr // 'CBMNEM' )
 
   allocate( cbelem(120,mxmtbb), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CBELEM' )
+  if ( iost /= 0 ) call bort( brtstr // 'CBELEM' )
 
   allocate( idfxyn(mxmtbd), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IDFXYN' )
+  if ( iost /= 0 ) call bort( brtstr // 'IDFXYN' )
 
   allocate( cdseq(120,mxmtbd), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CDSEQ' )
+  if ( iost /= 0 ) call bort( brtstr // 'CDSEQ' )
 
   allocate( cdmnem(8,mxmtbd), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CDMNEM' )
+  if ( iost /= 0 ) call bort( brtstr // 'CDMNEM' )
 
   allocate( ndelem(mxmtbd), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'NDELEM' )
+  if ( iost /= 0 ) call bort( brtstr // 'NDELEM' )
 
   allocate( idefxy(mxmtbd*maxcd), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IDEFXY' )
+  if ( iost /= 0 ) call bort( brtstr // 'IDEFXY' )
 
   ! moda_rdmtb arrays.
 
   allocate( iefxyn(mxmtbd,maxcd), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IEFXYN' )
+  if ( iost /= 0 ) call bort( brtstr // 'IEFXYN' )
 
   allocate( cmdscb(mxmtbb), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CMDSCB' )
+  if ( iost /= 0 ) call bort( brtstr // 'CMDSCB' )
 
   allocate( cmdscd(mxmtbd), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CMDSCD' )
+  if ( iost /= 0 ) call bort( brtstr // 'CMDSCD' )
 
   allocate( ceelem(mxmtbd,maxcd), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CEELEM' )
+  if ( iost /= 0 ) call bort( brtstr // 'CEELEM' )
 
   ! moda_nmikrp arrays.
 
   allocate( nem(maxcd,10), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'NEM' )
+  if ( iost /= 0 ) call bort( brtstr // 'NEM' )
 
   allocate( irp(maxcd,10), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IRP' )
+  if ( iost /= 0 ) call bort( brtstr // 'IRP' )
 
   allocate( krp(maxcd,10), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'KRP' )
+  if ( iost /= 0 ) call bort( brtstr // 'KRP' )
 
   ! moda_s01cm arrays.
 
   allocate( ivmnem(mxs01v), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IVMNEM' )
+  if ( iost /= 0 ) call bort( brtstr // 'IVMNEM' )
 
   allocate( cmnem(mxs01v), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CMNEM' )
+  if ( iost /= 0 ) call bort( brtstr // 'CMNEM' )
 
   ! moda_bitmaps arrays.
 
   allocate( inodtamc(mxtamc), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'INODTAMC' )
+  if ( iost /= 0 ) call bort( brtstr // 'INODTAMC' )
 
   allocate( ntco(mxtamc), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'NTCO' )
+  if ( iost /= 0 ) call bort( brtstr // 'NTCO' )
 
   allocate( ctco(mxtamc,mxtco), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CTCO' )
+  if ( iost /= 0 ) call bort( brtstr // 'CTCO' )
 
   allocate( inodtco(mxtamc,mxtco), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'INODTCO' )
+  if ( iost /= 0 ) call bort( brtstr // 'INODTCO' )
 
   allocate( nbtmse(mxbtm), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'NBTMSE' )
+  if ( iost /= 0 ) call bort( brtstr // 'NBTMSE' )
 
   allocate( istbtm(mxbtm), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'ISTBTM' )
+  if ( iost /= 0 ) call bort( brtstr // 'ISTBTM' )
 
   allocate( iszbtm(mxbtm), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'ISZBTM' )
+  if ( iost /= 0 ) call bort( brtstr // 'ISZBTM' )
 
   allocate( ibtmse(mxbtm,mxbtmse), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IBTMSE' )
+  if ( iost /= 0 ) call bort( brtstr // 'IBTMSE' )
 
   ! moda_nrv203 arrays.
 
   allocate( tagnrv(mxnrv), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'TAGNRV' )
+  if ( iost /= 0 ) call bort( brtstr // 'TAGNRV' )
 
   allocate( inodnrv(mxnrv), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'INODNRV' )
+  if ( iost /= 0 ) call bort( brtstr // 'INODNRV' )
 
   allocate( nrv(mxnrv), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'NRV' )
+  if ( iost /= 0 ) call bort( brtstr // 'NRV' )
 
   allocate( isnrv(mxnrv), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'ISNRV' )
+  if ( iost /= 0 ) call bort( brtstr // 'ISNRV' )
 
   allocate( ienrv(mxnrv), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IENRV' )
+  if ( iost /= 0 ) call bort( brtstr // 'IENRV' )
 
   ! moda_rlccmn arrays.
 
   allocate( irnch(mxrst), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IRNCH' )
+  if ( iost /= 0 ) call bort( brtstr // 'IRNCH' )
 
   allocate( irbit(mxrst), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IRBIT' )
+  if ( iost /= 0 ) call bort( brtstr // 'IRBIT' )
 
   allocate( crtag(mxrst), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CRTAG' )
+  if ( iost /= 0 ) call bort( brtstr // 'CRTAG' )
 
   ! moda_h4wlc arrays.
 
   allocate( luh4wlc(mxh4wlc), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'LUH4WLC' )
+  if ( iost /= 0 ) call bort( brtstr // 'LUH4WLC' )
 
   allocate( sth4wlc(mxh4wlc), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'STH4WLC' )
+  if ( iost /= 0 ) call bort( brtstr // 'STH4WLC' )
 
   allocate( chh4wlc(mxh4wlc), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CHH4WLC' )
+  if ( iost /= 0 ) call bort( brtstr // 'CHH4WLC' )
 
   ! moda_dscach arrays.
 
   allocate( cnem(mxcnem), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CNEM' )
+  if ( iost /= 0 ) call bort( brtstr // 'CNEM' )
 
   allocate( ndc(mxcnem), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'NDC' )
+  if ( iost /= 0 ) call bort( brtstr // 'NDC' )
 
   allocate( idcach(mxcnem,maxnc), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IDCACH' )
+  if ( iost /= 0 ) call bort( brtstr // 'IDCACH' )
 
   ! moda_s3list arrays.
 
   allocate( ids3(maxnc), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'IDS3' )
+  if ( iost /= 0 ) call bort( brtstr // 'IDS3' )
 
   allocate( cds3(maxnc), stat=iost )
-  if ( iost .ne. 0 ) call bort( brtstr // 'CDS3' )
+  if ( iost /= 0 ) call bort( brtstr // 'CDS3' )
 
   return
 end subroutine arallocf
@@ -910,14 +910,14 @@ subroutine exitbufr
   ! Close any logical units that are open to the library.
 
   do jj = 1, nfiles
-    if ( iolun(jj) .ne. 0 ) call closbf( abs(iolun(jj)) )
+    if ( iolun(jj) /= 0 ) call closbf( abs(iolun(jj)) )
   end do
 
   ! Deallocate all allocated memory.
 
   call ardllocf
 
-  if ( cdmf .eq. 'Y' ) call dlloctbf_c
+  if ( cdmf == 'Y' ) call dlloctbf_c
 
   ! Reset the library.
 
@@ -1005,61 +1005,61 @@ recursive integer function isetprm ( cprmnm, ipval ) result ( iret )
   endif
 
   iret = 0
-  if ( cprmnm .eq. 'MAXSS' ) then
+  if ( cprmnm == 'MAXSS' ) then
     maxss = ipval
-  else if ( cprmnm .eq. 'NFILES' ) then
+  else if ( cprmnm == 'NFILES' ) then
     nfiles = ipval
-  else if ( cprmnm .eq. 'MXMSGL' ) then
+  else if ( cprmnm == 'MXMSGL' ) then
     mxmsgl = ipval
-  else if ( cprmnm .eq. 'MXDXTS' ) then
+  else if ( cprmnm == 'MXDXTS' ) then
     mxdxts = ipval
-  else if ( cprmnm .eq. 'MAXMSG' ) then
+  else if ( cprmnm == 'MAXMSG' ) then
     maxmsg = ipval
-  else if ( cprmnm .eq. 'MAXMEM' ) then
+  else if ( cprmnm == 'MAXMEM' ) then
     maxmem = ipval
-  else if ( cprmnm .eq. 'MAXTBA' ) then
+  else if ( cprmnm == 'MAXTBA' ) then
     maxtba = ipval
-  else if ( cprmnm .eq. 'MAXTBB' ) then
+  else if ( cprmnm == 'MAXTBB' ) then
     maxtbb = ipval
-  else if ( cprmnm .eq. 'MAXTBD' ) then
+  else if ( cprmnm == 'MAXTBD' ) then
     maxtbd = ipval
-  else if ( cprmnm .eq. 'MAXJL' ) then
+  else if ( cprmnm == 'MAXJL' ) then
     maxjl = ipval
-  else if ( cprmnm .eq. 'MXCDV' ) then
+  else if ( cprmnm == 'MXCDV' ) then
     mxcdv = ipval
-  else if ( cprmnm .eq. 'MXLCC' ) then
+  else if ( cprmnm == 'MXLCC' ) then
     mxlcc = ipval
-  else if ( cprmnm .eq. 'MXCSB' ) then
+  else if ( cprmnm == 'MXCSB' ) then
     mxcsb = ipval
-  else if ( cprmnm .eq. 'MXMTBB' ) then
+  else if ( cprmnm == 'MXMTBB' ) then
     mxmtbb = ipval
-  else if ( cprmnm .eq. 'MXMTBD' ) then
+  else if ( cprmnm == 'MXMTBD' ) then
     mxmtbd = ipval
-  else if ( cprmnm .eq. 'MXMTBF' ) then
+  else if ( cprmnm == 'MXMTBF' ) then
     mxmtbf = ipval
-  else if ( cprmnm .eq. 'MAXCD' ) then
+  else if ( cprmnm == 'MAXCD' ) then
     maxcd = ipval
-  else if ( cprmnm .eq. 'MXS01V' ) then
+  else if ( cprmnm == 'MXS01V' ) then
     mxs01v = ipval
-  else if ( cprmnm .eq. 'MXBTM' ) then
+  else if ( cprmnm == 'MXBTM' ) then
     mxbtm = ipval
-  else if ( cprmnm .eq. 'MXBTMSE' ) then
+  else if ( cprmnm == 'MXBTMSE' ) then
     mxbtmse = ipval
-  else if ( cprmnm .eq. 'MXTAMC' ) then
+  else if ( cprmnm == 'MXTAMC' ) then
     mxtamc = ipval
-  else if ( cprmnm .eq. 'MXTCO' ) then
+  else if ( cprmnm == 'MXTCO' ) then
     mxtco = ipval
-  else if ( cprmnm .eq. 'MXNRV' ) then
+  else if ( cprmnm == 'MXNRV' ) then
     mxnrv = ipval
-  else if ( cprmnm .eq. 'MXRST' ) then
+  else if ( cprmnm == 'MXRST' ) then
     mxrst = ipval
-  else if ( cprmnm .eq. 'MXH4WLC' ) then
+  else if ( cprmnm == 'MXH4WLC' ) then
     mxh4wlc = ipval
-  else if ( cprmnm .eq. 'MXCNEM' ) then
+  else if ( cprmnm == 'MXCNEM' ) then
     mxcnem = ipval
-  else if ( cprmnm .eq. 'MAXNC' ) then
+  else if ( cprmnm == 'MAXNC' ) then
     maxnc = ipval
-  else if ( cprmnm .eq. 'MXNAF' ) then
+  else if ( cprmnm == 'MXNAF' ) then
     mxnaf = ipval
   else
     iret = -1
@@ -1122,61 +1122,61 @@ integer function igetprm ( cprmnm ) result ( iret )
 
   character*64 errstr
 
-  if ( cprmnm .eq. 'MAXSS' ) then
+  if ( cprmnm == 'MAXSS' ) then
     iret = maxss
-  else if ( cprmnm .eq. 'NFILES' ) then
+  else if ( cprmnm == 'NFILES' ) then
     iret = nfiles
-  else if ( cprmnm .eq. 'MXMSGL' ) then
+  else if ( cprmnm == 'MXMSGL' ) then
     iret = mxmsgl
-  else if ( cprmnm .eq. 'MXDXTS' ) then
+  else if ( cprmnm == 'MXDXTS' ) then
     iret = mxdxts
-  else if ( cprmnm .eq. 'MAXMSG' ) then
+  else if ( cprmnm == 'MAXMSG' ) then
     iret = maxmsg
-  else if ( cprmnm .eq. 'MAXMEM' ) then
+  else if ( cprmnm == 'MAXMEM' ) then
     iret = maxmem
-  else if ( cprmnm .eq. 'MAXTBA' ) then
+  else if ( cprmnm == 'MAXTBA' ) then
     iret = maxtba
-  else if ( cprmnm .eq. 'MAXTBB' ) then
+  else if ( cprmnm == 'MAXTBB' ) then
     iret = maxtbb
-  else if ( cprmnm .eq. 'MAXTBD' ) then
+  else if ( cprmnm == 'MAXTBD' ) then
     iret = maxtbd
-  else if ( cprmnm .eq. 'MAXJL' ) then
+  else if ( cprmnm == 'MAXJL' ) then
     iret = maxjl
-  else if ( cprmnm .eq. 'MXCDV' ) then
+  else if ( cprmnm == 'MXCDV' ) then
     iret = mxcdv
-  else if ( cprmnm .eq. 'MXLCC' ) then
+  else if ( cprmnm == 'MXLCC' ) then
     iret = mxlcc
-  else if ( cprmnm .eq. 'MXCSB' ) then
+  else if ( cprmnm == 'MXCSB' ) then
     iret = mxcsb
-  else if ( cprmnm .eq. 'MXMTBB' ) then
+  else if ( cprmnm == 'MXMTBB' ) then
     iret = mxmtbb
-  else if ( cprmnm .eq. 'MXMTBD' ) then
+  else if ( cprmnm == 'MXMTBD' ) then
     iret = mxmtbd
-  else if ( cprmnm .eq. 'MXMTBF' ) then
+  else if ( cprmnm == 'MXMTBF' ) then
     iret = mxmtbf
-  else if ( cprmnm .eq. 'MAXCD' ) then
+  else if ( cprmnm == 'MAXCD' ) then
     iret = maxcd
-  else if ( cprmnm .eq. 'MXS01V' ) then
+  else if ( cprmnm == 'MXS01V' ) then
     iret = mxs01v
-  else if ( cprmnm .eq. 'MXBTM' ) then
+  else if ( cprmnm == 'MXBTM' ) then
     iret = mxbtm
-  else if ( cprmnm .eq. 'MXBTMSE' ) then
+  else if ( cprmnm == 'MXBTMSE' ) then
     iret = mxbtmse
-  else if ( cprmnm .eq. 'MXTAMC' ) then
+  else if ( cprmnm == 'MXTAMC' ) then
     iret = mxtamc
-  else if ( cprmnm .eq. 'MXTCO' ) then
+  else if ( cprmnm == 'MXTCO' ) then
     iret = mxtco
-  else if ( cprmnm .eq. 'MXNRV' ) then
+  else if ( cprmnm == 'MXNRV' ) then
     iret = mxnrv
-  else if ( cprmnm .eq. 'MXRST' ) then
+  else if ( cprmnm == 'MXRST' ) then
     iret = mxrst
-  else if ( cprmnm .eq. 'MXH4WLC' ) then
+  else if ( cprmnm == 'MXH4WLC' ) then
     iret = mxh4wlc
-  else if ( cprmnm .eq. 'MXCNEM' ) then
+  else if ( cprmnm == 'MXCNEM' ) then
     iret = mxcnem
-  else if ( cprmnm .eq. 'MAXNC' ) then
+  else if ( cprmnm == 'MAXNC' ) then
     iret = maxnc
-  else if ( cprmnm .eq. 'MXNAF' ) then
+  else if ( cprmnm == 'MXNAF' ) then
     iret = mxnaf
   else
     iret = -1

@@ -62,13 +62,13 @@ recursive subroutine readsb(lunit,iret)
   ! Check the file status
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: READSB - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
-  if(il.gt.0) call bort('BUFRLIB: READSB - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
-  if(im.eq.0) return
+  if(il==0) call bort('BUFRLIB: READSB - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il>0) call bort('BUFRLIB: READSB - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(im==0) return
 
   ! See if there is another subset in the message
 
-  if(nsub(lun).eq.msub(lun)) return
+  if(nsub(lun)==msub(lun)) return
   nsub(lun) = nsub(lun) + 1
 
   ! Read the next subset and reset the pointers
@@ -79,22 +79,22 @@ recursive subroutine readsb(lunit,iret)
   iscodes(lun) = 0
   linbtm = .false.
 
-  if(msgunp(lun).eq.0) then
+  if(msgunp(lun)==0) then
     ibit = mbyt(lun)*8
     call upb(nbyt,16,mbay(1,lun),ibit)
     call rdtree(lun,ier)
-    if(ier.ne.0) return
+    if(ier/=0) return
     mbyt(lun) = mbyt(lun) + nbyt
-  elseif(msgunp(lun).eq.1) then
+  elseif(msgunp(lun)==1) then
     ! message with "standard" Section 3
     ibit = mbyt(lun)
     call rdtree(lun,ier)
-    if(ier.ne.0) return
+    if(ier/=0) return
     mbyt(lun) = ibit
   else
     ! compressed message
     call rdcmps(lun)
-    if (iscodes(lun) .ne. 0) return
+    if (iscodes(lun) /= 0) return
   endif
 
   iret = 0
@@ -196,9 +196,9 @@ recursive subroutine readns(lunit,subset,jdate,iret)
   ! Refresh the subset and jdate parameters
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: READNS - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
-  if(il.gt.0) call bort('BUFRLIB: READNS - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
-  if(inode(lun).eq.0) then
+  if(il==0) call bort('BUFRLIB: READNS - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il>0) call bort('BUFRLIB: READNS - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(inode(lun)==0) then
     subset = '        '
   else
     subset = tag(inode(lun))(1:8)
@@ -209,9 +209,9 @@ recursive subroutine readns(lunit,subset,jdate,iret)
 
   do while (.true.)
     call readsb(lunit,iret)
-    if (iret.eq.0) exit
+    if (iret==0) exit
     call readmg(lunit,subset,jdate,iret)
-    if (iret.ne.0) exit
+    if (iret/=0) exit
   enddo
 
   return
@@ -325,14 +325,14 @@ recursive subroutine writsb(lunit)
   ! Check the file status
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: WRITSB - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
-  if(il.lt.0) call bort('BUFRLIB: WRITSB - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
-  if(im.eq.0) call bort('BUFRLIB: WRITSB - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
+  if(il==0) call bort('BUFRLIB: WRITSB - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
+  if(il<0) call bort('BUFRLIB: WRITSB - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
+  if(im==0) call bort('BUFRLIB: WRITSB - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
 
   ! Pack up the subset and put it into the message
 
   call wrtree(lun)
-  if( ccmf.eq.'Y' ) then
+  if( ccmf=='Y' ) then
     call wrcmps(lunit)
   else
     call msgupd(lunit,lun)
@@ -452,18 +452,18 @@ recursive subroutine writsa(lunxx,lmsgt,msgt,msgl)
   ! Check the file status
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: WRITSA - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
-  if(il.lt.0) call bort('BUFRLIB: WRITSA - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
-  if(im.eq.0) call bort('BUFRLIB: WRITSA - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
+  if(il==0) call bort('BUFRLIB: WRITSA - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')
+  if(il<0) call bort('BUFRLIB: WRITSA - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT')
+  if(im==0) call bort('BUFRLIB: WRITSA - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE')
 
   ! If lunxx < 0, force memory msg to be written (w/o any current subset)
 
-  if(lunxx.lt.0) call closmg(lunit)
+  if(lunxx<0) call closmg(lunit)
 
   ! Is there a completed BUFR message to be returned?
 
-  if(msglen(lun).gt.0) then
-    if(msglen(lun).gt.lmsgt) call bort('BUFRLIB: WRITSA - OVERFLOW OF OUTPUT BUFR MESSAGE ARRAY; TRY A LARGER '// &
+  if(msglen(lun)>0) then
+    if(msglen(lun)>lmsgt) call bort('BUFRLIB: WRITSA - OVERFLOW OF OUTPUT BUFR MESSAGE ARRAY; TRY A LARGER '// &
       'DIMENSION FOR THIS ARRAY')
     msgl = msglen(lun)
     do n=1,msgl
@@ -474,12 +474,12 @@ recursive subroutine writsa(lunxx,lmsgt,msgt,msgl)
     msgl = 0
   endif
 
-  if(lunxx.lt.0) return
+  if(lunxx<0) return
 
   ! Pack up the subset and put it into the message
 
   call wrtree(lun)
-  if( ccmf.eq.'Y' ) then
+  if( ccmf=='Y' ) then
     call wrcmps(lunit)
   else
     call msgupd(lunit,lun)
@@ -494,7 +494,7 @@ recursive subroutine writsa(lunxx,lmsgt,msgt,msgl)
   ! two BUFR messages available to be returned from this one call to writsa().  If sufficient space is available in the
   ! msgt array, then go ahead and return both messages now.
 
-  if( (msglen(lun).gt.0) .and. (msgl+msglen(lun).le.lmsgt) ) then
+  if( (msglen(lun)>0) .and. (msgl+msglen(lun)<=lmsgt) ) then
     do n = 1,msglen(lun)
       msgt(msgl+n) = msgtxt(n,lun)
     enddo
@@ -571,7 +571,7 @@ recursive subroutine rdmgsb(lunit,imsg,isub)
 
   do i=1,imsg
     call readmg(lunit,subset,jdate,iret)
-    if(iret.lt.0) then
+    if(iret<0) then
       write(bort_str,'("BUFRLIB: RDMGSB - HIT END OF FILE BEFORE READING REQUESTED MESSAGE NO.",I5," IN '//&
         'BUFR FILE CONNECTED TO UNIT",I4)') imsg,lunit
       call bort(bort_str)
@@ -582,7 +582,7 @@ recursive subroutine rdmgsb(lunit,imsg,isub)
 
   do i=1,isub
     call readsb(lunit,iret)
-    if(iret.lt.0) then
+    if(iret<0) then
       write(bort_str,'("BUFRLIB: RDMGSB - ALL SUBSETS READ BEFORE READING REQ. SUBSET NO.",I3," IN '// &
         'REQ. MSG NO.",I5," IN BUFR FILE CONNECTED TO UNIT",I4)') isub,imsg,lunit
       call bort(bort_str)
@@ -633,7 +633,7 @@ subroutine msgupd(lunit,lun)
 
   ! Check whether the new subset should be written into the currently open message
 
-  if(msgfull(mbyt(lun),ibyt,maxbyt) .or. ((ibyt.gt.65530).and.(nsub(lun).gt.0))) then
+  if(msgfull(mbyt(lun),ibyt,maxbyt) .or. ((ibyt>65530).and.(nsub(lun)>0))) then
     ! No it should not, either because it doesn't fit
     !      OR
     ! It has byte count > 65530 (sufficiently close to the upper limit for the 16 bit byte counter placed at the beginning
@@ -647,7 +647,7 @@ subroutine msgupd(lunit,lun)
   if(msgfull(mbyt(lun),ibyt,maxbyt)) then
     ! This is an overlarge subset that won't fit in any message given the current value of maxbyt, so discard the subset
     ! and exit gracefully.
-    if(iprt.ge.0) then
+    if(iprt>=0) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       write ( unit=errstr, fmt='(A,A,I7,A)') 'BUFRLIB: MSGUPD - SUBSET LONGER THAN ANY POSSIBLE MESSAGE ', &
         '{MAXIMUM MESSAGE LENGTH = ', maxbyt, '}'
@@ -686,7 +686,7 @@ subroutine msgupd(lunit,lun)
 
   ! If any long character strings are being held internally for storage into this subset, store them now
 
-  if(nh4wlc.gt.0) then
+  if(nh4wlc>0) then
     do ii = 1, nh4wlc
       call writlc(luh4wlc(ii),chh4wlc(ii),sth4wlc(ii))
     enddo
@@ -697,8 +697,8 @@ subroutine msgupd(lunit,lun)
   ! message because their beginning would be beyond the upper limit of 65535 in the 16-bit byte counter, meaning they
   ! could not be located!)
 
-  if(ibyt.gt.65530) then
-    if(iprt.ge.1) then
+  if(ibyt>65530) then
+    if(iprt>=1) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       write ( unit=errstr, fmt='(A,I7,A,A)') 'BUFRLIB: MSGUPD - SUBSET HAS BYTE COUNT = ',ibyt,' > UPPER LIMIT OF 65535'
       call errwrt(errstr)
@@ -766,7 +766,7 @@ subroutine pad(ibay,ibit,ibyt,ipadb)
   call pkb(0,ipad,ibay,ibit)
   ibyt = ibit/8
 
-  if(mod(ibit,8).ne.0) then
+  if(mod(ibit,8)/=0) then
     write(bort_str,'("BUFRLIB: PAD - THE NUMBER OF BITS IN A PACKED'// &
       ' SUBSET AFTER PADDING (",I8,") IS NOT A MULTIPLE OF 8")') ibit
     call bort(bort_str)
@@ -830,7 +830,7 @@ recursive integer function lcmgdf(lunit,subset) result(iret)
   ! Get lun from lunit.
 
   call status(lunit,lun,il,im)
-  if (il.eq.0) call bort('BUFRLIB: LCMGDF - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN')
+  if (il==0) call bort('BUFRLIB: LCMGDF - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN')
 
   ! Confirm that subset is defined for this logical unit.
 
@@ -841,7 +841,7 @@ recursive integer function lcmgdf(lunit,subset) result(iret)
   nte = isc(inod)-inod
 
   do i = 1, nte
-    if ( (typ(inod+i).eq.'CHR') .and. (ibt(inod+i).gt.64) ) then
+    if ( (typ(inod+i)=='CHR') .and. (ibt(inod+i)>64) ) then
       iret = 1
       return
     endif
@@ -910,14 +910,14 @@ recursive subroutine ufbpos(lunit,irec,isub,subset,jdate)
   !  Make sure a file is open for input
 
   call status(lunit,lun,il,im)
-  if(il.eq.0) call bort('BUFRLIB: UFBPOS - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
-  if(il.gt.0) call bort('BUFRLIB: UFBPOS - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
+  if(il==0) call bort('BUFRLIB: UFBPOS - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
+  if(il>0) call bort('BUFRLIB: UFBPOS - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT')
 
-  if(irec.le.0) then
+  if(irec<=0) then
     write(bort_str,'("BUFRLIB: UFBPOS - REQUESTED MESSAGE NUMBER TO READ IN (",I5,") IS NOT VALID")') irec
     call bort(bort_str)
   endif
-  if(isub.le.0) then
+  if(isub<=0) then
     write(bort_str,'("BUFRLIB: UFBPOS - REQUESTED SUBSET NUMBER TO READ IN (",I5,") IS NOT VALID")') isub
     call bort(bort_str)
   endif
@@ -928,7 +928,7 @@ recursive subroutine ufbpos(lunit,irec,isub,subset,jdate)
 
   !  Rewind file if requested pointers are behind current pointers
 
-  if(irec.lt.jrec .or. (irec.eq.jrec.and.isub.lt.jsub)) then
+  if(irec<jrec .or. (irec==jrec.and.isub<jsub)) then
     call cewind_c(lun)
     nmsg(lun) = 0
     nsub(lun) = 0
@@ -937,9 +937,9 @@ recursive subroutine ufbpos(lunit,irec,isub,subset,jdate)
 
   ! Read subset #isub from message #irec from file
 
-  do while (irec.gt.jrec)
+  do while (irec>jrec)
     call readmg(lunit,subset,jdate,iret)
-    if(iret.lt.0) then
+    if(iret<0) then
       write(bort_str,'("BUFRLIB: UFBPOS - REQUESTED MESSAGE NUMBER '// &
         'TO READ IN (",I5,") EXCEEDS THE NUMBER OF MESSAGES IN THE FILE (",I5,")")') irec, jrec
       call bort(bort_str)
@@ -947,9 +947,9 @@ recursive subroutine ufbpos(lunit,irec,isub,subset,jdate)
     call ufbcnt(lunit,jrec,jsub)
   enddo
 
-  do while (isub.gt.jsub)
+  do while (isub>jsub)
     call readsb(lunit,iret)
-    if(iret.ne.0) then
+    if(iret/=0) then
       write(bort_str,'("BUFRLIB: UFBPOS - REQ. SUBSET NUMBER TO READ'// &
         ' IN (",I5,") EXCEEDS THE NUMBER OF SUBSETS (",I5,") IN THE REQ. MESSAGE (",I5,")")') isub, jsub, irec
       call bort(bort_str)
@@ -1000,7 +1000,7 @@ subroutine rdtree(lun,iret)
   mbit(1) = ibit
   nbit(1) = 0
   call rcstpl(lun,ier)
-  if(ier.ne.0) then
+  if(ier/=0) then
     iret = -1
     return
   endif
@@ -1015,21 +1015,21 @@ subroutine rdtree(lun,iret)
 
   do n=1,nval(lun)
     node = inv(n,lun)
-    if(itp(node).eq.1) then
+    if(itp(node)==1) then
 
       ! The unpacked value is a delayed descriptor replication factor.
 
       val(n,lun) = ival(n)
-    elseif(itp(node).eq.2) then
+    elseif(itp(node)==2) then
 
       ! The unpacked value is a real.
 
-      if (ival(n).lt.2_8**ibt(node)-1) then
+      if (ival(n)<2_8**ibt(node)-1) then
         val(n,lun) = ups(ival(n),node)
       else
         val(n,lun) = bmiss
       endif
-    elseif(itp(node).eq.3) then
+    elseif(itp(node)==3) then
 
       ! The value is a character string, so unpack it using an equivalenced real*8 value.  Note that a maximum of 8 characters
       ! will be unpacked here, so a separate subsequent call to subroutine readlc() will be needed to fully unpack any string
@@ -1039,7 +1039,7 @@ subroutine rdtree(lun,iret)
       kbit = mbit(n)
       nbt = min(8,nbit(n)/8)
       call upc(cval,nbt,mbay(1,lun),kbit,.true.)
-      if (nbit(n).le.64 .and. icbfms(cval,nbt).ne.0) then
+      if (nbit(n)<=64 .and. icbfms(cval,nbt)/=0) then
         val(n,lun) = bmiss
       else
         val(n,lun) = rval
@@ -1085,10 +1085,10 @@ subroutine wrtree(lun)
 
   do n=1,nval(lun)
     node = inv(n,lun)
-    if(itp(node).eq.1) then
+    if(itp(node)==1) then
       ival(n) = nint(val(n,lun))
-    elseif(typ(node).eq.'NUM') then
-      if( (ibfms(val(n,lun)).eq.1) .or. (val(n,lun).ne.val(n,lun)) ) then
+    elseif(typ(node)=='NUM') then
+      if( (ibfms(val(n,lun))==1) .or. (val(n,lun)/=val(n,lun)) ) then
         ! The user number is either "missing" or NaN.
         ival(n) = -1
       else
@@ -1103,20 +1103,20 @@ subroutine wrtree(lun)
 
   do n=1,nval(lun)
     node = inv(n,lun)
-    if(itp(node).lt.3) then
+    if(itp(node)<3) then
       ! The value to be packed is numeric.
       call pkb8(ival(n),ibt(node),ibay,ibit)
     else
       ! The value to be packed is a character string.
       ncr=ibt(node)/8
-      if ( ncr.gt.8 .and. luncpy(lun).ne.0 ) then
+      if ( ncr>8 .and. luncpy(lun)/=0 ) then
         ! The string is longer than 8 characters and there was a preceeding call to ufbcpy() involving this output unit,
         ! so read the long string with readlc() and then write it into the output buffer using pkc().
         call readlc(luncpy(lun),lstr,tag(node))
         call pkc(lstr,ncr,ibay,ibit)
       else
         rval = val(n,lun)
-        if(ibfms(rval).ne.0) then
+        if(ibfms(rval)/=0) then
           ! The value is "missing", so set all bits to 1 before packing the field as a character string.
           numchr = min(ncr,len(lstr))
           do jj = 1, numchr
@@ -1197,7 +1197,7 @@ subroutine rcstpl(lun,iret)
     ! Set up the parameters for a level of recursion
 
     nr = nr+1
-    if(nr.gt.maxrcr) then
+    if(nr>maxrcr) then
       write(bort_str,'("BUFRLIB: RCSTPL - THE NUMBER OF RECURSION LEVELS EXCEEDS THE LIMIT (",I3,")")') maxrcr
       call bort(bort_str)
     endif
@@ -1206,12 +1206,12 @@ subroutine rcstpl(lun,iret)
 
     n1 = iseq(node,1)
     n2 = iseq(node,2)
-    if(n1.eq.0) then
+    if(n1==0) then
       write(bort_str,'("BUFRLIB: RCSTPL - UNSET EXPANSION SEGMENT ",A)') tag(nodi)
       call bort(bort_str)
     endif
-    if(n2-n1+1.gt.maxjl) THEN
-      if(iprt.ge.0) then
+    if(n2-n1+1>maxjl) then
+      if(iprt>=0) then
         call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
         call errwrt('BUFRLIB: RCSTPL - MAXJL OVERFLOW; SUBSET SKIPPED')
         call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
@@ -1233,11 +1233,11 @@ subroutine rcstpl(lun,iret)
       ! Store nodes at some recursion level
 
       do i=nbmp(1,nr),nbmp(2,nr)
-        if(knx(nr).eq.0) knx(nr) = knvn
-        if(i.gt.nbmp(1,nr)) newn(1,nr) = 1
+        if(knx(nr)==0) knx(nr) = knvn
+        if(i>nbmp(1,nr)) newn(1,nr) = 1
         do j=newn(1,nr),newn(2,nr)
-          if(knvn+1.gt.maxss) then
-            if(iprt.ge.0) then
+          if(knvn+1>maxss) then
+            if(iprt>=0) then
               call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
               call errwrt('BUFRLIB: RCSTPL - MAXSS OVERFLOW; SUBSET SKIPPED')
               call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
@@ -1254,10 +1254,10 @@ subroutine rcstpl(lun,iret)
           ! nbit is the number of bits in mbay occupied by packed subset element knvn
           nrfelm(knvn,lun) = igetrfel(knvn,lun)
           nbit(knvn) = ibt(node)
-          if(tag(node)(1:5).eq.'DPRI ') then
+          if(tag(node)(1:5)=='DPRI ') then
             ! This is a bitmap entry, so get and store the corresponding value
             call upbb(idpri,nbit(knvn),mbit(knvn),mbay(1,lun))
-            if(idpri.eq.0) then
+            if(idpri==0) then
               val(knvn,lun) = 0.0
             else
               val(knvn,lun) = bmiss
@@ -1266,7 +1266,7 @@ subroutine rcstpl(lun,iret)
           endif
           ! Actual unpacked subset values are initialized here
           val(knvn,lun) = vutmp(j,nr)
-          if(itp(node).eq.1) then
+          if(itp(node)==1) then
             call upbb(mbmp,nbit(knvn),mbit(knvn),mbay(1,lun))
             newn(1,nr) = j+1
             nbmp(1,nr) = i
@@ -1280,7 +1280,7 @@ subroutine rcstpl(lun,iret)
 
       ! Check if we need to continue one recursion level back
 
-      if(nr-1 .eq. 0) exit outer
+      if(nr-1 == 0) exit outer
       nr = nr-1
     enddo
 
@@ -1324,7 +1324,7 @@ subroutine usrtpl(lun,invn,nbmp)
 
   common /quiet/ iprt
 
-  if(iprt.ge.2) then
+  if(iprt>=2) then
     call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
     write ( unit=errstr, fmt='(A,I3,A,I7,A,I5,A,A10)' ) &
       'BUFRLIB: USRTPL - LUN:INVN:NBMP:TAG(INODE(LUN)) = ', lun, ':', invn, ':', nbmp, ':', tag(inode(lun))
@@ -1333,8 +1333,8 @@ subroutine usrtpl(lun,invn,nbmp)
     call errwrt(' ')
   endif
 
-  if(nbmp.le.0) then
-    if(iprt.ge.1) then
+  if(nbmp<=0) then
+    if(iprt>=1) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       call errwrt('BUFRLIB: USRTPL - NBMP .LE. 0 - IMMEDIATE RETURN')
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
@@ -1349,27 +1349,27 @@ subroutine usrtpl(lun,invn,nbmp)
 
   ! Set up a node expansion
 
-  if(invn.eq.1) then
+  if(invn==1) then
     ! The node is a Table A mnemonic
     nodi = inode(lun)
     inv(1,lun) = nodi
     nval(lun) = 1
-    if(nbmp.ne.1) then
+    if(nbmp/=1) then
       write(bort_str,'("BUFRLIB: USRTPL - THIRD ARGUMENT (INPUT) = ",'// &
         'I4,", MUST BE 1 WHEN SECOND ARGUMENT (INPUT) IS 1 (SUBSET NODE) (",A,")")') nbmp, tag(nodi)
       call bort(bort_str)
     endif
-  elseif(invn.gt.0 .and. invn.le.nval(lun)) then
+  elseif(invn>0 .and. invn<=nval(lun)) then
     ! The node is (hopefully) a delayed replication factor
     nodi = inv(invn,lun)
-    drp = typ(nodi) .eq. 'DRP'
-    drs = typ(nodi) .eq. 'DRS'
-    drb = typ(nodi) .eq. 'DRB'
+    drp = typ(nodi) == 'DRP'
+    drs = typ(nodi) == 'DRS'
+    drb = typ(nodi) == 'DRB'
     drx = drp .or. drs .or. drb
     ival = nint(val(invn,lun))
     jval = 2**ibt(nodi)-1
     val(invn,lun) = ival+nbmp
-    if(drb.and.nbmp.ne.1) then
+    if(drb.and.nbmp/=1) then
       write(bort_str,'("BUFRLIB: USRTPL - THIRD ARGUMENT (INPUT) = ",'// &
         'I4,", MUST BE 1 WHEN NODE IS DRB (1-BIT DELAYED REPL. FACTOR) (",A,")")') nbmp, tag(nodi)
       call bort(bort_str)
@@ -1379,11 +1379,11 @@ subroutine usrtpl(lun,invn,nbmp)
         'MUST BE EITHER A SUBSET OR DELAYED REPL. FACTOR (",A,")")') typ(nodi), tag(nodi)
       call bort(bort_str)
     endif
-    if(ival.lt.0) then
+    if(ival<0) then
       write(bort_str,'("BUFRLIB: USRTPL - REPLICATION FACTOR IS NEGATIVE (=",I5,") (",A,")")') ival, tag(nodi)
       call bort(bort_str)
     endif
-    if(ival+nbmp.gt.jval) then
+    if(ival+nbmp>jval) then
       write(bort_str,'("BUFRLIB: USRTPL - REPLICATION FACTOR OVERFLOW (EXCEEDS MAXIMUM OF",I6," (",A,")")') jval, tag(nodi)
       call errwrt(bort_str)
       iscodes(lun) = 1
@@ -1401,11 +1401,11 @@ subroutine usrtpl(lun,invn,nbmp)
   n1 = iseq(nodi,1)
   n2 = iseq(nodi,2)
 
-  if(n1.eq.0) then
+  if(n1==0) then
     write(bort_str,'("BUFRLIB: USRTPL - UNSET EXPANSION SEGMENT (",A,")")') tag(nodi)
     call bort(bort_str)
   endif
-  if(n2-n1+1.gt.maxjl) then
+  if(n2-n1+1>maxjl) then
     write(bort_str,'("BUFRLIB: USRTPL - TEMPLATE ARRAY OVERFLOW, EXCEEDS THE LIMIT (",I6,") (",A,")")') maxjl, tag(nodi)
     call bort(bort_str)
   endif
@@ -1418,7 +1418,7 @@ subroutine usrtpl(lun,invn,nbmp)
 
   ! Move old nodes and store new ones
 
-  if(nval(lun)+newn*nbmp.gt.maxss) then
+  if(nval(lun)+newn*nbmp>maxss) then
     write(bort_str,'("BUFRLIB: USRTPL - INVENTORY OVERFLOW (",I6,"), EXCEEDS THE LIMIT (",I6,") (",A,")")') &
       nval(lun)+newn*nbmp, maxss, tag(nodi)
     call bort(bort_str)
@@ -1444,7 +1444,7 @@ subroutine usrtpl(lun,invn,nbmp)
 
   nval(lun) = nval(lun) + newn*nbmp
 
-  if(iprt.ge.2) then
+  if(iprt>=2) then
     call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
     write ( unit=errstr, fmt='(A,A,A10,2(A,I5),A,I7)' ) 'BUFRLIB: USRTPL - TAG(INV(INVN,LUN)):NEWN:NBMP:', &
       'NVAL(LUN) = ', tag(inv(invn,lun)), ':', newn, ':', nbmp, ':', nval(lun)
@@ -1462,10 +1462,10 @@ subroutine usrtpl(lun,invn,nbmp)
     invr = invn
     outer: do while (.true.)
       node = jmpb(node)
-      if(node.le.0) exit
-      if(itp(node).eq.0) then
+      if(node<=0) exit
+      if(itp(node)==0) then
         do invr=invr-1,1,-1
-          if(inv(invr,lun).eq.node) then
+          if(inv(invr,lun)==node) then
             val(invr,lun) = val(invr,lun)+newn*nbmp
             cycle outer
           endif
@@ -1534,27 +1534,27 @@ recursive subroutine invmrg(lubfi,lubfj)
 
   ! Step through the buffers comparing the inventory and merging data
 
-  do while(is.le.nval(luni))
+  do while(is<=nval(luni))
     ! Confirm we're at the same node in each buffer
     node = inv(is,luni)
     nodj = inv(js,lunj)
-    if(node.ne.nodj) then
+    if(node/=nodj) then
       write(bort_str,'("BUFRLIB: INVMRG - NODE FROM INPUT BUFR FILE '// &
         '(",I7,") DOES NOT EQUAL NODE FROM OUTPUT BUFR FILE (",I7,"), TABULAR MISMATCH")') node, nodj
       call bort(bort_str)
     endif
 
     ityp = itp(node)
-    if(ityp.eq.1) then
+    if(ityp==1) then
       ! Do an entire sequence replacement
-      if(typ(node).eq.'DRB') then
+      if(typ(node)=='DRB') then
         ioff = 0
       else
         ioff = 1
       endif
       iwrds = nwords(is,luni)+ioff
       jwrds = nwords(js,lunj)+ioff
-      if(iwrds.gt.ioff .and. jwrds.eq.ioff) then
+      if(iwrds>ioff .and. jwrds==ioff) then
         do n=nval(lunj),js+1,-1
           inv(n+iwrds-jwrds,lunj) = inv(n,lunj)
           val(n+iwrds-jwrds,lunj) = val(n,lunj)
@@ -1569,13 +1569,13 @@ recursive subroutine invmrg(lubfi,lubfj)
       endif
       is = is+iwrds
       js = js+jwrds
-    elseif((ityp.eq.2).or.(ityp.eq.3)) then
+    elseif((ityp==2).or.(ityp==3)) then
       ! Fill missing values
-      herei = ibfms(val(is,luni)).eq.0
-      herej = ibfms(val(js,lunj)).eq.0
+      herei = ibfms(val(is,luni))==0
+      herej = ibfms(val(js,lunj))==0
       missi = .not.(herei)
       missj = .not.(herej)
-      samei = val(is,luni).eq.val(js,lunj)
+      samei = val(is,luni)==val(js,lunj)
       if(herei.and.missj) then
         val(js,lunj) = val(is,luni)
         nmrg = nmrg+1

@@ -4,7 +4,7 @@
 !> @author J. Ator @date 2024-02-29
 
 !> Convert an FXY value from its WMO bit-wise representation to a character string of length 5 or 6.
-!>      
+!>
 !> For an description of the WMO bit-wise representation of the FXY value, see ifxy().
 !>
 !> This function is the logical inverse of function idn30().
@@ -27,12 +27,12 @@ function adn30(idn,ldn)
   character*(*) adn30
   character*128 bort_str
 
-  if(len(adn30).lt.ldn) call bort('BUFRLIB: ADN30 - FUNCTION RETURN STRING TOO SHORT') 
-  if(idn.lt.0 .or. idn.gt.65535) call bort('BUFRLIB: ADN30 - INTEGER REPRESENTATION OF DESCRIPTOR OUT OF 16-BIT RANGE')
+  if(len(adn30)<ldn) call bort('BUFRLIB: ADN30 - FUNCTION RETURN STRING TOO SHORT')
+  if(idn<0 .or. idn>65535) call bort('BUFRLIB: ADN30 - INTEGER REPRESENTATION OF DESCRIPTOR OUT OF 16-BIT RANGE')
 
-  if(ldn.eq.5) then
+  if(ldn==5) then
     write(adn30,'(i5)') idn
-  elseif(ldn.eq.6) then
+  elseif(ldn==6) then
     idf = ishft(idn,-14)
     idx = ishft(ishft(idn,nbitw-14),-(nbitw-6))
     idy = ishft(ishft(idn,nbitw- 8),-(nbitw-8))
@@ -43,7 +43,7 @@ function adn30(idn,ldn)
   endif
 
   do i=1,ldn
-    if(adn30(i:i).eq.' ') adn30(i:i) = '0'
+    if(adn30(i:i)==' ') adn30(i:i) = '0'
   enddo
 
   return
@@ -99,20 +99,20 @@ integer function idn30(adn,ldn) result(iret)
 
   integer ifxy
 
-  if(len(adn).lt.ldn) then
+  if(len(adn)<ldn) then
     write(bort_str,'("BUFRLIB: IDN30 - FUNCTION INPUT STRING ",A," CHARACTER LENGTH (",I4,") IS TOO SHORT (< LDN,",I5)') &
           adn, len(adn), ldn
     call bort(bort_str)
   endif
 
-  if(ldn.eq.5) then
+  if(ldn==5) then
     read(adn,'(i5)') iret
-    if(iret.lt.0 .or. iret.gt.65535) then
+    if(iret<0 .or. iret>65535) then
       write(bort_str, &
         '("BUFRLIB: IDN30 - DESCRIPTOR INTEGER REPRESENTATION, IDN30 (",I8,"), IS OUTSIDE 16-BIT RANGE (0-65535)")') iret
       call bort(bort_str)
     endif
-  elseif(ldn.eq.6) then
+  elseif(ldn==6) then
     iret = ifxy(adn)
   else
     write(bort_str,'("BUFRLIB: IDN30 - FUNCTION INPUT STRING ",A," CHARACTER LENGTH (",I4,") MUST BE EITHER 5 OR 6")') &
@@ -190,21 +190,21 @@ integer function igetfxy ( str, cfxy ) result ( iret )
   iret = -1
 
   lstr = len ( str )
-  if ( lstr .lt. 6 ) return
+  if ( lstr < 6 ) return
 
   ! Left-justify a copy of the input string.
 
-  if ( lstr .gt. lstr2 ) then
+  if ( lstr > lstr2 ) then
     str2(1:lstr2) = str(1:lstr2)
   else
     str2 = str
   endif
   str2 = adjustl ( str2 )
-  if ( str2 .eq. ' ' ) return
+  if ( str2 == ' ' ) return
 
   ! Look for an FXY number.
 
-  if ( index ( str2, '-' ) .ne. 0 ) then
+  if ( index ( str2, '-' ) /= 0 ) then
     ! Format of field is F-XX-YYY.
     cfxy(1:1) = str2(1:1)
     cfxy(2:3) = str2(3:4)
@@ -216,7 +216,7 @@ integer function igetfxy ( str, cfxy ) result ( iret )
 
   ! Check that the FXY number is valid.
 
-  if ( numbck ( cfxy ) .eq. 0 ) iret = 0
+  if ( numbck ( cfxy ) == 0 ) iret = 0
 
   return
 end function igetfxy
@@ -257,10 +257,10 @@ integer function numbck(numb) result(iret)
     return
   endif
 
-  if(ix.lt.0 .or. ix.gt. 63) then
+  if(ix<0 .or. ix> 63) then
     iret = -3
     return
-  else if(iy.lt.0 .or. iy.gt.255) then
+  else if(iy<0 .or. iy>255) then
     iret = -4
     return
   endif
@@ -303,10 +303,10 @@ subroutine numtbd(lun,idn,nemo,tab,iret)
   iret = 0
   tab = ' '
 
-  if(idn.ge.ifxy('300000')) then
+  if(idn>=ifxy('300000')) then
     ! Look for idn in Table D
     do i=1,ntbd(lun)
-      if(idn.eq.idnd(i,lun)) then
+      if(idn==idnd(i,lun)) then
         nemo = tabd(i,lun)(7:14)
         tab  = 'D'
         iret = i
@@ -316,7 +316,7 @@ subroutine numtbd(lun,idn,nemo,tab,iret)
   else
     ! Look for idn in Table B
     do i=1,ntbb(lun)
-      if(idn.eq.idnb(i,lun)) then
+      if(idn==idnb(i,lun)) then
         nemo = tabb(i,lun)(7:14)
         tab  = 'B'
         iret = i
@@ -373,7 +373,7 @@ subroutine numtab(lun,idn,nemo,tab,iret)
 
   ! Look for a replicator or a replication factor descriptor
 
-  if(idn.ge.idnr(1) .and. idn.le.idnr(6)) then
+  if(idn>=idnr(1) .and. idn<=idnr(6)) then
     ! Note that the above test is checking whether idn is the bit-wise representation of a FXY (descriptor) value
     ! denoting F=1 regular (i.e. non-delayed) replication, since, as was initialized within subroutine bfrini(),
     ! idnr(1) = ifxy('101000'), and idnr(6) = ifxy('101255').
@@ -383,11 +383,11 @@ subroutine numtab(lun,idn,nemo,tab,iret)
   endif
 
   do i=2,5
-    if(idn.eq.idnr(i)) then
+    if(idn==idnr(i)) then
       tab = 'R'
       iret = i
       return
-    elseif(idn.eq.idnr(i+5)) then
+    elseif(idn==idnr(i+5)) then
       tab = 'F'
       iret = i
       return
@@ -397,12 +397,12 @@ subroutine numtab(lun,idn,nemo,tab,iret)
   ! Look for idn in Table B and Table D
 
   call numtbd(lun,idn,nemo,tab,iret)
-  if(iret.ne.0) return
+  if(iret/=0) return
 
   ! Look for idn in Table C
 
   cid = adn30(idn,6)
-  if (iokoper(cid).eq.1) then
+  if (iokoper(cid)==1) then
     nemo = cid(1:6)
     read(nemo,'(1X,I2)') iret
     tab = 'C'
@@ -444,7 +444,7 @@ subroutine nemtab(lun,nemo,idn,tab,iret)
 
   logical folval
 
-  folval = nemo(1:1).eq.'.'
+  folval = nemo(1:1)=='.'
   iret = 0
   tab = ' '
 
@@ -452,14 +452,14 @@ subroutine nemtab(lun,nemo,idn,tab,iret)
 
   outer: do i=1,ntbb(lun)
     nemt = tabb(i,lun)(7:14)
-    if(nemt.eq.nemo) then
+    if(nemt==nemo) then
       idn = idnb(i,lun)
       tab = 'B'
       iret = i
       return
-    elseif(folval.and.nemt(1:1).eq.'.') then
+    elseif(folval.and.nemt(1:1)=='.') then
       do j=2,len(nemt)
-        if(nemt(j:j).ne.'.' .and. nemt(j:j).ne.nemo(j:j)) cycle outer
+        if(nemt(j:j)/='.' .and. nemt(j:j)/=nemo(j:j)) cycle outer
       enddo
       idn = idnb(i,lun)
       tab = 'B'
@@ -476,7 +476,7 @@ subroutine nemtab(lun,nemo,idn,tab,iret)
 
   do i=1,ntbd(lun)
     nemt = tabd(i,lun)(7:14)
-    if(nemt.eq.nemo) then
+    if(nemt==nemo) then
       idn = idnd(i,lun)
       tab = 'D'
       iret = i
@@ -486,7 +486,7 @@ subroutine nemtab(lun,nemo,idn,tab,iret)
 
   ! If still nothing, check for Table C operator descriptors
 
-  if (iokoper(nemo).eq.1) then
+  if (iokoper(nemo)==1) then
     read(nemo,'(1X,I2)') iret
     idn = ifxy(nemo)
     tab = 'C'
