@@ -46,14 +46,16 @@ if(ENABLE_DOCS)
   add_dependencies(python_docs doc python_mod)
 endif()
 
-# Add tests
-set(pytest_list checkpoint gps misc prepbufr rad satwnd write)
-foreach(pytestname ${pytest_list})
-  add_test(
-    NAME test_pyncepbufr_${pytestname}
-    COMMAND
-      ${CMAKE_COMMAND} -E env PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{PYTHONPATH}
-      ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_${pytestname}.py
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles
-  )
-endforeach()
+if(BUILD_TESTING)
+  # Add tests
+  set(pytest_list checkpoint gps misc prepbufr rad satwnd write)
+  foreach(pytestname ${pytest_list})
+    add_test(
+      NAME test_pyncepbufr_${pytestname}
+      COMMAND
+        ${CMAKE_COMMAND} -E env PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{PYTHONPATH}
+        ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_${pytestname}.py
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test/testfiles
+    )
+  endforeach()
+endif()
