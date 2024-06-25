@@ -14,6 +14,8 @@ project(
 option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
 option(ENABLE_PYTHON "Enable building python module 'ncepbufr'" OFF)
 option(BUILD_SHARED_LIBS "Enable building shared libraries" OFF)
+option(BUILD_UTILS "Enable building utilities" ON)
+option(BUILD_TESTING "Enable automated testing" ON)
 
 # Developers can use this option to specify a local directory which
 # holds the test files. They will be copied instead of fetching the
@@ -105,7 +107,10 @@ elseif(CMAKE_Fortran_COMPILER_ID MATCHES "^(GNU)$")
 endif()
 
 add_subdirectory(src)
-add_subdirectory(utils)
+
+if(BUILD_UTILS)
+  add_subdirectory(utils)
+endif()
 
 if(ENABLE_PYTHON)
   add_subdirectory(python)
@@ -114,8 +119,8 @@ endif()
 add_subdirectory(tables)
 
 # Turn on unit testing.
-include(CTest)
 if(BUILD_TESTING)
+  include(CTest)
   add_subdirectory(test)
 endif()
 

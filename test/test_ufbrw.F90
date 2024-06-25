@@ -5,13 +5,15 @@
 ! testfile and test various user defined options available through subroutine
 ! ufbint which is the driver of ufbrw.
 !
-! J Woollen  4/14/23  
+! Adding additional testing in ufbrw
+!
+! J Woollen  4/14/23
 
       program test_ufbrw
 
-      character(255)file     
+      character(255)file
       character(55) brr(56),line,str1,str2
-      character(20) cond    
+      character(20) cond
       character(8)  subset
       real(8)       arr(10,255)
 
@@ -104,7 +106,9 @@
 
       do while(ireadmg(20,subset,idate)==0)
         do while(ireadsb(20)==0)
+          if(i==1) call openbf(20,'QUIET',3)
           call ufbint(20,arr,10,255,irt,cond//' POB QOB TOB UOB VOB')
+          if(i==1) call openbf(20,'QUIET',0)
           if(irt>0) write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
         enddo
       enddo
@@ -120,7 +124,7 @@
 
       call openbf(20,'IN ',20)
       call openbf(50,'OUT',20)
-      
+
       write(55,*);write(55,*)'read/write from unit 20'
 
       do while(ireadmg(20,subset,idate)==0)
@@ -128,6 +132,7 @@
           call ufbint(20,arr,10,255,irt,'POB QOB TOB UOB VOB')
           write(55,'(5(1x,f8.2))')arr(1:5,1:irt)
           call openmb(50,subset,idate)
+          call ufbint(50,arr,10,irt,jrt,'POB QOB TOB UOB VOB')
           call ufbint(50,arr,10,irt,jrt,'POB QOB TOB UOB VOB')
           call writsb(50)
         enddo
@@ -137,7 +142,7 @@
 
       call closbf(50)
       open(50,file='ufbrw_bufr_out',form='unformatted')
-      call openbf(50,'IN',50) 
+      call openbf(50,'IN',50)
 
       write(55,*);write(55,*)'read/write from unit 50'
 
@@ -155,16 +160,16 @@
 
 ! verify the testfile contents against output stored in brr array strings
 
-      do n=1,56     
+      do n=1,56
         read(55,'(a55)',iostat=iret) line
         call strsuc(line  ,str1,len1)
         call strsuc(brr(n),str2,len2)
         if(n<=55.and.iret==0.and.str1/=str2) then
-          print*,"str1:",str1  
-          print*,"str2:",str2 
-          stop n  
+          print*,"str1:",str1
+          print*,"str2:",str2
+          stop 98
         elseif(n>55.and.iret==0) then
-          stop n  
+          stop 99
         endif
       enddo
 
@@ -172,4 +177,3 @@
 
       print*,'success'
       end program
-

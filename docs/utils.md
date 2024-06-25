@@ -16,6 +16,7 @@ operate on BUFR files.
 | [gettab](#gettab) | Print embedded DX BUFR tables from within a BUFR file |
 | [split_by_subset](#split) | Split a BUFR file into separate BUFR files for each subset type |
 | [xbfmg](#xbfmg) | Split a BUFR file into separate BUFR files for each message |
+| [apxdx](#apxdx) | Append a DX BUFR table to a BUFR file |
 
 <br>
 
@@ -87,7 +88,7 @@ Usage:
        bufrfile  [path/]name of BUFR file to be decoded
 </pre>
 
-See the source code at debufr.c and debufr.f
+See the source code at debufr.c and debufr.F90
 
 </div>
 
@@ -122,7 +123,7 @@ A utility to read prepbufr files which prints each report one at a time, or jump
  Optional arguments will be applied in concert in most cases
 </pre>
 
-See the source code at readbp.f90
+See the source code at readbp.F90
 
 Sample output for:  `readbp gdas.20200812/00/gdas.t00z.prepbufr'`
 
@@ -168,7 +169,7 @@ DATA:
 
 A utility to read any BUFR file with embedded DX tables, and print the contents of each subset one at a time.
 
-See the source code at readmp.f90
+See the source code at readmp.F90
 
 Sample output for: `readmp gdas.20200812/00/gdas.t00z.sfcshp.tm00.bufr_d`
 
@@ -259,7 +260,7 @@ Sample output for: `readmp gdas.20200812/00/gdas.t00z.sfcshp.tm00.bufr_d`
 
 A utility to print a BUFR file inventory by message type.
 
-See the source code at binv.f90
+See the source code at binv.F90
 
 Sample output for: `binv gdas.20200812/00/gdas.t00z.prepbufr`
 
@@ -293,7 +294,7 @@ TOTAL           6823        774888      67232740
 
 Utility to print an inventory of satellite data by platform and instrument type.
 
-See the source code at sinv.f90
+See the source code at sinv.F90
 
 Sample output for: `sinv gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
 ~~~
@@ -342,7 +343,7 @@ An inventory of prepbufr observations by variable, report type, and quality mark
 |cka |  a non-missing value with a missing quality mark|
 |ckb |  a missing value with a non-missing quality mark|
 
-See the source code at cmpbqm.f90
+See the source code at cmpbqm.F90
 
 Sample output for: `cmpbqm gdas.20200811/00/gdas.t00z.prepbufr`
 ~~~
@@ -493,7 +494,7 @@ typ   tot    0-3    4-7      8      9    10     11    12    13    14    15    ck
 
 A utility to read any BUFR file with embedded DX tables, and print the table.
 
-See the source code at gettab.f90
+See the source code at gettab.F90
 
 Sample output for: `gettab gdas.20200812/00/gdas.t00z.adpsfc.tm00.bufr_d`
 
@@ -556,7 +557,7 @@ Sample output for: `gettab gdas.20200812/00/gdas.t00z.adpsfc.tm00.bufr_d`
 A utility to read any BUFR file and split it into separate BUFR files based on message subset type.
 To preview which files will be produced (one for each m/s type) use binv (documented above).
 
-See the source code at split_by_subset.f90
+See the source code at split_by_subset.F90
 
 Usage: `split_by_subset gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
 
@@ -612,3 +613,29 @@ See the source code at xbfmg.c
 </div>
 
 <br>
+
+---
+
+<div id="apxdx">
+
+## apxdx
+
+This program generates BUFR messages corresponding to a given DX BUFR table and appends them
+to a given BUFR file.
+
+<pre>
+Usage:
+
+   apxdx BUFRfile DXtable
+
+     where:
+
+       BUFRfile  [path/]name of BUFR file, to which BUFR messages corresponding to DXtable are
+                 to be appended
+
+       DXtable   [path/]name of DX BUFR table
+</pre>
+
+See the source code at apxdx.F90
+
+</div>

@@ -8,7 +8,9 @@ list(APPEND test_kinds 4 8 d)
 
 # Fetch test data from: https://ftp.emc.ncep.noaa.gov/static_files/public
 set(BUFR_URL "https://ftp.emc.ncep.noaa.gov/static_files/public")
-if(${PROJECT_VERSION} VERSION_GREATER_EQUAL 11.6.0)
+if(${PROJECT_VERSION} VERSION_GREATER_EQUAL 12.1.0)
+  set(BUFR_TAR "bufr-12.1.0.tgz")
+elseif(${PROJECT_VERSION} VERSION_GREATER_EQUAL 11.6.0)
   set(BUFR_TAR "bufr-11.6.0.tgz")
 else()
   set(BUFR_TAR "bufr.tar")
@@ -127,18 +129,21 @@ create_c_test_plain(test_c_crwbmg)
 # Install testing scripts
 list(APPEND test_scripts
   test_outtest.sh
-  test_gettab.sh
-  test_binv.sh
-  test_sinv.sh
-  test_readbp.sh
-  test_readmp.sh
-  test_cmpbqm.sh
-  test_split_by_subset.sh
-  test_debufr.sh
-  test_xbfmg.sh
 )
-
-# Run the test scripts for the utils.
+if(BUILD_UTILS)
+  list(APPEND test_scripts
+    test_gettab.sh
+    test_binv.sh
+    test_sinv.sh
+    test_readbp.sh
+    test_readmp.sh
+    test_cmpbqm.sh
+    test_split_by_subset.sh
+    test_debufr.sh
+    test_xbfmg.sh
+    test_apxdx.sh
+  )
+endif()
 foreach(test_script ${test_scripts})
   execute_process( COMMAND ${CMAKE_COMMAND} -E copy
     ${CMAKE_CURRENT_SOURCE_DIR}/test_scripts/${test_script}
@@ -153,7 +158,7 @@ foreach(kind ${test_kinds})
   foreach(innum RANGE 1 12)
     create_test(intest ${kind} ${innum})
   endforeach()
-  foreach(outnum RANGE 1 10)
+  foreach(outnum RANGE 1 11)
     create_test(outtest ${kind} ${outnum})
   endforeach()
 endforeach()
@@ -176,21 +181,22 @@ foreach(test_src ${test_c_interface_srcs})
   add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/test/${test_exe})
 endforeach()
 
-# These are the utilities to be tested.
-list(APPEND utils
-  debufr
-  gettab
-  sinv
-  binv
-  split_by_subset
-  readbp
-  readmp
-  cmpbqm
-  xbfmg
-)
-
-# utility tests
-foreach(util ${utils})
-  set(test test_${util})
-  add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/bin/${test}.sh)
-endforeach()
+if(BUILD_UTILS)
+  # These are the utilities to be tested
+  list(APPEND utils
+    debufr
+    gettab
+    sinv
+    binv
+    split_by_subset
+    readbp
+    readmp
+    cmpbqm
+    xbfmg
+    apxdx
+  )
+  foreach(util ${utils})
+    set(test test_${util})
+    add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/bin/${test}.sh)
+  endforeach()
+endif()

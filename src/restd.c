@@ -7,6 +7,43 @@
 #include "bufrlib.h"
 
 /**
+ * Maintain an array of descriptors.
+ *
+ * Given the WMO bit-wise representation of a descriptor,
+ * this routine adds it to an ongoing array of descriptors, after
+ * first making sure that there is enough room in the array.
+ *
+ * If an array overflow occurs, then an appropriate error message
+ * will be written via bort().
+ *
+ * @param desc - WMO bit-wise representation of descriptor to be written into descary
+ * @param descary - Array of descriptors
+ * @param ndescary - Number of descriptors written so far into descary
+ * @param mxdescary - Maximum number of descriptors that can be written into descary
+ *
+ * @author J. Ator @date 2004-08-18
+ */
+void
+wrdesc(int desc, int *descary, int *ndescary, int mxdescary)
+{
+    char errstr[129];
+
+/*
+**  Is there room in descary for desc?
+*/
+    if ( ( *ndescary + 1 ) < mxdescary ) {
+        descary[(*ndescary)++] = desc;
+    }
+    else {
+        sprintf(errstr, "BUFRLIB: WRDESC - EXPANDED SECTION 3 CONTAINS"
+                        " MORE THAN %d DESCRIPTORS", mxdescary);
+        bort_f(errstr);
+    }
+
+    return;
+}
+
+/**
  * Standardize a local Table D descriptor.
  *
  * Given the bit-wise (integer) representation of a local (not
@@ -24,13 +61,10 @@
  * in order to interpret the same data values as were represented by
  * the input local Table D descriptor.
  *
- * @param lun - File ID.
- * @param tddesc - WMO bit-wise representation of FXY value for local Table
- * D descriptor.
- * @param nctddesc - Number of WMO-standard child descriptors returned
- * in ctddesc.
- * @param ctddesc - Array of WMO-standard child descriptors equivalent
- * to tddesc.
+ * @param lun - File ID
+ * @param tddesc - WMO bit-wise representation of FXY value for local Table D descriptor
+ * @param nctddesc - Number of WMO-standard child descriptors returned in ctddesc
+ * @param ctddesc - Array of WMO-standard child descriptors equivalent to tddesc
  *
  * @author J. Ator @date 2004-08-18
 */
@@ -38,17 +72,18 @@
 void
 restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
 {
-    int desc, ncdesc, cdesc[MAXNC];
+    int maxnc, desc, ncdesc, *cdesc;
     int i, j, inum, itbd, ictbd;
     int iscl, iref, ibit;
 
     char tab, nemo[NEMO_STR_LEN+1], adn[FXY_STR_LEN+1], cunit[UNIT_STR_LEN+1], cwork[31];
-
 /*
 **  How many child descriptors does tddesc have?
 */
     numtbd_f(lun, tddesc, nemo, NEMO_STR_LEN+1, &tab, &itbd);
     uptdd_f(itbd, lun, 0, &inum);
+
+    maxnc = igetprm_f("MAXNC");
 
     *nctddesc = 0;
 /*
@@ -66,6 +101,8 @@ restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
 **              desc is itself a local Table D descriptor, so resolve
 **              it now via a recursive call to this same routine.
 */
+                if (!(cdesc = malloc(maxnc * sizeof(int)))) bort_f("RESTD FAILED ALLOCATING");
+
                 restd(lun, desc, &ncdesc, cdesc);
 
                 if ( ( *nctddesc > 0 ) &&
@@ -99,11 +136,12 @@ restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
 **              Add the child descriptors to the output list.
 */
                 for ( j = 0; j < ncdesc; j++ ) {
-                    wrdesc(cdesc[j], ctddesc, nctddesc);
+                    wrdesc(cdesc[j], ctddesc, nctddesc, maxnc);
                 }
 
+                free(cdesc);
             }
-            else if ( tab == 'B' ) {
+            else {
 /*
 **              desc is a local Table B descriptor, so precede it with
 **              a 206YYY operator in the output list.
@@ -111,8 +149,8 @@ restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
                 nemtbb_f(lun, ictbd, cunit, UNIT_STR_LEN+1, &iscl, &iref, &ibit);
                 sprintf(cwork, "%c%c%c%03d", '2', '0', '6', ibit);
                 strncpy(adn, cwork, 6); adn[6] = '\0';
-                wrdesc(ifxy_f(adn), ctddesc, nctddesc);
-                wrdesc(desc, ctddesc, nctddesc);
+                wrdesc(ifxy_f(adn), ctddesc, nctddesc, maxnc);
+                wrdesc(desc, ctddesc, nctddesc, maxnc);
             }
         }
         else {
@@ -120,7 +158,7 @@ restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
 **          desc is a standard Table B, Table D, operator or replicator
 **          descriptor, so append it "as is" to the output list.
 */
-            wrdesc(desc, ctddesc, nctddesc);
+            wrdesc(desc, ctddesc, nctddesc, maxnc);
         }
     }
 

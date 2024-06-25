@@ -55,7 +55,7 @@
 
 !  check for filename argument
 
-      narg=iargc()
+      narg=command_argument_count()
 1     if(narg<1) THEN
         call printx('                                                                                                        ')
         call printx('Usage: readbp <-s> <-w> <m> <-k> <-r> <-d> <-n> <-h>  prep bufrfile                                     ')
@@ -82,22 +82,22 @@
 
       iarg=1
       do while(iarg<=narg)
-      call getarg(iarg,file)
+      call get_command_argument(iarg,file)
       if(file(1:1)=='-') then
          if(file(2:2)=='s') then
-           iarg=iarg+1; call getarg(iarg,sta); nsta=len(trim(sta))
+           iarg=iarg+1; call get_command_argument(iarg,sta); nsta=len(trim(sta))
          elseif(file(2:2)=='w') then
-           iarg=iarg+1; call getarg(iarg,val); read(val,*)x1
-           iarg=iarg+1; call getarg(iarg,val); read(val,*)x2
-           iarg=iarg+1; call getarg(iarg,val); read(val,*)y1
-           iarg=iarg+1; call getarg(iarg,val); read(val,*)y2
+           iarg=iarg+1; call get_command_argument(iarg,val); read(val,*)x1
+           iarg=iarg+1; call get_command_argument(iarg,val); read(val,*)x2
+           iarg=iarg+1; call get_command_argument(iarg,val); read(val,*)y1
+           iarg=iarg+1; call get_command_argument(iarg,val); read(val,*)y2
            window=.true.
          elseif(file(2:2)=='k') then
-           iarg=iarg+1; call getarg(iarg,val); read(val,*)ikx
+           iarg=iarg+1; call get_command_argument(iarg,val); read(val,*)ikx
          elseif(file(2:2)=='r') then
-           iarg=iarg+1; call getarg(iarg,val); read(val,*)irt
+           iarg=iarg+1; call get_command_argument(iarg,val); read(val,*)irt
          elseif(file(2:2)=='m') then
-           iarg=iarg+1; call getarg(iarg,val); msg=val(1:8)
+           iarg=iarg+1; call get_command_argument(iarg,val); msg=val(1:8)
          elseif(file(2:2)=='d') then
            iarg=iarg+1; dump=.true.
          elseif(file(2:2)=='h') then
@@ -138,7 +138,7 @@
       do while(ireadsb(lubfr)==0)
       call ufbcnt(lubfr,irec,isub)
 
-      IF(msg.ne.' ' .and. msg.ne.subset) exit
+      IF(msg/=' ' .and. msg/=subset) exit
 
       if(dump) then
          call ufdump(lubfr,6)
@@ -154,23 +154,23 @@
       jrt = nint(hdr(6))
       jtp = nint(hdr(7))
       jkx = nint(hdr(8))
-      IF(STA.NE.' ' .AND. STA.NE.SID(1:nsta)) cycle
-      IF(irt.ne.0   .and. irt.ne.jrt) cycle
-      IF(itp.ne.0   .and. itp.ne.jtp) cycle
-      IF(ikx.ne.0   .and. ikx.ne.jkx) cycle
+      IF(STA/=' ' .AND. STA/=SID(1:nsta)) cycle
+      IF(irt/=0   .and. irt/=jrt) cycle
+      IF(itp/=0   .and. itp/=jtp) cycle
+      IF(ikx/=0   .and. ikx/=jkx) cycle
       if(window) then
-         if(.not.(xob.ge.x1 .and. xob.le.x2))cycle
-         if(.not.(yob.ge.y1 .and. yob.le.y2))cycle
+         if(.not.(xob>=x1 .and. xob<=x2))cycle
+         if(.not.(yob>=y1 .and. yob<=y2))cycle
       endif
 
       CALL UFBINT(LUBFR,OBS,10,255,NLEV,OSTR)
       CALL UFBINT(LUBFR,QMS,10,255,NLEQ,QSTR)
-      IF(NLEV.NE.NLEQ) STOP 'NLEV<>NLEQ'
+      IF(NLEV/=NLEQ) STOP 'NLEV<>NLEQ'
 
 !  MOVE CAT 8 DATA TO PRINT RANGE
 !  ------------------------------
       DO L=1,NLEV
-      IF(OBS(1,L).EQ.8) THEN
+      IF(OBS(1,L)==8) THEN
          OBS(2,L) = OBS(9,L)
          OBS(3,L) = OBS(10,L)
       ENDIF

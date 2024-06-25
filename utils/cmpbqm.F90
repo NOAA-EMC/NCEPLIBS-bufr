@@ -42,8 +42,8 @@ PROGRAM CMPBQM
   !  OPEN A FILE - GET A DATE
   !  ------------------------
 
-  call getarg(1,file); file=trim(adjustl(file))
-  if (file == '') then 
+  call get_command_argument(1,file); file=trim(adjustl(file))
+  if (file == '') then
      print *, 'Usage: Usage: cmpbqm <prepbufrfile> will print prep inventory by variable, report type, and qc mark'
      call exit(2)
   endif
@@ -56,10 +56,10 @@ PROGRAM CMPBQM
   open(lubfr,file=file,form='unformatted')
   CALL OPENBF(LUBFR,'IN',LUBFR)
   CALL READMG(LUBFR,SUBSET,IDATE,IRET)
-  IF(IRET.NE.0) GOTO 900
+  IF(IRET/=0) GOTO 900
   WRITE(DATE,'(I8)') IDATE
   DO I=1,8
-     IF(DATE(I:I).EQ.' ') DATE(I:I) = '0'
+     IF(DATE(I:I)==' ') DATE(I:I) = '0'
   ENDDO
   PRINT'(''DATA  VALID AT  '',A8)',DATE
 
@@ -67,9 +67,9 @@ PROGRAM CMPBQM
   !  ----------------------------
 
 10 CALL READSB(LUBFR,IRET)
-  IF(IRET.NE.0) THEN
+  IF(IRET/=0) THEN
      CALL READMG(LUBFR,SUBSET,IDATE,IRET)
-     IF(IRET.NE.0) GOTO 100
+     IF(IRET/=0) GOTO 100
      CALL UFBCNT(LUBFR,IREC,ISUB)
      GOTO 10
   ENDIF
@@ -83,15 +83,15 @@ PROGRAM CMPBQM
   DO L=1,NLEV
      DO K=1,7
         IQ = -1
-        IF(K.EQ.5) OBS(5,L) = MAX(OBS(5,L),OBS(8,L))
-        IF(OBS(K,L).LT.VMAX .AND. QMS(K,L).LT.VMAX) THEN
+        IF(K==5) OBS(5,L) = MAX(OBS(5,L),OBS(8,L))
+        IF(OBS(K,L)<VMAX .AND. QMS(K,L)<VMAX) THEN
            IQ = NINT(QMS(K,L))
-        ELSEIF(OBS(K,L).LT.VMAX .AND. QMS(K,L).GE.VMAX) THEN
+        ELSEIF(OBS(K,L)<VMAX .AND. QMS(K,L)>=VMAX) THEN
            IQ = 16
-        ELSEIF(OBS(K,L).GE.VMAX .AND. QMS(K,L).LT.VMAX) THEN
+        ELSEIF(OBS(K,L)>=VMAX .AND. QMS(K,L)<VMAX) THEN
            IQ = 17
         ENDIF
-        IF(IQ.GE.0) KNT(KX,K,IQ) = KNT(KX,K,IQ)+1
+        IF(IQ>=0) KNT(KX,K,IQ) = KNT(KX,K,IQ)+1
      ENDDO
   ENDDO
 
@@ -107,13 +107,13 @@ PROGRAM CMPBQM
         ITOT = 0; igood=0; ifail=0
         DO IQ=0,17
            ITOT = ITOT+KNT(KX,K,IQ)
-           if(iq.le.3) then
+           if(iq<=3) then
               igood=igood+KNT(KX,K,IQ)
-           elseif(iq.le.7) then
+           elseif(iq<=7) then
               ifail=ifail+KNT(KX,K,IQ)
            endif
         ENDDO
-        IF(ITOT.GT.0) PRINT 101,KX,ITOT,igood,ifail,(KNT(KX,K,IQ),IQ=8,17)
+        IF(ITOT>0) PRINT 101,KX,ITOT,igood,ifail,(KNT(KX,K,IQ),IQ=8,17)
 101     FORMAT(I3,I6,2('|', I6),&
              2('|', I6),&
              1('|',6I6),&

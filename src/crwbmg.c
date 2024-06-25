@@ -168,12 +168,6 @@ cobfl(char *bfl, char io)
         bort_f(errstr);
     }
 
-    /*
-    ** Call wrdlen to initialize some important information about the local machine, just in case
-    ** it hasn't already been called.
-    */
-    wrdlen_f();
-
     return;
 }
 

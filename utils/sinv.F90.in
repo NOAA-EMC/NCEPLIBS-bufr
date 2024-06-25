@@ -1,0 +1,137 @@
+!> @file
+!> @brief Produces a BUFR file inventory by satellite type.
+!>
+!> @author J Woollen @date 2010
+
+!> Usage: sinv \<satbufrfile\> will print inventory of satellites by platform and instrument.
+!>
+!> @return 0 for success, error message otherwise.
+!>
+!> @author J Woollen @date 2010
+program sinv
+
+  parameter (maxa=16000000)
+  parameter (maxs=1000)
+
+  character(255) file
+  character(240) cmtdir,tbldir
+  character(8)   subset
+  character      ci*16,cj*80
+  dimension      isat(0:maxs,0:maxs)
+  real(8)        said(maxa),siid(maxa)
+  logical        exist
+
+  data lunbf  /20/
+
+  !-----------------------------------------------------------------------
+  !-----------------------------------------------------------------------
+
+  isat=0
+  jsat=0
+  said=0
+  ssid=0
+
+  ! get filename argument
+
+  narg=command_argument_count()
+  if(narg<1) then
+     write(*,*)'Usage: sinv <satbufrfile> will print inventory of satellites by platform and instrument'
+     call exit(2)
+  endif
+  call get_command_argument(1,file)
+  file = trim(adjustl(file))
+  inquire(file=file,exist=exist)
+  if (.not.exist) call bort(trim(file)//' does not exist')
+
+  ! define master table directory
+
+  ! Before calling mtinfo, make an initial call to openbf so that bfrini is called internally.
+  ! Otherwise, if we wait until later to make the initial call to openbf, then the internal call
+  ! to bfrini will end up overwriting the master table directory that we pass in during either
+  ! of the following calls to mtinfo.
+  call openbf(lunbf,'FIRST',lunbf)
+  if(narg==2) then ! arg 2 would be a user defined table dir
+     call get_command_argument(2,tbldir)
+     call mtinfo(tbldir,3,4)
+  else ! otherwise default table dir is used
+     cmtdir = '@MASTER_TABLE_DIR_F@'
+     call mtinfo(cmtdir,3,4) 
+  endif
+
+  ! read through the file and collect counts of satid and sat inst combinations
+
+  open(lunbf,file=file,form='unformatted')
+  call ufbtab(lunbf,said,1,maxa,nret,'SAID')
+  call ufbtab(lunbf,siid,1,maxa,nrex,'SIID')
+
+  ! need to open the bufrfile with the satellites of interest
+
+  open(lunbf,file=file,form='unformatted')
+  call openbf(lunbf,'IN',lunbf)
+  call readmg(lunbf,subset,idate,iret)
+  call codflg('Y')
+
+  ! make a table of sat ids and sat instruments
+
+  do n=1,max(nret,nrex)
+     i = nint(said(n))
+     j = nint(siid(n))
+     if(i>maxs.or.i<0) i=0
+     if(j>maxs.or.j<0) j=0
+     isat(i,j) = isat(i,j)+1
+  enddo
+
+  ! print the summary of satid and sat inst combinations
+
+  write(*,*)
+  write(*,'(a14,12x,a14,4x,a10)') 'id   satellite', 'subsets  id   ', 'instrument'
+  write(*,*)
+  do i=0,1000
+     do j=0,1000
+        if(isat(i,j)>0) then
+           jsat=jsat+isat(i,j)
+           call satcode(lunbf,i,ci,j,cj)
+           write(*,'(i3.3,2x,a,2x,i10,2x,i3.3,6x,a)')i,ci,isat(i,j),j,trim(adjustl(cj))
+        endif
+     enddo
+  enddo
+
+  write(*,'(/23x,i10/)') jsat
+
+end program sinv
+!> @file
+!> @brief Looks in the BUFR tables to get meaning strings for satellite platform and instrument codes
+!>
+!> @author J Woollen @date 2010
+
+!> This subroutine looks in the master BUFR tables for meaning strings associated with specified
+!> code figures for the satellite platform and instrument.
+!>
+!> @param[in] lunit - integer: Fortran logical unit number for BUFR file
+!> @param[in] icode - integer: satellite platform code
+!> @param[out] csad - character*16: meaning string associated with icode
+!> @param[in] jcode - integer: satellite instrument code
+!> @param[out] csid - character*80: meaning string associated with jcode
+!>
+!> @author J Woollen @date 2010
+
+subroutine satcode(lunit,icode,csad,jcode,csid)
+
+  character(16)  :: csad
+  character(80)  :: csid
+  character(255) :: str
+
+  csad(1:16)=' '; csid(1:80)=' '
+
+  !  call routines to look up the said and siid
+
+  if(icode>0) then
+     str=repeat(' ',255)
+     call getcfmng(lunit,'SAID',icode,'  ',-1,str,len,iret); csad=str(1:16)
+  endif
+  if(jcode>0) then
+     str=repeat(' ',255)
+     call getcfmng(lunit,'SIID',jcode,'  ',-1,str,len,iret); csid=str(1:80)
+  endif
+
+end subroutine satcode

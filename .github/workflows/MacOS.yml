@@ -17,6 +17,7 @@ jobs:
     runs-on: macos-latest
     env:
       FC: gfortran-11
+      F90: gfortran-11
 
     steps:
 
@@ -34,16 +35,16 @@ jobs:
         sudo ln -sf /usr/local/bin/gfortran-11 /usr/local/bin/gfortran
 
     - name: checkout-bufr
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with: 
         path: bufr
 
     - name: cache-data
       id: cache-data
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/data
-        key: data-10
+        key: data-15
 
     - name: build-bufr
       run: |
@@ -65,4 +66,4 @@ jobs:
       if: steps.cache-data.outputs.cache-hit != 'true'
       run: |
         mkdir ~/data
-        cp $GITHUB_WORKSPACE/bufr/build/test/bufr-11.6.0.tgz ~/data
+        cp $GITHUB_WORKSPACE/bufr/build/test/bufr-12.1.0.tgz ~/data

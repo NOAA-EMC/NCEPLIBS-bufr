@@ -7,7 +7,7 @@
 program outtest1
   implicit none
 
-  real*8 r8ymd(3,1), r8ltl(2,1), r8flv(1,5), r8oth(10,1)
+  real*8 r8ymd(3,1), r8ltl(2,1), r8flv(1,5), r8oth(10,1), r8acrn(1,3), r8val
 
   integer*4 lcmgdf
 
@@ -15,7 +15,9 @@ program outtest1
   integer nsa, nra, nba, iernsa, nsm, nrm, nbm, iernsm
   integer iertgp, jj, nlv
 
-  character acrn*10, libvrsn*8, tagpr*6
+  character acrn*10, libvrsn*8, tagpr*6, c8val*8
+
+  equivalence (r8val, c8val)
 
   print *, 'Testing writing OUT_1 using OPENBF IO = OUT and LUNIN != LUNDX,'
   print *, 'and using 2-03-YYY to change reference values'
@@ -46,11 +48,11 @@ program outtest1
   call openmb ( 11, 'FR004029', 2012031212 )
 
   ! Confirm there's exactly one long character string in the subset definition.
-  if ( lcmgdf ( 11, 'FR004029' ) .ne. 1 ) stop 1
+  if ( lcmgdf ( 11, 'FR004029' ) /= 1 ) stop 1
 
   ! Get and check the parent of a Table B mnemonic.
   call gettagpr ( 11, 'MNTH', 1, tagpr, iertgp )
-  if ( ( iertgp .ne. 0 ) .or. ( tagpr .ne. 'YYMMDD' ) ) stop 2
+  if ( ( iertgp /= 0 ) .or. ( tagpr /= 'YYMMDD' ) ) stop 2
 
   ! The output of the following calls will be checked below, after making additional calls to this same
   ! subroutine to verify reference values that will be modified with the 2-03 operator.
@@ -96,11 +98,11 @@ program outtest1
   do jj = 1, 5
      call nemspecs ( 11, 'FLVLST', jj, nsc(jj), nrf(jj), nbt(jj), ierns(jj) )
   end do
-  if ( ( iernsa .ne. 0 ) .or. ( iernsm .ne. 0 ) .or. ( nba .ne. 80 ) .or. ( nbm .ne. 17 ) .or. &
-       ( nsm .ne. 3 ) .or. ( ierns(1) .ne. 0 ) .or. ( nrf(1) .ne. -1024 ) .or. ( ierns(2) .ne. 0 ) .or. &
-       ( nrf(2) .ne. -1024 ) .or. ( nbt(2) .ne. 12 ) .or. ( ierns(3) .ne. 0 ) .or. ( nrf(3) .ne. -1000 ) &
-       .or. ( ierns(4) .ne. 0 ) .or. ( nrf(4) .ne. -1000 ) .or. ( ierns(5) .ne. 0 ) .or. &
-       ( nrf(5) .ne. -1024 ) .or. ( nbt(3) .ne. 16 ) .or. ( nbt(5) .ne. 16 ) ) stop 3
+  if ( ( iernsa /= 0 ) .or. ( iernsm /= 0 ) .or. ( nba /= 80 ) .or. ( nbm /= 17 ) .or. &
+       ( nsm /= 3 ) .or. ( ierns(1) /= 0 ) .or. ( nrf(1) /= -1024 ) .or. ( ierns(2) /= 0 ) .or. &
+       ( nrf(2) /= -1024 ) .or. ( nbt(2) /= 12 ) .or. ( ierns(3) /= 0 ) .or. ( nrf(3) /= -1000 ) &
+       .or. ( ierns(4) /= 0 ) .or. ( nrf(4) /= -1000 ) .or. ( ierns(5) /= 0 ) .or. &
+       ( nrf(5) /= -1024 ) .or. ( nbt(3) /= 16 ) .or. ( nbt(5) /= 16 ) ) stop 3
 
   ! Write a long character string into the output.
   acrn = 'TESTUPS008'
@@ -163,5 +165,17 @@ program outtest1
 
   ! Close the output file.
   call closbf ( 11 )
+
+  ! Re-open the output file for reading and use ufbtab to check the compressed acrn values.
+  ! Note that with ufbtab we can only look at the first 8 characters of each value.
+  open ( unit = 11, file = 'out1.bufr', form ='unformatted')
+  call ufbtab ( 11, r8acrn, 1, 3, nlv, 'ACRN')
+  if (nlv /= 3 ) stop 4
+  r8val = r8acrn(1,1)
+  if (c8val /= 'TESTUPS0') stop 5
+  r8val = r8acrn(1,2)
+  if (c8val /= 'TESTAAL2') stop 6
+  r8val = r8acrn(1,3)
+  if (c8val /= 'TESTSWA1') stop 7
 
 end program outtest1

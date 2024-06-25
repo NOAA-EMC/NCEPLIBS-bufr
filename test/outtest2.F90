@@ -8,18 +8,18 @@ program outtest2
 
   integer*4 igetsc, iupbs01
 
-  integer nsc, nrf, nbt, ierns, nlv, lmgbf, mxbfmg
+  integer nsc, nrf, nbt, ierns, nlv, nutb, lmgbf, mxbfmg
   parameter ( mxbfmg = 50000 )
   integer mgbf ( mxbfmg ), mgbf2 ( mxbfmg )
 
-  real*8 r8ymd(3,1), r8ltl(2,1), r8oth(10,1)
+  real*8 r8ymd(3,1), r8ltl(2,1), r8oth(10,1), r8utb(3,45000)
   real*8 rpid(1,1), pkftbv, xmiss, getbmiss
 
   character libvrsn*8, cpid*8
 
   equivalence (rpid(1,1),cpid)
 
-  print *, 'Testing writing OUT_2 using OPENBF IO = APX and embedded tables' 
+  print *, 'Testing writing OUT_2 using OPENBF IO = APX and embedded tables'
 
 #ifdef KIND_8
   call setim8b ( .true. )
@@ -50,12 +50,19 @@ program outtest2
   call openbf ( 11, 'APX', 12 )
 
   ! Check for any abnormal internal return codes so far.
-  if ( igetsc ( 11 ) .ne. 0 ) stop 1
+  if ( igetsc ( 11 ) /= 0 ) stop 1
 
   ! Specify an originating center number to use in Section 1 of the output message, and then prepare to
   ! to write 2 subsets into the message using BUFR edition 4.
   call pkvs01 ( 'OGCE', 160 )
   call pkvs01 ( 'BEN', 4 )
+
+  ! Test calling ufbtab to read out some data values from a logical unit that's currently in the process
+  ! of being written.  Note that ufbtab will internally call rewnbf, since the logical unit in question is
+  ! already open to the library.
+  call ufbtab ( 11, r8utb, 3, 45000, nutb, 'CLATH CLONH SLHD1')
+  if ( ( nutb /= 41541 ) .or. ( nint(r8utb(1,1)*100000) /= 6108965 ) .or. ( nint(r8utb(1,2)*100000) /= 6106049 ) &
+    .or. ( nint(r8utb(2,3)*100000) /= 16179889 ) .or. ( nint(r8utb(3,3)*1000000) /= 338688 ) ) stop 2
 
   ! First subset.
 
@@ -63,7 +70,7 @@ program outtest2
 
   ! Check some mnemonic specifications.
   call nemspecs ( 11, 'TMBRST', 1, nsc, nrf, nbt, ierns )
-  if ( ( ierns .ne. 0 ) .or. ( nsc .ne. 3 ) .or. ( nbt .ne. 19 ) ) stop 2
+  if ( ( ierns /= 0 ) .or. ( nsc /= 3 ) .or. ( nbt /= 19 ) ) stop 3
 
   r8ymd(1,1) = 2012
   r8ymd(2,1) = 10
@@ -102,15 +109,18 @@ program outtest2
   call ufbint ( 11, rpid, 1, 1, nlv, 'RPID' )
 
   ! Confirm the "missing" value is still the same value that was set previously via the call to setxmiss.
-  IF ( nint(xmiss) .ne. nint(getbmiss()) ) stop 3
+  if ( nint(xmiss) /= nint(getbmiss()) ) stop 4
 
   ! Test cnved4 to cover im8b=.true. case
   call writsa ( 11, mxbfmg, mgbf, lmgbf )
   call cnved4(mgbf,mxbfmg,mgbf2)
-  if ( iupbs01(mgbf2, 'BEN') .ne. 4 ) stop 4
+  if ( iupbs01(mgbf2, 'BEN') /= 4 ) stop 5
   ! Re-converting to BUFR ed. 4 should leave the message unchanged
   call cnved4(mgbf2,mxbfmg,mgbf)
-  if ( .not. all( mgbf(1:lmgbf) .eq. mgbf2(1:lmgbf) )) stop 5
+  if ( .not. all( mgbf(1:lmgbf) == mgbf2(1:lmgbf) )) stop 6
+
+  ! Call pkftbv with some bogus values to ensure that the "missing" value is properly returned.
+  if ( nint(pkftbv(0,0)) /= nint(getbmiss()) ) stop 7
 
   ! Close the output file.
   call closbf ( 11 )

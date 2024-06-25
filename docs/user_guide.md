@@ -70,10 +70,10 @@ library subroutines and functions to accomplish different tasks.
 @anchor hierarchy
 It's important to understand the following hierarchy:
 
-1. Any BUFR file can consist of one or more BUFR messages.
-2. Any BUFR message can consist of one or more BUFR data subsets, which are akin to reports from individual
+1. Any BUFR file can contain one or more BUFR messages.
+2. Any BUFR message can contain one or more BUFR data subsets, which are akin to reports from individual
 observational stations at a particular time and location.
-3. Any BUFR data subset can consist of one or more BUFR data descriptors and corresponding data values.
+3. Any BUFR data subset can contain one or more BUFR data descriptors and corresponding data values.
 
 This allows many of the most commonly used library subroutines and
 functions to be grouped based on which level of the hierarchy they

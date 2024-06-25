@@ -9,8 +9,8 @@
 #include <stdio.h>
 #include <libgen.h>
 #include <unistd.h>
+#include <stdlib.h>
 
-#include "bufrlib.h"
 #include "bufr_interface.h"
 
 /**
@@ -36,7 +36,7 @@
  * @author J. Ator @date 2009-07-01
  */
 void fdebufr_f( char *ofile, int lenof, char *tbldir, int lentd, char *tblfil, int lentf, char *prmstg, int lenps,
-                char basic, char forcemt, char cfms );
+                char *basic, char *forcemt, char *cfms );
 
 /**
  * This function prints program usage information to standard output.
@@ -174,7 +174,7 @@ int main( int argc, char *argv[ ] ) {
     char forcemt = 'N';
     char cfms = 'Y';
     char io = 'r';
-    char tbldir_default[500] =
+    char tbldir_default[240] =
             "@MASTER_TABLE_DIR_C@";
     char bvstr[VERS_STR_LEN+1];
 
@@ -341,7 +341,7 @@ int main( int argc, char *argv[ ] ) {
         lentd = strlen( tbldir );
         lentf = strlen( tblfil );
         lenps = strlen( prmstg );
-        fdebufr_f( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps, basic, forcemt, cfms );
+        fdebufr_f( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps, &basic, &forcemt, &cfms );
         iret = 0;
     }
     free( dcopy );

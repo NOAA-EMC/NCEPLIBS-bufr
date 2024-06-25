@@ -9,15 +9,15 @@
 !> @author J. Ator @date 2014-12-10
 module moda_bitbuf
   !> Maximum length of an output BUFR message.
-  integer :: MAXBYT
-  !> Bit pointer within IBAY.
-  integer :: IBIT
-  !> Current data subset.
-  integer, allocatable :: IBAY(:)
+  integer :: maxbyt
+  !> Current BUFR message for each file ID.
+  integer, allocatable :: mbay(:,:)
   !> Length (in bytes) of current BUFR message for each file ID.
-  integer, allocatable :: MBYT(:)
-  !> Current BUFR message for each internal file ID.
-  integer, allocatable :: MBAY(:,:)
+  integer, allocatable :: mbyt(:)
+  !> Current data subset.
+  integer, allocatable :: ibay(:)
+  !> Bit pointer within ibay.
+  integer :: ibit
 end module moda_bitbuf
 
 !> Declare arrays and variables used to store
@@ -29,46 +29,46 @@ end module moda_bitbuf
 !> @author J. Ator @date 2016-05-27
 module moda_bitmaps
   !> Number of stored bitmaps for the current data subset (up to a
-  !> maximum of MXBTM).
-  integer :: NBTM
+  !> maximum of mxbtm).
+  integer :: nbtm
   !> Number of Table A mnemonics in jump/link table (up to a maximum of
-  !> MXTAMC) which contain at least one Table C operator with an XX
+  !> mxtamc) which contain at least one Table C operator with an XX
   !> value of 21 or greater in their data subset definition; only Table
   !> C operators with an XX value of 21 or greater are tracked within
   !> this module, since all others are automatically processed within
   !> subroutines tabsub() and tabent().
-  integer :: NTAMC
+  integer :: ntamc
   !> Most recent jump/link table entry that was processed by function
   !> igetrfel() and whose corresponding value type was either numeric
   !> or CCITT IA5.
-  integer :: LSTNOD
+  integer :: lstnod
   !> Current count of consecutive occurrences of lstnod.
-  integer :: LSTNODCT
+  integer :: lstnodct
   !> true if a bitmap is in the process of being read for the current
   !> data subset; false otherwise.
-  logical :: LINBTM
+  logical :: linbtm
   !> Entries within jump/link table which contain Table A mnemonics.
-  integer, allocatable :: INODTAMC(:)
+  integer, allocatable :: inodtamc(:)
   !> Number of Table C operators (with an XX value of 21 or greater)
   !> within the data subset definition of the corresponding Table A
   !> mnemonic in inodtamc.
-  integer, allocatable :: NTCO(:)
+  integer, allocatable :: ntco(:)
   !> Table C operators corresponding to inodtco.
-  character*6, allocatable :: CTCO(:,:)
+  character*6, allocatable :: ctco(:,:)
   !> Entries within jump/link table which contain Table C operators.
-  integer, allocatable :: INODTCO(:,:)
+  integer, allocatable :: inodtco(:,:)
   !> Number of "set" entries (set to a value of 0) in the bitmap.
-  integer, allocatable :: NBTMSE(:)
+  integer, allocatable :: nbtmse(:)
   !> Ordinal position in data subset definition corresponding to the
   !> first entry of the bitmap.
-  integer, allocatable :: ISTBTM(:)
+  integer, allocatable :: istbtm(:)
   !> Size of bitmap (total number of entries, whether "set" (set to a
   !> value of 0) or not).
-  integer, allocatable :: ISZBTM(:)
+  integer, allocatable :: iszbtm(:)
   !> Ordinal positions in bitmap of bits that were "set" (set to a
   !> value of 0); these ordinal positions can range in value from 1 to
   !> iszbtm for each stored bitmap.
-  integer, allocatable :: IBTMSE(:,:)
+  integer, allocatable :: ibtmse(:,:)
 end module moda_bitmaps
 
 !> Declare arrays used to store, for each output file ID,
@@ -80,9 +80,9 @@ end module moda_bitmaps
 module moda_bufrmg
   !> Length (in integers) of BUFR message most recently written to each
   !> output file ID.
-  integer, allocatable :: MSGLEN(:)
+  integer, allocatable :: msglen(:)
   !> BUFR message most recently written to each output file ID.
-  integer, allocatable :: MSGTXT(:,:)
+  integer, allocatable :: msgtxt(:,:)
 end module moda_bufrmg
 
 !> Declare arrays and variables needed to store the
@@ -96,32 +96,23 @@ end module moda_bufrmg
 !> @author J. Ator @date 2014-12-10
 module moda_bufrsr
   !> File ID of BUFR file.
-  integer :: JUNN
+  integer :: junn = 0
   !> File status indicator of BUFR file.
-  integer :: JILL
+  integer :: jill
   !> Message status indicator of BUFR file.
-  integer :: JIMM
-  !> Bit pointer within BUFR message.
-  integer :: JBIT
-  !> Length (in bytes) of BUFR message.
-  integer :: JBYT
-  !> Sequential number of BUFR message, counting from the beginning of
-  !> the file.
-  integer :: JMSG
-  !> Sequential number of BUFR data subset, counting from the beginning
-  !> of the current BUFR message.
-  integer :: JSUB
-  !> WMO bit-wise (integer) representation of FXY value associated with
-  !> Table A mnemonic for BUFR message.
-  integer :: KSUB
-  !> Positional index of Table A mnemonic within internal Table A.
-  integer :: JNOD
-  !> Section 1 date-time of BUFR message.
-  integer :: JDAT
-  !> Indicator of stack status when entering subroutine rewnbf().
-  integer, allocatable :: JSR(:)
+  integer :: jimm
   !> BUFR message.
-  integer, allocatable :: JBAY(:)
+  integer, allocatable :: jbay(:)
+  !> Bit pointer within BUFR message.
+  integer :: jbit
+  !> Length (in bytes) of BUFR message.
+  integer :: jbyt
+  !> Sequential number of BUFR message, counting from the beginning of the file.
+  integer :: jmsg
+  !> Sequential number of BUFR data subset, counting from the beginning of the current BUFR message.
+  integer :: jsub
+  !> Indicator of stack status when entering subroutine rewnbf().
+  integer, allocatable :: jsr(:)
 end module moda_bufrsr
 
 !> Declare arrays and variables needed for the
@@ -134,13 +125,13 @@ end module moda_bufrsr
 !> @author J. Woollen @date 2002-05-14
 module moda_comprs
   !> Number of data subsets in message.
-  integer :: NCOL
+  integer :: ncol
   !> Increment used when compressing non-character data values.
-  integer(8) :: INCR
+  integer*8 :: incr
   !> Non-character data values for all data subsets in message.
-  integer(8), allocatable :: MATX(:,:)
+  integer*8, allocatable :: matx(:,:)
   !> Character data values for all data subsets in message.
-  character*(:), allocatable :: CATX(:,:)
+  character*(:), allocatable :: catx(:,:)
 end module moda_comprs
 
 !> Declare arrays and variable needed for the
@@ -153,40 +144,44 @@ end module moda_comprs
 !> @author J. Woollen @date 2002-05-14
 module moda_comprx
   !> Number of data values for each data subset in message.
-  integer :: NROW
+  integer :: nrow
   !> File ID for output file.
-  integer :: LUNC
+  integer :: lunc
   !> Number of bytes required to store Sections 0, 1, 2, and 3 of message.
-  integer :: KBYT
+  integer :: kbyt
   !> Flush flag. Set to .true. if a subroutine call was made to force
   !> the writing of the message to the corresponding output file, even
   !> if there may still be room in the message for additional data
   !> subsets. Otherwise set to .false.
-  logical :: FLUSH
+  logical :: flush
   !> Write-out flag. Set to .true. if the message needs to be written
   !> to the corresponding output file. Otherwise set to .false.
-  logical :: WRIT1
+  logical :: writ1
   !> Minimum of each data value across all data subsets in message.
-  integer(8), allocatable :: KMIN(:)
+  integer*8, allocatable :: kmin(:)
   !> Maximum of each data value across all data subsets in message.
-  integer(8), allocatable :: KMAX(:)
+  integer*8, allocatable :: kmax(:)
+  !> "Missing" value used when compressing non-character data values.
+  integer*8 :: imiss
   !> "Missing" values flag. Set to .true. if at least one occurrence
   !> of this data value is "missing" within any data subset of the
   !> message. Otherwise set to .false.
-  logical, allocatable :: KMIS(:)
+  logical, allocatable :: kmis(:)
   !> Number of bits needed to hold the increments for this data value
   !> within each data subset of the message.
-  integer, allocatable :: KBIT(:)
+  integer, allocatable :: kbit(:)
   !> Type of each data value:
   !> - 1 Delayed descriptor replication factor.
   !> - 2 Other non-character data.
   !> - 3 Character data.
-  integer, allocatable :: ITYP(:)
+  integer, allocatable :: ityp(:)
   !> Bit width of underlying data descriptor as defined within Table B
   !> for each data value.
-  integer, allocatable :: IWID(:)
+  integer, allocatable :: iwid(:)
   !> Character data value, if corresponding ityp value is set to 3.
-  character*(:), allocatable :: CSTR(:)
+  character*(:), allocatable :: cstr(:)
+  !> Jump/link table node corresponding to each data value.
+  integer, allocatable :: jlnode(:)
 end module moda_comprx
 
 !> Declare arrays and variables for the
@@ -198,19 +193,17 @@ end module moda_comprx
 !> @author J. Ator
 !> @date 2012-03-02
 module moda_dscach
-  use modv_maxnc
-  use modv_mxcnem
   !> Number of entries in the internal Table A mnemonic cache (up to a
-  !> maximum of MXCNEM).
-  integer :: NCNEM
+  !> maximum of mxcnem).
+  integer :: ncnem
   !> Table A mnemonics.
-  character*8 :: CNEM(MXCNEM)
+  character*8, allocatable :: cnem(:)
   !> Number of child descriptors for the corresponding Table A mnemonic
   !> in cnem.
-  integer :: NDC(MXCNEM)
+  integer, allocatable :: ndc(:)
   !> WMO bit-wise representations of the child descriptors for the
   !> corresponding Table A mnemonic in cnem.
-  integer :: IDCACH(MXCNEM,MAXNC)
+  integer, allocatable :: idcach(:,:)
 end module moda_dscach
 
 !> Declare arrays and variables needed to
@@ -221,15 +214,14 @@ end module moda_dscach
 !>
 !> @author J. Ator @date 2014-02-05
 module moda_h4wlc
-  use modv_mxh4wlc
   !> Number of long character strings being stored.
-  integer :: NH4WLC
+  integer :: nh4wlc = 0
   !> File ID for associated output file.
-  integer, allocatable :: LUH4WLC(:)
+  integer, allocatable :: luh4wlc(:)
   !> Table B mnemonics associated with long character strings.
-  character*14, allocatable :: STH4WLC(:)
+  character*14, allocatable :: sth4wlc(:)
   !> Long character strings.
-  character*120, allocatable :: CHH4WLC(:)
+  character*120, allocatable :: chh4wlc(:)
 end module moda_h4wlc
 
 !> Declare an array used by subroutine
@@ -243,7 +235,7 @@ module moda_idrdm
   !> process of being read in by subroutine readerme() for the
   !> associated logical unit, and in which case it keeps track of how
   !> many such messages have been read in so far.
-  integer, allocatable :: IDRDM(:)
+  integer, allocatable :: idrdm(:)
 end module moda_idrdm
 
 !> Declare an array used to pack or
@@ -254,7 +246,7 @@ end module moda_idrdm
 !> @author J. Woollen @date 1994-01-06
 module moda_ival
   !> BUFR data subset values.
-  integer(8), allocatable :: IVAL(:)
+  integer*8, allocatable :: ival(:)
 end module moda_ival
 
 !> Declare arrays which provide working space in several
@@ -266,11 +258,11 @@ end module moda_ival
 !> @author J. Woollen @date 1994-01-06
 module moda_ivttmp
   !> tag array elements for new sections of a growing subset buffer.
-  character*10, allocatable :: TTMP(:)
+  character*10, allocatable :: ttmp(:)
   !> inv array elements for new sections of a growing subset buffer.
-  integer, allocatable :: ITMP(:)
+  integer, allocatable :: itmp(:)
   !> val array elements for new sections of a growing subset buffer.
-  real*8, allocatable :: VTMP(:)
+  real*8, allocatable :: vtmp(:)
 end module moda_ivttmp
 
 !> Declare an array used by subroutine
@@ -283,7 +275,7 @@ module moda_lushr
   !> of zero if the corresponding logical unit does not share DX BUFR
   !> table information with any other logical unit. Otherwise set to a
   !> non-zero value within subroutine makestab().
-  integer, allocatable :: LUS(:)
+  integer, allocatable :: lus(:)
 end module moda_lushr
 
 !> Declare an array used by various
@@ -293,7 +285,7 @@ end module moda_lushr
 !> @author J. Woollen @date 1994-01-06
 module moda_mgwa
   !> Temporary working copy of BUFR message.
-  integer, allocatable :: MGWA(:)
+  integer, allocatable :: mgwa(:)
 end module moda_mgwa
 
 !> Declare an array used by various
@@ -303,8 +295,19 @@ end module moda_mgwa
 !> @author J. Woollen @date 1994-01-06
 module moda_mgwb
   !> Temporary working copy of BUFR message.
-  integer, allocatable :: MGWB(:)
+  integer, allocatable :: mgwb(:)
 end module moda_mgwb
+
+!> Declare arrays used by various subroutines and functions to hold a
+!> temporary working copy of a Section 3 descriptor list.
+!>
+!> @author J. Ator @date 2024-02-27
+module moda_s3list
+  !> Temporary working copy of Section 3 descriptor list in integer form.
+  integer, allocatable :: ids3(:)
+  !> Temporary working copy of Section 3 descriptor list in character form.
+  character*6, allocatable :: cds3(:)
+end module moda_s3list
 
 !> Declare arrays used to store
 !> information about the current BUFR message that is in the process
@@ -314,15 +317,15 @@ end module moda_mgwb
 !> @author J. Woollen @date 1994-01-06
 module moda_msgcwd
   !> Current message pointer within logical unit.
-  integer, allocatable :: NMSG(:)
+  integer, allocatable :: nmsg(:)
   !> Current subset pointer within message.
-  integer, allocatable :: NSUB(:)
+  integer, allocatable :: nsub(:)
   !> Total number of data subsets in message.
-  integer, allocatable :: MSUB(:)
+  integer, allocatable :: msub(:)
   !> Table A mnemonic for type of BUFR message.
-  integer, allocatable :: INODE(:)
+  integer, allocatable :: inode(:)
   !> Section 1 date-time of message.
-  integer, allocatable :: IDATE(:)
+  integer, allocatable :: idate(:)
 end module moda_msgcwd
 
 !> Declare an array used to keep track
@@ -340,7 +343,7 @@ module moda_msglim
   !> within subroutine closmg() if the corresponding logical unit
   !> should not have any empty (zero data subset) BUFR messages written
   !> to it.
-  integer, allocatable :: MSGLIM(:)
+  integer, allocatable :: msglim(:)
 end module moda_msglim
 
 !> Declare arrays and variables used to store
@@ -352,43 +355,43 @@ end module moda_msglim
 module moda_msgmem
   !> Fortran logical unit number for use in accessing contents of BUFR
   !> files within internal memory.
-  integer :: MUNIT
-  !> Number of array elements filled within msgs (up to a maximum of MAXMEM).
-  integer :: MLAST
-  !> Number of array elements filled within mdx (up to a maximum of MXDXW).
-  integer :: LDXM
+  integer :: munit
+  !> Number of array elements filled within msgs (up to a maximum of maxmem).
+  integer :: mlast
+  !> Number of array elements filled within mdx (up to a maximum of mxdxw).
+  integer :: ldxm
   !> Number of DX BUFR table messages stored within mdx (up to a
-  !> maximum of MXDXM).
-  integer :: NDXM
+  !> maximum of mxdxm).
+  integer :: ndxm
   !> Number of DX BUFR table that is currently in scope, depending on
   !> which BUFR message within msgs is currently in scope from the most
   !> recent call to subroutine rdmemm() or readmm().
-  integer :: LDXTS
+  integer :: ldxts
   !> Number of DX BUFR tables represented by the messages within mdx
-  !> (up to a maximum of MXDXTS).
-  integer :: NDXTS
+  !> (up to a maximum of mxdxts).
+  integer :: ndxts
   !> Maximum number of DX BUFR table messages that can be stored within mdx.
-  integer :: MXDXM
+  integer :: mxdxm
   !> Maximum number of entries that can be stored within mdx.
-  integer :: MXDXW
+  integer :: mxdxw
   !> Pointers to the beginning of each message within msgs (up to a
-  !> maximum of MAXMSG, and where array element 0 contains the actual
+  !> maximum of maxmsg, and where array element 0 contains the actual
   !> number of messages stored within msgs).
-  integer, allocatable :: MSGP(:)
+  integer, allocatable :: msgp(:)
   !> BUFR messages read from one or more BUFR files.
-  integer, allocatable :: MSGS(:)
+  integer, allocatable :: msgs(:)
   !> DX BUFR table messages read from one or more BUFR files, for use
   !> in decoding the messages in msgs.
-  integer, allocatable :: MDX(:)
+  integer, allocatable :: mdx(:)
   !> Pointers to the beginning of each message within mdx.
-  integer, allocatable :: IPDXM(:)
+  integer, allocatable :: ipdxm(:)
   !> Pointers to the beginning of each DX BUFR table within mdx.
-  integer, allocatable :: IFDXTS(:)
+  integer, allocatable :: ifdxts(:)
   !> Number of consecutive messages within mdx which constitute each DX
   !> BUFR table, beginning with the corresponding ifdxts.
-  integer, allocatable :: ICDXTS(:)
+  integer, allocatable :: icdxts(:)
   !> Pointers to first message within msgs for which each DX BUFR table applies.
-  integer, allocatable :: IPMSGS(:)
+  integer, allocatable :: ipmsgs(:)
 end module moda_msgmem
 
 !> Declare arrays and variables used to store
@@ -398,34 +401,34 @@ end module moda_msgmem
 !>
 !> @author J. Ator @date 2014-12-10
 module moda_mstabs
-  !> Number of master Table B entries (up to a maximum of MXMTBB).
-  integer :: NMTB
-  !> Number of master Table D entries (up to a maximum of MXMTBD).
-  integer :: NMTD
+  !> Number of master Table B entries (up to a maximum of mxmtbb).
+  integer :: nmtb
+  !> Number of master Table D entries (up to a maximum of mxmtbd).
+  integer :: nmtd
   !> WMO bit-wise representations of FXY numbers for master Table B.
-  integer, allocatable :: IBFXYN(:)
+  integer, allocatable :: ibfxyn(:)
   !> Scale factors corresponding to ibfxyn.
-  character, allocatable :: CBSCL(:,:)
+  character, allocatable :: cbscl(:,:)
   !> Reference values corresponding to ibfxyn.
-  character, allocatable :: CBSREF(:,:)
+  character, allocatable :: cbsref(:,:)
   !> Bit widths corresponding to ibfxyn.
-  character, allocatable :: CBBW(:,:)
+  character, allocatable :: cbbw(:,:)
   !> Units corresponding to ibfxyn.
-  character, allocatable :: CBUNIT(:,:)
+  character, allocatable :: cbunit(:,:)
   !> Mnemonics corresponding to ibfxyn.
-  character, allocatable :: CBMNEM(:,:)
+  character, allocatable :: cbmnem(:,:)
   !> Element names corresponding to ibfxyn.
-  character, allocatable :: CBELEM(:,:)
+  character, allocatable :: cbelem(:,:)
   !> WMO bit-wise representations of FXY numbers for master Table D.
-  integer, allocatable :: IDFXYN(:)
+  integer, allocatable :: idfxyn(:)
   !> Sequence names corresponding to idfxyn.
-  character, allocatable :: CDSEQ(:,:)
+  character, allocatable :: cdseq(:,:)
   !> Mnemonics corresponding to idfxyn.
-  character, allocatable :: CDMNEM(:,:)
+  character, allocatable :: cdmnem(:,:)
   !> Numbers of child descriptors corresponding to idfxyn.
-  integer, allocatable :: NDELEM(:)
+  integer, allocatable :: ndelem(:)
   !> WMO bit-wise representations of child descriptors corresponding to idfxyn.
-  integer, allocatable :: IDEFXY(:)
+  integer, allocatable :: idefxy(:)
 end module moda_mstabs
 
 !> Declare arrays used by various
@@ -435,7 +438,7 @@ end module moda_mstabs
 !> @author J. Woollen @date 1994-01-06
 module moda_nmikrp
   !> Child mnemonics within Table D sequences.
-  character*8, allocatable :: NEM(:,:)
+  character*8, allocatable :: nem(:,:)
   !> Replication indicators corresponding to nem:
   !> - 5, if corresponding nem is a Table D mnemonic using 1-bit delayed replication
   !> - 4, if corresponding nem is a Table D mnemonic using 8-bit delayed (stack) replication
@@ -443,12 +446,12 @@ module moda_nmikrp
   !> - 2, if corresponding nem is a Table D mnemonic using 16-bit delayed replication
   !> - 1, if corresponding nem is a Table D mnemonic using regular (non-delayed) replication
   !> - 0, otherwise
-  integer, allocatable :: IRP(:,:)
+  integer, allocatable :: irp(:,:)
   !> Replication counts corresponding to nem:
   !> - Number of replications, if corresponding nem is a Table D
   !>   mnemonic using regular (non-delayed) replication
   !> - 0, otherwise
-  integer, allocatable :: KRP(:,:)
+  integer, allocatable :: krp(:,:)
 end module moda_nmikrp
 
 !> Declare arrays and variables for use with
@@ -460,32 +463,32 @@ end module moda_nmikrp
 !> @author J. Ator @date 2012-03-02
 module moda_nrv203
   !> Number of entries in the jump/link table which contain new
-  !> reference values (up to a maximum of MXNRV).
-  integer :: NNRV
+  !> reference values (up to a maximum of mxnrv).
+  integer :: nnrv
   !> Number of bits in Section 4 occupied by each new reference value
   !> for the current 2-03-YYY operator in scope; set to 0 if no such
   !> operator is currently in scope.
-  integer :: IBTNRV
+  integer :: ibtnrv
   !> A number between 1 and nnrv, denoting the first entry within the
   !> module arrays which applies to the current data subset in scope;
   !> set to 0 if no 2-03-YYY operators have been applied to the current
   !> data subset in scope.
-  integer :: IPFNRV
+  integer :: ipfnrv
   !> Table B mnemonic to which the corresponding new reference value in
   !> nrv applies.
-  character*8, allocatable :: TAGNRV(:)
+  character*8, allocatable :: tagnrv(:)
   !> Entries within jump/link table which contain new reference values.
-  integer, allocatable :: INODNRV(:)
+  integer, allocatable :: inodnrv(:)
   !> New reference values corresponding to inodnrv.
-  integer*8, allocatable :: NRV(:)
+  integer*8, allocatable :: nrv(:)
   !> Start of entry range in jump/link table, within which the
   !> corresponding new reference value in nrv will be applied to all
   !> occurrences of the corresponding Table B mnemonic in tagnrv.
-  integer, allocatable :: ISNRV(:)
+  integer, allocatable :: isnrv(:)
   !> End of entry range in jump/link table, within which the
   !> corresponding new reference value in nrv will be applied to all
   !> occurrences of the corresponding Table B mnemonic in tagnrv.
-  integer, allocatable :: IENRV(:)
+  integer, allocatable :: ienrv(:)
 end module moda_nrv203
 
 !> Declare an array used to store a switch for each file ID,
@@ -508,7 +511,7 @@ module moda_nulbfr
   !> Output switch for each file ID:
   !> - 0 BUFR messages will be written to corresponding logical unit (default)
   !> - 1 no BUFR messages will be written to corresponding logical unit
-  integer, allocatable :: NULL(:)
+  integer, allocatable :: null(:)
 end module moda_nulbfr
 
 !> Declare arrays and variables used to store
@@ -519,13 +522,13 @@ end module moda_nulbfr
 !> @author J. Ator @date 2014-12-10
 module moda_rdmtb
   !> WMO bit-wise representations of child descriptors of Table D sequences.
-  integer, allocatable :: IEFXYN(:,:)
+  integer, allocatable :: iefxyn(:,:)
   !> Descriptor codes for Table B elements.
-  character*4, allocatable :: CMDSCB(:)
+  character*4, allocatable :: cmdscb(:)
   !> Descriptor codes for Table D sequences.
-  character*4, allocatable :: CMDSCD(:)
+  character*4, allocatable :: cmdscd(:)
   !> Element names corresponding to iefxyn.
-  character*120, allocatable :: CEELEM(:,:)
+  character*120, allocatable :: ceelem(:,:)
 end module moda_rdmtb
 
 !> Declare arrays and variables needed to
@@ -536,13 +539,13 @@ end module moda_rdmtb
 !> @author J. Woollen @date 2009-03-23
 module moda_rlccmn
   !> Number of long character strings in data subset.
-  integer :: NRST
+  integer :: nrst
   !> Lengths (in bytes) of long character strings.
-  integer, allocatable :: IRNCH(:)
+  integer, allocatable :: irnch(:)
   !> Pointers in data subset to first bits of long character strings.
-  integer, allocatable :: IRBIT(:)
+  integer, allocatable :: irbit(:)
   !> Table B mnemonics associated with long character strings.
-  character*10, allocatable :: CRTAG(:)
+  character*10, allocatable :: crtag(:)
 end module moda_rlccmn
 
 !> Declare arrays and variables used to store
@@ -555,11 +558,11 @@ end module moda_rlccmn
 !> @author J. Ator @date 2015-03-03
 module moda_s01cm
   !> Custom values for use within Sections 0 and 1 of all future output BUFR messages written to all Fortran logical units.
-  integer, allocatable :: IVMNEM(:)
+  integer, allocatable :: ivmnem(:)
   !> Section 0 and 1 mnemonics corresponding to ivmnem.
-  character*8, allocatable :: CMNEM(:)
+  character*8, allocatable :: cmnem(:)
   !> Number of custom values stored.
-  integer :: NS01V = 0
+  integer :: ns01v = 0
 end module moda_s01cm
 
 !> Declare an array used to store a switch
@@ -581,9 +584,9 @@ module moda_sc3bfr
   !> Section 3 switch for each file ID:
   !> - 0 BUFR messages read from corresponding logical unit will be decoded using DX BUFR tables (default)
   !> - 1 BUFR messages read from corresponding logical unit will be decoded using master BUFR tables
-  integer, allocatable :: ISC3(:)
+  integer, allocatable :: isc3(:)
   !> Table A mnemonic most recently read from each file ID, if isc3 = 1 for that stream
-  character*8, allocatable :: TAMNEM(:)
+  character*8, allocatable :: tamnem(:)
 end module moda_sc3bfr
 
 !> Declare arrays used to store file and
@@ -598,12 +601,12 @@ module moda_stbfr
   !>   (i.e. writing/encoding) BUFR
   !> - if the value is negative, then the logical unit number of the absolute value of this same value is
   !>   connected for input (i.e. reading/decoding) BUFR
-  integer, allocatable :: IOLUN(:)
+  integer, allocatable :: iolun(:)
   !> Message status indicator corresponding to iolun, denoting whether a BUFR message is currently open within the internal
   !> arrays for the corresponding logical unit:
   !> - 0 no
   !> - 1 yes
-  integer, allocatable :: IOMSG(:)
+  integer, allocatable :: iomsg(:)
 end module moda_stbfr
 
 !> Declare an array used to store a status
@@ -617,7 +620,7 @@ module moda_stcode
   !> Abnormal status codes.
   !> - 0 all is normal; no error occurred
   !> - 1 replication factor overflow in subroutine usrtpl()
-  integer, allocatable :: ISCODES(:)
+  integer, allocatable :: iscodes(:)
 end module moda_stcode
 
 !> Declare arrays and variables used to store
@@ -626,29 +629,29 @@ end module moda_stcode
 !> @author J. Ator @date 2014-12-10
 module moda_tababd
   !> Number of Table A entries for each file ID (up to a
-  !> maximum of MAXTBA, whose value is stored in array element 0).
-  integer, allocatable :: NTBA(:)
+  !> maximum of maxtba, whose value is stored in array element 0).
+  integer, allocatable :: ntba(:)
   !> Number of Table B entries for each file ID (up to a
-  !> maximum of MAXTBB, whose value is stored in array element 0).
-  integer, allocatable :: NTBB(:)
+  !> maximum of maxtbb, whose value is stored in array element 0).
+  integer, allocatable :: ntbb(:)
   !> Number of Table D entries for each file ID (up to a
-  !> maximum of MAXTBD, whose value is stored in array element 0).
-  integer, allocatable :: NTBD(:)
+  !> maximum of maxtbd, whose value is stored in array element 0).
+  integer, allocatable :: ntbd(:)
   !> Entries within jump/link table corresponding to taba.
-  integer, allocatable :: MTAB(:,:)
+  integer, allocatable :: mtab(:,:)
   !> Message types (in array element 1) and subtypes (in array element
   !> 2) corresponding to taba.
-  integer, allocatable :: IDNA(:,:,:)
+  integer, allocatable :: idna(:,:,:)
   !> WMO bit-wise representations of the FXY values corresponding to tabb.
-  Integer, allocatable :: IDNB(:,:)
+  Integer, allocatable :: idnb(:,:)
   !> WMO bit-wise representations of the FXY values corresponding to tabd.
-  integer, allocatable :: IDND(:,:)
+  integer, allocatable :: idnd(:,:)
   !> Table A entries for each file ID.
-  character*128, allocatable :: TABA(:,:)
+  character*128, allocatable :: taba(:,:)
   !> Table B entries for each file ID.
-  character*128, allocatable :: TABB(:,:)
+  character*128, allocatable :: tabb(:,:)
   !> Table D entries for each file ID.
-  character*600, allocatable :: TABD(:,:)
+  character*600, allocatable :: tabd(:,:)
 end module moda_tababd
 
 !> Declare arrays and variables used to store
@@ -659,12 +662,10 @@ end module moda_tababd
 !>
 !> @author J. Ator @date 2014-12-10
 module moda_tables
-  !> Maximum number of entries in the jump/link table; equivalent to MAXJL.
-  integer :: MAXTAB
   !> Number of entries in the jump/link table.
-  integer :: NTAB
+  integer :: ntab
   !> Mnemonics in the jump/link table.
-  character*10, allocatable :: TAG(:)
+  character*10, allocatable :: tag(:)
   !> Type indicators corresponding to tag:
   !> - "SUB", if corresponding tag entry is a Table A mnemonic
   !> - "SEQ", if corresponding tag entry is a Table D mnemonic using either short (1-bit) delayed replication, regular
@@ -679,66 +680,66 @@ module moda_tables
   !> - "REP", if corresponding tag entry denotes the regular (non-delayed) replication of a Table D mnemonic
   !> - "CHR", if corresponding tag entry is a Table B mnemonic with units of CCITT IA5
   !> - "NUM", if corresponding tag entry is a Table B mnemonic with any units other than CCITT IA5
-  character*3, allocatable :: TYP(:)
+  character*3, allocatable :: typ(:)
   !> Temporary storage used in calculating delayed replication counts.
-  integer, allocatable :: KNT(:)
+  integer, allocatable :: knt(:)
   !> Jump forward indices corresponding to tag and typ:
   !> - 0, if corresponding typ entry is "CHR" or "NUM"
   !> - Jump/link table entry for Table D mnemonic whose replication is denoted by corresponding tag entry, if corresponding
   !>   typ entry is "DRB", "DRP" or "REP"
   !> - Jump/link table entry for Table B or D mnemonic which is the first sequential child descriptor of the corresponding
   !>   tag entry, otherwise
-  integer, allocatable :: JUMP(:)
+  integer, allocatable :: jump(:)
   !> Link indices corresponding to tag, typ and jmpb:
   !> - 0, if corresponding typ entry is "SUB" or "RPC", or if corresponding typ entry is "SEQ" and corresponding tag entry
   !>   uses either short (1-bit) or regular (non-delayed) replication, or if corresponding tag entry is the last sequential
   !>   child descriptor of the Table A or D mnemonic referenced by corresponding jmpb entry
   !> - Jump/link table entry for Table B or D mnemonic which follows the corresponding tag entry as the next sequential
   !>   child descriptor of the Table A or D mnemonic referenced by corresponding jmpb entry, otherwise
-  integer, allocatable :: LINK(:)
+  integer, allocatable :: link(:)
   !> Jump backward indices corresponding to tag and typ:
   !> - 0, if corresponding typ entry is "SUB"
   !> - Jump/link table entry denoting the replication of corresponding tag entry, if corresponding typ entry is "RPC", or
   !>   if corresponding typ entry is "SEQ" and corresponding tag entry uses either short (1-bit) or regular (non-delayed)
   !>   replication
   !> - Jump/link table entry for Table A or D mnemonic of which corresponding tag entry is a child descriptor, otherwise
-  integer, allocatable :: JMPB(:)
+  integer, allocatable :: jmpb(:)
   !> Bit widths corresponding to tag and typ:
   !> - Bit width of corresponding tag entry, if corresponding typ entry is "CHR", "NUM", "DRB" or "DRP"
   !> - 0, otherwise
-  integer, allocatable :: IBT(:)
+  integer, allocatable :: ibt(:)
   !> Reference values corresponding to tag and typ:
   !> - Reference value of corresponding tag entry, if corresponding typ entry is "NUM"
   !> - Number of regular (non-delayed) replications of Table D mnemonic referenced by corresponding jump entry, if
   !>   corresponding typ entry is "REP"
   !> - 0, otherwise
-  integer, allocatable :: IRF(:)
+  integer, allocatable :: irf(:)
   !> Scale factors corresponding to tag and typ:
   !> - Scale factor of corresponding tag entry, if corresponding typ entry is "NUM"
   !> - Jump/link table entry for Table B or Table D mnemonic which is the last sequential child descriptor of the
   !>   corresponding tag entry, if the corresponding typ entry is "SUB"
   !> - 0, otherwise
-  integer, allocatable :: ISC(:)
+  integer, allocatable :: isc(:)
   !> Integer type values corresponding to typ:
   !> - 1, if corresponding typ entry is "DRS", "DRP" or "DRB"
   !> - 2, if corresponding typ entry is "NUM"
   !> - 3, if corresponding typ entry is "CHR"
   !> - 0, otherwise
-  integer, allocatable :: ITP(:)
+  integer, allocatable :: itp(:)
   !> Initialized data values corresponding to typ:
   !> - Current placeholder value for "missing" data, if corresponding typ entry is "REP", "NUM" or "CHR"
   !> - 0, otherwise
-  real*8, allocatable :: VALI(:)
+  real*8, allocatable :: vali(:)
   !> Initialized replication counts corresponding to typ and jump:
   !> - 0, if corresponding typ entry is "RPC", "RPS" or "DRB"
   !> - Number of regular (non-delayed) replications of Table D mnemonic referenced by corresponding jump entry, if
   !>   corresponding typ entry is "REP"
   !> - 1, otherwise
-  integer, allocatable :: KNTI(:)
+  integer, allocatable :: knti(:)
   !> Temporary storage used in expanding sequences.
-  integer, allocatable :: ISEQ(:,:)
+  integer, allocatable :: iseq(:,:)
   !> Temporary storage used in expanding sequences.
-  integer, allocatable :: JSEQ(:)
+  integer, allocatable :: jseq(:)
 end module moda_tables
 
 !> Declare an array used to store, for each file ID,
@@ -753,7 +754,7 @@ end module moda_tables
 module moda_ufbcpl
   !> Logical unit numbers used to copy long character strings between
   !> BUFR data subsets.
-  integer, allocatable :: LUNCPY(:)
+  integer, allocatable :: luncpy(:)
 end module moda_ufbcpl
 
 !> Declare an array used to store, for each file ID
@@ -767,7 +768,7 @@ module moda_unptyp
   !> - 0 message contains data subset byte counters and other non-standard enhancements
   !> - 1 message is fully standard and contains no non-standard enhancements
   !> - 2 message is compressed
-  integer, allocatable :: MSGUNP(:)
+  integer, allocatable :: msgunp(:)
 end module moda_unptyp
 
 !> Declare arrays for internal storage of
@@ -777,9 +778,9 @@ end module moda_unptyp
 !> @author J. Woollen @date 1994-01-06
 module moda_usrbit
   !> Length (in bits) of each packed data value in data subset.
-  integer, allocatable :: NBIT(:)
+  integer, allocatable :: nbit(:)
   !> Pointer in data subset to first bit of each packed data value.
-  integer, allocatable :: MBIT(:)
+  integer, allocatable :: mbit(:)
 end module moda_usrbit
 
 !> Declare arrays used to store data
@@ -789,14 +790,14 @@ end module moda_usrbit
 !> @author J. Woollen @date 1994-01-06
 module moda_usrint
   !> Number of data values in BUFR data subset.
-  integer, allocatable :: NVAL(:)
+  integer, allocatable :: nval(:)
   !> Inventory pointer which links each data value to its corresponding node in the internal jump/link table.
-  integer, target, allocatable :: INV(:,:)
+  integer, target, allocatable :: inv(:,:)
   !> Referenced data value, for data values which refer to a previous data value in the BUFR data subset via an internal
   !> bitmap.
-  integer, allocatable :: NRFELM(:,:)
+  integer, allocatable :: nrfelm(:,:)
   !> Data values.
-  real*8, target, allocatable :: VAL(:,:)
+  real*8, target, allocatable :: val(:,:)
 end module moda_usrint
 
 !> Declare arrays used in subroutine rcstpl() to store
@@ -805,11 +806,10 @@ end module moda_usrint
 !>
 !> @author J. Woollen 1994-01-06
 module moda_usrtmp
-  parameter ( MAXRCR = 100 )
   !> inv array elements for new sections of a growing subset buffer.
-  integer, allocatable :: IUTMP(:,:)
+  integer, allocatable :: iutmp(:,:)
   !> val array elements for new sections of a growing subset buffer.
-  real*8, allocatable :: VUTMP(:,:)
+  real*8, allocatable :: vutmp(:,:)
 end module moda_usrtmp
 
 !> Declare an array used to track, for each file ID,
@@ -828,5 +828,61 @@ module moda_xtab
   !> .true. if the DX BUFR table for the corresponding logical unit has
   !> changed since the previous call to subroutine makestab(); set to
   !> .false. otherwise.
-  logical, allocatable :: XTAB(:)
+  logical, allocatable :: xtab(:)
 end module moda_xtab
+
+!> Declare variables used to store tank receipt time information within Section 1 of BUFR messages.
+!>
+!> @author J. Ator @date 2024-03-20
+module moda_tnkrcp
+  !> Flag indicating whether tank receipt times are to be included within output BUFR messages; this variable is
+  !> initialized to a default value which can be overridden by a subsequent call to subroutine strcpt() within the
+  !> application program:
+  !> - 'N' = No (default)
+  !> - 'Y' = Yes
+  character*1 :: ctrt = 'N'
+  !> Tank receipt year
+  integer :: itryr
+  !> Tank receipt month
+  integer :: itrmo
+  !> Tank receipt day
+  integer :: itrdy
+  !> Tank receipt hour
+  integer :: itrhr
+  !> Tank receipt minute
+  integer :: itrmi
+end module moda_tnkrcp
+
+!> Declare a variable used to indicate whether output BUFR messages should be standardized.
+!>
+!> @author J. Ator @date 2024-03-22
+module moda_msgstd
+  !> Flag indicating whether BUFR output messages are to be standardized; this variable is initialized to a default
+  !> value which can be overridden by a subsequent call to subroutine stdmsg() within the application program:
+  !> - 'N' = No (default)
+  !> - 'Y' = Yes
+  character :: csmf = 'N'
+end module moda_msgstd
+
+!> Declare a variable used to indicate whether output BUFR messages should be compressed.
+!>
+!> @author J. Ator @date 2024-05-29
+module moda_msgcmp
+  !> Flag indicating whether BUFR output messages are to be compressed; this variable is initialized to a default
+  !> value which can be overridden by a subsequent call to subroutine cmpmsg() within the application program:
+  !> - 'N' = No (default)
+  !> - 'Y' = Yes
+  character :: ccmf = 'N'
+end module moda_msgcmp
+
+!> Declare a variable used to indicate whether master code and flag tables should be read.
+!>
+!> @author J. Ator @date 2024-05-29
+module moda_tablef
+  !> Flag indicating whether to include code and flag table information during reads of master BUFR tables; this
+  !> variable is initialized to a default value which can be overridden by a subsequent call to subroutine codflg()
+  !> within the application program:
+  !> - 'N' = No (default)
+  !> - 'Y' = Yes
+  character :: cdmf = 'N'
+end module moda_tablef

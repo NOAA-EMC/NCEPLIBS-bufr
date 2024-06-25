@@ -23,7 +23,7 @@
 
 ! get the filename to open and read
 
-  call getarg(1,file); file=trim(adjustl(file))
+  call get_command_argument(1,file); file=trim(adjustl(file))
   if (file == '') then
      print *, 'Usage: readmp <bufrfile> will print reports one at a time'
      call exit(2)
@@ -33,18 +33,18 @@
      print *,trim(file)//' does not exist'
      call exit(3)
   endif
-  call getarg(2,go); go=trim(adjustl(go)) ! this for testing !
+  call get_command_argument(2,go); go=trim(adjustl(go)) ! this for testing
   open(lunit,file=file,form='unformatted')
 
 ! open the file to bufr and dump the subsets to standard outout one at a time
 
   call openbf(lunit,'IN',lunit)
-  do while(ireadmg(lunit,subset,idate).eq.0)
-     do while(ireadsb(lunit).eq.0)
+  do while(ireadmg(lunit,subset,idate)==0)
+     do while(ireadsb(lunit)==0)
         print*,'message date=',i4dy(idate)
         call ufdump(lunit,6)
-        if(go.ne.'q') read(5,'(a)') go
-        if(go.eq.'q') stop
+        if(go/='q') read(5,'(a)') go
+        if(go=='q') stop
      enddo
   enddo
 

@@ -4,55 +4,21 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 list(APPEND fortran_src
-  modules_vars.F90 modules_arrs.F90
-  adn30.f atrcpt.f blocks.f bort.f bort2.f cadn30.f capit.f chekstab.f cktaba.f closmg.f
-  cmpmsg.f cmsgini.f cnved4.f codflg.f conwin.f copybf.f copymg.f copysb.f cpbfdx.f cpdxmm.f cpymem.f
-  cpyupd.f datebf.f datelen.f digit.f drfini.f drstpl.f dumpbf.f dxdump.f dxinit.f dxmini.f elemdx.f
-  errwrt.f exitbufr.f fstag.f getabdb.f getbmiss.f getcfmng.f getlens.f getntbe.f gets1loc.f gettagpr.f
-  gettagre.f gettbh.f getvalnb.f getwin.f hold4wlc.f i4dy.f ibfms.f icbfms.f icmpdx.f icopysb.f
-  idn30.f idxmsg.f ifbget.f ifxy.f igetdate.f igetfxy.f igetmxby.f igetntbi.f igetntbl.f igetprm.f
-  igetrfel.f igetsc.f igettdi.f imrkopr.f inctab.f invcon.f invmrg.f invtag.f invwin.f iok2cpy.f
-  iokoper.f ipkm.f ipks.f ireadmg.f ireadmm.f ireadns.f ireadsb.f ishrdx.f isize.f istdesc.f iupb.f
-  iupbs01.f iupbs3.f iupm.f iupvs01.f jstnum.f lcmgdf.f lmsg.f lstjpb.f makestab.f maxout.f
-  mesgbc.f mesgbf.f minimg.f mrginv.f msgfull.f msgini.f msgupd.f msgwrt.f mtfnam.f mtinfo.f mvb.f
-  nemdefs.f nemock.f nemspecs.f nemtab.f nemtba.f nemtbax.f nemtbb.f nemtbd.f nenubd.f nevn.f newwin.f
-  nmsub.f nmwrd.f numbck.f numtab.f numtbd.f nvnwin.f nwords.f nxtwin.f openbt.f openmb.f openmg.f pad.f
-  padmsg.f parstr.f parusr.f parutg.f pkb.f pkbs1.f pkc.f pkftbv.f pktdd.f posapx.f rcstpl.f rdbfdx.f
-  rdcmps.f rdmemm.f rdmems.f rdmgsb.f rdmsgw.F90 rdmtbb.f rdmtbd.f rdmtbf.f rdtree.f rdusdx.f readdx.f
-  readerme.f readlc.f readmg.f readmm.f readns.f reads3.f readsb.f rewnbf.f rsvfvm.f rtrcpt.f
-  rtrcptb.f seqsdx.f setblock.f setbmiss.f setvalnb.f sntbbe.f sntbde.f sntbfe.f status.f stbfdx.f
-  stdmsg.f stndrd.f stntbi.f stntbia.f strbtm.f strcln.f strcpt.f string.f strnum.F90 strsuc.F90 tabent.f
-  tabsub.f trybump.f ufbcnt.f ufbcpy.f ufbcup.f ufbdmp.f ufbevn.f ufbget.f ufbin3.f ufbint.f ufbinx.f
-  ufbmem.f ufbmex.f ufbmms.f ufbmns.f ufbovr.f ufbpos.f ufbqcd.f ufbqcp.f ufbrep.f ufbrms.f ufbrp.f
-  ufbrw.f ufbseq.f ufbsp.f ufbstp.f ufbtab.f ufbtam.f ufdump.f upb.f upbb.f upc.f upds3.f upftbv.f
-  ups.f uptdd.f usrtpl.f wrcmps.f wrdxtb.f writcp.f writdx.f writlc.f writsa.f writsb.f
-  wrtree.f wtstat.f arallocf.f ardllocf.f closbf.f ireadmt.f irev.F isetprm.f openbf.f pkvs01.f
-  wrdlen.F fortran_open.F90 fortran_close.F90 bufr_interface.F90 pkb8.f upb8.f up8.f setim8b.F90
-  bufr_c2f_interface.F90 x48.F x84.F bufrlib.F90)
+  modules_vars.F90 modules_arrs.F90 bitmaps.F90 blocks.F90 borts.F90 compress.F90 errwrt.F90
+  copydata.F90 dumpdata.F90 dxtable.F90 fxy.F90 jumplink.F90 mastertable.F90 missing.F90
+  openbt.F90 cftbvs.F90 readwritemg.F90 readwritesb.F90 readwriteval.F90 s013vals.F90 tankrcpt.F90
+  standard.F90 strings.F90 memmsgs.F90 ciencode.F90 cidecode.F90 arallocf.F90 openclosebf.F90
+  bufr_interface.F90 bufr_c2f_interface.F90 x4884.F90 bufrlib.F90)
 
 list(APPEND c_src
-  arallocc.c ardllocc.c bort_exit.c cpmstabs.c cread.c crwbmg.c cfe.c
-  icvidx.c restd.c stseq.c wrdesc.c)
+  arallocc.c cpmstabs.c cread.c crwbmg.c cfe.c icvidx.c restd.c stseq.c)
 
 list(APPEND c_hdr
-  cread.h mstabs.h bufr_interface.h)
+  cread.h mstabs.h bufr_interface.h bufrlib.h)
 
-# Create the bvers.f file and bfrini.f90 files
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bvers.f.in ${CMAKE_CURRENT_BINARY_DIR}/bvers.f @ONLY)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bfrini.f90.in ${CMAKE_CURRENT_BINARY_DIR}/bfrini.f90 @ONLY)
-list(APPEND fortran_src ${CMAKE_CURRENT_BINARY_DIR}/bvers.f ${CMAKE_CURRENT_BINARY_DIR}/bfrini.f90)
-
-# Create the bufrlib.h file
-foreach(_var IN ITEMS MAXNC MXNAF MAXCD NFILES)
-  file(STRINGS modules_vars.F90 _${_var}_tempstr REGEX "integer[a-z ,]*:: ${_var}")
-  if(_${_var}_tempstr MATCHES "${_var} = ([0-9]+)")
-    set(${_var} ${CMAKE_MATCH_1})
-  else()
-    message(FATAL_ERROR "Unable to parse variable ${_var} value from file: modules_vars.F90")
-  endif()
-endforeach()
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bufrlib.h.in ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.h @ONLY)
-list(APPEND c_hdr ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.h)
+# Create the misc.F90 file
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/misc.F90.in ${CMAKE_CURRENT_BINARY_DIR}/misc.F90 @ONLY)
+list(APPEND fortran_src ${CMAKE_CURRENT_BINARY_DIR}/misc.F90)
 
 include(TestBigEndian)
 test_big_endian(IS_BIG_ENDIAN)

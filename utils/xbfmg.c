@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-#include "bufrlib.h"
+#include "bufr_interface.h"
 
 /**
  * This function prints program usage information to standard output.
@@ -108,7 +108,7 @@ int main( int argc, char *argv[] ) {
 
     FILE *fp;
 
-    int msglen, wkint;
+    int msglen, wkint[2];
 
     unsigned long i, filesize, noutfile;
 
@@ -193,11 +193,6 @@ int main( int argc, char *argv[] ) {
     }
 
     /*
-    **  Call wrdlen function to initialize NCEPLIBS-bufr and determine machine endianness.
-    */
-    wrdlen_f( );
-
-    /*
     **  Locate each BUFR message within the input file and write each one to a separate output file.
     **
     **  Note that we can't use the intrinsic C strstr function to locate the "BUFR" and "7777"
@@ -242,8 +237,8 @@ int main( int argc, char *argv[] ) {
         /*
         **  Read the BUFR message length from Section 0.
         */
-        memcpy( &wkint, ( pmsg + 4 ), 3 );
-        msglen = iupb_f( &wkint, 1, 24 );
+        memcpy( wkint, pmsg, 8 );
+        msglen = iupbs01_f( wkint, "LENM" );
 
         /*
         **  Write the BUFR message to the output file.
