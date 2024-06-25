@@ -36,7 +36,11 @@ jobs:
         rm GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
         echo "deb https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
         sudo apt-get update
-        sudo apt-get install intel-oneapi-compiler-fortran-2024.2.0 intel-oneapi-compiler-dpcpp-cpp-and-cpp-classic-2024.2.0
+        if [ "${{ matrix.compilers }}" == "CC=icx FC=ifx" ]; then
+            sudo apt-get install intel-oneapi-compiler-fortran-2024.2 intel-oneapi-dpcpp-cpp-2024.2
+        else
+            sudo apt-get install intel-oneapi-openmp intel-oneapi-compiler-fortran-2023.2.1 intel-oneapi-compiler-dpcpp-cpp-and-cpp-classic-2023.2.1
+        fi
         echo "source /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
 
     - name: checkout
