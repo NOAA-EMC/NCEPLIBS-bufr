@@ -678,8 +678,8 @@ module bufr_c2f_interface
       integer(c_int), value, intent(in) :: ipval
       integer(c_int) :: ires
       integer :: isetprm
-      ires = isetprm(c_f_string(cprmnm),ipval)
 
+      ires = isetprm(c_f_string(cprmnm),ipval)
     end function isetprm_c
 
     !> Define a customized maximum length for output BUFR messages.
