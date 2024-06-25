@@ -10,6 +10,13 @@ project(
     VERSION ${pVersion}
     LANGUAGES C Fortran)
 
+if(CMAKE_Fortran_COMPILER_ID STREQUAL "IntelLLVM")
+  message(STATUS ${CMAKE_Fortran_COMPILER_VERSION})
+  if(CMAKE_Fortran_COMPILER_VERSION VERSION_LESS 2024.2)
+    message(FATAL_ERROR "IntelLLVM (OneAPI) version must be 2024.2 or greater")
+  endif()
+endif()
+
 # Handle user options.
 option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
 option(ENABLE_PYTHON "Enable building python module 'ncepbufr'" OFF)
