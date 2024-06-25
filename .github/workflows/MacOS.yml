@@ -48,7 +48,6 @@ jobs:
 
     - name: build-bufr
       run: |
-        python3 -c "import sys, numpy; print(numpy.__version__); print(sys.version); print(numpy.show_runtime())"
         cd bufr
         mkdir build 
         cd build
@@ -58,7 +57,6 @@ jobs:
 
     - name: test-bufr
       run: |
-        nm /Users/runner/work/NCEPLIBS-bufr/NCEPLIBS-bufr/bufr/build/python/_bufrlib.cpython-312-darwin.so
         cd bufr/build
         ctest --verbose --output-on-failure --rerun-failed
 
