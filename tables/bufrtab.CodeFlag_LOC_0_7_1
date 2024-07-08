@@ -1,7 +1,7 @@
 Table F LOC |  0 | 7 |  1
 #
 # Local BUFR Table CODE/FLAG, Master Table 0, Originating Center 7, Version 1
-# This file was generated: 2023/11/30 16:42:09
+# This file was generated: 2024/07/05 17:36:49
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -4562,6 +4562,13 @@ Table F LOC |  0 | 7 |  1
               | 25 > | Climatological observations from fixed-land stations (CLIMAT TEMP)
               | 26 > | Climatological observations from ships (CLIMAT TEMP SHIP)
               | 40 > | MW temperature/humidity sounding
+              | 50 > | Radio occultation sounding
+              | 104 > | Upper-level temperature/humidity/wind reports from fixed-land stations (TEMP) with re-used radiosondes
+              | 105 > | Upper-level temperature/humidity/wind reports from ships (TEMP SHIP) with re-used radiosondes
+              | 106 > | Upper-level temperature/humidity/wind reports from mobile-land stations (TEMP MOBIL) with re-used radiosondes
+              | 114 > | Upper-level temperature/humidity/wind reports from descent radiosondes originally launched from fixed land stations with re-used radiosondes
+              | 115 > | Upper-level temperature/humidity/wind reports from descent radiosondes originally launched from ships with re-used radiosondes
+              | 116 > | Upper-level temperature/humidity/wind reports from descent radiosondes originally launched from mobile land stations with re-used radiosondes
            | 0-55-020=3
               | 0 > | Temperature (SATEM)
               | 1 > | TIROS (TOVS)
@@ -4755,6 +4762,7 @@ Table F LOC |  0 | 7 |  1
               | 14 > | France ASDAR/ACARS
               | 15 > | Flight level reconnaisance (High Density Observations)
               | 16 > | Mode-S ASDAR/ACARS
+              | 30 > | Long-duration balloon
               | 103 > | ASDAR/ACARS (BUFR)
            | 0-55-020=5
               | 1 > | GOES low-density winds - infrared (long-wave) (NESDIS binary format)
@@ -5099,6 +5107,7 @@ Table F LOC |  0 | 7 |  1
               | 31 > | Urbanet - Miscellaneous (MADIS)
               | 32 > | Urbanet - University of South Alabama (MADIS)
               | 33 > | HF-METAR - one-minute ASOS
+              | 34 > | RWIS - South Dakota Department of Transportation (MADIS)
               | 101 > | Cooperative observer surface - New England Pilot Project (NEPP) and Historical Climatology Network (HCN) (MADIS)
               | 102 > | Cooperative observer surface - NWS Cooperative Observers (SHEF)
               | 111 > | Mesonet - Climate Reference Network (MADIS)

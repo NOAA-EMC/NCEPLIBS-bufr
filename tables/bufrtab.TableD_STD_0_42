@@ -1,7 +1,7 @@
-Table D STD |  0 | 41
+Table D STD |  0 | 42
 #
-# Standard BUFR Table D, Master Table 0, Version 41
-# This file was generated: 2024/07/05 17:22:07
+# Standard BUFR Table D, Master Table 0, Version 42
+# This file was generated: 2024/07/05 17:36:48
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC   ;DCOD ; NAME           <-- sequence definition
@@ -6769,7 +6769,7 @@ Table D STD |  0 | 41
            | 0-08-029 > | Surface type
            | 0-20-083   | Amount of segment covered by scene
 
-  3-10-086 | IAS1DPCS   ;     ; IASI-NG L1D (Principle Component Scores)
+  3-10-086 | IAS1DPCS   ;     ; IASI-NG L1D (Principal component scores)
            | 0-01-007 > | Satellite identifier
            | 3-01-005 > | Originating centre/sub-centre
            | 0-02-019 > | Satellite instruments
@@ -8407,6 +8407,66 @@ Table D STD |  0 | 41
            | 0-08-080 > | Qualifier for GTSPP quality flag
            | 0-33-050 > | Global GTSPP quality flag
            | 0-22-043 > | Sea/water temperature
+           | 0-08-080 > | Qualifier for GTSPP quality flag
+           | 0-33-050   | Global GTSPP quality flag
+
+  3-15-006 | XCTDTSPF   ;     ; XCTD temperature and salinity profile data
+           | 0-01-079 > | Unique identifier for the profile
+           | 0-01-011 > | Ship or mobile land station identifier
+           | 0-01-103 > | IMO Number. Unique Lloyd's register
+           | 0-01-087 > | WMO marine observing platform extended identifier
+           | 0-01-019 > | Long station or site name
+           | 0-01-080 > | Ship line number according to SOOP
+           | 0-05-036 > | Ship transect number according to SOOP
+           | 0-01-036 > | Agency in charge of operating the observing platform
+           | 0-01-013 > | Speed of motion of moving observing platform
+           | 0-01-012 > | Direction of motion of moving observing platform
+           | 3-01-011 > | Year, month, day
+           | 3-01-012 > | Hour, minute
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-07-033 > | Height of sensor above water surface
+           | 0-02-002 > | Type of instrumentation for wind measurement
+           | 0-11-002 > | Wind speed
+           | 0-11-001 > | Wind direction
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-07-033 > | Height of sensor above water surface
+           | 0-12-101 > | Temperature/air temperature
+           | 0-12-103 > | Dewpoint temperature
+           | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
+           | 0-07-033 > | Height of sensor above water surface
+           | 3-02-021 > | Waves
+           | 0-02-031 > | Duration and time of current measurement
+           | 0-02-030 > | Method of current measurement
+           | 0-22-005 > | Direction of sea-surface current
+           | 0-22-032 > | Speed of sea-surface current
+           | 0-22-063 > | Total water depth
+           | 0-08-080 > | Qualifier for GTSPP quality flag
+           | 0-33-050 > | Global GTSPP quality flag
+           | 0-22-178 > | XBT/XCTD launcher type
+           | 0-22-177 > | Height of XBT/XCTD launcher
+           | 0-22-067 > | Instrument type for water temperature/salinity profile measurement
+           | 0-08-041 > | Data significance
+           | 0-26-021 > | Year
+           | 0-26-022 > | Month
+           | 0-26-023 > | Day
+           | 0-22-068 > | Water temperature profile recorder types
+           | 0-25-061 > | Software identification and version number
+           | 0-08-041 > | Data significance
+           | 0-08-080 > | Qualifier for GTSPP quality flag
+           | 0-02-171 > | Instrument serial number for water temperature profile measurement
+           | 3-02-090 > | Sea/water temperature high precision
+           | 0-02-171 > | Instrument serial number for water temperature profile measurement
+           | 0-02-032 > | Indicator for digitization
+           | 1-09-000 > | Delayed replication of 9 descriptors
+           | 0-31-002 > | Extended delayed descriptor replication factor
+           | 0-07-063 > | Depth below sea/water surface
+           | 0-08-080 > | Qualifier for GTSPP quality flag
+           | 0-33-050 > | Global GTSPP quality flag
+           | 0-22-043 > | Sea/water temperature
+           | 0-08-080 > | Qualifier for GTSPP quality flag
+           | 0-33-050 > | Global GTSPP quality flag
+           | 0-22-064 > | Salinity
            | 0-08-080 > | Qualifier for GTSPP quality flag
            | 0-33-050   | Global GTSPP quality flag
 
