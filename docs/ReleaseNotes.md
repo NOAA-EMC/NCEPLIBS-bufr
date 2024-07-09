@@ -2,6 +2,37 @@
 # Release Notes
 @brief Detailed description of changes included within each new release.
 
+## Version 12.1.0 - July 10, 2024
+
+* Added support for IntelLLVM (OneAPI) compilers.
+[[Issue #538](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/538)]
+
+* Added logic to optimize decoding for the majority of data values which are encoded in 32 bits or less.
+[[Issue #534](https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/534)]
+[[Issue #543](https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/543)]
+
+* Increased length limits for master table directory and filenames.
+[[Issue #533](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/533)]
+
+* Fixed some build issues related to Python interoperability.
+[[Issue #524](https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/524)]
+[[Issue #537](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/537)]
+
+* Fixed a bug to ensure that any user input data values of NaN are encoded as "missing" in BUFR.
+[[Issue #550](https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/550)]
+
+* Modified the ufdump() subroutine to print subset data values to their true scale precision, so that values
+with a non-positive scale factor will now display as integers, including when printed via the debufr utility.
+[[Issue #513](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/513)]
+
+* Added a new print verbosity level of 3 which can be activated when calling subroutine openbf()
+with IO='QUIET'. [[Issue #567](https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/567)]
+
+* Added apxdx to project as new utility. [[Issue #585](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/585)]
+
+* Fixed a bug in subroutine rewnbf() to ensure that it points to the correct subset in a BUFR message
+after a restore call. [[Issue #599](https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/599)]
+
 ## Version 12.0.1 - September 15, 2023
 
 * An extension was added to support the query interface for C++ IODA

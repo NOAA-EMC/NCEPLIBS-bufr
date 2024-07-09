@@ -51,16 +51,24 @@ make install
 </pre>
 
 Both `path1` and `path2` may be full or relative pathnames
-on the system, up to a maximum of 90 characters each.
+on the system, up to a maximum of 240 characters each.
 
 Installation of the library and utilities will be under `path1`.
 Installation of the master BUFR tables will be under `path2`, or
 under `path1` if `-DMASTER_TABLE_DIR=path2` is omitted
 from the above cmake command.
 
-If Python interoperability is desired, `-DENABLE_PYTHON=ON` can also
+If Python interoperability is desired, then `-DENABLE_PYTHON=ON` can also
 be added to the above cmake command.  However, version 3 of Python
 must be installed and available on the system.
+
+When building the library, automated CI testing is included by default.
+If this is not desired, then it can be disabled by adding `-DBUILD_TESTING=OFF`
+to the above cmake command.
+
+When building the library, associated utilities are included by default.
+If these are not desired, then they can be disabled by adding `-DBUILD_UTILS=OFF`
+to the above cmake command.
 
 ## References
 
