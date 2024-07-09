@@ -3,7 +3,6 @@ var namespacebufrlib =
     [ "arallocc_c", "interfacebufrlib_1_1arallocc__c.html", "interfacebufrlib_1_1arallocc__c" ],
     [ "ardllocc_c", "interfacebufrlib_1_1ardllocc__c.html", "interfacebufrlib_1_1ardllocc__c" ],
     [ "backbufr_c", "interfacebufrlib_1_1backbufr__c.html", "interfacebufrlib_1_1backbufr__c" ],
-    [ "bort_exit_c", "interfacebufrlib_1_1bort__exit__c.html", "interfacebufrlib_1_1bort__exit__c" ],
     [ "cewind_c", "interfacebufrlib_1_1cewind__c.html", "interfacebufrlib_1_1cewind__c" ],
     [ "closfb_c", "interfacebufrlib_1_1closfb__c.html", "interfacebufrlib_1_1closfb__c" ],
     [ "cpmstabs_c", "interfacebufrlib_1_1cpmstabs__c.html", "interfacebufrlib_1_1cpmstabs__c" ],

@@ -35,7 +35,6 @@ var namespaces_dup =
       [ "ireadsb_c", "namespacebufr__c2f__interface.html#ac349c058a2cd324d8cfe5a85ebf2acb1", null ],
       [ "isetprm_c", "namespacebufr__c2f__interface.html#ad1dcef9962b409b6448c928d0dfb9490", null ],
       [ "istdesc_c", "namespacebufr__c2f__interface.html#a7968999c9eda822f79eec9178762a2ae", null ],
-      [ "iupb_c", "namespacebufr__c2f__interface.html#acd15fc54e3efbf1964f4216b8a2065fe", null ],
       [ "iupbs01_c", "namespacebufr__c2f__interface.html#a583019d0b109031d8f8aedb4d48e2afd", null ],
       [ "maxout_c", "namespacebufr__c2f__interface.html#aa7f319cef617f458cbaf40cdeea42d42", null ],
       [ "mtinfo_c", "namespacebufr__c2f__interface.html#a550c1c61605eca9fa6cf04aba7612364", null ],
@@ -56,7 +55,6 @@ var namespaces_dup =
       [ "ufbrep_c", "namespacebufr__c2f__interface.html#a57a1b4956a89ed60a934a02d4140eb93", null ],
       [ "ufbseq_c", "namespacebufr__c2f__interface.html#af0b721af91340e7a261e8014455bd6ca", null ],
       [ "uptdd_c", "namespacebufr__c2f__interface.html#aa3ea9ef5bab8e3ceb1118f0e8cafaeea", null ],
-      [ "wrdlen_c", "namespacebufr__c2f__interface.html#acf751dae4f6ef06f7340984fc5f0bec1", null ],
       [ "irf_f", "namespacebufr__c2f__interface.html#a2efc35235defecb306c8324c0599d0b9", null ],
       [ "isc_f", "namespacebufr__c2f__interface.html#a2b81bdfdb8a2380ba294b375c67d343a", null ],
       [ "itp_f", "namespacebufr__c2f__interface.html#a5c0b51f6d15b30a289d69c36e19b1264", null ],
@@ -97,41 +95,40 @@ var namespaces_dup =
       [ "jbay", "namespacemoda__bufrsr.html#adff426f406bb1f795e94c0af6d68d856", null ],
       [ "jbit", "namespacemoda__bufrsr.html#a80dd6be1ed3b93e6cb6fcfef1e87ee08", null ],
       [ "jbyt", "namespacemoda__bufrsr.html#ab23685bcce40ee0d9f71f881bdfa0d07", null ],
-      [ "jdat", "namespacemoda__bufrsr.html#a6ed2bbddb1fe31a67e91755a97327a47", null ],
       [ "jill", "namespacemoda__bufrsr.html#a157bb0cb25913753748822ce3c384b06", null ],
       [ "jimm", "namespacemoda__bufrsr.html#a225d75cc454938f8da4ed39857ff2c5c", null ],
       [ "jmsg", "namespacemoda__bufrsr.html#a4971d723fe9c86ed7741f7cfae61f2f0", null ],
-      [ "jnod", "namespacemoda__bufrsr.html#a80378e3ec74ac01799783b12a2d93218", null ],
       [ "jsr", "namespacemoda__bufrsr.html#a38470e8cca9ad2afce56dd577ddd5b51", null ],
       [ "jsub", "namespacemoda__bufrsr.html#a821fcf75cf865aaebdba3527d04190e0", null ],
-      [ "junn", "namespacemoda__bufrsr.html#a9ec76b10297b2e9521682a1e2014370d", null ],
-      [ "ksub", "namespacemoda__bufrsr.html#ab0dfe362eac51af76fd38ba7ecd3bbc6", null ]
+      [ "junn", "namespacemoda__bufrsr.html#a9ec76b10297b2e9521682a1e2014370d", null ]
     ] ],
     [ "moda_comprs", "namespacemoda__comprs.html", [
       [ "catx", "namespacemoda__comprs.html#a94ea2c3cfc88079d837ac29324d61937", null ],
-      [ "incr", "namespacemoda__comprs.html#a5a26b3bab3a4964256b56ff2a1522b27", null ],
-      [ "matx", "namespacemoda__comprs.html#a7797aca7884ff0e46979d4a5c120a576", null ],
+      [ "incr", "namespacemoda__comprs.html#a7e5d5589bde01337616f2527beed519f", null ],
+      [ "matx", "namespacemoda__comprs.html#ac4fd15b3e268548d17edca4e1e5e5675", null ],
       [ "ncol", "namespacemoda__comprs.html#a0bab4a779995493580b46f231516e133", null ]
     ] ],
     [ "moda_comprx", "namespacemoda__comprx.html", [
       [ "cstr", "namespacemoda__comprx.html#a07c74b931e7ddbba553f8391b8e24aaf", null ],
       [ "flush", "namespacemoda__comprx.html#a47438a5eff5e61065fce0dc3df1694a7", null ],
+      [ "imiss", "namespacemoda__comprx.html#a7a0967a79c236a16f1fa11ebb8f99b0f", null ],
       [ "ityp", "namespacemoda__comprx.html#a8ecc5d87d79c8c3aa778665041bcb522", null ],
       [ "iwid", "namespacemoda__comprx.html#aa945d27bc1c5cf32ea5ba624ef289808", null ],
+      [ "jlnode", "namespacemoda__comprx.html#a7caf741d65ff0b68932fa7d207c689ba", null ],
       [ "kbit", "namespacemoda__comprx.html#ad9b27559a7e05f9939764fa6688d7147", null ],
       [ "kbyt", "namespacemoda__comprx.html#a243a2baa283f951be51ea9466cca35b8", null ],
-      [ "kmax", "namespacemoda__comprx.html#a1ffd4baa8c4d960216a59e8c900c6a71", null ],
-      [ "kmin", "namespacemoda__comprx.html#ad51ebce67c88b36c4ad4a07ee1a49732", null ],
+      [ "kmax", "namespacemoda__comprx.html#a7c3104f9c9731b91a8a105bcc5212542", null ],
+      [ "kmin", "namespacemoda__comprx.html#af3c2aa97661a37d85840d480e611695e", null ],
       [ "kmis", "namespacemoda__comprx.html#aedf59ef218e980c24d128aa7bc8884b1", null ],
       [ "lunc", "namespacemoda__comprx.html#ac17dd8dc0aeb695a1046a884673b1fc3", null ],
       [ "nrow", "namespacemoda__comprx.html#a574b3c666f5e8aa725910e20a739f561", null ],
       [ "writ1", "namespacemoda__comprx.html#a8be10a997d67944a328d256bfc60bf02", null ]
     ] ],
     [ "moda_dscach", "namespacemoda__dscach.html", [
-      [ "cnem", "namespacemoda__dscach.html#a0ba1605c1f5ecd4655b010b52dab6c2a", null ],
-      [ "idcach", "namespacemoda__dscach.html#a7d18bfabd11b41f2510a9bdd180976d3", null ],
+      [ "cnem", "namespacemoda__dscach.html#a141173c549e506cd4637af33c4efdece", null ],
+      [ "idcach", "namespacemoda__dscach.html#ab79409e1e5c6d8e2542bac564283a5ef", null ],
       [ "ncnem", "namespacemoda__dscach.html#aa768890377f016eaae82cb56404ecdc6", null ],
-      [ "ndc", "namespacemoda__dscach.html#af3bfb995ad7362f75b23ef21cc384e3c", null ]
+      [ "ndc", "namespacemoda__dscach.html#abbb9e570ae869b4abdf6e18c14475485", null ]
     ] ],
     [ "moda_h4wlc", "namespacemoda__h4wlc.html", [
       [ "chh4wlc", "namespacemoda__h4wlc.html#afbc0cd7c0f91147bca16c7fd909a0d75", null ],
@@ -143,7 +140,7 @@ var namespaces_dup =
       [ "idrdm", "namespacemoda__idrdm.html#a24e12e5c288360f0e7e6483094773db6", null ]
     ] ],
     [ "moda_ival", "namespacemoda__ival.html", [
-      [ "ival", "namespacemoda__ival.html#a5b960a10512f7450b54e1b728770bd58", null ]
+      [ "ival", "namespacemoda__ival.html#a354161b574c84bfd3401bc0b287335c7", null ]
     ] ],
     [ "moda_ivttmp", "namespacemoda__ivttmp.html", [
       [ "itmp", "namespacemoda__ivttmp.html#af59d63e63df8f925e55a922d70a37785", null ],
@@ -158,6 +155,9 @@ var namespaces_dup =
     ] ],
     [ "moda_mgwb", "namespacemoda__mgwb.html", [
       [ "mgwb", "namespacemoda__mgwb.html#ac38651460e5e05dd70fe8c19fc1a9caa", null ]
+    ] ],
+    [ "moda_msgcmp", "namespacemoda__msgcmp.html", [
+      [ "ccmf", "namespacemoda__msgcmp.html#a748ff156e2c817957765b05119f74270", null ]
     ] ],
     [ "moda_msgcwd", "namespacemoda__msgcwd.html", [
       [ "idate", "namespacemoda__msgcwd.html#a37df9d6a60023612be784db0b759da3b", null ],
@@ -185,6 +185,9 @@ var namespaces_dup =
       [ "mxdxw", "namespacemoda__msgmem.html#af2710ff69575fa7a323c654e7998e142", null ],
       [ "ndxm", "namespacemoda__msgmem.html#a6e754cd1cdefe0c8c93ab497fcb33637", null ],
       [ "ndxts", "namespacemoda__msgmem.html#ab1873371ca3b5f3e44a5d19ebf30af23", null ]
+    ] ],
+    [ "moda_msgstd", "namespacemoda__msgstd.html", [
+      [ "csmf", "namespacemoda__msgstd.html#a23356dfd7172ae4d2ff05d657234d6ab", null ]
     ] ],
     [ "moda_mstabs", "namespacemoda__mstabs.html", [
       [ "cbbw", "namespacemoda__mstabs.html#a31164f84ab9d27493a19afee2fda502a", null ],
@@ -237,6 +240,10 @@ var namespaces_dup =
       [ "ivmnem", "namespacemoda__s01cm.html#a320a25005a0063e8a0713fc66973b655", null ],
       [ "ns01v", "namespacemoda__s01cm.html#a7dfdd248050c7cc36f38933711526888", null ]
     ] ],
+    [ "moda_s3list", "namespacemoda__s3list.html", [
+      [ "cds3", "namespacemoda__s3list.html#a2ceee9741718460b614f37fb6b976259", null ],
+      [ "ids3", "namespacemoda__s3list.html#a07f44b4772abffacaba7e9be5fbb7fda", null ]
+    ] ],
     [ "moda_sc3bfr", "namespacemoda__sc3bfr.html", [
       [ "isc3", "namespacemoda__sc3bfr.html#ac3bbd45f25c8071e161bf7898230695a", null ],
       [ "tamnem", "namespacemoda__sc3bfr.html#aa480a82940946343d0d30d8f65c27584", null ]
@@ -260,6 +267,9 @@ var namespaces_dup =
       [ "tabb", "namespacemoda__tababd.html#ad3fddde254d512cae401fc3f5532fe7c", null ],
       [ "tabd", "namespacemoda__tababd.html#a043c64825f8bdb44c4e6b69d2f5c253c", null ]
     ] ],
+    [ "moda_tablef", "namespacemoda__tablef.html", [
+      [ "cdmf", "namespacemoda__tablef.html#a61847a8129d1a6c6909c2ea4727d67f6", null ]
+    ] ],
     [ "moda_tables", "namespacemoda__tables.html", [
       [ "ibt", "namespacemoda__tables.html#a1ff254e3c0f169340a16225a17c5a2c2", null ],
       [ "irf", "namespacemoda__tables.html#a17c04e8d3d8d361463e3f2fc0b3dd599", null ],
@@ -272,11 +282,18 @@ var namespaces_dup =
       [ "knt", "namespacemoda__tables.html#a28b0f02b81a535890fc64ec13fdfc35b", null ],
       [ "knti", "namespacemoda__tables.html#af5a5b5688cbfbea4a3d5d0705172fba3", null ],
       [ "link", "namespacemoda__tables.html#ac0c5953da2d8867d81acad1800fec53c", null ],
-      [ "maxtab", "namespacemoda__tables.html#a36137a9a943b036fa381924821caf8e2", null ],
       [ "ntab", "namespacemoda__tables.html#a74976394b2b70036d27222507ba4bfcc", null ],
       [ "tag", "namespacemoda__tables.html#a5f03be0ecd3fa7e059b9c74fb67cd4e4", null ],
       [ "typ", "namespacemoda__tables.html#a4ff0c6b9328407caa52c08dd22d7525c", null ],
       [ "vali", "namespacemoda__tables.html#a2a706219ab0edde0511570bfa32093ed", null ]
+    ] ],
+    [ "moda_tnkrcp", "namespacemoda__tnkrcp.html", [
+      [ "ctrt", "namespacemoda__tnkrcp.html#aba2ec73dacc32807332a7c1e38468f38", null ],
+      [ "itrdy", "namespacemoda__tnkrcp.html#a97f45bd4e10b6016c9ef17bbd0efc2ca", null ],
+      [ "itrhr", "namespacemoda__tnkrcp.html#a12d35afcaacac53905061f928377d92b", null ],
+      [ "itrmi", "namespacemoda__tnkrcp.html#aceb65be824d657fa109be2d9059a3a2b", null ],
+      [ "itrmo", "namespacemoda__tnkrcp.html#af081362974b0ae4f5be67c4bea20bae6", null ],
+      [ "itryr", "namespacemoda__tnkrcp.html#a3f402734944f1438bc986b0d877a0bd7", null ]
     ] ],
     [ "moda_ufbcpl", "namespacemoda__ufbcpl.html", [
       [ "luncpy", "namespacemoda__ufbcpl.html#abf94758379c91be61fcf18f6c9dae5cf", null ]
@@ -301,102 +318,53 @@ var namespaces_dup =
     [ "moda_xtab", "namespacemoda__xtab.html", [
       [ "xtab", "namespacemoda__xtab.html#ada2721216de79b6527d89323df61956d", null ]
     ] ],
-    [ "modv_bmiss", "namespacemodv__bmiss.html", [
-      [ "bmiss", "namespacemodv__bmiss.html#a765c07216d8fe91b2876890e540f1519", null ]
-    ] ],
-    [ "modv_ifopbf", "namespacemodv__ifopbf.html", [
-      [ "ifopbf", "namespacemodv__ifopbf.html#a39326be0f9fc667b811dbe4f49588e71", null ]
-    ] ],
-    [ "modv_im8b", "namespacemodv__im8b.html", [
-      [ "im8b", "namespacemodv__im8b.html#af89ce869fc472b48531a4356395ca8af", null ]
-    ] ],
-    [ "modv_maxcd", "namespacemodv__maxcd.html", [
-      [ "maxcd", "namespacemodv__maxcd.html#a9de0bfc19c54f103e9edb2864d8778f8", null ]
-    ] ],
-    [ "modv_maxjl", "namespacemodv__maxjl.html", [
-      [ "maxjl", "namespacemodv__maxjl.html#adb7e2a387689aae3a964d3f379e14d61", null ]
-    ] ],
-    [ "modv_maxmem", "namespacemodv__maxmem.html", [
-      [ "maxmem", "namespacemodv__maxmem.html#a25bac0a9ac9ec7e2385b2c0d7b860ee1", null ]
-    ] ],
-    [ "modv_maxmsg", "namespacemodv__maxmsg.html", [
-      [ "maxmsg", "namespacemodv__maxmsg.html#a00da6b40b76b72a75b2948b026e8ad46", null ]
-    ] ],
-    [ "modv_maxnc", "namespacemodv__maxnc.html", [
-      [ "maxnc", "namespacemodv__maxnc.html#a9ba251d03efb6ce30eb35ccefa5fee1e", null ]
-    ] ],
-    [ "modv_maxss", "namespacemodv__maxss.html", [
-      [ "maxss", "namespacemodv__maxss.html#a0109e3f912cb9a045bd0bdbc2c3599a2", null ]
-    ] ],
-    [ "modv_maxtba", "namespacemodv__maxtba.html", [
-      [ "maxtba", "namespacemodv__maxtba.html#ac5b7bef2c4078bf74e81a1773767624a", null ]
-    ] ],
-    [ "modv_maxtbb", "namespacemodv__maxtbb.html", [
-      [ "maxtbb", "namespacemodv__maxtbb.html#a64a2fe94d8f8c4459f811370e8ff71f2", null ]
-    ] ],
-    [ "modv_maxtbd", "namespacemodv__maxtbd.html", [
-      [ "maxtbd", "namespacemodv__maxtbd.html#af0bace2fd3fb04c6d0243ca4004616e0", null ]
-    ] ],
-    [ "modv_mxbtm", "namespacemodv__mxbtm.html", [
-      [ "mxbtm", "namespacemodv__mxbtm.html#ab4a909f2f76ec550ae2776645a8df46f", null ]
-    ] ],
-    [ "modv_mxbtmse", "namespacemodv__mxbtmse.html", [
-      [ "mxbtmse", "namespacemodv__mxbtmse.html#a5cbb45a528e6d0aa7c0920ad894d51ac", null ]
-    ] ],
-    [ "modv_mxcdv", "namespacemodv__mxcdv.html", [
-      [ "mxcdv", "namespacemodv__mxcdv.html#a4a04738aa454a7cad1dbc581f50d0ff7", null ]
-    ] ],
-    [ "modv_mxcnem", "namespacemodv__mxcnem.html", [
-      [ "mxcnem", "namespacemodv__mxcnem.html#aa365d7315624259a7a21adeb3a628cd3", null ]
-    ] ],
-    [ "modv_mxcsb", "namespacemodv__mxcsb.html", [
-      [ "mxcsb", "namespacemodv__mxcsb.html#a32acff1af258eba800833e352391e17c", null ]
-    ] ],
-    [ "modv_mxdxts", "namespacemodv__mxdxts.html", [
-      [ "mxdxts", "namespacemodv__mxdxts.html#a5f1a9fea4a54d99b9967c8aec183f884", null ]
-    ] ],
-    [ "modv_mxh4wlc", "namespacemodv__mxh4wlc.html", [
-      [ "mxh4wlc", "namespacemodv__mxh4wlc.html#a5f5b13fe947cc288f30e436dd890b886", null ]
-    ] ],
-    [ "modv_mxlcc", "namespacemodv__mxlcc.html", [
-      [ "mxlcc", "namespacemodv__mxlcc.html#aae993775b8e9aac22197a7636a31b8af", null ]
-    ] ],
-    [ "modv_mxmsgl", "namespacemodv__mxmsgl.html", [
-      [ "mxmsgl", "namespacemodv__mxmsgl.html#af27eca23c1db9f9eaa447523aacb9ccc", null ],
-      [ "mxmsgld4", "namespacemodv__mxmsgl.html#a2f7d0410150f8171819ce9dd08a04ce9", null ]
-    ] ],
-    [ "modv_mxmtbb", "namespacemodv__mxmtbb.html", [
-      [ "mxmtbb", "namespacemodv__mxmtbb.html#a5485fe7cfc03d43037332374b6978139", null ]
-    ] ],
-    [ "modv_mxmtbd", "namespacemodv__mxmtbd.html", [
-      [ "mxmtbd", "namespacemodv__mxmtbd.html#a9a0e83b3c30a94df1f775cbac21909ea", null ]
-    ] ],
-    [ "modv_mxmtbf", "namespacemodv__mxmtbf.html", [
-      [ "mxmtbf", "namespacemodv__mxmtbf.html#a1d1180c7ebc57b9027adad1c8416b363", null ]
-    ] ],
-    [ "modv_mxnaf", "namespacemodv__mxnaf.html", [
-      [ "mxnaf", "namespacemodv__mxnaf.html#a4bcae72ec91bf4e2aa24ded587ee0b2e", null ]
-    ] ],
-    [ "modv_mxnrv", "namespacemodv__mxnrv.html", [
-      [ "mxnrv", "namespacemodv__mxnrv.html#ad92fefa0c5524719c3c05092dbc55050", null ]
-    ] ],
-    [ "modv_mxrst", "namespacemodv__mxrst.html", [
-      [ "mxrst", "namespacemodv__mxrst.html#a73203ec7925d5389a84367c937d3da97", null ]
-    ] ],
-    [ "modv_mxs", "namespacemodv__mxs.html", [
-      [ "mxs", "namespacemodv__mxs.html#a72f17d1827d2fafc9ea4f8fc4effe375", null ]
-    ] ],
-    [ "modv_mxs01v", "namespacemodv__mxs01v.html", [
-      [ "mxs01v", "namespacemodv__mxs01v.html#a23decd12e10b603556fb90d309b32f51", null ]
-    ] ],
-    [ "modv_mxtamc", "namespacemodv__mxtamc.html", [
-      [ "mxtamc", "namespacemodv__mxtamc.html#ade76aa5db387438d3bd279e599df3e11", null ]
-    ] ],
-    [ "modv_mxtco", "namespacemodv__mxtco.html", [
-      [ "mxtco", "namespacemodv__mxtco.html#a9a6ec441e7b71d30945ad61d917eda81", null ]
-    ] ],
-    [ "modv_nfiles", "namespacemodv__nfiles.html", [
-      [ "nfiles", "namespacemodv__nfiles.html#a0523fa736e5303f831ba35f28f0e12e3", null ]
+    [ "modv_vars", null, [
+      [ "adsn", "modules__vars_8F90.html#a7a129734d8b06649619e8e9ee42eca62", null ],
+      [ "bmiss", "modules__vars_8F90.html#a745e8be4bf52246db47090996854736b", null ],
+      [ "iac", "modules__vars_8F90.html#a7db5428bb409dc91391908e3f6005da0", null ],
+      [ "iblock", "modules__vars_8F90.html#a8623e746f63272cf61b014607d998345", null ],
+      [ "idnr", "modules__vars_8F90.html#a181516c96f53bedb9774c83ebfeb0a23", null ],
+      [ "ifopbf", "modules__vars_8F90.html#a6007e8a5d98440d7bb16ce63bbf007e6", null ],
+      [ "im8b", "modules__vars_8F90.html#a4ff59bf9f9ee31e187bf7f8ecb61f4dd", null ],
+      [ "iordbe", "modules__vars_8F90.html#a2588ca33cb30f0316759c9ca7735bbb3", null ],
+      [ "iordle", "modules__vars_8F90.html#a7376f8406ce5e5e420d4d012aea93416", null ],
+      [ "lendat", "modules__vars_8F90.html#a9776bd15698bdb2c211a2326f0ca61dc", null ],
+      [ "lens", "modules__vars_8F90.html#a3eaffbddfb28ae6f90cff4ec580463c1", null ],
+      [ "maxcd", "modules__vars_8F90.html#ae8a681bd9096d6c9a2466b3c71f6ec7e", null ],
+      [ "maxjl", "modules__vars_8F90.html#ad2e54a398ee4fd5c87669a2883e7a37d", null ],
+      [ "maxmem", "modules__vars_8F90.html#ab5934a6a2f8cd3e09418203c1d3c20de", null ],
+      [ "maxmsg", "modules__vars_8F90.html#a61162c966b964b3039b9180818d0e7ee", null ],
+      [ "maxnc", "modules__vars_8F90.html#a6c14025516cc65ace5f17fc2c4e4a9a3", null ],
+      [ "maxrcr", "modules__vars_8F90.html#a656c690a79e927a6d824a1e8cef901e9", null ],
+      [ "maxss", "modules__vars_8F90.html#adaae2c5fadf243ece139cc7e84688d75", null ],
+      [ "maxtba", "modules__vars_8F90.html#aec19b6418a5d88f574f4b196b93a5cf5", null ],
+      [ "maxtbb", "modules__vars_8F90.html#a14452fc0317594bd880c9abba582ae74", null ],
+      [ "maxtbd", "modules__vars_8F90.html#ab5fc7a78bb32e9a0fa7cbb1f402e7528", null ],
+      [ "mxbtm", "modules__vars_8F90.html#a9c06e9ba0f47cbeecfb1e6d1972e1e4f", null ],
+      [ "mxbtmse", "modules__vars_8F90.html#aa7b24da237033a528cb05754d5736cc6", null ],
+      [ "mxcdv", "modules__vars_8F90.html#ae330052e2bcc0a81949c5ef8d6e7cc9e", null ],
+      [ "mxcnem", "modules__vars_8F90.html#ad5cda585f8b55a9e6e3a81808c23630f", null ],
+      [ "mxcsb", "modules__vars_8F90.html#a6780f1f07eeec5333e01ca17588f7d39", null ],
+      [ "mxdxts", "modules__vars_8F90.html#a179ebe33ab923f74ef05e2851a86d33b", null ],
+      [ "mxh4wlc", "modules__vars_8F90.html#a59f64f9f847d2171ecac822482b2f0a9", null ],
+      [ "mxlcc", "modules__vars_8F90.html#a739ea87803beaa51dd172adb95af9b86", null ],
+      [ "mxmsgl", "modules__vars_8F90.html#a6062176c0f51fa9f593310f46cc14fe0", null ],
+      [ "mxmsgld4", "modules__vars_8F90.html#a5a89be3220392c5b182d4d475d22e3e1", null ],
+      [ "mxmtbb", "modules__vars_8F90.html#ab2c78405872b159e107674c2fc2a12f7", null ],
+      [ "mxmtbd", "modules__vars_8F90.html#ae0bf7b02df4e070e72a90672e3eded90", null ],
+      [ "mxmtbf", "modules__vars_8F90.html#a9242cd091e5ab5d3956740035f6b6207", null ],
+      [ "mxnaf", "modules__vars_8F90.html#a7b92c0b0ed1fb2b80b048414fa1e54ce", null ],
+      [ "mxnrv", "modules__vars_8F90.html#a009fea23b90695d1556e33a557d4b7f1", null ],
+      [ "mxrst", "modules__vars_8F90.html#ae2e923a33b968adc577317f6cef8f24e", null ],
+      [ "mxs", "modules__vars_8F90.html#a695fe6ca7714604e88e1fc4d21cc839d", null ],
+      [ "mxs01v", "modules__vars_8F90.html#a61b398d330ce6937423db44f080b93fd", null ],
+      [ "mxtamc", "modules__vars_8F90.html#a85bed6c0b0a9aa339abd8fb7b3a136b5", null ],
+      [ "mxtco", "modules__vars_8F90.html#a68ea76a4751743e58280e061b43313e7", null ],
+      [ "nbitw", "modules__vars_8F90.html#a18a87ef02ab98d62e7fa272b20acd77a", null ],
+      [ "nbytw", "modules__vars_8F90.html#a2b80f794fded7bf159ff58796ec31a7c", null ],
+      [ "nfiles", "modules__vars_8F90.html#aa9124552f5c640e47f8decc9499688d8", null ],
+      [ "reps", "modules__vars_8F90.html#a5b163d0f13c16e94bdac566d2495faf7", null ],
+      [ "typs", "modules__vars_8F90.html#a9d4bd8b03fd20102645f0a43d8867bff", null ]
     ] ],
     [ "share_table_info", "namespaceshare__table__info.html", [
       [ "ltbd", "namespaceshare__table__info.html#a9cb558bc60eed8b777532f56fff8a08c", null ],

@@ -1,16 +1,11 @@
 var searchData=
 [
-  ['ldxm_1899',['ldxm',['../namespacemoda__msgmem.html#a79bdd90460fa467a8e9130089d7963a5',1,'moda_msgmem']]],
-  ['ldxts_1900',['ldxts',['../namespacemoda__msgmem.html#aa92c2a9b9faf87958775d45a00ee866f',1,'moda_msgmem']]],
-  ['linbtm_1901',['linbtm',['../namespacemoda__bitmaps.html#acd6cd1e5190bdc17381e81624a7e2e80',1,'moda_bitmaps']]],
-  ['link_1902',['link',['../namespacemoda__tables.html#ac0c5953da2d8867d81acad1800fec53c',1,'moda_tables']]],
-  ['lstnod_1903',['lstnod',['../namespacemoda__bitmaps.html#a352a33aaf989dcaab7646f86aa41e27d',1,'moda_bitmaps']]],
-  ['lstnodct_1904',['lstnodct',['../namespacemoda__bitmaps.html#accaa0826b48e876c29f6bb8ebe21c83e',1,'moda_bitmaps']]],
-  ['lstpos_1905',['lstpos',['../cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0',1,'cread.h']]],
-  ['ltbd_1906',['ltbd',['../namespaceshare__table__info.html#a9cb558bc60eed8b777532f56fff8a08c',1,'share_table_info']]],
-  ['ludx_1907',['ludx',['../namespaceshare__table__info.html#a88fbe3e8e14e3810e1dc3f1560d1c51f',1,'share_table_info']]],
-  ['luh4wlc_1908',['luh4wlc',['../namespacemoda__h4wlc.html#aec0b91e9c09fffd506b27ea574b7da71',1,'moda_h4wlc']]],
-  ['lunc_1909',['lunc',['../namespacemoda__comprx.html#ac17dd8dc0aeb695a1046a884673b1fc3',1,'moda_comprx']]],
-  ['luncpy_1910',['luncpy',['../namespacemoda__ufbcpl.html#abf94758379c91be61fcf18f6c9dae5cf',1,'moda_ufbcpl']]],
-  ['lus_1911',['lus',['../namespacemoda__lushr.html#a3baea9191da6d91a8590cba5181493a6',1,'moda_lushr']]]
+  ['kbit_1420',['kbit',['../namespacemoda__comprx.html#ad9b27559a7e05f9939764fa6688d7147',1,'moda_comprx']]],
+  ['kbyt_1421',['kbyt',['../namespacemoda__comprx.html#a243a2baa283f951be51ea9466cca35b8',1,'moda_comprx']]],
+  ['kmax_1422',['kmax',['../namespacemoda__comprx.html#a7c3104f9c9731b91a8a105bcc5212542',1,'moda_comprx']]],
+  ['kmin_1423',['kmin',['../namespacemoda__comprx.html#af3c2aa97661a37d85840d480e611695e',1,'moda_comprx']]],
+  ['kmis_1424',['kmis',['../namespacemoda__comprx.html#aedf59ef218e980c24d128aa7bc8884b1',1,'moda_comprx']]],
+  ['knt_1425',['knt',['../namespacemoda__tables.html#a28b0f02b81a535890fc64ec13fdfc35b',1,'moda_tables']]],
+  ['knti_1426',['knti',['../namespacemoda__tables.html#af5a5b5688cbfbea4a3d5d0705172fba3',1,'moda_tables']]],
+  ['krp_1427',['krp',['../namespacemoda__nmikrp.html#a547378be8180b17844161916eca1e876',1,'moda_nmikrp']]]
 ];

@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -89,18 +89,18 @@ $(document).ready(function(){initNavTree('namespacemoda__xtab.html',''); initRes
 </div><!--header-->
 <div class="contents">
 
-<p>This module contains an array declaration used to track, for each I/O stream index, whether the DX BUFR table associated with the corresponding logical unit has changed during the life of the application program.  
+<p>Declare an array used to track, for each file ID, whether the DX BUFR table associated with the corresponding logical unit has changed during the life of the application program.  
 <a href="namespacemoda__xtab.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:ada2721216de79b6527d89323df61956d"><td class="memItemLeft" align="right" valign="top">logical, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__xtab.html#ada2721216de79b6527d89323df61956d">xtab</a></td></tr>
-<tr class="memdesc:ada2721216de79b6527d89323df61956d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracking index for each internal I/O stream index.  <a href="namespacemoda__xtab.html#ada2721216de79b6527d89323df61956d">More...</a><br /></td></tr>
+<tr class="memdesc:ada2721216de79b6527d89323df61956d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracking index for each file ID.  <a href="namespacemoda__xtab.html#ada2721216de79b6527d89323df61956d">More...</a><br /></td></tr>
 <tr class="separator:ada2721216de79b6527d89323df61956d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This module contains an array declaration used to track, for each I/O stream index, whether the DX BUFR table associated with the corresponding logical unit has changed during the life of the application program. </p>
-<p>This information is stored and tracked within subroutine <a class="el" href="makestab_8f.html#ad12d047119fdcdeb97ffbced0696b9fb" title="This subroutine constructs the internal jump/link table within module tables, using all of the intern...">makestab()</a>, which checks each time it is called to see if the DX BUFR table has changed for any I/O stream index since the last time it was called.</p>
+<div class="textblock"><p>Declare an array used to track, for each file ID, whether the DX BUFR table associated with the corresponding logical unit has changed during the life of the application program. </p>
+<p>This information is stored and tracked within subroutine <a class="el" href="jumplink_8F90.html#ad12d047119fdcdeb97ffbced0696b9fb" title="Build the entire internal jump/link table within module moda_tables, using all of the internal BUFR t...">makestab()</a>, which checks each time it is called to see if the DX BUFR table has changed for any file ID since the last time it was called.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2009-03-18 </dd></dl>
 </div><h2 class="groupheader">Variable Documentation</h2>
@@ -116,12 +116,12 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Tracking index for each internal I/O stream index. </p>
-<p>Set to .true. if the DX BUFR table for the corresponding logical unit has changed since the previous call to subroutine <a class="el" href="makestab_8f.html#ad12d047119fdcdeb97ffbced0696b9fb" title="This subroutine constructs the internal jump/link table within module tables, using all of the intern...">makestab()</a>; set to .false. otherwise. </p>
+<p>Tracking index for each file ID. </p>
+<p>Set to .true. if the DX BUFR table for the corresponding logical unit has changed since the previous call to subroutine <a class="el" href="jumplink_8F90.html#ad12d047119fdcdeb97ffbced0696b9fb" title="Build the entire internal jump/link table within module moda_tables, using all of the internal BUFR t...">makestab()</a>; set to .false. otherwise. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00834">834</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00831">831</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="makestab_8f.html#ad12d047119fdcdeb97ffbced0696b9fb">makestab()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="jumplink_8F90.html#ad12d047119fdcdeb97ffbced0696b9fb">makestab()</a>.</p>
 
 </div>
 </div>

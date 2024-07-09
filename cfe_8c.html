@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -115,10 +115,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a1242c4d43753a37cdb9abfb3f01e5583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free all dynamically-allocated memory for internal storage of master Code/Flag table entries.  <a href="cfe_8c.html#a1242c4d43753a37cdb9abfb3f01e5583">More...</a><br /></td></tr>
 <tr class="separator:a1242c4d43753a37cdb9abfb3f01e5583"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa06057bdd5b8456df9b33ec96a5cc57e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cfe_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf</a> (void)</td></tr>
-<tr class="memdesc:aa06057bdd5b8456df9b33ec96a5cc57e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize memory for internal storage of master Code/Flag table entries.  <a href="cfe_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e">More...</a><br /></td></tr>
+<tr class="memdesc:aa06057bdd5b8456df9b33ec96a5cc57e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize memory for internal storage of master Code/Flag table entries, including dynamically allocating memory space if needed.  <a href="cfe_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e">More...</a><br /></td></tr>
 <tr class="separator:aa06057bdd5b8456df9b33ec96a5cc57e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9bdd990bf256341aa36e1f0611132de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cfe_8c.html#af9bdd990bf256341aa36e1f0611132de">sorttbf</a> (void)</td></tr>
-<tr class="memdesc:af9bdd990bf256341aa36e1f0611132de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sort entries within the master Code/Flag table.  <a href="cfe_8c.html#af9bdd990bf256341aa36e1f0611132de">More...</a><br /></td></tr>
+<tr class="memdesc:af9bdd990bf256341aa36e1f0611132de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sort entries within the master Code/Flag table, in preparation for future searches using function <a class="el" href="cfe_8c.html#aba549e6acf16abcbe89193cb72d94287" title="Search for a specified master Code/Flag table entry.">srchtbf()</a>.  <a href="cfe_8c.html#af9bdd990bf256341aa36e1f0611132de">More...</a><br /></td></tr>
 <tr class="separator:af9bdd990bf256341aa36e1f0611132de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba549e6acf16abcbe89193cb72d94287"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cfe_8c.html#aba549e6acf16abcbe89193cb72d94287">srchtbf</a> (int ifxyi, int ivali, int *ifxyd, int mxfxyd, int ivald, char *meaning, int mxmng, int *lnmng, int *iret)</td></tr>
 <tr class="memdesc:aba549e6acf16abcbe89193cb72d94287"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for a specified master Code/Flag table entry.  <a href="cfe_8c.html#aba549e6acf16abcbe89193cb72d94287">More...</a><br /></td></tr>
@@ -192,7 +192,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Define a comparison between two master Code/Flag table entries. </p>
-<p>This function defines a comparison between two entries within the internal memory structure for storage of master Code/Flag table entries. The comparison is used by the intrinsic C functions qsort and bsearch, and it differs from the the comparison in function <a class="el" href="cfe_8c.html#a54e09962aa43b61717212a2702be33c8" title="Define a comparison between two master Code/Flag table entries.">cmpstia2()</a> because it compares all of the iffxyn, ifval, iffxynd and ifvald components of the structure, whereas <a class="el" href="cfe_8c.html#a54e09962aa43b61717212a2702be33c8" title="Define a comparison between two master Code/Flag table entries.">cmpstia2()</a> only compares the iffxyn and ifval components.</p>
+<p>The comparison is used by the intrinsic C functions qsort and bsearch, and it differs from the the comparison in function <a class="el" href="cfe_8c.html#a54e09962aa43b61717212a2702be33c8" title="Define a comparison between two master Code/Flag table entries.">cmpstia2()</a> because it compares all of the iffxyn, ifval, iffxynd and ifvald components of the structure, whereas <a class="el" href="cfe_8c.html#a54e09962aa43b61717212a2702be33c8" title="Define a comparison between two master Code/Flag table entries.">cmpstia2()</a> only compares the iffxyn and ifval components.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pe1</td><td>- First master Code/Flag table entry. </td></tr>
@@ -209,7 +209,7 @@ Variables</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2017-11-13 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00113">113</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00107">107</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="cfe_8c.html#af9bdd990bf256341aa36e1f0611132de">sorttbf()</a>, and <a class="el" href="cfe_8c.html#aba549e6acf16abcbe89193cb72d94287">srchtbf()</a>.</p>
 
@@ -242,7 +242,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Define a comparison between two master Code/Flag table entries. </p>
-<p>This function defines a comparison between two entries within the internal memory structure for storage of master Code/Flag table entries. The comparison is used by the intrinsic C function bsearch, and it differs from the the comparison in function <a class="el" href="cfe_8c.html#a7211d196317c36365a40a128875d5041" title="Define a comparison between two master Code/Flag table entries.">cmpstia1()</a> because it only compares the iffxyn and ifval components of the structure, whereas <a class="el" href="cfe_8c.html#a7211d196317c36365a40a128875d5041" title="Define a comparison between two master Code/Flag table entries.">cmpstia1()</a> compares all of the iffxyn, ifval, iffxynd and ifvald components of the structure.</p>
+<p>The comparison is used by the intrinsic C function bsearch, and it differs from the the comparison in function <a class="el" href="cfe_8c.html#a7211d196317c36365a40a128875d5041" title="Define a comparison between two master Code/Flag table entries.">cmpstia1()</a> because it only compares the iffxyn and ifval components of the structure, whereas <a class="el" href="cfe_8c.html#a7211d196317c36365a40a128875d5041" title="Define a comparison between two master Code/Flag table entries.">cmpstia1()</a> compares all of the iffxyn, ifval, iffxynd and ifvald components of the structure.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pe1</td><td>- First master Code/Flag table entry. </td></tr>
@@ -259,7 +259,7 @@ Variables</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2017-11-13 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00158">158</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00150">150</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="cfe_8c.html#aba549e6acf16abcbe89193cb72d94287">srchtbf()</a>.</p>
 
@@ -282,11 +282,11 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Free all dynamically-allocated memory for internal storage of master Code/Flag table entries. </p>
-<p>This function frees any memory that was dynamically allocated during a previous call to function <a class="el" href="cfe_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e" title="Initialize memory for internal storage of master Code/Flag table entries.">inittbf()</a>.</p>
+<p>This memory would have been dynamically allocated during a previous call to function <a class="el" href="cfe_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e" title="Initialize memory for internal storage of master Code/Flag table entries, including dynamically alloc...">inittbf()</a>.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2017-11-03 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00085">85</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00081">81</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
 
 <p class="reference">References <a class="el" href="cfe_8c.html#ac86272345dff43f22ed1365dbc9f1e16">cfe</a>.</p>
 
@@ -308,12 +308,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialize memory for internal storage of master Code/Flag table entries. </p>
-<p>This function initializes the internal memory structure for storage of master Code/Flag table entries, including dynamically allocating space for this structure if needed.</p>
+<p>Initialize memory for internal storage of master Code/Flag table entries, including dynamically allocating memory space if needed. </p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2017-11-03 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00056">56</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00053">53</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
 
 <p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, <a class="el" href="cfe_8c.html#ac86272345dff43f22ed1365dbc9f1e16">cfe</a>, <a class="el" href="bufr__interface_8h.html#a0b06d7dc9ae1ba6147ad0f1ea3d359bb">igetprm_f()</a>, <a class="el" href="cfe_8c.html#ada229859d4369f2b51b268c2a3bf4ea2">mxmtbf</a>, and <a class="el" href="cfe_8c.html#aeade079cc5207ec44fe26e6a90c38d3b">nmtf</a>.</p>
 
@@ -335,12 +334,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sort entries within the master Code/Flag table. </p>
-<p>This function sorts the entries within the internal memory structure for storage of master Code/Flag table entries, in preparation for future searches using function <a class="el" href="cfe_8c.html#aba549e6acf16abcbe89193cb72d94287" title="Search for a specified master Code/Flag table entry.">srchtbf()</a>.</p>
+<p>Sort entries within the master Code/Flag table, in preparation for future searches using function <a class="el" href="cfe_8c.html#aba549e6acf16abcbe89193cb72d94287" title="Search for a specified master Code/Flag table entry.">srchtbf()</a>. </p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2017-11-16 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00225">225</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00211">211</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
 
 <p class="reference">References <a class="el" href="cfe_8c.html#ac86272345dff43f22ed1365dbc9f1e16">cfe</a>, <a class="el" href="cfe_8c.html#a7211d196317c36365a40a128875d5041">cmpstia1()</a>, and <a class="el" href="cfe_8c.html#aeade079cc5207ec44fe26e6a90c38d3b">nmtf</a>.</p>
 
@@ -415,15 +413,15 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Search for a specified master Code/Flag table entry. </p>
-<p>This function searches for a specified FXY number and associated value (code figure or bit number) within the internal memory structure for storage of master Code/Flag table entries, and if found returns the associated meaning as a character string.</p>
+<p>The search is based on a specified FXY number and associated value (code figure or bit number) within the internal memory structure for storage of master Code/Flag table entries. If found, the associated meaning is returned as a character string.</p>
 <p>The search may optionally include a specified second FXY number and associated value upon which the first FXY number and its associated value depend, for example when the meaning of an originating sub-center value depends on the identity of the originating center for which the sub-center in question is a member.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ifxyi</td><td>- Bit-wise representation of FXY number to search for. </td></tr>
+    <tr><td class="paramname">ifxyi</td><td>- WMO bit-wise representation of FXY number to search for. </td></tr>
     <tr><td class="paramname">ivali</td><td>- Value (code figure or bit number) associated with ifxyi. </td></tr>
     <tr><td class="paramname">ifxyd</td><td>- Dependence indicator:<ul>
-<li>On input, ifxyd[0] is set to the bit-wise representation of the FXY number upon which ifxyi and ivali depend, or else set to (-1) if ifxyi and ivali do not depend on the value associated with any other FXY number.</li>
-<li>On output, if the initial search of the master Code/Flag table was unsuccessful, <b>and</b> if ifxyd[0] and ivald were both set to (-1) on input, <b>and</b> if a second search of the table determines that the meaning of ifxyi and ivali indeed depends on one or more other FXY numbers, then the bit-wise representations of those FXY numbers are returned within the first iret elements of ifxyd. </li>
+<li>On input, ifxyd[0] is set to the WMO bit-wise representation of the FXY number upon which ifxyi and ivali depend, or else set to (-1) if ifxyi and ivali do not depend on the value associated with any other FXY number.</li>
+<li>On output, if the initial search of the master Code/Flag table was unsuccessful, <b>and</b> if ifxyd[0] and ivald were both set to (-1) on input, <b>and</b> if a second search of the table determines that the meaning of ifxyi and ivali indeed depends on one or more other FXY numbers, then the WMO bit-wise representations of those FXY numbers are returned within the first iret elements of ifxyd. </li>
 </ul>
 </td></tr>
     <tr><td class="paramname">ivald</td><td>- Value (code figure or bit number) associated with the FXY number in ifxyd[0]; set to (-1) whenever ifxyd[0] is also set to (-1). </td></tr>
@@ -434,7 +432,7 @@ Variables</h2></td></tr>
     <tr><td class="paramname">iret</td><td>- Return code:<ul>
 <li>0 = Meaning found and stored in meaning string.</li>
 <li>-1 = Meaning not found.</li>
-<li>&gt;0 = Meaning not found, <b>and</b> ifxyd[0] and ivald were both set to (-1) on input, <b>and</b> the meaning of ifxyi and ivali depends on the the value associated with one of the FXY numbers whose bit-wise representation is stored in the first iret elements of ifxyd.</li>
+<li>&gt;0 = Meaning not found, <b>and</b> ifxyd[0] and ivald were both set to (-1) on input, <b>and</b> the meaning of ifxyi and ivali depends on the the value associated with one of the FXY numbers whose WMO bit-wise representation is stored in the first iret elements of ifxyd.</li>
 </ul>
 </td></tr>
   </table>
@@ -443,7 +441,7 @@ Variables</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2018-01-11 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00278">278</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00264">264</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
 
 <p class="reference">References <a class="el" href="cfe_8c.html#ac86272345dff43f22ed1365dbc9f1e16">cfe</a>, <a class="el" href="cfe_8c.html#a7211d196317c36365a40a128875d5041">cmpstia1()</a>, <a class="el" href="cfe_8c.html#a54e09962aa43b61717212a2702be33c8">cmpstia2()</a>, and <a class="el" href="cfe_8c.html#aeade079cc5207ec44fe26e6a90c38d3b">nmtf</a>.</p>
 
@@ -500,14 +498,13 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Store a new master Code/Flag table entry. </p>
-<p>This function adds a new entry to the internal memory structure for storage of master Code/Flag table entries.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ifxyn</td><td>- Bit-wise representation of FXY number for which ival is a defined code or flag table entry. </td></tr>
+    <tr><td class="paramname">ifxyn</td><td>- WMO bit-wise representation of FXY number for which ival is a defined code or flag table entry. </td></tr>
     <tr><td class="paramname">ival</td><td>- Code figure or bit number. </td></tr>
     <tr><td class="paramname">meaning</td><td>- Meaning associated with ifxyn and ival. </td></tr>
     <tr><td class="paramname">lmeaning</td><td>- Length (in bytes) of meaning. </td></tr>
-    <tr><td class="paramname">idfxy</td><td>- Bit-wise representation of FXY number upon which ifxyn and ival depend (if any), or else set to a value of (-1). </td></tr>
+    <tr><td class="paramname">idfxy</td><td>- WMO bit-wise representation of FXY number upon which ifxyn and ival depend (if any), or else set to a value of (-1). </td></tr>
     <tr><td class="paramname">idval</td><td>- Code figure or bit number associated with idfxy and upon which ifxyn and ival depend (if any), or else set to (-1) whenever idfxy is also set to (-1).</td></tr>
   </table>
   </dd>
@@ -515,9 +512,9 @@ Variables</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2017-11-13 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00191">191</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00180">180</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
 
-<p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, <a class="el" href="cfe_8c.html#ac86272345dff43f22ed1365dbc9f1e16">cfe</a>, <a class="el" href="namespacemoda__ival.html#a5b960a10512f7450b54e1b728770bd58">moda_ival::ival</a>, <a class="el" href="cfe_8c.html#a655e9465dd48c1e8a068b4689748e509">MAX_MEANING_LEN</a>, <a class="el" href="cfe_8c.html#ada229859d4369f2b51b268c2a3bf4ea2">mxmtbf</a>, and <a class="el" href="cfe_8c.html#aeade079cc5207ec44fe26e6a90c38d3b">nmtf</a>.</p>
+<p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, <a class="el" href="cfe_8c.html#ac86272345dff43f22ed1365dbc9f1e16">cfe</a>, <a class="el" href="namespacemoda__ival.html#a354161b574c84bfd3401bc0b287335c7">moda_ival::ival</a>, <a class="el" href="cfe_8c.html#a655e9465dd48c1e8a068b4689748e509">MAX_MEANING_LEN</a>, <a class="el" href="cfe_8c.html#ada229859d4369f2b51b268c2a3bf4ea2">mxmtbf</a>, and <a class="el" href="cfe_8c.html#aeade079cc5207ec44fe26e6a90c38d3b">nmtf</a>.</p>
 
 </div>
 </div>

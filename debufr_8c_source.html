@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -92,12 +92,12 @@ $(document).ready(function(){initNavTree('debufr_8c_source.html',''); initResiza
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;libgen.h&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="bufrlib_8h.html">bufrlib.h</a>&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="bufr__interface_8h.html">bufr_interface.h</a>&quot;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="debufr_8c.html#a6de65da278ddb78092e873c2ec2dc5b6">   38</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="debufr_8c.html#a6de65da278ddb78092e873c2ec2dc5b6">fdebufr_f</a>( <span class="keywordtype">char</span> *ofile, <span class="keywordtype">int</span> lenof, <span class="keywordtype">char</span> *tbldir, <span class="keywordtype">int</span> lentd, <span class="keywordtype">char</span> *tblfil, <span class="keywordtype">int</span> lentf, <span class="keywordtype">char</span> *prmstg, <span class="keywordtype">int</span> lenps,</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                <span class="keywordtype">char</span> basic, <span class="keywordtype">char</span> forcemt, <span class="keywordtype">char</span> cfms );</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="debufr_8c.html#a834922eb8174316cd235a552c2456279">   38</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="debufr_8c.html#a834922eb8174316cd235a552c2456279">fdebufr_f</a>( <span class="keywordtype">char</span> *ofile, <span class="keywordtype">int</span> lenof, <span class="keywordtype">char</span> *tbldir, <span class="keywordtype">int</span> lentd, <span class="keywordtype">char</span> *tblfil, <span class="keywordtype">int</span> lentf, <span class="keywordtype">char</span> *prmstg, <span class="keywordtype">int</span> lenps,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                <span class="keywordtype">char</span> *basic, <span class="keywordtype">char</span> *forcemt, <span class="keywordtype">char</span> *cfms );</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
 <div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="debufr_8c.html#a54cbb8b652032605c043b18a134cd85d">   48</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="debufr_8c.html#a54cbb8b652032605c043b18a134cd85d">prtusage</a>( <span class="keywordtype">char</span> *prgnam ) {</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    printf( <span class="stringliteral">&quot;\nUSAGE:\n&quot;</span> );</div>
@@ -129,7 +129,7 @@ $(document).ready(function(){initNavTree('debufr_8c_source.html',''); initResiza
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    printf( <span class="stringliteral">&quot;              or it may contain all of the master BUFR tables when these\n&quot;</span> );</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    printf( <span class="stringliteral">&quot;              are being used to decode a file.  If unspecified, the\n&quot;</span> );</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    printf( <span class="stringliteral">&quot;              default directory location is\n&quot;</span> );</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    printf( <span class="stringliteral">&quot;              \&quot;/home/runner/work/NCEPLIBS-bufr/NCEPLIBS-bufr/bufr/build/install/tables\&quot;\n\n&quot;</span> );</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    printf( <span class="stringliteral">&quot;              \&quot;/home/runner/work/NCEPLIBS-bufr/NCEPLIBS-bufr/bufr/build-docs/install/tables\&quot;\n\n&quot;</span> );</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    printf( <span class="stringliteral">&quot;    tablefil  file within tabledir containing DX BUFR tables to be used\n&quot;</span> );</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    printf( <span class="stringliteral">&quot;              for decoding.\n\n&quot;</span> );</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    printf( <span class="stringliteral">&quot;     prmstg   string of comma-separated PARAMETER=VALUE pairs, up to a\n&quot;</span> );</div>
@@ -145,25 +145,25 @@ $(document).ready(function(){initNavTree('debufr_8c_source.html',''); initResiza
 <div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="debufr_8c.html#a0ddf1224851353fc92bfbff6f499fa97">  167</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="debufr_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main</a>( <span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[ ] ) {</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordtype">int</span> ch;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordtype">char</span> basic = <span class="charliteral">&#39;N&#39;</span>;</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordtype">char</span> forcemt = <span class="charliteral">&#39;N&#39;</span>;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordtype">char</span> cfms = <span class="charliteral">&#39;Y&#39;</span>;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keywordtype">char</span> io = <span class="charliteral">&#39;r&#39;</span>;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordtype">char</span> tbldir_default[500] =</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;            <span class="stringliteral">&quot;/home/runner/work/NCEPLIBS-bufr/NCEPLIBS-bufr/bufr/build/ins&quot;</span> </div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="stringliteral">&quot;tall/tables&quot;</span>;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordtype">char</span> bvstr[<a class="code" href="bufrlib_8h.html#a016503c090a3f1ecdac526a2e8f696b0">VERS_STR_LEN</a>+1];</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordtype">char</span> *ofile = NULL;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordtype">char</span> *tbldir = NULL;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordtype">char</span> *tblfil = NULL;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordtype">char</span> *prmstg = NULL;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="keywordtype">char</span> *wkstr = NULL;</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordtype">char</span> *bcopy, *bname, *dcopy, *dname;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordtype">int</span> iret;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordtype">int</span> lenof, lentd, lentf, lenps;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordtype">char</span> basic = <span class="charliteral">&#39;N&#39;</span>;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keywordtype">char</span> forcemt = <span class="charliteral">&#39;N&#39;</span>;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordtype">char</span> cfms = <span class="charliteral">&#39;Y&#39;</span>;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keywordtype">char</span> io = <span class="charliteral">&#39;r&#39;</span>;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordtype">char</span> tbldir_default[240] =</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            <span class="stringliteral">&quot;/home/runner/work/NCEPLIBS-bufr/NCEPLIBS-bufr/bufr/build-doc&quot;</span> </div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="stringliteral">&quot;s/install/tables&quot;</span>;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordtype">char</span> bvstr[<a class="code" href="bufr__interface_8h.html#a016503c090a3f1ecdac526a2e8f696b0">VERS_STR_LEN</a>+1];</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordtype">char</span> *ofile = NULL;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordtype">char</span> *tbldir = NULL;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="keywordtype">char</span> *tblfil = NULL;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordtype">char</span> *prmstg = NULL;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordtype">char</span> *wkstr = NULL;</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordtype">int</span> lenof, lentd, lentf, lenps;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordtype">char</span> *bcopy, *bname, *dcopy, *dname;</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="comment">/*</span></div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="comment">    **  Get and process the valid options from the command line:</span></div>
@@ -171,8 +171,8 @@ $(document).ready(function(){initNavTree('debufr_8c_source.html',''); initResiza
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keywordflow">while</span> ( ( ch = getopt ( argc, argv, <span class="stringliteral">&quot;vhbcmo:t:f:p:&quot;</span> ) ) != EOF ) {</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="keywordflow">switch</span> ( ch ) {</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;            <span class="keywordflow">case</span> <span class="charliteral">&#39;v&#39;</span>:</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                <a class="code" href="bufr__interface_8h.html#ada9f732c49c87976c31f215c9c040d2b">bvers_f</a>( bvstr, <a class="code" href="bufrlib_8h.html#a016503c090a3f1ecdac526a2e8f696b0">VERS_STR_LEN</a>+1 );</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                printf( <span class="stringliteral">&quot;This is debufr v4.0.0, built with NCEPLIBS-bufr v%s\n&quot;</span>, bvstr );</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                <a class="code" href="bufr__interface_8h.html#ada9f732c49c87976c31f215c9c040d2b">bvers_f</a>( bvstr, <a class="code" href="bufr__interface_8h.html#a016503c090a3f1ecdac526a2e8f696b0">VERS_STR_LEN</a>+1 );</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                printf( <span class="stringliteral">&quot;This is the debufr utility, built with NCEPLIBS-bufr v%s\n&quot;</span>, bvstr );</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            <span class="keywordflow">case</span> <span class="charliteral">&#39;h&#39;</span>:</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                printf( <span class="stringliteral">&quot;\nPROGRAM %s\n&quot;</span>, argv[0] );</div>
@@ -309,46 +309,48 @@ $(document).ready(function(){initNavTree('debufr_8c_source.html',''); initResiza
 <div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        printf( <span class="stringliteral">&quot;\nERROR: Cannot write output file to %s\n&quot;</span>,</div>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;            ( strcmp( dname, <span class="stringliteral">&quot;.&quot;</span> ) == 0 ? <span class="stringliteral">&quot;current working directory&quot;</span> : dname ) );</div>
 <div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        <a class="code" href="debufr_8c.html#a54cbb8b652032605c043b18a134cd85d">prtusage</a>( argv[0] );</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        iret = -1;</div>
 <div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    }</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    free( dcopy );</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160; </div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    <span class="comment">/*</span></div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="comment">    **  Read and decode each message from the input BUFR file.</span></div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    lenof = strlen( ofile );</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    lentd = strlen( tbldir );</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    lentf = strlen( tblfil );</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    lenps = strlen( prmstg );</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    <a class="code" href="debufr_8c.html#a6de65da278ddb78092e873c2ec2dc5b6">fdebufr_f</a>( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps, basic, forcemt, cfms );</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    free( ofile );</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    free( tbldir );</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    free( tblfil );</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    free( prmstg );</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160; </div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <span class="comment">/*</span></div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="comment">    **  Close the input BUFR file.</span></div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <a class="code" href="bufr__interface_8h.html#ab66668ab9633ce3b475416f6a9899802">ccbfl</a>( );</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160; </div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;}</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="comment">        **  Read and decode each message from the input BUFR file.</span></div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        lenof = strlen( ofile );</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;        lentd = strlen( tbldir );</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        lentf = strlen( tblfil );</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        lenps = strlen( prmstg );</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;        <a class="code" href="debufr_8c.html#a834922eb8174316cd235a552c2456279">fdebufr_f</a>( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps, &amp;basic, &amp;forcemt, &amp;cfms );</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;        iret = 0;</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    }</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    free( dcopy );</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160; </div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    free( ofile );</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    free( tbldir );</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    free( tblfil );</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    free( prmstg );</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160; </div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;<span class="comment">    **  Close the input BUFR file.</span></div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    <a class="code" href="bufr__interface_8h.html#ab66668ab9633ce3b475416f6a9899802">ccbfl</a>( );</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160; </div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    <span class="keywordflow">return</span> iret;</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;}</div>
 <div class="ttc" id="abufr__interface_8h_html"><div class="ttname"><a href="bufr__interface_8h.html">bufr_interface.h</a></div><div class="ttdoc">Enable a number of NCEPLIBS-bufr subprograms to be called from within C and C++ application programs.</div></div>
+<div class="ttc" id="abufr__interface_8h_html_a016503c090a3f1ecdac526a2e8f696b0"><div class="ttname"><a href="bufr__interface_8h.html#a016503c090a3f1ecdac526a2e8f696b0">VERS_STR_LEN</a></div><div class="ttdeci">#define VERS_STR_LEN</div><div class="ttdoc">Size of a character string needed to store a library version number.</div><div class="ttdef"><b>Definition:</b> <a href="bufr__interface_8h_source.html#l00021">bufr_interface.h:21</a></div></div>
 <div class="ttc" id="abufr__interface_8h_html_a1a79689096002f6f3c125abc59c2143d"><div class="ttname"><a href="bufr__interface_8h.html#a1a79689096002f6f3c125abc59c2143d">cobfl</a></div><div class="ttdeci">void cobfl(char *bfl, char io)</div><div class="ttdoc">Open a new file for reading or writing BUFR messages via a C language interface.</div><div class="ttdef"><b>Definition:</b> <a href="crwbmg_8c_source.html#l00120">crwbmg.c:120</a></div></div>
-<div class="ttc" id="abufr__interface_8h_html_ab66668ab9633ce3b475416f6a9899802"><div class="ttname"><a href="bufr__interface_8h.html#ab66668ab9633ce3b475416f6a9899802">ccbfl</a></div><div class="ttdeci">void ccbfl(void)</div><div class="ttdoc">Close all files that were opened via previous calls to function cobfl().</div><div class="ttdef"><b>Definition:</b> <a href="crwbmg_8c_source.html#l00296">crwbmg.c:296</a></div></div>
+<div class="ttc" id="abufr__interface_8h_html_ab66668ab9633ce3b475416f6a9899802"><div class="ttname"><a href="bufr__interface_8h.html#ab66668ab9633ce3b475416f6a9899802">ccbfl</a></div><div class="ttdeci">void ccbfl(void)</div><div class="ttdoc">Close all files that were opened via previous calls to function cobfl().</div><div class="ttdef"><b>Definition:</b> <a href="crwbmg_8c_source.html#l00290">crwbmg.c:290</a></div></div>
 <div class="ttc" id="abufr__interface_8h_html_ada9f732c49c87976c31f215c9c040d2b"><div class="ttname"><a href="bufr__interface_8h.html#ada9f732c49c87976c31f215c9c040d2b">bvers_f</a></div><div class="ttdeci">void bvers_f(char *cverstr, int cverstr_len)</div><div class="ttdoc">Get the version number of the NCEPLIBS-bufr software.</div></div>
-<div class="ttc" id="abufrlib_8h_html"><div class="ttname"><a href="bufrlib_8h.html">bufrlib.h</a></div><div class="ttdoc">Enable a number of NCEPLIBS-bufr subprograms to be called from within the C part of the library.</div></div>
-<div class="ttc" id="abufrlib_8h_html_a016503c090a3f1ecdac526a2e8f696b0"><div class="ttname"><a href="bufrlib_8h.html#a016503c090a3f1ecdac526a2e8f696b0">VERS_STR_LEN</a></div><div class="ttdeci">#define VERS_STR_LEN</div><div class="ttdoc">Size of a character string needed to store a library version number.</div><div class="ttdef"><b>Definition:</b> <a href="bufrlib_8h_source.html#l00072">bufrlib.h:72</a></div></div>
 <div class="ttc" id="adebufr_8c_html_a0ddf1224851353fc92bfbff6f499fa97"><div class="ttname"><a href="debufr_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main</a></div><div class="ttdeci">int main(int argc, char *argv[])</div><div class="ttdoc">This program decodes a BUFR file and generates a verbose listing of the contents.</div><div class="ttdef"><b>Definition:</b> <a href="debufr_8c_source.html#l00167">debufr.c:167</a></div></div>
 <div class="ttc" id="adebufr_8c_html_a54cbb8b652032605c043b18a134cd85d"><div class="ttname"><a href="debufr_8c.html#a54cbb8b652032605c043b18a134cd85d">prtusage</a></div><div class="ttdeci">void prtusage(char *prgnam)</div><div class="ttdoc">This function prints program usage information to standard output.</div><div class="ttdef"><b>Definition:</b> <a href="debufr_8c_source.html#l00048">debufr.c:48</a></div></div>
-<div class="ttc" id="adebufr_8c_html_a6de65da278ddb78092e873c2ec2dc5b6"><div class="ttname"><a href="debufr_8c.html#a6de65da278ddb78092e873c2ec2dc5b6">fdebufr_f</a></div><div class="ttdeci">void fdebufr_f(char *ofile, int lenof, char *tbldir, int lentd, char *tblfil, int lentf, char *prmstg, int lenps, char basic, char forcemt, char cfms)</div><div class="ttdoc">Read, decode, and print a verbose output listing of the contents of a BUFR file.</div></div>
+<div class="ttc" id="adebufr_8c_html_a834922eb8174316cd235a552c2456279"><div class="ttname"><a href="debufr_8c.html#a834922eb8174316cd235a552c2456279">fdebufr_f</a></div><div class="ttdeci">void fdebufr_f(char *ofile, int lenof, char *tbldir, int lentd, char *tblfil, int lentf, char *prmstg, int lenps, char *basic, char *forcemt, char *cfms)</div><div class="ttdoc">Read, decode, and print a verbose output listing of the contents of a BUFR file.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_1c7cb1e53c36c68d6005e0e04c42a1f1.html">utils</a></li><li class="navelem"><a class="el" href="debufr_8c.html">debufr.c</a></li>
+    <li class="navelem"><a class="el" href="dir_22e12ea4559d63fc79cb69a343f5f5b4.html">utils</a></li><li class="navelem"><a class="el" href="debufr_8c.html">debufr.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

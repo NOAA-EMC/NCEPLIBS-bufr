@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -89,67 +89,67 @@ $(document).ready(function(){initNavTree('namespacemoda__dscach.html',''); initR
 </div><!--header-->
 <div class="contents">
 
-<p>This module contains array and variable declarations for the internal Table A mnemonic cache that is used for Section 3 decoding of BUFR messages.  
+<p>Declare arrays and variables for the internal Table A mnemonic cache that is used for Section 3 decoding of BUFR messages.  
 <a href="namespacemoda__dscach.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a0ba1605c1f5ecd4655b010b52dab6c2a"><td class="memItemLeft" align="right" valign="top">character *8, dimension(mxcnem)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__dscach.html#a0ba1605c1f5ecd4655b010b52dab6c2a">cnem</a></td></tr>
-<tr class="memdesc:a0ba1605c1f5ecd4655b010b52dab6c2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table A mnemonics.  <a href="namespacemoda__dscach.html#a0ba1605c1f5ecd4655b010b52dab6c2a">More...</a><br /></td></tr>
-<tr class="separator:a0ba1605c1f5ecd4655b010b52dab6c2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d18bfabd11b41f2510a9bdd180976d3"><td class="memItemLeft" align="right" valign="top">integer, dimension(mxcnem, maxnc)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__dscach.html#a7d18bfabd11b41f2510a9bdd180976d3">idcach</a></td></tr>
-<tr class="memdesc:a7d18bfabd11b41f2510a9bdd180976d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit-wise representations of the child descriptors for the corresponding Table A mnemonic in cnem.  <a href="namespacemoda__dscach.html#a7d18bfabd11b41f2510a9bdd180976d3">More...</a><br /></td></tr>
-<tr class="separator:a7d18bfabd11b41f2510a9bdd180976d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a141173c549e506cd4637af33c4efdece"><td class="memItemLeft" align="right" valign="top">character *8, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__dscach.html#a141173c549e506cd4637af33c4efdece">cnem</a></td></tr>
+<tr class="memdesc:a141173c549e506cd4637af33c4efdece"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table A mnemonics.  <a href="namespacemoda__dscach.html#a141173c549e506cd4637af33c4efdece">More...</a><br /></td></tr>
+<tr class="separator:a141173c549e506cd4637af33c4efdece"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab79409e1e5c6d8e2542bac564283a5ef"><td class="memItemLeft" align="right" valign="top">integer, dimension(:,:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__dscach.html#ab79409e1e5c6d8e2542bac564283a5ef">idcach</a></td></tr>
+<tr class="memdesc:ab79409e1e5c6d8e2542bac564283a5ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">WMO bit-wise representations of the child descriptors for the corresponding Table A mnemonic in cnem.  <a href="namespacemoda__dscach.html#ab79409e1e5c6d8e2542bac564283a5ef">More...</a><br /></td></tr>
+<tr class="separator:ab79409e1e5c6d8e2542bac564283a5ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa768890377f016eaae82cb56404ecdc6"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__dscach.html#aa768890377f016eaae82cb56404ecdc6">ncnem</a></td></tr>
-<tr class="memdesc:aa768890377f016eaae82cb56404ecdc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of entries in the internal Table A mnemonic cache (up to a maximum of MXCNEM).  <a href="namespacemoda__dscach.html#aa768890377f016eaae82cb56404ecdc6">More...</a><br /></td></tr>
+<tr class="memdesc:aa768890377f016eaae82cb56404ecdc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of entries in the internal Table A mnemonic cache (up to a maximum of mxcnem).  <a href="namespacemoda__dscach.html#aa768890377f016eaae82cb56404ecdc6">More...</a><br /></td></tr>
 <tr class="separator:aa768890377f016eaae82cb56404ecdc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3bfb995ad7362f75b23ef21cc384e3c"><td class="memItemLeft" align="right" valign="top">integer, dimension(mxcnem)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__dscach.html#af3bfb995ad7362f75b23ef21cc384e3c">ndc</a></td></tr>
-<tr class="memdesc:af3bfb995ad7362f75b23ef21cc384e3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of child descriptors for the corresponding Table A mnemonic in cnem.  <a href="namespacemoda__dscach.html#af3bfb995ad7362f75b23ef21cc384e3c">More...</a><br /></td></tr>
-<tr class="separator:af3bfb995ad7362f75b23ef21cc384e3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbb9e570ae869b4abdf6e18c14475485"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__dscach.html#abbb9e570ae869b4abdf6e18c14475485">ndc</a></td></tr>
+<tr class="memdesc:abbb9e570ae869b4abdf6e18c14475485"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of child descriptors for the corresponding Table A mnemonic in cnem.  <a href="namespacemoda__dscach.html#abbb9e570ae869b4abdf6e18c14475485">More...</a><br /></td></tr>
+<tr class="separator:abbb9e570ae869b4abdf6e18c14475485"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This module contains array and variable declarations for the internal Table A mnemonic cache that is used for Section 3 decoding of BUFR messages. </p>
-<p>Data values within this module are stored by subroutine <a class="el" href="reads3_8f.html#a57a4b386c104472c2df89ca9217d0d4b" title="This subroutine reads the Section 3 descriptors from the BUFR message in mbay(1,lun).">reads3()</a>.</p>
+<div class="textblock"><p>Declare arrays and variables for the internal Table A mnemonic cache that is used for Section 3 decoding of BUFR messages. </p>
+<p>Data values within this module are stored by subroutine <a class="el" href="s013vals_8F90.html#ac96e5200de4ecc84f79caa98177e60f6" title="Read the Section 3 descriptors from the BUFR message in mbay(1,lun), then use the BUFR master tables ...">reads3()</a>.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2012-03-02 </dd></dl>
 </div><h2 class="groupheader">Variable Documentation</h2>
-<a id="a0ba1605c1f5ecd4655b010b52dab6c2a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ba1605c1f5ecd4655b010b52dab6c2a">&#9670;&nbsp;</a></span>cnem</h2>
+<a id="a141173c549e506cd4637af33c4efdece"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a141173c549e506cd4637af33c4efdece">&#9670;&nbsp;</a></span>cnem</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">character*8, dimension(mxcnem) moda_dscach::cnem</td>
+          <td class="memname">character*8, dimension(:), allocatable moda_dscach::cnem</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Table A mnemonics. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00207">207</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00200">200</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="reads3_8f.html#a57a4b386c104472c2df89ca9217d0d4b">reads3()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="s013vals_8F90.html#ac96e5200de4ecc84f79caa98177e60f6">reads3()</a>.</p>
 
 </div>
 </div>
-<a id="a7d18bfabd11b41f2510a9bdd180976d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d18bfabd11b41f2510a9bdd180976d3">&#9670;&nbsp;</a></span>idcach</h2>
+<a id="ab79409e1e5c6d8e2542bac564283a5ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab79409e1e5c6d8e2542bac564283a5ef">&#9670;&nbsp;</a></span>idcach</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">integer, dimension(mxcnem,maxnc) moda_dscach::idcach</td>
+          <td class="memname">integer, dimension(:,:), allocatable moda_dscach::idcach</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Bit-wise representations of the child descriptors for the corresponding Table A mnemonic in cnem. </p>
+<p>WMO bit-wise representations of the child descriptors for the corresponding Table A mnemonic in cnem. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00213">213</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00206">206</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="reads3_8f.html#a57a4b386c104472c2df89ca9217d0d4b">reads3()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="s013vals_8F90.html#ac96e5200de4ecc84f79caa98177e60f6">reads3()</a>.</p>
 
 </div>
 </div>
@@ -165,31 +165,31 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Number of entries in the internal Table A mnemonic cache (up to a maximum of MXCNEM). </p>
+<p>Number of entries in the internal Table A mnemonic cache (up to a maximum of mxcnem). </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00205">205</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00198">198</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001">bfrini()</a>, and <a class="el" href="reads3_8f.html#a57a4b386c104472c2df89ca9217d0d4b">reads3()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="misc_8F90.html#ab3f045cc170403305543e34e30b87001">bfrini()</a>, and <a class="el" href="s013vals_8F90.html#ac96e5200de4ecc84f79caa98177e60f6">reads3()</a>.</p>
 
 </div>
 </div>
-<a id="af3bfb995ad7362f75b23ef21cc384e3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3bfb995ad7362f75b23ef21cc384e3c">&#9670;&nbsp;</a></span>ndc</h2>
+<a id="abbb9e570ae869b4abdf6e18c14475485"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbb9e570ae869b4abdf6e18c14475485">&#9670;&nbsp;</a></span>ndc</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">integer, dimension(mxcnem) moda_dscach::ndc</td>
+          <td class="memname">integer, dimension(:), allocatable moda_dscach::ndc</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Number of child descriptors for the corresponding Table A mnemonic in cnem. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00210">210</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00203">203</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="reads3_8f.html#a57a4b386c104472c2df89ca9217d0d4b">reads3()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="s013vals_8F90.html#ac96e5200de4ecc84f79caa98177e60f6">reads3()</a>.</p>
 
 </div>
 </div>

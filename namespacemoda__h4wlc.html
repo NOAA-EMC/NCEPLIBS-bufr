@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('namespacemoda__h4wlc.html',''); initRe
 </div><!--header-->
 <div class="contents">
 
-<p>This module contains array and variable declarations needed to store long character strings (greater than 8 bytes) via subroutine <a class="el" href="hold4wlc_8f.html#a91458ffa3b29d47b043110a8e87ddf50" title="This subroutine writes a long character string (greater than 8 bytes) to a data subset.">hold4wlc()</a>.  
+<p>Declare arrays and variables needed to store long character strings (greater than 8 bytes) via subroutine <a class="el" href="readwriteval_8F90.html#a551fbe590397eacf06bb471b738dd6a5" title="Write a long character string (greater than 8 bytes) to a data subset.">hold4wlc()</a>.  
 <a href="namespacemoda__h4wlc.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -98,9 +98,9 @@ Variables</h2></td></tr>
 <tr class="memdesc:afbc0cd7c0f91147bca16c7fd909a0d75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Long character strings.  <a href="namespacemoda__h4wlc.html#afbc0cd7c0f91147bca16c7fd909a0d75">More...</a><br /></td></tr>
 <tr class="separator:afbc0cd7c0f91147bca16c7fd909a0d75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec0b91e9c09fffd506b27ea574b7da71"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__h4wlc.html#aec0b91e9c09fffd506b27ea574b7da71">luh4wlc</a></td></tr>
-<tr class="memdesc:aec0b91e9c09fffd506b27ea574b7da71"><td class="mdescLeft">&#160;</td><td class="mdescRight">I/O stream index into internal arrays for associated output file.  <a href="namespacemoda__h4wlc.html#aec0b91e9c09fffd506b27ea574b7da71">More...</a><br /></td></tr>
+<tr class="memdesc:aec0b91e9c09fffd506b27ea574b7da71"><td class="mdescLeft">&#160;</td><td class="mdescRight">File ID for associated output file.  <a href="namespacemoda__h4wlc.html#aec0b91e9c09fffd506b27ea574b7da71">More...</a><br /></td></tr>
 <tr class="separator:aec0b91e9c09fffd506b27ea574b7da71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a013b7b1f0e72002222c0ee2ae5a3dcac"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__h4wlc.html#a013b7b1f0e72002222c0ee2ae5a3dcac">nh4wlc</a></td></tr>
+<tr class="memitem:a013b7b1f0e72002222c0ee2ae5a3dcac"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__h4wlc.html#a013b7b1f0e72002222c0ee2ae5a3dcac">nh4wlc</a> = 0</td></tr>
 <tr class="memdesc:a013b7b1f0e72002222c0ee2ae5a3dcac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of long character strings being stored.  <a href="namespacemoda__h4wlc.html#a013b7b1f0e72002222c0ee2ae5a3dcac">More...</a><br /></td></tr>
 <tr class="separator:a013b7b1f0e72002222c0ee2ae5a3dcac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25deca91911dc2223155e55c8b47f889"><td class="memItemLeft" align="right" valign="top">character *14, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__h4wlc.html#a25deca91911dc2223155e55c8b47f889">sth4wlc</a></td></tr>
@@ -108,8 +108,8 @@ Variables</h2></td></tr>
 <tr class="separator:a25deca91911dc2223155e55c8b47f889"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This module contains array and variable declarations needed to store long character strings (greater than 8 bytes) via subroutine <a class="el" href="hold4wlc_8f.html#a91458ffa3b29d47b043110a8e87ddf50" title="This subroutine writes a long character string (greater than 8 bytes) to a data subset.">hold4wlc()</a>. </p>
-<p>These strings can be held for writing into an uncompressed BUFR data subset via future internal calls to subroutine <a class="el" href="writlc_8f.html#a618f82746b2f00c524529cf9c477656a" title="Write a long character string (greater than 8 bytes) to a data subset.">writlc()</a>.</p>
+<div class="textblock"><p>Declare arrays and variables needed to store long character strings (greater than 8 bytes) via subroutine <a class="el" href="readwriteval_8F90.html#a551fbe590397eacf06bb471b738dd6a5" title="Write a long character string (greater than 8 bytes) to a data subset.">hold4wlc()</a>. </p>
+<p>These strings can be held for writing into an uncompressed BUFR data subset via future internal calls to subroutine <a class="el" href="readwriteval_8F90.html#aecfa08f631e1af46b472c007b93b2955" title="Write a long character string (greater than 8 bytes) to a data subset.">writlc()</a>.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2014-02-05 </dd></dl>
 </div><h2 class="groupheader">Variable Documentation</h2>
@@ -127,9 +127,9 @@ Variables</h2></td></tr>
 
 <p>Long character strings. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00232">232</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00224">224</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="hold4wlc_8f.html#a91458ffa3b29d47b043110a8e87ddf50">hold4wlc()</a>, and <a class="el" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350">msgupd()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="readwriteval_8F90.html#a551fbe590397eacf06bb471b738dd6a5">hold4wlc()</a>, and <a class="el" href="readwritesb_8F90.html#a237f33069932c5fae473ac718c2eae9a">msgupd()</a>.</p>
 
 </div>
 </div>
@@ -145,11 +145,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>I/O stream index into internal arrays for associated output file. </p>
+<p>File ID for associated output file. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00228">228</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00220">220</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="hold4wlc_8f.html#a91458ffa3b29d47b043110a8e87ddf50">hold4wlc()</a>, and <a class="el" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350">msgupd()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="readwriteval_8F90.html#a551fbe590397eacf06bb471b738dd6a5">hold4wlc()</a>, and <a class="el" href="readwritesb_8F90.html#a237f33069932c5fae473ac718c2eae9a">msgupd()</a>.</p>
 
 </div>
 </div>
@@ -160,16 +160,16 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">integer moda_h4wlc::nh4wlc</td>
+          <td class="memname">integer moda_h4wlc::nh4wlc = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Number of long character strings being stored. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00226">226</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00218">218</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001">bfrini()</a>, <a class="el" href="hold4wlc_8f.html#a91458ffa3b29d47b043110a8e87ddf50">hold4wlc()</a>, and <a class="el" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350">msgupd()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="readwriteval_8F90.html#a551fbe590397eacf06bb471b738dd6a5">hold4wlc()</a>, and <a class="el" href="readwritesb_8F90.html#a237f33069932c5fae473ac718c2eae9a">msgupd()</a>.</p>
 
 </div>
 </div>
@@ -187,9 +187,9 @@ Variables</h2></td></tr>
 
 <p>Table B mnemonics associated with long character strings. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00230">230</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00222">222</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="hold4wlc_8f.html#a91458ffa3b29d47b043110a8e87ddf50">hold4wlc()</a>, and <a class="el" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350">msgupd()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="readwriteval_8F90.html#a551fbe590397eacf06bb471b738dd6a5">hold4wlc()</a>, and <a class="el" href="readwritesb_8F90.html#a237f33069932c5fae473ac718c2eae9a">msgupd()</a>.</p>
 
 </div>
 </div>

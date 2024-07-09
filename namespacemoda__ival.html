@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -89,38 +89,38 @@ $(document).ready(function(){initNavTree('namespacemoda__ival.html',''); initRes
 </div><!--header-->
 <div class="contents">
 
-<p>This module contains a declaration for an array used to pack or unpack all of the values of a BUFR data subset.  
+<p>Declare an array used to pack or unpack all of the values of a BUFR data subset.  
 <a href="namespacemoda__ival.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a5b960a10512f7450b54e1b728770bd58"><td class="memItemLeft" align="right" valign="top">integer(8), dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__ival.html#a5b960a10512f7450b54e1b728770bd58">ival</a></td></tr>
-<tr class="memdesc:a5b960a10512f7450b54e1b728770bd58"><td class="mdescLeft">&#160;</td><td class="mdescRight">BUFR data subset values.  <a href="namespacemoda__ival.html#a5b960a10512f7450b54e1b728770bd58">More...</a><br /></td></tr>
-<tr class="separator:a5b960a10512f7450b54e1b728770bd58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a354161b574c84bfd3401bc0b287335c7"><td class="memItemLeft" align="right" valign="top">integer *8, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__ival.html#a354161b574c84bfd3401bc0b287335c7">ival</a></td></tr>
+<tr class="memdesc:a354161b574c84bfd3401bc0b287335c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">BUFR data subset values.  <a href="namespacemoda__ival.html#a354161b574c84bfd3401bc0b287335c7">More...</a><br /></td></tr>
+<tr class="separator:a354161b574c84bfd3401bc0b287335c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This module contains a declaration for an array used to pack or unpack all of the values of a BUFR data subset. </p>
-<p>It is used when packing a data subset for output via subroutine <a class="el" href="wrtree_8f.html#a0700f04d89a10a24b1acb184f6022c77" title="Pack a BUFR data subset.">wrtree()</a>, or when unpacking an input data subset via subroutine <a class="el" href="rdtree_8f.html#a517c48e080eadc5e9a88fff47ffe4c34" title="This subroutine unpacks the next subset from the internal uncompressed message buffer (array mbay in ...">rdtree()</a>.</p>
+<div class="textblock"><p>Declare an array used to pack or unpack all of the values of a BUFR data subset. </p>
+<p>This array is used when packing a data subset for output via subroutine <a class="el" href="readwritesb_8F90.html#a2324e7f253ba3ad6209d7ab0fce5bc0e" title="Pack a BUFR data subset.">wrtree()</a>, or when unpacking an input data subset via subroutine <a class="el" href="readwritesb_8F90.html#a1dab1c658cb8511cfd1cc6a360221da8" title="Read the next uncompressed BUFR data subset into internal arrays.">rdtree()</a>.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>1994-01-06 </dd></dl>
 </div><h2 class="groupheader">Variable Documentation</h2>
-<a id="a5b960a10512f7450b54e1b728770bd58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b960a10512f7450b54e1b728770bd58">&#9670;&nbsp;</a></span>ival</h2>
+<a id="a354161b574c84bfd3401bc0b287335c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a354161b574c84bfd3401bc0b287335c7">&#9670;&nbsp;</a></span>ival</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">integer(8), dimension(:), allocatable moda_ival::ival</td>
+          <td class="memname">integer*8, dimension(:), allocatable moda_ival::ival</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>BUFR data subset values. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00257">257</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00249">249</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="rdtree_8f.html#a517c48e080eadc5e9a88fff47ffe4c34">rdtree()</a>, <a class="el" href="cfe_8c.html#adae7e8dfb5a605b8e8be2c96f3e2be76">strtbfe()</a>, and <a class="el" href="wrtree_8f.html#a0700f04d89a10a24b1acb184f6022c77">wrtree()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="readwritesb_8F90.html#a1dab1c658cb8511cfd1cc6a360221da8">rdtree()</a>, <a class="el" href="cfe_8c.html#adae7e8dfb5a605b8e8be2c96f3e2be76">strtbfe()</a>, and <a class="el" href="readwritesb_8F90.html#a2324e7f253ba3ad6209d7ab0fce5bc0e">wrtree()</a>.</p>
 
 </div>
 </div>

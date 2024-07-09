@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('namespacemoda__comprx.html',''); initR
 </div><!--header-->
 <div class="contents">
 
-<p>This module contains arrays and variable declarations for the storage of data values needed when writing compressed data subsets to a BUFR message for output.  
+<p>Declare arrays and variable needed for the storage of data values needed when writing compressed data subsets to a BUFR message for output.  
 <a href="namespacemoda__comprx.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -100,29 +100,35 @@ Variables</h2></td></tr>
 <tr class="memitem:a47438a5eff5e61065fce0dc3df1694a7"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__comprx.html#a47438a5eff5e61065fce0dc3df1694a7">flush</a></td></tr>
 <tr class="memdesc:a47438a5eff5e61065fce0dc3df1694a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flush flag.  <a href="namespacemoda__comprx.html#a47438a5eff5e61065fce0dc3df1694a7">More...</a><br /></td></tr>
 <tr class="separator:a47438a5eff5e61065fce0dc3df1694a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a0967a79c236a16f1fa11ebb8f99b0f"><td class="memItemLeft" align="right" valign="top">integer *8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__comprx.html#a7a0967a79c236a16f1fa11ebb8f99b0f">imiss</a></td></tr>
+<tr class="memdesc:a7a0967a79c236a16f1fa11ebb8f99b0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">"Missing" value used when compressing non-character data values.  <a href="namespacemoda__comprx.html#a7a0967a79c236a16f1fa11ebb8f99b0f">More...</a><br /></td></tr>
+<tr class="separator:a7a0967a79c236a16f1fa11ebb8f99b0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ecc5d87d79c8c3aa778665041bcb522"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__comprx.html#a8ecc5d87d79c8c3aa778665041bcb522">ityp</a></td></tr>
 <tr class="memdesc:a8ecc5d87d79c8c3aa778665041bcb522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of each data value:  <a href="namespacemoda__comprx.html#a8ecc5d87d79c8c3aa778665041bcb522">More...</a><br /></td></tr>
 <tr class="separator:a8ecc5d87d79c8c3aa778665041bcb522"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa945d27bc1c5cf32ea5ba624ef289808"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__comprx.html#aa945d27bc1c5cf32ea5ba624ef289808">iwid</a></td></tr>
 <tr class="memdesc:aa945d27bc1c5cf32ea5ba624ef289808"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit width of underlying data descriptor as defined within Table B for each data value.  <a href="namespacemoda__comprx.html#aa945d27bc1c5cf32ea5ba624ef289808">More...</a><br /></td></tr>
 <tr class="separator:aa945d27bc1c5cf32ea5ba624ef289808"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7caf741d65ff0b68932fa7d207c689ba"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__comprx.html#a7caf741d65ff0b68932fa7d207c689ba">jlnode</a></td></tr>
+<tr class="memdesc:a7caf741d65ff0b68932fa7d207c689ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jump/link table node corresponding to each data value.  <a href="namespacemoda__comprx.html#a7caf741d65ff0b68932fa7d207c689ba">More...</a><br /></td></tr>
+<tr class="separator:a7caf741d65ff0b68932fa7d207c689ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9b27559a7e05f9939764fa6688d7147"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__comprx.html#ad9b27559a7e05f9939764fa6688d7147">kbit</a></td></tr>
 <tr class="memdesc:ad9b27559a7e05f9939764fa6688d7147"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bits needed to hold the increments for this data value within each data subset of the message.  <a href="namespacemoda__comprx.html#ad9b27559a7e05f9939764fa6688d7147">More...</a><br /></td></tr>
 <tr class="separator:ad9b27559a7e05f9939764fa6688d7147"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a243a2baa283f951be51ea9466cca35b8"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__comprx.html#a243a2baa283f951be51ea9466cca35b8">kbyt</a></td></tr>
 <tr class="memdesc:a243a2baa283f951be51ea9466cca35b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bytes required to store Sections 0, 1, 2, and 3 of message.  <a href="namespacemoda__comprx.html#a243a2baa283f951be51ea9466cca35b8">More...</a><br /></td></tr>
 <tr class="separator:a243a2baa283f951be51ea9466cca35b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ffd4baa8c4d960216a59e8c900c6a71"><td class="memItemLeft" align="right" valign="top">integer(8), dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__comprx.html#a1ffd4baa8c4d960216a59e8c900c6a71">kmax</a></td></tr>
-<tr class="memdesc:a1ffd4baa8c4d960216a59e8c900c6a71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum of each data value across all data subsets in message.  <a href="namespacemoda__comprx.html#a1ffd4baa8c4d960216a59e8c900c6a71">More...</a><br /></td></tr>
-<tr class="separator:a1ffd4baa8c4d960216a59e8c900c6a71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad51ebce67c88b36c4ad4a07ee1a49732"><td class="memItemLeft" align="right" valign="top">integer(8), dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__comprx.html#ad51ebce67c88b36c4ad4a07ee1a49732">kmin</a></td></tr>
-<tr class="memdesc:ad51ebce67c88b36c4ad4a07ee1a49732"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum of each data value across all data subsets in message.  <a href="namespacemoda__comprx.html#ad51ebce67c88b36c4ad4a07ee1a49732">More...</a><br /></td></tr>
-<tr class="separator:ad51ebce67c88b36c4ad4a07ee1a49732"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c3104f9c9731b91a8a105bcc5212542"><td class="memItemLeft" align="right" valign="top">integer *8, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__comprx.html#a7c3104f9c9731b91a8a105bcc5212542">kmax</a></td></tr>
+<tr class="memdesc:a7c3104f9c9731b91a8a105bcc5212542"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum of each data value across all data subsets in message.  <a href="namespacemoda__comprx.html#a7c3104f9c9731b91a8a105bcc5212542">More...</a><br /></td></tr>
+<tr class="separator:a7c3104f9c9731b91a8a105bcc5212542"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3c2aa97661a37d85840d480e611695e"><td class="memItemLeft" align="right" valign="top">integer *8, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__comprx.html#af3c2aa97661a37d85840d480e611695e">kmin</a></td></tr>
+<tr class="memdesc:af3c2aa97661a37d85840d480e611695e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum of each data value across all data subsets in message.  <a href="namespacemoda__comprx.html#af3c2aa97661a37d85840d480e611695e">More...</a><br /></td></tr>
+<tr class="separator:af3c2aa97661a37d85840d480e611695e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aedf59ef218e980c24d128aa7bc8884b1"><td class="memItemLeft" align="right" valign="top">logical, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__comprx.html#aedf59ef218e980c24d128aa7bc8884b1">kmis</a></td></tr>
 <tr class="memdesc:aedf59ef218e980c24d128aa7bc8884b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">"Missing" values flag.  <a href="namespacemoda__comprx.html#aedf59ef218e980c24d128aa7bc8884b1">More...</a><br /></td></tr>
 <tr class="separator:aedf59ef218e980c24d128aa7bc8884b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac17dd8dc0aeb695a1046a884673b1fc3"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__comprx.html#ac17dd8dc0aeb695a1046a884673b1fc3">lunc</a></td></tr>
-<tr class="memdesc:ac17dd8dc0aeb695a1046a884673b1fc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">I/O stream index into internal arrays for output file.  <a href="namespacemoda__comprx.html#ac17dd8dc0aeb695a1046a884673b1fc3">More...</a><br /></td></tr>
+<tr class="memdesc:ac17dd8dc0aeb695a1046a884673b1fc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">File ID for output file.  <a href="namespacemoda__comprx.html#ac17dd8dc0aeb695a1046a884673b1fc3">More...</a><br /></td></tr>
 <tr class="separator:ac17dd8dc0aeb695a1046a884673b1fc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a574b3c666f5e8aa725910e20a739f561"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__comprx.html#a574b3c666f5e8aa725910e20a739f561">nrow</a></td></tr>
 <tr class="memdesc:a574b3c666f5e8aa725910e20a739f561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of data values for each data subset in message.  <a href="namespacemoda__comprx.html#a574b3c666f5e8aa725910e20a739f561">More...</a><br /></td></tr>
@@ -132,8 +138,8 @@ Variables</h2></td></tr>
 <tr class="separator:a8be10a997d67944a328d256bfc60bf02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This module contains arrays and variable declarations for the storage of data values needed when writing compressed data subsets to a BUFR message for output. </p>
-<p>This module can only be used to store the information for one compressed BUFR message at any given time.</p>
+<div class="textblock"><p>Declare arrays and variable needed for the storage of data values needed when writing compressed data subsets to a BUFR message for output. </p>
+<p>These values can only be stored for one compressed BUFR message at any given time.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-05-14 </dd></dl>
 </div><h2 class="groupheader">Variable Documentation</h2>
@@ -151,9 +157,9 @@ Variables</h2></td></tr>
 
 <p>Character data value, if corresponding ityp value is set to 3. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00189">189</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00182">182</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>.</p>
 
 </div>
 </div>
@@ -172,9 +178,29 @@ Variables</h2></td></tr>
 <p>Flush flag. </p>
 <p>Set to .true. if a subroutine call was made to force the writing of the message to the corresponding output file, even if there may still be room in the message for additional data subsets. Otherwise set to .false. </p>
 
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00156">156</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>.</p>
+
+</div>
+</div>
+<a id="a7a0967a79c236a16f1fa11ebb8f99b0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a0967a79c236a16f1fa11ebb8f99b0f">&#9670;&nbsp;</a></span>imiss</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer*8 moda_comprx::imiss</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>"Missing" value used when compressing non-character data values. </p>
+
 <p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00165">165</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>.</p>
 
 </div>
 </div>
@@ -197,9 +223,9 @@ Variables</h2></td></tr>
 <li>3 Character data. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00184">184</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00177">177</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>.</p>
 
 </div>
 </div>
@@ -217,9 +243,29 @@ Variables</h2></td></tr>
 
 <p>Bit width of underlying data descriptor as defined within Table B for each data value. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00187">187</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00180">180</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>.</p>
+
+</div>
+</div>
+<a id="a7caf741d65ff0b68932fa7d207c689ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7caf741d65ff0b68932fa7d207c689ba">&#9670;&nbsp;</a></span>jlnode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer, dimension(:), allocatable moda_comprx::jlnode</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Jump/link table node corresponding to each data value. </p>
+
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00184">184</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>.</p>
 
 </div>
 </div>
@@ -237,9 +283,9 @@ Variables</h2></td></tr>
 
 <p>Number of bits needed to hold the increments for this data value within each data subset of the message. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00179">179</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00172">172</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>.</p>
 
 </div>
 </div>
@@ -257,49 +303,49 @@ Variables</h2></td></tr>
 
 <p>Number of bytes required to store Sections 0, 1, 2, and 3 of message. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00160">160</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00151">151</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>.</p>
 
 </div>
 </div>
-<a id="a1ffd4baa8c4d960216a59e8c900c6a71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ffd4baa8c4d960216a59e8c900c6a71">&#9670;&nbsp;</a></span>kmax</h2>
+<a id="a7c3104f9c9731b91a8a105bcc5212542"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c3104f9c9731b91a8a105bcc5212542">&#9670;&nbsp;</a></span>kmax</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">integer(8), dimension(:), allocatable moda_comprx::kmax</td>
+          <td class="memname">integer*8, dimension(:), allocatable moda_comprx::kmax</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Maximum of each data value across all data subsets in message. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00172">172</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00163">163</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>.</p>
 
 </div>
 </div>
-<a id="ad51ebce67c88b36c4ad4a07ee1a49732"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad51ebce67c88b36c4ad4a07ee1a49732">&#9670;&nbsp;</a></span>kmin</h2>
+<a id="af3c2aa97661a37d85840d480e611695e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3c2aa97661a37d85840d480e611695e">&#9670;&nbsp;</a></span>kmin</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">integer(8), dimension(:), allocatable moda_comprx::kmin</td>
+          <td class="memname">integer*8, dimension(:), allocatable moda_comprx::kmin</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Minimum of each data value across all data subsets in message. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00170">170</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00161">161</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>.</p>
 
 </div>
 </div>
@@ -318,9 +364,9 @@ Variables</h2></td></tr>
 <p>"Missing" values flag. </p>
 <p>Set to .true. if at least one occurrence of this data value is "missing" within any data subset of the message. Otherwise set to .false. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00176">176</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00169">169</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>.</p>
 
 </div>
 </div>
@@ -336,11 +382,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>I/O stream index into internal arrays for output file. </p>
+<p>File ID for output file. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00158">158</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00149">149</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>.</p>
 
 </div>
 </div>
@@ -358,9 +404,9 @@ Variables</h2></td></tr>
 
 <p>Number of data values for each data subset in message. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00156">156</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00147">147</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>.</p>
 
 </div>
 </div>
@@ -379,9 +425,9 @@ Variables</h2></td></tr>
 <p>Write-out flag. </p>
 <p>Set to .true. if the message needs to be written to the corresponding output file. Otherwise set to .false. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00168">168</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00159">159</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>.</p>
 
 </div>
 </div>

@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -171,11 +171,11 @@ Public Member Functions</h2></td></tr>
 <p>Wraps <a class="el" href="cfe_8c.html#aba549e6acf16abcbe89193cb72d94287" title="Search for a specified master Code/Flag table entry.">srchtbf()</a> function.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ifxyi</td><td>- Bit-wise representation of FXY number to search for. </td></tr>
+    <tr><td class="paramname">ifxyi</td><td>- WMO bit-wise representation of FXY number to search for. </td></tr>
     <tr><td class="paramname">ivali</td><td>- Value (code figure or bit number) associated with ifxyi. </td></tr>
     <tr><td class="paramname">ifxyd</td><td>- Dependence indicator:<ul>
-<li>On input, ifxyd[0] is set to the bit-wise representation of the FXY number upon which ifxyi and ivali depend, or else set to (-1) if ifxyi and ivali do not depend on the value associated with any other FXY number.</li>
-<li>On output, if the initial search of the master Code/Flag table was unsuccessful, <b>and</b> if ifxyd[0] and ivald were both set to (-1) on input, <b>and</b> if a second search of the table determines that the meaning of ifxyi and ivali indeed depends on one or more other FXY numbers, then the bit-wise representations of those FXY numbers are returned within the first iret elements of ifxyd. </li>
+<li>On input, ifxyd[0] is set to the WMO bit-wise representation of the FXY number upon which ifxyi and ivali depend, or else set to (-1) if ifxyi and ivali do not depend on the value associated with any other FXY number.</li>
+<li>On output, if the initial search of the master Code/Flag table was unsuccessful, <b>and</b> if ifxyd[0] and ivald were both set to (-1) on input, <b>and</b> if a second search of the table determines that the meaning of ifxyi and ivali indeed depends on one or more other FXY numbers, then the WMO bit-wise representations of those FXY numbers are returned within the first iret elements of ifxyd. </li>
 </ul>
 </td></tr>
     <tr><td class="paramname">ivald</td><td>- Value (code figure or bit number) associated with the FXY number in ifxyd[0]; set to (-1) whenever ifxyd[0] is also set to (-1). </td></tr>
@@ -186,7 +186,7 @@ Public Member Functions</h2></td></tr>
     <tr><td class="paramname">iret</td><td>- Return code:<ul>
 <li>0 = Meaning found and stored in meaning string.</li>
 <li>-1 = Meaning not found.</li>
-<li>&gt;0 = Meaning not found, <b>and</b> ifxyd[0] and ivald were both set to (-1) on input, <b>and</b> the meaning of ifxyi and ivali depends on the the value associated with one of the FXY numbers whose bit-wise representation is stored in the first iret elements of ifxyd.</li>
+<li>&gt;0 = Meaning not found, <b>and</b> ifxyd[0] and ivald were both set to (-1) on input, <b>and</b> the meaning of ifxyi and ivali depends on the the value associated with one of the FXY numbers whose WMO bit-wise representation is stored in the first iret elements of ifxyd.</li>
 </ul>
 </td></tr>
   </table>

@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -96,16 +96,16 @@ $(document).ready(function(){initNavTree('debufr_8c.html',''); initResizable(); 
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;libgen.h&gt;</code><br />
 <code>#include &lt;unistd.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>&quot;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="bufr__interface_8h_source.html">bufr_interface.h</a>&quot;</code><br />
 </div>
 <p><a href="debufr_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6de65da278ddb78092e873c2ec2dc5b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debufr_8c.html#a6de65da278ddb78092e873c2ec2dc5b6">fdebufr_f</a> (char *ofile, int lenof, char *tbldir, int lentd, char *tblfil, int lentf, char *prmstg, int lenps, char basic, char forcemt, char cfms)</td></tr>
-<tr class="memdesc:a6de65da278ddb78092e873c2ec2dc5b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read, decode, and print a verbose output listing of the contents of a BUFR file.  <a href="debufr_8c.html#a6de65da278ddb78092e873c2ec2dc5b6">More...</a><br /></td></tr>
-<tr class="separator:a6de65da278ddb78092e873c2ec2dc5b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a834922eb8174316cd235a552c2456279"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debufr_8c.html#a834922eb8174316cd235a552c2456279">fdebufr_f</a> (char *ofile, int lenof, char *tbldir, int lentd, char *tblfil, int lentf, char *prmstg, int lenps, char *basic, char *forcemt, char *cfms)</td></tr>
+<tr class="memdesc:a834922eb8174316cd235a552c2456279"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read, decode, and print a verbose output listing of the contents of a BUFR file.  <a href="debufr_8c.html#a834922eb8174316cd235a552c2456279">More...</a><br /></td></tr>
+<tr class="separator:a834922eb8174316cd235a552c2456279"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ddf1224851353fc92bfbff6f499fa97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debufr_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main</a> (int argc, char *argv[])</td></tr>
 <tr class="memdesc:a0ddf1224851353fc92bfbff6f499fa97"><td class="mdescLeft">&#160;</td><td class="mdescRight">This program decodes a BUFR file and generates a verbose listing of the contents.  <a href="debufr_8c.html#a0ddf1224851353fc92bfbff6f499fa97">More...</a><br /></td></tr>
 <tr class="separator:a0ddf1224851353fc92bfbff6f499fa97"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,8 +120,8 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="debufr_8c_source.html">debufr.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a6de65da278ddb78092e873c2ec2dc5b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6de65da278ddb78092e873c2ec2dc5b6">&#9670;&nbsp;</a></span>fdebufr_f()</h2>
+<a id="a834922eb8174316cd235a552c2456279"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a834922eb8174316cd235a552c2456279">&#9670;&nbsp;</a></span>fdebufr_f()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -177,19 +177,19 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char&#160;</td>
+          <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>basic</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char&#160;</td>
+          <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>forcemt</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char&#160;</td>
+          <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>cfms</em>&#160;</td>
         </tr>
         <tr>
@@ -303,7 +303,7 @@ Functions</h2></td></tr>
                 NCEPLIBS-bufr software, overriding the default value that
                 would otherwise be used.  A complete list of parameters
                 that can be dynamically sized is included within the
-                documentation for NCEPLIBS-bufr function <a class="el" href="isetprm_8f.html#ae592be54b0568225433b6d66798ddce6" title="Define a customized parameter value for dynamic allocation.">isetprm()</a>.
+                documentation for NCEPLIBS-bufr function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a>.
 
       bufrfile  [path/]name of BUFR file to be decoded
 </pre><dl class="section remark"><dt>Remarks</dt><dd><ul>
@@ -323,7 +323,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="debufr_8c_source.html#l00167">167</a> of file <a class="el" href="debufr_8c_source.html">debufr.c</a>.</p>
 
-<p class="reference">References <a class="el" href="bufr__interface_8h.html#ada9f732c49c87976c31f215c9c040d2b">bvers_f()</a>, <a class="el" href="bufr__interface_8h.html#ab66668ab9633ce3b475416f6a9899802">ccbfl()</a>, <a class="el" href="bufr__interface_8h.html#a1a79689096002f6f3c125abc59c2143d">cobfl()</a>, <a class="el" href="debufr_8c.html#a6de65da278ddb78092e873c2ec2dc5b6">fdebufr_f()</a>, <a class="el" href="debufr_8c.html#a54cbb8b652032605c043b18a134cd85d">prtusage()</a>, and <a class="el" href="bufrlib_8h.html#a016503c090a3f1ecdac526a2e8f696b0">VERS_STR_LEN</a>.</p>
+<p class="reference">References <a class="el" href="bufr__interface_8h.html#ada9f732c49c87976c31f215c9c040d2b">bvers_f()</a>, <a class="el" href="bufr__interface_8h.html#ab66668ab9633ce3b475416f6a9899802">ccbfl()</a>, <a class="el" href="bufr__interface_8h.html#a1a79689096002f6f3c125abc59c2143d">cobfl()</a>, <a class="el" href="debufr_8c.html#a834922eb8174316cd235a552c2456279">fdebufr_f()</a>, <a class="el" href="debufr_8c.html#a54cbb8b652032605c043b18a134cd85d">prtusage()</a>, and <a class="el" href="bufr__interface_8h.html#a016503c090a3f1ecdac526a2e8f696b0">VERS_STR_LEN</a>.</p>
 
 </div>
 </div>
@@ -364,7 +364,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_1c7cb1e53c36c68d6005e0e04c42a1f1.html">utils</a></li><li class="navelem"><a class="el" href="debufr_8c.html">debufr.c</a></li>
+    <li class="navelem"><a class="el" href="dir_22e12ea4559d63fc79cb69a343f5f5b4.html">utils</a></li><li class="navelem"><a class="el" href="debufr_8c.html">debufr.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

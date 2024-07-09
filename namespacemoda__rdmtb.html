@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('namespacemoda__rdmtb.html',''); initRe
 </div><!--header-->
 <div class="contents">
 
-<p>This module contains array and variable declarations used to store master Table B and Table D entries within internal memory.  
+<p>Declare arrays and variables used to store master Table B and Table D entries within internal memory.  
 <a href="namespacemoda__rdmtb.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -104,12 +104,12 @@ Variables</h2></td></tr>
 <tr class="memdesc:ab8fe0a01ea7ba06916fd450273c1c38f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor codes for Table D sequences.  <a href="namespacemoda__rdmtb.html#ab8fe0a01ea7ba06916fd450273c1c38f">More...</a><br /></td></tr>
 <tr class="separator:ab8fe0a01ea7ba06916fd450273c1c38f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab26bcc9dccfa0b250af20392755adf93"><td class="memItemLeft" align="right" valign="top">integer, dimension(:,:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__rdmtb.html#ab26bcc9dccfa0b250af20392755adf93">iefxyn</a></td></tr>
-<tr class="memdesc:ab26bcc9dccfa0b250af20392755adf93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit-wise representations of child descriptors of Table D sequences.  <a href="namespacemoda__rdmtb.html#ab26bcc9dccfa0b250af20392755adf93">More...</a><br /></td></tr>
+<tr class="memdesc:ab26bcc9dccfa0b250af20392755adf93"><td class="mdescLeft">&#160;</td><td class="mdescRight">WMO bit-wise representations of child descriptors of Table D sequences.  <a href="namespacemoda__rdmtb.html#ab26bcc9dccfa0b250af20392755adf93">More...</a><br /></td></tr>
 <tr class="separator:ab26bcc9dccfa0b250af20392755adf93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This module contains array and variable declarations used to store master Table B and Table D entries within internal memory. </p>
-<p>Data values within this module are stored by subroutine <a class="el" href="ireadmt_8f.html#aa695ad6da4ed98ed6ef6fc3666f7d7bc" title="Check whether master BUFR tables need to be read from the local file system.">ireadmt()</a>.</p>
+<div class="textblock"><p>Declare arrays and variables used to store master Table B and Table D entries within internal memory. </p>
+<p>Data values within this module are stored by subroutine <a class="el" href="mastertable_8F90.html#adde6acff18af3673cd9ef45b7ec12833" title="Check the most recent BUFR message that was read via a call to one of the message-reading subroutines...">ireadmt()</a>.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2014-12-10 </dd></dl>
 </div><h2 class="groupheader">Variable Documentation</h2>
@@ -127,9 +127,9 @@ Variables</h2></td></tr>
 
 <p>Element names corresponding to iefxyn. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00528">528</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00531">531</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="ireadmt_8f.html#aa695ad6da4ed98ed6ef6fc3666f7d7bc">ireadmt()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="mastertable_8F90.html#adde6acff18af3673cd9ef45b7ec12833">ireadmt()</a>.</p>
 
 </div>
 </div>
@@ -147,9 +147,9 @@ Variables</h2></td></tr>
 
 <p>Descriptor codes for Table B elements. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00524">524</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00527">527</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="ireadmt_8f.html#aa695ad6da4ed98ed6ef6fc3666f7d7bc">ireadmt()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="mastertable_8F90.html#adde6acff18af3673cd9ef45b7ec12833">ireadmt()</a>.</p>
 
 </div>
 </div>
@@ -167,9 +167,9 @@ Variables</h2></td></tr>
 
 <p>Descriptor codes for Table D sequences. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00526">526</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00529">529</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="ireadmt_8f.html#aa695ad6da4ed98ed6ef6fc3666f7d7bc">ireadmt()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="mastertable_8F90.html#adde6acff18af3673cd9ef45b7ec12833">ireadmt()</a>.</p>
 
 </div>
 </div>
@@ -185,11 +185,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Bit-wise representations of child descriptors of Table D sequences. </p>
+<p>WMO bit-wise representations of child descriptors of Table D sequences. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00522">522</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00525">525</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="ireadmt_8f.html#aa695ad6da4ed98ed6ef6fc3666f7d7bc">ireadmt()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, and <a class="el" href="mastertable_8F90.html#adde6acff18af3673cd9ef45b7ec12833">ireadmt()</a>.</p>
 
 </div>
 </div>

@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -90,7 +90,7 @@ $(document).ready(function(){initNavTree('arallocc_8c.html',''); initResizable()
 </div><!--header-->
 <div class="contents">
 
-<p>Dynamically allocate C language arrays.  
+<p>Allocate or deallocate C language arrays.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="cread_8h_source.html">cread.h</a>&quot;</code><br />
@@ -109,9 +109,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a98efd59b32b1d2ed2c060d2564824e28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28">arallocc</a> (void)</td></tr>
 <tr class="memdesc:a98efd59b32b1d2ed2c060d2564824e28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dynamically allocate C language arrays.  <a href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28">More...</a><br /></td></tr>
 <tr class="separator:a98efd59b32b1d2ed2c060d2564824e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac283516a1391fee0635b01beffdad7cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arallocc_8c.html#ac283516a1391fee0635b01beffdad7cb">ardllocc</a> (void)</td></tr>
+<tr class="memdesc:ac283516a1391fee0635b01beffdad7cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free all memory that was dynamically allocated during a previous call to subroutine <a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28" title="Dynamically allocate C language arrays.">arallocc()</a>.  <a href="arallocc_8c.html#ac283516a1391fee0635b01beffdad7cb">More...</a><br /></td></tr>
+<tr class="separator:ac283516a1391fee0635b01beffdad7cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Dynamically allocate C language arrays. </p>
+<div class="textblock"><p>Allocate or deallocate C language arrays. </p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2014-12-04 </dd></dl>
 
@@ -131,7 +134,7 @@ Functions</h2></td></tr>
 
 <p>Macro to control whether certain variables are explicitly declared or referenced as extern. </p>
 
-<p class="definition">Definition at line <a class="el" href="arallocc_8c_source.html#l00010">10</a> of file <a class="el" href="arallocc_8c_source.html">arallocc.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="arallocc_8c_source.html#l00009">9</a> of file <a class="el" href="arallocc_8c_source.html">arallocc.c</a>.</p>
 
 </div>
 </div>
@@ -153,14 +156,40 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Dynamically allocate C language arrays. </p>
-<p>This subroutine is called internally during the first call to subroutine <a class="el" href="openbf_8f.html#abcc4f481b8758da104eb75575431128e" title="Connects a new file to the NCEPLIBS-bufr software for input or output operations, or initializes the ...">openbf()</a> from an application program, in order to dynamically allocate internal C language arrays based on parameter values set during one or more previous calls to function <a class="el" href="isetprm_8f.html#ae592be54b0568225433b6d66798ddce6" title="Define a customized parameter value for dynamic allocation.">isetprm()</a>.</p>
-<p>All memory allocated within this subroutine can be freed via a subsequent call to subroutine <a class="el" href="exitbufr_8f.html#acd1669ed5957ebab6c98ac974b2a1bf8" title="This subroutine frees all dynamically-allocated memory, closes all logical units that are open within...">exitbufr()</a>.</p>
+<p>This subroutine is called internally during the first call to subroutine <a class="el" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d" title="Connect a new file to the NCEPLIBS-bufr software for input or output operations, or initialize the li...">openbf()</a> from an application program, in order to dynamically allocate internal C language arrays based on parameter values set during one or more previous calls to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a>.</p>
+<p>All memory allocated within this subroutine can be freed via a subsequent call to subroutine <a class="el" href="arallocf_8F90.html#a355f094d616febcea2820cf547cbff8e" title="Free all dynamically-allocated memory, close all logical units that are open within the NCEPLIBS-bufr...">exitbufr()</a>.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2014-12-04 </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="arallocc_8c_source.html#l00029">29</a> of file <a class="el" href="arallocc_8c_source.html">arallocc.c</a>.</p>
 
-<p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, <a class="el" href="mstabs_8h.html#a848b6568e0bfab92d85132d05dc937e0">cbbw_c</a>, <a class="el" href="mstabs_8h.html#a4e2c71282979073fdf1770f63936a12d">cbelem_c</a>, <a class="el" href="mstabs_8h.html#ae356bdcf12736c877e631cbfc2cdeb6b">cbmnem_c</a>, <a class="el" href="mstabs_8h.html#ac78573bf16971ee302c96eaaea497d47">cbscl_c</a>, <a class="el" href="mstabs_8h.html#a944736d6f549e144e77482a27d57d54f">cbsref_c</a>, <a class="el" href="mstabs_8h.html#a0a3641906334121bb919eeebae00c2dc">cbunit_c</a>, <a class="el" href="mstabs_8h.html#a435c8f4a1ebe7966a2cd0e0a980dab51">cdmnem_c</a>, <a class="el" href="mstabs_8h.html#a9a27f1ec866a82df459f4d17893b9df2">cdseq_c</a>, <a class="el" href="mstabs_8h.html#aaea63eb1ccee165b800fa110084801ad">ibfxyn_c</a>, <a class="el" href="mstabs_8h.html#a821ed028f82d3597bc27927ec4b1aac0">idefxy_c</a>, <a class="el" href="mstabs_8h.html#a0fc52a9b3d9391ecd70298b2d89450ab">idfxyn_c</a>, <a class="el" href="bufr__interface_8h.html#a0b06d7dc9ae1ba6147ad0f1ea3d359bb">igetprm_f()</a>, <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, <a class="el" href="namespacemodv__maxcd.html#a9de0bfc19c54f103e9edb2864d8778f8">modv_maxcd::maxcd</a>, <a class="el" href="namespacemodv__mxmtbb.html#a5485fe7cfc03d43037332374b6978139">modv_mxmtbb::mxmtbb</a>, <a class="el" href="namespacemodv__mxmtbd.html#a9a0e83b3c30a94df1f775cbac21909ea">modv_mxmtbd::mxmtbd</a>, <a class="el" href="mstabs_8h.html#a6532afa4b2089e3b39acda01f93a1c26">ndelem_c</a>, <a class="el" href="namespacemodv__nfiles.html#a0523fa736e5303f831ba35f28f0e12e3">modv_nfiles::nfiles</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
+<p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, <a class="el" href="mstabs_8h.html#aa0f8eb7c3a1ca9a66a0933d97a3422ab">cbbw_c</a>, <a class="el" href="mstabs_8h.html#a19c8207a7b2c18f50438f51f066bad7b">cbelem_c</a>, <a class="el" href="mstabs_8h.html#a7c0149a5419b96753491953e92ce35b0">cbmnem_c</a>, <a class="el" href="mstabs_8h.html#a49e37dddeae6e1e71da2444d40c6d232">cbscl_c</a>, <a class="el" href="mstabs_8h.html#a1209038da13334a450146c0caa5ae9ad">cbsref_c</a>, <a class="el" href="mstabs_8h.html#a558051c0c39c5c6181019fb4231797d1">cbunit_c</a>, <a class="el" href="mstabs_8h.html#a309b9730283bc44b297b44f4e32db7f1">cdmnem_c</a>, <a class="el" href="mstabs_8h.html#a3e8f3bcd901b3809309c431d2825d636">cdseq_c</a>, <a class="el" href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a>, <a class="el" href="mstabs_8h.html#acdfc509abed04b3bc643a4171c419fa4">ibfxyn_c</a>, <a class="el" href="mstabs_8h.html#a006ec50bbb9f20fad017eb980cc7afa0">idefxy_c</a>, <a class="el" href="mstabs_8h.html#a2798d24f3443eeee2999eddf34d24c19">idfxyn_c</a>, <a class="el" href="bufr__interface_8h.html#a0b06d7dc9ae1ba6147ad0f1ea3d359bb">igetprm_f()</a>, <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, <a class="el" href="mstabs_8h.html#ad9af08676809848df12a73ece2a37182">ndelem_c</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
+
+</div>
+</div>
+<a id="ac283516a1391fee0635b01beffdad7cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac283516a1391fee0635b01beffdad7cb">&#9670;&nbsp;</a></span>ardllocc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ardllocc </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Free all memory that was dynamically allocated during a previous call to subroutine <a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28" title="Dynamically allocate C language arrays.">arallocc()</a>. </p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2014-12-04 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="arallocc_8c_source.html#l00090">90</a> of file <a class="el" href="arallocc_8c_source.html">arallocc.c</a>.</p>
+
+<p class="reference">References <a class="el" href="mstabs_8h.html#aa0f8eb7c3a1ca9a66a0933d97a3422ab">cbbw_c</a>, <a class="el" href="mstabs_8h.html#a19c8207a7b2c18f50438f51f066bad7b">cbelem_c</a>, <a class="el" href="mstabs_8h.html#a7c0149a5419b96753491953e92ce35b0">cbmnem_c</a>, <a class="el" href="mstabs_8h.html#a49e37dddeae6e1e71da2444d40c6d232">cbscl_c</a>, <a class="el" href="mstabs_8h.html#a1209038da13334a450146c0caa5ae9ad">cbsref_c</a>, <a class="el" href="mstabs_8h.html#a558051c0c39c5c6181019fb4231797d1">cbunit_c</a>, <a class="el" href="mstabs_8h.html#a309b9730283bc44b297b44f4e32db7f1">cdmnem_c</a>, <a class="el" href="mstabs_8h.html#a3e8f3bcd901b3809309c431d2825d636">cdseq_c</a>, <a class="el" href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a>, <a class="el" href="mstabs_8h.html#acdfc509abed04b3bc643a4171c419fa4">ibfxyn_c</a>, <a class="el" href="mstabs_8h.html#a006ec50bbb9f20fad017eb980cc7afa0">idefxy_c</a>, <a class="el" href="mstabs_8h.html#a2798d24f3443eeee2999eddf34d24c19">idfxyn_c</a>, <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, <a class="el" href="mstabs_8h.html#ad9af08676809848df12a73ece2a37182">ndelem_c</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
 
 </div>
 </div>

@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('debufr_8F90.html',''); initResizable()
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Modules</h2></td></tr>
 <tr class="memitem:namespaceshare__table__info"><td class="memItemLeft" align="right" valign="top">module &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceshare__table__info.html">share_table_info</a></td></tr>
-<tr class="memdesc:namespaceshare__table__info"><td class="mdescLeft">&#160;</td><td class="mdescRight">This module is used within the debufr utility to share information between subroutine <a class="el" href="debufr_8F90.html#abd70421a18d899bec6fbdade1262dd0b" title="This subroutine reads, decodes, and generates a verbose output listing of the contents of every BUFR ...">fdebufr_c()</a> and subroutine <a class="el" href="openbt_8f.html#a3c78756de851568b7315bb084e1fd152" title="This subroutine is called as a last resort from within subroutine cktaba(), in the event the latter s...">openbt()</a>, since the latter is not called by the former but rather is called directly from within the NCEPLIBS-bufr software. <br /></td></tr>
+<tr class="memdesc:namespaceshare__table__info"><td class="mdescLeft">&#160;</td><td class="mdescRight">This module is used within the debufr utility to share information between subroutine <a class="el" href="debufr_8F90.html#abd70421a18d899bec6fbdade1262dd0b" title="This subroutine reads, decodes, and generates a verbose output listing of the contents of every BUFR ...">fdebufr_c()</a> and subroutine <a class="el" href="openbt_8F90.html#a7e64e80a4c6a00f66c7dc1cbdeab96ef" title="Specify a DX BUFR table of last resort, in case subroutine cktaba() is unable to locate a DX BUFR tab...">openbt()</a>, since the latter is not called by the former but rather is called directly from within the NCEPLIBS-bufr software. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -187,19 +187,19 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">character(c_char), intent(in), value&#160;</td>
+          <td class="paramtype">character(kind=c_char,len=1), intent(in)&#160;</td>
           <td class="paramname"><em>basic</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">character(c_char), intent(in), value&#160;</td>
+          <td class="paramtype">character(kind=c_char,len=1), intent(in)&#160;</td>
           <td class="paramname"><em>forcemt</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">character(c_char), intent(in), value&#160;</td>
+          <td class="paramtype">character(kind=c_char,len=1), intent(in)&#160;</td>
           <td class="paramname"><em>cfms</em>&#160;</td>
         </tr>
         <tr>
@@ -213,31 +213,31 @@ Variables</h2></td></tr>
 <p>This subroutine reads, decodes, and generates a verbose output listing of the contents of every BUFR message from within the input file that was previously opened via a call to function <a class="el" href="bufr__interface_8h.html#a1a79689096002f6f3c125abc59c2143d" title="Open a new file for reading or writing BUFR messages via a C language interface.">cobfl()</a> with io = 'r'. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">ofile</td><td>&ndash; c_char(*): File to contain verbose output listing of contents of each decoded BUFR message </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">lenof</td><td>&ndash; c_int: Length of ofile string </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">tbldir</td><td>&ndash; c_char(*): Directory containing DX and/or master BUFR tables to be used for decoding </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">lentd</td><td>&ndash; c_int: Length of tbldir string </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">tblfil</td><td>&ndash; c_char(*): File containing DX BUFR table information to be used for decoding<ul>
+    <tr><td class="paramname">ofile</td><td>- File to contain verbose output listing of contents of each decoded BUFR message </td></tr>
+    <tr><td class="paramname">lenof</td><td>- Length of ofile string </td></tr>
+    <tr><td class="paramname">tbldir</td><td>- Directory containing DX and/or master BUFR tables to be used for decoding </td></tr>
+    <tr><td class="paramname">lentd</td><td>- Length of tbldir string </td></tr>
+    <tr><td class="paramname">tblfil</td><td>- File containing DX BUFR table information to be used for decoding<ul>
 <li>'NULLFILE' = No such file will be used </li>
 </ul>
 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">lentf</td><td>&ndash; c_int: Length of tblfil string </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">prmstg</td><td>&ndash; c_char*(*): String of up to 20 comma-separated PARAMETER=VALUE pairs to be used to dynamically allocate memory within the NCEPLIBS-bufr software, overriding the default VALUE that would otherwise be used for each such PARAMETER.<ul>
+    <tr><td class="paramname">lentf</td><td>- Length of tblfil string </td></tr>
+    <tr><td class="paramname">prmstg</td><td>- String of up to 20 comma-separated PARAMETER=VALUE pairs to be used to dynamically allocate memory within the NCEPLIBS-bufr software, overriding the default VALUE that would otherwise be used for each such PARAMETER<ul>
 <li>'NULLPSTG' = No such pairs will be used </li>
 </ul>
 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">lenps</td><td>&ndash; c_int: Length of prmstg string </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">basic</td><td>&ndash; c_char: Indicator as to whether only "basic" information in Sections 0-3 should be decoded from each BUFR message:<ul>
+    <tr><td class="paramname">lenps</td><td>- Length of prmstg string </td></tr>
+    <tr><td class="paramname">basic</td><td>- Indicator as to whether only "basic" information in Sections 0-3 should be decoded from each BUFR message:<ul>
 <li>'Y' = Yes</li>
 <li>'N' = No </li>
 </ul>
 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">forcemt</td><td>&ndash; c_char: Indicator as to whether master BUFR tables should be used for decoding, regardless of whether the input file contains any embedded DX BUFR table messages:<ul>
+    <tr><td class="paramname">forcemt</td><td>- Indicator as to whether master BUFR tables should be used for decoding, regardless of whether the input file contains any embedded DX BUFR table messages:<ul>
 <li>'Y' = Yes</li>
 <li>'N' = No </li>
 </ul>
 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">cfms</td><td>&ndash; c_char: Indicator as to whether code and flag table meanings should be read from master BUFR tables and included in the print output:<ul>
+    <tr><td class="paramname">cfms</td><td>- Indicator as to whether code and flag table meanings should be read from master BUFR tables and included in the print output:<ul>
 <li>'Y' = Yes</li>
 <li>'N' = No</li>
 </ul>
@@ -246,16 +246,16 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section remark"><dt>Remarks</dt><dd><ul>
-<li>See NCEPLIBS-bufr function <a class="el" href="isetprm_8f.html#ae592be54b0568225433b6d66798ddce6" title="Define a customized parameter value for dynamic allocation.">isetprm()</a> for a complete list of parameters that can be dynamically sized via prmstg.</li>
+<li>See NCEPLIBS-bufr function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> for a complete list of parameters that can be dynamically sized via prmstg.</li>
 <li>Fortran logical unit numbers 51, 90, 91, 92 and 93 are reserved for use within this subroutine.</li>
 </ul>
 </dd></dl>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2009-07-01 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="debufr_8F90_source.html#l00056">56</a> of file <a class="el" href="debufr_8F90_source.html">debufr.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="debufr_8F90_source.html#l00054">54</a> of file <a class="el" href="debufr_8F90_source.html">debufr.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="codflg_8f.html#af415643ef31f484c879e7a770fa69ff9">codflg()</a>, <a class="el" href="datelen_8f.html#a2b79b38439baa89e2b34b0614449d579">datelen()</a>, <a class="el" href="dxdump_8f.html#a42bdc5a58d0586fd8e9bc1b755602aeb">dxdump()</a>, <a class="el" href="getcfmng_8f.html#a79cc79e9e059a171f8d55fcc481b6f17">getcfmng()</a>, <a class="el" href="namespaceshare__table__info.html#a9cb558bc60eed8b777532f56fff8a08c">share_table_info::ltbd</a>, <a class="el" href="namespaceshare__table__info.html#a88fbe3e8e14e3810e1dc3f1560d1c51f">share_table_info::ludx</a>, <a class="el" href="mtinfo_8f.html#a5bc13da9cf85f0bf6a8010842707d271">mtinfo()</a>, <a class="el" href="openbf_8f.html#abcc4f481b8758da104eb75575431128e">openbf()</a>, <a class="el" href="parstr_8f.html#a3379a342ab3d92dd01eef1f3172f9b86">parstr()</a>, <a class="el" href="readerme_8f.html#a3d8860f8a5fe519e8d84afbe68dc67b5">readerme()</a>, <a class="el" href="rtrcptb_8f.html#a5eb0f5be603cf24d61416442d0a7444c">rtrcptb()</a>, <a class="el" href="strnum_8F90.html#a93d704d3c84005bb12c261225445a99e">strnum()</a>, <a class="el" href="strsuc_8F90.html#ab18db8197d0e5256ff5dfd2f26304d28">strsuc()</a>, <a class="el" href="ufdump_8f.html#ac6ded614847f96968e12c9600a7d51ba">ufdump()</a>, and <a class="el" href="upds3_8f.html#ab3f8934add8a578800472069a91d33d6">upds3()</a>.</p>
+<p class="reference">References <a class="el" href="mastertable_8F90.html#a4721c745ebeb6be54c825cd1f53ec107">codflg()</a>, <a class="el" href="s013vals_8F90.html#aadd84c217cf5fab0d94564da3f377ebe">datelen()</a>, <a class="el" href="dumpdata_8F90.html#ac693ae3d5af0a71505d5f9305c86fdb8">dxdump()</a>, <a class="el" href="cftbvs_8F90.html#af113e7ee7e2023cd466c2b28616cd64a">getcfmng()</a>, <a class="el" href="namespaceshare__table__info.html#a9cb558bc60eed8b777532f56fff8a08c">share_table_info::ltbd</a>, <a class="el" href="namespaceshare__table__info.html#a88fbe3e8e14e3810e1dc3f1560d1c51f">share_table_info::ludx</a>, <a class="el" href="mastertable_8F90.html#abf69490965212318f1dfee9b0bc4890c">mtinfo()</a>, <a class="el" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d">openbf()</a>, <a class="el" href="strings_8F90.html#a1d493e7de1c23739a0fcd06089139f35">parstr()</a>, <a class="el" href="readwritemg_8F90.html#aa2a7bf49cad422b474a24edd3a1cb232">readerme()</a>, <a class="el" href="tankrcpt_8F90.html#a9ae992beefc572ef3ae02a330b221ffa">rtrcptb()</a>, <a class="el" href="misc_8F90.html#a93d704d3c84005bb12c261225445a99e">strnum()</a>, <a class="el" href="misc_8F90.html#ab18db8197d0e5256ff5dfd2f26304d28">strsuc()</a>, <a class="el" href="dumpdata_8F90.html#a20fa33f6e0fcb0816c4b070c73362539">ufdump()</a>, and <a class="el" href="s013vals_8F90.html#a7bf4d22f9bb27412a9d041f7a5d7bca6">upds3()</a>.</p>
 
 </div>
 </div>
@@ -291,8 +291,8 @@ Variables</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2012-12-07</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">mtyp</td><td>&ndash; integer: Data category of BUFR message </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">lundx</td><td>&ndash; integer: Fortran logical unit number for DX BUFR tables file to use in reading/decoding the message<ul>
+    <tr><td class="paramname">mtyp</td><td>- Data category of BUFR message </td></tr>
+    <tr><td class="paramname">lundx</td><td>- Fortran logical unit number for DX BUFR tables file to use in reading/decoding the message<ul>
 <li>0 = No such file is available</li>
 </ul>
 </td></tr>
@@ -302,7 +302,7 @@ Variables</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2012-12-07 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="debufr_8F90_source.html#l00388">388</a> of file <a class="el" href="debufr_8F90_source.html">debufr.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="debufr_8F90_source.html#l00383">383</a> of file <a class="el" href="debufr_8F90_source.html">debufr.F90</a>.</p>
 
 <p class="reference">References <a class="el" href="namespaceshare__table__info.html#a9cb558bc60eed8b777532f56fff8a08c">share_table_info::ltbd</a>, <a class="el" href="namespaceshare__table__info.html#a88fbe3e8e14e3810e1dc3f1560d1c51f">share_table_info::ludx</a>, and <a class="el" href="namespaceshare__table__info.html#ad7e71b6c16362d8d65d97662bcdd7d02">share_table_info::tbldir_f</a>.</p>
 

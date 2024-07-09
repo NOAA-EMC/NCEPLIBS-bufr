@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('namespacemoda__nrv203.html',''); initR
 </div><!--header-->
 <div class="contents">
 
-<p>This module contains array and variable declarations for use with any 2-03-YYY (change reference value) operators present within the internal jump/link table.  
+<p>Declare arrays and variables for use with any 2-03-YYY (change reference value) operators present within the internal jump/link table.  
 <a href="namespacemoda__nrv203.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -110,7 +110,7 @@ Variables</h2></td></tr>
 <tr class="memdesc:a61eaac2cb0e3dd6de4d02e9986cab602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start of entry range in jump/link table, within which the corresponding new reference value in nrv will be applied to all occurrences of the corresponding Table B mnemonic in tagnrv.  <a href="namespacemoda__nrv203.html#a61eaac2cb0e3dd6de4d02e9986cab602">More...</a><br /></td></tr>
 <tr class="separator:a61eaac2cb0e3dd6de4d02e9986cab602"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f37665c0422638e65824c8b9183169e"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__nrv203.html#a7f37665c0422638e65824c8b9183169e">nnrv</a></td></tr>
-<tr class="memdesc:a7f37665c0422638e65824c8b9183169e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of entries in the jump/link table which contain new reference values (up to a maximum of MXNRV).  <a href="namespacemoda__nrv203.html#a7f37665c0422638e65824c8b9183169e">More...</a><br /></td></tr>
+<tr class="memdesc:a7f37665c0422638e65824c8b9183169e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of entries in the jump/link table which contain new reference values (up to a maximum of mxnrv).  <a href="namespacemoda__nrv203.html#a7f37665c0422638e65824c8b9183169e">More...</a><br /></td></tr>
 <tr class="separator:a7f37665c0422638e65824c8b9183169e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c4d7ff754fd79feb908c6858f7e4e5f"><td class="memItemLeft" align="right" valign="top">integer *8, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__nrv203.html#a9c4d7ff754fd79feb908c6858f7e4e5f">nrv</a></td></tr>
 <tr class="memdesc:a9c4d7ff754fd79feb908c6858f7e4e5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">New reference values corresponding to inodnrv.  <a href="namespacemoda__nrv203.html#a9c4d7ff754fd79feb908c6858f7e4e5f">More...</a><br /></td></tr>
@@ -120,8 +120,8 @@ Variables</h2></td></tr>
 <tr class="separator:a5f80cd868154c06f202e5886d40750de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This module contains array and variable declarations for use with any 2-03-YYY (change reference value) operators present within the internal jump/link table. </p>
-<p>Data values within this module are stored by subroutine <a class="el" href="tabsub_8f.html#a6ad60d6ecdf6a230ccb11e112ecc84ce" title="This subroutine builds the entire jump/link tree (including recursively resolving all &quot;child&quot; mnemoni...">tabsub()</a>.</p>
+<div class="textblock"><p>Declare arrays and variables for use with any 2-03-YYY (change reference value) operators present within the internal jump/link table. </p>
+<p>Data values within this module are stored by subroutine <a class="el" href="jumplink_8F90.html#af1d16fa71d84a333e3448d1081214d2f" title="Build and store the entire jump/link tree (including recursively resolving all &quot;child&quot; mnemonics) for...">tabsub()</a>.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2012-03-02 </dd></dl>
 </div><h2 class="groupheader">Variable Documentation</h2>
@@ -139,9 +139,9 @@ Variables</h2></td></tr>
 
 <p>Number of bits in Section 4 occupied by each new reference value for the current 2-03-YYY operator in scope; set to 0 if no such operator is currently in scope. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00468">468</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00471">471</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="tabent_8f.html#a93eed61bdc169fa276366154d660f959">tabent()</a>, and <a class="el" href="tabsub_8f.html#a6ad60d6ecdf6a230ccb11e112ecc84ce">tabsub()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="jumplink_8F90.html#a68d977aaaf6f7869b2048ca79723c838">tabent()</a>, and <a class="el" href="jumplink_8F90.html#af1d16fa71d84a333e3448d1081214d2f">tabsub()</a>.</p>
 
 </div>
 </div>
@@ -159,9 +159,9 @@ Variables</h2></td></tr>
 
 <p>End of entry range in jump/link table, within which the corresponding new reference value in nrv will be applied to all occurrences of the corresponding Table B mnemonic in tagnrv. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00488">488</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00491">491</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="igetrfel_8f.html#a764a4e5ff62c66fcaae4b2b1d806e88c">igetrfel()</a>, <a class="el" href="ipks_8f.html#a12376c3561b8a14e09b20d8736b91d82">ipks()</a>, <a class="el" href="nemspecs_8f.html#afc40b65878e8f8537a6bd6d804b5b650">nemspecs()</a>, <a class="el" href="tabsub_8f.html#a6ad60d6ecdf6a230ccb11e112ecc84ce">tabsub()</a>, and <a class="el" href="ups_8f.html#aea2e26fceeecb31aa90ae7811fa1c361">ups()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="bitmaps_8F90.html#a2dd600ba6cd71e06a19d88956337781b">igetrfel()</a>, <a class="el" href="ciencode_8F90.html#a7501045242bc6174585e20be99d3d269">ipks()</a>, <a class="el" href="jumplink_8F90.html#a6ec2d1015cdc1315eb384ea92223e620">nemspecs()</a>, <a class="el" href="jumplink_8F90.html#af1d16fa71d84a333e3448d1081214d2f">tabsub()</a>, and <a class="el" href="cidecode_8F90.html#a414b81ace5368c9bb43fdd19442ebaa5">ups()</a>.</p>
 
 </div>
 </div>
@@ -179,9 +179,9 @@ Variables</h2></td></tr>
 
 <p>Entries within jump/link table which contain new reference values. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00478">478</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00481">481</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="igetrfel_8f.html#a764a4e5ff62c66fcaae4b2b1d806e88c">igetrfel()</a>, <a class="el" href="ipks_8f.html#a12376c3561b8a14e09b20d8736b91d82">ipks()</a>, <a class="el" href="nemspecs_8f.html#afc40b65878e8f8537a6bd6d804b5b650">nemspecs()</a>, <a class="el" href="tabent_8f.html#a93eed61bdc169fa276366154d660f959">tabent()</a>, <a class="el" href="ufdump_8f.html#ac6ded614847f96968e12c9600a7d51ba">ufdump()</a>, and <a class="el" href="ups_8f.html#aea2e26fceeecb31aa90ae7811fa1c361">ups()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="bitmaps_8F90.html#a2dd600ba6cd71e06a19d88956337781b">igetrfel()</a>, <a class="el" href="ciencode_8F90.html#a7501045242bc6174585e20be99d3d269">ipks()</a>, <a class="el" href="jumplink_8F90.html#a6ec2d1015cdc1315eb384ea92223e620">nemspecs()</a>, <a class="el" href="jumplink_8F90.html#a68d977aaaf6f7869b2048ca79723c838">tabent()</a>, <a class="el" href="dumpdata_8F90.html#a20fa33f6e0fcb0816c4b070c73362539">ufdump()</a>, and <a class="el" href="cidecode_8F90.html#a414b81ace5368c9bb43fdd19442ebaa5">ups()</a>.</p>
 
 </div>
 </div>
@@ -199,9 +199,9 @@ Variables</h2></td></tr>
 
 <p>A number between 1 and nnrv, denoting the first entry within the module arrays which applies to the current data subset in scope; set to 0 if no 2-03-YYY operators have been applied to the current data subset in scope. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00473">473</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00476">476</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="tabent_8f.html#a93eed61bdc169fa276366154d660f959">tabent()</a>, and <a class="el" href="tabsub_8f.html#a6ad60d6ecdf6a230ccb11e112ecc84ce">tabsub()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="jumplink_8F90.html#a68d977aaaf6f7869b2048ca79723c838">tabent()</a>, and <a class="el" href="jumplink_8F90.html#af1d16fa71d84a333e3448d1081214d2f">tabsub()</a>.</p>
 
 </div>
 </div>
@@ -219,9 +219,9 @@ Variables</h2></td></tr>
 
 <p>Start of entry range in jump/link table, within which the corresponding new reference value in nrv will be applied to all occurrences of the corresponding Table B mnemonic in tagnrv. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00484">484</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00487">487</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="igetrfel_8f.html#a764a4e5ff62c66fcaae4b2b1d806e88c">igetrfel()</a>, <a class="el" href="ipks_8f.html#a12376c3561b8a14e09b20d8736b91d82">ipks()</a>, <a class="el" href="nemspecs_8f.html#afc40b65878e8f8537a6bd6d804b5b650">nemspecs()</a>, <a class="el" href="tabent_8f.html#a93eed61bdc169fa276366154d660f959">tabent()</a>, and <a class="el" href="ups_8f.html#aea2e26fceeecb31aa90ae7811fa1c361">ups()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="bitmaps_8F90.html#a2dd600ba6cd71e06a19d88956337781b">igetrfel()</a>, <a class="el" href="ciencode_8F90.html#a7501045242bc6174585e20be99d3d269">ipks()</a>, <a class="el" href="jumplink_8F90.html#a6ec2d1015cdc1315eb384ea92223e620">nemspecs()</a>, <a class="el" href="jumplink_8F90.html#a68d977aaaf6f7869b2048ca79723c838">tabent()</a>, and <a class="el" href="cidecode_8F90.html#a414b81ace5368c9bb43fdd19442ebaa5">ups()</a>.</p>
 
 </div>
 </div>
@@ -237,11 +237,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Number of entries in the jump/link table which contain new reference values (up to a maximum of MXNRV). </p>
+<p>Number of entries in the jump/link table which contain new reference values (up to a maximum of mxnrv). </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00464">464</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00467">467</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="igetrfel_8f.html#a764a4e5ff62c66fcaae4b2b1d806e88c">igetrfel()</a>, <a class="el" href="ipks_8f.html#a12376c3561b8a14e09b20d8736b91d82">ipks()</a>, <a class="el" href="makestab_8f.html#ad12d047119fdcdeb97ffbced0696b9fb">makestab()</a>, <a class="el" href="nemspecs_8f.html#afc40b65878e8f8537a6bd6d804b5b650">nemspecs()</a>, <a class="el" href="tabent_8f.html#a93eed61bdc169fa276366154d660f959">tabent()</a>, <a class="el" href="tabsub_8f.html#a6ad60d6ecdf6a230ccb11e112ecc84ce">tabsub()</a>, <a class="el" href="ufdump_8f.html#ac6ded614847f96968e12c9600a7d51ba">ufdump()</a>, and <a class="el" href="ups_8f.html#aea2e26fceeecb31aa90ae7811fa1c361">ups()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="bitmaps_8F90.html#a2dd600ba6cd71e06a19d88956337781b">igetrfel()</a>, <a class="el" href="ciencode_8F90.html#a7501045242bc6174585e20be99d3d269">ipks()</a>, <a class="el" href="jumplink_8F90.html#ad12d047119fdcdeb97ffbced0696b9fb">makestab()</a>, <a class="el" href="jumplink_8F90.html#a6ec2d1015cdc1315eb384ea92223e620">nemspecs()</a>, <a class="el" href="jumplink_8F90.html#a68d977aaaf6f7869b2048ca79723c838">tabent()</a>, <a class="el" href="jumplink_8F90.html#af1d16fa71d84a333e3448d1081214d2f">tabsub()</a>, <a class="el" href="dumpdata_8F90.html#a20fa33f6e0fcb0816c4b070c73362539">ufdump()</a>, and <a class="el" href="cidecode_8F90.html#a414b81ace5368c9bb43fdd19442ebaa5">ups()</a>.</p>
 
 </div>
 </div>
@@ -259,9 +259,9 @@ Variables</h2></td></tr>
 
 <p>New reference values corresponding to inodnrv. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00480">480</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00483">483</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="igetrfel_8f.html#a764a4e5ff62c66fcaae4b2b1d806e88c">igetrfel()</a>, <a class="el" href="ipks_8f.html#a12376c3561b8a14e09b20d8736b91d82">ipks()</a>, <a class="el" href="nemspecs_8f.html#afc40b65878e8f8537a6bd6d804b5b650">nemspecs()</a>, and <a class="el" href="ups_8f.html#aea2e26fceeecb31aa90ae7811fa1c361">ups()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="bitmaps_8F90.html#a2dd600ba6cd71e06a19d88956337781b">igetrfel()</a>, <a class="el" href="ciencode_8F90.html#a7501045242bc6174585e20be99d3d269">ipks()</a>, <a class="el" href="jumplink_8F90.html#a6ec2d1015cdc1315eb384ea92223e620">nemspecs()</a>, and <a class="el" href="cidecode_8F90.html#a414b81ace5368c9bb43fdd19442ebaa5">ups()</a>.</p>
 
 </div>
 </div>
@@ -279,9 +279,9 @@ Variables</h2></td></tr>
 
 <p>Table B mnemonic to which the corresponding new reference value in nrv applies. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00476">476</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00479">479</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="igetrfel_8f.html#a764a4e5ff62c66fcaae4b2b1d806e88c">igetrfel()</a>, <a class="el" href="ipks_8f.html#a12376c3561b8a14e09b20d8736b91d82">ipks()</a>, <a class="el" href="nemspecs_8f.html#afc40b65878e8f8537a6bd6d804b5b650">nemspecs()</a>, <a class="el" href="tabent_8f.html#a93eed61bdc169fa276366154d660f959">tabent()</a>, and <a class="el" href="ups_8f.html#aea2e26fceeecb31aa90ae7811fa1c361">ups()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="bitmaps_8F90.html#a2dd600ba6cd71e06a19d88956337781b">igetrfel()</a>, <a class="el" href="ciencode_8F90.html#a7501045242bc6174585e20be99d3d269">ipks()</a>, <a class="el" href="jumplink_8F90.html#a6ec2d1015cdc1315eb384ea92223e620">nemspecs()</a>, <a class="el" href="jumplink_8F90.html#a68d977aaaf6f7869b2048ca79723c838">tabent()</a>, and <a class="el" href="cidecode_8F90.html#a414b81ace5368c9bb43fdd19442ebaa5">ups()</a>.</p>
 
 </div>
 </div>

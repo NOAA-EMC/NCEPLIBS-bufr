@@ -1,5 +1,6 @@
 var bufr__interface_8h =
 [
+    [ "VERS_STR_LEN", "bufr__interface_8h.html#a016503c090a3f1ecdac526a2e8f696b0", null ],
     [ "bvers_f", "bufr__interface_8h.html#ada9f732c49c87976c31f215c9c040d2b", null ],
     [ "ccbfl", "bufr__interface_8h.html#ab66668ab9633ce3b475416f6a9899802", null ],
     [ "closbf_f", "bufr__interface_8h.html#a019047beca19815d95ea0a78993b7e2a", null ],

@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -91,37 +91,37 @@ $(document).ready(function(){initNavTree('cread_8c_source.html',''); initResizab
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="cread_8h.html">cread.h</a>&quot;</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keywordtype">void</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="cread_8c.html#ab18be8cbb2bdbdb682adce89dd1a9c69">   30</a></span>&#160;<a class="code" href="cread_8c.html#ab18be8cbb2bdbdb682adce89dd1a9c69">openrb</a>(<span class="keywordtype">int</span> nfile, <span class="keywordtype">char</span> *ufile) {</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="bufrlib_8h.html#ab18be8cbb2bdbdb682adce89dd1a9c69">   30</a></span>&#160;<a class="code" href="cread_8c.html#ab18be8cbb2bdbdb682adce89dd1a9c69">openrb</a>(<span class="keywordtype">int</span> nfile, <span class="keywordtype">char</span> *ufile) {</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>[nfile] = fopen(ufile, <span class="stringliteral">&quot;rb &quot;</span>);</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keywordtype">void</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="cread_8c.html#aa7b36dfb6c0fe0f9a1104d34c5acfa5e">   43</a></span>&#160;<a class="code" href="cread_8c.html#aa7b36dfb6c0fe0f9a1104d34c5acfa5e">openwb</a>(<span class="keywordtype">int</span> nfile, <span class="keywordtype">char</span> *ufile) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="bufrlib_8h.html#aa7b36dfb6c0fe0f9a1104d34c5acfa5e">   43</a></span>&#160;<a class="code" href="cread_8c.html#aa7b36dfb6c0fe0f9a1104d34c5acfa5e">openwb</a>(<span class="keywordtype">int</span> nfile, <span class="keywordtype">char</span> *ufile) {</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>[nfile] = fopen(ufile, <span class="stringliteral">&quot;wb &quot;</span>);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keywordtype">void</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="cread_8c.html#a8eb759a820f7f12a3b75e92473db3c78">   56</a></span>&#160;<a class="code" href="cread_8c.html#a8eb759a820f7f12a3b75e92473db3c78">openab</a>(<span class="keywordtype">int</span> nfile, <span class="keywordtype">char</span> *ufile) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="bufrlib_8h.html#a8eb759a820f7f12a3b75e92473db3c78">   56</a></span>&#160;<a class="code" href="cread_8c.html#a8eb759a820f7f12a3b75e92473db3c78">openab</a>(<span class="keywordtype">int</span> nfile, <span class="keywordtype">char</span> *ufile) {</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>[nfile] = fopen(ufile, <span class="stringliteral">&quot;a+b&quot;</span>);</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keywordtype">void</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="cread_8c.html#ad5429d7ed327f515c880227bb795162b">   68</a></span>&#160;<a class="code" href="cread_8c.html#ad5429d7ed327f515c880227bb795162b">backbufr</a>(<span class="keywordtype">int</span> nfile) {</div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="bufrlib_8h.html#ad5429d7ed327f515c880227bb795162b">   68</a></span>&#160;<a class="code" href="cread_8c.html#ad5429d7ed327f515c880227bb795162b">backbufr</a>(<span class="keywordtype">int</span> nfile) {</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    fsetpos(<a class="code" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>[nfile],&amp;<a class="code" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>[nfile]);</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keywordtype">void</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="cread_8c.html#afffb1b48f2c7d82abebcf2564d47438a">   80</a></span>&#160;<a class="code" href="cread_8c.html#afffb1b48f2c7d82abebcf2564d47438a">cewind</a>(<span class="keywordtype">int</span> nfile) {</div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="bufrlib_8h.html#afffb1b48f2c7d82abebcf2564d47438a">   80</a></span>&#160;<a class="code" href="cread_8c.html#afffb1b48f2c7d82abebcf2564d47438a">cewind</a>(<span class="keywordtype">int</span> nfile) {</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    rewind(<a class="code" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>[nfile]);</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keywordtype">void</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="cread_8c.html#a7b13da152c5a09e0fc1c92d8eb41154b">   92</a></span>&#160;<a class="code" href="cread_8c.html#a7b13da152c5a09e0fc1c92d8eb41154b">closfb</a>(<span class="keywordtype">int</span> nfile) {</div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="bufrlib_8h.html#a7b13da152c5a09e0fc1c92d8eb41154b">   92</a></span>&#160;<a class="code" href="cread_8c.html#a7b13da152c5a09e0fc1c92d8eb41154b">closfb</a>(<span class="keywordtype">int</span> nfile) {</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    fclose(<a class="code" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>[nfile]);</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;}</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keywordtype">int</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="cread_8c.html#a8b09f32462059d646e44ea6098a08edc">  114</a></span>&#160;<a class="code" href="cread_8c.html#a8b09f32462059d646e44ea6098a08edc">crdbufr</a>(<span class="keywordtype">int</span> nfile, <span class="keywordtype">int</span> *bufr, <span class="keywordtype">int</span> mxwrd) {</div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="bufrlib_8h.html#a8b09f32462059d646e44ea6098a08edc">  114</a></span>&#160;<a class="code" href="cread_8c.html#a8b09f32462059d646e44ea6098a08edc">crdbufr</a>(<span class="keywordtype">int</span> nfile, <span class="keywordtype">int</span> *bufr, <span class="keywordtype">int</span> mxwrd) {</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordtype">int</span> nbytrem, nintrem, nbytx, nintx, wkint[2], ii;</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordtype">size_t</span> nb = <span class="keyword">sizeof</span>(int), nbdi8 = 8/<span class="keyword">sizeof</span>(<span class="keywordtype">int</span>);</div>
@@ -196,7 +196,7 @@ $(document).ready(function(){initNavTree('cread_8c_source.html',''); initResizab
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;}</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="keywordtype">void</span></div>
-<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="cread_8c.html#a95bc32869561911e9ca020628802edc5">  199</a></span>&#160;<a class="code" href="cread_8c.html#a95bc32869561911e9ca020628802edc5">cwrbufr</a>(<span class="keywordtype">int</span> nfile, <span class="keywordtype">int</span> *bufr, <span class="keywordtype">int</span> nwrd) {</div>
+<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="bufrlib_8h.html#a95bc32869561911e9ca020628802edc5">  199</a></span>&#160;<a class="code" href="cread_8c.html#a95bc32869561911e9ca020628802edc5">cwrbufr</a>(<span class="keywordtype">int</span> nfile, <span class="keywordtype">int</span> *bufr, <span class="keywordtype">int</span> nwrd) {</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keywordtype">size_t</span> nb = <span class="keyword">sizeof</span>(int);</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    fwrite(bufr, nb, nwrd, <a class="code" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>[nfile]);</div>

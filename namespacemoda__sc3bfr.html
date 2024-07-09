@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -89,21 +89,21 @@ $(document).ready(function(){initNavTree('namespacemoda__sc3bfr.html',''); initR
 </div><!--header-->
 <div class="contents">
 
-<p>This module contains an array declaration used to store a switch for each internal I/O stream index, indicating whether BUFR messages read from the corresponding logical unit should be decoded according to the contents of Section 3 and using master BUFR tables, rather than using DX BUFR tables.  
+<p>Declare an array used to store a switch for each file ID, indicating whether BUFR messages read from the corresponding logical unit should be decoded according to the contents of Section 3 and using master BUFR tables, rather than using DX BUFR tables.  
 <a href="namespacemoda__sc3bfr.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:ac3bbd45f25c8071e161bf7898230695a"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__sc3bfr.html#ac3bbd45f25c8071e161bf7898230695a">isc3</a></td></tr>
-<tr class="memdesc:ac3bbd45f25c8071e161bf7898230695a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Section 3 switch for each internal I/O stream index:  <a href="namespacemoda__sc3bfr.html#ac3bbd45f25c8071e161bf7898230695a">More...</a><br /></td></tr>
+<tr class="memdesc:ac3bbd45f25c8071e161bf7898230695a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Section 3 switch for each file ID:  <a href="namespacemoda__sc3bfr.html#ac3bbd45f25c8071e161bf7898230695a">More...</a><br /></td></tr>
 <tr class="separator:ac3bbd45f25c8071e161bf7898230695a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa480a82940946343d0d30d8f65c27584"><td class="memItemLeft" align="right" valign="top">character *8, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__sc3bfr.html#aa480a82940946343d0d30d8f65c27584">tamnem</a></td></tr>
-<tr class="memdesc:aa480a82940946343d0d30d8f65c27584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table A mnemonic most recently read from each internal I/O stream index, if isc3 = 1 for that stream.  <a href="namespacemoda__sc3bfr.html#aa480a82940946343d0d30d8f65c27584">More...</a><br /></td></tr>
+<tr class="memdesc:aa480a82940946343d0d30d8f65c27584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table A mnemonic most recently read from each file ID, if isc3 = 1 for that stream.  <a href="namespacemoda__sc3bfr.html#aa480a82940946343d0d30d8f65c27584">More...</a><br /></td></tr>
 <tr class="separator:aa480a82940946343d0d30d8f65c27584"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This module contains an array declaration used to store a switch for each internal I/O stream index, indicating whether BUFR messages read from the corresponding logical unit should be decoded according to the contents of Section 3 and using master BUFR tables, rather than using DX BUFR tables. </p>
-<p>The default value is "off", indicating that BUFR messages read from the corresponding logical unit should be decoded using DX BUFR tables, but it can be switched to a value of "on" if the corresponding logical unit is connected to the library via a call to subroutine <a class="el" href="openbf_8f.html#abcc4f481b8758da104eb75575431128e" title="Connects a new file to the NCEPLIBS-bufr software for input or output operations, or initializes the ...">openbf()</a> with IO = 'SEC3', and in which case each BUFR message will be decoded according to the contents of Section 3 and using master BUFR tables.</p>
+<div class="textblock"><p>Declare an array used to store a switch for each file ID, indicating whether BUFR messages read from the corresponding logical unit should be decoded according to the contents of Section 3 and using master BUFR tables, rather than using DX BUFR tables. </p>
+<p>The default value is "off", indicating that BUFR messages read from the corresponding logical unit should be decoded using DX BUFR tables, but it can be switched to a value of "on" if the corresponding logical unit is connected to the library via a call to subroutine <a class="el" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d" title="Connect a new file to the NCEPLIBS-bufr software for input or output operations, or initialize the li...">openbf()</a> with IO = 'SEC3', and in which case each BUFR message will be decoded according to the contents of Section 3 and using master BUFR tables.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2009-03-23 </dd></dl>
 </div><h2 class="groupheader">Variable Documentation</h2>
@@ -119,15 +119,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Section 3 switch for each internal I/O stream index: </p>
+<p>Section 3 switch for each file ID: </p>
 <ul>
 <li>0 BUFR messages read from corresponding logical unit will be decoded using DX BUFR tables (default)</li>
 <li>1 BUFR messages read from corresponding logical unit will be decoded using master BUFR tables </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00584">584</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00587">587</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c">cktaba()</a>, <a class="el" href="ireadmt_8f.html#aa695ad6da4ed98ed6ef6fc3666f7d7bc">ireadmt()</a>, <a class="el" href="openbf_8f.html#abcc4f481b8758da104eb75575431128e">openbf()</a>, <a class="el" href="readerme_8f.html#a3d8860f8a5fe519e8d84afbe68dc67b5">readerme()</a>, and <a class="el" href="readmg_8f.html#a6471e41b4b7e505d6659c1fd45cc195d">readmg()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="s013vals_8F90.html#a1f8f8b7d0f3b0eb6042e170c0c84c18f">cktaba()</a>, <a class="el" href="mastertable_8F90.html#adde6acff18af3673cd9ef45b7ec12833">ireadmt()</a>, <a class="el" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d">openbf()</a>, <a class="el" href="readwritemg_8F90.html#aa2a7bf49cad422b474a24edd3a1cb232">readerme()</a>, and <a class="el" href="readwritemg_8F90.html#aad947e23951efbcba54930d6f309e0a8">readmg()</a>.</p>
 
 </div>
 </div>
@@ -143,11 +143,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Table A mnemonic most recently read from each internal I/O stream index, if isc3 = 1 for that stream. </p>
+<p>Table A mnemonic most recently read from each file ID, if isc3 = 1 for that stream. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00587">587</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00589">589</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c">cktaba()</a>, and <a class="el" href="reads3_8f.html#a57a4b386c104472c2df89ca9217d0d4b">reads3()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="s013vals_8F90.html#a1f8f8b7d0f3b0eb6042e170c0c84c18f">cktaba()</a>, and <a class="el" href="s013vals_8F90.html#ac96e5200de4ecc84f79caa98177e60f6">reads3()</a>.</p>
 
 </div>
 </div>

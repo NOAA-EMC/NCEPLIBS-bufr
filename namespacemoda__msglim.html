@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -89,18 +89,18 @@ $(document).ready(function(){initNavTree('namespacemoda__msglim.html',''); initR
 </div><!--header-->
 <div class="contents">
 
-<p>This module contains a declaration for an array used to keep track of which logical units should not have any empty (zero data subset) BUFR messages written to them.  
+<p>Declare an array used to keep track of which logical units should not have any empty (zero data subset) BUFR messages written to them.  
 <a href="namespacemoda__msglim.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:abe63e3ddf9a739b073e8dd5b01460ddf"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__msglim.html#abe63e3ddf9a739b073e8dd5b01460ddf">msglim</a></td></tr>
-<tr class="memdesc:abe63e3ddf9a739b073e8dd5b01460ddf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracking index for each I/O stream index.  <a href="namespacemoda__msglim.html#abe63e3ddf9a739b073e8dd5b01460ddf">More...</a><br /></td></tr>
+<tr class="memdesc:abe63e3ddf9a739b073e8dd5b01460ddf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracking index for each file ID.  <a href="namespacemoda__msglim.html#abe63e3ddf9a739b073e8dd5b01460ddf">More...</a><br /></td></tr>
 <tr class="separator:abe63e3ddf9a739b073e8dd5b01460ddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This module contains a declaration for an array used to keep track of which logical units should not have any empty (zero data subset) BUFR messages written to them. </p>
-<p>This setting is turned on via a call to subroutine <a class="el" href="closmg_8f.html#a613caf939b486d5820aad9111383921b" title="This subroutine closes the BUFR message that is currently open for writing within internal arrays ass...">closmg()</a> with LUNIN &lt; 0 for the logical unit in question, and once set it remains in effect for the remainder of the life of the application program for that particular logical unit.</p>
+<div class="textblock"><p>Declare an array used to keep track of which logical units should not have any empty (zero data subset) BUFR messages written to them. </p>
+<p>This setting is turned on via a call to subroutine <a class="el" href="readwritemg_8F90.html#a63b37b74d9833df9d99e3937a2fa293a" title="Close the BUFR message that is currently open for writing within internal arrays associated with logi...">closmg()</a> with LUNIN &lt; 0 for the logical unit in question, and once set it remains in effect for the remainder of the life of the application program for that particular logical unit.</p>
 <dl class="section author"><dt>Author</dt><dd>D. Keyser </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2005-05-26 </dd></dl>
 </div><h2 class="groupheader">Variable Documentation</h2>
@@ -116,12 +116,12 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Tracking index for each I/O stream index. </p>
-<p>Initialized to a value of 3 within subroutine <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001" title="This subroutine initializes numerous global variables and arrays within internal modules and COMMON b...">bfrini()</a>, and then reset to a value of 0 within subroutine <a class="el" href="closmg_8f.html#a613caf939b486d5820aad9111383921b" title="This subroutine closes the BUFR message that is currently open for writing within internal arrays ass...">closmg()</a> if the corresponding logical unit should not have any empty (zero data subset) BUFR messages written to it. </p>
+<p>Tracking index for each file ID. </p>
+<p>Initialized to a value of 3 within subroutine <a class="el" href="misc_8F90.html#ab3f045cc170403305543e34e30b87001" title="Initialize numerous global variables and arrays within internal modules and COMMON blocks throughout ...">bfrini()</a>, and then reset to a value of 0 within subroutine <a class="el" href="readwritemg_8F90.html#a63b37b74d9833df9d99e3937a2fa293a" title="Close the BUFR message that is currently open for writing within internal arrays associated with logi...">closmg()</a> if the corresponding logical unit should not have any empty (zero data subset) BUFR messages written to it. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00343">343</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00346">346</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001">bfrini()</a>, and <a class="el" href="closmg_8f.html#a613caf939b486d5820aad9111383921b">closmg()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="misc_8F90.html#ab3f045cc170403305543e34e30b87001">bfrini()</a>, and <a class="el" href="readwritemg_8F90.html#a63b37b74d9833df9d99e3937a2fa293a">closmg()</a>.</p>
 
 </div>
 </div>

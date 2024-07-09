@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('namespacemoda__tababd.html',''); initR
 </div><!--header-->
 <div class="contents">
 
-<p>This module contains array and variable declarations used to store DX BUFR tables internally for multiple I/O streams.  
+<p>Declare arrays and variables used to store DX BUFR tables internally for multiple file IDs.  
 <a href="namespacemoda__tababd.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -98,35 +98,35 @@ Variables</h2></td></tr>
 <tr class="memdesc:a6e28d53baf8dce1d6a5c4b91546cfcca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message types (in array element 1) and subtypes (in array element 2) corresponding to taba.  <a href="namespacemoda__tababd.html#a6e28d53baf8dce1d6a5c4b91546cfcca">More...</a><br /></td></tr>
 <tr class="separator:a6e28d53baf8dce1d6a5c4b91546cfcca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab09abac79a48acf677cf36764ffe5db5"><td class="memItemLeft" align="right" valign="top">integer, dimension(:,:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__tababd.html#ab09abac79a48acf677cf36764ffe5db5">idnb</a></td></tr>
-<tr class="memdesc:ab09abac79a48acf677cf36764ffe5db5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit-wise representations of the FXY values corresponding to tabb.  <a href="namespacemoda__tababd.html#ab09abac79a48acf677cf36764ffe5db5">More...</a><br /></td></tr>
+<tr class="memdesc:ab09abac79a48acf677cf36764ffe5db5"><td class="mdescLeft">&#160;</td><td class="mdescRight">WMO bit-wise representations of the FXY values corresponding to tabb.  <a href="namespacemoda__tababd.html#ab09abac79a48acf677cf36764ffe5db5">More...</a><br /></td></tr>
 <tr class="separator:ab09abac79a48acf677cf36764ffe5db5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e14841d9a084410d3ee7d5d08d3bf5e"><td class="memItemLeft" align="right" valign="top">integer, dimension(:,:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__tababd.html#a9e14841d9a084410d3ee7d5d08d3bf5e">idnd</a></td></tr>
-<tr class="memdesc:a9e14841d9a084410d3ee7d5d08d3bf5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit-wise representations of the FXY values corresponding to tabd.  <a href="namespacemoda__tababd.html#a9e14841d9a084410d3ee7d5d08d3bf5e">More...</a><br /></td></tr>
+<tr class="memdesc:a9e14841d9a084410d3ee7d5d08d3bf5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">WMO bit-wise representations of the FXY values corresponding to tabd.  <a href="namespacemoda__tababd.html#a9e14841d9a084410d3ee7d5d08d3bf5e">More...</a><br /></td></tr>
 <tr class="separator:a9e14841d9a084410d3ee7d5d08d3bf5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29788f9aef200e10d2f557c16abfaa56"><td class="memItemLeft" align="right" valign="top">integer, dimension(:,:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__tababd.html#a29788f9aef200e10d2f557c16abfaa56">mtab</a></td></tr>
 <tr class="memdesc:a29788f9aef200e10d2f557c16abfaa56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entries within jump/link table corresponding to taba.  <a href="namespacemoda__tababd.html#a29788f9aef200e10d2f557c16abfaa56">More...</a><br /></td></tr>
 <tr class="separator:a29788f9aef200e10d2f557c16abfaa56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02ea2421e524ac9f2f8e213dd0151558"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__tababd.html#a02ea2421e524ac9f2f8e213dd0151558">ntba</a></td></tr>
-<tr class="memdesc:a02ea2421e524ac9f2f8e213dd0151558"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of Table A entries for each internal I/O stream (up to a maximum of MAXTBA, whose value is stored in array element 0).  <a href="namespacemoda__tababd.html#a02ea2421e524ac9f2f8e213dd0151558">More...</a><br /></td></tr>
+<tr class="memdesc:a02ea2421e524ac9f2f8e213dd0151558"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of Table A entries for each file ID (up to a maximum of maxtba, whose value is stored in array element 0).  <a href="namespacemoda__tababd.html#a02ea2421e524ac9f2f8e213dd0151558">More...</a><br /></td></tr>
 <tr class="separator:a02ea2421e524ac9f2f8e213dd0151558"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f322e3d7724bb96f7ce06beec989c0f"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__tababd.html#a8f322e3d7724bb96f7ce06beec989c0f">ntbb</a></td></tr>
-<tr class="memdesc:a8f322e3d7724bb96f7ce06beec989c0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of Table B entries for each internal I/O stream (up to a maximum of MAXTBB, whose value is stored in array element 0).  <a href="namespacemoda__tababd.html#a8f322e3d7724bb96f7ce06beec989c0f">More...</a><br /></td></tr>
+<tr class="memdesc:a8f322e3d7724bb96f7ce06beec989c0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of Table B entries for each file ID (up to a maximum of maxtbb, whose value is stored in array element 0).  <a href="namespacemoda__tababd.html#a8f322e3d7724bb96f7ce06beec989c0f">More...</a><br /></td></tr>
 <tr class="separator:a8f322e3d7724bb96f7ce06beec989c0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a875c0ff90cd5fdc88e3f10ae7b5bc556"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__tababd.html#a875c0ff90cd5fdc88e3f10ae7b5bc556">ntbd</a></td></tr>
-<tr class="memdesc:a875c0ff90cd5fdc88e3f10ae7b5bc556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of Table D entries for each internal I/O stream (up to a maximum of MAXTBD, whose value is stored in array element 0).  <a href="namespacemoda__tababd.html#a875c0ff90cd5fdc88e3f10ae7b5bc556">More...</a><br /></td></tr>
+<tr class="memdesc:a875c0ff90cd5fdc88e3f10ae7b5bc556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of Table D entries for each file ID (up to a maximum of maxtbd, whose value is stored in array element 0).  <a href="namespacemoda__tababd.html#a875c0ff90cd5fdc88e3f10ae7b5bc556">More...</a><br /></td></tr>
 <tr class="separator:a875c0ff90cd5fdc88e3f10ae7b5bc556"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21f38471f40c0eaecdf011d5b594de65"><td class="memItemLeft" align="right" valign="top">character *128, dimension(:,:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__tababd.html#a21f38471f40c0eaecdf011d5b594de65">taba</a></td></tr>
-<tr class="memdesc:a21f38471f40c0eaecdf011d5b594de65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table A entries for each internal I/O stream.  <a href="namespacemoda__tababd.html#a21f38471f40c0eaecdf011d5b594de65">More...</a><br /></td></tr>
+<tr class="memdesc:a21f38471f40c0eaecdf011d5b594de65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table A entries for each file ID.  <a href="namespacemoda__tababd.html#a21f38471f40c0eaecdf011d5b594de65">More...</a><br /></td></tr>
 <tr class="separator:a21f38471f40c0eaecdf011d5b594de65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3fddde254d512cae401fc3f5532fe7c"><td class="memItemLeft" align="right" valign="top">character *128, dimension(:,:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__tababd.html#ad3fddde254d512cae401fc3f5532fe7c">tabb</a></td></tr>
-<tr class="memdesc:ad3fddde254d512cae401fc3f5532fe7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table B entries for each internal I/O stream.  <a href="namespacemoda__tababd.html#ad3fddde254d512cae401fc3f5532fe7c">More...</a><br /></td></tr>
+<tr class="memdesc:ad3fddde254d512cae401fc3f5532fe7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table B entries for each file ID.  <a href="namespacemoda__tababd.html#ad3fddde254d512cae401fc3f5532fe7c">More...</a><br /></td></tr>
 <tr class="separator:ad3fddde254d512cae401fc3f5532fe7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a043c64825f8bdb44c4e6b69d2f5c253c"><td class="memItemLeft" align="right" valign="top">character *600, dimension(:,:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__tababd.html#a043c64825f8bdb44c4e6b69d2f5c253c">tabd</a></td></tr>
-<tr class="memdesc:a043c64825f8bdb44c4e6b69d2f5c253c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table D entries for each internal I/O stream.  <a href="namespacemoda__tababd.html#a043c64825f8bdb44c4e6b69d2f5c253c">More...</a><br /></td></tr>
+<tr class="memdesc:a043c64825f8bdb44c4e6b69d2f5c253c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table D entries for each file ID.  <a href="namespacemoda__tababd.html#a043c64825f8bdb44c4e6b69d2f5c253c">More...</a><br /></td></tr>
 <tr class="separator:a043c64825f8bdb44c4e6b69d2f5c253c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This module contains array and variable declarations used to store DX BUFR tables internally for multiple I/O streams. </p>
+<div class="textblock"><p>Declare arrays and variables used to store DX BUFR tables internally for multiple file IDs. </p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2014-12-10 </dd></dl>
 </div><h2 class="groupheader">Variable Documentation</h2>
@@ -144,9 +144,9 @@ Variables</h2></td></tr>
 
 <p>Message types (in array element 1) and subtypes (in array element 2) corresponding to taba. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00642">642</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00644">644</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="cpbfdx_8f.html#a3ab4a857b6a0b1e03f6cb2058712279a">cpbfdx()</a>, <a class="el" href="icmpdx_8f.html#a3d484cf9a060c1a81ab132a4356d1b9c">icmpdx()</a>, <a class="el" href="nemtbax_8f.html#adec9ab84d3bc51e082325e710354192e">nemtbax()</a>, and <a class="el" href="stntbia_8f.html#afe5b7799490cf671bd2d13730f97fa39">stntbia()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="copydata_8F90.html#a352b4ac3adf31bada79d4d8672f0b800">cpbfdx()</a>, <a class="el" href="jumplink_8F90.html#aa8ae055da512a9259d4f248b3ccdb5e8">icmpdx()</a>, <a class="el" href="dxtable_8F90.html#a8ea33660d62d74dee92cf7bf9541c1cd">nemtbax()</a>, <a class="el" href="dxtable_8F90.html#a3c5a3be625c365b782f36c0cb772ae35">rdusdx()</a>, and <a class="el" href="dxtable_8F90.html#ac0b4a9cb7d5c89dfe084698b9bb4042e">stntbia()</a>.</p>
 
 </div>
 </div>
@@ -162,11 +162,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Bit-wise representations of the FXY values corresponding to tabb. </p>
+<p>WMO bit-wise representations of the FXY values corresponding to tabb. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00644">644</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00646">646</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="cpbfdx_8f.html#a3ab4a857b6a0b1e03f6cb2058712279a">cpbfdx()</a>, <a class="el" href="dxinit_8f.html#a5a104b88a6655ba06336b2c8ab7fb98e">dxinit()</a>, <a class="el" href="icmpdx_8f.html#a3d484cf9a060c1a81ab132a4356d1b9c">icmpdx()</a>, <a class="el" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab()</a>, <a class="el" href="nemtbb_8f.html#a6a5cf8bb2726a59eeb87fbbef58764be">nemtbb()</a>, <a class="el" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd()</a>, <a class="el" href="stbfdx_8f.html#a35d346baad722c9be56532c38d43f8a0">stbfdx()</a>, and <a class="el" href="stntbi_8f.html#ad26b48825c877d44d1223a3f4e4051ed">stntbi()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="copydata_8F90.html#a352b4ac3adf31bada79d4d8672f0b800">cpbfdx()</a>, <a class="el" href="dxtable_8F90.html#ae1a2a7cf7f60579fa9e9399a25f4930b">dxinit()</a>, <a class="el" href="jumplink_8F90.html#aa8ae055da512a9259d4f248b3ccdb5e8">icmpdx()</a>, <a class="el" href="fxy_8F90.html#a01efa3bb871b451a8d53bd6d841bb297">nemtab()</a>, <a class="el" href="dxtable_8F90.html#a21fa5817ff8a6f471dca950fbaa693ba">nemtbb()</a>, <a class="el" href="fxy_8F90.html#aca1fae67e284131dfd240d2336e3e77d">numtbd()</a>, <a class="el" href="dxtable_8F90.html#ac59d8db430cbb1cbe7ced7ebc386ef4a">stbfdx()</a>, and <a class="el" href="dxtable_8F90.html#aaa433680a14847a3fd64a6fa1b877211">stntbi()</a>.</p>
 
 </div>
 </div>
@@ -182,11 +182,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Bit-wise representations of the FXY values corresponding to tabd. </p>
+<p>WMO bit-wise representations of the FXY values corresponding to tabd. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00646">646</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00648">648</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="cpbfdx_8f.html#a3ab4a857b6a0b1e03f6cb2058712279a">cpbfdx()</a>, <a class="el" href="dxinit_8f.html#a5a104b88a6655ba06336b2c8ab7fb98e">dxinit()</a>, <a class="el" href="icmpdx_8f.html#a3d484cf9a060c1a81ab132a4356d1b9c">icmpdx()</a>, <a class="el" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab()</a>, <a class="el" href="nemtbd_8f.html#ac3fb25908c829f741ccd1d440d6051d9">nemtbd()</a>, <a class="el" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd()</a>, <a class="el" href="stbfdx_8f.html#a35d346baad722c9be56532c38d43f8a0">stbfdx()</a>, and <a class="el" href="stntbi_8f.html#ad26b48825c877d44d1223a3f4e4051ed">stntbi()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="copydata_8F90.html#a352b4ac3adf31bada79d4d8672f0b800">cpbfdx()</a>, <a class="el" href="dxtable_8F90.html#ae1a2a7cf7f60579fa9e9399a25f4930b">dxinit()</a>, <a class="el" href="jumplink_8F90.html#aa8ae055da512a9259d4f248b3ccdb5e8">icmpdx()</a>, <a class="el" href="fxy_8F90.html#a01efa3bb871b451a8d53bd6d841bb297">nemtab()</a>, <a class="el" href="dxtable_8F90.html#aa0b7269b3a7df645e6917bfd4ba72b32">nemtbd()</a>, <a class="el" href="fxy_8F90.html#aca1fae67e284131dfd240d2336e3e77d">numtbd()</a>, <a class="el" href="dxtable_8F90.html#ac59d8db430cbb1cbe7ced7ebc386ef4a">stbfdx()</a>, and <a class="el" href="dxtable_8F90.html#aaa433680a14847a3fd64a6fa1b877211">stntbi()</a>.</p>
 
 </div>
 </div>
@@ -204,9 +204,9 @@ Variables</h2></td></tr>
 
 <p>Entries within jump/link table corresponding to taba. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00639">639</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00641">641</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="cpbfdx_8f.html#a3ab4a857b6a0b1e03f6cb2058712279a">cpbfdx()</a>, <a class="el" href="dxinit_8f.html#a5a104b88a6655ba06336b2c8ab7fb98e">dxinit()</a>, <a class="el" href="ishrdx_8f.html#a1426a2d409a3cc93b1ee0c073ad49907">ishrdx()</a>, <a class="el" href="makestab_8f.html#ad12d047119fdcdeb97ffbced0696b9fb">makestab()</a>, and <a class="el" href="nemtbax_8f.html#adec9ab84d3bc51e082325e710354192e">nemtbax()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="copydata_8F90.html#a352b4ac3adf31bada79d4d8672f0b800">cpbfdx()</a>, <a class="el" href="dxtable_8F90.html#ae1a2a7cf7f60579fa9e9399a25f4930b">dxinit()</a>, <a class="el" href="jumplink_8F90.html#af13fb1da5f3cb8bafd2c305b6c7234db">ishrdx()</a>, <a class="el" href="jumplink_8F90.html#ad12d047119fdcdeb97ffbced0696b9fb">makestab()</a>, and <a class="el" href="dxtable_8F90.html#a8ea33660d62d74dee92cf7bf9541c1cd">nemtbax()</a>.</p>
 
 </div>
 </div>
@@ -222,11 +222,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Number of Table A entries for each internal I/O stream (up to a maximum of MAXTBA, whose value is stored in array element 0). </p>
+<p>Number of Table A entries for each file ID (up to a maximum of maxtba, whose value is stored in array element 0). </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00631">631</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00633">633</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001">bfrini()</a>, <a class="el" href="chekstab_8f.html#aab7a156a89f4b58d3ef31ab946485e50">chekstab()</a>, <a class="el" href="cpbfdx_8f.html#a3ab4a857b6a0b1e03f6cb2058712279a">cpbfdx()</a>, <a class="el" href="dxdump_8f.html#a42bdc5a58d0586fd8e9bc1b755602aeb">dxdump()</a>, <a class="el" href="dxinit_8f.html#a5a104b88a6655ba06336b2c8ab7fb98e">dxinit()</a>, <a class="el" href="icmpdx_8f.html#a3d484cf9a060c1a81ab132a4356d1b9c">icmpdx()</a>, <a class="el" href="igetntbi_8f.html#aa62d319cf10b3a98796b583619d8b599">igetntbi()</a>, <a class="el" href="ishrdx_8f.html#a1426a2d409a3cc93b1ee0c073ad49907">ishrdx()</a>, <a class="el" href="makestab_8f.html#ad12d047119fdcdeb97ffbced0696b9fb">makestab()</a>, <a class="el" href="nemtbax_8f.html#adec9ab84d3bc51e082325e710354192e">nemtbax()</a>, <a class="el" href="stntbia_8f.html#afe5b7799490cf671bd2d13730f97fa39">stntbia()</a>, and <a class="el" href="wrdxtb_8f.html#a89d9a5cf1716a40206ce1684c3eb9415">wrdxtb()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="misc_8F90.html#ab3f045cc170403305543e34e30b87001">bfrini()</a>, <a class="el" href="jumplink_8F90.html#aca151bb247903f60a7b1a76578db1ed5">chekstab()</a>, <a class="el" href="copydata_8F90.html#a352b4ac3adf31bada79d4d8672f0b800">cpbfdx()</a>, <a class="el" href="dumpdata_8F90.html#ac693ae3d5af0a71505d5f9305c86fdb8">dxdump()</a>, <a class="el" href="dxtable_8F90.html#ae1a2a7cf7f60579fa9e9399a25f4930b">dxinit()</a>, <a class="el" href="jumplink_8F90.html#aa8ae055da512a9259d4f248b3ccdb5e8">icmpdx()</a>, <a class="el" href="dxtable_8F90.html#ad7abde76f89f036b69d944c260fbe2d4">igetntbi()</a>, <a class="el" href="jumplink_8F90.html#af13fb1da5f3cb8bafd2c305b6c7234db">ishrdx()</a>, <a class="el" href="jumplink_8F90.html#ad12d047119fdcdeb97ffbced0696b9fb">makestab()</a>, <a class="el" href="dxtable_8F90.html#a8ea33660d62d74dee92cf7bf9541c1cd">nemtbax()</a>, <a class="el" href="dxtable_8F90.html#ac0b4a9cb7d5c89dfe084698b9bb4042e">stntbia()</a>, and <a class="el" href="dxtable_8F90.html#a81ea6d2408950b5728790bc8f8c80261">wrdxtb()</a>.</p>
 
 </div>
 </div>
@@ -242,11 +242,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Number of Table B entries for each internal I/O stream (up to a maximum of MAXTBB, whose value is stored in array element 0). </p>
+<p>Number of Table B entries for each file ID (up to a maximum of maxtbb, whose value is stored in array element 0). </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00634">634</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00636">636</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001">bfrini()</a>, <a class="el" href="chekstab_8f.html#aab7a156a89f4b58d3ef31ab946485e50">chekstab()</a>, <a class="el" href="cpbfdx_8f.html#a3ab4a857b6a0b1e03f6cb2058712279a">cpbfdx()</a>, <a class="el" href="dxdump_8f.html#a42bdc5a58d0586fd8e9bc1b755602aeb">dxdump()</a>, <a class="el" href="dxinit_8f.html#a5a104b88a6655ba06336b2c8ab7fb98e">dxinit()</a>, <a class="el" href="getabdb_8f.html#a5a224df0ff920fff5ce7adc7a78ccf39">getabdb()</a>, <a class="el" href="icmpdx_8f.html#a3d484cf9a060c1a81ab132a4356d1b9c">icmpdx()</a>, <a class="el" href="igetntbi_8f.html#aa62d319cf10b3a98796b583619d8b599">igetntbi()</a>, <a class="el" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab()</a>, <a class="el" href="nemtbb_8f.html#a6a5cf8bb2726a59eeb87fbbef58764be">nemtbb()</a>, <a class="el" href="nenubd_8f.html#a41014913489bdc74d7a2af0fa44159ba">nenubd()</a>, <a class="el" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd()</a>, <a class="el" href="stbfdx_8f.html#a35d346baad722c9be56532c38d43f8a0">stbfdx()</a>, <a class="el" href="stntbi_8f.html#ad26b48825c877d44d1223a3f4e4051ed">stntbi()</a>, and <a class="el" href="wrdxtb_8f.html#a89d9a5cf1716a40206ce1684c3eb9415">wrdxtb()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="misc_8F90.html#ab3f045cc170403305543e34e30b87001">bfrini()</a>, <a class="el" href="jumplink_8F90.html#aca151bb247903f60a7b1a76578db1ed5">chekstab()</a>, <a class="el" href="copydata_8F90.html#a352b4ac3adf31bada79d4d8672f0b800">cpbfdx()</a>, <a class="el" href="dumpdata_8F90.html#ac693ae3d5af0a71505d5f9305c86fdb8">dxdump()</a>, <a class="el" href="dxtable_8F90.html#ae1a2a7cf7f60579fa9e9399a25f4930b">dxinit()</a>, <a class="el" href="dumpdata_8F90.html#aa267dbf23e18a201eec17e2fa48238d7">getabdb()</a>, <a class="el" href="jumplink_8F90.html#aa8ae055da512a9259d4f248b3ccdb5e8">icmpdx()</a>, <a class="el" href="dxtable_8F90.html#ad7abde76f89f036b69d944c260fbe2d4">igetntbi()</a>, <a class="el" href="fxy_8F90.html#a01efa3bb871b451a8d53bd6d841bb297">nemtab()</a>, <a class="el" href="dxtable_8F90.html#a21fa5817ff8a6f471dca950fbaa693ba">nemtbb()</a>, <a class="el" href="dxtable_8F90.html#ae672eaf27f17dc904b894f347d89c233">nenubd()</a>, <a class="el" href="fxy_8F90.html#aca1fae67e284131dfd240d2336e3e77d">numtbd()</a>, <a class="el" href="dxtable_8F90.html#ac59d8db430cbb1cbe7ced7ebc386ef4a">stbfdx()</a>, <a class="el" href="dxtable_8F90.html#aaa433680a14847a3fd64a6fa1b877211">stntbi()</a>, and <a class="el" href="dxtable_8F90.html#a81ea6d2408950b5728790bc8f8c80261">wrdxtb()</a>.</p>
 
 </div>
 </div>
@@ -262,11 +262,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Number of Table D entries for each internal I/O stream (up to a maximum of MAXTBD, whose value is stored in array element 0). </p>
+<p>Number of Table D entries for each file ID (up to a maximum of maxtbd, whose value is stored in array element 0). </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00637">637</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00639">639</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001">bfrini()</a>, <a class="el" href="chekstab_8f.html#aab7a156a89f4b58d3ef31ab946485e50">chekstab()</a>, <a class="el" href="cpbfdx_8f.html#a3ab4a857b6a0b1e03f6cb2058712279a">cpbfdx()</a>, <a class="el" href="dxdump_8f.html#a42bdc5a58d0586fd8e9bc1b755602aeb">dxdump()</a>, <a class="el" href="dxinit_8f.html#a5a104b88a6655ba06336b2c8ab7fb98e">dxinit()</a>, <a class="el" href="getabdb_8f.html#a5a224df0ff920fff5ce7adc7a78ccf39">getabdb()</a>, <a class="el" href="icmpdx_8f.html#a3d484cf9a060c1a81ab132a4356d1b9c">icmpdx()</a>, <a class="el" href="igetntbi_8f.html#aa62d319cf10b3a98796b583619d8b599">igetntbi()</a>, <a class="el" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab()</a>, <a class="el" href="nemtbd_8f.html#ac3fb25908c829f741ccd1d440d6051d9">nemtbd()</a>, <a class="el" href="nenubd_8f.html#a41014913489bdc74d7a2af0fa44159ba">nenubd()</a>, <a class="el" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd()</a>, <a class="el" href="stbfdx_8f.html#a35d346baad722c9be56532c38d43f8a0">stbfdx()</a>, <a class="el" href="stntbi_8f.html#ad26b48825c877d44d1223a3f4e4051ed">stntbi()</a>, and <a class="el" href="wrdxtb_8f.html#a89d9a5cf1716a40206ce1684c3eb9415">wrdxtb()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="misc_8F90.html#ab3f045cc170403305543e34e30b87001">bfrini()</a>, <a class="el" href="jumplink_8F90.html#aca151bb247903f60a7b1a76578db1ed5">chekstab()</a>, <a class="el" href="copydata_8F90.html#a352b4ac3adf31bada79d4d8672f0b800">cpbfdx()</a>, <a class="el" href="dumpdata_8F90.html#ac693ae3d5af0a71505d5f9305c86fdb8">dxdump()</a>, <a class="el" href="dxtable_8F90.html#ae1a2a7cf7f60579fa9e9399a25f4930b">dxinit()</a>, <a class="el" href="dumpdata_8F90.html#aa267dbf23e18a201eec17e2fa48238d7">getabdb()</a>, <a class="el" href="jumplink_8F90.html#aa8ae055da512a9259d4f248b3ccdb5e8">icmpdx()</a>, <a class="el" href="dxtable_8F90.html#ad7abde76f89f036b69d944c260fbe2d4">igetntbi()</a>, <a class="el" href="fxy_8F90.html#a01efa3bb871b451a8d53bd6d841bb297">nemtab()</a>, <a class="el" href="dxtable_8F90.html#aa0b7269b3a7df645e6917bfd4ba72b32">nemtbd()</a>, <a class="el" href="dxtable_8F90.html#ae672eaf27f17dc904b894f347d89c233">nenubd()</a>, <a class="el" href="fxy_8F90.html#aca1fae67e284131dfd240d2336e3e77d">numtbd()</a>, <a class="el" href="dxtable_8F90.html#ac59d8db430cbb1cbe7ced7ebc386ef4a">stbfdx()</a>, <a class="el" href="dxtable_8F90.html#aaa433680a14847a3fd64a6fa1b877211">stntbi()</a>, and <a class="el" href="dxtable_8F90.html#a81ea6d2408950b5728790bc8f8c80261">wrdxtb()</a>.</p>
 
 </div>
 </div>
@@ -282,11 +282,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Table A entries for each internal I/O stream. </p>
+<p>Table A entries for each file ID. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00648">648</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00650">650</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="chekstab_8f.html#aab7a156a89f4b58d3ef31ab946485e50">chekstab()</a>, <a class="el" href="cpbfdx_8f.html#a3ab4a857b6a0b1e03f6cb2058712279a">cpbfdx()</a>, <a class="el" href="dxdump_8f.html#a42bdc5a58d0586fd8e9bc1b755602aeb">dxdump()</a>, <a class="el" href="dxinit_8f.html#a5a104b88a6655ba06336b2c8ab7fb98e">dxinit()</a>, <a class="el" href="icmpdx_8f.html#a3d484cf9a060c1a81ab132a4356d1b9c">icmpdx()</a>, <a class="el" href="makestab_8f.html#ad12d047119fdcdeb97ffbced0696b9fb">makestab()</a>, <a class="el" href="nemtbax_8f.html#adec9ab84d3bc51e082325e710354192e">nemtbax()</a>, <a class="el" href="stbfdx_8f.html#a35d346baad722c9be56532c38d43f8a0">stbfdx()</a>, <a class="el" href="stntbia_8f.html#afe5b7799490cf671bd2d13730f97fa39">stntbia()</a>, and <a class="el" href="wrdxtb_8f.html#a89d9a5cf1716a40206ce1684c3eb9415">wrdxtb()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="jumplink_8F90.html#aca151bb247903f60a7b1a76578db1ed5">chekstab()</a>, <a class="el" href="copydata_8F90.html#a352b4ac3adf31bada79d4d8672f0b800">cpbfdx()</a>, <a class="el" href="dumpdata_8F90.html#ac693ae3d5af0a71505d5f9305c86fdb8">dxdump()</a>, <a class="el" href="dxtable_8F90.html#ae1a2a7cf7f60579fa9e9399a25f4930b">dxinit()</a>, <a class="el" href="jumplink_8F90.html#aa8ae055da512a9259d4f248b3ccdb5e8">icmpdx()</a>, <a class="el" href="jumplink_8F90.html#ad12d047119fdcdeb97ffbced0696b9fb">makestab()</a>, <a class="el" href="dxtable_8F90.html#a8ea33660d62d74dee92cf7bf9541c1cd">nemtbax()</a>, <a class="el" href="dxtable_8F90.html#ac59d8db430cbb1cbe7ced7ebc386ef4a">stbfdx()</a>, <a class="el" href="dxtable_8F90.html#ac0b4a9cb7d5c89dfe084698b9bb4042e">stntbia()</a>, and <a class="el" href="dxtable_8F90.html#a81ea6d2408950b5728790bc8f8c80261">wrdxtb()</a>.</p>
 
 </div>
 </div>
@@ -302,11 +302,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Table B entries for each internal I/O stream. </p>
+<p>Table B entries for each file ID. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00650">650</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00652">652</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="cpbfdx_8f.html#a3ab4a857b6a0b1e03f6cb2058712279a">cpbfdx()</a>, <a class="el" href="dxdump_8f.html#a42bdc5a58d0586fd8e9bc1b755602aeb">dxdump()</a>, <a class="el" href="dxinit_8f.html#a5a104b88a6655ba06336b2c8ab7fb98e">dxinit()</a>, <a class="el" href="elemdx_8f.html#adfd6de0f5d3b01918ea50186bf208a2d">elemdx()</a>, <a class="el" href="getabdb_8f.html#a5a224df0ff920fff5ce7adc7a78ccf39">getabdb()</a>, <a class="el" href="getcfmng_8f.html#a79cc79e9e059a171f8d55fcc481b6f17">getcfmng()</a>, <a class="el" href="icmpdx_8f.html#a3d484cf9a060c1a81ab132a4356d1b9c">icmpdx()</a>, <a class="el" href="nemdefs_8f.html#ac552350372c0023b612907e7f2445434">nemdefs()</a>, <a class="el" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab()</a>, <a class="el" href="nemtbb_8f.html#a6a5cf8bb2726a59eeb87fbbef58764be">nemtbb()</a>, <a class="el" href="nenubd_8f.html#a41014913489bdc74d7a2af0fa44159ba">nenubd()</a>, <a class="el" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd()</a>, <a class="el" href="stbfdx_8f.html#a35d346baad722c9be56532c38d43f8a0">stbfdx()</a>, <a class="el" href="stntbi_8f.html#ad26b48825c877d44d1223a3f4e4051ed">stntbi()</a>, <a class="el" href="ufbdmp_8f.html#a03f00a8e30364f2d9a29718a1296c698">ufbdmp()</a>, <a class="el" href="ufdump_8f.html#ac6ded614847f96968e12c9600a7d51ba">ufdump()</a>, <a class="el" href="upftbv_8f.html#a1474a49dffc36e1517bc71c734d36837">upftbv()</a>, and <a class="el" href="wrdxtb_8f.html#a89d9a5cf1716a40206ce1684c3eb9415">wrdxtb()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="copydata_8F90.html#a352b4ac3adf31bada79d4d8672f0b800">cpbfdx()</a>, <a class="el" href="dumpdata_8F90.html#ac693ae3d5af0a71505d5f9305c86fdb8">dxdump()</a>, <a class="el" href="dxtable_8F90.html#ae1a2a7cf7f60579fa9e9399a25f4930b">dxinit()</a>, <a class="el" href="dxtable_8F90.html#a0669d7561ae99961babcdb2022073052">elemdx()</a>, <a class="el" href="dumpdata_8F90.html#aa267dbf23e18a201eec17e2fa48238d7">getabdb()</a>, <a class="el" href="cftbvs_8F90.html#af113e7ee7e2023cd466c2b28616cd64a">getcfmng()</a>, <a class="el" href="jumplink_8F90.html#aa8ae055da512a9259d4f248b3ccdb5e8">icmpdx()</a>, <a class="el" href="dxtable_8F90.html#ad6352a1c1fdec4ba0adb0173781e4542">nemdefs()</a>, <a class="el" href="fxy_8F90.html#a01efa3bb871b451a8d53bd6d841bb297">nemtab()</a>, <a class="el" href="dxtable_8F90.html#a21fa5817ff8a6f471dca950fbaa693ba">nemtbb()</a>, <a class="el" href="dxtable_8F90.html#ae672eaf27f17dc904b894f347d89c233">nenubd()</a>, <a class="el" href="fxy_8F90.html#aca1fae67e284131dfd240d2336e3e77d">numtbd()</a>, <a class="el" href="dxtable_8F90.html#ac59d8db430cbb1cbe7ced7ebc386ef4a">stbfdx()</a>, <a class="el" href="dxtable_8F90.html#aaa433680a14847a3fd64a6fa1b877211">stntbi()</a>, <a class="el" href="dumpdata_8F90.html#ad4fdbfc4ae3890133d9204a881541a1a">ufbdmp()</a>, <a class="el" href="dumpdata_8F90.html#a20fa33f6e0fcb0816c4b070c73362539">ufdump()</a>, <a class="el" href="cftbvs_8F90.html#ac7a8caa03ed8a2ac40a541762ca7e917">upftbv()</a>, and <a class="el" href="dxtable_8F90.html#a81ea6d2408950b5728790bc8f8c80261">wrdxtb()</a>.</p>
 
 </div>
 </div>
@@ -322,11 +322,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Table D entries for each internal I/O stream. </p>
+<p>Table D entries for each file ID. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00652">652</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00654">654</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="cpbfdx_8f.html#a3ab4a857b6a0b1e03f6cb2058712279a">cpbfdx()</a>, <a class="el" href="dxdump_8f.html#a42bdc5a58d0586fd8e9bc1b755602aeb">dxdump()</a>, <a class="el" href="dxinit_8f.html#a5a104b88a6655ba06336b2c8ab7fb98e">dxinit()</a>, <a class="el" href="getabdb_8f.html#a5a224df0ff920fff5ce7adc7a78ccf39">getabdb()</a>, <a class="el" href="icmpdx_8f.html#a3d484cf9a060c1a81ab132a4356d1b9c">icmpdx()</a>, <a class="el" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712">nemtab()</a>, <a class="el" href="nemtbd_8f.html#ac3fb25908c829f741ccd1d440d6051d9">nemtbd()</a>, <a class="el" href="nenubd_8f.html#a41014913489bdc74d7a2af0fa44159ba">nenubd()</a>, <a class="el" href="numtbd_8f.html#aae71d3919c5fc05ca4915e7b61aa3735">numtbd()</a>, <a class="el" href="pktdd_8f.html#a5a9bc43ec2b7b51ae5097fd7b828dd84">pktdd()</a>, <a class="el" href="stbfdx_8f.html#a35d346baad722c9be56532c38d43f8a0">stbfdx()</a>, <a class="el" href="stntbi_8f.html#ad26b48825c877d44d1223a3f4e4051ed">stntbi()</a>, <a class="el" href="uptdd_8f.html#a560d41b7c906a6cb2dc1f53259261dd4">uptdd()</a>, and <a class="el" href="wrdxtb_8f.html#a89d9a5cf1716a40206ce1684c3eb9415">wrdxtb()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="copydata_8F90.html#a352b4ac3adf31bada79d4d8672f0b800">cpbfdx()</a>, <a class="el" href="dumpdata_8F90.html#ac693ae3d5af0a71505d5f9305c86fdb8">dxdump()</a>, <a class="el" href="dxtable_8F90.html#ae1a2a7cf7f60579fa9e9399a25f4930b">dxinit()</a>, <a class="el" href="dumpdata_8F90.html#aa267dbf23e18a201eec17e2fa48238d7">getabdb()</a>, <a class="el" href="jumplink_8F90.html#aa8ae055da512a9259d4f248b3ccdb5e8">icmpdx()</a>, <a class="el" href="fxy_8F90.html#a01efa3bb871b451a8d53bd6d841bb297">nemtab()</a>, <a class="el" href="dxtable_8F90.html#aa0b7269b3a7df645e6917bfd4ba72b32">nemtbd()</a>, <a class="el" href="dxtable_8F90.html#ae672eaf27f17dc904b894f347d89c233">nenubd()</a>, <a class="el" href="fxy_8F90.html#aca1fae67e284131dfd240d2336e3e77d">numtbd()</a>, <a class="el" href="dxtable_8F90.html#aae6295132b2eb71f969417879832ed47">pktdd()</a>, <a class="el" href="dxtable_8F90.html#ac59d8db430cbb1cbe7ced7ebc386ef4a">stbfdx()</a>, <a class="el" href="dxtable_8F90.html#aaa433680a14847a3fd64a6fa1b877211">stntbi()</a>, <a class="el" href="dxtable_8F90.html#aeec2544ee0e0d8587c6687cda7023e54">uptdd()</a>, and <a class="el" href="dxtable_8F90.html#a81ea6d2408950b5728790bc8f8c80261">wrdxtb()</a>.</p>
 
 </div>
 </div>

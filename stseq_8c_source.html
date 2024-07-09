@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -110,13 +110,13 @@ $(document).ready(function(){initNavTree('stseq_8c_source.html',''); initResizab
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">if</span> ( *idn &gt;= <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<a class="code" href="bufrlib_8h.html#a87f18b149395d0c626a9ba310c959e3c">MIN_FXY_TABLED</a>) ) {</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            *tab = <span class="charliteral">&#39;D&#39;</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            pifxyn = &amp;<a class="code" href="mstabs_8h.html#a0fc52a9b3d9391ecd70298b2d89450ab">idfxyn_c</a>[0];</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            nmt = <a class="code" href="mstabs_8h.html#a80391270601339cad20bf1a9ddffd9ff">nmtd_c</a>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            pifxyn = &amp;<a class="code" href="mstabs_8h.html#a2798d24f3443eeee2999eddf34d24c19">idfxyn_c</a>[0];</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            nmt = <a class="code" href="mstabs_8h.html#aaa17913e195f9e3cf457d748d2c8f60e">nmtd_c</a>;</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        }</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            *tab = <span class="charliteral">&#39;B&#39;</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            pifxyn = &amp;<a class="code" href="mstabs_8h.html#aaea63eb1ccee165b800fa110084801ad">ibfxyn_c</a>[0];</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            nmt = <a class="code" href="mstabs_8h.html#ab67e167996fc7e0e53306b46e3f224b0">nmtb_c</a>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            pifxyn = &amp;<a class="code" href="mstabs_8h.html#acdfc509abed04b3bc643a4171c419fa4">ibfxyn_c</a>[0];</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            nmt = <a class="code" href="mstabs_8h.html#ad93c9a8906bf4b63fba3143c8d9d5da5">nmtb_c</a>;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        }</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        pbs = bsearch(idn, pifxyn, (<span class="keywordtype">size_t</span>) nmt, <span class="keyword">sizeof</span>(<span class="keywordtype">int</span>),</div>
@@ -132,416 +132,416 @@ $(document).ready(function(){initNavTree('stseq_8c_source.html',''); initResizab
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keywordtype">void</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">  111</a></span>&#160;<a class="code" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq</a>(<span class="keywordtype">int</span> lun, <span class="keywordtype">int</span> *irepct, <span class="keywordtype">int</span> idn, <span class="keywordtype">char</span> *nemo,</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      <span class="keywordtype">char</span> *cseq, <span class="keywordtype">int</span> *cdesc, <span class="keywordtype">int</span> ncdesc)</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;{</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">int</span> i, j, nb, nd, ix, iy, iret, nbits;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordtype">int</span> rpidn, pkint, ilen, imxcd, ipt, *rpdesc;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordtype">char</span> tab, adn[<a class="code" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>+1], adn2[<a class="code" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>+1], units[10], errstr[129];</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordtype">char</span> nemo2[<a class="code" href="bufrlib_8h.html#aaf134edc1efd697331c03effd4d056e0">NEMO_STR_LEN</a>+1], rpseq[56], card[80], ctmp[4], cblk = <span class="charliteral">&#39; &#39;</span>, czero = <span class="charliteral">&#39;0&#39;</span>;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">**  The following variables are declared as static so that they</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">**  automatically initialize to zero and remain unchanged between</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">**  recursive calls to this subroutine.</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> naf, iafpk[<a class="code" href="bufrlib_8h.html#a418e7eacd5437694be8d51643e52485f">MXNAF</a>];</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">**  Is idn already listed as an entry in the internal Table D?</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">**  If so, then there&#39;s no need to proceed any further.</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <a class="code" href="bufrlib_8h.html#a45c023844f35d35ee3c5e77e60fdb18a">numtbd_f</a>(lun, idn, nemo2, <a class="code" href="bufrlib_8h.html#aaf134edc1efd697331c03effd4d056e0">NEMO_STR_LEN</a>+1, &amp;tab, &amp;iret);</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordflow">if</span> ( ( iret &gt; 0 ) &amp;&amp; ( tab == <span class="charliteral">&#39;D&#39;</span> ) ) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">**  Start a new Table D entry for idn.</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    tab = <span class="charliteral">&#39;D&#39;</span>;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    nd = <a class="code" href="bufrlib_8h.html#ad32acb7e25a0763d1ecfa201884bc131">igetntbi_f</a>(lun, &amp;tab);</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <a class="code" href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f</a>(idn, adn, <a class="code" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>+1);</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <a class="code" href="bufrlib_8h.html#a6d361bdabcb605e7677b9c29cf7ba10f">stntbi_f</a>(nd, lun, adn, nemo, cseq);</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="comment">**  Now, go through the list of child descriptors corresponding to idn.</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    imxcd = <a class="code" href="bufr__interface_8h.html#a0b06d7dc9ae1ba6147ad0f1ea3d359bb">igetprm_f</a>(<span class="stringliteral">&quot;MAXCD&quot;</span>);</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordflow">for</span> ( i = 0; i &lt; ncdesc; i++ ) {</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <a class="code" href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f</a>(cdesc[i], adn, <a class="code" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>+1); adn[6] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        strncpy(ctmp, &amp;adn[1], 2); ctmp[2] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <a class="code" href="bufrlib_8h.html#aac0f5146bfdbf7042ac39e515475ba11">strnum_f</a>(ctmp, &amp;ix, &amp;iret);</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        strncpy(ctmp, &amp;adn[3], 4); <span class="comment">/* trailing null will be included in this copy */</span></div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        <a class="code" href="bufrlib_8h.html#aac0f5146bfdbf7042ac39e515475ba11">strnum_f</a>(ctmp, &amp;iy, &amp;iret);</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        <span class="keywordflow">if</span> ( adn[0] == <span class="charliteral">&#39;3&#39;</span> ) {</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment">**          cdesc[i] is itself a Table D descriptor, so locate it within the</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="comment">**          master table D and then store the contents within the internal</span></div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment">**          Table D via a recursive call to this same routine.</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            <a class="code" href="stseq_8c.html#a340a16a2c0d988d37fbc2e92974b2b5e">nummtb</a>(&amp;cdesc[i], &amp;tab, &amp;ipt);</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            <span class="keywordflow">if</span> ( naf &gt; 0 ) {</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="comment">**              There are associated fields in effect which will modify this</span></div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="comment">**              descriptor when storing it within the internal Table D.  So</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">**              create a new sequence to store the contents of this descriptor</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment">**              along with its associated fields.</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                rpidn = <a class="code" href="bufrlib_8h.html#a0320e66350174c1e05f30babd13d52c2">igettdi_f</a>(lun);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keywordtype">void</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="bufrlib_8h.html#a4f4c37daea8a69385e280d60265f9d40">  107</a></span>&#160;<a class="code" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq</a>(<span class="keywordtype">int</span> lun, <span class="keywordtype">int</span> *irepct, <span class="keywordtype">int</span> idn, <span class="keywordtype">char</span> *nemo,</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      <span class="keywordtype">char</span> *cseq, <span class="keywordtype">int</span> *cdesc, <span class="keywordtype">int</span> ncdesc)</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;{</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordtype">int</span> i, j, nb, nd, ix, iy, iret, nbits;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">int</span> rpidn, pkint, ilen, imxcd, imxnf, ipt, *rpdesc;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">char</span> tab, adn[<a class="code" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>+1], adn2[<a class="code" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>+1], units[10], errstr[129];</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">char</span> nemo2[<a class="code" href="bufrlib_8h.html#aaf134edc1efd697331c03effd4d056e0">NEMO_STR_LEN</a>+1], rpseq[56], card[80], ctmp[4], cblk = <span class="charliteral">&#39; &#39;</span>, czero = <span class="charliteral">&#39;0&#39;</span>;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">**  The following variable is declared as static so that it automatically initializes</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">**  to zero and remains unchanged between recursive calls to this subroutine.</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> naf;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">**  Is idn already listed as an entry in the internal Table D?</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">**  If so, then there&#39;s no need to proceed any further.</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <a class="code" href="bufrlib_8h.html#a45c023844f35d35ee3c5e77e60fdb18a">numtbd_f</a>(lun, idn, nemo2, <a class="code" href="bufrlib_8h.html#aaf134edc1efd697331c03effd4d056e0">NEMO_STR_LEN</a>+1, &amp;tab, &amp;iret);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">if</span> ( ( iret &gt; 0 ) &amp;&amp; ( tab == <span class="charliteral">&#39;D&#39;</span> ) ) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">**  Start a new Table D entry for idn.</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    tab = <span class="charliteral">&#39;D&#39;</span>;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    nd = <a class="code" href="bufrlib_8h.html#ad32acb7e25a0763d1ecfa201884bc131">igetntbi_f</a>(lun, &amp;tab);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <a class="code" href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f</a>(idn, adn, <a class="code" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>+1);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <a class="code" href="bufrlib_8h.html#a6d361bdabcb605e7677b9c29cf7ba10f">stntbi_f</a>(nd, lun, adn, nemo, cseq);</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="comment">**  Now, go through the list of child descriptors corresponding to idn.</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    imxcd = <a class="code" href="bufr__interface_8h.html#a0b06d7dc9ae1ba6147ad0f1ea3d359bb">igetprm_f</a>(<span class="stringliteral">&quot;MAXCD&quot;</span>);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    imxnf = <a class="code" href="bufr__interface_8h.html#a0b06d7dc9ae1ba6147ad0f1ea3d359bb">igetprm_f</a>(<span class="stringliteral">&quot;MXNAF&quot;</span>);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordflow">for</span> ( i = 0; i &lt; ncdesc; i++ ) {</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <a class="code" href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f</a>(cdesc[i], adn, <a class="code" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>+1); adn[6] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        strncpy(ctmp, &amp;adn[1], 2); ctmp[2] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <a class="code" href="bufrlib_8h.html#aac0f5146bfdbf7042ac39e515475ba11">strnum_f</a>(ctmp, &amp;ix, &amp;iret);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        strncpy(ctmp, &amp;adn[3], 4); <span class="comment">/* trailing null will be included in this copy */</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <a class="code" href="bufrlib_8h.html#aac0f5146bfdbf7042ac39e515475ba11">strnum_f</a>(ctmp, &amp;iy, &amp;iret);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keywordflow">if</span> ( adn[0] == <span class="charliteral">&#39;3&#39;</span> ) {</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="comment">**          cdesc[i] is itself a Table D descriptor, so locate it within the</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="comment">**          master table D and then store the contents within the internal</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="comment">**          Table D via a recursive call to this same routine.</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            <a class="code" href="stseq_8c.html#a340a16a2c0d988d37fbc2e92974b2b5e">nummtb</a>(&amp;cdesc[i], &amp;tab, &amp;ipt);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            <span class="keywordflow">if</span> ( naf &gt; 0 ) {</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="comment">**              There are associated fields in effect which will modify this</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="comment">**              descriptor when storing it within the internal Table D.  So</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="comment">**              create a new sequence to store the contents of this descriptor</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="comment">**              along with its associated fields.</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                rpidn = <a class="code" href="bufrlib_8h.html#a0320e66350174c1e05f30babd13d52c2">igettdi_f</a>(lun);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                sprintf(rpseq, <span class="stringliteral">&quot;REPLICATION SEQUENCE %.3d&quot;</span>, ++(*irepct));</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                memset(&amp;rpseq[24], (<span class="keywordtype">int</span>) cblk, 31);</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                sprintf(nemo2, <span class="stringliteral">&quot;RPSEQ%.3d&quot;</span>, *irepct);</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                sprintf(rpseq, <span class="stringliteral">&quot;REPLICATION SEQUENCE %.3d&quot;</span>, ++(*irepct));</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                memset(&amp;rpseq[24], (<span class="keywordtype">int</span>) cblk, 31);</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                sprintf(nemo2, <span class="stringliteral">&quot;RPSEQ%.3d&quot;</span>, *irepct);</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                <a class="code" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq</a>(lun, irepct, rpidn, nemo2, rpseq,</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                    &amp;<a class="code" href="mstabs_8h.html#a821ed028f82d3597bc27927ec4b1aac0">idefxy_c</a>[<a class="code" href="icvidx_8c.html#ab3b665adb5a53a4c82d3c5caadbb2c38">icvidx</a>(ipt,0,imxcd)],</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                    <a class="code" href="mstabs_8h.html#a6532afa4b2089e3b39acda01f93a1c26">ndelem_c</a>[ipt]);</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                pkint = rpidn;</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            }</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="comment">**              Store cdesc[i] as is directly within the internal Table D.</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                <a class="code" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq</a>(lun, irepct, cdesc[i], &amp;<a class="code" href="mstabs_8h.html#a435c8f4a1ebe7966a2cd0e0a980dab51">cdmnem_c</a>[ipt][0],</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                    &amp;<a class="code" href="mstabs_8h.html#a9a27f1ec866a82df459f4d17893b9df2">cdseq_c</a>[ipt][0],</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                    &amp;<a class="code" href="mstabs_8h.html#a821ed028f82d3597bc27927ec4b1aac0">idefxy_c</a>[<a class="code" href="icvidx_8c.html#ab3b665adb5a53a4c82d3c5caadbb2c38">icvidx</a>(ipt,0,imxcd)],</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                    <a class="code" href="mstabs_8h.html#a6532afa4b2089e3b39acda01f93a1c26">ndelem_c</a>[ipt]);</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                pkint = cdesc[i];</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            }</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        }</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( adn[0] == <span class="charliteral">&#39;2&#39;</span> ) {</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                <a class="code" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq</a>(lun, irepct, rpidn, nemo2, rpseq,</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                    &amp;<a class="code" href="mstabs_8h.html#a006ec50bbb9f20fad017eb980cc7afa0">idefxy_c</a>[<a class="code" href="bufrlib_8h.html#ab3b665adb5a53a4c82d3c5caadbb2c38">icvidx</a>(ipt,0,imxcd)],</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                    <a class="code" href="mstabs_8h.html#ad9af08676809848df12a73ece2a37182">ndelem_c</a>[ipt]);</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                pkint = rpidn;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            }</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;            <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="comment">**              Store cdesc[i] as is directly within the internal Table D.</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                <a class="code" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq</a>(lun, irepct, cdesc[i], &amp;<a class="code" href="mstabs_8h.html#a309b9730283bc44b297b44f4e32db7f1">cdmnem_c</a>[ipt][0],</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                    &amp;<a class="code" href="mstabs_8h.html#a3e8f3bcd901b3809309c431d2825d636">cdseq_c</a>[ipt][0],</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                    &amp;<a class="code" href="mstabs_8h.html#a006ec50bbb9f20fad017eb980cc7afa0">idefxy_c</a>[<a class="code" href="bufrlib_8h.html#ab3b665adb5a53a4c82d3c5caadbb2c38">icvidx</a>(ipt,0,imxcd)],</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                    <a class="code" href="mstabs_8h.html#ad9af08676809848df12a73ece2a37182">ndelem_c</a>[ipt]);</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                pkint = cdesc[i];</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            }</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        }</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( adn[0] == <span class="charliteral">&#39;2&#39;</span> ) {</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="comment">**          cdesc[i] is an operator descriptor.</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            <span class="keywordflow">if</span> ( ( ( ix &gt;= 4 ) &amp;&amp; ( ix &lt;= 6 ) ) || ( <a class="code" href="bufrlib_8h.html#a3e533930a6aa9c6fc76c89d14e54cf47">imrkopr_f</a>(adn) ) ) {</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="comment">**          cdesc[i] is an operator descriptor.</span></div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            <span class="keywordflow">if</span> ( ( ( ix &gt;= 4 ) &amp;&amp; ( ix &lt;= 6 ) ) || ( <a class="code" href="bufrlib_8h.html#a3e533930a6aa9c6fc76c89d14e54cf47">imrkopr_f</a>(adn) ) ) {</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment">**              This is a 204YYY, 205YYY, 206YYY operator, or else a 223255,</span></div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="comment">**              224255, 225255 or 232255 marker operator.  In any case,</span></div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="comment">**              generate a Table B mnemonic to hold the corresponding data.</span></div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                strncpy(nemo2, adn, 6);</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                memset(&amp;nemo2[6], (<span class="keywordtype">int</span>) cblk, 2);</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;                nemo2[8] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;                <span class="keywordflow">if</span> ( ( ix == 4 ) &amp;&amp; ( iy == 0 ) ) {</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="comment">**                  Cancel the most-recently added associated field.</span></div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;                    <span class="keywordflow">if</span> ( naf-- &lt;= 0 ) {</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;                        sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - TOO MANY ASSOCIATED&quot;</span></div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;                            <span class="stringliteral">&quot; FIELD CANCELLATION OPERATORS&quot;</span>);</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                        <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;                    }</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;                }</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;                <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="comment">**                Is nemo2 already listed as an entry within the internal</span></div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="comment">**                Table B?</span></div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                  <a class="code" href="bufr__interface_8h.html#ad75bcdd935567fd79e3385c94b78284c">nemtab_f</a>(lun, nemo2, &amp;pkint, &amp;tab, &amp;iret);</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                  <span class="keywordflow">if</span> ( ( iret == 0 ) || ( tab != <span class="charliteral">&#39;B&#39;</span> ) ) {</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="comment">**                  No, so create and store a new Table B entry for nemo2.</span></div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;                    tab = <span class="charliteral">&#39;B&#39;</span>;</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                    nb = <a class="code" href="bufrlib_8h.html#ad32acb7e25a0763d1ecfa201884bc131">igetntbi_f</a>(lun, &amp;tab);</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;                    <span class="keywordflow">if</span> ( ix == 4 ) {</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;                        sprintf(rpseq, <span class="stringliteral">&quot;Associated field of %3d bits&quot;</span>, iy);</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;                        nbits = iy;</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;                        strcpy(units, <span class="stringliteral">&quot;NUMERIC&quot;</span>);</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;                    }</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ix == 5 ) {</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;                        sprintf(rpseq, <span class="stringliteral">&quot;Text string of %3d bytes&quot;</span>, iy);</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                        nbits = iy*8;</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;                        strcpy(units, <span class="stringliteral">&quot;CCITT IA5&quot;</span>);</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                    }</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ix == 6 ) {</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;                        sprintf(rpseq, <span class="stringliteral">&quot;Local descriptor of %3d bits&quot;</span>, iy);</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;                        nbits = iy;</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;                        <span class="keywordflow">if</span> ( nbits &gt; 32 ) {</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;                            strcpy(units, <span class="stringliteral">&quot;CCITT IA5&quot;</span>);</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                        }</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;                        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;                            strcpy(units, <span class="stringliteral">&quot;NUMERIC&quot;</span>);</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;                        }</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;                    }</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;                    <span class="keywordflow">else</span> {   <span class="comment">// 2-XX-255 marker operator</span></div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;                        <span class="keywordflow">if</span> ( ix == 23 ) {</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;                            sprintf(rpseq, <span class="stringliteral">&quot;Substituted value&quot;</span>);</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;                        }</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ix == 24 ) {</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;                            sprintf(rpseq, <span class="stringliteral">&quot;First-order statistical value&quot;</span>);</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;                        }</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ix == 25 ) {</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;                            sprintf(rpseq, <span class="stringliteral">&quot;Difference statistical value&quot;</span>);</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                        }</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;                        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ix == 32 ) {</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                            sprintf(rpseq, <span class="stringliteral">&quot;Replaced/retained value&quot;</span>);</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;                        }</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;                        <span class="comment">/* For now, set a default bit width and units. */</span></div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                        nbits = 8;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                        strcpy(units, <span class="stringliteral">&quot;NUMERIC&quot;</span>);</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;                    }</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;                    ilen = ( int ) strlen(rpseq);</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                    memset(&amp;rpseq[ilen], (<span class="keywordtype">int</span>) cblk, 55 - ilen);</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="comment">**                  Note that 49152 = 3*(2**14), so subtracting 49152 in the</span></div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="comment">**                  following statement changes a Table D bit-wise FXY value into</span></div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="comment">**                  a Table B bit-wise FXY value.</span></div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                    pkint = (<a class="code" href="bufrlib_8h.html#a0320e66350174c1e05f30babd13d52c2">igettdi_f</a>(lun) - 49152);</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;                    <a class="code" href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f</a>(pkint, adn2, <a class="code" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>+1);</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                    <a class="code" href="bufrlib_8h.html#a6d361bdabcb605e7677b9c29cf7ba10f">stntbi_f</a>(nb, lun, adn2, nemo2, rpseq);</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160; </div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;                    <span class="comment">/* Initialize card to all blanks. */</span></div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;                    memset(card, (<span class="keywordtype">int</span>) cblk, <span class="keyword">sizeof</span>( card ));</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160; </div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;                    strncpy(&amp;card[2], nemo2, 8);</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;                    memcpy(&amp;card[16], &amp;czero, 1);</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;                    memcpy(&amp;card[30], &amp;czero, 1);</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;                    sprintf(&amp;card[33], <span class="stringliteral">&quot;%4d&quot;</span>, nbits);</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;                    strcpy(&amp;card[40], units);</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;                    card[40+strlen(units)] = cblk;  <span class="comment">/* overwrite trailing null */</span></div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;                    <a class="code" href="bufrlib_8h.html#a39fc8b2494bb5f754c2d800c4b5a2f1c">elemdx_f</a>(card, lun);</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;                  }</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;                  <span class="keywordflow">if</span> ( ix == 4 )  {</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;<span class="comment">**                  Add an associated field.</span></div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;                    <span class="keywordflow">if</span> ( naf &gt;= <a class="code" href="bufrlib_8h.html#a418e7eacd5437694be8d51643e52485f">MXNAF</a> ) {</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;                        sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - TOO MANY ASSOCIATED&quot;</span></div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;                            <span class="stringliteral">&quot; FIELDS ARE IN EFFECT AT THE SAME TIME&quot;</span>);</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;                        <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;                    }</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;                    iafpk[naf++] = pkint;</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;                  }</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;                }</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;                <span class="keywordflow">if</span> ( ix == 6 ) {</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;<span class="comment">**                  Skip over the local descriptor placeholder.</span></div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;                    <span class="keywordflow">if</span> ( ++i &gt;= ncdesc ) {</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;                        sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - COULD NOT FIND LOCAL&quot;</span></div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;                            <span class="stringliteral">&quot; DESCRIPTOR PLACEHOLDER FOR %s&quot;</span>, adn);</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;                        <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;                    }</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;                }</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;            }</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;                pkint = cdesc[i];</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;            }</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        }</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( adn[0] == <span class="charliteral">&#39;1&#39;</span> ) {</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="comment">**          cdesc[i] is a replication descriptor, so create a sequence</span></div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="comment">**          consisting of the set of replicated descriptors and then immediately</span></div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="comment">**          store that sequence within the internal Table D via a recursive call</span></div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="comment">**          to this same routine.</span></div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="comment">**</span></div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="comment">**          See subroutine BFRINI and COMMON /REPTAB/ for the source of the FXY</span></div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="comment">**          values referenced in the following block.  Note we are guaranteed</span></div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="comment">**          that 0 &lt;= iy &lt;= 255 since adn was generated using subroutine CADN30.</span></div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;            <span class="keywordflow">if</span> ( iy == 0 ) {        <span class="comment">/* delayed replication */</span></div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;                <span class="keywordflow">if</span> ( ( i+1 ) &gt;= ncdesc ) {</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;                    sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - COULD NOT FIND DELAYED &quot;</span></div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;                             <span class="stringliteral">&quot;DESCRIPTOR REPLICATION FACTOR FOR %s&quot;</span>, adn);</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;                    <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;                }</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;                <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( cdesc[i+1] == <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<span class="stringliteral">&quot;031002&quot;</span>) ) {</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;                    pkint = <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<span class="stringliteral">&quot;360001&quot;</span>);</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;                }</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( cdesc[i+1] == <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<span class="stringliteral">&quot;031001&quot;</span>) ) {</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                    pkint = <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<span class="stringliteral">&quot;360002&quot;</span>);</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                }</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;                <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( cdesc[i+1] == <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<span class="stringliteral">&quot;031000&quot;</span>) ) {</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;                    pkint = <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<span class="stringliteral">&quot;360004&quot;</span>);</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;                }</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;                <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;                    sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - UNKNOWN DELAYED &quot;</span></div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;                             <span class="stringliteral">&quot;DESCRIPTOR REPLICATION FACTOR FOR %s&quot;</span>, adn);</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;                    <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;                }</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;                i += 2;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="comment">**              This is a 204YYY, 205YYY, 206YYY operator, or else a 223255,</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="comment">**              224255, 225255 or 232255 marker operator.  In any case,</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="comment">**              generate a Table B mnemonic to hold the corresponding data.</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                strncpy(nemo2, adn, 6);</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                memset(&amp;nemo2[6], (<span class="keywordtype">int</span>) cblk, 2);</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                nemo2[8] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                <span class="keywordflow">if</span> ( ( ix == 4 ) &amp;&amp; ( iy == 0 ) ) {</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="comment">**                  Cancel the most-recently added associated field.</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;                    <span class="keywordflow">if</span> ( naf-- &lt;= 0 ) {</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;                        sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - TOO MANY ASSOCIATED&quot;</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                            <span class="stringliteral">&quot; FIELD CANCELLATION OPERATORS&quot;</span>);</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;                        <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;                    }</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;                }</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;                <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="comment">**                Is nemo2 already listed as an entry within the internal</span></div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="comment">**                Table B?</span></div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;                  <a class="code" href="bufr__interface_8h.html#ad75bcdd935567fd79e3385c94b78284c">nemtab_f</a>(lun, nemo2, &amp;pkint, &amp;tab, &amp;iret);</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;                  <span class="keywordflow">if</span> ( ( iret == 0 ) || ( tab != <span class="charliteral">&#39;B&#39;</span> ) ) {</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;<span class="comment">**                  No, so create and store a new Table B entry for nemo2.</span></div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                    tab = <span class="charliteral">&#39;B&#39;</span>;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                    nb = <a class="code" href="bufrlib_8h.html#ad32acb7e25a0763d1ecfa201884bc131">igetntbi_f</a>(lun, &amp;tab);</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                    <span class="keywordflow">if</span> ( ix == 4 ) {</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;                        sprintf(rpseq, <span class="stringliteral">&quot;Associated field of %3d bits&quot;</span>, iy);</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                        nbits = iy;</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;                        strcpy(units, <span class="stringliteral">&quot;NUMERIC&quot;</span>);</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;                    }</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ix == 5 ) {</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;                        sprintf(rpseq, <span class="stringliteral">&quot;Text string of %3d bytes&quot;</span>, iy);</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;                        nbits = iy*8;</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;                        strcpy(units, <span class="stringliteral">&quot;CCITT IA5&quot;</span>);</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                    }</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ix == 6 ) {</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                        sprintf(rpseq, <span class="stringliteral">&quot;Local descriptor of %3d bits&quot;</span>, iy);</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;                        nbits = iy;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                        <span class="keywordflow">if</span> ( nbits &gt; 32 ) {</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                            strcpy(units, <span class="stringliteral">&quot;CCITT IA5&quot;</span>);</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;                        }</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;                        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;                            strcpy(units, <span class="stringliteral">&quot;NUMERIC&quot;</span>);</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;                        }</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                    }</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;                    <span class="keywordflow">else</span> {   <span class="comment">// 2-XX-255 marker operator</span></div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;                        <span class="keywordflow">if</span> ( ix == 23 ) {</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;                            sprintf(rpseq, <span class="stringliteral">&quot;Substituted value&quot;</span>);</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;                        }</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;                        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ix == 24 ) {</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;                            sprintf(rpseq, <span class="stringliteral">&quot;First-order statistical value&quot;</span>);</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;                        }</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;                        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ix == 25 ) {</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                            sprintf(rpseq, <span class="stringliteral">&quot;Difference statistical value&quot;</span>);</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;                        }</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;                        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ix == 32 ) {</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                            sprintf(rpseq, <span class="stringliteral">&quot;Replaced/retained value&quot;</span>);</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;                        }</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                        <span class="comment">/* For now, set a default bit width and units. */</span></div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;                        nbits = 8;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                        strcpy(units, <span class="stringliteral">&quot;NUMERIC&quot;</span>);</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;                    }</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;                    ilen = ( int ) strlen(rpseq);</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                    memset(&amp;rpseq[ilen], (<span class="keywordtype">int</span>) cblk, 55 - ilen);</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;<span class="comment">**                  Note that 49152 = 3*(2**14), so subtracting 49152 in the</span></div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="comment">**                  following statement changes a WMO Table D bit-wise FXY value into</span></div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;<span class="comment">**                  a WMO Table B bit-wise FXY value.</span></div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                    pkint = (<a class="code" href="bufrlib_8h.html#a0320e66350174c1e05f30babd13d52c2">igettdi_f</a>(lun) - 49152);</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                    <a class="code" href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f</a>(pkint, adn2, <a class="code" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>+1);</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160; </div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                    <a class="code" href="bufrlib_8h.html#a6d361bdabcb605e7677b9c29cf7ba10f">stntbi_f</a>(nb, lun, adn2, nemo2, rpseq);</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160; </div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;                    <span class="comment">/* Initialize card to all blanks. */</span></div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                    memset(card, (<span class="keywordtype">int</span>) cblk, <span class="keyword">sizeof</span>( card ));</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;                    strncpy(&amp;card[2], nemo2, 8);</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;                    memcpy(&amp;card[16], &amp;czero, 1);</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;                    memcpy(&amp;card[30], &amp;czero, 1);</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;                    sprintf(&amp;card[33], <span class="stringliteral">&quot;%4d&quot;</span>, nbits);</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;                    strcpy(&amp;card[40], units);</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;                    card[40+strlen(units)] = cblk;  <span class="comment">/* overwrite trailing null */</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;                    <a class="code" href="bufrlib_8h.html#a39fc8b2494bb5f754c2d800c4b5a2f1c">elemdx_f</a>(card, lun);</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;                  }</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;                  <span class="keywordflow">if</span> ( ix == 4 )  {</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="comment">**                  Add an associated field.</span></div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;                    <span class="keywordflow">if</span> ( naf &gt;= imxnf ) {</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;                        sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - TOO MANY ASSOCIATED&quot;</span></div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;                            <span class="stringliteral">&quot; FIELDS ARE IN EFFECT AT THE SAME TIME&quot;</span>);</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;                        <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;                    }</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;                    <a class="code" href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a>[naf++] = pkint;</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;                  }</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;                }</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;                <span class="keywordflow">if</span> ( ix == 6 ) {</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="comment">**                  Skip over the local descriptor placeholder.</span></div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;                    <span class="keywordflow">if</span> ( ++i &gt;= ncdesc ) {</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;                        sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - COULD NOT FIND LOCAL&quot;</span></div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;                            <span class="stringliteral">&quot; DESCRIPTOR PLACEHOLDER FOR %s&quot;</span>, adn);</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;                        <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;                    }</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;                }</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;            }</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;            <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;                pkint = cdesc[i];</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;            }</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        }</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( adn[0] == <span class="charliteral">&#39;1&#39;</span> ) {</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="comment">**          cdesc[i] is a replication descriptor, so create a sequence</span></div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<span class="comment">**          consisting of the set of replicated descriptors and then immediately</span></div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="comment">**          store that sequence within the internal Table D via a recursive call</span></div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="comment">**          to this same routine.</span></div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="comment">**</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="comment">**          See module @ref modv_vars for the source of the FXY values referenced</span></div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="comment">**          in the following block.  Note we are guaranteed that 0 &lt;= iy &lt;= 255,</span></div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="comment">**          since adn was generated using subroutine cadn30_f().</span></div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;            <span class="keywordflow">if</span> ( iy == 0 ) {        <span class="comment">/* delayed replication */</span></div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;                <span class="keywordflow">if</span> ( ( i+1 ) &gt;= ncdesc ) {</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;                    sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - COULD NOT FIND DELAYED &quot;</span></div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;                             <span class="stringliteral">&quot;DESCRIPTOR REPLICATION FACTOR FOR %s&quot;</span>, adn);</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;                    <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;                }</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;                <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( cdesc[i+1] == <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<span class="stringliteral">&quot;031002&quot;</span>) ) {</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;                    pkint = <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<span class="stringliteral">&quot;360001&quot;</span>);</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;                }</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;                <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( cdesc[i+1] == <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<span class="stringliteral">&quot;031001&quot;</span>) ) {</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;                    pkint = <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<span class="stringliteral">&quot;360002&quot;</span>);</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;                }</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;                <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( cdesc[i+1] == <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<span class="stringliteral">&quot;031000&quot;</span>) ) {</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                    pkint = <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<span class="stringliteral">&quot;360004&quot;</span>);</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                }</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;                    sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - UNKNOWN DELAYED &quot;</span></div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;                             <span class="stringliteral">&quot;DESCRIPTOR REPLICATION FACTOR FOR %s&quot;</span>, adn);</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;                    <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;                }</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;                i += 2;</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            }</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;            <span class="keywordflow">else</span> {        <span class="comment">/* regular replication */</span></div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;                pkint = <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<a class="code" href="bufrlib_8h.html#a6fa6d930bc1885cd5cf30d57dfcc6a4b">MIN_FXY_REPL</a>) + iy;</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;                i++;</div>
 <div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;            }</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;            <span class="keywordflow">else</span> {        <span class="comment">/* regular replication */</span></div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;                pkint = <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<a class="code" href="bufrlib_8h.html#a6fa6d930bc1885cd5cf30d57dfcc6a4b">MIN_FXY_REPL</a>) + iy;</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;                i++;</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;            }</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="comment">**          Store this replication descriptor within the table D entry for</span></div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="comment">**          this parent.</span></div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;            <a class="code" href="bufrlib_8h.html#ac68117670f91ed84a5edf1bf074bc187">pktdd_f</a>(nd, lun, pkint, &amp;iret);</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;            <span class="keywordflow">if</span> ( iret &lt; 0 ) {</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;                strncpy(nemo2, nemo, 8);</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;                nemo2[8] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;                sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - BAD RETURN FROM PKTDD WHEN &quot;</span></div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;                         <span class="stringliteral">&quot;STORING REPLICATOR FOR PARENT MNEMONIC %s&quot;</span>, nemo2);</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;                <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;            }</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="comment">**          Note we are guaranteed that 0 &lt; ix &lt;= 63 since adn was generated</span></div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;<span class="comment">**          using subroutine CADN30.</span></div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;            <span class="keywordflow">if</span> ( ix &gt; ( ncdesc - i ) ) {</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;                sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - NOT ENOUGH REMAINING CHILD &quot;</span></div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;                         <span class="stringliteral">&quot;DESCRIPTORS TO COMPLETE REPLICATION FOR %s&quot;</span>, adn);</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;                <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;            }</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ( ix == 1 ) &amp;&amp; ( cdesc[i] &gt;= <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<a class="code" href="bufrlib_8h.html#a87f18b149395d0c626a9ba310c959e3c">MIN_FXY_TABLED</a>) ) ) {</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;<span class="comment">**              The only thing being replicated is a single Table D descriptor,</span></div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;<span class="comment">**              so there&#39;s no need to invent a new sequence for this replication</span></div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;<span class="comment">**              (this is a special case!)</span></div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;                <a class="code" href="stseq_8c.html#a340a16a2c0d988d37fbc2e92974b2b5e">nummtb</a>(&amp;cdesc[i], &amp;tab, &amp;ipt);</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;                <a class="code" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq</a>(lun, irepct, cdesc[i], &amp;<a class="code" href="mstabs_8h.html#a435c8f4a1ebe7966a2cd0e0a980dab51">cdmnem_c</a>[ipt][0],</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;                       &amp;<a class="code" href="mstabs_8h.html#a9a27f1ec866a82df459f4d17893b9df2">cdseq_c</a>[ipt][0],</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;                       &amp;<a class="code" href="mstabs_8h.html#a821ed028f82d3597bc27927ec4b1aac0">idefxy_c</a>[<a class="code" href="icvidx_8c.html#ab3b665adb5a53a4c82d3c5caadbb2c38">icvidx</a>(ipt,0,imxcd)],</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;                       <a class="code" href="mstabs_8h.html#a6532afa4b2089e3b39acda01f93a1c26">ndelem_c</a>[ipt]);</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;                pkint = cdesc[i];</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;            }</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="comment">**              Store the ix descriptors to be replicated in a local list, then</span></div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="comment">**              get an FXY value to use with this list and generate a unique</span></div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="comment">**              mnemonic and description as well.</span></div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160; </div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;                <span class="keywordflow">if</span> ( ( rpdesc = malloc( imxcd * <span class="keyword">sizeof</span>(<span class="keywordtype">int</span>) ) ) == NULL ) {</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;                    sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - UNABLE TO ALLOCATE SPACE&quot;</span></div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;                            <span class="stringliteral">&quot; FOR RPDESC&quot;</span>);</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;                    <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="comment">**          Store this replication descriptor within the table D entry for</span></div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="comment">**          this parent.</span></div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;            <a class="code" href="bufrlib_8h.html#ac68117670f91ed84a5edf1bf074bc187">pktdd_f</a>(nd, lun, pkint, &amp;iret);</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;            <span class="keywordflow">if</span> ( iret &lt; 0 ) {</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;                strncpy(nemo2, nemo, 8);</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;                nemo2[8] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;                sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - BAD RETURN FROM PKTDD WHEN &quot;</span></div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;                         <span class="stringliteral">&quot;STORING REPLICATOR FOR PARENT MNEMONIC %s&quot;</span>, nemo2);</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;                <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;            }</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="comment">**          Note we are guaranteed that 0 &lt; ix &lt;= 63 since adn was generated</span></div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="comment">**          using subroutine cadn30_f().</span></div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;            <span class="keywordflow">if</span> ( ix &gt; ( ncdesc - i ) ) {</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;                sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - NOT ENOUGH REMAINING CHILD &quot;</span></div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;                         <span class="stringliteral">&quot;DESCRIPTORS TO COMPLETE REPLICATION FOR %s&quot;</span>, adn);</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;            }</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ( ix == 1 ) &amp;&amp; ( cdesc[i] &gt;= <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<a class="code" href="bufrlib_8h.html#a87f18b149395d0c626a9ba310c959e3c">MIN_FXY_TABLED</a>) ) ) {</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;<span class="comment">**              The only thing being replicated is a single Table D descriptor,</span></div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;<span class="comment">**              so there&#39;s no need to invent a new sequence for this replication</span></div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;<span class="comment">**              (this is a special case!)</span></div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;                <a class="code" href="stseq_8c.html#a340a16a2c0d988d37fbc2e92974b2b5e">nummtb</a>(&amp;cdesc[i], &amp;tab, &amp;ipt);</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;                <a class="code" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq</a>(lun, irepct, cdesc[i], &amp;<a class="code" href="mstabs_8h.html#a309b9730283bc44b297b44f4e32db7f1">cdmnem_c</a>[ipt][0],</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;                       &amp;<a class="code" href="mstabs_8h.html#a3e8f3bcd901b3809309c431d2825d636">cdseq_c</a>[ipt][0],</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;                       &amp;<a class="code" href="mstabs_8h.html#a006ec50bbb9f20fad017eb980cc7afa0">idefxy_c</a>[<a class="code" href="bufrlib_8h.html#ab3b665adb5a53a4c82d3c5caadbb2c38">icvidx</a>(ipt,0,imxcd)],</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;                       <a class="code" href="mstabs_8h.html#ad9af08676809848df12a73ece2a37182">ndelem_c</a>[ipt]);</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;                pkint = cdesc[i];</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;            }</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;            <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="comment">**              Store the ix descriptors to be replicated in a local list, then</span></div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="comment">**              get an FXY value to use with this list and generate a unique</span></div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="comment">**              mnemonic and description as well.</span></div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160; </div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;                <span class="keywordflow">if</span> ( ( rpdesc = malloc( imxcd * <span class="keyword">sizeof</span>(<span class="keywordtype">int</span>) ) ) == NULL ) {</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;                    sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - UNABLE TO ALLOCATE SPACE&quot;</span></div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;                            <span class="stringliteral">&quot; FOR RPDESC&quot;</span>);</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;                    <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;                }</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160; </div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;                <span class="keywordflow">for</span> ( j = 0; j &lt; ix; j++ ) {</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;                    rpdesc[j] = cdesc[i+j];</div>
 <div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;                }</div>
 <div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160; </div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;                <span class="keywordflow">for</span> ( j = 0; j &lt; ix; j++ ) {</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;                    rpdesc[j] = cdesc[i+j];</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;                }</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160; </div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;                rpidn = <a class="code" href="bufrlib_8h.html#a0320e66350174c1e05f30babd13d52c2">igettdi_f</a>(lun);</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;                rpidn = <a class="code" href="bufrlib_8h.html#a0320e66350174c1e05f30babd13d52c2">igettdi_f</a>(lun);</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160; </div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;                sprintf(rpseq, <span class="stringliteral">&quot;REPLICATION SEQUENCE %.3d&quot;</span>, ++(*irepct));</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;                memset(&amp;rpseq[24], (<span class="keywordtype">int</span>) cblk, 31);</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;                sprintf(nemo2, <span class="stringliteral">&quot;RPSEQ%.3d&quot;</span>, *irepct);</div>
 <div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160; </div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;                sprintf(rpseq, <span class="stringliteral">&quot;REPLICATION SEQUENCE %.3d&quot;</span>, ++(*irepct));</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;                memset(&amp;rpseq[24], (<span class="keywordtype">int</span>) cblk, 31);</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;                sprintf(nemo2, <span class="stringliteral">&quot;RPSEQ%.3d&quot;</span>, *irepct);</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;                <a class="code" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq</a>(lun, irepct, rpidn, nemo2, rpseq, rpdesc, ix);</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160; </div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;                free(rpdesc);</div>
 <div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160; </div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;                <a class="code" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq</a>(lun, irepct, rpidn, nemo2, rpseq, rpdesc, ix);</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160; </div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;                free(rpdesc);</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160; </div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;                pkint = rpidn;</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;                i += ix - 1;</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;            }</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;        }</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="comment">**          cdesc[i] is a Table B descriptor.</span></div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;<span class="comment">**</span></div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="comment">**          Is cdesc[i] already listed as an entry in the internal Table B?</span></div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;            <a class="code" href="bufrlib_8h.html#a45c023844f35d35ee3c5e77e60fdb18a">numtbd_f</a>(lun, cdesc[i], nemo2, <a class="code" href="bufrlib_8h.html#aaf134edc1efd697331c03effd4d056e0">NEMO_STR_LEN</a>+1, &amp;tab, &amp;iret);</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;            <span class="keywordflow">if</span> ( ( iret == 0 ) || ( tab != <span class="charliteral">&#39;B&#39;</span> ) ) {</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;                pkint = rpidn;</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;                i += ix - 1;</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;            }</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;        }</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;<span class="comment">**          cdesc[i] is a Table B descriptor.</span></div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;<span class="comment">**</span></div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="comment">**          Is cdesc[i] already listed as an entry in the internal Table B?</span></div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;            <a class="code" href="bufrlib_8h.html#a45c023844f35d35ee3c5e77e60fdb18a">numtbd_f</a>(lun, cdesc[i], nemo2, <a class="code" href="bufrlib_8h.html#aaf134edc1efd697331c03effd4d056e0">NEMO_STR_LEN</a>+1, &amp;tab, &amp;iret);</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;            <span class="keywordflow">if</span> ( ( iret == 0 ) || ( tab != <span class="charliteral">&#39;B&#39;</span> ) ) {</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="comment">**              No, so search for it within the master table B.</span></div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;                <a class="code" href="stseq_8c.html#a340a16a2c0d988d37fbc2e92974b2b5e">nummtb</a>(&amp;cdesc[i], &amp;tab, &amp;ipt);</div>
 <div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="comment">**              No, so search for it within the master table B.</span></div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="comment">**              Start a new Table B entry for cdesc[i].</span></div>
 <div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;                <a class="code" href="stseq_8c.html#a340a16a2c0d988d37fbc2e92974b2b5e">nummtb</a>(&amp;cdesc[i], &amp;tab, &amp;ipt);</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="comment">**              Start a new Table B entry for cdesc[i].</span></div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;                nb = <a class="code" href="bufrlib_8h.html#ad32acb7e25a0763d1ecfa201884bc131">igetntbi_f</a>(lun, &amp;tab);</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;                <a class="code" href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f</a>(cdesc[i], adn2, <a class="code" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>+1);</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;                <a class="code" href="bufrlib_8h.html#a6d361bdabcb605e7677b9c29cf7ba10f">stntbi_f</a>(nb, lun, adn2, &amp;<a class="code" href="mstabs_8h.html#ae356bdcf12736c877e631cbfc2cdeb6b">cbmnem_c</a>[ipt][0], &amp;<a class="code" href="mstabs_8h.html#a4e2c71282979073fdf1770f63936a12d">cbelem_c</a>[ipt][0]);</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160; </div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;                <span class="comment">/* Initialize card to all blanks. */</span></div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;                memset(card, (<span class="keywordtype">int</span>) cblk, <span class="keyword">sizeof</span>( card ));</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160; </div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;                strncpy(&amp;card[2], &amp;<a class="code" href="mstabs_8h.html#ae356bdcf12736c877e631cbfc2cdeb6b">cbmnem_c</a>[ipt][0], 8);</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;                strncpy(&amp;card[13], &amp;<a class="code" href="mstabs_8h.html#ac78573bf16971ee302c96eaaea497d47">cbscl_c</a>[ipt][0], 4);</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;                strncpy(&amp;card[19], &amp;<a class="code" href="mstabs_8h.html#a944736d6f549e144e77482a27d57d54f">cbsref_c</a>[ipt][0], 12);</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;                strncpy(&amp;card[33], &amp;<a class="code" href="mstabs_8h.html#a848b6568e0bfab92d85132d05dc937e0">cbbw_c</a>[ipt][0], 4);</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;                strncpy(&amp;card[40], &amp;<a class="code" href="mstabs_8h.html#a0a3641906334121bb919eeebae00c2dc">cbunit_c</a>[ipt][0], 24);</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;                <a class="code" href="bufrlib_8h.html#a39fc8b2494bb5f754c2d800c4b5a2f1c">elemdx_f</a>(card, lun);</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;            }</div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;            pkint = cdesc[i];</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;        }</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;        <span class="keywordflow">if</span> (strncmp( adn, <span class="stringliteral">&quot;204&quot;</span>, 3) != 0 ) {</div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;<span class="comment">**          Store this child descriptor within the table D entry for this</span></div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="comment">**          parent, preceding it with any associated fields that are currently</span></div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;<span class="comment">**          in effect.</span></div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;<span class="comment">**</span></div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;<span class="comment">**          Note that associated fields are only applied to Table B descriptors,</span></div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;<span class="comment">**          except for those in Class 31.</span></div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;            <span class="keywordflow">if</span> ( ( naf &gt; 0 ) &amp;&amp; ( pkint &lt;= <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<a class="code" href="bufrlib_8h.html#ab25c8c36df6eb956d84010bc74002858">MAX_FXY_TABLEB</a>) ) &amp;&amp;</div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;                    ( ( pkint &lt; <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<span class="stringliteral">&quot;031000&quot;</span>) ) ||</div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;                      ( pkint &gt; <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<span class="stringliteral">&quot;031255&quot;</span>) ) )  ) {</div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;                <span class="keywordflow">for</span> ( j = 0; j &lt; naf; j++ ) {</div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;                    <a class="code" href="bufrlib_8h.html#ac68117670f91ed84a5edf1bf074bc187">pktdd_f</a>(nd, lun, iafpk[j], &amp;iret);</div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;                    <span class="keywordflow">if</span> ( iret &lt; 0 ) {</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;                      sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - BAD RETURN FROM PKTDD &quot;</span></div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;                             <span class="stringliteral">&quot;WHEN STORING ASSOCIATED FIELDS&quot;</span>);</div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;                      <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;                    }</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;                }</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;            }</div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;<span class="comment">**          Store the child descriptor.</span></div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;            <a class="code" href="bufrlib_8h.html#ac68117670f91ed84a5edf1bf074bc187">pktdd_f</a>(nd, lun, pkint, &amp;iret);</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;            <span class="keywordflow">if</span> ( iret &lt; 0 ) {</div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;                strncpy(nemo2, nemo, 8);</div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;                nemo2[8] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;                sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - BAD RETURN FROM PKTDD WHEN &quot;</span></div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;                     <span class="stringliteral">&quot;STORING CHILD FOR PARENT MNEMONIC %s&quot;</span>, nemo2);</div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;                <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;            }</div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;        }</div>
-<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;    }</div>
-<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;}</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;                nb = <a class="code" href="bufrlib_8h.html#ad32acb7e25a0763d1ecfa201884bc131">igetntbi_f</a>(lun, &amp;tab);</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;                <a class="code" href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f</a>(cdesc[i], adn2, <a class="code" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>+1);</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;                <a class="code" href="bufrlib_8h.html#a6d361bdabcb605e7677b9c29cf7ba10f">stntbi_f</a>(nb, lun, adn2, &amp;<a class="code" href="mstabs_8h.html#a7c0149a5419b96753491953e92ce35b0">cbmnem_c</a>[ipt][0], &amp;<a class="code" href="mstabs_8h.html#a19c8207a7b2c18f50438f51f066bad7b">cbelem_c</a>[ipt][0]);</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160; </div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;                <span class="comment">/* Initialize card to all blanks. */</span></div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;                memset(card, (<span class="keywordtype">int</span>) cblk, <span class="keyword">sizeof</span>( card ));</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160; </div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;                strncpy(&amp;card[2], &amp;<a class="code" href="mstabs_8h.html#a7c0149a5419b96753491953e92ce35b0">cbmnem_c</a>[ipt][0], 8);</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;                strncpy(&amp;card[13], &amp;<a class="code" href="mstabs_8h.html#a49e37dddeae6e1e71da2444d40c6d232">cbscl_c</a>[ipt][0], 4);</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;                strncpy(&amp;card[19], &amp;<a class="code" href="mstabs_8h.html#a1209038da13334a450146c0caa5ae9ad">cbsref_c</a>[ipt][0], 12);</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;                strncpy(&amp;card[33], &amp;<a class="code" href="mstabs_8h.html#aa0f8eb7c3a1ca9a66a0933d97a3422ab">cbbw_c</a>[ipt][0], 4);</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;                strncpy(&amp;card[40], &amp;<a class="code" href="mstabs_8h.html#a558051c0c39c5c6181019fb4231797d1">cbunit_c</a>[ipt][0], 24);</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;                <a class="code" href="bufrlib_8h.html#a39fc8b2494bb5f754c2d800c4b5a2f1c">elemdx_f</a>(card, lun);</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;            }</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;            pkint = cdesc[i];</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;        }</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;        <span class="keywordflow">if</span> (strncmp( adn, <span class="stringliteral">&quot;204&quot;</span>, 3) != 0 ) {</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;<span class="comment">**          Store this child descriptor within the table D entry for this</span></div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;<span class="comment">**          parent, preceding it with any associated fields that are currently</span></div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;<span class="comment">**          in effect.</span></div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;<span class="comment">**</span></div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;<span class="comment">**          Note that associated fields are only applied to Table B descriptors,</span></div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="comment">**          except for those in Class 31.</span></div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;            <span class="keywordflow">if</span> ( ( naf &gt; 0 ) &amp;&amp; ( pkint &lt;= <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<a class="code" href="bufrlib_8h.html#ab25c8c36df6eb956d84010bc74002858">MAX_FXY_TABLEB</a>) ) &amp;&amp;</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;                    ( ( pkint &lt; <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<span class="stringliteral">&quot;031000&quot;</span>) ) ||</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;                      ( pkint &gt; <a class="code" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a>(<span class="stringliteral">&quot;031255&quot;</span>) ) )  ) {</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;                <span class="keywordflow">for</span> ( j = 0; j &lt; naf; j++ ) {</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;                    <a class="code" href="bufrlib_8h.html#ac68117670f91ed84a5edf1bf074bc187">pktdd_f</a>(nd, lun, <a class="code" href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a>[j], &amp;iret);</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;                    <span class="keywordflow">if</span> ( iret &lt; 0 ) {</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;                      sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - BAD RETURN FROM PKTDD &quot;</span></div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;                             <span class="stringliteral">&quot;WHEN STORING ASSOCIATED FIELDS&quot;</span>);</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;                      <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;                    }</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;                }</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;            }</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;<span class="comment">**          Store the child descriptor.</span></div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;            <a class="code" href="bufrlib_8h.html#ac68117670f91ed84a5edf1bf074bc187">pktdd_f</a>(nd, lun, pkint, &amp;iret);</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;            <span class="keywordflow">if</span> ( iret &lt; 0 ) {</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;                strncpy(nemo2, nemo, 8);</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;                nemo2[8] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;                sprintf(errstr, <span class="stringliteral">&quot;BUFRLIB: STSEQ - BAD RETURN FROM PKTDD WHEN &quot;</span></div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;                     <span class="stringliteral">&quot;STORING CHILD FOR PARENT MNEMONIC %s&quot;</span>, nemo2);</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;                <a class="code" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a>(errstr);</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;            }</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;        }</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;    }</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;}</div>
 <div class="ttc" id="abufr__interface_8h_html_a0b06d7dc9ae1ba6147ad0f1ea3d359bb"><div class="ttname"><a href="bufr__interface_8h.html#a0b06d7dc9ae1ba6147ad0f1ea3d359bb">igetprm_f</a></div><div class="ttdeci">int igetprm_f(char *cprmnm)</div><div class="ttdoc">Get the current value of a parameter.</div></div>
 <div class="ttc" id="abufr__interface_8h_html_ad75bcdd935567fd79e3385c94b78284c"><div class="ttname"><a href="bufr__interface_8h.html#ad75bcdd935567fd79e3385c94b78284c">nemtab_f</a></div><div class="ttdeci">void nemtab_f(int lun, const char *mnemonic, int *descriptor, char *table_type, int *table_idx)</div><div class="ttdoc">Get information about a descriptor.</div></div>
 <div class="ttc" id="abufrlib_8h_html"><div class="ttname"><a href="bufrlib_8h.html">bufrlib.h</a></div><div class="ttdoc">Enable a number of NCEPLIBS-bufr subprograms to be called from within the C part of the library.</div></div>
 <div class="ttc" id="abufrlib_8h_html_a0320e66350174c1e05f30babd13d52c2"><div class="ttname"><a href="bufrlib_8h.html#a0320e66350174c1e05f30babd13d52c2">igettdi_f</a></div><div class="ttdeci">int igettdi_f(int iflag)</div><div class="ttdoc">Get the next usable Table D index for the current master table, or reset the index.</div></div>
 <div class="ttc" id="abufrlib_8h_html_a039293342a5ca4fe52a09992db5e42c9"><div class="ttname"><a href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f</a></div><div class="ttdeci">void cadn30_f(int idn, char *adn, int adn_str_len)</div><div class="ttdoc">Convert an FXY value from its WMO bit-wise representation to its six-character representation.</div></div>
-<div class="ttc" id="abufrlib_8h_html_a320fb202c17784943f8223593c9123dd"><div class="ttname"><a href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a></div><div class="ttdeci">#define FXY_STR_LEN</div><div class="ttdoc">Size of a character string needed to store an FXY value.</div><div class="ttdef"><b>Definition:</b> <a href="bufrlib_8h_source.html#l00054">bufrlib.h:54</a></div></div>
+<div class="ttc" id="abufrlib_8h_html_a320fb202c17784943f8223593c9123dd"><div class="ttname"><a href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a></div><div class="ttdeci">#define FXY_STR_LEN</div><div class="ttdoc">Size of a character string needed to store an FXY value.</div><div class="ttdef"><b>Definition:</b> <a href="bufrlib_8h_source.html#l00034">bufrlib.h:34</a></div></div>
 <div class="ttc" id="abufrlib_8h_html_a39fc8b2494bb5f754c2d800c4b5a2f1c"><div class="ttname"><a href="bufrlib_8h.html#a39fc8b2494bb5f754c2d800c4b5a2f1c">elemdx_f</a></div><div class="ttdeci">void elemdx_f(char *card, int lun)</div><div class="ttdoc">Decode the scale factor, reference value, bit width, and units from a Table B mnemonic definition.</div></div>
 <div class="ttc" id="abufrlib_8h_html_a3e533930a6aa9c6fc76c89d14e54cf47"><div class="ttname"><a href="bufrlib_8h.html#a3e533930a6aa9c6fc76c89d14e54cf47">imrkopr_f</a></div><div class="ttdeci">int imrkopr_f(char *nemo)</div><div class="ttdoc">Check whether a specified mnemonic is a Table C marker operator.</div></div>
-<div class="ttc" id="abufrlib_8h_html_a418e7eacd5437694be8d51643e52485f"><div class="ttname"><a href="bufrlib_8h.html#a418e7eacd5437694be8d51643e52485f">MXNAF</a></div><div class="ttdeci">#define MXNAF</div><div class="ttdoc">Maximum number of associated fields that can be in effect at any given time for a Table B descriptor.</div><div class="ttdef"><b>Definition:</b> <a href="bufrlib_8h_source.html#l00051">bufrlib.h:51</a></div></div>
 <div class="ttc" id="abufrlib_8h_html_a45c023844f35d35ee3c5e77e60fdb18a"><div class="ttname"><a href="bufrlib_8h.html#a45c023844f35d35ee3c5e77e60fdb18a">numtbd_f</a></div><div class="ttdeci">void numtbd_f(int lun, int idn, char *nemo, int nemo_str_len, char *tab, int *iret)</div><div class="ttdoc">Search for a Table B or Table D descriptor within the internal DX BUFR tables.</div></div>
 <div class="ttc" id="abufrlib_8h_html_a4bd8daccf2564da21968a531b87bf447"><div class="ttname"><a href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a></div><div class="ttdeci">void bort_f(char *errstr)</div><div class="ttdoc">Log one error message and abort application program.</div></div>
 <div class="ttc" id="abufrlib_8h_html_a6d361bdabcb605e7677b9c29cf7ba10f"><div class="ttname"><a href="bufrlib_8h.html#a6d361bdabcb605e7677b9c29cf7ba10f">stntbi_f</a></div><div class="ttdeci">void stntbi_f(int n, int lun, char *numb, char *nemo, char *celsq)</div><div class="ttdoc">Store a new entry within the internal BUFR Table B or D.</div></div>
-<div class="ttc" id="abufrlib_8h_html_a6fa6d930bc1885cd5cf30d57dfcc6a4b"><div class="ttname"><a href="bufrlib_8h.html#a6fa6d930bc1885cd5cf30d57dfcc6a4b">MIN_FXY_REPL</a></div><div class="ttdeci">#define MIN_FXY_REPL</div><div class="ttdoc">Character string containing minimum FXY value for a replication descriptor.</div><div class="ttdef"><b>Definition:</b> <a href="bufrlib_8h_source.html#l00057">bufrlib.h:57</a></div></div>
-<div class="ttc" id="abufrlib_8h_html_a87f18b149395d0c626a9ba310c959e3c"><div class="ttname"><a href="bufrlib_8h.html#a87f18b149395d0c626a9ba310c959e3c">MIN_FXY_TABLED</a></div><div class="ttdeci">#define MIN_FXY_TABLED</div><div class="ttdoc">Character string containing minimum FXY value for a Table D descriptor.</div><div class="ttdef"><b>Definition:</b> <a href="bufrlib_8h_source.html#l00060">bufrlib.h:60</a></div></div>
+<div class="ttc" id="abufrlib_8h_html_a6fa6d930bc1885cd5cf30d57dfcc6a4b"><div class="ttname"><a href="bufrlib_8h.html#a6fa6d930bc1885cd5cf30d57dfcc6a4b">MIN_FXY_REPL</a></div><div class="ttdeci">#define MIN_FXY_REPL</div><div class="ttdoc">Character string containing minimum FXY value for a replication descriptor.</div><div class="ttdef"><b>Definition:</b> <a href="bufrlib_8h_source.html#l00037">bufrlib.h:37</a></div></div>
+<div class="ttc" id="abufrlib_8h_html_a87f18b149395d0c626a9ba310c959e3c"><div class="ttname"><a href="bufrlib_8h.html#a87f18b149395d0c626a9ba310c959e3c">MIN_FXY_TABLED</a></div><div class="ttdeci">#define MIN_FXY_TABLED</div><div class="ttdoc">Character string containing minimum FXY value for a Table D descriptor.</div><div class="ttdef"><b>Definition:</b> <a href="bufrlib_8h_source.html#l00040">bufrlib.h:40</a></div></div>
 <div class="ttc" id="abufrlib_8h_html_a9941f6596dafba1e4361eb2f5e173f24"><div class="ttname"><a href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a></div><div class="ttdeci">int ifxy_f(char *cfxy)</div><div class="ttdoc">Convert an FXY value from its 6 character representation to its WMO bit-wise representation.</div></div>
 <div class="ttc" id="abufrlib_8h_html_aac0f5146bfdbf7042ac39e515475ba11"><div class="ttname"><a href="bufrlib_8h.html#aac0f5146bfdbf7042ac39e515475ba11">strnum_f</a></div><div class="ttdeci">void strnum_f(char *str, int *num, int *iret)</div><div class="ttdoc">Decode an integer from a character string.</div></div>
-<div class="ttc" id="abufrlib_8h_html_aaf134edc1efd697331c03effd4d056e0"><div class="ttname"><a href="bufrlib_8h.html#aaf134edc1efd697331c03effd4d056e0">NEMO_STR_LEN</a></div><div class="ttdeci">#define NEMO_STR_LEN</div><div class="ttdoc">Size of a character string needed to store a mnemonic.</div><div class="ttdef"><b>Definition:</b> <a href="bufrlib_8h_source.html#l00066">bufrlib.h:66</a></div></div>
-<div class="ttc" id="abufrlib_8h_html_ab25c8c36df6eb956d84010bc74002858"><div class="ttname"><a href="bufrlib_8h.html#ab25c8c36df6eb956d84010bc74002858">MAX_FXY_TABLEB</a></div><div class="ttdeci">#define MAX_FXY_TABLEB</div><div class="ttdoc">Character string containing maximum FXY value for a Table B descriptor.</div><div class="ttdef"><b>Definition:</b> <a href="bufrlib_8h_source.html#l00063">bufrlib.h:63</a></div></div>
+<div class="ttc" id="abufrlib_8h_html_aaf134edc1efd697331c03effd4d056e0"><div class="ttname"><a href="bufrlib_8h.html#aaf134edc1efd697331c03effd4d056e0">NEMO_STR_LEN</a></div><div class="ttdeci">#define NEMO_STR_LEN</div><div class="ttdoc">Size of a character string needed to store a mnemonic.</div><div class="ttdef"><b>Definition:</b> <a href="bufrlib_8h_source.html#l00046">bufrlib.h:46</a></div></div>
+<div class="ttc" id="abufrlib_8h_html_ab25c8c36df6eb956d84010bc74002858"><div class="ttname"><a href="bufrlib_8h.html#ab25c8c36df6eb956d84010bc74002858">MAX_FXY_TABLEB</a></div><div class="ttdeci">#define MAX_FXY_TABLEB</div><div class="ttdoc">Character string containing maximum FXY value for a Table B descriptor.</div><div class="ttdef"><b>Definition:</b> <a href="bufrlib_8h_source.html#l00043">bufrlib.h:43</a></div></div>
+<div class="ttc" id="abufrlib_8h_html_ab3b665adb5a53a4c82d3c5caadbb2c38"><div class="ttname"><a href="bufrlib_8h.html#ab3b665adb5a53a4c82d3c5caadbb2c38">icvidx</a></div><div class="ttdeci">int icvidx(int ii, int jj, int numjj)</div><div class="ttdoc">Computes a unique 1-dimensional array index from 2-dimensional indices.</div><div class="ttdef"><b>Definition:</b> <a href="icvidx_8c_source.html#l00022">icvidx.c:22</a></div></div>
 <div class="ttc" id="abufrlib_8h_html_ac68117670f91ed84a5edf1bf074bc187"><div class="ttname"><a href="bufrlib_8h.html#ac68117670f91ed84a5edf1bf074bc187">pktdd_f</a></div><div class="ttdeci">void pktdd_f(int id, int lun, int idn, int *iret)</div><div class="ttdoc">Store information about a child mnemonic within the internal arrays.</div></div>
 <div class="ttc" id="abufrlib_8h_html_ad32acb7e25a0763d1ecfa201884bc131"><div class="ttname"><a href="bufrlib_8h.html#ad32acb7e25a0763d1ecfa201884bc131">igetntbi_f</a></div><div class="ttdeci">int igetntbi_f(int lun, char *table_type)</div><div class="ttdoc">Get the next index for storing an entry within an internal DX BUFR table.</div></div>
-<div class="ttc" id="aicvidx_8c_html_ab3b665adb5a53a4c82d3c5caadbb2c38"><div class="ttname"><a href="icvidx_8c.html#ab3b665adb5a53a4c82d3c5caadbb2c38">icvidx</a></div><div class="ttdeci">int icvidx(int ii, int jj, int numjj)</div><div class="ttdoc">Computes a unique 1-dimensional array index from 2-dimensional indices.</div><div class="ttdef"><b>Definition:</b> <a href="icvidx_8c_source.html#l00022">icvidx.c:22</a></div></div>
 <div class="ttc" id="amstabs_8h_html"><div class="ttname"><a href="mstabs_8h.html">mstabs.h</a></div><div class="ttdoc">Declare variables for internal storage of master Table B and Table D entries.</div></div>
-<div class="ttc" id="amstabs_8h_html_a0a3641906334121bb919eeebae00c2dc"><div class="ttname"><a href="mstabs_8h.html#a0a3641906334121bb919eeebae00c2dc">cbunit_c</a></div><div class="ttdeci">char(* cbunit_c)[24]</div><div class="ttdoc">Master Table B units; copied from Fortran cbunit array.</div></div>
-<div class="ttc" id="amstabs_8h_html_a0fc52a9b3d9391ecd70298b2d89450ab"><div class="ttname"><a href="mstabs_8h.html#a0fc52a9b3d9391ecd70298b2d89450ab">idfxyn_c</a></div><div class="ttdeci">int * idfxyn_c</div><div class="ttdoc">Bit-wise representations of master Table D FXY numbers; copied from Fortran idfxyn array.</div></div>
-<div class="ttc" id="amstabs_8h_html_a435c8f4a1ebe7966a2cd0e0a980dab51"><div class="ttname"><a href="mstabs_8h.html#a435c8f4a1ebe7966a2cd0e0a980dab51">cdmnem_c</a></div><div class="ttdeci">char(* cdmnem_c)[8]</div><div class="ttdoc">Master Table D mnemonics; copied from Fortran cdmnem array.</div></div>
-<div class="ttc" id="amstabs_8h_html_a4e2c71282979073fdf1770f63936a12d"><div class="ttname"><a href="mstabs_8h.html#a4e2c71282979073fdf1770f63936a12d">cbelem_c</a></div><div class="ttdeci">char(* cbelem_c)[120]</div><div class="ttdoc">Master Table B element names; copied from Fortran cbelem array.</div></div>
-<div class="ttc" id="amstabs_8h_html_a6532afa4b2089e3b39acda01f93a1c26"><div class="ttname"><a href="mstabs_8h.html#a6532afa4b2089e3b39acda01f93a1c26">ndelem_c</a></div><div class="ttdeci">int * ndelem_c</div><div class="ttdoc">Number of child descriptors for master Table D sequence; copied from Fortran ndelem array.</div></div>
-<div class="ttc" id="amstabs_8h_html_a80391270601339cad20bf1a9ddffd9ff"><div class="ttname"><a href="mstabs_8h.html#a80391270601339cad20bf1a9ddffd9ff">nmtd_c</a></div><div class="ttdeci">int nmtd_c</div><div class="ttdoc">Number of master Table D entries; copied from Fortran nmtd variable.</div></div>
-<div class="ttc" id="amstabs_8h_html_a821ed028f82d3597bc27927ec4b1aac0"><div class="ttname"><a href="mstabs_8h.html#a821ed028f82d3597bc27927ec4b1aac0">idefxy_c</a></div><div class="ttdeci">int * idefxy_c</div><div class="ttdoc">Bit-wise representations of child descriptors for master Table D sequence; copied from Fortran idefxy...</div></div>
-<div class="ttc" id="amstabs_8h_html_a848b6568e0bfab92d85132d05dc937e0"><div class="ttname"><a href="mstabs_8h.html#a848b6568e0bfab92d85132d05dc937e0">cbbw_c</a></div><div class="ttdeci">char(* cbbw_c)[4]</div><div class="ttdoc">Master Table B bit widths; copied from Fortran cbbw array.</div></div>
-<div class="ttc" id="amstabs_8h_html_a944736d6f549e144e77482a27d57d54f"><div class="ttname"><a href="mstabs_8h.html#a944736d6f549e144e77482a27d57d54f">cbsref_c</a></div><div class="ttdeci">char(* cbsref_c)[12]</div><div class="ttdoc">Master Table B reference value; copied from Fortran cbsref array.</div></div>
-<div class="ttc" id="amstabs_8h_html_a9a27f1ec866a82df459f4d17893b9df2"><div class="ttname"><a href="mstabs_8h.html#a9a27f1ec866a82df459f4d17893b9df2">cdseq_c</a></div><div class="ttdeci">char(* cdseq_c)[120]</div><div class="ttdoc">Master Table D sequence names; copied from Fortran cdseq array.</div></div>
-<div class="ttc" id="amstabs_8h_html_aaea63eb1ccee165b800fa110084801ad"><div class="ttname"><a href="mstabs_8h.html#aaea63eb1ccee165b800fa110084801ad">ibfxyn_c</a></div><div class="ttdeci">int * ibfxyn_c</div><div class="ttdoc">Bit-wise representations of master Table B FXY numbers; copied from Fortran ibfxyn array.</div></div>
-<div class="ttc" id="amstabs_8h_html_ab67e167996fc7e0e53306b46e3f224b0"><div class="ttname"><a href="mstabs_8h.html#ab67e167996fc7e0e53306b46e3f224b0">nmtb_c</a></div><div class="ttdeci">int nmtb_c</div><div class="ttdoc">Number of master Table B entries; copied from Fortran nmtb variable.</div></div>
-<div class="ttc" id="amstabs_8h_html_ac78573bf16971ee302c96eaaea497d47"><div class="ttname"><a href="mstabs_8h.html#ac78573bf16971ee302c96eaaea497d47">cbscl_c</a></div><div class="ttdeci">char(* cbscl_c)[4]</div><div class="ttdoc">Master Table B scale factors; copied from Fortran cbscl array.</div></div>
-<div class="ttc" id="amstabs_8h_html_ae356bdcf12736c877e631cbfc2cdeb6b"><div class="ttname"><a href="mstabs_8h.html#ae356bdcf12736c877e631cbfc2cdeb6b">cbmnem_c</a></div><div class="ttdeci">char(* cbmnem_c)[8]</div><div class="ttdoc">Master Table B mnemonics; copied from Fortran cbmnem array.</div></div>
+<div class="ttc" id="amstabs_8h_html_a006ec50bbb9f20fad017eb980cc7afa0"><div class="ttname"><a href="mstabs_8h.html#a006ec50bbb9f20fad017eb980cc7afa0">idefxy_c</a></div><div class="ttdeci">int * idefxy_c</div><div class="ttdoc">WMO bit-wise representations of child descriptors for master Table D sequences; copied from Fortran i...</div></div>
+<div class="ttc" id="amstabs_8h_html_a1209038da13334a450146c0caa5ae9ad"><div class="ttname"><a href="mstabs_8h.html#a1209038da13334a450146c0caa5ae9ad">cbsref_c</a></div><div class="ttdeci">char(* cbsref_c)[12]</div><div class="ttdoc">Master Table B reference values; copied from Fortran cbsref array.</div></div>
+<div class="ttc" id="amstabs_8h_html_a19c8207a7b2c18f50438f51f066bad7b"><div class="ttname"><a href="mstabs_8h.html#a19c8207a7b2c18f50438f51f066bad7b">cbelem_c</a></div><div class="ttdeci">char(* cbelem_c)[120]</div><div class="ttdoc">Master Table B element names; copied from Fortran cbelem array.</div></div>
+<div class="ttc" id="amstabs_8h_html_a2798d24f3443eeee2999eddf34d24c19"><div class="ttname"><a href="mstabs_8h.html#a2798d24f3443eeee2999eddf34d24c19">idfxyn_c</a></div><div class="ttdeci">int * idfxyn_c</div><div class="ttdoc">WMO bit-wise representations of master Table D FXY numbers; copied from Fortran idfxyn array.</div></div>
+<div class="ttc" id="amstabs_8h_html_a309b9730283bc44b297b44f4e32db7f1"><div class="ttname"><a href="mstabs_8h.html#a309b9730283bc44b297b44f4e32db7f1">cdmnem_c</a></div><div class="ttdeci">char(* cdmnem_c)[8]</div><div class="ttdoc">Master Table D mnemonics; copied from Fortran cdmnem array.</div></div>
+<div class="ttc" id="amstabs_8h_html_a3e8f3bcd901b3809309c431d2825d636"><div class="ttname"><a href="mstabs_8h.html#a3e8f3bcd901b3809309c431d2825d636">cdseq_c</a></div><div class="ttdeci">char(* cdseq_c)[120]</div><div class="ttdoc">Master Table D sequence names; copied from Fortran cdseq array.</div></div>
+<div class="ttc" id="amstabs_8h_html_a49e37dddeae6e1e71da2444d40c6d232"><div class="ttname"><a href="mstabs_8h.html#a49e37dddeae6e1e71da2444d40c6d232">cbscl_c</a></div><div class="ttdeci">char(* cbscl_c)[4]</div><div class="ttdoc">Master Table B scale factors; copied from Fortran cbscl array.</div></div>
+<div class="ttc" id="amstabs_8h_html_a558051c0c39c5c6181019fb4231797d1"><div class="ttname"><a href="mstabs_8h.html#a558051c0c39c5c6181019fb4231797d1">cbunit_c</a></div><div class="ttdeci">char(* cbunit_c)[24]</div><div class="ttdoc">Master Table B units; copied from Fortran cbunit array.</div></div>
+<div class="ttc" id="amstabs_8h_html_a7c0149a5419b96753491953e92ce35b0"><div class="ttname"><a href="mstabs_8h.html#a7c0149a5419b96753491953e92ce35b0">cbmnem_c</a></div><div class="ttdeci">char(* cbmnem_c)[8]</div><div class="ttdoc">Master Table B mnemonics; copied from Fortran cbmnem array.</div></div>
+<div class="ttc" id="amstabs_8h_html_aa0f8eb7c3a1ca9a66a0933d97a3422ab"><div class="ttname"><a href="mstabs_8h.html#aa0f8eb7c3a1ca9a66a0933d97a3422ab">cbbw_c</a></div><div class="ttdeci">char(* cbbw_c)[4]</div><div class="ttdoc">Master Table B bit widths; copied from Fortran cbbw array.</div></div>
+<div class="ttc" id="amstabs_8h_html_aaa17913e195f9e3cf457d748d2c8f60e"><div class="ttname"><a href="mstabs_8h.html#aaa17913e195f9e3cf457d748d2c8f60e">nmtd_c</a></div><div class="ttdeci">int nmtd_c</div><div class="ttdoc">Number of master Table D entries; copied from Fortran nmtd variable.</div></div>
+<div class="ttc" id="amstabs_8h_html_aaa7c3e504e98938c63caeb866c071c59"><div class="ttname"><a href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a></div><div class="ttdeci">int * iafpk</div><div class="ttdoc">WMO bit-wise representations of associated fields within master Table D sequences.</div></div>
+<div class="ttc" id="amstabs_8h_html_acdfc509abed04b3bc643a4171c419fa4"><div class="ttname"><a href="mstabs_8h.html#acdfc509abed04b3bc643a4171c419fa4">ibfxyn_c</a></div><div class="ttdeci">int * ibfxyn_c</div><div class="ttdoc">WMO bit-wise representations of master Table B FXY numbers; copied from Fortran ibfxyn array.</div></div>
+<div class="ttc" id="amstabs_8h_html_ad93c9a8906bf4b63fba3143c8d9d5da5"><div class="ttname"><a href="mstabs_8h.html#ad93c9a8906bf4b63fba3143c8d9d5da5">nmtb_c</a></div><div class="ttdeci">int nmtb_c</div><div class="ttdoc">Number of master Table B entries; copied from Fortran nmtb variable.</div></div>
+<div class="ttc" id="amstabs_8h_html_ad9af08676809848df12a73ece2a37182"><div class="ttname"><a href="mstabs_8h.html#ad9af08676809848df12a73ece2a37182">ndelem_c</a></div><div class="ttdeci">int * ndelem_c</div><div class="ttdoc">Number of child descriptors for master Table D sequences; copied from Fortran ndelem array.</div></div>
 <div class="ttc" id="astseq_8c_html_a340a16a2c0d988d37fbc2e92974b2b5e"><div class="ttname"><a href="stseq_8c.html#a340a16a2c0d988d37fbc2e92974b2b5e">nummtb</a></div><div class="ttdeci">void nummtb(int *idn, char *tab, int *ipt)</div><div class="ttdoc">Search for an entry in the BUFR master table.</div><div class="ttdef"><b>Definition:</b> <a href="stseq_8c_source.html#l00054">stseq.c:54</a></div></div>
-<div class="ttc" id="astseq_8c_html_a4f4c37daea8a69385e280d60265f9d40"><div class="ttname"><a href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq</a></div><div class="ttdeci">void stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncdesc)</div><div class="ttdoc">Store information about a standard Table D descriptor within internal DX BUFR tables.</div><div class="ttdef"><b>Definition:</b> <a href="stseq_8c_source.html#l00111">stseq.c:111</a></div></div>
+<div class="ttc" id="astseq_8c_html_a4f4c37daea8a69385e280d60265f9d40"><div class="ttname"><a href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq</a></div><div class="ttdeci">void stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncdesc)</div><div class="ttdoc">Store information about a standard Table D descriptor within internal DX BUFR tables.</div><div class="ttdef"><b>Definition:</b> <a href="stseq_8c_source.html#l00107">stseq.c:107</a></div></div>
 <div class="ttc" id="astseq_8c_html_afe9ff1cb9d09192a6d0c76f58c2e3f29"><div class="ttname"><a href="stseq_8c.html#afe9ff1cb9d09192a6d0c76f58c2e3f29">cmpia</a></div><div class="ttdeci">int cmpia(const void *pf1, const void *pf2)</div><div class="ttdoc">Define a comparison between two integers.</div><div class="ttdef"><b>Definition:</b> <a href="stseq_8c_source.html#l00028">stseq.c:28</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

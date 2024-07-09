@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -83,6 +83,7 @@ $(document).ready(function(){initNavTree('bufr__interface_8h.html',''); initResi
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">bufr_interface.h File Reference</div>  </div>
@@ -94,6 +95,12 @@ $(document).ready(function(){initNavTree('bufr__interface_8h.html',''); initResi
 
 <p><a href="bufr__interface_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a016503c090a3f1ecdac526a2e8f696b0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a016503c090a3f1ecdac526a2e8f696b0">VERS_STR_LEN</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:a016503c090a3f1ecdac526a2e8f696b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of a character string needed to store a library version number.  <a href="bufr__interface_8h.html#a016503c090a3f1ecdac526a2e8f696b0">More...</a><br /></td></tr>
+<tr class="separator:a016503c090a3f1ecdac526a2e8f696b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ada9f732c49c87976c31f215c9c040d2b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#ada9f732c49c87976c31f215c9c040d2b">bvers_f</a> (char *cverstr, int cverstr_len)</td></tr>
@@ -121,7 +128,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a3ccf1d9c69d9b23a3906d3f7b5ab743d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a BUFR message to the file that was opened via the most recent call to function <a class="el" href="crwbmg_8c.html#a1a79689096002f6f3c125abc59c2143d" title="Open a new file for reading or writing BUFR messages via a C language interface.">cobfl()</a> with io = 'w'.  <a href="bufr__interface_8h.html#a3ccf1d9c69d9b23a3906d3f7b5ab743d">More...</a><br /></td></tr>
 <tr class="separator:a3ccf1d9c69d9b23a3906d3f7b5ab743d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6cb83d29d8f619e380f8a098b2c6426"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#ad6cb83d29d8f619e380f8a098b2c6426">delete_table_data_f</a> ()</td></tr>
-<tr class="memdesc:ad6cb83d29d8f619e380f8a098b2c6426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the copies of the <a class="el" href="namespacemoda__tables.html" title="This module contains array and variable declarations used to store the internal jump/link table.">moda_tables</a> arrays.  <a href="bufr__interface_8h.html#ad6cb83d29d8f619e380f8a098b2c6426">More...</a><br /></td></tr>
+<tr class="memdesc:ad6cb83d29d8f619e380f8a098b2c6426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the copies of the <a class="el" href="namespacemoda__tables.html" title="Declare arrays and variables used to store the internal jump/link table.">moda_tables</a> arrays.  <a href="bufr__interface_8h.html#ad6cb83d29d8f619e380f8a098b2c6426">More...</a><br /></td></tr>
 <tr class="separator:ad6cb83d29d8f619e380f8a098b2c6426"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac29807d9e7404a4602d03a04a9d4f2a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#ac29807d9e7404a4602d03a04a9d4f2a6">exitbufr_f</a> ()</td></tr>
 <tr class="memdesc:ac29807d9e7404a4602d03a04a9d4f2a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the library.  <a href="bufr__interface_8h.html#ac29807d9e7404a4602d03a04a9d4f2a6">More...</a><br /></td></tr>
@@ -130,34 +137,34 @@ Functions</h2></td></tr>
 <tr class="memdesc:a199803bddb330f484dd49b72c75dc32d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the bufr node idx for the start node of the subset.  <a href="bufr__interface_8h.html#a199803bddb330f484dd49b72c75dc32d">More...</a><br /></td></tr>
 <tr class="separator:a199803bddb330f484dd49b72c75dc32d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8346d95d25b2f8c7437ee96419020992"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a8346d95d25b2f8c7437ee96419020992">get_inv_f</a> (int lun, int **inv_ptr, int *inv_size)</td></tr>
-<tr class="memdesc:a8346d95d25b2f8c7437ee96419020992"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get pointer to the <a class="el" href="namespacemoda__usrint.html" title="This module contains declarations for arrays used to store data values and associated metadata for th...">moda_usrint</a> INV array.  <a href="bufr__interface_8h.html#a8346d95d25b2f8c7437ee96419020992">More...</a><br /></td></tr>
+<tr class="memdesc:a8346d95d25b2f8c7437ee96419020992"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get pointer to the <a class="el" href="namespacemoda__usrint.html" title="Declare arrays used to store data values and associated metadata for the current BUFR data subset in ...">moda_usrint</a> INV array.  <a href="bufr__interface_8h.html#a8346d95d25b2f8c7437ee96419020992">More...</a><br /></td></tr>
 <tr class="separator:a8346d95d25b2f8c7437ee96419020992"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec42e6ee4877ea5fc031677127869ec5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#aec42e6ee4877ea5fc031677127869ec5">get_irf_f</a> (int **irf_ptr, int *irf_size)</td></tr>
-<tr class="memdesc:aec42e6ee4877ea5fc031677127869ec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="namespacemoda__tables.html" title="This module contains array and variable declarations used to store the internal jump/link table.">moda_tables</a> IRF array.  <a href="bufr__interface_8h.html#aec42e6ee4877ea5fc031677127869ec5">More...</a><br /></td></tr>
+<tr class="memdesc:aec42e6ee4877ea5fc031677127869ec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="namespacemoda__tables.html" title="Declare arrays and variables used to store the internal jump/link table.">moda_tables</a> IRF array.  <a href="bufr__interface_8h.html#aec42e6ee4877ea5fc031677127869ec5">More...</a><br /></td></tr>
 <tr class="separator:aec42e6ee4877ea5fc031677127869ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa13a0b52198dfc0dad84648ef917a68e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#aa13a0b52198dfc0dad84648ef917a68e">get_isc_f</a> (int **isc_ptr, int *isc_size)</td></tr>
-<tr class="memdesc:aa13a0b52198dfc0dad84648ef917a68e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="namespacemoda__tables.html" title="This module contains array and variable declarations used to store the internal jump/link table.">moda_tables</a> ISC array.  <a href="bufr__interface_8h.html#aa13a0b52198dfc0dad84648ef917a68e">More...</a><br /></td></tr>
+<tr class="memdesc:aa13a0b52198dfc0dad84648ef917a68e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="namespacemoda__tables.html" title="Declare arrays and variables used to store the internal jump/link table.">moda_tables</a> ISC array.  <a href="bufr__interface_8h.html#aa13a0b52198dfc0dad84648ef917a68e">More...</a><br /></td></tr>
 <tr class="separator:aa13a0b52198dfc0dad84648ef917a68e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef4319ad66d2549ac7b1dd8e1bfad1e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#aef4319ad66d2549ac7b1dd8e1bfad1e3">get_itp_f</a> (int **itp_ptr, int *itp_size)</td></tr>
-<tr class="memdesc:aef4319ad66d2549ac7b1dd8e1bfad1e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="namespacemoda__tables.html" title="This module contains array and variable declarations used to store the internal jump/link table.">moda_tables</a> ITP array.  <a href="bufr__interface_8h.html#aef4319ad66d2549ac7b1dd8e1bfad1e3">More...</a><br /></td></tr>
+<tr class="memdesc:aef4319ad66d2549ac7b1dd8e1bfad1e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="namespacemoda__tables.html" title="Declare arrays and variables used to store the internal jump/link table.">moda_tables</a> ITP array.  <a href="bufr__interface_8h.html#aef4319ad66d2549ac7b1dd8e1bfad1e3">More...</a><br /></td></tr>
 <tr class="separator:aef4319ad66d2549ac7b1dd8e1bfad1e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0770faf842091c86b98ebb982d307e3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a0770faf842091c86b98ebb982d307e3e">get_jmpb_f</a> (int **jmpb_ptr, int *jmpb_size)</td></tr>
-<tr class="memdesc:a0770faf842091c86b98ebb982d307e3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="namespacemoda__tables.html" title="This module contains array and variable declarations used to store the internal jump/link table.">moda_tables</a> JMPB array.  <a href="bufr__interface_8h.html#a0770faf842091c86b98ebb982d307e3e">More...</a><br /></td></tr>
+<tr class="memdesc:a0770faf842091c86b98ebb982d307e3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="namespacemoda__tables.html" title="Declare arrays and variables used to store the internal jump/link table.">moda_tables</a> JMPB array.  <a href="bufr__interface_8h.html#a0770faf842091c86b98ebb982d307e3e">More...</a><br /></td></tr>
 <tr class="separator:a0770faf842091c86b98ebb982d307e3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ccb25b1780ea712c9842f31eeb8ac88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a8ccb25b1780ea712c9842f31eeb8ac88">get_link_f</a> (int **link_ptr, int *link_size)</td></tr>
-<tr class="memdesc:a8ccb25b1780ea712c9842f31eeb8ac88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="namespacemoda__tables.html" title="This module contains array and variable declarations used to store the internal jump/link table.">moda_tables</a> LINK array.  <a href="bufr__interface_8h.html#a8ccb25b1780ea712c9842f31eeb8ac88">More...</a><br /></td></tr>
+<tr class="memdesc:a8ccb25b1780ea712c9842f31eeb8ac88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="namespacemoda__tables.html" title="Declare arrays and variables used to store the internal jump/link table.">moda_tables</a> LINK array.  <a href="bufr__interface_8h.html#a8ccb25b1780ea712c9842f31eeb8ac88">More...</a><br /></td></tr>
 <tr class="separator:a8ccb25b1780ea712c9842f31eeb8ac88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16e731ede9b1aa2a2bf7c1c3c86825e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a16e731ede9b1aa2a2bf7c1c3c86825e2">get_nval_f</a> (int lun, int *num_nodes)</td></tr>
 <tr class="memdesc:a16e731ede9b1aa2a2bf7c1c3c86825e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of values in the current subset.  <a href="bufr__interface_8h.html#a16e731ede9b1aa2a2bf7c1c3c86825e2">More...</a><br /></td></tr>
 <tr class="separator:a16e731ede9b1aa2a2bf7c1c3c86825e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82130f6d92d0df75a5cbc7f834a11cca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a82130f6d92d0df75a5cbc7f834a11cca">get_tag_f</a> (char **tag_ptr, int *tag_len, int *mem_size)</td></tr>
-<tr class="memdesc:a82130f6d92d0df75a5cbc7f834a11cca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="namespacemoda__tables.html" title="This module contains array and variable declarations used to store the internal jump/link table.">moda_tables</a> TAG array.  <a href="bufr__interface_8h.html#a82130f6d92d0df75a5cbc7f834a11cca">More...</a><br /></td></tr>
+<tr class="memdesc:a82130f6d92d0df75a5cbc7f834a11cca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="namespacemoda__tables.html" title="Declare arrays and variables used to store the internal jump/link table.">moda_tables</a> TAG array.  <a href="bufr__interface_8h.html#a82130f6d92d0df75a5cbc7f834a11cca">More...</a><br /></td></tr>
 <tr class="separator:a82130f6d92d0df75a5cbc7f834a11cca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bb1e631318d1ae291e22ba3df7989b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a8bb1e631318d1ae291e22ba3df7989b3">get_typ_f</a> (char **typ_ptr, int *typ_len, int *mem_size)</td></tr>
-<tr class="memdesc:a8bb1e631318d1ae291e22ba3df7989b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="namespacemoda__tables.html" title="This module contains array and variable declarations used to store the internal jump/link table.">moda_tables</a> TYP array.  <a href="bufr__interface_8h.html#a8bb1e631318d1ae291e22ba3df7989b3">More...</a><br /></td></tr>
+<tr class="memdesc:a8bb1e631318d1ae291e22ba3df7989b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get copy of the <a class="el" href="namespacemoda__tables.html" title="Declare arrays and variables used to store the internal jump/link table.">moda_tables</a> TYP array.  <a href="bufr__interface_8h.html#a8bb1e631318d1ae291e22ba3df7989b3">More...</a><br /></td></tr>
 <tr class="separator:a8bb1e631318d1ae291e22ba3df7989b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a420c47e8f063dcea1d5dd909567d65e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a420c47e8f063dcea1d5dd909567d65e1">get_val_f</a> (int lun, double **val_ptr, int *val_size)</td></tr>
-<tr class="memdesc:a420c47e8f063dcea1d5dd909567d65e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get pointer to the <a class="el" href="namespacemoda__usrint.html" title="This module contains declarations for arrays used to store data values and associated metadata for th...">moda_usrint</a> VAL array.  <a href="bufr__interface_8h.html#a420c47e8f063dcea1d5dd909567d65e1">More...</a><br /></td></tr>
+<tr class="memdesc:a420c47e8f063dcea1d5dd909567d65e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get pointer to the <a class="el" href="namespacemoda__usrint.html" title="Declare arrays used to store data values and associated metadata for the current BUFR data subset in ...">moda_usrint</a> VAL array.  <a href="bufr__interface_8h.html#a420c47e8f063dcea1d5dd909567d65e1">More...</a><br /></td></tr>
 <tr class="separator:a420c47e8f063dcea1d5dd909567d65e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94577bfb670f48d514886ffa9476277c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufr__interface_8h.html#a94577bfb670f48d514886ffa9476277c">ibfms_f</a> (double r8val)</td></tr>
 <tr class="memdesc:a94577bfb670f48d514886ffa9476277c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test whether a data value is "missing".  <a href="bufr__interface_8h.html#a94577bfb670f48d514886ffa9476277c">More...</a><br /></td></tr>
@@ -233,7 +240,26 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2020-07-29 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="bufr__interface_8h_source.html">bufr_interface.h</a>.</p>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a016503c090a3f1ecdac526a2e8f696b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a016503c090a3f1ecdac526a2e8f696b0">&#9670;&nbsp;</a></span>VERS_STR_LEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define VERS_STR_LEN&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Size of a character string needed to store a library version number. </p>
+
+<p class="definition">Definition at line <a class="el" href="bufr__interface_8h_source.html#l00021">21</a> of file <a class="el" href="bufr__interface_8h_source.html">bufr_interface.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
 <a id="ada9f732c49c87976c31f215c9c040d2b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ada9f732c49c87976c31f215c9c040d2b">&#9670;&nbsp;</a></span>bvers_f()</h2>
 
@@ -261,7 +287,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the version number of the NCEPLIBS-bufr software. </p>
-<p>Wraps <a class="el" href="bvers_8f.html#a210e17eb5b254e38f27e129304d4eae7" title="Get the version number of the NCEPLIBS-bufr software.">bvers()</a> subroutine.</p>
+<p>Wraps <a class="el" href="misc_8F90.html#a76aaeb3402158be94f735c166f93a527" title="Get the version number of the NCEPLIBS-bufr software.">bvers()</a> subroutine.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cverstr</td><td>- Version string. </td></tr>
@@ -296,7 +322,7 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2005-11-29 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="crwbmg_8c_source.html#l00296">296</a> of file <a class="el" href="crwbmg_8c_source.html">crwbmg.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="crwbmg_8c_source.html#l00290">290</a> of file <a class="el" href="crwbmg_8c_source.html">crwbmg.c</a>.</p>
 
 <p class="reference">References <a class="el" href="crwbmg_8c.html#ae17af2b55406347c25aca1cb56d7b193">pbf</a>.</p>
 
@@ -321,7 +347,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Close a previously opened file and disconnect it from the library. </p>
-<p>Wraps <a class="el" href="closbf_8f.html#ad55dd3a551ae12718de0ac459c8f45c0" title="Close the connection between logical unit LUNIT and the NCEPLIBS-bufr software.">closbf()</a> subroutine.</p>
+<p>Wraps <a class="el" href="openclosebf_8F90.html#a48a49bb82348400c1ba6af00c0138ab3" title="Close the connection between logical unit lunit and the NCEPLIBS-bufr software.">closbf()</a> subroutine.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bufr_unit</td><td>- the Fortran logical unit number to close.</td></tr>
@@ -378,7 +404,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Specify the use of compression when writing BUFR messages. </p>
-<p>Wraps <a class="el" href="cmpmsg_8f.html#a75b2d1dfd1dedb519205399a8087fd56" title="Specify the use of compression when writing BUFR messages.">cmpmsg()</a> subroutine.</p>
+<p>Wraps <a class="el" href="compress_8F90.html#a8d1905b269c7cd75ff1a451a0550a84e" title="Specify whether BUFR messages output by future calls to message-writing subroutines and subset-writin...">cmpmsg()</a> subroutine.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cf</td><td>- Flag indicating whether future BUFR output messages are to be compressed ('Y' = Yes, 'N' = No).</td></tr>
@@ -417,14 +443,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Open a new file for reading or writing BUFR messages via a C language interface. </p>
-<p>This function is designed to be easily callable from application program written in either C or Fortran. It is functionally equivalent to subroutine <a class="el" href="openbf_8f.html#abcc4f481b8758da104eb75575431128e" title="Connects a new file to the NCEPLIBS-bufr software for input or output operations, or initializes the ...">openbf()</a>; however, there are some important differences:</p>
+<p>This function is designed to be easily callable from application program written in either C or Fortran. It is functionally equivalent to subroutine <a class="el" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d" title="Connect a new file to the NCEPLIBS-bufr software for input or output operations, or initialize the li...">openbf()</a>; however, there are some important differences:</p>
 <ul>
-<li>When using <a class="el" href="openbf_8f.html#abcc4f481b8758da104eb75575431128e" title="Connects a new file to the NCEPLIBS-bufr software for input or output operations, or initializes the ...">openbf()</a>, the underlying file must already be associated with a Fortran logical unit number on the local system, typicially via a prior Fortran "OPEN" statement. This is not required when using this function.</li>
+<li>When using <a class="el" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d" title="Connect a new file to the NCEPLIBS-bufr software for input or output operations, or initialize the li...">openbf()</a>, the underlying file must already be associated with a Fortran logical unit number on the local system, typicially via a prior Fortran "OPEN" statement. This is not required when using this function.</li>
 <li>When using this function, it is only possible to have at most one input (io = 'r') file and one output (io = 'w') file open at a time. If a successive call to this function is made in either case where a file of that type is already open, then the function will automatically close the previous file of that type before opening the new one.</li>
-<li>When opening a file for input/reading using <a class="el" href="openbf_8f.html#abcc4f481b8758da104eb75575431128e" title="Connects a new file to the NCEPLIBS-bufr software for input or output operations, or initializes the ...">openbf()</a>, the user can make subsequent calls to any of the NCEPLIBS-bufr <a class="el" href="index.html#hierarchy">message-reading subroutines</a> to read individual BUFR messages from that file into internal arrays, followed by subsequent calls to any of the NCEPLIBS-bufr <a class="el" href="index.html#hierarchy">subset-reading</a> subroutines") to read individual data subsets from each such message. However, when opening a file for input/reading using this function, the user must instead make subsequent calls to <a class="el" href="crwbmg_8c.html#a8e937daaf4fe2e1c74c3f8754bcce048" title="Read the next BUFR message from the file that was opened via the most recent call to function cobfl()...">crbmg()</a> to read individual BUFR messages from that file, and each such message will be returned directly to the user within an allocated memory array. The user may then, if desired, make subsequent calls to <a class="el" href="readerme_8f.html#a3d8860f8a5fe519e8d84afbe68dc67b5" title="Read a BUFR message from a memory array.">readerme()</a> to store each such message into the same internal arrays, followed by subsequent calls to any of the NCEPLIBS-bufr <a class="el" href="index.html#hierarchy">subset-reading</a> subroutines" to read individual data subsets from each such message.</li>
-<li>When opening a file for output/writing using <a class="el" href="openbf_8f.html#abcc4f481b8758da104eb75575431128e" title="Connects a new file to the NCEPLIBS-bufr software for input or output operations, or initializes the ...">openbf()</a>, the user can make subsequent successive calls to <a class="el" href="writsb_8f.html#a9123f1d55a95142381a9eb7402d37b05" title="Write a data subset into a BUFR message.">writsb()</a> to pack each completed data subset into the BUFR message that is currently open within the internal arrays, for eventual output to that file. However, when opening a file for output/writing using this function, the user can instead, if desired, make subsequent successive calls to <a class="el" href="writsa_8f.html#a15907b29d7777574ebc34b491e2df0ee" title="Write a data subset into a BUFR message, and return each completed message within a memory array.">writsa()</a> to pack each completed data subset into the BUFR message that is currently open within the internal arrays. The use of <a class="el" href="writsa_8f.html#a15907b29d7777574ebc34b491e2df0ee" title="Write a data subset into a BUFR message, and return each completed message within a memory array.">writsa()</a> will cause each completed BUFR message to be returned directly to the user within an allocated memory array, which in turn can then be written directly to the file via a subsequent call to <a class="el" href="crwbmg_8c.html#a3ccf1d9c69d9b23a3906d3f7b5ab743d" title="Write a BUFR message to the file that was opened via the most recent call to function cobfl() with io...">cwbmg()</a>.</li>
+<li>When opening a file for input/reading using <a class="el" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d" title="Connect a new file to the NCEPLIBS-bufr software for input or output operations, or initialize the li...">openbf()</a>, the user can make subsequent calls to any of the NCEPLIBS-bufr <a class="el" href="index.html#hierarchy">message-reading subroutines</a> to read individual BUFR messages from that file into internal arrays, followed by subsequent calls to any of the NCEPLIBS-bufr <a class="el" href="index.html#hierarchy">subset-reading</a> subroutines") to read individual data subsets from each such message. However, when opening a file for input/reading using this function, the user must instead make subsequent calls to <a class="el" href="crwbmg_8c.html#a8e937daaf4fe2e1c74c3f8754bcce048" title="Read the next BUFR message from the file that was opened via the most recent call to function cobfl()...">crbmg()</a> to read individual BUFR messages from that file, and each such message will be returned directly to the user within an allocated memory array. The user may then, if desired, make subsequent calls to <a class="el" href="readwritemg_8F90.html#aa2a7bf49cad422b474a24edd3a1cb232" title="Read a BUFR message from a memory array.">readerme()</a> to store each such message into the same internal arrays, followed by subsequent calls to any of the NCEPLIBS-bufr <a class="el" href="index.html#hierarchy">subset-reading</a> subroutines" to read individual data subsets from each such message.</li>
+<li>When opening a file for output/writing using <a class="el" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d" title="Connect a new file to the NCEPLIBS-bufr software for input or output operations, or initialize the li...">openbf()</a>, the user can make subsequent successive calls to <a class="el" href="readwritesb_8F90.html#aa2218d1cd25f8d558448bdc3061b3a04" title="Write a complete data subset into a BUFR message, for eventual output to logical unit lunit.">writsb()</a> to pack each completed data subset into the BUFR message that is currently open within the internal arrays, for eventual output to that file. However, when opening a file for output/writing using this function, the user can instead, if desired, make subsequent successive calls to <a class="el" href="readwritesb_8F90.html#a4b62a40d2c2860279670bf59a68e8204" title="Write a complete data subset into a BUFR message, and return each completed message within a memory a...">writsa()</a> to pack each completed data subset into the BUFR message that is currently open within the internal arrays. The use of <a class="el" href="readwritesb_8F90.html#a4b62a40d2c2860279670bf59a68e8204" title="Write a complete data subset into a BUFR message, and return each completed message within a memory a...">writsa()</a> will cause each completed BUFR message to be returned directly to the user within an allocated memory array, which in turn can then be written directly to the file via a subsequent call to <a class="el" href="crwbmg_8c.html#a3ccf1d9c69d9b23a3906d3f7b5ab743d" title="Write a BUFR message to the file that was opened via the most recent call to function cobfl() with io...">cwbmg()</a>.</li>
 </ul>
-<p>Any errors encountered when using this function are automatically logged to standard output, or to an alternate location previously specified via a call to subroutine <a class="el" href="errwrt_8f.html#a65626d9a772648676146b62b596c2764" title="This subroutine allows the user to specify a custom location for the logging of error and diagnostic ...">errwrt()</a>.</p>
+<p>Any errors encountered when using this function are automatically logged to standard output, or to an alternate location previously specified via a call to subroutine <a class="el" href="errwrt_8F90.html#a9c4c22af6c77235db8ddd7f41594f543" title="Specify a custom location for the logging of error and diagnostic messages generated by the NCEPLIBS-...">errwrt()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bfl</td><td>- System file to be opened. Inclusion of directory prefixes or other local filesystem notation is allowed, up to 200 total characters. </td></tr>
@@ -441,7 +467,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="crwbmg_8c_source.html#l00120">120</a> of file <a class="el" href="crwbmg_8c_source.html">crwbmg.c</a>.</p>
 
-<p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, <a class="el" href="crwbmg_8c.html#adcb9ca74c59f88b5a3d6bd10c8095692">MXFNLEN</a>, <a class="el" href="crwbmg_8c.html#ae17af2b55406347c25aca1cb56d7b193">pbf</a>, and <a class="el" href="bufrlib_8h.html#a080eec815db985d32c88720a303f53c4">wrdlen_f()</a>.</p>
+<p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, <a class="el" href="crwbmg_8c.html#adcb9ca74c59f88b5a3d6bd10c8095692">MXFNLEN</a>, and <a class="el" href="crwbmg_8c.html#ae17af2b55406347c25aca1cb56d7b193">pbf</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="debufr_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main()</a>.</p>
 
@@ -506,7 +532,7 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2005-11-29 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="crwbmg_8c_source.html#l00201">201</a> of file <a class="el" href="crwbmg_8c_source.html">crwbmg.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="crwbmg_8c_source.html#l00195">195</a> of file <a class="el" href="crwbmg_8c_source.html">crwbmg.c</a>.</p>
 
 <p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, <a class="el" href="bufr__interface_8h.html#a45c55e3a4c3b8179f7e3a89714a05d7f">iupbs01_f()</a>, <a class="el" href="crwbmg_8c.html#ae17af2b55406347c25aca1cb56d7b193">pbf</a>, and <a class="el" href="crwbmg_8c.html#a6dbaed2f330cb936df41084b4d8a5aae">rbytes()</a>.</p>
 
@@ -561,7 +587,7 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2005-11-29 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="crwbmg_8c_source.html#l00269">269</a> of file <a class="el" href="crwbmg_8c_source.html">crwbmg.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="crwbmg_8c_source.html#l00263">263</a> of file <a class="el" href="crwbmg_8c_source.html">crwbmg.c</a>.</p>
 
 <p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, and <a class="el" href="crwbmg_8c.html#ae17af2b55406347c25aca1cb56d7b193">pbf</a>.</p>
 
@@ -582,7 +608,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Deletes the copies of the <a class="el" href="namespacemoda__tables.html" title="This module contains array and variable declarations used to store the internal jump/link table.">moda_tables</a> arrays. </p>
+<p>Deletes the copies of the <a class="el" href="namespacemoda__tables.html" title="Declare arrays and variables used to store the internal jump/link table.">moda_tables</a> arrays. </p>
 <dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2022-03-23 </dd></dl>
 
@@ -604,7 +630,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reset the library. </p>
-<p>Wraps <a class="el" href="exitbufr_8f.html#acd1669ed5957ebab6c98ac974b2a1bf8" title="This subroutine frees all dynamically-allocated memory, closes all logical units that are open within...">exitbufr()</a> subroutine.</p>
+<p>Wraps <a class="el" href="arallocf_8F90.html#a355f094d616febcea2820cf547cbff8e" title="Free all dynamically-allocated memory, close all logical units that are open within the NCEPLIBS-bufr...">exitbufr()</a> subroutine.</p>
 <dl class="section author"><dt>Author</dt><dd>Ronald Mclaren </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2020-07-29 </dd></dl>
 
@@ -681,7 +707,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get pointer to the <a class="el" href="namespacemoda__usrint.html" title="This module contains declarations for arrays used to store data values and associated metadata for th...">moda_usrint</a> INV array. </p>
+<p>Get pointer to the <a class="el" href="namespacemoda__usrint.html" title="Declare arrays used to store data values and associated metadata for the current BUFR data subset in ...">moda_usrint</a> INV array. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lun</td><td>- File ID. </td></tr>
@@ -721,7 +747,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get copy of the <a class="el" href="namespacemoda__tables.html" title="This module contains array and variable declarations used to store the internal jump/link table.">moda_tables</a> IRF array. </p>
+<p>Get copy of the <a class="el" href="namespacemoda__tables.html" title="Declare arrays and variables used to store the internal jump/link table.">moda_tables</a> IRF array. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">irf_ptr</td><td>- pointer to a pointer to the IRF array. </td></tr>
@@ -760,7 +786,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get copy of the <a class="el" href="namespacemoda__tables.html" title="This module contains array and variable declarations used to store the internal jump/link table.">moda_tables</a> ISC array. </p>
+<p>Get copy of the <a class="el" href="namespacemoda__tables.html" title="Declare arrays and variables used to store the internal jump/link table.">moda_tables</a> ISC array. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">isc_ptr</td><td>- pointer to a pointer to the ISC array. </td></tr>
@@ -799,7 +825,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get copy of the <a class="el" href="namespacemoda__tables.html" title="This module contains array and variable declarations used to store the internal jump/link table.">moda_tables</a> ITP array. </p>
+<p>Get copy of the <a class="el" href="namespacemoda__tables.html" title="Declare arrays and variables used to store the internal jump/link table.">moda_tables</a> ITP array. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">itp_ptr</td><td>- pointer to a pointer to the ITP array. </td></tr>
@@ -838,7 +864,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get copy of the <a class="el" href="namespacemoda__tables.html" title="This module contains array and variable declarations used to store the internal jump/link table.">moda_tables</a> JMPB array. </p>
+<p>Get copy of the <a class="el" href="namespacemoda__tables.html" title="Declare arrays and variables used to store the internal jump/link table.">moda_tables</a> JMPB array. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">jmpb_ptr</td><td>- pointer to a pointer to the JMPB array. </td></tr>
@@ -877,7 +903,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get copy of the <a class="el" href="namespacemoda__tables.html" title="This module contains array and variable declarations used to store the internal jump/link table.">moda_tables</a> LINK array. </p>
+<p>Get copy of the <a class="el" href="namespacemoda__tables.html" title="Declare arrays and variables used to store the internal jump/link table.">moda_tables</a> LINK array. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">link_ptr</td><td>- pointer to a pointer to the LINK array. </td></tr>
@@ -961,7 +987,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get copy of the <a class="el" href="namespacemoda__tables.html" title="This module contains array and variable declarations used to store the internal jump/link table.">moda_tables</a> TAG array. </p>
+<p>Get copy of the <a class="el" href="namespacemoda__tables.html" title="Declare arrays and variables used to store the internal jump/link table.">moda_tables</a> TAG array. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tag_ptr</td><td>- pointer to a pointer to the TAG array. </td></tr>
@@ -1007,7 +1033,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get copy of the <a class="el" href="namespacemoda__tables.html" title="This module contains array and variable declarations used to store the internal jump/link table.">moda_tables</a> TYP array. </p>
+<p>Get copy of the <a class="el" href="namespacemoda__tables.html" title="Declare arrays and variables used to store the internal jump/link table.">moda_tables</a> TYP array. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">typ_ptr</td><td>- pointer to a pointer to the TYP array. </td></tr>
@@ -1053,7 +1079,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get pointer to the <a class="el" href="namespacemoda__usrint.html" title="This module contains declarations for arrays used to store data values and associated metadata for th...">moda_usrint</a> VAL array. </p>
+<p>Get pointer to the <a class="el" href="namespacemoda__usrint.html" title="Declare arrays used to store data values and associated metadata for the current BUFR data subset in ...">moda_usrint</a> VAL array. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lun</td><td>- File ID. </td></tr>
@@ -1084,7 +1110,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Test whether a data value is "missing". </p>
-<p>Wraps <a class="el" href="ibfms_8f.html#a0f7ba3ed6f17e76d912b4f13ea70967e" title="Test whether a real*8 data value is &quot;missing&quot;.">ibfms()</a> function.</p>
+<p>Wraps <a class="el" href="missing_8F90.html#a7dd66484c8bf4dd8d8e3791d02715e86" title="Check whether a real*8 data value returned from a previous call to any of the NCEPLIBS-bufr values-re...">ibfms()</a> function.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">r8val</td><td>- Data value.</td></tr>
@@ -1147,7 +1173,7 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2023-04-07 </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28">arallocc()</a>, <a class="el" href="cfe_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf()</a>, and <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28">arallocc()</a>, <a class="el" href="cfe_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf()</a>, <a class="el" href="bufrlib_8h.html#a9fab66c5a028abf354d075040dde317c">restd()</a>, and <a class="el" href="bufrlib_8h.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
 
 </div>
 </div>
@@ -1190,7 +1216,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read the next message from a BUFR file. </p>
-<p>Wraps <a class="el" href="ireadmg_8f.html#a3a275abe52521fa780c379ed69e1c994" title="Calls NCEPLIBS-bufr subroutine readmg() and passes back its return code as the function value.">ireadmg()</a> function.</p>
+<p>Wraps <a class="el" href="readwritemg_8F90.html#ae023a7cc381f488ac7669dc3e3ee8236" title="Call subroutine readmg() and pass back its return code as the function value.">ireadmg()</a> function.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bufr_unit</td><td>- the Fortran logical unit number to read from. </td></tr>
@@ -1249,7 +1275,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read the next data subset from a BUFR file. </p>
-<p>Wraps <a class="el" href="ireadns_8f.html#a711f30e52fdc3cafd8800a57f6865449" title="Read the next data subset from a BUFR file that was previously opened for reading.">ireadns()</a> function.</p>
+<p>Wraps <a class="el" href="readwritesb_8F90.html#a8a621b1996440ed233c796e49c8971f3" title="Call subroutine readns() and pass back its return code as the function value.">ireadns()</a> function.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bufr_unit</td><td>- the Fortran logical unit number to read from. </td></tr>
@@ -1286,7 +1312,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read the next data subset from a BUFR message. </p>
-<p>Wraps <a class="el" href="ireadsb_8f.html#a778c5b1e6c129932b733bc25ecc27f07" title="Calls NCEPLIBS-bufr subroutine readsb() and passes back its return code as the function value.">ireadsb()</a> function.</p>
+<p>Wraps <a class="el" href="readwritesb_8F90.html#aae33d6dd74331ba0a2a34ba22e8e56ab" title="Call subroutine readsb() and pass back its return code as the function value.">ireadsb()</a> function.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bufr_unit</td><td>- the Fortran logical unit number to read from.</td></tr>
@@ -1370,7 +1396,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read a data value from Section 0 or Section 1 of a BUFR message. </p>
-<p>Wraps <a class="el" href="iupbs01_8f.html#a656ed063ebbcd600fcfa2810411dbf5e" title="Read a data value from Section 0 or Section 1 of a BUFR message.">iupbs01()</a> function.</p>
+<p>Wraps <a class="el" href="s013vals_8F90.html#a28944a4d73587a3943964a95619cb8a2" title="Read a specified value from within Section 0 or Section 1 of a BUFR message.">iupbs01()</a> function.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bufr</td><td>- BUFR message. </td></tr>
@@ -1382,7 +1408,7 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2023-04-07 </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="bufr__interface_8h.html#a8e937daaf4fe2e1c74c3f8754bcce048">crbmg()</a>, and <a class="el" href="cread_8c.html#a8b09f32462059d646e44ea6098a08edc">crdbufr()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="bufr__interface_8h.html#a8e937daaf4fe2e1c74c3f8754bcce048">crbmg()</a>, <a class="el" href="bufrlib_8h.html#a8b09f32462059d646e44ea6098a08edc">crdbufr()</a>, and <a class="el" href="xbfmg_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main()</a>.</p>
 
 </div>
 </div>
@@ -1403,7 +1429,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Define a customized maximum length for output BUFR messages. </p>
-<p>Wraps <a class="el" href="maxout_8f.html#aaa325906c9b2cc1b17852d152d475bcb" title="This subroutine allows the user to define the maximum length of a BUFR message that can be written to...">maxout()</a> subroutine.</p>
+<p>Wraps <a class="el" href="readwritemg_8F90.html#a1c8cdc47f69010cd4eaa20710e28f53d" title="Specify the maximum length of a BUFR message that can be written to any output file by the NCEPLIBS-b...">maxout()</a> subroutine.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">max0</td><td>- New maximum length (in bytes) for all BUFR messages written to all output files.</td></tr>
@@ -1448,7 +1474,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Specify location of master BUFR tables on local file system. </p>
-<p>Wraps <a class="el" href="mtinfo_8f.html#a5bc13da9cf85f0bf6a8010842707d271" title="Specify the directory location and Fortran logical unit numbers to be used when reading master BUFR t...">mtinfo()</a> subroutine.</p>
+<p>Wraps <a class="el" href="mastertable_8F90.html#abf69490965212318f1dfee9b0bc4890c" title="Specify the directory location and Fortran logical unit numbers to be used when reading master BUFR t...">mtinfo()</a> subroutine.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">path</td><td>- the path where the WMO tables are stored. </td></tr>
@@ -1519,7 +1545,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the element name and units associated with a Table B mnemonic. </p>
-<p>Wraps <a class="el" href="nemdefs_8f.html#ac552350372c0023b612907e7f2445434" title="Given a Table B mnemonic defined in the DX BUFR Tables associated with a BUFR file (or in the master ...">nemdefs()</a> subroutine.</p>
+<p>Wraps <a class="el" href="dxtable_8F90.html#ad6352a1c1fdec4ba0adb0173781e4542" title="Get the element name and units associated with a Table B descriptor.">nemdefs()</a> subroutine.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file_unit</td><td>- Fortran logical unit for the open file. </td></tr>
@@ -1594,7 +1620,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the scale factor, reference value and bit width associated with a specified occurrence of a Table B mnemonic. </p>
-<p>Wraps <a class="el" href="nemspecs_8f.html#afc40b65878e8f8537a6bd6d804b5b650" title="Given a Table B mnemonic defined within a data subset, this subroutine returns the scale factor,...">nemspecs()</a> subroutine.</p>
+<p>Wraps <a class="el" href="jumplink_8F90.html#a6ec2d1015cdc1315eb384ea92223e620" title="Get the scale factor, reference value and bit width associated with a specified occurrence of a Table...">nemspecs()</a> subroutine.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file_unit</td><td>- Fortran logical unit for the open file. </td></tr>
@@ -1657,7 +1683,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get information about a descriptor. </p>
-<p>Wraps <a class="el" href="nemtab_8f.html#a3f3fb5a378c52dac83cb4fce27ceb712" title="Get information about a descriptor, based on the mnemonic.">nemtab()</a> subroutine.</p>
+<p>Wraps <a class="el" href="fxy_8F90.html#a01efa3bb871b451a8d53bd6d841bb297" title="Get information about a descriptor, based on a mnemonic.">nemtab()</a> subroutine.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lun</td><td>- File ID. </td></tr>
@@ -1671,7 +1697,7 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Ronald Mclaren </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2022-08-16 </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="bufrlib_8h.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
 
 </div>
 </div>
@@ -1732,7 +1758,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get information about a Table B descriptor. </p>
-<p>Wraps <a class="el" href="nemtbb_8f.html#a6a5cf8bb2726a59eeb87fbbef58764be" title="Get information about a Table B descriptor.">nemtbb()</a> subroutine.</p>
+<p>Wraps <a class="el" href="dxtable_8F90.html#a21fa5817ff8a6f471dca950fbaa693ba" title="Get information about a Table B descriptor from the internal DX BUFR tables.">nemtbb()</a> subroutine.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lun</td><td>- File ID. </td></tr>
@@ -1748,7 +1774,7 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Ronald McLaren </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2022-08-16 </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="restd_8c.html#ad5e16b436141e02ca2b1a8def406a1d3">restd()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="bufrlib_8h.html#a9fab66c5a028abf354d075040dde317c">restd()</a>.</p>
 
 </div>
 </div>
@@ -1824,7 +1850,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Connect a new file to the library, or initialize the library, or change verbosity associated with already-connected file. </p>
-<p>Wraps <a class="el" href="openbf_8f.html#abcc4f481b8758da104eb75575431128e" title="Connects a new file to the NCEPLIBS-bufr software for input or output operations, or initializes the ...">openbf()</a> subroutine.</p>
+<p>Wraps <a class="el" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d" title="Connect a new file to the NCEPLIBS-bufr software for input or output operations, or initialize the li...">openbf()</a> subroutine.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bufr_unit</td><td>- the Fortran logical unit number. </td></tr>
@@ -1871,7 +1897,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Open a new message for output in a BUFR file that was previously opened for writing. </p>
-<p>Wraps <a class="el" href="openmb_8f.html#aee65c9d9bb626bfd51c3f904c2e4f86c" title="Open a new message for output in a BUFR file that was previously opened for writing.">openmb()</a> subroutine.</p>
+<p>Wraps <a class="el" href="readwritemg_8F90.html#a5edbefade4e7194e4dd3ee42f394034b" title="Open and initialize a new BUFR message within internal arrays, for eventual output to logical unit lu...">openmb()</a> subroutine.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bufr_unit</td><td>- Fortran logical unit number to write to. </td></tr>
@@ -1977,7 +2003,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Check whether a file is connected to the library. </p>
-<p>Wraps <a class="el" href="status_8f.html#a6ec202af21064f4b61058df6b5880d3e" title="Check whether a specified Fortran logical unit number is currently connected to the NCEPLIBS-bufr sof...">status()</a> subroutine.</p>
+<p>Wraps <a class="el" href="openclosebf_8F90.html#abceda08f9c29378d3ddadeb46e823d00" title="Check whether a specified Fortran logical unit number is currently connected to the NCEPLIBS-bufr sof...">status()</a> subroutine.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file_unit</td><td>- Fortran logical unit number of file. </td></tr>
@@ -2043,7 +2069,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read/write one or more data values from/to a data subset. </p>
-<p>Wraps <a class="el" href="ufbint_8f.html#aacc479c23b54cc29eecc78d22e56916b" title="Read/write one or more data values from/to a data subset.">ufbint()</a> subroutine.</p>
+<p>Wraps <a class="el" href="readwriteval_8F90.html#a6eb38e7aa610c36787b90e50b290eea7" title="Read or write one or more data values from or to a data subset.">ufbint()</a> subroutine.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bufr_unit</td><td>- the Fortran logical unit number to read from. </td></tr>
@@ -2111,7 +2137,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read/write one or more data values from/to a data subset. </p>
-<p>Wraps <a class="el" href="ufbrep_8f.html#a8dafd734f4271f895722c7750cf6e9ed" title="Read/write one or more data values from/to a data subset.">ufbrep()</a> subroutine.</p>
+<p>Wraps <a class="el" href="readwriteval_8F90.html#af46dec3ef4cc6f467323b40eb14a4024" title="Read or write one or more data values from or to a data subset.">ufbrep()</a> subroutine.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bufr_unit</td><td>- the Fortran logical unit number to read from. </td></tr>
@@ -2179,7 +2205,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read/write an entire sequence of data values from/to a data subset. </p>
-<p>Wraps <a class="el" href="ufbseq_8f.html#ad50785c4e565749fa08ec3bdddacc6fd" title="This subroutine reads or writes an entire sequence of data values from or to the BUFR data subset tha...">ufbseq()</a> subroutine.</p>
+<p>Wraps <a class="el" href="readwriteval_8F90.html#a4895b24addb0b3e23f5bd92fd891656e" title="Read or write an entire sequence of data values from or to a data subset.">ufbseq()</a> subroutine.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bufr_unit</td><td>- the Fortran logical unit number to read from. </td></tr>

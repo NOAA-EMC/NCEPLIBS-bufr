@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -132,7 +132,7 @@ $(document).ready(function(){initNavTree('readbp_8F90_source.html',''); initResi
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">!  check for filename argument</span></div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      narg=iargc()</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      narg=command_argument_count()</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;1     <span class="keywordflow">if</span>(narg&lt;1) <span class="keywordflow">THEN</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keyword">call </span><a class="code" href="readbp_8F90.html#a20f66afc4b9a6ab619111b0d614e452c">printx</a>(<span class="stringliteral">&#39;                                                                                                        &#39;</span><span class="comment">)</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment"></span>        <span class="keyword">call </span><a class="code" href="readbp_8F90.html#a20f66afc4b9a6ab619111b0d614e452c">printx</a>(<span class="stringliteral">&#39;Usage: readbp &lt;-s&gt; &lt;-w&gt; &lt;m&gt; &lt;-k&gt; &lt;-r&gt; &lt;-d&gt; &lt;-n&gt; &lt;-h&gt;  prep bufrfile                                     &#39;</span><span class="comment">)</span></div>
@@ -159,23 +159,23 @@ $(document).ready(function(){initNavTree('readbp_8F90_source.html',''); initResi
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      iarg=1</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      <span class="keywordflow">do</span> <span class="keywordflow">while</span>(iarg&lt;=narg)</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      <span class="keyword">call </span>getarg(iarg,file)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      <span class="keyword">call </span>get_command_argument(iarg,file)</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      <span class="keywordflow">if</span>(file(1:1)==<span class="stringliteral">&#39;-&#39;</span>) <span class="keywordflow">then</span></div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;         <span class="keywordflow">if</span>(file(2:2)==<span class="stringliteral">&#39;s&#39;</span>) <span class="keywordflow">then</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;           iarg=iarg+1; <span class="keyword">call </span>getarg(iarg,sta); nsta=len(trim(sta))</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;         <span class="keywordflow">elseif</span>(file(2:2)==<span class="stringliteral">&#39;w&#39;</span>) <span class="keywordflow">then</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;           iarg=iarg+1; <span class="keyword">call </span>getarg(iarg,val); <span class="keyword">read</span>(val,*)x1</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;           iarg=iarg+1; <span class="keyword">call </span>getarg(iarg,val); <span class="keyword">read</span>(val,*)x2</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;           iarg=iarg+1; <span class="keyword">call </span>getarg(iarg,val); <span class="keyword">read</span>(val,*)y1</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;           iarg=iarg+1; <span class="keyword">call </span>getarg(iarg,val); <span class="keyword">read</span>(val,*)y2</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;           iarg=iarg+1; <span class="keyword">call </span>get_command_argument(iarg,sta); nsta=len(trim<span class="comment">(sta))</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment"></span>         <span class="keywordflow">elseif</span>(file(2:2)==<span class="stringliteral">&#39;w&#39;</span>) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;           iarg=iarg+1; <span class="keyword">call </span>get_command_argument(iarg,val); <span class="keyword">read</span>(val,*)x1</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;           iarg=iarg+1; <span class="keyword">call </span>get_command_argument(iarg,val); <span class="keyword">read</span>(val,*)x2</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;           iarg=iarg+1; <span class="keyword">call </span>get_command_argument(iarg,val); <span class="keyword">read</span>(val,*)y1</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;           iarg=iarg+1; <span class="keyword">call </span>get_command_argument(iarg,val); <span class="keyword">read</span>(val,*)y2</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;           window=.true.</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;         <span class="keywordflow">elseif</span>(file(2:2)==<span class="stringliteral">&#39;k&#39;</span>) <span class="keywordflow">then</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;           iarg=iarg+1; <span class="keyword">call </span>getarg(iarg,val); <span class="keyword">read</span>(val,*)ikx</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;           iarg=iarg+1; <span class="keyword">call </span>get_command_argument(iarg,val); <span class="keyword">read</span>(val,*)ikx</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;         <span class="keywordflow">elseif</span>(file(2:2)==<span class="stringliteral">&#39;r&#39;</span>) <span class="keywordflow">then</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;           iarg=iarg+1; <span class="keyword">call </span>getarg(iarg,val); <span class="keyword">read</span>(val,*)irt</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;           iarg=iarg+1; <span class="keyword">call </span>get_command_argument(iarg,val); <span class="keyword">read</span>(val,*)irt</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;         <span class="keywordflow">elseif</span>(file(2:2)==<span class="stringliteral">&#39;m&#39;</span>) <span class="keywordflow">then</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;           iarg=iarg+1; <span class="keyword">call </span>getarg(iarg,val); msg=val(1:8)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;         <span class="keywordflow">elseif</span>(file(2:2)==<span class="stringliteral">&#39;d&#39;</span>) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;           iarg=iarg+1; <span class="keyword">call </span>get_command_argument(iarg,val); msg=val(1:8<span class="comment">)</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment"></span>         <span class="keywordflow">elseif</span>(file(2:2)==<span class="stringliteral">&#39;d&#39;</span>) <span class="keywordflow">then</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;           iarg=iarg+1; dump=.true.</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;         <span class="keywordflow">elseif</span>(file(2:2)==<span class="stringliteral">&#39;h&#39;</span>) <span class="keywordflow">then</span></div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;           iarg=iarg+1; hedr=.true.</div>
@@ -205,49 +205,49 @@ $(document).ready(function(){initNavTree('readbp_8F90_source.html',''); initResi
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">!  ------------------------</span></div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;      <span class="keyword">open</span>(lubfr,file=file,form=<span class="stringliteral">&#39;unformatted&#39;</span>)</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;      <span class="keyword">call </span><a class="code" href="openbf_8f.html#abcc4f481b8758da104eb75575431128e">openbf</a>(lubfr,<span class="stringliteral">&#39;IN&#39;</span>,lubfr)</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;      <span class="keyword">call </span><a class="code" href="datelen_8f.html#a2b79b38439baa89e2b34b0614449d579">datelen</a>(10)</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;      <span class="keyword">call </span><a class="code" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d">openbf</a>(lubfr,<span class="stringliteral">&#39;IN&#39;</span>,lubfr)</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;      <span class="keyword">call </span><a class="code" href="s013vals_8F90.html#aadd84c217cf5fab0d94564da3f377ebe">datelen</a>(10)</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">!  READ A SUBSET - READ ANOTHER MESSAGE WHEN NO MORE SUBSETS</span></div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">!  ---------------------------------------------------------</span></div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;      <span class="keywordflow">do</span> <span class="keywordflow">while</span>(<a class="code" href="ireadmg_8f.html#a3a275abe52521fa780c379ed69e1c994">ireadmg</a>(lubfr,subset,idate)==0)</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;      <span class="keywordflow">do</span> <span class="keywordflow">while</span>(<a class="code" href="ireadsb_8f.html#a778c5b1e6c129932b733bc25ecc27f07">ireadsb</a>(lubfr)==0)</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;      <span class="keyword">call </span><a class="code" href="ufbcnt_8f.html#afada6ea85af96e5751b5d82d28f807d4">ufbcnt</a>(lubfr,irec,isub)</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;      <span class="keywordflow">do</span> <span class="keywordflow">while</span>(<a class="code" href="readwritemg_8F90.html#ae023a7cc381f488ac7669dc3e3ee8236">ireadmg</a>(lubfr,subset,idate)==0)</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;      <span class="keywordflow">do</span> <span class="keywordflow">while</span>(<a class="code" href="readwritesb_8F90.html#aae33d6dd74331ba0a2a34ba22e8e56ab">ireadsb</a>(lubfr)==0)</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;      <span class="keyword">call </span><a class="code" href="openclosebf_8F90.html#aac1b87fbbb688e4f5e2120012eaee382">ufbcnt</a>(lubfr,irec,isub)</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;      <span class="keywordflow">IF</span>(msg.ne.<span class="stringliteral">&#39; &#39;</span> .and. msg.ne.subset) <span class="keywordflow">exit</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;      <span class="keywordflow">IF</span>(msg/=<span class="stringliteral">&#39; &#39;</span> .and. msg/=subset) <span class="keywordflow">exit</span></div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;      <span class="keywordflow">if</span>(dump) <span class="keywordflow">then</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;         <span class="keyword">call </span><a class="code" href="ufdump_8f.html#ac6ded614847f96968e12c9600a7d51ba">ufdump</a>(lubfr,6)</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;         <span class="keyword">call </span><a class="code" href="dumpdata_8F90.html#a20fa33f6e0fcb0816c4b070c73362539">ufdump</a>(lubfr,6)</div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;         <span class="keywordflow">goto</span> 99</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="keywordflow">      endif</span></div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment">!  MOVE SUBSET CONTENTS INTO THIS PROGRAM</span></div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment">!  --------------------------------------</span></div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;      <span class="keyword">CALL </span><a class="code" href="ufbint_8f.html#aacc479c23b54cc29eecc78d22e56916b">ufbint</a>(lubfr,hdr,10,  1,iret,hstr)</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;      <span class="keyword">CALL </span><a class="code" href="readwriteval_8F90.html#a6eb38e7aa610c36787b90e50b290eea7">ufbint</a>(lubfr,hdr,10,  1,iret,hstr)</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;      xob = hdr(2)</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;      yob = hdr(3)</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;      jrt = nint(hdr(6))</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;      jtp = nint(hdr(7))</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;      jkx = nint(hdr(8))</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;      <span class="keywordflow">IF</span>(sta.NE.<span class="stringliteral">&#39; &#39;</span> .AND. sta.NE.sid(1:nsta)) cycle</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;      <span class="keywordflow">IF</span>(irt.ne.0   .and. irt.ne.jrt) cycle</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;      <span class="keywordflow">IF</span>(itp.ne.0   .and. itp.ne.jtp) cycle</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;      <span class="keywordflow">IF</span>(ikx.ne.0   .and. ikx.ne.jkx) cycle</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;      <span class="keywordflow">IF</span>(sta/=<span class="stringliteral">&#39; &#39;</span> .AND. sta/=sid(1:nsta)) cycle</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;      <span class="keywordflow">IF</span>(irt/=0   .and. irt/=jrt) cycle</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;      <span class="keywordflow">IF</span>(itp/=0   .and. itp/=jtp) cycle</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;      <span class="keywordflow">IF</span>(ikx/=0   .and. ikx/=jkx) cycle</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;      <span class="keywordflow">if</span>(window) <span class="keywordflow">then</span></div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;         <span class="keywordflow">if</span>(.not.(xob.ge.x1 .and. xob.le.x2))cycle</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;         <span class="keywordflow">if</span>(.not.(yob.ge.y1 .and. yob.le.y2))cycle</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;         <span class="keywordflow">if</span>(.not.(xob&gt;=x1 .and. xob&lt;=x2))cycle</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;         <span class="keywordflow">if</span>(.not.(yob&gt;=y1 .and. yob&lt;=y2))cycle</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="keywordflow">      endif</span></div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;      <span class="keyword">CALL </span><a class="code" href="ufbint_8f.html#aacc479c23b54cc29eecc78d22e56916b">ufbint</a>(lubfr,obs,10,255,nlev,ostr)</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;      <span class="keyword">CALL </span><a class="code" href="ufbint_8f.html#aacc479c23b54cc29eecc78d22e56916b">ufbint</a>(lubfr,qms,10,255,nleq,qstr)</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;      <span class="keywordflow">IF</span>(nlev.NE.nleq) stop <span class="stringliteral">&#39;NLEV&lt;&gt;NLEQ&#39;</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;      <span class="keyword">CALL </span><a class="code" href="readwriteval_8F90.html#a6eb38e7aa610c36787b90e50b290eea7">ufbint</a>(lubfr,obs,10,255,nlev,ostr)</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;      <span class="keyword">CALL </span><a class="code" href="readwriteval_8F90.html#a6eb38e7aa610c36787b90e50b290eea7">ufbint</a>(lubfr,qms,10,255,nleq,qstr)</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;      <span class="keywordflow">IF</span>(nlev/=nleq) stop <span class="stringliteral">&#39;NLEV&lt;&gt;NLEQ&#39;</span></div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="comment">!  MOVE CAT 8 DATA TO PRINT RANGE</span></div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="comment">!  ------------------------------</span></div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;      <span class="keywordflow">DO</span> l=1,nlev</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;      <span class="keywordflow">IF</span>(obs(1,l).EQ.8) <span class="keywordflow">THEN</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;      <span class="keywordflow">IF</span>(obs(1,l)==8) <span class="keywordflow">THEN</span></div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;         obs(2,l) = obs(9,l)</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;         obs(3,l) = obs(10,l)</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="keywordflow">      ENDIF</span></div>
@@ -311,7 +311,7 @@ $(document).ready(function(){initNavTree('readbp_8F90_source.html',''); initResi
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;      <span class="keywordflow">elseif</span>(optarg(1:1)==<span class="stringliteral">&#39;m&#39;</span>) <span class="keywordflow">then</span></div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;         <span class="keyword">read</span>(optarg(2:50),*) msg</div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;      <span class="keywordflow">elseif</span>(optarg(1:1)==<span class="stringliteral">&#39;d&#39;</span>) <span class="keywordflow">then</span></div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;         <span class="keyword">call </span><a class="code" href="ufdump_8f.html#ac6ded614847f96968e12c9600a7d51ba">ufdump</a>(lubfr,6)</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;         <span class="keyword">call </span><a class="code" href="dumpdata_8F90.html#a20fa33f6e0fcb0816c4b070c73362539">ufdump</a>(lubfr,6)</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;      <span class="keywordflow">elseif</span>(optarg(1:1)==<span class="stringliteral">&#39;h&#39;</span>) <span class="keywordflow">then</span></div>
 <div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;         hedr=.true.</div>
 <div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;<span class="keywordflow">      endif</span></div>
@@ -334,15 +334,15 @@ $(document).ready(function(){initNavTree('readbp_8F90_source.html',''); initResi
 <div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;      <span class="keyword">write</span>(*,<span class="stringliteral">&#39;(a1)&#39;</span>)str(lens:lens)</div>
 <div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;      <span class="keyword">end subroutine</span></div>
 <div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
-<div class="ttc" id="adatelen_8f_html_a2b79b38439baa89e2b34b0614449d579"><div class="ttname"><a href="datelen_8f.html#a2b79b38439baa89e2b34b0614449d579">datelen</a></div><div class="ttdeci">recursive subroutine datelen(LEN)</div><div class="ttdoc">This subroutine is used to specify the format of Section 1 date-time values that will be output by fu...</div><div class="ttdef"><b>Definition:</b> <a href="datelen_8f_source.html#l00027">datelen.f:28</a></div></div>
-<div class="ttc" id="aireadmg_8f_html_a3a275abe52521fa780c379ed69e1c994"><div class="ttname"><a href="ireadmg_8f.html#a3a275abe52521fa780c379ed69e1c994">ireadmg</a></div><div class="ttdeci">recursive function ireadmg(LUNIT, SUBSET, IDATE)</div><div class="ttdoc">Calls NCEPLIBS-bufr subroutine readmg() and passes back its return code as the function value.</div><div class="ttdef"><b>Definition:</b> <a href="ireadmg_8f_source.html#l00026">ireadmg.f:27</a></div></div>
-<div class="ttc" id="aireadsb_8f_html_a778c5b1e6c129932b733bc25ecc27f07"><div class="ttname"><a href="ireadsb_8f.html#a778c5b1e6c129932b733bc25ecc27f07">ireadsb</a></div><div class="ttdeci">recursive function ireadsb(LUNIT)</div><div class="ttdoc">Calls NCEPLIBS-bufr subroutine readsb() and passes back its return code as the function value.</div><div class="ttdef"><b>Definition:</b> <a href="ireadsb_8f_source.html#l00019">ireadsb.f:20</a></div></div>
-<div class="ttc" id="aopenbf_8f_html_abcc4f481b8758da104eb75575431128e"><div class="ttname"><a href="openbf_8f.html#abcc4f481b8758da104eb75575431128e">openbf</a></div><div class="ttdeci">recursive subroutine openbf(LUNIT, IO, LUNDX)</div><div class="ttdoc">Connects a new file to the NCEPLIBS-bufr software for input or output operations, or initializes the ...</div><div class="ttdef"><b>Definition:</b> <a href="openbf_8f_source.html#l00123">openbf.f:124</a></div></div>
+<div class="ttc" id="adumpdata_8F90_html_a20fa33f6e0fcb0816c4b070c73362539"><div class="ttname"><a href="dumpdata_8F90.html#a20fa33f6e0fcb0816c4b070c73362539">ufdump</a></div><div class="ttdeci">recursive subroutine ufdump(lunit, luprt)</div><div class="ttdoc">Print a verbose listing of the contents of a data subset, including all data values and replicated se...</div><div class="ttdef"><b>Definition:</b> <a href="dumpdata_8F90_source.html#l00227">dumpdata.F90:228</a></div></div>
+<div class="ttc" id="aopenclosebf_8F90_html_a9dc7e4fb476a5528a958ee132ee6392d"><div class="ttname"><a href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d">openbf</a></div><div class="ttdeci">recursive subroutine openbf(lunit, io, lundx)</div><div class="ttdoc">Connect a new file to the NCEPLIBS-bufr software for input or output operations, or initialize the li...</div><div class="ttdef"><b>Definition:</b> <a href="openclosebf_8F90_source.html#l00168">openclosebf.F90:169</a></div></div>
+<div class="ttc" id="aopenclosebf_8F90_html_aac1b87fbbb688e4f5e2120012eaee382"><div class="ttname"><a href="openclosebf_8F90.html#aac1b87fbbb688e4f5e2120012eaee382">ufbcnt</a></div><div class="ttdeci">recursive subroutine ufbcnt(lunit, kmsg, ksub)</div><div class="ttdoc">Get the current location of the file pointer within a BUFR file, in terms of a message number countin...</div><div class="ttdef"><b>Definition:</b> <a href="openclosebf_8F90_source.html#l00585">openclosebf.F90:586</a></div></div>
 <div class="ttc" id="areadbp_8F90_html_a20f66afc4b9a6ab619111b0d614e452c"><div class="ttname"><a href="readbp_8F90.html#a20f66afc4b9a6ab619111b0d614e452c">printx</a></div><div class="ttdeci">subroutine printx(str)</div><div class="ttdoc">Print long lines to stdout using advance=no format clause.</div><div class="ttdef"><b>Definition:</b> <a href="readbp_8F90_source.html#l00256">readbp.F90:257</a></div></div>
 <div class="ttc" id="areadbp_8F90_html_ac55f7a6af2af963791bb395c6dcc331b"><div class="ttname"><a href="readbp_8F90.html#ac55f7a6af2af963791bb395c6dcc331b">readbp</a></div><div class="ttdeci">program readbp</div><div class="ttdoc">Read PREPBUFR file containing embedded DX BUFR tables, and print each report one at a time.</div><div class="ttdef"><b>Definition:</b> <a href="readbp_8F90_source.html#l00018">readbp.F90:18</a></div></div>
-<div class="ttc" id="aufbcnt_8f_html_afada6ea85af96e5751b5d82d28f807d4"><div class="ttname"><a href="ufbcnt_8f.html#afada6ea85af96e5751b5d82d28f807d4">ufbcnt</a></div><div class="ttdeci">recursive subroutine ufbcnt(LUNIT, KMSG, KSUB)</div><div class="ttdoc">Get the current message number and data subset number within a BUFR file.</div><div class="ttdef"><b>Definition:</b> <a href="ufbcnt_8f_source.html#l00040">ufbcnt.f:41</a></div></div>
-<div class="ttc" id="aufbint_8f_html_aacc479c23b54cc29eecc78d22e56916b"><div class="ttname"><a href="ufbint_8f.html#aacc479c23b54cc29eecc78d22e56916b">ufbint</a></div><div class="ttdeci">recursive subroutine ufbint(LUNIN, USR, I1, I2, IRET, STR)</div><div class="ttdoc">Read/write one or more data values from/to a data subset.</div><div class="ttdef"><b>Definition:</b> <a href="ufbint_8f_source.html#l00120">ufbint.f:121</a></div></div>
-<div class="ttc" id="aufdump_8f_html_ac6ded614847f96968e12c9600a7d51ba"><div class="ttname"><a href="ufdump_8f.html#ac6ded614847f96968e12c9600a7d51ba">ufdump</a></div><div class="ttdeci">recursive subroutine ufdump(LUNIT, LUPRT)</div><div class="ttdoc">This subroutine prints a verbose listing of the contents of a data subset, including all data values ...</div><div class="ttdef"><b>Definition:</b> <a href="ufdump_8f_source.html#l00043">ufdump.f:44</a></div></div>
+<div class="ttc" id="areadwritemg_8F90_html_ae023a7cc381f488ac7669dc3e3ee8236"><div class="ttname"><a href="readwritemg_8F90.html#ae023a7cc381f488ac7669dc3e3ee8236">ireadmg</a></div><div class="ttdeci">recursive integer function ireadmg(lunit, subset, idate)</div><div class="ttdoc">Call subroutine readmg() and pass back its return code as the function value.</div><div class="ttdef"><b>Definition:</b> <a href="readwritemg_8F90_source.html#l00143">readwritemg.F90:144</a></div></div>
+<div class="ttc" id="areadwritesb_8F90_html_aae33d6dd74331ba0a2a34ba22e8e56ab"><div class="ttname"><a href="readwritesb_8F90.html#aae33d6dd74331ba0a2a34ba22e8e56ab">ireadsb</a></div><div class="ttdeci">recursive integer function ireadsb(lunit)</div><div class="ttdoc">Call subroutine readsb() and pass back its return code as the function value.</div><div class="ttdef"><b>Definition:</b> <a href="readwritesb_8F90_source.html#l00116">readwritesb.F90:117</a></div></div>
+<div class="ttc" id="areadwriteval_8F90_html_a6eb38e7aa610c36787b90e50b290eea7"><div class="ttname"><a href="readwriteval_8F90.html#a6eb38e7aa610c36787b90e50b290eea7">ufbint</a></div><div class="ttdeci">recursive subroutine ufbint(lunin, usr, i1, i2, iret, str)</div><div class="ttdoc">Read or write one or more data values from or to a data subset.</div><div class="ttdef"><b>Definition:</b> <a href="readwriteval_8F90_source.html#l00645">readwriteval.F90:646</a></div></div>
+<div class="ttc" id="as013vals_8F90_html_aadd84c217cf5fab0d94564da3f377ebe"><div class="ttname"><a href="s013vals_8F90.html#aadd84c217cf5fab0d94564da3f377ebe">datelen</a></div><div class="ttdeci">recursive subroutine datelen(len)</div><div class="ttdoc">Specify the format of Section 1 date-time values that will be output by future calls to any of the NC...</div><div class="ttdef"><b>Definition:</b> <a href="s013vals_8F90_source.html#l00888">s013vals.F90:889</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

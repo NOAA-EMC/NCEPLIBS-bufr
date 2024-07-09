@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -89,18 +89,18 @@ $(document).ready(function(){initNavTree('namespacemoda__nulbfr.html',''); initR
 </div><!--header-->
 <div class="contents">
 
-<p>This module contains an array declaration used to store a switch for each internal I/O stream index, indicating whether any BUFR messages should actually be written to the corresponding logical unit.  
+<p>Declare an array used to store a switch for each file ID, indicating whether any BUFR messages should actually be written to the corresponding logical unit.  
 <a href="namespacemoda__nulbfr.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a1b6c0eaf2305df7abddd8c6c66723526"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__nulbfr.html#a1b6c0eaf2305df7abddd8c6c66723526">null</a></td></tr>
-<tr class="memdesc:a1b6c0eaf2305df7abddd8c6c66723526"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output switch for each internal I/O stream index:  <a href="namespacemoda__nulbfr.html#a1b6c0eaf2305df7abddd8c6c66723526">More...</a><br /></td></tr>
+<tr class="memdesc:a1b6c0eaf2305df7abddd8c6c66723526"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output switch for each file ID:  <a href="namespacemoda__nulbfr.html#a1b6c0eaf2305df7abddd8c6c66723526">More...</a><br /></td></tr>
 <tr class="separator:a1b6c0eaf2305df7abddd8c6c66723526"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This module contains an array declaration used to store a switch for each internal I/O stream index, indicating whether any BUFR messages should actually be written to the corresponding logical unit. </p>
-<p>The default value is "on", indicating that BUFR messages should be written to the corresponding logical unit, but it can be switched to a value of "off" if it is connected to the library via a call to subroutine <a class="el" href="openbf_8f.html#abcc4f481b8758da104eb75575431128e" title="Connects a new file to the NCEPLIBS-bufr software for input or output operations, or initializes the ...">openbf()</a> with IO = 'NUL', and in which case no output will actually be written to the corresponding logical unit. This can be useful if, for example, an application program is planning to use subroutine <a class="el" href="writsa_8f.html#a15907b29d7777574ebc34b491e2df0ee" title="Write a data subset into a BUFR message, and return each completed message within a memory array.">writsa()</a> to return output BUFR messages via a memory array and doesn't want to also have them automatically written out to a file.</p>
+<div class="textblock"><p>Declare an array used to store a switch for each file ID, indicating whether any BUFR messages should actually be written to the corresponding logical unit. </p>
+<p>The default value is "on", indicating that BUFR messages should be written to the corresponding logical unit, but it can be switched to a value of "off" if it is connected to the library via a call to subroutine <a class="el" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d" title="Connect a new file to the NCEPLIBS-bufr software for input or output operations, or initialize the li...">openbf()</a> with IO = 'NUL', and in which case no output will actually be written to the corresponding logical unit. This can be useful if, for example, an application program is planning to use subroutine <a class="el" href="readwritesb_8F90.html#a4b62a40d2c2860279670bf59a68e8204" title="Write a complete data subset into a BUFR message, and return each completed message within a memory a...">writsa()</a> to return output BUFR messages via a memory array and doesn't want to also have them automatically written out to a file.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2003-11-04 </dd></dl>
 </div><h2 class="groupheader">Variable Documentation</h2>
@@ -116,15 +116,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Output switch for each internal I/O stream index: </p>
+<p>Output switch for each file ID: </p>
 <ul>
 <li>0 BUFR messages will be written to corresponding logical unit (default)</li>
 <li>1 no BUFR messages will be written to corresponding logical unit </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00511">511</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00514">514</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="closbf_8f.html#ad55dd3a551ae12718de0ac459c8f45c0">closbf()</a>, <a class="el" href="msgwrt_8f.html#ac95ecf1436ba14805a33efd29fab1e5d">msgwrt()</a>, and <a class="el" href="openbf_8f.html#abcc4f481b8758da104eb75575431128e">openbf()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="openclosebf_8F90.html#a48a49bb82348400c1ba6af00c0138ab3">closbf()</a>, <a class="el" href="readwritemg_8F90.html#af49a08bdf36b69217da7571dcfc90624">msgwrt()</a>, and <a class="el" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d">openbf()</a>.</p>
 
 </div>
 </div>

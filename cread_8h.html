@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -105,7 +105,7 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Declare variables for reading or writing BUFR messages via a C language interface. </p>
-<p>These variables are used by the C language interface which encompasses functions <a class="el" href="cread_8c.html#ab18be8cbb2bdbdb682adce89dd1a9c69" title="Open a new file for reading BUFR messages.">openrb()</a>, <a class="el" href="cread_8c.html#aa7b36dfb6c0fe0f9a1104d34c5acfa5e" title="Open a new file for writing BUFR messages.">openwb()</a>, <a class="el" href="cread_8c.html#a8eb759a820f7f12a3b75e92473db3c78" title="Open a new file for appending BUFR messages.">openab()</a>, <a class="el" href="cread_8c.html#ad5429d7ed327f515c880227bb795162b" title="Backspace a BUFR file by one BUFR message.">backbufr()</a>, <a class="el" href="cread_8c.html#afffb1b48f2c7d82abebcf2564d47438a" title="Rewind a BUFR file back to its beginning.">cewind()</a>, <a class="el" href="cread_8c.html#a7b13da152c5a09e0fc1c92d8eb41154b" title="Close a previously opened BUFR file.">closfb()</a>, <a class="el" href="cread_8c.html#a8b09f32462059d646e44ea6098a08edc" title="Read the next message from a BUFR file that was previously opened for reading.">crdbufr()</a> and <a class="el" href="cread_8c.html#a95bc32869561911e9ca020628802edc5" title="Write a BUFR message into a file that was previously opened for writing.">cwrbufr()</a>.</p>
+<p>These variables are used by the C language interface which encompasses functions <a class="el" href="bufrlib_8h.html#ab18be8cbb2bdbdb682adce89dd1a9c69" title="Open a new file for reading BUFR messages.">openrb()</a>, <a class="el" href="bufrlib_8h.html#aa7b36dfb6c0fe0f9a1104d34c5acfa5e" title="Open a new file for writing BUFR messages.">openwb()</a>, <a class="el" href="bufrlib_8h.html#a8eb759a820f7f12a3b75e92473db3c78" title="Open a new file for appending BUFR messages.">openab()</a>, <a class="el" href="bufrlib_8h.html#ad5429d7ed327f515c880227bb795162b" title="Backspace a BUFR file by one BUFR message.">backbufr()</a>, <a class="el" href="bufrlib_8h.html#afffb1b48f2c7d82abebcf2564d47438a" title="Rewind a BUFR file back to its beginning.">cewind()</a>, <a class="el" href="bufrlib_8h.html#a7b13da152c5a09e0fc1c92d8eb41154b" title="Close a previously opened BUFR file.">closfb()</a>, <a class="el" href="bufrlib_8h.html#a8b09f32462059d646e44ea6098a08edc" title="Read the next message from a BUFR file that was previously opened for reading.">crdbufr()</a> and <a class="el" href="bufrlib_8h.html#a95bc32869561911e9ca020628802edc5" title="Write a BUFR message into a file that was previously opened for writing.">cwrbufr()</a>.</p>
 <p>When allocated, these variables are dimensioned as one larger than NFILES because of the difference in array indexing between Fortran and C. In each function, the value passed in for nfile will be a Fortran file ID ranging in value from 1 to NFILES, so we need to allow for this same range of values in C, which would otherwise expect the array indices to range from 0 to NFILES-1.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2012-09-15 </dd></dl>
@@ -134,7 +134,7 @@ Variables</h2></td></tr>
 
 <p>Byte positions of last successful reads from files corresponding to pb, for files that were opened for reading. </p>
 
-<p class="reference">Referenced by <a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28">arallocc()</a>, <a class="el" href="ardllocc_8c.html#ac283516a1391fee0635b01beffdad7cb">ardllocc()</a>, <a class="el" href="cread_8c.html#ad5429d7ed327f515c880227bb795162b">backbufr()</a>, and <a class="el" href="cread_8c.html#a8b09f32462059d646e44ea6098a08edc">crdbufr()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28">arallocc()</a>, <a class="el" href="arallocc_8c.html#ac283516a1391fee0635b01beffdad7cb">ardllocc()</a>, <a class="el" href="bufrlib_8h.html#ad5429d7ed327f515c880227bb795162b">backbufr()</a>, and <a class="el" href="bufrlib_8h.html#a8b09f32462059d646e44ea6098a08edc">crdbufr()</a>.</p>
 
 </div>
 </div>
@@ -160,7 +160,7 @@ Variables</h2></td></tr>
 
 <p>File pointers. </p>
 
-<p class="reference">Referenced by <a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28">arallocc()</a>, <a class="el" href="ardllocc_8c.html#ac283516a1391fee0635b01beffdad7cb">ardllocc()</a>, <a class="el" href="cread_8c.html#ad5429d7ed327f515c880227bb795162b">backbufr()</a>, <a class="el" href="cread_8c.html#afffb1b48f2c7d82abebcf2564d47438a">cewind()</a>, <a class="el" href="cread_8c.html#a7b13da152c5a09e0fc1c92d8eb41154b">closfb()</a>, <a class="el" href="cread_8c.html#a8b09f32462059d646e44ea6098a08edc">crdbufr()</a>, <a class="el" href="cread_8c.html#a95bc32869561911e9ca020628802edc5">cwrbufr()</a>, <a class="el" href="cread_8c.html#a8eb759a820f7f12a3b75e92473db3c78">openab()</a>, <a class="el" href="cread_8c.html#ab18be8cbb2bdbdb682adce89dd1a9c69">openrb()</a>, and <a class="el" href="cread_8c.html#aa7b36dfb6c0fe0f9a1104d34c5acfa5e">openwb()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28">arallocc()</a>, <a class="el" href="arallocc_8c.html#ac283516a1391fee0635b01beffdad7cb">ardllocc()</a>, <a class="el" href="bufrlib_8h.html#ad5429d7ed327f515c880227bb795162b">backbufr()</a>, <a class="el" href="bufrlib_8h.html#afffb1b48f2c7d82abebcf2564d47438a">cewind()</a>, <a class="el" href="bufrlib_8h.html#a7b13da152c5a09e0fc1c92d8eb41154b">closfb()</a>, <a class="el" href="bufrlib_8h.html#a8b09f32462059d646e44ea6098a08edc">crdbufr()</a>, <a class="el" href="bufrlib_8h.html#a95bc32869561911e9ca020628802edc5">cwrbufr()</a>, <a class="el" href="bufrlib_8h.html#a8eb759a820f7f12a3b75e92473db3c78">openab()</a>, <a class="el" href="bufrlib_8h.html#ab18be8cbb2bdbdb682adce89dd1a9c69">openrb()</a>, and <a class="el" href="bufrlib_8h.html#aa7b36dfb6c0fe0f9a1104d34c5acfa5e">openwb()</a>.</p>
 
 </div>
 </div>

@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('namespacemoda__bitbuf.html',''); initR
 </div><!--header-->
 <div class="contents">
 
-<p>This module contains array and variable declarations used to store BUFR messages internally for multiple I/O streams.  
+<p>Declare arrays and variables used to store BUFR messages internally for multiple file IDs.  
 <a href="namespacemoda__bitbuf.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -98,20 +98,20 @@ Variables</h2></td></tr>
 <tr class="memdesc:a4910f483014af612d37ea34a1f477434"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current data subset.  <a href="namespacemoda__bitbuf.html#a4910f483014af612d37ea34a1f477434">More...</a><br /></td></tr>
 <tr class="separator:a4910f483014af612d37ea34a1f477434"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c052fc732472f6f329209ac2db75cf9"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__bitbuf.html#a8c052fc732472f6f329209ac2db75cf9">ibit</a></td></tr>
-<tr class="memdesc:a8c052fc732472f6f329209ac2db75cf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit pointer within IBAY.  <a href="namespacemoda__bitbuf.html#a8c052fc732472f6f329209ac2db75cf9">More...</a><br /></td></tr>
+<tr class="memdesc:a8c052fc732472f6f329209ac2db75cf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit pointer within ibay.  <a href="namespacemoda__bitbuf.html#a8c052fc732472f6f329209ac2db75cf9">More...</a><br /></td></tr>
 <tr class="separator:a8c052fc732472f6f329209ac2db75cf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb00e574adb63bf7cc809d540d5a02bc"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__bitbuf.html#aeb00e574adb63bf7cc809d540d5a02bc">maxbyt</a></td></tr>
 <tr class="memdesc:aeb00e574adb63bf7cc809d540d5a02bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum length of an output BUFR message.  <a href="namespacemoda__bitbuf.html#aeb00e574adb63bf7cc809d540d5a02bc">More...</a><br /></td></tr>
 <tr class="separator:aeb00e574adb63bf7cc809d540d5a02bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad8a1595878ac1a9907c708067c4c050"><td class="memItemLeft" align="right" valign="top">integer, dimension(:,:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__bitbuf.html#aad8a1595878ac1a9907c708067c4c050">mbay</a></td></tr>
-<tr class="memdesc:aad8a1595878ac1a9907c708067c4c050"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current BUFR message for each internal I/O stream.  <a href="namespacemoda__bitbuf.html#aad8a1595878ac1a9907c708067c4c050">More...</a><br /></td></tr>
+<tr class="memdesc:aad8a1595878ac1a9907c708067c4c050"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current BUFR message for each file ID.  <a href="namespacemoda__bitbuf.html#aad8a1595878ac1a9907c708067c4c050">More...</a><br /></td></tr>
 <tr class="separator:aad8a1595878ac1a9907c708067c4c050"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acfcd2b4391b00ae43bdb026de8573c7a"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__bitbuf.html#acfcd2b4391b00ae43bdb026de8573c7a">mbyt</a></td></tr>
-<tr class="memdesc:acfcd2b4391b00ae43bdb026de8573c7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length (in bytes) of current BUFR message for each internal I/O stream.  <a href="namespacemoda__bitbuf.html#acfcd2b4391b00ae43bdb026de8573c7a">More...</a><br /></td></tr>
+<tr class="memdesc:acfcd2b4391b00ae43bdb026de8573c7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length (in bytes) of current BUFR message for each file ID.  <a href="namespacemoda__bitbuf.html#acfcd2b4391b00ae43bdb026de8573c7a">More...</a><br /></td></tr>
 <tr class="separator:acfcd2b4391b00ae43bdb026de8573c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This module contains array and variable declarations used to store BUFR messages internally for multiple I/O streams. </p>
+<div class="textblock"><p>Declare arrays and variables used to store BUFR messages internally for multiple file IDs. </p>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2014-12-10 </dd></dl>
 </div><h2 class="groupheader">Variable Documentation</h2>
@@ -129,9 +129,9 @@ Variables</h2></td></tr>
 
 <p>Current data subset. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00016">16</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00018">18</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350">msgupd()</a>, <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>, and <a class="el" href="wrtree_8f.html#a0700f04d89a10a24b1acb184f6022c77">wrtree()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="readwritesb_8F90.html#a237f33069932c5fae473ac718c2eae9a">msgupd()</a>, <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>, and <a class="el" href="readwritesb_8F90.html#a2324e7f253ba3ad6209d7ab0fce5bc0e">wrtree()</a>.</p>
 
 </div>
 </div>
@@ -147,11 +147,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Bit pointer within IBAY. </p>
+<p>Bit pointer within ibay. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00014">14</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00020">20</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="copysb_8f.html#a7982baa3c1084a33dfa8aec297782978">copysb()</a>, <a class="el" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350">msgupd()</a>, <a class="el" href="rdcmps_8f.html#a4592f4f71832d5bc80939cfd8095ad09">rdcmps()</a>, <a class="el" href="rdtree_8f.html#a517c48e080eadc5e9a88fff47ffe4c34">rdtree()</a>, <a class="el" href="readsb_8f.html#a7487962744f372041e729f0b754b7a92">readsb()</a>, <a class="el" href="restd_8c.html#ad5e16b436141e02ca2b1a8def406a1d3">restd()</a>, <a class="el" href="rewnbf_8f.html#a70ac3a628bb020054246ff3fb8392a96">rewnbf()</a>, <a class="el" href="ufbinx_8f.html#a4014acd8639acf687abe1cd69efad1d4">ufbinx()</a>, <a class="el" href="ufbtab_8f.html#a5e4e72f944670059a938e246717e5ad9">ufbtab()</a>, <a class="el" href="ufbtam_8f.html#ab057894a02fafc40f351dfb23707f9a1">ufbtam()</a>, <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>, <a class="el" href="writlc_8f.html#a618f82746b2f00c524529cf9c477656a">writlc()</a>, and <a class="el" href="wrtree_8f.html#a0700f04d89a10a24b1acb184f6022c77">wrtree()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="copydata_8F90.html#a81eba6ff34f0a5020bf311ccf24d8efc">copysb()</a>, <a class="el" href="readwritesb_8F90.html#a237f33069932c5fae473ac718c2eae9a">msgupd()</a>, <a class="el" href="compress_8F90.html#a1cb1b8bdef41e7ff3420a543e590fde8">rdcmps()</a>, <a class="el" href="readwritesb_8F90.html#a1dab1c658cb8511cfd1cc6a360221da8">rdtree()</a>, <a class="el" href="readwritesb_8F90.html#ab4b6c52feffa76d2a4d8fab6e3547f3c">readsb()</a>, <a class="el" href="bufrlib_8h.html#a9fab66c5a028abf354d075040dde317c">restd()</a>, <a class="el" href="openclosebf_8F90.html#a56b33c6538a8c0abf1b6a31584c68494">rewnbf()</a>, <a class="el" href="openclosebf_8F90.html#ae88bf9794ed98ec79e9de0faff0093af">ufbtab()</a>, <a class="el" href="memmsgs_8F90.html#aef5cd104e2b7ce86e852e4878c8efc9d">ufbtam()</a>, <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>, <a class="el" href="readwriteval_8F90.html#aecfa08f631e1af46b472c007b93b2955">writlc()</a>, and <a class="el" href="readwritesb_8F90.html#a2324e7f253ba3ad6209d7ab0fce5bc0e">wrtree()</a>.</p>
 
 </div>
 </div>
@@ -171,7 +171,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00012">12</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="bfrini_8f90.html#ab3f045cc170403305543e34e30b87001">bfrini()</a>, <a class="el" href="cpyupd_8f.html#a129651d2e47b6c8986c1fc4dd73d87c9">cpyupd()</a>, <a class="el" href="igetmxby_8f.html#a2e158576710c771847a84db8cd00d13b">igetmxby()</a>, <a class="el" href="maxout_8f.html#aaa325906c9b2cc1b17852d152d475bcb">maxout()</a>, and <a class="el" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350">msgupd()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="misc_8F90.html#ab3f045cc170403305543e34e30b87001">bfrini()</a>, <a class="el" href="copydata_8F90.html#a9441a5be99c4a359ce4f2798037a2ea1">cpyupd()</a>, <a class="el" href="readwritemg_8F90.html#a87f1117bcbbc713c95bdca6f1bb1214c">igetmxby()</a>, <a class="el" href="readwritemg_8F90.html#a1c8cdc47f69010cd4eaa20710e28f53d">maxout()</a>, <a class="el" href="readwritesb_8F90.html#a237f33069932c5fae473ac718c2eae9a">msgupd()</a>, and <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>.</p>
 
 </div>
 </div>
@@ -187,11 +187,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Current BUFR message for each internal I/O stream. </p>
+<p>Current BUFR message for each file ID. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00020">20</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00014">14</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c">cktaba()</a>, <a class="el" href="closmg_8f.html#a613caf939b486d5820aad9111383921b">closmg()</a>, <a class="el" href="copymg_8f.html#a2f6e668a0784a60fa7aa078d10223590">copymg()</a>, <a class="el" href="copysb_8f.html#a7982baa3c1084a33dfa8aec297782978">copysb()</a>, <a class="el" href="cpymem_8f.html#abf683322bb0f02c5fe1d2aed27c997a9">cpymem()</a>, <a class="el" href="cpyupd_8f.html#a129651d2e47b6c8986c1fc4dd73d87c9">cpyupd()</a>, <a class="el" href="ireadmt_8f.html#aa695ad6da4ed98ed6ef6fc3666f7d7bc">ireadmt()</a>, <a class="el" href="iupvs01_8f.html#a77200fe9b0146973c1a0116ade2e70ad">iupvs01()</a>, <a class="el" href="mesgbc_8f.html#a94b2ff31250eb562ee4fe3c5c231e98b">mesgbc()</a>, <a class="el" href="minimg_8f.html#a8a82b46fac7c6c9375ec8b0543de1f0a">minimg()</a>, <a class="el" href="msgini_8f.html#ae73a0a9e7bba8f7dfeb673f2bca0820b">msgini()</a>, <a class="el" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350">msgupd()</a>, <a class="el" href="rcstpl_8f.html#a6051cb3fd10cab351aaade691f06ffd1">rcstpl()</a>, <a class="el" href="rdcmps_8f.html#a4592f4f71832d5bc80939cfd8095ad09">rdcmps()</a>, <a class="el" href="rdmemm_8f.html#acdadcefdf7f3d9e0a9271ece060ec193">rdmemm()</a>, <a class="el" href="rdmems_8f.html#a4af6fe463b8e15affa23de1f1ac4358e">rdmems()</a>, <a class="el" href="rdtree_8f.html#a517c48e080eadc5e9a88fff47ffe4c34">rdtree()</a>, <a class="el" href="readerme_8f.html#a3d8860f8a5fe519e8d84afbe68dc67b5">readerme()</a>, <a class="el" href="readlc_8f.html#a6ab327a73098c106cbad611b396ea2f1">readlc()</a>, <a class="el" href="readmg_8f.html#a6471e41b4b7e505d6659c1fd45cc195d">readmg()</a>, <a class="el" href="reads3_8f.html#a57a4b386c104472c2df89ca9217d0d4b">reads3()</a>, <a class="el" href="readsb_8f.html#a7487962744f372041e729f0b754b7a92">readsb()</a>, <a class="el" href="rewnbf_8f.html#a70ac3a628bb020054246ff3fb8392a96">rewnbf()</a>, <a class="el" href="rtrcpt_8f.html#a7bcf788ea62da2fb181b12e609a28ef4">rtrcpt()</a>, <a class="el" href="ufbget_8f.html#ac8ce7862a6f53cee02ad052d341247e4">ufbget()</a>, <a class="el" href="ufbinx_8f.html#a4014acd8639acf687abe1cd69efad1d4">ufbinx()</a>, <a class="el" href="ufbtab_8f.html#a5e4e72f944670059a938e246717e5ad9">ufbtab()</a>, <a class="el" href="ufbtam_8f.html#ab057894a02fafc40f351dfb23707f9a1">ufbtam()</a>, <a class="el" href="wrcmps_8f.html#a8b333832f77606059ec94ba8b80d4e8d">wrcmps()</a>, and <a class="el" href="writlc_8f.html#a618f82746b2f00c524529cf9c477656a">writlc()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="s013vals_8F90.html#a1f8f8b7d0f3b0eb6042e170c0c84c18f">cktaba()</a>, <a class="el" href="readwritemg_8F90.html#a63b37b74d9833df9d99e3937a2fa293a">closmg()</a>, <a class="el" href="copydata_8F90.html#aedfe2559c1f9c59ec85c11993b378e7e">copymg()</a>, <a class="el" href="copydata_8F90.html#a81eba6ff34f0a5020bf311ccf24d8efc">copysb()</a>, <a class="el" href="copydata_8F90.html#ad102179380a6543e1ec7af4c1ba1fdde">cpymem()</a>, <a class="el" href="copydata_8F90.html#a9441a5be99c4a359ce4f2798037a2ea1">cpyupd()</a>, <a class="el" href="mastertable_8F90.html#adde6acff18af3673cd9ef45b7ec12833">ireadmt()</a>, <a class="el" href="s013vals_8F90.html#a3b1a6e580f306826c680ff0a71d883f8">iupvs01()</a>, <a class="el" href="s013vals_8F90.html#ac3a5070d2415122d7a93471e5f019247">mesgbc()</a>, <a class="el" href="s013vals_8F90.html#a70447e085c4523fa53796c5317f63ae8">minimg()</a>, <a class="el" href="readwritemg_8F90.html#ae5477034329440d4127a5243305b81e4">msgini()</a>, <a class="el" href="readwritesb_8F90.html#a237f33069932c5fae473ac718c2eae9a">msgupd()</a>, <a class="el" href="readwritesb_8F90.html#abb101b31fac13895d22320a918215372">rcstpl()</a>, <a class="el" href="compress_8F90.html#a1cb1b8bdef41e7ff3420a543e590fde8">rdcmps()</a>, <a class="el" href="memmsgs_8F90.html#a379c2ad518735b00eecff6ddcf32b278">rdmemm()</a>, <a class="el" href="memmsgs_8F90.html#a2687d7372647fc32c4713c7e9eb6d268">rdmems()</a>, <a class="el" href="readwritesb_8F90.html#a1dab1c658cb8511cfd1cc6a360221da8">rdtree()</a>, <a class="el" href="readwritemg_8F90.html#aa2a7bf49cad422b474a24edd3a1cb232">readerme()</a>, <a class="el" href="readwriteval_8F90.html#aad0d9cae550b97bc950c739ff44ca6b2">readlc()</a>, <a class="el" href="readwritemg_8F90.html#aad947e23951efbcba54930d6f309e0a8">readmg()</a>, <a class="el" href="s013vals_8F90.html#ac96e5200de4ecc84f79caa98177e60f6">reads3()</a>, <a class="el" href="readwritesb_8F90.html#ab4b6c52feffa76d2a4d8fab6e3547f3c">readsb()</a>, <a class="el" href="openclosebf_8F90.html#a56b33c6538a8c0abf1b6a31584c68494">rewnbf()</a>, <a class="el" href="tankrcpt_8F90.html#a5d6fa241d34622347252bf41b73d8610">rtrcpt()</a>, <a class="el" href="readwriteval_8F90.html#aee2899967d88055f73e4d5ad954d7b5a">ufbget()</a>, <a class="el" href="openclosebf_8F90.html#ae88bf9794ed98ec79e9de0faff0093af">ufbtab()</a>, <a class="el" href="memmsgs_8F90.html#aef5cd104e2b7ce86e852e4878c8efc9d">ufbtam()</a>, <a class="el" href="compress_8F90.html#a6936aeb7f52ecaaa76047564005946d9">wrcmps()</a>, and <a class="el" href="readwriteval_8F90.html#aecfa08f631e1af46b472c007b93b2955">writlc()</a>.</p>
 
 </div>
 </div>
@@ -207,11 +207,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Length (in bytes) of current BUFR message for each internal I/O stream. </p>
+<p>Length (in bytes) of current BUFR message for each file ID. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00018">18</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00016">16</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="cktaba_8f.html#a137108e58830be769ba5b28072cf1b4c">cktaba()</a>, <a class="el" href="closmg_8f.html#a613caf939b486d5820aad9111383921b">closmg()</a>, <a class="el" href="copysb_8f.html#a7982baa3c1084a33dfa8aec297782978">copysb()</a>, <a class="el" href="cpyupd_8f.html#a129651d2e47b6c8986c1fc4dd73d87c9">cpyupd()</a>, <a class="el" href="msgini_8f.html#ae73a0a9e7bba8f7dfeb673f2bca0820b">msgini()</a>, <a class="el" href="msgupd_8f.html#adf75cb2bc2a217eb33ffc8e45b1a5350">msgupd()</a>, <a class="el" href="rdcmps_8f.html#a4592f4f71832d5bc80939cfd8095ad09">rdcmps()</a>, <a class="el" href="rdmems_8f.html#a4af6fe463b8e15affa23de1f1ac4358e">rdmems()</a>, <a class="el" href="readsb_8f.html#a7487962744f372041e729f0b754b7a92">readsb()</a>, <a class="el" href="rewnbf_8f.html#a70ac3a628bb020054246ff3fb8392a96">rewnbf()</a>, <a class="el" href="ufbget_8f.html#ac8ce7862a6f53cee02ad052d341247e4">ufbget()</a>, <a class="el" href="ufbinx_8f.html#a4014acd8639acf687abe1cd69efad1d4">ufbinx()</a>, <a class="el" href="ufbtab_8f.html#a5e4e72f944670059a938e246717e5ad9">ufbtab()</a>, and <a class="el" href="ufbtam_8f.html#ab057894a02fafc40f351dfb23707f9a1">ufbtam()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="s013vals_8F90.html#a1f8f8b7d0f3b0eb6042e170c0c84c18f">cktaba()</a>, <a class="el" href="readwritemg_8F90.html#a63b37b74d9833df9d99e3937a2fa293a">closmg()</a>, <a class="el" href="copydata_8F90.html#a81eba6ff34f0a5020bf311ccf24d8efc">copysb()</a>, <a class="el" href="copydata_8F90.html#a9441a5be99c4a359ce4f2798037a2ea1">cpyupd()</a>, <a class="el" href="readwritemg_8F90.html#ae5477034329440d4127a5243305b81e4">msgini()</a>, <a class="el" href="readwritesb_8F90.html#a237f33069932c5fae473ac718c2eae9a">msgupd()</a>, <a class="el" href="compress_8F90.html#a1cb1b8bdef41e7ff3420a543e590fde8">rdcmps()</a>, <a class="el" href="memmsgs_8F90.html#a2687d7372647fc32c4713c7e9eb6d268">rdmems()</a>, <a class="el" href="readwritesb_8F90.html#ab4b6c52feffa76d2a4d8fab6e3547f3c">readsb()</a>, <a class="el" href="openclosebf_8F90.html#a56b33c6538a8c0abf1b6a31584c68494">rewnbf()</a>, <a class="el" href="readwriteval_8F90.html#aee2899967d88055f73e4d5ad954d7b5a">ufbget()</a>, <a class="el" href="openclosebf_8F90.html#ae88bf9794ed98ec79e9de0faff0093af">ufbtab()</a>, and <a class="el" href="memmsgs_8F90.html#aef5cd104e2b7ce86e852e4878c8efc9d">ufbtam()</a>.</p>
 
 </div>
 </div>

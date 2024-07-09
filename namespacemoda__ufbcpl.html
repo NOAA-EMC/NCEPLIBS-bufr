@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.0.1</span>
+   &#160;<span id="projectnumber">12.1.0</span>
    </div>
   </td>
  </tr>
@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('namespacemoda__ufbcpl.html',''); initR
 </div><!--header-->
 <div class="contents">
 
-<p>This module contains an array declaration used to store, for each I/O stream index, the logical unit number corresponding to a separate I/O stream index whenever BUFR data subsets are being copied from the latter to the former via subroutine <a class="el" href="ufbcpy_8f.html#ac1f15281ef59f8b415f26ab9338a1700" title="Copy a BUFR data subset.">ufbcpy()</a>.  
+<p>Declare an array used to store, for each file ID, the logical unit number corresponding to a separate file ID whenever BUFR data subsets are being copied from the latter to the former via subroutine <a class="el" href="copydata_8F90.html#aed892e851f07fc9bf94a2c58c809c09c" title="Copy a BUFR data subset from one Fortran logical unit to another.">ufbcpy()</a>.  
 <a href="namespacemoda__ufbcpl.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -99,8 +99,8 @@ Variables</h2></td></tr>
 <tr class="separator:abf94758379c91be61fcf18f6c9dae5cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This module contains an array declaration used to store, for each I/O stream index, the logical unit number corresponding to a separate I/O stream index whenever BUFR data subsets are being copied from the latter to the former via subroutine <a class="el" href="ufbcpy_8f.html#ac1f15281ef59f8b415f26ab9338a1700" title="Copy a BUFR data subset.">ufbcpy()</a>. </p>
-<p>In such cases, this stored logical unit number is later accessed within subroutine <a class="el" href="wrtree_8f.html#a0700f04d89a10a24b1acb184f6022c77" title="Pack a BUFR data subset.">wrtree()</a> to enable the copying of long character strings (greater than 8 bytes) between the two logical units.</p>
+<div class="textblock"><p>Declare an array used to store, for each file ID, the logical unit number corresponding to a separate file ID whenever BUFR data subsets are being copied from the latter to the former via subroutine <a class="el" href="copydata_8F90.html#aed892e851f07fc9bf94a2c58c809c09c" title="Copy a BUFR data subset from one Fortran logical unit to another.">ufbcpy()</a>. </p>
+<p>In such cases, this stored logical unit number is later accessed within subroutine <a class="el" href="readwritesb_8F90.html#a2324e7f253ba3ad6209d7ab0fce5bc0e" title="Pack a BUFR data subset.">wrtree()</a> to enable the copying of long character strings (greater than 8 bytes) between the two logical units.</p>
 <dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2009-08-11 </dd></dl>
 </div><h2 class="groupheader">Variable Documentation</h2>
@@ -120,7 +120,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00757">757</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="arallocf_8f.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="ardllocf_8f.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="msgini_8f.html#ae73a0a9e7bba8f7dfeb673f2bca0820b">msgini()</a>, <a class="el" href="ufbcpy_8f.html#ac1f15281ef59f8b415f26ab9338a1700">ufbcpy()</a>, and <a class="el" href="wrtree_8f.html#a0700f04d89a10a24b1acb184f6022c77">wrtree()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocf_8F90.html#a2b64630033a9306be25da1f6b28d913f">arallocf()</a>, <a class="el" href="arallocf_8F90.html#a7b3e4d5498fedd9e94ac45b69fc04b58">ardllocf()</a>, <a class="el" href="readwritemg_8F90.html#ae5477034329440d4127a5243305b81e4">msgini()</a>, <a class="el" href="copydata_8F90.html#aed892e851f07fc9bf94a2c58c809c09c">ufbcpy()</a>, and <a class="el" href="readwritesb_8F90.html#a2324e7f253ba3ad6209d7ab0fce5bc0e">wrtree()</a>.</p>
 
 </div>
 </div>
