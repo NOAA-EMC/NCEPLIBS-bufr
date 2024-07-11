@@ -17,12 +17,13 @@ class Bufr(CMakePackage):
     """
 
     homepage = "https://noaa-emc.github.io/NCEPLIBS-bufr"
-    url = "https://github.com/NOAA-EMC/NCEPLIBS-bufr/archive/refs/tags/v12.0.1.tar.gz"
+    url = "https://github.com/NOAA-EMC/NCEPLIBS-bufr/archive/refs/tags/v12.1.0.tar.gz"
     git = "https://github.com/NOAA-EMC/NCEPLIBS-bufr"
 
     maintainers("AlexanderRichert-NOAA", "edwardhartnett", "Hang-Lei-NOAA", "jbathegit")
 
     version("develop", branch="develop")
+    version("12.1.0", sha256="b5eae61b50d4132b2933b6e6dfc607e5392727cdc4f46ec7a94a19109d91dcf3")
     version("12.0.1", sha256="525f26238dba6511a453fc71cecc05f59e4800a603de2abbbbfb8cbb5adf5708")
     version("12.0.0", sha256="d01c02ea8e100e51fd150ff1c4a1192ca54538474acb1b7f7a36e8aeab76ee75")
     version("11.7.1", sha256="6533ce6eaa6b02c0cb5424cfbc086ab120ccebac3894980a4daafd4dfadd71f8")
