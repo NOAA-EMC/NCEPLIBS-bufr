@@ -468,11 +468,6 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufbget 2) && exit 1
     (./test_bort_$kind ufbget 3) && exit 1
 
-    # Check ufbint3().
-    (./test_bort_$kind ufbin3 1) && exit 1
-    (./test_bort_$kind ufbin3 2) && exit 1
-    (./test_bort_$kind ufbin3 3) && exit 1
-
     # Check ufbint().
     (./test_bort_$kind ufbint 1) && exit 1
     (./test_bort_$kind ufbint 2) && exit 1
