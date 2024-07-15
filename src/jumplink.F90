@@ -1291,7 +1291,7 @@ end function invwin
 !> operator" subroutines, a window essentially consists of all of the
 !> elements within a particular delayed replication group, since such
 !> groups effectively define the dimensions within a BUFR subset for
-!> subroutines such as ufbint(), ufbin3(), etc.
+!> subroutines such as ufbint()
 !> which read/write individual data values. A BUFR subset with no
 !> delayed replication groups is considered to have only one
 !> dimension, and therefore only one "window" which spans the entire

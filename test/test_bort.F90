@@ -1770,23 +1770,6 @@ program test_bort
         call openbf(12, 'IN', 10)
         call ufbget(12, real_1d, 1, iret, 's')
      endif
-  elseif (sub_name == 'ufbin3') then
-     if (test_case == '1') then
-        call openbf(12, 'FIRST', 11)
-        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
-        call ufbin3(11, real_2d, 1, 2, 3, iret, jret, 'c')
-     elseif (test_case == '2') then
-        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
-        call openbf(12, 'OUT', 10)
-        call ufbin3(12, real_2d, 1, 2, 3, iret, jret, 'c')
-     elseif (test_case == '3') then
-        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
-        call openbf(12, 'IN', 10)
-        call ufbin3(12, real_2d, 1, 2, 3, iret, jret, 'c')
-     endif
   elseif (sub_name == 'ufbint') then
      if (test_case == '1') then
         call openbf(12, 'FIRST', 11)
