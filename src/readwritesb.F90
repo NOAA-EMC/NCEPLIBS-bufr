@@ -1072,7 +1072,7 @@ subroutine wrtree(lun)
 
   integer, intent(in) :: lun
   integer*8 ipks
-  integer n, node, ncr, numchr, jj, ibfms
+  integer n, node, nbit, ncr, numchr, jj, ibfms, igetrfel, imrkopr
 
   character*120 lstr
   character*8 cval
@@ -1085,6 +1085,7 @@ subroutine wrtree(lun)
 
   do n=1,nval(lun)
     node = inv(n,lun)
+    nrfelm(n,lun) = igetrfel(n,lun)
     if(itp(node)==1) then
       ival(n) = nint(val(n,lun))
     elseif(typ(node)=='NUM') then
@@ -1094,6 +1095,7 @@ subroutine wrtree(lun)
       else
         ival(n) = ipks(val(n,lun),node)
       endif
+      call strbtm(n,lun,int(ival(n)))
     endif
   enddo
 
@@ -1105,7 +1107,12 @@ subroutine wrtree(lun)
     node = inv(n,lun)
     if(itp(node)<3) then
       ! The value to be packed is numeric.
-      call pkb8(ival(n),ibt(node),ibay,ibit)
+      if ( imrkopr(tag(node)) == 1 ) then
+        nbit = ibt(inv(nrfelm(n,lun),lun))
+      else
+        nbit = ibt(node)
+      endif
+      call pkb8(ival(n),nbit,ibay,ibit)
     else
       ! The value to be packed is a character string.
       ncr=ibt(node)/8
@@ -1154,7 +1161,7 @@ end subroutine wrtree
 !> @author Woollen @date 1994-01-06
 subroutine rcstpl(lun,iret)
 
-  use modv_vars, only: bmiss, maxjl, maxss, maxrcr
+  use modv_vars, only: maxjl, maxss, maxrcr
 
   use moda_usrint
   use moda_usrbit
@@ -1169,7 +1176,7 @@ subroutine rcstpl(lun,iret)
 
   integer, intent(in) :: lun
   integer, intent(out) :: iret
-  integer nbmp(2,maxrcr), newn(2,maxrcr), knx(maxrcr), iprt, nodi, node, mbmp, knvn, nr, i, j, n, nn, n1, n2, new, &
+  integer nbmp(2,maxrcr), newn(2,maxrcr), knx(maxrcr), iprt, nodi, node, mbmp, nr, i, j, n, nn, n1, n2, new, &
     idpri, igetrfel
 
   common /quiet/ iprt
@@ -1185,7 +1192,7 @@ subroutine rcstpl(lun,iret)
   nodi = inode(lun)
   node = inode(lun)
   mbmp = 1
-  knvn = 1
+  nval(lun) = 1
   nr = 0
 
   do i=1,maxrcr
@@ -1233,10 +1240,10 @@ subroutine rcstpl(lun,iret)
       ! Store nodes at some recursion level
 
       do i=nbmp(1,nr),nbmp(2,nr)
-        if(knx(nr)==0) knx(nr) = knvn
+        if(knx(nr)==0) knx(nr) = nval(lun)
         if(i>nbmp(1,nr)) newn(1,nr) = 1
         do j=newn(1,nr),newn(2,nr)
-          if(knvn+1>maxss) then
+          if(nval(lun)+1>maxss) then
             if(iprt>=0) then
               call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')
               call errwrt('BUFRLIB: RCSTPL - MAXSS OVERFLOW; SUBSET SKIPPED')
@@ -1245,35 +1252,30 @@ subroutine rcstpl(lun,iret)
             iret = -1
             return
           endif
-          knvn = knvn+1
+          nval(lun) = nval(lun)+1
           node = iutmp(j,nr)
-          ! inv is positional index in internal jump/link table for packed subset element knvn in mbay
-          inv(knvn,lun) = node
-          ! mbit is the bit in mbay pointing to where the packed subset element knvn begins
-          mbit(knvn) = mbit(knvn-1)+nbit(knvn-1)
-          ! nbit is the number of bits in mbay occupied by packed subset element knvn
-          nrfelm(knvn,lun) = igetrfel(knvn,lun)
-          nbit(knvn) = ibt(node)
+          ! inv is positional index in internal jump/link table for packed subset element nval(lun) in mbay
+          inv(nval(lun),lun) = node
+          ! mbit is the bit in mbay pointing to where the packed subset element nval(lun) begins
+          mbit(nval(lun)) = mbit(nval(lun)-1)+nbit(nval(lun)-1)
+          ! nbit is the number of bits in mbay occupied by packed subset element nval(lun)
+          nrfelm(nval(lun),lun) = igetrfel(nval(lun),lun)
+          nbit(nval(lun)) = ibt(node)
           if(tag(node)(1:5)=='DPRI ') then
-            ! This is a bitmap entry, so get and store the corresponding value
-            call upbb(idpri,nbit(knvn),mbit(knvn),mbay(1,lun))
-            if(idpri==0) then
-              val(knvn,lun) = 0.0
-            else
-              val(knvn,lun) = bmiss
-            endif
-            call strbtm(knvn,lun)
+            ! Check whether this is a bitmap entry
+            call upbb(idpri,nbit(nval(lun)),mbit(nval(lun)),mbay(1,lun))
+            call strbtm(nval(lun),lun,idpri)
           endif
           ! Actual unpacked subset values are initialized here
-          val(knvn,lun) = vutmp(j,nr)
+          val(nval(lun),lun) = vutmp(j,nr)
           if(itp(node)==1) then
-            call upbb(mbmp,nbit(knvn),mbit(knvn),mbay(1,lun))
+            call upbb(mbmp,nbit(nval(lun)),mbit(nval(lun)),mbay(1,lun))
             newn(1,nr) = j+1
             nbmp(1,nr) = i
             cycle outer
           endif
         enddo
-        new = knvn-knx(nr)
+        new = nval(lun)-knx(nr)
         val(knx(nr)+1,lun) = val(knx(nr)+1,lun) + new
         knx(nr) = 0
       enddo
@@ -1285,10 +1287,6 @@ subroutine rcstpl(lun,iret)
     enddo
 
   enddo outer
-
-  ! Finally store the length of (i.e. the number of elements in) the subset template
-
-  nval(lun) = knvn
 
   return
 end subroutine rcstpl

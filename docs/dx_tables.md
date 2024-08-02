@@ -6,7 +6,7 @@
 Every BUFR file must have DX BUFR tables associated with it, unless
 the 'SEC3' decoding option is specified during the call to
 openbf(). For all other cases, DX table information must be
-pre-defined and made available to the software via call argument LUNDX
+pre-defined and made available to the software via call argument lundx
 during the call to openbf(). The DX tables information may be embedded
 within the first few BUFR messages of the file itself. Otherwise, a
 separate ASCII text file containing the necessary DX tables
@@ -18,6 +18,10 @@ that all necessary mnemonics must exist and be fully-defined.
 
 A <i>mnemonic</i> is a
 descriptive, alphanumeric name for a data value.
+A mnemonic may contain any
+combination of uppercase letters and numbers (or, in certain special
+cases, a "." character), up to a maximum of 8 characters in length.
+There are 3 basic types of mnemonics:
 * "Table A mnemonics", refer to particular data subset (i.e. report ) types,
 * "Table B mnemonics", refer directly to basic data values,
 * "Table D mnemonics" are
@@ -39,6 +43,10 @@ only purpose is to make it easier for users to interact with the
 software by providing descriptive names to represent individual data
 values. They are more intuitive than FXY numbers (described below),
 which are the prescribed method within actual BUFR messages.
+
+Of note, there is one special 4-letter mnemonic "DPRI" which is reserved
+for exclusive use with FXY number 031031, and which must always be used
+when reading or writing bitmaps within the software.
 
 ## DX BUFR Tables File
 
@@ -64,9 +72,7 @@ bit width, and units.
 
 The first section of a BUFR tables file is where all Table A, B and D
 mnemonics are initially declared, assigned a unique FXY number, and
-given a short free-form text description. Mnemonics may contain any
-combination of uppercase letters and numbers (or, in certain special
-cases, a "." character), up to a maximum of 8 characters in length. A
+given a short free-form text description.  Each
 mnemonic may be declared only once, and each one must correspond to a
 unique FXY number, which itself consists of 6 characters, and where
 the first character (i.e. the "F" component) is an "A" if the mnemonic
