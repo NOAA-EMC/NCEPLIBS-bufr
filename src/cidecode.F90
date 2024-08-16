@@ -99,7 +99,7 @@ subroutine upb8(nval,nbits,ibit,ibay)
   elseif(nbits<=64) then
      jbit=ibit; nvals=0
      call upb(nvals(2),max(nbits-nbitw,0),ibay,jbit)
-     call upb(nvals(1),min(nbitw,nbits  ),ibay,jbit)
+     call upb(nvals(1),min(nbitw,nbits),ibay,jbit)
      nval=nval8
   else
      nval=0

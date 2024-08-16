@@ -985,7 +985,7 @@ subroutine rdtree(lun,iret)
 
   integer, intent(in) :: lun
   integer, intent(out) :: iret
-  integer ier, n, node, kbit, nbt, icbfms
+  integer ier, n, node, kbit, nbt, icbfms, igetrfel
 
   character*8 cval
 
@@ -1015,6 +1015,7 @@ subroutine rdtree(lun,iret)
 
   do n=1,nval(lun)
     node = inv(n,lun)
+    nrfelm(n,lun) = igetrfel(n,lun)
     if(itp(node)==1) then
 
       ! The unpacked value is a delayed descriptor replication factor.

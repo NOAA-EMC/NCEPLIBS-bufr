@@ -116,7 +116,7 @@ subroutine pkb8(nval,nbits,ibay,ibit)
   nval4=nvals(2)
   call pkb(nval4,max(nbits-nbitw,0),ibay,ibit)
   nval4=nvals(1)
-  call pkb(nval4,min(nbits,nbitw  ),ibay,ibit)
+  call pkb(nval4,min(nbits,nbitw),ibay,ibit)
 
   return
 end subroutine pkb8
