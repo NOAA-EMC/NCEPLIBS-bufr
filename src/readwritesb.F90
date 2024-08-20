@@ -1005,37 +1005,26 @@ subroutine rdtree(lun,iret)
     return
   endif
 
-  ! Unpack a subset into the user array ival
+  ! Loop through each element of the subset, unpacking each value and then converting it to the proper type
 
   do n=1,nval(lun)
     call upb8(ival(n),nbit(n),mbit(n),mbay(1,lun))
-  enddo
-
-  ! Loop through each element of the subset, converting the unpacked values to the proper types
-
-  do n=1,nval(lun)
     node = inv(n,lun)
-    nrfelm(n,lun) = igetrfel(n,lun)
     if(itp(node)==1) then
-
       ! The unpacked value is a delayed descriptor replication factor.
-
       val(n,lun) = ival(n)
     elseif(itp(node)==2) then
-
       ! The unpacked value is a real.
-
+      nrfelm(n,lun) = igetrfel(n,lun)
       if (ival(n)<2_8**ibt(node)-1) then
         val(n,lun) = ups(ival(n),node)
       else
         val(n,lun) = bmiss
       endif
     elseif(itp(node)==3) then
-
       ! The value is a character string, so unpack it using an equivalenced real*8 value.  Note that a maximum of 8 characters
       ! will be unpacked here, so a separate subsequent call to subroutine readlc() will be needed to fully unpack any string
       ! longer than 8 characters.
-
       cval = ' '
       kbit = mbit(n)
       nbt = min(8,nbit(n)/8)
@@ -1177,8 +1166,7 @@ subroutine rcstpl(lun,iret)
 
   integer, intent(in) :: lun
   integer, intent(out) :: iret
-  integer nbmp(2,maxrcr), newn(2,maxrcr), knx(maxrcr), iprt, nodi, node, mbmp, nr, i, j, n, nn, n1, n2, new, &
-    idpri, igetrfel
+  integer nbmp(2,maxrcr), newn(2,maxrcr), knx(maxrcr), iprt, nodi, node, mbmp, nr, i, j, n, nn, n1, n2, new, ivob, igetrfel
 
   common /quiet/ iprt
 
@@ -1262,10 +1250,10 @@ subroutine rcstpl(lun,iret)
           ! nbit is the number of bits in mbay occupied by packed subset element nval(lun)
           nrfelm(nval(lun),lun) = igetrfel(nval(lun),lun)
           nbit(nval(lun)) = ibt(node)
-          if(tag(node)(1:5)=='DPRI ') then
+          if(nbit(nval(lun))==1) then
             ! Check whether this is a bitmap entry
-            call upbb(idpri,nbit(nval(lun)),mbit(nval(lun)),mbay(1,lun))
-            call strbtm(nval(lun),lun,idpri)
+            call upbb(ivob,nbit(nval(lun)),mbit(nval(lun)),mbay(1,lun))
+            call strbtm(nval(lun),lun,ivob)
           endif
           ! Actual unpacked subset values are initialized here
           val(nval(lun),lun) = vutmp(j,nr)
