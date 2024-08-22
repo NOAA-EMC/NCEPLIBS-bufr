@@ -141,6 +141,13 @@ restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
 
                 free(cdesc);
             }
+            else if ( imrkopr_f(nemo) ) {
+/*
+**              desc is a Table C marker operator, so append it "as is" to the
+**              output list.
+*/
+                wrdesc(ifxy_f(nemo), ctddesc, nctddesc, maxnc);
+            }
             else {
 /*
 **              desc is a local Table B descriptor, so precede it with

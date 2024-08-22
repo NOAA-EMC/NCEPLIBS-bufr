@@ -243,7 +243,7 @@ recursive subroutine ufdump(lunit,luprt)
   integer, parameter :: mxfv = 31 , mxcfdp = 5, mxseq = 10, mxls = 10
   integer ifv(mxfv), icfdp(mxcfdp), idxrep(mxseq), numrep(mxseq), lsqnam(mxseq), lsct(mxls), my_lunit, my_luprt, &
     nseq, nls, lcfmeang, luout, lun, il, im, node, lnm2, lnm3, itmp, ityp, ii, jj, nifv, nv, n, nchr, idn, ipt, &
-    nrfe, nout, lcfmg, ifvd, iersf, ierbd, ierft, isz, isize, ireadmt, ibfms, icbfms
+    nrfe, nout, lcfmg, ifvd, iersf, ierbd, ierft, isz, isize, iscl, ireadmt, ibfms, icbfms, imrkopr
   integer*8 ival
 
   real*8 rval
@@ -422,8 +422,13 @@ recursive subroutine ufdump(lunit,luprt)
       else
         fmt = '(A6,2X,A10,2X,      ,2X,A24,6X,A48)'
         ! Based upon the corresponding scale factor, select an appropriate format for the printing of this value.
-        if(isc(node)>0) then
-          write(fmt(15:20),'(A,I2)') 'F20.', isc(node)
+        if(imrkopr(nemo)==1) then
+          iscl = isc(inv(nrfe,lun))
+        else
+          iscl = isc(node)
+        endif
+        if(iscl>0) then
+          write(fmt(15:20),'(A,I2)') 'F20.', iscl
         else
           write(fmt(18:20),'(A)') 'I20'
         endif
@@ -447,7 +452,7 @@ recursive subroutine ufdump(lunit,luprt)
              unit(ipt-1:ipt-1) = ')'
            endif
         endif
-        if(isc(node)>0) then
+        if(iscl>0) then
           write(luout,fmt) numb,nemo,rval,unit,desc
         else
           ival = nint(rval,8)

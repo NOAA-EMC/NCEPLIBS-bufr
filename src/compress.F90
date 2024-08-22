@@ -121,7 +121,7 @@ subroutine rdcmps(lun)
 
   integer, intent(in) :: lun
   integer*8 :: ival, lref, ninc, lps
-  integer nsbs, jbit, lbit, nbit, n, node, ityp, linc, lre4, nin4, nbmp, nchr, lelm, ibsv, igetrfel, icbfms
+  integer nsbs, jbit, lbit, nbit, n, node, ityp, linc, lre4, nin4, nbmp, nchr, lelm, ibsv, igetrfel, ibfms, icbfms
 
   real*8 rval, ups
 
@@ -191,7 +191,7 @@ subroutine rdcmps(lun)
         goto 11
       endif
       if(ival<lps(nbit)) val(n,lun) = ups(ival,node)
-      call strbtm(n,lun)
+      call strbtm(n,lun,ibfms(val(n,lun)))
       ibit = ibit + linc*msub(lun)
     elseif(ityp==3) then
       ! This is a character element.  If there are more than 8 characters, then only the first 8 will be unpacked by this
@@ -399,7 +399,7 @@ subroutine wrcmps(lunix)
   implicit none
 
   integer, intent(in) :: lunix
-  integer ibyt, jbit, lunit, lun, il, im, icol, i, j, node, lbyt, nbyt, nchr, ldata, iupbs01
+  integer ibyt, jbit, lunit, lun, il, im, icol, i, j, node, lbyt, nbyt, nchr, ldata, iupbs01, imrkopr
 
   character*128 bort_str
   character*8 subset
@@ -498,12 +498,16 @@ subroutine wrcmps(lunix)
           node = inv(i,lun)
           jlnode(i) = node
           ityp(i) = itp(node)
-          iwid(i) = ibt(node)
+          if(imrkopr(tag(node))==1) then
+            iwid(i) = ibt(inv(nrfelm(i,lun),lun))
+          else
+            iwid(i) = ibt(node)
+          endif
           if(ityp(i)==1.or.ityp(i)==2) then
-            call up8(matx(i,ncol),ibt(node),ibay,ibit)
+            call up8(matx(i,ncol),iwid(i),ibay,ibit)
           elseif(ityp(i)==3) then
             catx(i,ncol) = ' '
-            call upc(catx(i,ncol),ibt(node)/8,ibay,ibit,.true.)
+            call upc(catx(i,ncol),iwid(i)/8,ibay,ibit,.true.)
           endif
         enddo
       endif

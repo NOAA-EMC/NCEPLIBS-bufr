@@ -5,11 +5,18 @@
 
 !> Store internal information in module @ref moda_bitmaps if the input element is part of a bitmap.
 !>
+!> This subroutine first determines whether the input element is part of a bitmap.  If so, then information about the
+!> element is stored internally for later use.
+!>
 !> @param n - Subset element
 !> @param lun - File ID
+!> @param ival - Value associated with n:
+!>   - If n is determined to be part of a bitmap, then a value of 0 means that n is a "set" entry in the bitmap, and
+!>     any other (i.e. non-zero) value means that n is not a "set" entry in the bitmap
+!>   - If n is determined to not be part of a bitmap, then this value is ignored
 !>
 !> @author J. Ator @date 2016-05-27
-subroutine strbtm ( n, lun )
+subroutine strbtm ( n, lun, ival )
 
   use modv_vars, only: mxbtm, mxbtmse
 
@@ -20,8 +27,8 @@ subroutine strbtm ( n, lun )
 
   implicit none
 
-  integer, intent(in) :: n, lun
-  integer node, nodtam, ii, jj, ibfms, lstjpb
+  integer, intent(in) :: n, lun, ival
+  integer node, nodtam, ii, jj, lstjpb
 
   logical isbtme
 
@@ -62,7 +69,7 @@ subroutine strbtm ( n, lun )
       linbtm = .true.
     end if
     iszbtm(nbtm) = iszbtm(nbtm) + 1
-    if ( ibfms(val(n,lun)) == 0 ) then
+    if ( ival == 0 ) then
       ! This is a "set" (value=0) entry in the bitmap.
       if ( nbtmse(nbtm) >= mxbtmse ) call bort('BUFRLIB: STRBTM - MXBTMSE OVERFLOW')
       nbtmse(nbtm) = nbtmse(nbtm) + 1

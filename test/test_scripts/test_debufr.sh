@@ -55,15 +55,15 @@ args_7="-t ../tables -o ${outfile_7}"
 ../utils/debufr ${args_7} testfiles/data/debufr_7 && cmp -s ${outfile_7} testfiles/testoutput/debufr_7.out
 [[ ${?} -ne 0 ]] && exit 7
 
+# Test #8, reading debufr_8 file using master tables.
+outfile_8=testrun/debufr_8.out
+args_8="-t ../tables -o ${outfile_8}"
+../utils/debufr ${args_8} testfiles/data/debufr_8 && cmp -s ${outfile_8} testfiles/testoutput/debufr_8.out
+[[ ${?} -ne 0 ]] && exit 8
+
 # We expect some of the following tests may return a non-zero exit code, but we don't want
 # to immediately exit the script when that happens.
 set +e
-
-# Test #8, which should call NCEPLIBS-bufr subroutine bort from within subroutine nummtb.
-outfile_8=testrun/debufr_8.out
-args_8="-t ../tables"
-../utils/debufr ${args_8} testfiles/data/debufr_8 > ${outfile_8}
-[[ ${?} -eq 0 || `grep -c "NUMMTB - COULD NOT FIND DESCRIPTOR" ${outfile_8}` -ne 1 ]] && exit 8
 
 # Test #9, for wrong number of arguments.
 outfile_9=testrun/debufr_9.out
@@ -95,6 +95,12 @@ args_13="-t ../tables -p MXMSGL=40000"
 outfile_14=testrun/debufr_14.out
 ../utils/debufr -o /BUFRLIB_DUMMY_DIRECTORY/BUFRLIB_DUMMY testfiles/data/debufr_1 > ${outfile_14}
 [[ ${?} -eq 0 || `grep -c "ERROR: Cannot write output file" ${outfile_14}` -ne 1 ]] && exit 14
+
+# Test #15, which should call NCEPLIBS-bufr subroutine bort from within subroutine nummtb.
+outfile_15=testrun/debufr_15.out
+args_15="-t ../tables"
+../utils/debufr ${args_15} testfiles/data/debufr_15 > ${outfile_15}
+[[ ${?} -eq 0 || `grep -c "NUMMTB - COULD NOT FIND DESCRIPTOR" ${outfile_15}` -ne 1 ]] && exit 15
 
 # Success!
 exit 0

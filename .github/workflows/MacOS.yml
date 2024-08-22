@@ -16,8 +16,8 @@ jobs:
   MacOS:
     runs-on: macos-latest
     env:
-      FC: gfortran-11
-      F90: gfortran-11
+      FC: gfortran-12
+      F90: gfortran-12
 
     steps:
 
@@ -33,7 +33,7 @@ jobs:
         pip3 install ninja
         pip3 install netCDF4
         pip3 install protobuf
-        sudo ln -sf /usr/local/bin/gfortran-11 /usr/local/bin/gfortran
+        sudo ln -sf /usr/local/bin/gfortran-12 /usr/local/bin/gfortran
           
     - name: checkout-bufr
       uses: actions/checkout@v4
