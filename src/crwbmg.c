@@ -9,8 +9,7 @@
  * other local filesystem notation. */
 #define MXFNLEN 200
 
-/** File pointers; each element will automatically initialize to
- * NULL */
+/** File pointers; each element will automatically initialize to NULL */
 FILE *pbf[2];
 
 /**
@@ -60,7 +59,7 @@ rbytes(char *bmg, int mxmb, int isloc, int newbytes)
  * program written in either C or Fortran. It is functionally
  * equivalent to subroutine openbf(); however, there are some
  * important differences:
-
+ *
  *  - When using openbf(), the underlying file must already be
  *    associated with a Fortran logical unit number on the local
  *    system, typicially via a prior Fortran "OPEN" statement. This is
