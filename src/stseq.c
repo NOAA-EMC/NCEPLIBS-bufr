@@ -6,6 +6,7 @@
 
 #include "bufrlib.h"
 #include "mstabs.h"
+#include "rpseqs.h"
 
 /**
  * Define a comparison between two integers.
@@ -81,14 +82,82 @@ nummtb(int *idn, char *tab, int *ipt)
 }
 
 /**
+ * Store a new entry in the internal replication sequences cache.
+ *
+ * @param rpidn - WMO bit-wise representation of FXY number for replication sequence
+ * @param maxcd - Maximum number of child descriptors in any replication sequence
+ * @param ncdesc - Number of child descriptors in replication sequence
+ * @param cdesc - Child descriptors in replication sequence
+ *
+ * @author J. Ator @date 2024-08-26
+*/
+void
+strrpsq(int rpidn, int maxcd, int ncdesc, int *cdesc)
+{
+    int j;
+
+    if ( nrpsq < MAX_RPSQ ) {
+        rpidns[nrpsq] = rpidn;
+        ncdescs[nrpsq] = ncdesc;
+        for ( j = 0; j < ncdesc; j++ ) {
+            cdescs[icvidx(nrpsq,j,maxcd)] = cdesc[j];
+        }
+        nrpsq++;
+    }
+}
+
+/**
+ * Check whether a replication sequence already exists within the internal cache.
+ *
+ * Given a replication sequence, this function searches the internal cache to see
+ * if that sequence already exists in the cache, and if so returns the WMO bit-wise
+ * representation of the corresponding FXY number.
+ *
+ * @param maxcd - Maximum number of child descriptors in any replication sequence
+ * @param ncdesc - Number of child descriptors in replication sequence
+ * @param cdesc - Child descriptors in replication sequence
+ *
+ * @return - WMO bit-wise representation of FXY number for replication sequence, if
+ * found in the internal cache
+ *   - -1 = The replication sequence was not found in the internal cache
+ *
+ * @author J. Ator @date 2024-08-26
+*/
+int
+srchrpsq(int maxcd, int ncdesc, int *cdesc)
+{
+    int i, j, rpidn;
+
+    rpidn = -1;
+
+    for ( i = 0; i < nrpsq; i++ ) {
+        if ( ncdesc == ncdescs[i] ) {
+            for ( j = 0; j < ncdesc; j++ ) {
+                if ( cdesc[j] != cdescs[icvidx(i,j,maxcd)] ) break;
+            }
+            if ( j == ncdesc ) {
+                /*
+                ** We made it all the way through the previous loop, so we've found
+                ** a matching sequence in the cache.
+                */
+                rpidn = rpidns[i];
+                break;
+            }
+        }
+    }
+
+    return rpidn;
+}
+
+/**
  * Store information about a Table D descriptor within internal DX BUFR tables.
  *
  * Given the WMO bit-wise (integer) representation of a
- * Table D descriptor, this subroutine uses the master BUFR tables
+ * Table D descriptor, this function uses the master BUFR tables
  * to store all of the necessary information for that descriptor
  * within the internal DX BUFR tables.  Any child descriptors which
  * are themselves Table D descriptors are automatically resolved via
- * a recursive call to this same subroutine.
+ * a recursive call to this same function.
  *
  * @param lun - File ID
  * @param irepct - Replication sequence counter for the current master table; used internally
@@ -106,16 +175,22 @@ void
 stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncdesc)
 {
     int i, j, nb, nd, ix, iy, iret, nbits;
-    int rpidn, pkint, ilen, imxcd, imxnf, ipt, *rpdesc;
+    int rpidn, pkint, ilen, ipt, *rpdesc;
 
     char tab, adn[FXY_STR_LEN+1], adn2[FXY_STR_LEN+1], units[10], errstr[129];
     char nemo2[NEMO_STR_LEN+1], rpseq[56], card[80], ctmp[4], cblk = ' ', czero = '0';
 
     /*
     **  The following variable is declared as static so that it automatically initializes
-    **  to zero and remains unchanged between recursive calls to this subroutine.
+    **  to zero and remains unchanged between recursive calls to this function.
     */
     static int naf;
+
+    /*
+    **  The following variables are declared as static so that function igetprm_f() doesn't
+    **  need to be called during every call to this function.
+    */
+    static int imxcd, imxnf;
 
     /*
     **  Is idn already listed as an entry in the internal Table D?
@@ -123,6 +198,15 @@ stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncd
     */
     numtbd_f(lun, idn, nemo2, NEMO_STR_LEN+1, &tab, &iret);
     if ( ( iret > 0 ) && ( tab == 'D' ) ) return;
+
+    if ( *irepct == 0 ) {
+        /*
+        ** Initialize or reset some variables.
+        */
+        imxcd = igetprm_f("MAXCD");
+        imxnf = igetprm_f("MXNAF");
+        nrpsq = 0;
+    }
 
     /*
     **  Start a new Table D entry for idn.
@@ -135,9 +219,6 @@ stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncd
     /*
     **  Now, go through the list of child descriptors corresponding to idn.
     */
-    imxcd = igetprm_f("MAXCD");
-    imxnf = igetprm_f("MXNAF");
-
     for ( i = 0; i < ncdesc; i++ ) {
         cadn30_f(cdesc[i], adn, FXY_STR_LEN+1); adn[6] = '\0';
         strncpy(ctmp, &adn[1], 2); ctmp[2] = '\0';
@@ -377,27 +458,34 @@ stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncd
             }
             else {
                 /*
-                **  Store the ix descriptors to be replicated in a local list, then
-                **  get an FXY value to use with this list and generate a unique
-                **  mnemonic and description as well.
+                **  Store the ix descriptors to be replicated in a local list.
                 */
                 if ( ( rpdesc = malloc( imxcd * sizeof(int) ) ) == NULL ) {
                     sprintf(errstr, "BUFRLIB: STSEQ - UNABLE TO ALLOCATE SPACE"
                             " FOR RPDESC");
                     bort_f(errstr);
                 }
-
                 for ( j = 0; j < ix; j++ ) {
                     rpdesc[j] = cdesc[i+j];
                 }
 
-                rpidn = igettdi_f(lun);
+                /*
+                **  Is this list already stored in the internal replication sequences cache?
+                */
+                if ( ( rpidn = srchrpsq(imxcd, ix, rpdesc) ) == -1 ) {
+                    /*
+                    **  No, so get an FXY value to use with this list and generate a unique
+                    **  new mnemonic and description as well.
+                    */
+                    rpidn = igettdi_f(lun);
+                    strrpsq(rpidn, imxcd, ix, rpdesc);
 
-                sprintf(rpseq, "REPLICATION SEQUENCE %.3d", ++(*irepct));
-                memset(&rpseq[24], (int) cblk, 31);
-                sprintf(nemo2, "RPSEQ%.3d", *irepct);
+                    sprintf(rpseq, "REPLICATION SEQUENCE %.3d", ++(*irepct));
+                    memset(&rpseq[24], (int) cblk, 31);
+                    sprintf(nemo2, "RPSEQ%.3d", *irepct);
 
-                stseq(lun, irepct, rpidn, nemo2, rpseq, rpdesc, ix);
+                    stseq(lun, irepct, rpidn, nemo2, rpseq, rpdesc, ix);
+                }
 
                 free(rpdesc);
 

@@ -47,12 +47,12 @@ wrdesc(int desc, int *descary, int *ndescary, int mxdescary)
  * Standardize a local Table D descriptor.
  *
  * Given the bit-wise (integer) representation of a local (not
- * WMO-standard) Table D descriptor, this subroutine returns an
+ * WMO-standard) Table D descriptor, this function returns an
  * equivalent array of WMO-standard child descriptors.
  *
  * Any child descriptors which are themselves local Table D
  * descriptors are automatically resolved via a recursive call to this
- * same subroutine.  This recursive process continues until all child
+ * same function.  This recursive process continues until all child
  * descriptors are either WMO-standard descriptors (from Table B,
  * Table C, Table D, or replication descriptors) or else are local
  * Table B descriptors, in which case they are preceded with an
@@ -77,6 +77,7 @@ restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
     int iscl, iref, ibit;
 
     char tab, nemo[NEMO_STR_LEN+1], adn[FXY_STR_LEN+1], cunit[UNIT_STR_LEN+1], cwork[31];
+
     /*
     **  How many child descriptors does tddesc have?
     */
@@ -91,7 +92,14 @@ restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
     */
     for ( i = 1; i <= inum; i++ ) {
         uptdd_f(itbd, lun, i, &desc);
-        if (! istdesc_f(desc)) {
+        if ( istdesc_f(desc) ) {
+            /*
+            **  desc is a standard Table B, Table D, operator or replicator
+            **  descriptor, so append it "as is" to the output list.
+            */
+            wrdesc(desc, ctddesc, nctddesc, maxnc);
+        }
+        else {
             /*
             **  desc is a local descriptor.
             */
@@ -159,13 +167,6 @@ restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
                 wrdesc(ifxy_f(adn), ctddesc, nctddesc, maxnc);
                 wrdesc(desc, ctddesc, nctddesc, maxnc);
             }
-        }
-        else {
-            /*
-            **  desc is a standard Table B, Table D, operator or replicator
-            **  descriptor, so append it "as is" to the output list.
-            */
-            wrdesc(desc, ctddesc, nctddesc, maxnc);
         }
     }
 

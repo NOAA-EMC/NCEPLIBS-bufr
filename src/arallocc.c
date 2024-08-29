@@ -10,6 +10,7 @@
 
 #include "cread.h"
 #include "mstabs.h"
+#include "rpseqs.h"
 
 /**
  * Dynamically allocate C language arrays.
@@ -42,7 +43,6 @@ arallocc(void)
     nfiles = igetprm_f("NFILES");
 
     if (!(pb = malloc((nfiles+1) * sizeof(FILE *)))) bort_f(brtstr);
-
     if (!(lstpos = malloc((nfiles+1) * sizeof(fpos_t)))) bort_f(brtstr);
 
     /* mstabs arrays */
@@ -53,30 +53,22 @@ arallocc(void)
     mxnaf = igetprm_f("MXNAF");
 
     if (!(ibfxyn_c = malloc(mxmtbb * sizeof(int)))) bort_f(brtstr);
-
     if (!(cbscl_c = malloc(mxmtbb * 4 * sizeof(char)))) bort_f(brtstr);
-
     if (!(cbsref_c = malloc(mxmtbb * 12 * sizeof(char)))) bort_f(brtstr);
-
     if (!(cbbw_c = malloc(mxmtbb * 4 * sizeof(char)))) bort_f(brtstr);
-
     if (!(cbunit_c = malloc(mxmtbb * 24 * sizeof(char)))) bort_f(brtstr);
-
     if (!(cbmnem_c = malloc(mxmtbb * 8 * sizeof(char)))) bort_f(brtstr);
-
     if (!(cbelem_c = malloc(mxmtbb * 120 * sizeof(char)))) bort_f(brtstr);
-
     if (!(idfxyn_c = malloc(mxmtbd * sizeof(int)))) bort_f(brtstr);
-
     if (!(cdseq_c = malloc(mxmtbd * 120 * sizeof(char)))) bort_f(brtstr);
-
     if (!(cdmnem_c = malloc(mxmtbd * 8 * sizeof(char)))) bort_f(brtstr);
-
     if (!(ndelem_c = malloc(mxmtbd * sizeof(int)))) bort_f(brtstr);
-
     if (!(idefxy_c = malloc(mxmtbd * maxcd * sizeof(int)))) bort_f(brtstr);
-
     if (!(iafpk = malloc(mxnaf * sizeof(int)))) bort_f(brtstr);
+
+    /* rpseqs arrays */
+
+    if (!(cdescs = malloc(MAX_RPSQ * maxcd * sizeof(int)))) bort_f(brtstr);
 }
 
 /**
@@ -109,4 +101,8 @@ ardllocc(void)
     free( ndelem_c );
     free( idefxy_c );
     free( iafpk );
+
+    /* rpseqs arrays */
+
+    free( cdescs );
 }
