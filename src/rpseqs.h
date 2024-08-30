@@ -20,6 +20,12 @@
  *  @var rpidns
  *  WMO bit-wise representation of FXY number for each entry
  *
+ *  @var nafs
+ *  Number of associated fields in effect for each entry
+ *
+ *  @var iafpks
+ *  Associated fields in effect for each entry
+ *
  *  @var ncdescs
  *  Number of child descriptors for each entry
  *
@@ -29,11 +35,15 @@
 #ifdef IN_ARALLOCC
     int nrpsq;
     int rpidns[MAX_RPSQ];
+    int nafs[MAX_RPSQ];
+    int *iafpks;
     int ncdescs[MAX_RPSQ];
     int *cdescs;
 #else
     extern int nrpsq;
     extern int rpidns[MAX_RPSQ];
+    extern int nafs[MAX_RPSQ];
+    extern int *iafpks;
     extern int ncdescs[MAX_RPSQ];
     extern int *cdescs;
 #endif

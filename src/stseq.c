@@ -85,6 +85,9 @@ nummtb(int *idn, char *tab, int *ipt)
  * Store a new entry in the internal replication sequences cache.
  *
  * @param rpidn - WMO bit-wise representation of FXY number for replication sequence
+ * @param maxnf - Maximum number of associated fields in any replication sequence
+ * @param naf - Number of associated fields in replication sequence
+ * @param iafpk - Associated fields in replication sequence
  * @param maxcd - Maximum number of child descriptors in any replication sequence
  * @param ncdesc - Number of child descriptors in replication sequence
  * @param cdesc - Child descriptors in replication sequence
@@ -92,12 +95,16 @@ nummtb(int *idn, char *tab, int *ipt)
  * @author J. Ator @date 2024-08-26
 */
 void
-strrpsq(int rpidn, int maxcd, int ncdesc, int *cdesc)
+strrpsq(int rpidn, int maxnf, int naf, int *iafpk, int maxcd, int ncdesc, int *cdesc)
 {
     int j;
 
     if ( nrpsq < MAX_RPSQ ) {
         rpidns[nrpsq] = rpidn;
+        nafs[nrpsq] = naf;
+        for ( j = 0; j < naf; j++ ) {
+            iafpks[icvidx(nrpsq,j,maxnf)] = iafpk[j];
+        }
         ncdescs[nrpsq] = ncdesc;
         for ( j = 0; j < ncdesc; j++ ) {
             cdescs[icvidx(nrpsq,j,maxcd)] = cdesc[j];
@@ -113,6 +120,9 @@ strrpsq(int rpidn, int maxcd, int ncdesc, int *cdesc)
  * if that sequence already exists in the cache, and if so returns the WMO bit-wise
  * representation of the corresponding FXY number.
  *
+ * @param maxnf - Maximum number of associated fields in any replication sequence
+ * @param naf - Number of associated fields in replication sequence
+ * @param iafpk - Associated fields in replication sequence
  * @param maxcd - Maximum number of child descriptors in any replication sequence
  * @param ncdesc - Number of child descriptors in replication sequence
  * @param cdesc - Child descriptors in replication sequence
@@ -124,24 +134,28 @@ strrpsq(int rpidn, int maxcd, int ncdesc, int *cdesc)
  * @author J. Ator @date 2024-08-26
 */
 int
-srchrpsq(int maxcd, int ncdesc, int *cdesc)
+srchrpsq(int maxnf, int naf, int *iafpk, int maxcd, int ncdesc, int *cdesc)
 {
     int i, j, rpidn;
 
     rpidn = -1;
 
     for ( i = 0; i < nrpsq; i++ ) {
-        if ( ncdesc == ncdescs[i] ) {
-            for ( j = 0; j < ncdesc; j++ ) {
-                if ( cdesc[j] != cdescs[icvidx(i,j,maxcd)] ) break;
+        if ( ncdesc == ncdescs[i] && naf == nafs[i] ) {
+            /* Check whether all of the associated fields match */
+            for ( j = 0; j < naf; j++ ) {
+                if ( iafpk[j] != iafpks[icvidx(i,j,maxnf)] ) break;
             }
-            if ( j == ncdesc ) {
-                /*
-                ** We made it all the way through the previous loop, so we've found
-                ** a matching sequence in the cache.
-                */
-                rpidn = rpidns[i];
-                break;
+            if ( j == naf ) {
+                /* Check whether all of the child descriptors match */
+                for ( j = 0; j < ncdesc; j++ ) {
+                    if ( cdesc[j] != cdescs[icvidx(i,j,maxcd)] ) break;
+                }
+                if ( j == ncdesc ) {
+                    /* We've found a matching sequence in the cache! */
+                    rpidn = rpidns[i];
+                    break;
+                }
             }
         }
     }
@@ -235,19 +249,28 @@ stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncd
             if ( naf > 0 ) {
                 /*
                 **  There are associated fields in effect which will modify this
-                **  descriptor when storing it within the internal Table D.  So
-                **  create a new sequence to store the contents of this descriptor
-                **  along with its associated fields.
+                **  descriptor when storing it within the internal Table D.  So we can't
+                **  just store it as is, but it may already exist in the internal
+                **  replication sequences cache with the same associated fields.
                 */
-                rpidn = igettdi_f(lun);
+                if ( ( rpidn = srchrpsq(imxnf, naf, iafpk, imxcd, ndelem_c[ipt],
+                                   &idefxy_c[icvidx(ipt,0,imxcd)] ) ) == -1 ) {
+                    /*
+                    **  We haven't seen this sequence with the same associated fields before, so
+                    **  we'll have to store it using a new FXY value, mnemonic and description.
+                    */
+                    rpidn = igettdi_f(lun);
+                    strrpsq(rpidn, imxnf, naf, iafpk, imxcd, ndelem_c[ipt],
+                        &idefxy_c[icvidx(ipt,0,imxcd)]);
 
-                sprintf(rpseq, "REPLICATION SEQUENCE %.3d", ++(*irepct));
-                memset(&rpseq[24], (int) cblk, 31);
-                sprintf(nemo2, "RPSEQ%.3d", *irepct);
+                    sprintf(rpseq, "REPLICATION SEQUENCE %.3d", ++(*irepct));
+                    memset(&rpseq[24], (int) cblk, 31);
+                    sprintf(nemo2, "RPSEQ%.3d", *irepct);
 
-                stseq(lun, irepct, rpidn, nemo2, rpseq,
-                    &idefxy_c[icvidx(ipt,0,imxcd)],
-                    ndelem_c[ipt]);
+                    stseq(lun, irepct, rpidn, nemo2, rpseq,
+                        &idefxy_c[icvidx(ipt,0,imxcd)],
+                        ndelem_c[ipt]);
+                }
                 pkint = rpidn;
             }
             else {
@@ -472,13 +495,13 @@ stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncd
                 /*
                 **  Is this list already stored in the internal replication sequences cache?
                 */
-                if ( ( rpidn = srchrpsq(imxcd, ix, rpdesc) ) == -1 ) {
+                if ( ( rpidn = srchrpsq(imxnf, naf, iafpk, imxcd, ix, rpdesc) ) == -1 ) {
                     /*
                     **  No, so get an FXY value to use with this list and generate a unique
                     **  new mnemonic and description as well.
                     */
                     rpidn = igettdi_f(lun);
-                    strrpsq(rpidn, imxcd, ix, rpdesc);
+                    strrpsq(rpidn, imxnf, naf, iafpk, imxcd, ix, rpdesc);
 
                     sprintf(rpseq, "REPLICATION SEQUENCE %.3d", ++(*irepct));
                     memset(&rpseq[24], (int) cblk, 31);

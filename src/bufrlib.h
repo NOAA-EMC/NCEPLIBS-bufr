@@ -18,6 +18,7 @@
 
 void arallocc(void);
 void ardllocc(void);
+void dlloctbf(void);
 void openrb(int nfile, char *ufile);
 void openwb(int nfile, char *ufile);
 void openab(int nfile, char *ufile);

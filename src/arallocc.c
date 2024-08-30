@@ -69,6 +69,7 @@ arallocc(void)
     /* rpseqs arrays */
 
     if (!(cdescs = malloc(MAX_RPSQ * maxcd * sizeof(int)))) bort_f(brtstr);
+    if (!(iafpks = malloc(MAX_RPSQ * mxnaf * sizeof(int)))) bort_f(brtstr);
 }
 
 /**
@@ -105,4 +106,9 @@ ardllocc(void)
     /* rpseqs arrays */
 
     free( cdescs );
+    free( iafpks );
+
+    /* master Code/Flag table entries */
+
+    dlloctbf();
 }
