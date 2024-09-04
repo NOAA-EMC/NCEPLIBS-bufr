@@ -12,7 +12,7 @@ module bufr_interface
 
   interface
 
-    !> @fn bufr_interface::cobfl_c::cobfl_c(bfl, io)
+    !> @fn cobfl_c(bfl, io)
     !> Open a new file for reading or writing BUFR messages via a C language interface.
     !>
     !> Wraps cobfl() function.
@@ -27,7 +27,7 @@ module bufr_interface
       character(kind=c_char), intent(in), value :: io
     end subroutine cobfl_c
 
-    !> @fn bufr_interface::crbmg_c::crbmg_c(bmg, mxmb, nmb, iret)
+    !> @fn crbmg_c(bmg, mxmb, nmb, iret)
     !> Read the next BUFR message from the file that was opened via the most recent call
     !> to subroutine cobfl_c() with io = 'r'.
     !>
@@ -47,7 +47,7 @@ module bufr_interface
       integer(c_int), intent(out) :: nmb, iret
     end subroutine crbmg_c
 
-    !> @fn bufr_interface::cwbmg_c::cwbmg_c(bmg, nmb, iret)
+    !> @fn cwbmg_c(bmg, nmb, iret)
     !> Write a BUFR message to the file that was opened via the most recent call
     !> to subroutine cobfl_c() with io = 'w'.
     !>
@@ -65,7 +65,7 @@ module bufr_interface
       integer(c_int), intent(out) :: iret
     end subroutine cwbmg_c
 
-    !> @fn bufr_interface::ccbfl_c::ccbfl_c()
+    !> @fn ccbfl_c()
     !> Close all files that were opened via previous calls to subroutine cobfl_c().
     !>
     !> Wraps ccbfl() function.
