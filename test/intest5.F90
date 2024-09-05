@@ -70,8 +70,6 @@ program intest5
   if ( ( nlv /= 3 ) .or. ( nint(r8vals(1,1)) /= 7 ) .or. ( nint(r8vals(2,1)) /= 38 ) .or. &
       ( nint(r8vals(2,2)) /= 61 ) .or. ( nint(r8vals(2,3)) /= 60 ) ) stop 12
 
-  ! Free the memory that was dynamically allocated when reading the code and flag tables.
-  call dlloctbf_c()
   close ( 11 )
 
   ! Test ufbinx's openbf/closbf calls.

@@ -905,7 +905,6 @@ subroutine exitbufr
 
   use moda_stbfr
   use moda_s01cm
-  use moda_tablef
 
   ! Close any logical units that are open to the library.
 
@@ -916,8 +915,6 @@ subroutine exitbufr
   ! Deallocate all allocated memory.
 
   call ardllocf
-
-  if ( cdmf == 'Y' ) call dlloctbf_c
 
   ! Reset the library.
 

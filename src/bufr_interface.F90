@@ -75,16 +75,6 @@ module bufr_interface
       use iso_c_binding
     end subroutine ccbfl_c
 
-    !> @fn bufr_interface::dlloctbf_c::dlloctbf_c()
-    !> Free all memory allocated via inittbf_c().
-    !>
-    !> Wraps dlloctbf() function.
-    !>
-    !> @author J. Ator @date 2017-11-03
-    subroutine dlloctbf_c() bind(C, name='dlloctbf')
-      use iso_c_binding
-    end subroutine dlloctbf_c
-
   end interface
 
 end module bufr_interface

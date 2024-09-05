@@ -14,7 +14,7 @@ list(APPEND c_src
   arallocc.c cpmstabs.c cread.c crwbmg.c cfe.c icvidx.c restd.c stseq.c)
 
 list(APPEND c_hdr
-  cread.h mstabs.h bufr_interface.h bufrlib.h)
+  cread.h mstabs.h rpseqs.h bufr_interface.h bufrlib.h)
 
 # Create the misc.F90 file
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/misc.F90.in ${CMAKE_CURRENT_BINARY_DIR}/misc.F90 @ONLY)
