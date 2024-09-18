@@ -27,7 +27,7 @@ option(BUILD_TESTING "Enable automated testing" ON)
 # Developers can use this option to specify a local directory which
 # holds the test files. They will be copied instead of fetching the
 # files via FTP.
-SET(TEST_FILE_DIR "." CACHE STRING "Check this directory for test files before using FTP.")
+set(TEST_FILE_DIR "." CACHE STRING "Check this directory for test files before using FTP.")
 message(STATUS "Finding test data files in directory ${TEST_FILE_DIR}.")
 
 set(MASTER_TABLE_DIR "${CMAKE_INSTALL_PREFIX}/tables" CACHE STRING "Installation location of Master BUFR Tables")
@@ -125,8 +125,8 @@ endif()
 
 add_subdirectory(tables)
 
-# Turn on unit testing.
 if(BUILD_TESTING)
+  # Turn on unit testing.
   include(CTest)
   add_subdirectory(test)
 endif()

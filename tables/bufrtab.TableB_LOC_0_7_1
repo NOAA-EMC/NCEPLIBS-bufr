@@ -1,7 +1,7 @@
 Table B LOC |  0 | 7 |  1
 #
 # Local BUFR Table B, Master Table 0, Originating Center 7, Version 1
-# This file was generated: 2024/07/05 17:36:49
+# This file was generated: 2024/09/16 19:31:11
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME
@@ -427,8 +427,8 @@ Table B LOC |  0 | 7 |  1
   0-33-238 |   0 |           0 |   6 | Code table        | QCCHEK   ;     ; Data quality check indicator
   0-33-239 |   0 |           0 |   3 | Code table        | QCTSP    ;     ; Quality control indicator for temperature/salinity profile
   0-33-240 |   0 |           0 |   3 | Code table        | QCCUR    ;     ; Quality control indicator for current profile
-  0-33-241 |   0 |           0 |   3 | Code table        | QHDOP    ;     ; Quality for observed position
-  0-33-242 |   0 |           0 |   4 | Code table        | QHDOM    ;     ; Quality for observed meteorological parameters
+  0-33-241 |   0 |           0 |   7 | Flag table        | QHDOP    ;     ; Quality for observed position
+  0-33-242 |   0 |           0 |  15 | Flag table        | QHDOM    ;     ; Quality for observed meteorological parameters
   0-33-245 |   2 |           0 |  16 | K                 | SSTE     ;     ; Estimated error covariance for sea surface temperature retrieval
   0-33-246 |   2 |           0 |  15 | m s**-1           | SPDE     ;     ; Estimated error covariance for wind speed retrieval
   0-33-247 |   2 |           0 |  14 | kg m**-2          | VPRE     ;     ; Estimated error covariance for total water vapor retrieval
