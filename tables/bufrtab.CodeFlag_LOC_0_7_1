@@ -1,7 +1,7 @@
 Table F LOC |  0 | 7 |  1
 #
 # Local BUFR Table CODE/FLAG, Master Table 0, Originating Center 7, Version 1
-# This file was generated: 2024/07/05 17:36:49
+# This file was generated: 2024/09/16 19:31:11
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -2854,21 +2854,16 @@ Table F LOC |  0 | 7 |  1
               | 12 > | Dew point sensor invalidated
               | 16   | Operator manual data entry
 
-  0-33-241 | QHDOP ; CODE
-              | 0 > | All parameters of nominal accuracy
-              | 1 > | Latitude or longitude questionable
-              | 2 > | Geopotential altitude or static pressure questionable
-              | 3   | Both latitude or longitude, and geopotential altitude or static pressure questionable
+  0-33-241 | QHDOP ; FLAG
+              | 1 > | All parameters of nominal accuracy
+              | 2 > | Latitude or longitude questionable
+              | 3   | Geopotential altitude or static pressure questionable
 
-  0-33-242 | QHDOM ; CODE
-              | 0 > | All parameters of nominal accuracy
-              | 1 > | Temperature or dewpoint temperature questionable
-              | 2 > | Flight-level winds questionable
-              | 3 > | SFMR parameter(s) questionable
-              | 4 > | Temperature or dewpoint temperature, and flight-level winds questionable
-              | 5 > | Temperature or dewpoint temperature, and SFMR parameter(s) questionable
-              | 6 > | Flight-level winds and SFMR parameter(s) questionable
-              | 9   | Temperature or dewpoint temperature, flight-level winds, and SFMR parameter(s) questionable
+  0-33-242 | QHDOM ; FLAG
+              | 1 > | All parameters of nominal accuracy
+              | 2 > | Temperature or dewpoint temperature questionable
+              | 3 > | Flight-level winds questionable
+              | 4   | SFMR parameter(s) questionable
 
   0-33-254 | TPQC2 ; CODE
               | 0 > | Good
@@ -4762,6 +4757,7 @@ Table F LOC |  0 | 7 |  1
               | 14 > | France ASDAR/ACARS
               | 15 > | Flight level reconnaisance (High Density Observations)
               | 16 > | Mode-S ASDAR/ACARS
+              | 17 > | AMDAR-over-AFIRS
               | 30 > | Long-duration balloon
               | 103 > | ASDAR/ACARS (BUFR)
            | 0-55-020=5

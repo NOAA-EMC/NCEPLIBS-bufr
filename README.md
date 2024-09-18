@@ -64,7 +64,7 @@ must be installed and available on the system.
 
 When building the library, automated CI testing is included by default.
 If this is not desired, then it can be disabled by adding `-DBUILD_TESTING=OFF`
-to the above cmake command.
+to the above cmake command and omitting the subsequent `ctest` step.
 
 When building the library, associated utilities are included by default.
 If these are not desired, then they can be disabled by adding `-DBUILD_UTILS=OFF`
