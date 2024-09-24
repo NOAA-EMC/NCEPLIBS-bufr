@@ -4,7 +4,7 @@
 
 The NCEPLIBS-bufr library contains routines and utilites for working
 with the [WMO
-BUFR](https://library.wmo.int/index.php?lvl=notice_display&id=10684#.Y70OSNLMJH7)
+BUFR](https://library.wmo.int/idurl/4/35625)
 format. It is part of the
 [NCEPLIBS](https://github.com/NOAA-EMC/NCEPLIBS) project.
 
