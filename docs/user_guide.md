@@ -23,7 +23,7 @@ meteorological data.
 ## The BUFR Format
 
 @anchor manual
-The BUFR format is officially documented in [WMO Manual 306, Volume I.2](https://library.wmo.int/index.php?lvl=notice_display&id=10684#.X68yu8hKiUn).
+The BUFR format is officially documented in [WMO Manual 306, Volume I.2](https://library.wmo.int/idurl/4/35625).
 The latest edition of BUFR is edition 4, although edition 3 is still
 in use in many parts of the world.  A complete BUFR message consists
 of the following sections:
@@ -42,7 +42,7 @@ BUFR is a table-driven format, meaning that new descriptors can be
 encoded and decoded by adding them to tables which are read in by the
 software, rather than having to modify the software itself. To that
 end, WMO periodically releases new versions of their
-[official WMO master BUFR tables](https://community.wmo.int/activity-areas/wmo-codes/manual-codes/latest-version),
+[official WMO master BUFR tables](https://community.wmo.int/en/wis/latest-version),
 to facilitate the continued exchange of meteorological data throughout
 the global community.
 
