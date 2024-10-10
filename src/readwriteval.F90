@@ -1616,13 +1616,14 @@ recursive subroutine drfini(lunit,mdrf,ndrf,drftag)
   call status(lunit,lun,il,im)
   ! Conform the template to the delayed replication factors
   m = 0
-  n = 0
-  do n = n+1, nval(lun)
+  n = 1
+  do while ( n <= nval(lun) )
     node = inv(n,lun)
     if(itp(node)==1 .and. tag(node)==drftag) then
       m = m+1
       call usrtpl(lun,n,mdrf(m))
     endif
+    n = n+1
   enddo
 
   return
