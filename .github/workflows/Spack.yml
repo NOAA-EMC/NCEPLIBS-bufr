@@ -42,7 +42,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ~/data
-        key: data-17
+        key: data-18
 
     - name: spack-build-and-test
       run: |

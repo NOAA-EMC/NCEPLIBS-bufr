@@ -1047,8 +1047,9 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
       call usrtpl(lun,1,1)
       ibit = mbyt(lun)
       n = 0
-      inner3: do n = n+1,nval(lun)
+      inner3: do while ( n < nval(lun) )
         ! Cycle through each node of each subset to look for the requested values
+        n = n+1
         node = inv(n,lun)
         nbit = ibt(node)
         ityp = itp(node)

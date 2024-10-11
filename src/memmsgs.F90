@@ -224,9 +224,9 @@ recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
 
   character*128 bort_str, errstr
 
-  integer, intent(in) :: lunit(*), lundx(*), inew(*)
-  integer, intent(out) :: mesg(*), iret(*)
-  integer iprt, my_lunit(1), my_lundx(1), my_inew(1), nmesg, iflg, itim, ier, nmsg, lmem, i, mlast0, iupbs01, nmwrd
+  integer, intent(in) :: lunit, lundx, inew
+  integer, intent(out) :: mesg(*), iret
+  integer iprt, my_lunit, my_lundx, my_inew, nmesg, iflg, itim, ier, nmsg, lmem, i, mlast0, iupbs01, nmwrd
 
   common /quiet/ iprt
 
@@ -235,18 +235,18 @@ recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
   if(im8b) then
     im8b=.false.
 
-    call x84(lunit(1),my_lunit(1),1)
-    call x84(lundx(1),my_lundx(1),1)
-    call x84(inew(1),my_inew(1),1)
-    if (my_inew(1)==0) then
+    call x84(lunit,my_lunit,1)
+    call x84(lundx,my_lundx,1)
+    call x84(inew,my_inew,1)
+    if (my_inew==0) then
       nmesg = 0
     else
       nmesg = msgp(0)
       call x84(mesg(1),mesg(1),nmesg)
     endif
-    call ufbmex(my_lunit(1),my_lundx(1),my_inew(1),iret(1),mesg(1))
-    call x48(mesg(1),mesg(1),nmesg+iret(1))
-    call x48(iret(1),iret(1),1)
+    call ufbmex(my_lunit,my_lundx,my_inew,iret,mesg(1))
+    call x48(mesg(1),mesg(1),nmesg+iret)
+    call x48(iret,iret,1)
 
     im8b=.true.
     return
@@ -254,9 +254,9 @@ recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
 
   ! Try to open BUFR file and set to initialize or concatenate
 
-  call openbf(lunit(1),'IN',lundx(1))
+  call openbf(lunit,'IN',lundx)
 
-  if(inew(1)==0) then
+  if(inew==0) then
     msgp(0) = 0
     munit = 0
     mlast = 0
@@ -267,7 +267,7 @@ recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
   endif
 
   nmsg = msgp(0)
-  iret(1) = 0
+  iret = 0
   iflg = 0
   itim = 0
 
@@ -280,10 +280,10 @@ recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
   ! Transfer messages from file to memory and set message pointers.
 
   do while (.true.)
-    call rdmsgw(lunit(1),mgwa,ier)
+    call rdmsgw(lunit,mgwa,ier)
     if(ier==-1) exit
     if(ier==-2) then
-      write(bort_str,'("BUFRLIB: UFBMEX - ERROR READING MESSAGE NUMBER",I5," INTO MEMORY FROM UNIT",I3)') nmsg+1,lunit(1)
+      write(bort_str,'("BUFRLIB: UFBMEX - ERROR READING MESSAGE NUMBER",I5," INTO MEMORY FROM UNIT",I3)') nmsg+1,lunit
       call bort(bort_str)
     endif
 
@@ -294,7 +294,7 @@ recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
     if(lmem+mlast>maxmem) iflg = 2
 
     if(iflg==0) then
-      iret(1) = iret(1)+1
+      iret = iret+1
       do i=1,lmem
         msgs(mlast+i) = mgwa(i)
       enddo
@@ -343,11 +343,11 @@ recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
     mlast=mlast0
   endif
 
-  if(iret(1)==0) then
-    call closbf(lunit(1))
+  if(iret==0) then
+    call closbf(lunit)
   else
-    if(munit/=0) call closbf(lunit(1))
-    if(munit==0) munit = lunit(1)
+    if(munit/=0) call closbf(lunit)
+    if(munit==0) munit = lunit
   endif
 
   return

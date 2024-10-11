@@ -38,7 +38,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ~/data
-        key: data-17
+        key: data-18
 
     - name: build-docs
       run: |
@@ -60,7 +60,7 @@ jobs:
       run: |
         cd bufr/build
         ctest --verbose --output-on-failure --rerun-failed
-        gcovr --root .. -v  --html-details --exclude ../test --exclude CMakeFiles --print-summary --exclude-unreachable-branches --exclude-throw-branches --decisions -o test-coverage.html
+        gcovr --root .. -v  --html-details --exclude ../test --exclude CMakeFiles --print-summary --exclude-unreachable-branches --exclude-throw-branches --decisions --gcov-ignore-parse-errors=suspicious_hits.warn_once_per_file -o test-coverage.html
 
     - name: cache-data
       if: steps.cache-data.outputs.cache-hit != 'true'
