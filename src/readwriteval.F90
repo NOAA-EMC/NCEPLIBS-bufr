@@ -1597,17 +1597,14 @@ recursive subroutine drfini(lunit,mdrf,ndrf,drftag)
 
   integer, intent(in) :: mdrf(*), lunit, ndrf
   integer, parameter :: mxdrf = 2000
-  integer my_mdrf(mxdrf), my_lunit, my_ndrf, mdrf4, ii, lun, il, im, m, n, node
+  integer my_mdrf(mxdrf), my_lunit, my_ndrf, lun, il, im, m, n, node
 
   ! Check for I8 integers
   if(im8b) then
     im8b=.false.
     call x84(lunit,my_lunit,1)
-    do ii = 1, ndrf
-      call x84(mdrf(ii),mdrf4,1)
-      my_mdrf(ii) = mdrf4
-    enddo
     call x84(ndrf,my_ndrf,1)
+    call x84(mdrf(1),my_mdrf(1),my_ndrf)
     call drfini(my_lunit,my_mdrf,my_ndrf,drftag)
     im8b=.true.
     return

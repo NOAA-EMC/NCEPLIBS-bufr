@@ -38,6 +38,9 @@ program outtest13
   call pkvs01 ( 'BEN', 4 )
   call maxout ( 199900 )
 
+  ! Set the location of the master BUFR tables.
+  call mtinfo ( '../tables', 90, 91 )
+
   call readmg ( 11, cmgtag, imgdt, ier )
   if ( ier /= 0 ) stop 2
 

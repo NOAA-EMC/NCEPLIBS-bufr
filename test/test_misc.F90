@@ -17,6 +17,7 @@ program test_misc
   integer iupb
   integer isbyt, iwid
   character*6 cfxy
+  real*8 r8vals(10,600)
 
 #ifndef KIND_8
   character*5 char5
@@ -133,6 +134,14 @@ program test_misc
   if (iret /= -1) stop 900
   iret = igetfxy("352003", cfxy)
   if (iret /= 0) stop 901
+
+  ! testing ufbtab() on a file of compressed BUFR messages
+  open(unit = 11, file = 'testfiles/IN_12', form = 'UNFORMATTED', iostat = ios)
+  if (ios /= 0) stop 30
+  call ufbtab(11, r8vals, 10, 600, iret, 'IREC ISUB CLATH CLONH SAZA SOZA ORBN MTYP' )
+  if ( ( iret /= 447 ) .or. ( nint(r8vals(3,5)*100000) /= 388187 ) .or. ( nint(r8vals(4,194)*100000) /= 6366768 ) .or. &
+    ( nint(r8vals(5,213)*100) /= 4866 ) .or. ( nint(r8vals(6,370)*100) /= 15674 ) .or. ( nint(r8vals(1,444)) /= 5 ) .or. &
+    ( nint(r8vals(2,444)) /= 209 ) ) stop 31
 
   ! The following tests are only for the _4 and _d runs of test_misc, because many
   ! of the routines below aren't intended to ever be called directly by users, and
