@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ccompiler: [clang, gcc-12, gcc-14]
+        ccompiler: [clang, gcc-12, gcc-13]
 
     steps:
 
@@ -48,9 +48,9 @@ jobs:
         elif [[ ${{ matrix.ccompiler }} == "gcc-12" ]]; then
           export CC=gcc-12
           export FC=gfortran-12
-        elif [[ ${{ matrix.ccompiler }} == "gcc-14" ]]; then
-          export CC=gcc-14
-          export FC=gfortran-14
+        elif [[ ${{ matrix.ccompiler }} == "gcc-13" ]]; then
+          export CC=gcc-13
+          export FC=gfortran-13
         fi
         cd bufr
         mkdir build
