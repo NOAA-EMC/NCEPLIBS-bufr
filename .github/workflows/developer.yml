@@ -17,14 +17,14 @@ jobs:
   developer:
     runs-on: ubuntu-22.04
     env:
-      FC: gfortran-12
-      CC: gcc-12
+      FC: gfortran-11
+      CC: gcc-11
 
     steps:
     - name: install-deps
       run: |
           sudo apt-get update
-          sudo apt-get install doxygen python3-numpy gcc-12 gfortran-12 meson
+          sudo apt-get install doxygen python3-numpy
           sudo python3 -m pip install -U gcovr pdoc
 
     - name: checkout
