@@ -24,7 +24,7 @@ jobs:
     - name: install-deps
       run: |
        sudo apt-get update
-       sudo apt-get install python3-pip python3-dev python3-numpy
+       sudo apt-get install python3-pip python3-dev python3-numpy meson
        sudo python3 -m pip install --break-system-packages -U netCDF4
        sudo python3 -m pip install --break-system-packages -U pdoc
 
