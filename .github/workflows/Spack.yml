@@ -52,7 +52,7 @@ jobs:
         spack env activate bufr-env
         cp $GITHUB_WORKSPACE/bufr/spack/package.py $SPACK_ROOT/var/spack/repos/builtin/packages/bufr/package.py
         spack develop --no-clone --path $GITHUB_WORKSPACE/bufr bufr@develop test_files=/home/runner/data
-        spack add bufr@develop%gcc@11 ${{ matrix.variants }}
+        spack add bufr@develop%gcc@12 ${{ matrix.variants }}
         spack external find cmake gmake python py-numpy
         spack concretize
         # Run installation and run CTest suite
