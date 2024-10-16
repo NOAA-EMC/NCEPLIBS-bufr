@@ -35,7 +35,7 @@ jobs:
     - name: install-python
       if: ${{ contains(matrix.variants, '+python') }}
       run: |
-        sudo apt install python3 python3-numpy
+        sudo apt install python3 python3-numpy meson
 
     - name: cache-data
       id: cache-data
@@ -53,7 +53,7 @@ jobs:
         cp $GITHUB_WORKSPACE/bufr/spack/package.py $SPACK_ROOT/var/spack/repos/builtin/packages/bufr/package.py
         spack develop --no-clone --path $GITHUB_WORKSPACE/bufr bufr@develop test_files=/home/runner/data
         spack add bufr@develop%gcc@12 ${{ matrix.variants }}
-        spack external find cmake gmake python py-numpy
+        spack external find cmake gmake python py-numpy meson
         spack concretize
         # Run installation and run CTest suite
         spack install --verbose --fail-fast --test root
