@@ -720,7 +720,12 @@ subroutine rewnbf(lunit,isr)
       call bort(bort_str)
     endif
   elseif(isr==1) then
-    if(junn==0 .or. jsr(junn)/=1) then
+    if(junn==0) then
+      write(bort_str,'("BUFRLIB: REWNBF - ATTEMPING TO RESTORE '// &
+        'PARAMETERS TO BUFR FILE WHICH WERE NEVER SAVED (UNIT",I3,")")') lunit
+      call bort(bort_str)
+    endif
+    if(jsr(junn)/=1) then
       write(bort_str,'("BUFRLIB: REWNBF - ATTEMPING TO RESTORE '// &
         'PARAMETERS TO BUFR FILE WHICH WERE NEVER SAVED (UNIT",I3,")")') lunit
       call bort(bort_str)
