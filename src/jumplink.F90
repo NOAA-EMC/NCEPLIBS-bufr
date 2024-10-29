@@ -34,7 +34,7 @@ subroutine makestab
 
   implicit none
 
-  integer iprt, lunit, lundx, lun, lum, k, n, itba, inc, newn, noda, node, inod, icmpdx, ishrdx
+  integer iprt, lunit, lundx, lun, lum, n, itba, inc, newn, noda, node, inod, icmpdx, ishrdx
 
   character*128 bort_str, errstr
   character*8 nemo
@@ -206,9 +206,7 @@ subroutine makestab
   ! Set up expansion segments for type 'SUB', 'DRP', and 'DRS' nodes.
 
   newn = 0
-  do k=1,maxjl
-    knt(k) = 0
-  enddo
+  knt(1:maxjl) = 0
   do n=1,ntab
     iseq(n,1) = 0
     iseq(n,2) = 0

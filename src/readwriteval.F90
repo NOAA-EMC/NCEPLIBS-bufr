@@ -658,7 +658,7 @@ recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
-  integer iprt, nnod, ncon, nods, nodc, ivls, kons, ifirst1, ifirst2, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, i, j
+  integer iprt, nnod, ncon, nods, nodc, ivls, kons, ifirst1, ifirst2, my_lunin, my_i1, my_i2, lunit, lun, il, im, io
 
   common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
   common /quiet/ iprt
@@ -728,13 +728,7 @@ recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
   call string(str,lun,i1,io)
 
   ! Initialize usr array preceeding an input operation
-  if(io==0) then
-    do j=1,i2
-      do i=1,I1
-        usr(i,j) = bmiss
-      enddo
-    enddo
-  endif
+  if(io==0) usr(1:i1,1:i2) = bmiss
 
   ! Call the mnemonic reader/writer
   call ufbrw(lun,usr,i1,i2,io,iret)
@@ -898,7 +892,7 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
-  integer iprt, ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, iac_prev, i, j
+  integer iprt, ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, iac_prev
 
   common /quiet/ iprt
 
@@ -964,13 +958,7 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
   endif
 
   ! Initialize usr array preceeding an input operation
-  if(io==0) then
-    do j=1,i2
-      do i=1,i1
-        usr(i,j) = bmiss
-      enddo
-    enddo
-  endif
+  if(io==0) usr(1:i1,1:i2) = bmiss
 
   ! Parse or recall the input string
   iac_prev = iac
@@ -1111,7 +1099,7 @@ recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
-  integer iprt, ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, i, j
+  integer iprt, ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io
 
   common /quiet/ iprt
 
@@ -1177,13 +1165,7 @@ recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
   endif
 
   ! Initialize usr array preceeding an input operation
-  if(io==0) then
-    do j=1,i2
-      do i=1,I1
-        usr(i,j) = bmiss
-      enddo
-    enddo
-  endif
+  if(io==0) usr(1:i1,1:i2) = bmiss
 
   ! Parse or recall the input string
   call string(str,lun,i1,io)
@@ -1415,13 +1397,7 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
     'BUFR FILE DOES NOT AGREE WITH EXPECTED LOCATION IN INTERNAL SUBSET ARRAY')
 
   ! Initialize usr array preceeding an input operation
-  if(io==0) then
-    do j=1,i2
-      do i=1,I1
-        usr(i,j) = bmiss
-      enddo
-    enddo
-  endif
+  if(io==0) usr(1:i1,1:i2) = bmiss
 
   ! Find the parameters of the specified sequence
   outer: do node=inode(lun),isc(inode(lun))
@@ -2345,14 +2321,7 @@ recursive subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str)
   call string(str,lun,i1,0)
 
   ! Initialize usr array
-
-  do k=1,i3
-    do j=1,i2
-      do i=1,i1
-        usr(i,j,k) = bmiss
-      enddo
-    enddo
-  enddo
+  usr(1:i1,1:i2,1:i3) = bmiss
 
   ! Loop over condition windows
 
@@ -2583,10 +2552,7 @@ recursive subroutine ufbget(lunit,tab,i1,iret,str)
   endif
 
   iret = 0
-
-  do i=1,i1
-    tab(i) = bmiss
-  enddo
+  tab(1:i1) = bmiss
 
   ! Make sure a file/message is open for input
 

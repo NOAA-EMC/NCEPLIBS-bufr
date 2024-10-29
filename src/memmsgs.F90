@@ -1119,7 +1119,7 @@ recursive subroutine ufbtam(tab,i1,i2,iret,str)
   integer*8 mps, ival
   integer, intent(in) :: i1, i2
   integer, intent(out) :: iret
-  integer iprt, maxtg, nnod, ncon, nods, nodc, ivls, kons, my_i1, my_i2, i, j, irec, isub, itbl, lun, il, im, jdate, mret, &
+  integer iprt, maxtg, nnod, ncon, nods, nodc, ivls, kons, my_i1, my_i2, i, irec, isub, itbl, lun, il, im, jdate, mret, &
     kbit, mbit, nbit, n, node, imsg, kmsg, nrep, ntg, nbyt, nbmp, nmsub
 
   real*8, intent(out) :: tab(i1,i2)
@@ -1153,11 +1153,7 @@ recursive subroutine ufbtam(tab,i1,i2,iret,str)
 
   if(msgp(0)==0) return
 
-  do j=1,i2
-    do i=1,i1
-      tab(i,j) = bmiss
-    enddo
-  enddo
+  tab(1:i1,1:i2) = bmiss
 
   ! Check for special tags in string
 

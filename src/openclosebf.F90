@@ -874,7 +874,7 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
   integer, parameter :: maxtg = 100
-  integer nnod, ncon, nods, nodc, ivls, kons, iprt, my_lunin, my_i1, my_i2, lunit, lun, il, im, irec, isub, i, j, n, ntg, &
+  integer nnod, ncon, nods, nodc, ivls, kons, iprt, my_lunin, my_i1, my_i2, lunit, lun, il, im, irec, isub, i, n, ntg, &
     jdate, jbit, kbit, lbit, mbit, nbit, nibit, nbyt, nsb, node, nbmp, nrep, lret, linc, iac_prev, ityp, &
     ireadmg, ireadsb, nmsub
 
@@ -927,11 +927,7 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
   endif
 
   ! Initialize all of the output array values to the current value for "missing"
-  do j=1,i2
-    do i=1,i1
-      tab(i,j) = bmiss
-    enddo
-  enddo
+  tab(1:i1,1:i2) = bmiss
 
   ! Set counters to zero
   iret = 0
