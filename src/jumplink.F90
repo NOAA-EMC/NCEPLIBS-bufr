@@ -206,7 +206,9 @@ subroutine makestab
   ! Set up expansion segments for type 'SUB', 'DRP', and 'DRS' nodes.
 
   newn = 0
-
+  do k=1,maxjl
+    knt(k) = 0
+  enddo
   do n=1,ntab
     iseq(n,1) = 0
     iseq(n,2) = 0
@@ -215,15 +217,11 @@ subroutine makestab
       iseq(n,1) = newn+1
       noda = n
       node = n+1
-      do k=1,maxjl
-        knt(k) = 0
-      enddo
       if(typ(noda)=='REP') then
         knt(node) = knti(noda)
       else
         knt(node) = 1
       endif
-
       outer: do while (.true.)
         newn = newn+1
         if(newn>maxjl) then

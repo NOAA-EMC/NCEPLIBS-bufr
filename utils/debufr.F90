@@ -60,7 +60,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
   implicit none
 
-  integer, parameter :: mxbf = 2500000
+  integer, parameter :: mxbf = 7500000
   integer, parameter :: mxbfd4 = mxbf/4
   integer, parameter :: mxds3 = 500
   integer, parameter :: mxprms = 20
