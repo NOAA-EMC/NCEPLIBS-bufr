@@ -294,6 +294,21 @@ TOTAL           6823        774888      67232740
 
 Utility to print an inventory of satellite data by platform and instrument type.
 
+<pre>
+Usage:
+
+   sinv satbufrfile [tabledir]
+
+     where:
+
+       satbufrfile  [path/]name of BUFR satellite data file to be decoded
+
+       tabledir     [path/]name of directory containing master BUFR tables.
+                    If unspecified, the default directory location is
+                    the defined value of the MASTER_TABLE_DIR macro when the
+                    utility was built.
+</pre>
+
 See the source code at sinv.F90
 
 Sample output for: `sinv gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`

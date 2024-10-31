@@ -3,7 +3,9 @@
 !>
 !> @author J Woollen @date 2010
 
-!> Usage: sinv \<satbufrfile\> will print inventory of satellites by platform and instrument.
+!> Usage: sinv satbufrfile \<tabledir\> will print an inventory of satellites in the
+!> satbufrfile by platform and instrument.  The optional tabledir argument can be used
+!> to specify a custom directory for the master BUFR tables.
 !>
 !> @return 0 for success, error message otherwise.
 !>
@@ -35,7 +37,7 @@ program sinv
 
   narg=command_argument_count()
   if(narg<1) then
-     write(*,*)'Usage: sinv <satbufrfile> will print inventory of satellites by platform and instrument'
+     write(*,*)'Usage: sinv satbufrfile <tabledir> will print inventory of satbufrfile by platform and instrument'
      call exit(2)
   endif
   call get_command_argument(1,file)
