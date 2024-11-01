@@ -1183,10 +1183,7 @@ subroutine rcstpl(lun,iret)
   mbmp = 1
   nval(lun) = 1
   nr = 0
-
-  do i=1,maxrcr
-    knx(i) = 0
-  enddo
+  knx(1:maxrcr) = 0
 
   outer: do while (.true.)
 

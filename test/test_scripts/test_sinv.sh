@@ -31,7 +31,7 @@ set +e
 # Test #3, for wrong number of arguments.
 outfile_3=testrun/sinv_3.out
 ../utils/sinv > ${outfile_3}
-[[ ${?} -ne 2 || `grep -c "Usage: sinv <satbufrfile>" ${outfile_3}` -ne 1 ]] && exit 3
+[[ ${?} -ne 2 || `grep -c "Usage: sinv satbufrfile" ${outfile_3}` -ne 1 ]] && exit 3
 
 # Success!
 exit 0

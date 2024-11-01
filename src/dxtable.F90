@@ -641,9 +641,7 @@ subroutine dxinit(lun,ioi)
   enddo
 
   ntbb(lun) = 0
-  do i=1,ntbb(0)
-    tabb(i,lun) = ' '
-  enddo
+  tabb(1:ntbb(0),lun) = ' '
 
   ntbd(lun) = 0
   do i=1,ntbd(0)
@@ -713,9 +711,7 @@ subroutine dxmini(mbay,mbyt,mb4,mba,mbb,mbd)
   ! Initialize the message
 
   mbit = 0
-  do i=1,mxmsgld4
-    mbay(i) = 0
-  enddo
+  mbay(1:mxmsgld4) = 0
 
   ! For DX table messages, the Section 1 date is simply zeroed out.  Note that there is logic in function idxmsg()
   ! which relies on this.
