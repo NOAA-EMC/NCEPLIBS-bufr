@@ -1,7 +1,7 @@
 Table F LOC |  0 | 7 |  1
 #
 # Local BUFR Table CODE/FLAG, Master Table 0, Originating Center 7, Version 1
-# This file was generated: 2024/09/16 19:31:11
+# This file was generated: 2024/11/20 18:37:17
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -4450,6 +4450,7 @@ Table F LOC |  0 | 7 |  1
               | 534 > | Coast Guard tide gauge report
               | 540 > | Mesonet surface
               | 551 > | Sea-level pressure bogus
+              | 560 > | Saildrone
               | 561 > | Fixed buoy arriving in WMO TAC FM-13 format
               | 562 > | Fixed or drifting buoy arriving in WMO TAC FM-18 format
               | 563 > | Fixed buoy arriving in WMO BUFR format
@@ -4582,6 +4583,7 @@ Table F LOC |  0 | 7 |  1
               | 0 > | ASDAR/ACARS (AMDAR)
               | 1 > | Manual (AIREP,PIREP)
               | 2 > | Mode-S
+              | 3 > | Long-duration balloon
            | 0-55-020=5
               | 0 > | Cloud wind data (SATOB)
               | 1 > | Cloud properties
@@ -4594,6 +4596,8 @@ Table F LOC |  0 | 7 |  1
               | 0 > | Forecast Tropical cyclone tracks from EPS
               | 1 > | Squall Line
               | 2 > | Forecast tropical cyclone from deterministic system
+              | 3 > | Forecast tropical cyclone from machine learning deterministic system
+              | 4 > | Forecast tropical cyclone from machine learning ensemble prediction system
            | 0-55-020=8
               | 0 > | Surface ozone
               | 1 > | Ozone vertical sounding
@@ -4786,6 +4790,11 @@ Table F LOC |  0 | 7 |  1
               | 24 > | India high-density winds - infrared (long-wave) (BUFR)
               | 25 > | India high-density winds - visible (BUFR)
               | 26 > | India high-density winds - water vapor imager (BUFR)
+              | 30 > | GOES high-density winds - infrared (long-wave) (BUFR)
+              | 31 > | GOES high-density winds - water vapor imager deep-layer (BUFR)
+              | 32 > | GOES high-density winds - visible (BUFR)
+              | 34 > | GOES high-density winds - water vapor imager cloud-top (BUFR)
+              | 39 > | GOES high-density winds - infrared (short-wave) (BUFR)
               | 41 > | Japan low-density winds - infrared (long-wave) (SATOB)
               | 42 > | Japan low-density winds - visible (SATOB)
               | 43 > | Japan low-density winds - water vapor imager (SATOB)
@@ -4951,6 +4960,7 @@ Table F LOC |  0 | 7 |  1
               | 3 > | GPS integrated precipitable water
               | 4 > | GNSS ground-based
               | 5 > | ERS SAR
+              | 6 > | DMSP SSM/IS derived products
               | 8 > | ERS scatterometer
               | 9 > | ERS radar altimeter
               | 10 > | NAVOCEANO POES - low-resolution sea-surface temperatures
@@ -5010,11 +5020,17 @@ Table F LOC |  0 | 7 |  1
               | 206 > | CrIS full spectral radiances (431 channels)
               | 212 > | CrIS radiances (direct broadcast)
               | 213 > | ATMS brightness temperatures (direct broadcast)
+              | 214 > | TMS radiance data
               | 239 > | IASI radiances (direct broadcast)
               | 241 > | IASI radiances
               | 242 > | Megha-Tropiques SAPHIR L1A2 brightness temperatures
+              | 246 > | GMI brightness temperatures
+              | 248 > | AMSR2 brightness temperatures
               | 249 > | AQUA/AIRS AMSU-A brightness temperatures - every field-of-view
               | 250 > | AQUA/AIRS AMSU-A brightness temperatures - central field-of-view
+              | 251 > | ATOVS AMSU-A radiances
+              | 252 > | ATOVS AMSU-B radiances
+              | 253 > | AQUA/AIRS principal components
               | 254 > | AQUA/AMSR-E brightness temperatures
               | 255 > | AQUA/AIRS AMSU-A brightness temperatures - warmest field-of-view
            | 0-55-020=31
