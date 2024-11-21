@@ -1,7 +1,7 @@
 Table B LOC |  0 | 7 |  1
 #
 # Local BUFR Table B, Master Table 0, Originating Center 7, Version 1
-# This file was generated: 2024/09/16 19:31:11
+# This file was generated: 2024/11/20 18:37:17
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME
@@ -443,9 +443,209 @@ Table B LOC |  0 | 7 |  1
   0-35-195 |   0 |           0 |  32 | CCITT IA5         | SEQNUM   ;     ; Channel sequence number
   0-35-200 |   0 |           0 |   9 | Flag table        | RSRD     ;     ; Restrictions on redistribution
   0-35-201 |   0 |           0 |   8 | Hour              | EXPRSRD  ;     ; Expiration of restrictions on redistribution
+  0-40-192 |   0 |           0 |   6 | Flag table        | ACSQ     ;     ; ACSPO SST quality flags
+  0-49-001 |   0 |           0 |  10 | Numeric           | OREC     ;     ; Record ID
+  0-49-002 |   0 |           0 |   8 | Numeric           | OSEQ     ;     ; Sequence number
+  0-49-005 |   2 |       -9000 |  15 | Degree            | OVLT     ;     ; View latitude total ozone
+  0-49-006 |   2 |      -18000 |  16 | Degree            | OVLN     ;     ; View longitude total ozone
+  0-49-007 |   2 |      -18000 |  16 | Degree            | OSZA     ;     ; Solar zenith angle
+  0-49-008 |   0 |           0 |  10 | Numeric           | ONV1     ;     ; N-value CCR 339.8 nm
+  0-49-009 |   0 |           0 |  10 | Numeric           | ONV2     ;     ; N-value CCR 331.2 nm
+  0-49-010 |   0 |           0 |  10 | Numeric           | ONV3     ;     ; N-value CCR 317.5 nm
+  0-49-011 |   0 |           0 |  10 | Numeric           | ONV4     ;     ; N-value CCR 312.5 nm
+  0-49-012 |   0 |           0 |  10 | Numeric           | ONV5     ;     ; N-value mono 339.8 nm
+  0-49-013 |   0 |           0 |  10 | Numeric           | ONV6     ;     ; N-value mono 331.2 nm
+  0-49-014 |   0 |           0 |  10 | Numeric           | ONV7     ;     ; N-value mono 317.5 nm
+  0-49-015 |   0 |           0 |  10 | Numeric           | ONV8     ;     ; N-value mono 312.5 nm
+  0-49-016 |   0 |           0 |  16 | Numeric           | OGSC     ;     ; Gain sel code 4 wavelengths+305 nm
+  0-49-017 |   1 |           0 |  24 | Numeric           | OGRA     ;     ; Grating differences channels 1-6
+  0-49-018 |   2 |           0 |  17 | m atm cm          | OTBE     ;     ; Total ozone best estimated TOVS cloud height
+  0-49-019 |   2 |           0 |   7 | Atm               | OCTP     ;     ; Field-of-view averaged cloud top pressure
+  0-49-020 |   2 |           0 |   7 | Atm               | OPRS     ;     ; Pressure of reflected surface estimated using TOVS
+  0-49-021 |   2 |           0 |   7 | Numeric           | ORFA     ;     ; Reflectivity average for TOVS
+  0-49-022 |   0 |           0 |   7 | %                 | OCLD     ;     ; Percent cloud from CCR
   0-49-023 |   0 |           0 |   5 | Code table        | OERR     ;     ; Ozone error flag for TOVS total ozone
+  0-49-024 |   2 |           0 |  17 | m atm cm          | OTAP     ;     ; Total ozone for A-pair
+  0-49-025 |   2 |           0 |   7 | 1/(m atm cm)      | OSAP     ;     ; Ozone sensitivity for A-pair
+  0-49-026 |   2 |           0 |   7 | Numeric           | ORAP     ;     ; Reflectivity average for A-pair
+  0-49-027 |   2 |           0 |   7 | Numeric           | OWAP     ;     ; Ozone weight for A-pair
+  0-49-028 |   2 |           0 |  17 | m atm cm          | OTBP     ;     ; Total ozone for B-pair
+  0-49-029 |   2 |           0 |   7 | 1/(m atm cm)      | OSBP     ;     ; Ozone sensitivity for B-pair
+  0-49-030 |   2 |           0 |   7 | Numeric           | ORBP     ;     ; Reflectivity average for B-pair
+  0-49-031 |   2 |           0 |   7 | Numeric           | OWBP     ;     ; Ozone weight for B-pair
+  0-49-032 |   2 |           0 |  17 | m atm cm          | OTCC     ;     ; Total ozone best estimate based on climate cloud height
+  0-49-033 |   2 |           0 |  17 | m atm cm          | OTCP     ;     ; Total ozone for C-pair
+  0-49-034 |   2 |           0 |   7 | Atm               | OPRR     ;     ; Pressure of reflected surface estimated without TOVS
+  0-49-035 |   2 |           0 |   7 | Numeric           | ORAV     ;     ; Reflectivity average
+  0-49-036 |   2 |           0 |   7 | 1/(m atm cm)      | OSCP     ;     ; Ozone sensitivity for C-pair
   0-49-037 |   0 |           0 |   5 | Code table        | OEBO     ;     ; Ozone error flag for best ozone
+  0-49-038 |   2 |       -1000 |  12 | Numeric           | OTAB     ;     ; Table selection index
+  0-49-039 |   1 |           0 |  24 | Numeric           | OG712    ;     ; Grating differences channels 7-12
+  0-49-040 |   2 |         -10 |  10 | Numeric           | ORDF     ;     ; Reflectivity differences (photo/mono)
+  0-49-041 |   2 |           0 |   7 | Atm               | OSPR     ;     ; Terrain/surface pressure
+  0-49-042 |   2 |           0 |  17 | m atm cm          | OTDP     ;     ; Total ozone for D-pair
+  0-49-043 |   2 |           0 |  18 | Numeric           | OSIN     ;     ; Sulfur dioxide index
+  0-49-044 |   2 |           0 |  17 | m atm cm          | OTBO     ;     ; 0 total B ozone
+  0-49-045 |   2 |       -9000 |  15 | Degree            | OPLA     ;     ; View latitude profile ozone
+  0-49-046 |   2 |      -18000 |  16 | Degree            | OPLO     ;     ; View longitude profile ozone
+  0-49-047 |   2 |      -18000 |  16 | Degree            | OPSZ     ;     ; Solar zenith angle for profile ozone
+  0-49-048 |   0 |           0 |  10 | Numeric           | ONC1     ;     ; N-value CCR 252.2 nm
+  0-49-049 |   0 |           0 |  10 | Numeric           | ONC2     ;     ; N-value CCR 275.3 nm
+  0-49-050 |   0 |           0 |  10 | Numeric           | ONC3     ;     ; N-value CCR 283.0 nm
+  0-49-051 |   0 |           0 |  10 | Numeric           | ONC4     ;     ; N-value CCR 287.6 nm
+  0-49-052 |   0 |           0 |  10 | Numeric           | ONC5     ;     ; N-value CCR 292.2 nm
+  0-49-053 |   0 |           0 |  10 | Numeric           | ONC6     ;     ; N-value CCR 297.5 nm
+  0-49-054 |   0 |           0 |  10 | Numeric           | ONC7     ;     ; N-value CCR 301.9 nm
+  0-49-055 |   0 |           0 |  10 | Numeric           | ONC8     ;     ; N-value CCR 305.8 nm
+  0-49-056 |   0 |           0 |  10 | Numeric           | ONM1     ;     ; N-value mono 252.2 nm
+  0-49-057 |   0 |           0 |  10 | Numeric           | ONM2     ;     ; N-value mono 275.3 nm
+  0-49-058 |   0 |           0 |  10 | Numeric           | ONM3     ;     ; N-value mono 283.0 nm
+  0-49-059 |   0 |           0 |  10 | Numeric           | ONM4     ;     ; N-value mono 287.6 nm
+  0-49-060 |   0 |           0 |  10 | Numeric           | ONM5     ;     ; N-value mono 292.2 nm
+  0-49-061 |   0 |           0 |  10 | Numeric           | ONM6     ;     ; N-value mono 297.5 nm
+  0-49-062 |   0 |           0 |  10 | Numeric           | ONM7     ;     ; N-value mono 301.9 nm
+  0-49-063 |   0 |           0 |  10 | Numeric           | ONM8     ;     ; N-value mono 305.8 nm
+  0-49-064 |   0 |           0 |  25 | Numeric           | OGWF     ;     ; Gain sel code first 4 wavelengths
+  0-49-065 |   0 |           0 |  25 | Numeric           | OGWL     ;     ; Gain sel code last 4 wavelengths
+  0-49-066 |   2 |           0 |  16 | m atm cm          | OGL12    ;     ; First guess layer ozone 12 (0.25 - 0.12 mb)
+  0-49-067 |   2 |           0 |  16 | m atm cm          | OGL11    ;     ; First guess layer ozone 11 (0.5 - 0.25 mb)
+  0-49-068 |   2 |           0 |  16 | m atm cm          | OGL10    ;     ; First guess layer ozone 10 (1 - 0.5 mb)
+  0-49-069 |   2 |           0 |  16 | m atm cm          | OGL9     ;     ; First guess layer ozone 9 (2 - 1 mb)
+  0-49-070 |   2 |           0 |  16 | m atm cm          | OGL8     ;     ; First guess layer ozone 8 (4 - 2 mb)
+  0-49-071 |   2 |           0 |  16 | m atm cm          | OGL7     ;     ; First guess layer ozone 7 (8 - 4 mb)
+  0-49-072 |   2 |           0 |  16 | m atm cm          | OGL6     ;     ; First guess layer ozone 6 (16 - 8 mb)
+  0-49-073 |   2 |           0 |  16 | m atm cm          | OGL5     ;     ; First guess layer ozone 5 (32 - 16 mb)
+  0-49-074 |   2 |           0 |  16 | m atm cm          | OGL4     ;     ; First guess layer ozone 4 (64 - 32 mb)
+  0-49-075 |   2 |           0 |  16 | m atm cm          | OGL3     ;     ; First guess layer ozone 3 (127 - 64 mb)
+  0-49-076 |   2 |           0 |  16 | m atm cm          | OGL2     ;     ; First guess layer ozone 2 (250 - 127 mb)
+  0-49-077 |   2 |           0 |  16 | m atm cm          | OGL1     ;     ; First guess layer ozone 1 (1013 - 250 mb)
+  0-49-078 |   2 |           0 |  17 | m atm cm          | OTOP     ;     ; Total ozone a-priori profile
+  0-49-079 |   2 |           0 |  24 | Numeric           | OC01     ;     ; Q-vals corrected for multi-scatter reflectivity 252.2 nm
+  0-49-080 |   2 |           0 |  24 | Numeric           | OC02     ;     ; Q-vals corrected for multi-scatter reflectivity 275.3 nm
+  0-49-081 |   2 |           0 |  24 | Numeric           | OC03     ;     ; Q-vals corrected for multi-scatter reflectivity 283.0 nm
+  0-49-082 |   2 |           0 |  24 | Numeric           | OC04     ;     ; Q-vals corrected for multi-scatter reflectivity 287.6 nm
+  0-49-083 |   2 |           0 |  24 | Numeric           | OC05     ;     ; Q-vals corrected for multi-scatter reflectivity 292.2 nm
+  0-49-084 |   2 |           0 |  24 | Numeric           | OC06     ;     ; Q-vals corrected for multi-scatter reflectivity 297.5 nm
+  0-49-085 |   2 |           0 |  24 | Numeric           | OC07     ;     ; Q-vals corrected for multi-scatter reflectivity 301.9 nm
+  0-49-086 |   2 |           0 |  24 | Numeric           | OC08     ;     ; Q-vals corrected for multi-scatter reflectivity 305.8 nm
+  0-49-087 |   2 |           0 |  24 | Numeric           | OC09     ;     ; Q-vals corrected for multi-scatter reflectivity 312.5 nm
+  0-49-088 |   2 |           0 |  24 | Numeric           | OC10     ;     ; Q-vals corrected for multi-scatter reflectivity 317.5 nm
+  0-49-089 |   0 |           0 |   7 | %                 | OIR01    ;     ; Initial residue 252.2 nm
+  0-49-090 |   0 |           0 |   7 | %                 | OIR02    ;     ; Initial residue 275.3 nm
+  0-49-091 |   0 |           0 |   7 | %                 | OIR03    ;     ; Initial residue 283.0 nm
+  0-49-092 |   0 |           0 |   7 | %                 | OIR04    ;     ; Initial residue 287.6 nm
+  0-49-093 |   0 |           0 |   7 | %                 | OIR05    ;     ; Initial residue 292.2 nm
+  0-49-094 |   0 |           0 |   7 | %                 | OIR06    ;     ; Initial residue 297.5 nm
+  0-49-095 |   0 |           0 |   7 | %                 | OIR07    ;     ; Initial residue 301.9 nm
+  0-49-096 |   0 |           0 |   7 | %                 | OIR08    ;     ; Initial residue 305.8 nm
+  0-49-097 |   0 |           0 |   7 | %                 | OIR09    ;     ; Initial residue 312.5 nm
+  0-49-098 |   0 |           0 |   7 | %                 | OIR10    ;     ; Initial residue 317.5 nm
+  0-49-099 |   2 |           0 |   7 | Numeric           | OMSC1    ;     ; Multi-scatter corrected to Q 297.5 nm
+  0-49-100 |   2 |           0 |   7 | Numeric           | OMSC2    ;     ; Multi-scatter corrected to Q 301.9 nm
+  0-49-101 |   2 |           0 |   7 | Numeric           | OMSC3    ;     ; Multi-scatter corrected to Q 305.8 nm
+  0-49-102 |   2 |           0 |   7 | Numeric           | OMSC4    ;     ; Multi-scatter corrected to Q 312.5 nm
+  0-49-103 |   2 |           0 |   7 | Numeric           | OMSC5    ;     ; Multi-scatter corrected to Q 317.5 nm
+  0-49-104 |   2 |           0 |   7 | Numeric           | ORF1     ;     ; Reflectivities 297.5 nm
+  0-49-105 |   2 |           0 |   7 | Numeric           | ORF2     ;     ; Reflectivities 301.9 nm
+  0-49-106 |   2 |           0 |   7 | Numeric           | ORF3     ;     ; Reflectivities 305.8 nm
+  0-49-107 |   2 |           0 |   7 | Numeric           | ORF4     ;     ; Reflectivities 312.5 nm
+  0-49-108 |   2 |           0 |   7 | Numeric           | ORF5     ;     ; Reflectivities 317.5 nm
+  0-49-109 |   2 |           0 |   7 | 1/(m atm cm)      | OMSS1    ;     ; Multi-scatter sensitivity 297.5 nm
+  0-49-110 |   2 |           0 |   7 | 1/(m atm cm)      | OMSS2    ;     ; Multi-scatter sensitivity 301.9 nm
+  0-49-111 |   2 |           0 |   7 | 1/(m atm cm)      | OMSS3    ;     ; Multi-scatter sensitivity 305.8 nm
+  0-49-112 |   2 |           0 |   7 | 1/(m atm cm)      | OMSS4    ;     ; Multi-scatter sensitivity 312.5 nm
+  0-49-113 |   2 |           0 |   7 | 1/(m atm cm)      | OMSS5    ;     ; Multi-scatter sensitivity 317.5 nm
+  0-49-114 |   2 |           0 |  11 | Numeric           | OMSM1    ;     ; Multi-scatter mixed fraction 297.5 nm
+  0-49-115 |   2 |           0 |  11 | Numeric           | OMSM2    ;     ; Multi-scatter mixed fraction 301.9 nm
+  0-49-116 |   2 |           0 |  11 | Numeric           | OMSM3    ;     ; Multi-scatter mixed fraction 305.8 nm
+  0-49-117 |   2 |           0 |  11 | Numeric           | OMSM4    ;     ; Multi-scatter mixed fraction 312.5 nm
+  0-49-118 |   2 |           0 |  11 | Numeric           | OMSM5    ;     ; Multi-scatter mixed fraction 317.5 nm
+  0-49-119 |   0 |           0 |   7 | %                 | OFR1     ;     ; Final residue 252.2 nm
+  0-49-120 |   0 |           0 |   7 | %                 | OFR2     ;     ; Final residue 275.3 nm
+  0-49-121 |   0 |           0 |   7 | %                 | OFR3     ;     ; Final residue 283.0 nm
+  0-49-122 |   0 |           0 |   7 | %                 | OFR4     ;     ; Final residue 287.6 nm
+  0-49-123 |   0 |           0 |   7 | %                 | OFR5     ;     ; Final residue 292.2 nm
+  0-49-124 |   0 |           0 |   7 | %                 | OFR6     ;     ; Final residue 297.5 nm
+  0-49-125 |   0 |           0 |   7 | %                 | OFR7     ;     ; Final residue 301.9 nm
+  0-49-126 |   0 |           0 |   7 | %                 | OFR8     ;     ; Final residue 305.8 nm
+  0-49-127 |   0 |           0 |   7 | %                 | OFR9     ;     ; Final residue 312.5 nm
+  0-49-128 |   0 |           0 |   7 | %                 | OFR10    ;     ; Final residue 317.5 nm
+  0-49-129 |   2 |           0 |  16 | m atm cm          | OSP12    ;     ; Solution profile layer ozone 12 (0.25 - 0.12 mb)
+  0-49-130 |   2 |           0 |  16 | m atm cm          | OSP11    ;     ; Solution profile layer ozone 11 (0.5 - 0.25 mb)
+  0-49-131 |   2 |           0 |  16 | m atm cm          | OSP10    ;     ; Solution profile layer ozone 10 (1 - 0.5 mb)
+  0-49-132 |   2 |           0 |  16 | m atm cm          | OSP9     ;     ; Solution profile layer ozone 9 (2 - 1 mb)
+  0-49-133 |   2 |           0 |  16 | m atm cm          | OSP8     ;     ; Solution profile layer ozone 8 (4 - 2 mb)
+  0-49-134 |   2 |           0 |  16 | m atm cm          | OSP7     ;     ; Solution profile layer ozone 7 (8 - 4 mb)
+  0-49-135 |   2 |           0 |  16 | m atm cm          | OSP6     ;     ; Solution profile layer ozone 6 (16 - 8 mb)
+  0-49-136 |   2 |           0 |  16 | m atm cm          | OSP5     ;     ; Solution profile layer ozone 5 (32 - 16 mb)
+  0-49-137 |   2 |           0 |  16 | m atm cm          | OSP4     ;     ; Solution profile layer ozone 4 (64 - 32 mb)
+  0-49-138 |   2 |           0 |  16 | m atm cm          | OSP3     ;     ; Solution profile layer ozone 3 (127 - 64 mb)
+  0-49-139 |   2 |           0 |  16 | m atm cm          | OSP2     ;     ; Solution profile layer ozone 2 (250 - 127 mb)
+  0-49-140 |   2 |           0 |  16 | m atm cm          | OSP1     ;     ; Solution profile layer ozone 1 (1013 - 250 mb)
+  0-49-141 |   0 |           0 |   7 | %                 | OSS12    ;     ; Solution profile standard deviation layer ozone 12 (0.25 - 0.12 mb)
+  0-49-142 |   0 |           0 |   7 | %                 | OSS11    ;     ; Solution profile standard deviation layer ozone 11 (0.5 - 0.25 mb)
+  0-49-143 |   0 |           0 |   7 | %                 | OSS10    ;     ; Solution profile standard deviation layer ozone 10 (1 - 0.5 mb)
+  0-49-144 |   0 |           0 |   7 | %                 | OSS9     ;     ; Solution profile standard deviation layer ozone 9 (2 - 1 mb)
+  0-49-145 |   0 |           0 |   7 | %                 | OSS8     ;     ; Solution profile standard deviation layer ozone 8 (4 - 2 mb)
+  0-49-146 |   0 |           0 |   7 | %                 | OSS7     ;     ; Solution profile standard deviation layer ozone 7 (8 - 4 mb)
+  0-49-147 |   0 |           0 |   7 | %                 | OSS6     ;     ; Solution profile standard deviation layer ozone 6 (16 - 8 mb)
+  0-49-148 |   0 |           0 |   7 | %                 | OSS5     ;     ; Solution profile standard deviation layer ozone 5 (32 - 16 mb)
+  0-49-149 |   0 |           0 |   7 | %                 | OSS4     ;     ; Solution profile standard deviation layer ozone 4 (64 - 32 mb)
+  0-49-150 |   0 |           0 |   7 | %                 | OSS3     ;     ; Solution profile standard deviation layer ozone 3 (127 - 64 mb)
+  0-49-151 |   0 |           0 |   7 | %                 | OSS2     ;     ; Solution profile standard deviation layer ozone 2 (250 - 127 mb)
+  0-49-152 |   0 |           0 |   7 | %                 | OSS1     ;     ; Solution profile standard deviation layer ozone 1 (1013 - 250 mb)
+  0-49-153 |   2 |           0 |  17 | m atm cm          | OTSP     ;     ; Total ozone for solution profile
   0-49-154 |   0 |           0 |   5 | Code table        | OPEF     ;     ; Ozone error flag for profile
+  0-49-155 |   2 |           0 |  17 | m atm cm          | OUPP     ;     ; Upper level profile parameter C
+  0-49-156 |   2 |           0 |  17 | m atm cm          | OUPS     ;     ; Upper level profile parameter sigma
+  0-49-157 |   2 |           0 |  13 | mgm/gm            | OMR1     ;     ; Ozone mixing ration level 1 (0.3 mb)
+  0-49-158 |   2 |           0 |  13 | mgm/gm            | OMR2     ;     ; Ozone mixing ration level 2 (0.4 mb)
+  0-49-159 |   2 |           0 |  13 | mgm/gm            | OMR3     ;     ; Ozone mixing ration level 3 (0.5 mb)
+  0-49-160 |   2 |           0 |  13 | mgm/gm            | OMR4     ;     ; Ozone mixing ration level 4 (0.7 mb)
+  0-49-161 |   2 |           0 |  13 | mgm/gm            | OMR5     ;     ; Ozone mixing ration level 5 (1.0 mb)
+  0-49-162 |   2 |           0 |  13 | mgm/gm            | OMR6     ;     ; Ozone mixing ration level 6 (1.5 mb)
+  0-49-163 |   2 |           0 |  13 | mgm/gm            | OMR7     ;     ; Ozone mixing ration level 7 (2.0 mb)
+  0-49-164 |   2 |           0 |  13 | mgm/gm            | OMR8     ;     ; Ozone mixing ration level 8 (3.0 mb)
+  0-49-165 |   2 |           0 |  13 | mgm/gm            | OMR9     ;     ; Ozone mixing ration level 9 (4.0 mb)
+  0-49-166 |   2 |           0 |  13 | mgm/gm            | OMR10    ;     ; Ozone mixing ration level 10 (5.0 mb)
+  0-49-167 |   2 |           0 |  13 | mgm/gm            | OMR11    ;     ; Ozone mixing ration level 11 (7.0 mb)
+  0-49-168 |   2 |           0 |  13 | mgm/gm            | OMR12    ;     ; Ozone mixing ration level 12 (10.0 mb)
+  0-49-169 |   2 |           0 |  13 | mgm/gm            | OMR13    ;     ; Ozone mixing ration level 13 (15.0 mb)
+  0-49-170 |   2 |           0 |  13 | mgm/gm            | OMR14    ;     ; Ozone mixing ration level 14 (20.0 mb)
+  0-49-171 |   2 |           0 |  13 | mgm/gm            | OMR15    ;     ; Ozone mixing ration level 15 (30.0 mb)
+  0-49-172 |   2 |           0 |  13 | mgm/gm            | OMR16    ;     ; Ozone mixing ration level 16 (40.0 mb)
+  0-49-173 |   2 |           0 |  13 | mgm/gm            | OMR17    ;     ; Ozone mixing ration level 17 (50.0 mb)
+  0-49-174 |   2 |           0 |  13 | mgm/gm            | OMR18    ;     ; Ozone mixing ration level 18 (70.0 mb)
+  0-49-175 |   2 |           0 |  13 | mgm/gm            | OMR19    ;     ; Ozone mixing ration level 19 (100.0 mb)
+  0-49-176 |   0 |           0 |   7 | %                 | OSD12    ;     ; Ozone layer standard deviation first guess layer 12
+  0-49-177 |   0 |           0 |   7 | %                 | OSD11    ;     ; Ozone layer standard deviation first guess layer 11
+  0-49-178 |   0 |           0 |   7 | %                 | OSD10    ;     ; Ozone layer standard deviation first guess layer 10
+  0-49-179 |   0 |           0 |   7 | %                 | OSD9     ;     ; Ozone layer standard deviation first guess layer 9
+  0-49-180 |   0 |           0 |   7 | %                 | OSD8     ;     ; Ozone layer standard deviation first guess layer 8
+  0-49-181 |   0 |           0 |   7 | %                 | OSD7     ;     ; Ozone layer standard deviation first guess layer 7
+  0-49-182 |   0 |           0 |   7 | %                 | OSD6     ;     ; Ozone layer standard deviation first guess layer 6
+  0-49-183 |   0 |           0 |   7 | %                 | OSD5     ;     ; Ozone layer standard deviation first guess layer 5
+  0-49-184 |   0 |           0 |   7 | %                 | OSD4     ;     ; Ozone layer standard deviation first guess layer 4
+  0-49-185 |   0 |           0 |   7 | %                 | OSD3     ;     ; Ozone layer standard deviation first guess layer 3
+  0-49-186 |   0 |           0 |   7 | %                 | OSD2     ;     ; Ozone layer standard deviation first guess layer 2
+  0-49-187 |   0 |           0 |   7 | %                 | OSD1     ;     ; Ozone layer standard deviation first guess layer 1
+  0-49-188 |   0 |           0 |   7 | %                 | OQV1     ;     ; Standard deviation Q-vals multi-scatter reflectivity 252.2 nm
+  0-49-189 |   0 |           0 |   7 | %                 | OQV2     ;     ; Standard deviation Q-vals multi-scatter reflectivity 275.3 nm
+  0-49-190 |   0 |           0 |   7 | %                 | OQV3     ;     ; Standard deviation Q-vals multi-scatter reflectivity 283.0 nm
+  0-49-191 |   0 |           0 |   7 | %                 | OQV4     ;     ; Standard deviation Q-vals multi-scatter reflectivity 287.6 nm
+  0-49-192 |   0 |           0 |   7 | %                 | OQV5     ;     ; Standard deviation Q-vals multi-scatter reflectivity 292.2 nm
+  0-49-193 |   0 |           0 |   7 | %                 | OQV6     ;     ; Standard deviation Q-vals multi-scatter reflectivity 297.5 nm
+  0-49-194 |   0 |           0 |   7 | %                 | OQV7     ;     ; Standard deviation Q-vals multi-scatter reflectivity 301.9 nm
+  0-49-195 |   0 |           0 |   7 | %                 | OQV8     ;     ; Standard deviation Q-vals multi-scatter reflectivity 305.8 nm
+  0-49-196 |   0 |           0 |   7 | %                 | OQV9     ;     ; Standard deviation Q-vals multi-scatter reflectivity 312.5 nm
+  0-49-197 |   0 |           0 |   7 | %                 | OQV10    ;     ; Standard deviation Q-vals multi-scatter reflectivity 317.5 nm
+  0-49-198 |   0 |           0 |   7 | Numeric           | ONRI     ;     ; Number of iterations for profile solution
+  0-49-199 |   2 |           0 |  12 | Numeric           | OVOL     ;     ; Volcano contamination index
+  0-49-200 |   0 |      -32000 |  16 | Rad               | OSAA     ;     ; Solar azimuth angle for field-of-view at start of scan
+  0-49-201 |   2 |           0 |   7 | 1/(m atm cm)      | OSDP     ;     ; Ozone sensitivity for D-pair
+  0-49-202 |   2 |           0 |   7 | 1/(m atm cm)      | OSPB     ;     ; Ozone sensitivity for B prime
+  0-49-203 |   4 |           0 |  29 | Rad               | OSSS     ;     ; Solar zenith angle at start of scan
+  0-49-204 |   4 |           0 |  29 | Rad               | OSES     ;     ; Solar zenith angle at end of scan
   0-50-001 |   0 |           0 |  19 | Numeric           | SQN      ;     ; PREPBUFR: Report sequence number
   0-50-002 |   0 |           0 |  64 | CCITT IA5         | FNSTG    ;     ; File name string
   0-50-003 |   0 |           0 |   7 | Numeric           | PROCN    ;     ; PREPBUFR: Process number for this MPI run
