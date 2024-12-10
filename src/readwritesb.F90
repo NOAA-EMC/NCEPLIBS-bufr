@@ -611,6 +611,8 @@ end subroutine rdmgsb
 !> @author Woollen @date 1994-01-06
 subroutine msgupd(lunit,lun)
 
+  use modv_vars, only: iprt
+
   use moda_msgcwd
   use moda_bitbuf
   use moda_h4wlc
@@ -618,14 +620,13 @@ subroutine msgupd(lunit,lun)
   implicit none
 
   integer, intent(in) :: lunit, lun
-  integer nby0, nby1, nby2, nby3, nby4, nby5, iprt, ibyt, lbyt, lbit, nbyt, ii, iupb
+  integer nby0, nby1, nby2, nby3, nby4, nby5, ibyt, lbyt, lbit, nbyt, ii, iupb
 
   logical msgfull
 
   character*128 errstr
 
   common /msgptr/ nby0, nby1, nby2, nby3, nby4, nby5
-  common /quiet/ iprt
 
   ! Pad the subset buffer
 
@@ -1151,7 +1152,7 @@ end subroutine wrtree
 !> @author Woollen @date 1994-01-06
 subroutine rcstpl(lun,iret)
 
-  use modv_vars, only: maxjl, maxss, maxrcr
+  use modv_vars, only: maxjl, maxss, maxrcr, iprt
 
   use moda_usrint
   use moda_usrbit
@@ -1166,9 +1167,7 @@ subroutine rcstpl(lun,iret)
 
   integer, intent(in) :: lun
   integer, intent(out) :: iret
-  integer nbmp(2,maxrcr), newn(2,maxrcr), knx(maxrcr), iprt, nodi, node, mbmp, nr, i, j, n, nn, n1, n2, new, ivob, igetrfel
-
-  common /quiet/ iprt
+  integer nbmp(2,maxrcr), newn(2,maxrcr), knx(maxrcr), nodi, node, mbmp, nr, i, j, n, nn, n1, n2, new, ivob, igetrfel
 
   iret = 0
 
@@ -1289,7 +1288,7 @@ end subroutine rcstpl
 !> @author J. Woollen @date 1994-01-06
 subroutine usrtpl(lun,invn,nbmp)
 
-  use modv_vars, only: maxjl, maxss
+  use modv_vars, only: maxjl, maxss, iprt
 
   use moda_usrint
   use moda_msgcwd
@@ -1300,13 +1299,11 @@ subroutine usrtpl(lun,invn,nbmp)
   implicit none
 
   integer, intent(in) :: lun, invn, nbmp
-  integer iprt, i, j, ival, jval, n, n1, n2, nodi, node, newn, invr, knvn
+  integer i, j, ival, jval, n, n1, n2, nodi, node, newn, invr, knvn
 
   character*128 bort_str, errstr
 
   logical drp, drs, drb, drx
-
-  common /quiet/ iprt
 
   if(iprt>=2) then
     call errwrt('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')

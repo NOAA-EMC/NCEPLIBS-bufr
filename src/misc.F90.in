@@ -300,16 +300,16 @@ end function irev
 !> @author J. Woollen @date 1994-01-06
 subroutine jstnum(str,sign,iret)
 
+  use modv_vars, only: iprt
+
   implicit none
 
   integer, intent(out) :: iret
-  integer iprt, lstr, num, ier
+  integer lstr, num, ier
 
   character*(*), intent(inout) :: str
   character, intent(out) :: sign
   character*128 errstr
-
-  common /quiet/ iprt
 
   iret = 0
 
@@ -511,14 +511,15 @@ end function iokoper
 !> @author J. Woollen @date 1996-10-09
 subroutine mrginv
 
+  use modv_vars, only: iprt
+
   implicit none
 
-  integer nrpl, nmrg, namb, ntot, iprt
+  integer nrpl, nmrg, namb, ntot
 
   character*128 errstr
 
   common /mrgcom/ nrpl, nmrg, namb, ntot
-  common /quiet/ iprt
 
   if(iprt>=0) then
     call errwrt('+++++++++++++++++++++BUFRLIB+++++++++++++++++++++++')

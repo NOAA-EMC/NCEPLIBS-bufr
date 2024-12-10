@@ -85,10 +85,12 @@ end subroutine mtinfo
 !> @author Ator @date 2017-10-16
 subroutine mtfnam ( imt, imtv, iogce, imtvl, tbltyp, stdfil, locfil )
 
+  use modv_vars, only: iprt
+
   implicit none
 
   integer, intent(in) :: imt, imtv, iogce, imtvl
-  integer iprt, lun1, lun2, lmtd, ltbt, isize
+  integer lun1, lun2, lmtd, ltbt, isize
 
   character*(*), intent(in) :: tbltyp
   character*(*), intent(out) :: stdfil, locfil
@@ -100,7 +102,6 @@ subroutine mtfnam ( imt, imtv, iogce, imtvl, tbltyp, stdfil, locfil )
 
   logical found
 
-  common /quiet/ iprt
   common /mstinf/ lun1, lun2, lmtd, mtdir
 
   call strsuc ( tbltyp, tbltyp2, ltbt )
@@ -178,7 +179,7 @@ integer function ireadmt ( lun ) result ( iret )
 
   use bufrlib
 
-  use modv_vars, only: maxnc, maxcd, mxmtbb, mxmtbd
+  use modv_vars, only: maxnc, maxcd, mxmtbb, mxmtbd, iprt
 
   use moda_mstabs
   use moda_bitbuf
@@ -190,7 +191,7 @@ integer function ireadmt ( lun ) result ( iret )
   implicit none
 
   integer, intent(in) :: lun
-  integer iprt, lun1, lun2, lmtd, lmt, lmtv, logce, lmtvl, imt, imtv, iogce, imtvl, ii, jj, idx, ncds3, ier, &
+  integer lun1, lun2, lmtd, lmt, lmtv, logce, lmtvl, imt, imtv, iogce, imtvl, ii, jj, idx, ncds3, ier, &
     ibmt, ibmtv, ibogce, ibltv, idmt, idmtv, idogce, idltv, iupbs01, ifxy, istdesc
 
   character*(*), parameter :: bort_str1 = 'BUFRLIB: IREADMT - COULD NOT OPEN STANDARD FILE:'
@@ -200,7 +201,6 @@ integer function ireadmt ( lun ) result ( iret )
 
   logical allstd
 
-  common /quiet/ iprt
   common /mstinf/ lun1, lun2, lmtd, mtdir
 
   ! Initializing the following value ensures that new master tables are read during the first call to this subroutine.

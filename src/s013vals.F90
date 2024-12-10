@@ -686,7 +686,7 @@ subroutine reads3 ( lun )
 
   use bufrlib
 
-  use modv_vars, only: maxnc, mxcnem
+  use modv_vars, only: maxnc, mxcnem, iprt
 
   use moda_sc3bfr
   use moda_bitbuf
@@ -696,15 +696,13 @@ subroutine reads3 ( lun )
   implicit none
 
   integer, intent(in) :: lun
-  integer iprt, irepct, ireadmt, igettdi, itmp, ncds3, ii, jj, ifxy, igetntbi, n, idn
+  integer irepct, ireadmt, igettdi, itmp, ncds3, ii, jj, ifxy, igetntbi, n, idn
 
   character*6 numb, adn30
   character*55 cseq
   character*128 errstr
 
   logical incach
-
-  common /quiet/ iprt
 
   save irepct
 
@@ -935,7 +933,7 @@ end subroutine datelen
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine datebf(lunit,mear,mmon,mday,mour,idate)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, iprt
 
   use moda_mgwa
 
@@ -943,11 +941,9 @@ recursive subroutine datebf(lunit,mear,mmon,mday,mour,idate)
 
   integer, intent(in) :: lunit
   integer, intent(out) :: mear, mmon, mday, mour, idate
-  integer my_lunit, iprt, lun, jl, jm, ier, idx, idxmsg, igetdate
+  integer my_lunit, lun, jl, jm, ier, idx, idxmsg, igetdate
 
   character*128 errstr
-
-  common /quiet/ iprt
 
   !  Check for I8 integers
 
@@ -1134,7 +1130,7 @@ end function i4dy
 !> @author J. Woollen @date 1996-12-11
 recursive subroutine dumpbf(lunit,jdate,jdump)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, iprt
 
   use moda_mgwa
 
@@ -1142,11 +1138,9 @@ recursive subroutine dumpbf(lunit,jdate,jdump)
 
   integer, intent(in) :: lunit
   integer, intent(out) :: jdate(*), jdump(*)
-  integer my_lunit, lun, jl, jm, iprt, ier, ii, igetdate, idxmsg, iupbs3, iupbs01
+  integer my_lunit, lun, jl, jm, ier, ii, igetdate, idxmsg, iupbs3, iupbs01
 
   character*128 errstr
-
-  common /quiet/ iprt
 
   ! Check for I8 integers
 
@@ -1270,6 +1264,8 @@ end subroutine minimg
 !> @author Woollen @date 2000-09-19
 subroutine cktaba(lun,subset,jdate,iret)
 
+  use modv_vars, only: iprt
+
   use moda_msgcwd
   use moda_sc3bfr
   use moda_unptyp
@@ -1280,7 +1276,7 @@ subroutine cktaba(lun,subset,jdate,iret)
   integer, intent(in) :: lun
   integer, intent(out) :: jdate, iret
   integer, parameter :: ncpfx = 3
-  integer ibct, ipd1, ipd2, ipd3, ipd4, iprt, mtyp, msbt, mty1, msb1, isub, ksub, len0, len1, len2, len3, l4, l5, lundx, ii, &
+  integer ibct, ipd1, ipd2, ipd3, ipd4, mtyp, msbt, mty1, msb1, isub, ksub, len0, len1, len2, len3, l4, l5, lundx, ii, &
     itab, inod, iad3, iad4, iyr, imo, idy, ihr, iupb, iupbs01, iupbs3, i4dy, igetdate
 
   character*128 bort_str, errstr
@@ -1291,7 +1287,6 @@ subroutine cktaba(lun,subset,jdate,iret)
   logical trybt
 
   common /padesc/ ibct, ipd1, ipd2, ipd3, ipd4
-  common /quiet/ iprt
 
   iret = 0
 

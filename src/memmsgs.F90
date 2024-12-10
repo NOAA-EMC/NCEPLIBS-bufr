@@ -39,7 +39,7 @@ recursive subroutine ufbmem(lunit,inew,iret,iunit)
 
   use bufrlib
 
-  use modv_vars, only: im8b, maxmem, maxmsg
+  use modv_vars, only: im8b, maxmem, maxmsg, iprt
 
   use moda_mgwa
   use moda_msgmem
@@ -48,11 +48,9 @@ recursive subroutine ufbmem(lunit,inew,iret,iunit)
 
   integer, intent(in) :: lunit, inew
   integer, intent(out) :: iret, iunit
-  integer iprt, my_lunit, my_inew, iflg, itim, lun, il, im, itemp, ier, nmsg, lmem, i, mlast0, idxmsg, nmwrd
+  integer my_lunit, my_inew, iflg, itim, lun, il, im, itemp, ier, nmsg, lmem, i, mlast0, idxmsg, nmwrd
 
   character*128 bort_str, errstr
-
-  common /quiet/ iprt
 
   ! Check for I8 integers
 
@@ -215,7 +213,7 @@ end subroutine ufbmem
 !> @author J. Woollen @date 2012-01-26
 recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
 
-  use modv_vars, only: im8b, maxmem, maxmsg
+  use modv_vars, only: im8b, maxmem, maxmsg, iprt
 
   use moda_mgwa
   use moda_msgmem
@@ -226,9 +224,7 @@ recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
 
   integer, intent(in) :: lunit, lundx, inew
   integer, intent(out) :: mesg(*), iret
-  integer iprt, my_lunit, my_lundx, my_inew, nmesg, iflg, itim, ier, nmsg, lmem, i, mlast0, iupbs01, nmwrd
-
-  common /quiet/ iprt
+  integer my_lunit, my_lundx, my_inew, nmesg, iflg, itim, ier, nmsg, lmem, i, mlast0, iupbs01, nmwrd
 
   ! Check for I8 integers
 
@@ -485,7 +481,7 @@ end function ireadmm
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine rdmemm(imsg,subset,jdate,iret)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, iprt
 
   use moda_msgcwd
   use moda_bitbuf
@@ -496,14 +492,12 @@ recursive subroutine rdmemm(imsg,subset,jdate,iret)
 
   integer, intent(in) :: imsg
   integer, intent(out) :: jdate, iret
-  integer iprt, my_imsg, lun, il, im, ii, jj, kk, nwrd, iptr, lptr, ier
+  integer my_imsg, lun, il, im, ii, jj, kk, nwrd, iptr, lptr, ier
 
   character*128 bort_str, errstr
   character*8, intent(out) :: subset
 
   logical known
-
-  common /quiet/ iprt
 
   ! Check for I8 integers
 
@@ -633,7 +627,7 @@ end subroutine rdmemm
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine rdmems(isub,iret)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, iprt
 
   use moda_msgcwd
   use moda_unptyp
@@ -644,11 +638,9 @@ recursive subroutine rdmems(isub,iret)
 
   integer, intent(in) :: isub
   integer, intent(out) :: iret
-  integer my_isub, iprt, lun, il, im, mbym, nbyt, i, iupb
+  integer my_isub, lun, il, im, mbym, nbyt, i, iupb
 
   character*128 bort_str, errstr
-
-  common /quiet/ iprt
 
   ! Check for I8 integers
 
@@ -730,7 +722,7 @@ subroutine cpdxmm( lunit )
 
   use bufrlib
 
-  use modv_vars, only: mxdxts
+  use modv_vars, only: mxdxts, iprt
 
   use moda_mgwa
   use moda_msgmem
@@ -738,13 +730,11 @@ subroutine cpdxmm( lunit )
   implicit none
 
   integer, intent(in) :: lunit
-  integer iprt, ict, lun, il, im, ier, j, lmem, idxmsg, iupbs3, nmwrd
+  integer ict, lun, il, im, ier, j, lmem, idxmsg, iupbs3, nmwrd
 
   character*128 errstr
 
   logical done
-
-  common /quiet/ iprt
 
   if ( ndxts >= mxdxts ) call bort('BUFRLIB: CPDXMM - MXDXTS OVERFLOW')
 
@@ -975,7 +965,7 @@ end subroutine ufbmns
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbrms(imsg,isub,usr,i1,i2,iret,str)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, iprt
 
   use moda_msgcwd
   use moda_msgmem
@@ -984,15 +974,13 @@ recursive subroutine ufbrms(imsg,isub,usr,i1,i2,iret,str)
 
   integer, intent(in) :: imsg, isub, i1, i2
   integer, intent(out) :: iret
-  integer iprt, my_imsg, my_isub, my_i1, my_i2, jdate, lun, il, im
+  integer my_imsg, my_isub, my_i1, my_i2, jdate, lun, il, im
 
   real*8, intent(out) :: usr(i1,i2)
 
   character*(*), intent(in) :: str
   character*128 bort_str, errstr
   character*8 subset
-
-  common /quiet/ iprt
 
   ! Check for I8 integers
 
@@ -1101,7 +1089,7 @@ end subroutine ufbrms
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbtam(tab,i1,i2,iret,str)
 
-  use modv_vars, only: im8b, bmiss
+  use modv_vars, only: im8b, bmiss, iprt
 
   use moda_usrint
   use moda_msgcwd
@@ -1119,14 +1107,13 @@ recursive subroutine ufbtam(tab,i1,i2,iret,str)
   integer*8 mps, ival
   integer, intent(in) :: i1, i2
   integer, intent(out) :: iret
-  integer iprt, maxtg, nnod, ncon, nods, nodc, ivls, kons, my_i1, my_i2, i, irec, isub, itbl, lun, il, im, jdate, mret, &
+  integer maxtg, nnod, ncon, nods, nodc, ivls, kons, my_i1, my_i2, i, irec, isub, itbl, lun, il, im, jdate, mret, &
     kbit, mbit, nbit, n, node, imsg, kmsg, nrep, ntg, nbyt, nbmp, nmsub
 
   real*8, intent(out) :: tab(i1,i2)
   real*8 rval, ups
 
   common /usrstr/ nnod,ncon,nods(20),nodc(10),ivls(10),kons(10)
-  common /quiet/ iprt
 
   equivalence (cval,rval)
 

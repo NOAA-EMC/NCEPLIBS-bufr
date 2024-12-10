@@ -45,6 +45,16 @@ module modv_vars
   !> - 1 = Yes
   integer :: ifopbf = 0
 
+  !> Indicator for degree of printout:
+  !> - -1 = no printout except for abort messages
+  !> -  0 = limited printout
+  !> -  1 = all warning messages are printed
+  !> -  2 = all warning and info messages are printed
+  !> -  3 = all warning, info and debug messages are printed
+  !> The default value is 0, but this value can be changed at any time via a call to
+  !> subroutine openbf() with call argument io set to 'QUIET'.
+  integer :: iprt = 0
+
   !> Status indicator to keep track of whether future calls to subroutine parusr() should
   !> allow an input mnemonic to exist in multiple replication sequences:
   !> - 0 = No

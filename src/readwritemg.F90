@@ -44,7 +44,7 @@ recursive subroutine readmg(lunxx,subset,jdate,iret)
 
   use bufrlib
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, iprt
 
   use moda_msgcwd
   use moda_sc3bfr
@@ -54,12 +54,10 @@ recursive subroutine readmg(lunxx,subset,jdate,iret)
 
   integer, intent(in) :: lunxx
   integer, intent(out) :: jdate, iret
-  integer iprt, my_lunxx, lunit, lun, il, im, ier, idxmsg
+  integer my_lunxx, lunit, lun, il, im, ier, idxmsg
 
   character*8, intent(out) :: subset
   character*128 errstr
-
-  common /quiet/ iprt
 
   ! Check for I8 integers
 
@@ -215,7 +213,7 @@ end function ireadmg
 !> @authors J. Woollen J. Ator @date 1995-06-28
 recursive subroutine readerme(mesg,lunit,subset,jdate,iret)
 
-  use modv_vars, only: mxmsgl, im8b, nbytw
+  use modv_vars, only: mxmsgl, im8b, nbytw, iprt
 
   use moda_sc3bfr
   use moda_idrdm
@@ -225,7 +223,7 @@ recursive subroutine readerme(mesg,lunit,subset,jdate,iret)
 
   integer, intent(in) :: lunit, mesg(*)
   integer, intent(out) :: jdate, iret
-  integer iprt, my_lunit, iec0(2), lun, il, im, ii, lnmsg, lmsg, idxmsg, iupbs3
+  integer my_lunit, iec0(2), lun, il, im, ii, lnmsg, lmsg, idxmsg, iupbs3
 
   character*8, intent(out) :: subset
   character*8 sec0
@@ -234,8 +232,6 @@ recursive subroutine readerme(mesg,lunit,subset,jdate,iret)
   logical endtbl
 
   equivalence (sec0,iec0)
-
-  common /quiet/ iprt
 
   ! Check for I8 integers
 
@@ -598,7 +594,7 @@ subroutine msgwrt(lunit,mesg,mgbyt)
 
   use bufrlib
 
-  use modv_vars, only: mxmsgld4
+  use modv_vars, only: mxmsgld4, iprt
 
   use moda_nulbfr
   use moda_bufrmg
@@ -611,13 +607,11 @@ subroutine msgwrt(lunit,mesg,mgbyt)
   implicit none
 
   integer, intent(in) :: lunit, mgbyt, mesg(*)
-  integer iprt, iec0(2), mbyt, ibit, kbit, ii, jj, len0, len1, len2, len3, len4, l5, iad4, iad5, lun, il, im, npbyt, mwrd, &
+  integer iec0(2), mbyt, ibit, kbit, ii, jj, len0, len1, len2, len3, len4, l5, iad4, iad5, lun, il, im, npbyt, mwrd, &
     nmwrd, iupbs01, idxmsg
 
   character*128 errstr
   character*4 bufr, sevn
-
-  common /quiet/ iprt
 
   data bufr /'BUFR'/
   data sevn /'7777'/
@@ -973,20 +967,19 @@ end function msgfull
 !> @authors J. Woollen, J. Ator @date 2002-05-14
 recursive subroutine maxout(maxo)
 
-  use modv_vars, only: mxmsgl, im8b
+  use modv_vars, only: mxmsgl, im8b, iprt
 
   use moda_bitbuf
 
   implicit none
 
   integer, intent(in) :: maxo
-  integer my_maxo, iprt, newsiz, maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30
+  integer my_maxo, newsiz, maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30
 
   character*128 errstr
   character*56 dxstr
 
   common /dxtab/ maxdx,idxv,nxstr(10),ldxa(10),ldxb(10),ldxd(10),ld30(10),dxstr(10)
-  common /quiet/ iprt
 
   ! Check for I8 integers
 

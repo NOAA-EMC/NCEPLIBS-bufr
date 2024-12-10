@@ -27,14 +27,14 @@
 !> @author Woollen @date 1994-01-06
 subroutine readdx(lunit,lun,lundx)
 
+  use modv_vars, only: iprt
+
   implicit none
 
   integer, intent(in) :: lunit, lun, lundx
-  integer iprt, lud, ildx, imdx
+  integer lud, ildx, imdx
 
   character*128 errstr
-
-  common /quiet/ iprt
 
   ! Get the status of unit lundx
 
@@ -121,18 +121,18 @@ subroutine rdbfdx(lunit,lun)
 
   use bufrlib
 
+  use modv_vars, only: iprt
+
   use moda_mgwa
 
   implicit none
 
   integer, intent(in) :: lunit, lun
-  integer iprt, ict, ier, idxmsg, iupbs3
+  integer ict, ier, idxmsg, iupbs3
 
   character*128 errstr
 
   logical done
-
-  common /quiet/ iprt
 
   call dxinit(lun,0)
 
@@ -1660,7 +1660,7 @@ end subroutine stntbi
 !> @author Woollen @date 1994-01-06
 subroutine pktdd(id,lun,idn,iret)
 
-  use modv_vars, only: maxcd
+  use modv_vars, only: maxcd, iprt
 
   use moda_tababd
 
@@ -1668,13 +1668,12 @@ subroutine pktdd(id,lun,idn,iret)
 
   integer, intent(in) :: id, lun, idn
   integer, intent(out) :: iret
-  integer maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, iprt, ldd, nd, idm, iupm
+  integer maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, ldd, nd, idm, iupm
 
   character*128 errstr
   character*56 dxstr
 
   common /dxtab/ maxdx, idxv, nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
-  common /quiet/ iprt
 
   ! ldd points to the byte within tabd(id,lun) which contains (in packed integer format) a count of the number of child
   ! mnemonics stored thus far for this parent mnemonic.
