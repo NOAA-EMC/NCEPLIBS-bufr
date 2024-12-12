@@ -454,9 +454,8 @@ module moda_nmikrp
   integer, allocatable :: krp(:,:)
 end module moda_nmikrp
 
-!> Declare arrays and variables for use with
-!> any 2-03-YYY (change reference value) operators present within the
-!> internal jump/link table.
+!> Declare arrays and variables for use with any 2-03-YYY (change reference value) operators
+!> present within the internal jump/link table.
 !>
 !> Data values within this module are stored by subroutine tabsub().
 !>
@@ -490,6 +489,26 @@ module moda_nrv203
   !> occurrences of the corresponding Table B mnemonic in tagnrv.
   integer, allocatable :: ienrv(:)
 end module moda_nrv203
+
+!> Declare variables for use with certain Table C operators in the internal jump/link table.
+!>
+!> Data values within this module are stored by subroutine tabsub().
+!>
+!> @author J. Ator @date 2024-12-10
+module moda_tabccc
+  ! Number of bits by which to modify the data width of subsequent jump/link table mnemonics whose
+  ! type indicator is "NUM"; set to 0 unless a 2-01-YYY or 2-07-YYY operator is in effect.
+  integer :: icdw
+  ! Number by which to modify the scale of subsequent jump/link table mnemonics whose type
+  ! indicator is "NUM"; set to 0 unless a 2-02-YYY or 2-07-YYY operator is in effect.
+  integer :: icsc
+  ! Factor by which to multiply the reference value of subsequent jump/link table mnemonics
+  ! whose type indicator is "NUM"; set to 1 unless a 2-07-YYY operator is in effect.
+  integer :: icrv
+  ! New data width (in bytes) for subsequent jump/link table mnemonics whose type indicator
+  ! is "CHR"; set to 0 unless a 2-08-YYY operator is in effect.
+  integer :: incw
+end module moda_tabccc
 
 !> Declare an array used to store a switch for each file ID,
 !> indicating whether any BUFR
@@ -654,11 +673,9 @@ module moda_tababd
   character*600, allocatable :: tabd(:,:)
 end module moda_tababd
 
-!> Declare arrays and variables used to store
-!> the internal jump/link table.
+!> Declare arrays and variables used to store the internal jump/link table.
 !>
-!> Data values within this module are stored by subroutines
-!> makestab(), tabsub() and tabent().
+!> Data values within this module are stored by subroutines makestab(), tabsub() and tabent().
 !>
 !> @author J. Ator @date 2014-12-10
 module moda_tables

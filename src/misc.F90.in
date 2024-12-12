@@ -3,7 +3,7 @@
 !>
 !> @author J. Woollen @date 1994-01-06
 
-!> Initialize numerous global variables and arrays within internal modules and COMMON blocks throughout the
+!> Initialize numerous global variables and arrays within internal modules and common blocks throughout the
 !> NCEPLIBS-bufr software.
 !>
 !> This subroutine isn't normally called directly by any application
@@ -14,7 +14,7 @@
 !> @authors J. Woollen J. Ator @date 1994-01-06
 subroutine bfrini
 
-  use modv_vars, only: maxtba, maxtbb, maxtbd, mxmsgl, nfiles, adsn, idnr
+  use modv_vars, only: maxtba, maxtbb, maxtbd, mxmsgl, nfiles, adsn, idnr, lun1, lun2
 
   use moda_stbfr
   use moda_idrdm
@@ -149,11 +149,11 @@ subroutine bfrini
 
   ncnem = 0
 
-  ! Initialize common /mstinf/
+  ! Initialize master BUFR table information
 
   cmtdir = &
     '@MASTER_TABLE_DIR_F@'
-  call mtinfo(cmtdir,98,99)
+  call mtinfo(cmtdir,lun1,lun2)
 
   return
 end subroutine bfrini

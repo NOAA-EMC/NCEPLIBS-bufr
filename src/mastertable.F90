@@ -33,17 +33,14 @@
 !> @author J. Ator @date 2009-03-23
 recursive subroutine mtinfo ( cmtdir, lunmt1, lunmt2 )
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, lun1, lun2, mtdir, lmtd
 
   implicit none
 
   integer, intent(in) :: lunmt1, lunmt2
-  integer my_lunmt1, my_lunmt2, lun1, lun2, lmtd
+  integer my_lunmt1, my_lunmt2
 
   character*(*), intent(in) :: cmtdir
-  character*240 mtdir
-
-  common /mstinf/ lun1, lun2, lmtd, mtdir
 
   ! Check for I8 integers
   if(im8b) then
@@ -69,7 +66,7 @@ end subroutine mtinfo
 !>
 !> After determining the corresponding file names, this subroutine then confirms the existence of those files on the
 !> filesystem, using additional information obtained from the most recent call to subroutine mtinfo(), or else as
-!> defined within subroutine bfrini() if subroutine mtinfo() was never called.
+!> defined within subroutine bfrini() if subroutine mtinfo() was never called by the application program.
 !>
 !> @param imt - Master table number
 !> @param imtv - Master table version number
@@ -85,24 +82,21 @@ end subroutine mtinfo
 !> @author Ator @date 2017-10-16
 subroutine mtfnam ( imt, imtv, iogce, imtvl, tbltyp, stdfil, locfil )
 
-  use modv_vars, only: iprt
+  use modv_vars, only: iprt, mtdir, lmtd
 
   implicit none
 
   integer, intent(in) :: imt, imtv, iogce, imtvl
-  integer lun1, lun2, lmtd, ltbt, isize
+  integer ltbt, isize
 
   character*(*), intent(in) :: tbltyp
   character*(*), intent(out) :: stdfil, locfil
 
   character*16 tbltyp2
   character*20 fmtf
-  character*240 mtdir
   character*128 bort_str
 
   logical found
-
-  common /mstinf/ lun1, lun2, lmtd, mtdir
 
   call strsuc ( tbltyp, tbltyp2, ltbt )
 
@@ -170,16 +164,14 @@ end subroutine mtfnam
 !> Information about the location of master BUFR tables on the
 !> local file system is obtained from the most recent call to
 !> subroutine mtinfo(), or else from subroutine bfrini() if
-!> subroutine mtinfo() was never called, and in which case Fortran
-!> logical unit numbers 98 and 99 will be used by this function
-!> for opening and reading master BUFR table files.
+!> subroutine mtinfo() was never called by the application program.
 !>
 !> @author J. Ator @date 2009-03-23
 integer function ireadmt ( lun ) result ( iret )
 
   use bufrlib
 
-  use modv_vars, only: maxnc, maxcd, mxmtbb, mxmtbd, iprt
+  use modv_vars, only: maxnc, maxcd, mxmtbb, mxmtbd, iprt, lun1, lun2, lmt, lmtv, logce, lmtvl
 
   use moda_mstabs
   use moda_bitbuf
@@ -191,23 +183,16 @@ integer function ireadmt ( lun ) result ( iret )
   implicit none
 
   integer, intent(in) :: lun
-  integer lun1, lun2, lmtd, lmt, lmtv, logce, lmtvl, imt, imtv, iogce, imtvl, ii, jj, idx, ncds3, ier, &
-    ibmt, ibmtv, ibogce, ibltv, idmt, idmtv, idogce, idltv, iupbs01, ifxy, istdesc
+  integer imt, imtv, iogce, imtvl, ii, jj, idx, ncds3, ier, ibmt, ibmtv, ibogce, ibltv, idmt, idmtv, idogce, idltv, &
+    iupbs01, ifxy, istdesc
 
   character*(*), parameter :: bort_str1 = 'BUFRLIB: IREADMT - COULD NOT OPEN STANDARD FILE:'
   character*(*), parameter :: bort_str2 = 'BUFRLIB: IREADMT - COULD NOT OPEN LOCAL FILE:'
   character*275 stdfil,locfil
-  character*240 mtdir
 
   logical allstd
 
-  common /mstinf/ lun1, lun2, lmtd, mtdir
-
   ! Initializing the following value ensures that new master tables are read during the first call to this subroutine.
-
-  data lmt /-99/
-
-  save lmt, lmtv, logce, lmtvl
 
   iret = 0
 

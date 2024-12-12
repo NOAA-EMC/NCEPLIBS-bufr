@@ -133,7 +133,6 @@ end subroutine fortran_close
 !> info.), but otherwise no prior knowledge is required of the contents of the
 !> messages to be decoded.
 !>
-!>
 !> @param lunit - Fortran logical unit number for BUFR file (unless io is set to 'FIRST' or 'QUIET',
 !> in which case this is a dummy argument)
 !> @param io - flag indicating how lunit is to be used by the software:
@@ -208,11 +207,8 @@ recursive subroutine openbf(lunit,io,lundx)
     return
   endif
 
-  ! reset iprt to default value in case of a previous call to subroutine exitbufr()
-  if(ifopbf==0) iprt = 0
-
   if(io=='QUIET') then
-    ! override previous iprt value
+    ! Override previous iprt value
     iprtprv = iprt
     iprt = lundx
     if(iprt<-1) iprt = -1

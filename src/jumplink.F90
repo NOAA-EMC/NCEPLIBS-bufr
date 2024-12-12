@@ -332,12 +332,12 @@ subroutine tabsub(lun,nemo)
   use moda_nmikrp
   use moda_nrv203
   use moda_bitmaps
+  use moda_tabccc
 
   implicit none
 
   integer, intent(in) :: lun
-  integer jmp0(10), nodl(10), ntag(10,2), icdw, icsc, icrv, incw, maxlim, node, idn, itab, nseq, limb, n, jj, iyyy, &
-    irep, iknt, jum0, iokoper
+  integer jmp0(10), nodl(10), ntag(10,2), maxlim, node, idn, itab, nseq, limb, n, jj, iyyy, irep, iknt, jum0, iokoper
 
   character*128 bort_str
   character*8, intent(in) :: nemo
@@ -345,8 +345,6 @@ subroutine tabsub(lun,nemo)
   character*1 tab
 
   logical drop(10), ltamc
-
-  common /tabccc/ icdw, icsc, icrv, incw
 
   data maxlim /10/
 
@@ -582,19 +580,18 @@ subroutine tabent(lun,nemo,tab,itab,irep,iknt,jum0)
 
   use moda_tables
   use moda_nrv203
+  use moda_tabccc
 
   implicit none
 
   integer, intent(in) :: lun, itab, irep, iknt, jum0
-  integer icdw, icsc, icrv, incw, i, jm0, node, iscl, iref, ibit
+  integer i, jm0, node, iscl, iref, ibit
 
   character*24 unit
   character*10 rtag
   character*8, intent(in) :: nemo
   character, intent(in) :: tab
   character*3 typt
-
-  common /tabccc/ icdw, icsc, icrv, incw
 
   jm0 = jum0
 
