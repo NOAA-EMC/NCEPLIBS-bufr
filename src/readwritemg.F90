@@ -594,7 +594,7 @@ subroutine msgwrt(lunit,mesg,mgbyt)
 
   use bufrlib
 
-  use modv_vars, only: mxmsgld4, iprt
+  use modv_vars, only: mxmsgld4, iprt, nby5
 
   use moda_nulbfr
   use moda_bufrmg
@@ -665,7 +665,7 @@ subroutine msgwrt(lunit,mesg,mgbyt)
     ibit = 32
     call pkb(mbyt,24,mgwa,ibit)
     ibit = (mbyt-4)*8
-    call pkc(sevn,4,mgwa,ibit)
+    call pkc(sevn,nby5,mgwa,ibit)
     call stndrd(lunit,mgwa,mxmsgld4,mgwb)
     ! Compute mbyt for the new standardized message
     mbyt = iupbs01(mgwb,'LENM')
@@ -722,7 +722,7 @@ subroutine msgwrt(lunit,mesg,mgbyt)
   call pkb(mbyt,24,mgwa,ibit)
 
   kbit = (mbyt-4)*8
-  call pkc(sevn, 4,mgwa,kbit)
+  call pkc(sevn,nby5,mgwa,kbit)
 
   ! Zero out the extra bytes which will be written. Note that the BUFR message is stored within the integer array mgwa(*),
   ! (rather than within a character array), so we need to make sure that the "7777" Is followed by zeroed-out bytes up to
@@ -763,12 +763,14 @@ end subroutine msgwrt
 
 !> Initialize, within the internal arrays, a new uncompressed BUFR message for output.
 !>
-!> Arrays are filled in common block msgptr and modules @ref moda_msgcwd and @ref moda_bitbuf.
+!> Arrays are filled in modules @ref moda_msgcwd and @ref moda_bitbuf.
 !>
 !> @param lun - file ID
 !>
 !> @author Woollen @date 1994-01-06
 subroutine msgini(lun)
+
+  use modv_vars, only: mtv, nby0, nby1, nby2, nby3, nby5
 
   use moda_msgcwd
   use moda_ufbcpl
@@ -778,7 +780,7 @@ subroutine msgini(lun)
   implicit none
 
   integer, intent(in) :: lun
-  integer ibct, ipd1, ipd2, ipd3, ipd4, nby0, nby1, nby2, nby3, nby4, nby5, nbyt, mtyp, msbt, inod, isub, iret, &
+  integer ibct, ipd1, ipd2, ipd3, ipd4, nby4, nbyt, mtyp, msbt, inod, isub, iret, &
     mcen, mear, mmon, mday, mour, mmin, mbit
 
   character*128 bort_str
@@ -790,7 +792,6 @@ subroutine msgini(lun)
   data sevn /'7777'/
 
   common /padesc/ ibct,ipd1,ipd2,ipd3,ipd4
-  common /msgptr/ nby0,nby1,nby2,nby3,nby4,nby5
 
   ! Get the message tag and type, and break up the date
 
@@ -824,12 +825,7 @@ subroutine msgini(lun)
   ! Initialize the message
 
   mbit = 0
-  nby0 = 8
-  nby1 = 18
-  nby2 = 0
-  nby3 = 20
   nby4 = 4
-  nby5 = 4
   nbyt = nby0+nby1+nby2+nby3+nby4+nby5
 
   ! Section 0
@@ -848,7 +844,7 @@ subroutine msgini(lun)
   call pkb(   0 ,  8 , mbay(1,lun),mbit)
   call pkb(mtyp ,  8 , mbay(1,lun),mbit)
   call pkb(msbt ,  8 , mbay(1,lun),mbit)
-  call pkb(  36 ,  8 , mbay(1,lun),mbit)
+  call pkb( mtv ,  8 , mbay(1,lun),mbit)
   call pkb(   0 ,  8 , mbay(1,lun),mbit)
   call pkb(mear ,  8 , mbay(1,lun),mbit)
   call pkb(mmon ,  8 , mbay(1,lun),mbit)
@@ -878,7 +874,7 @@ subroutine msgini(lun)
 
   ! Section 5
 
-  call pkc(sevn ,  4 , mbay(1,lun),mbit)
+  call pkc(sevn ,nby5, mbay(1,lun),mbit)
 
   ! Double check initial message length
 
@@ -1204,7 +1200,7 @@ end function lmsg
 !> @author J. Ator @date 2005-11-29
 recursive subroutine getlens (mbay,ll,len0,len1,len2,len3,len4,len5)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, nby5
 
   implicit none
 
@@ -1253,7 +1249,7 @@ recursive subroutine getlens (mbay,ll,len0,len1,len2,len3,len4,len5)
   len4 = iupb(mbay,iad4+1,24)
 
   if(ll<5) return
-  len5 = 4
+  len5 = nby5
 
   return
 end subroutine getlens

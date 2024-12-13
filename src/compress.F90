@@ -257,12 +257,14 @@ end subroutine rdcmps
 !> @author Woollen @date 2002-05-14
 subroutine cmsgini(lun,mesg,subset,idate,nsub,nbyt)
 
+  use modv_vars, only: mtv, nby1, nby5
+
   implicit none
 
   integer, intent(in) :: lun, idate, nsub
   integer, intent(inout) :: nbyt
   integer, intent(out) :: mesg(*)
-  integer mtyp, msbt, inod, isub, iret, jdate, mcen, mear, mmon, mday, mour, mmin, mbit, mbyt, len1, len3, i4dy
+  integer mtyp, msbt, inod, isub, iret, jdate, mcen, mear, mmon, mday, mour, mmin, mbit, mbyt, len3, i4dy
 
   character*128 bort_str
   character*8, intent(in) :: subset
@@ -307,9 +309,7 @@ subroutine cmsgini(lun,mesg,subset,idate,nsub,nbyt)
 
   ! Section 1
 
-  len1 = 18
-
-  call pkb(len1 , 24 , mesg,mbit)
+  call pkb(nby1 , 24 , mesg,mbit)
   call pkb(   0 ,  8 , mesg,mbit)
   call pkb(   3 ,  8 , mesg,mbit)
   call pkb(   7 ,  8 , mesg,mbit)
@@ -317,7 +317,7 @@ subroutine cmsgini(lun,mesg,subset,idate,nsub,nbyt)
   call pkb(   0 ,  8 , mesg,mbit)
   call pkb(mtyp ,  8 , mesg,mbit)
   call pkb(msbt ,  8 , mesg,mbit)
-  call pkb(  36 ,  8 , mesg,mbit)
+  call pkb( mtv ,  8 , mesg,mbit)
   call pkb(   0 ,  8 , mesg,mbit)
   call pkb(mear ,  8 , mesg,mbit)
   call pkb(mmon ,  8 , mesg,mbit)
@@ -353,7 +353,7 @@ subroutine cmsgini(lun,mesg,subset,idate,nsub,nbyt)
   !         (length of message up through fourth byte of Section 4)
   !      +  (length of compressed data portion of Section 4)
   !      +  (length of Section 5)
-  mbyt = mbit/8 + nbyt + 4
+  mbyt = mbit/8 + nbyt + nby5
 
   ! For output, make nbyt point to the current location of mbit, which is the byte after which to actually begin writing the
   ! compressed data into Section 4.
@@ -385,7 +385,7 @@ end subroutine cmsgini
 !> @author Woollen @date 2002-05-14
 subroutine wrcmps(lunix)
 
-  use modv_vars, only: mxcdv, mxcsb
+  use modv_vars, only: mxcdv, mxcsb, nby5
 
   use moda_usrint
   use moda_msgcwd
@@ -650,7 +650,7 @@ subroutine wrcmps(lunix)
 
     ! Add Section 5
 
-    call pkc('7777',4,mgwa,ibit)
+    call pkc('7777',nby5,mgwa,ibit)
 
     ! Check that the message byte counters agree, then write the message
 

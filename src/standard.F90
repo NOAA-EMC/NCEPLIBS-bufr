@@ -73,7 +73,7 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
 
   use bufrlib
 
-  use modv_vars, only: im8b, nbytw
+  use modv_vars, only: im8b, nbytw, nby5
 
   use moda_s3list
 
@@ -130,7 +130,7 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
   endif
 
   mbit = (lenn-4)*8
-  call upc(sevn,4,msgin,mbit,.true.)
+  call upc(sevn,nby5,msgin,mbit,.true.)
   if(sevn/='7777') then
     write(bort_str,'("BUFRLIB: STNDRD - INPUT MESSAGE DOES NOT END WITH ""7777"" (ENDS WITH ",A)') sevn
     call bort(bort_str)
@@ -279,7 +279,7 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
   lenn = len0+len1+len2+len3+len4+len5
   call pkb(lenn,24,msgot,ibit)
 
-  call pkc('7777',4,msgot,jbit)
+  call pkc('7777',nby5,msgot,jbit)
 
   return
 end subroutine stndrd

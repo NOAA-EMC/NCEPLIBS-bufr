@@ -245,14 +245,14 @@ end subroutine gets1loc
 !> @author J. Ator @date 2005-11-29
 recursive integer function iupbs01(mbay,s01mnem) result(iret)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, nby0
 
   implicit none
 
   character*(*), intent(in) :: s01mnem
 
   integer, intent(in) :: mbay(*)
-  integer ival, iupb, i4dy, len0, iben, isbyt, iwid, iretgs, iyoc, icen
+  integer ival, iupb, i4dy, iben, isbyt, iwid, iretgs, iyoc, icen
 
   logical ok4cent
 
@@ -277,9 +277,8 @@ recursive integer function iupbs01(mbay,s01mnem) result(iret)
     return
   endif
 
-  len0 = 8
   if(s01mnem=='LEN0') then
-    iret = len0
+    iret = nby0
     return
   endif
 
@@ -295,7 +294,7 @@ recursive integer function iupbs01(mbay,s01mnem) result(iret)
 
   call gets1loc(s01mnem,iben,isbyt,iwid,iretgs)
   if(iretgs==0) then
-    iret = iupb(mbay,len0+isbyt,iwid)
+    iret = iupb(mbay,nby0+isbyt,iwid)
     if(s01mnem=='CENT') then
 
       ! Test whether the returned value was a valid century value.

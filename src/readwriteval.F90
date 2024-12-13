@@ -2239,7 +2239,6 @@ recursive subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str)
   logical nodgt0
 
   common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
-  common /ufbn3c/ maxevn
 
   ! Check for I8 integers
 

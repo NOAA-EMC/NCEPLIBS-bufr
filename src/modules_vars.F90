@@ -27,12 +27,12 @@ module modv_vars
   logical :: im8b = .false.
 
   !> Status indicator to keep track of whether all future BUFR output
-  !> messages should be encapsulated with IEEE Fortran control words:
+  !> messages should be encapsulated with IEEE Fortran control words.
+  !> The default value is 0, but it can be changed at any
+  !> time via a call to subroutine setblock().
   !> - -1 = Yes, using little-endian control words
   !> - 0 = No
   !> - 1 = Yes, using big-endian control words
-  !> The default value is 0, but this value can be changed at any
-  !> time via a call to subroutine setblock().
   integer :: iblock = 0
 
   !> Current placeholder value to represent "missing" data when reading
@@ -40,14 +40,14 @@ module modv_vars
   !> time via a call to subroutine setbmiss().
   real*8 :: bmiss = 10E10_8
 
-  !> Indicator for degree of printout:
+  !> Indicator for degree of printout.
+  !> The default value is 0, but it can be changed at any time via a call to
+  !> subroutine openbf() with call argument io set to 'QUIET'.
   !> - -1 = no printout except for abort messages
   !> -  0 = limited printout
   !> -  1 = all warning messages are printed
   !> -  2 = all warning and info messages are printed
   !> -  3 = all warning, info and debug messages are printed
-  !> The default value is 0, but it can be changed at any time via a call to
-  !> subroutine openbf() with call argument io set to 'QUIET'.
   integer :: iprt = 0
 
   !> Directory on local file system containing master BUFR tables.  This is set to a
@@ -67,24 +67,6 @@ module modv_vars
   !> from the local file system.  The default value is 99, but it can be changed
   !> at any time via a call to subroutine mtinfo().
   integer :: lun2 = 99
-
-  !> Master table for the last BUFR message that was read from a logical unit where
-  !> Section 3 decoding is being used.
-  !> This value is initialized to an artificially low number, in order to ensure that new
-  !> master tables will be read in during the first internal call to subroutine ireadmt().
-  integer :: lmt = -99
-
-  !> Version number of master table for the last BUFR message that was read from a logical
-  !> unit where Section 3 decoding is being used.
-  integer :: lmtv
-
-  !> Originating center for the last BUFR message that was read from a logical unit where
-  !> Section 3 decoding is being used.
-  integer :: logce
-
-  !> Version number of local table for the last BUFR message that was read from a logical
-  !> unit where Section 3 decoding is being used.
-  integer :: lmtvl
 
   !> Status indicator to keep track of whether subroutine openbf() has already been called:
   !> - 0 = No
@@ -326,5 +308,44 @@ module modv_vars
   !> overridden by a subsequent call to function isetprm() within the
   !> application program.
   integer :: nfiles = 32
+
+  !> Master table version number to be encoded in output BUFR messages.
+  !> This variable is initialized to a default value which can be
+  !> overridden by a subsequent call to subroutine pkvs01() within the
+  !> application program.
+  integer :: mtv = 36
+
+  !> Number of bytes in Section 0 of a BUFR message.
+  integer, parameter :: nby0 = 8
+
+  !> Number of bytes in Section 1 of a BUFR message.
+  integer, parameter :: nby1 = 18
+
+  !> Number of bytes in Section 2 of a BUFR message.
+  integer, parameter :: nby2 = 0
+
+  !> Number of bytes in Section 3 of a BUFR message.
+  integer, parameter :: nby3 = 20
+
+  !> Number of bytes in Section 5 of a BUFR message.
+  integer, parameter :: nby5 = 4
+
+  !> Master table for the last BUFR message that was read from a logical unit where
+  !> Section 3 decoding is being used.
+  !> This value is initialized to an artificially low number, in order to ensure that new
+  !> master tables will be read in during the first internal call to subroutine ireadmt().
+  integer :: lmt = -99
+
+  !> Master table version number for the last BUFR message that was read from a logical
+  !> unit where Section 3 decoding is being used.
+  integer :: lmtv
+
+  !> Originating center for the last BUFR message that was read from a logical unit where
+  !> Section 3 decoding is being used.
+  integer :: logce
+
+  !> Local table version number for the last BUFR message that was read from a logical
+  !> unit where Section 3 decoding is being used.
+  integer :: lmtvl
 
 end module modv_vars

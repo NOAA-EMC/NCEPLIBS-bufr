@@ -693,13 +693,13 @@ end subroutine dxinit
 !> @author Woollen @date 1994-01-06
 subroutine dxmini(mbay,mbyt,mb4,mba,mbb,mbd)
 
-  use modv_vars, only: mxmsgld4
+  use modv_vars, only: mxmsgld4, mtv, nby0, nby1, nby2, nby5
 
   implicit none
 
   integer, intent(out) :: mbay(*), mbyt, mb4, mba, mbb, mbd
   integer maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, mtyp, msbt, mbit, ih, id, im, iy, i, nsub, idxs, ldxs, &
-    nby0, nby1, nby2, nby3, nby4, nby5, iupm
+    len3, nby4, iupm
 
   character*128 bort_str
   character*56 dxstr
@@ -726,15 +726,11 @@ subroutine dxmini(mbay,mbyt,mb4,mba,mbb,mbd)
   idxs = idxv+1
   ldxs = nxstr(idxs)
 
-  nby0 = 8
-  nby1 = 18
-  nby2 = 0
-  nby3 = 7 + nxstr(idxs) + 1
+  len3 = 7 + nxstr(idxs) + 1
   nby4 = 7
-  nby5 = 4
-  mbyt = nby0+nby1+nby2+nby3+nby4+nby5
+  mbyt = nby0+nby1+nby2+len3+nby4+nby5
 
-  if(mod(nby3,2)/=0) call bort ('BUFRLIB: DXMINI - LENGTH OF SECTION 3 IS NOT A MULTIPLE OF 2')
+  if(mod(len3,2)/=0) call bort ('BUFRLIB: DXMINI - LENGTH OF SECTION 3 IS NOT A MULTIPLE OF 2')
 
   ! Section 0
 
@@ -752,7 +748,7 @@ subroutine dxmini(mbay,mbyt,mb4,mba,mbb,mbd)
   call pkb(     0 ,  8 , mbay,mbit)
   call pkb(  mtyp ,  8 , mbay,mbit)
   call pkb(  msbt ,  8 , mbay,mbit)
-  call pkb(    36 ,  8 , mbay,mbit)
+  call pkb(   mtv ,  8 , mbay,mbit)
   call pkb(  idxv ,  8 , mbay,mbit)
   call pkb(    iy ,  8 , mbay,mbit)
   call pkb(    im ,  8 , mbay,mbit)
@@ -763,7 +759,7 @@ subroutine dxmini(mbay,mbyt,mb4,mba,mbb,mbd)
 
   ! Section 3
 
-  call pkb(  nby3 , 24 , mbay,mbit)
+  call pkb(  len3 , 24 , mbay,mbit)
   call pkb(     0 ,  8 , mbay,mbit)
   call pkb(     1 , 16 , mbay,mbit)
   call pkb(  2**7 ,  8 , mbay,mbit)
