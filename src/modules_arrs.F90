@@ -496,17 +496,17 @@ end module moda_nrv203
 !>
 !> @author J. Ator @date 2024-12-10
 module moda_tabccc
-  ! Number of bits by which to modify the data width of subsequent jump/link table mnemonics whose
-  ! type indicator is "NUM"; set to 0 unless a 2-01-YYY or 2-07-YYY operator is in effect.
+  !> Number of bits by which to modify the data width of subsequent jump/link table mnemonics whose
+  !> type indicator is "NUM"; set to 0 unless a 2-01-YYY or 2-07-YYY operator is in effect.
   integer :: icdw
-  ! Number by which to modify the scale of subsequent jump/link table mnemonics whose type
-  ! indicator is "NUM"; set to 0 unless a 2-02-YYY or 2-07-YYY operator is in effect.
+  !> Number by which to modify the scale of subsequent jump/link table mnemonics whose type
+  !> indicator is "NUM"; set to 0 unless a 2-02-YYY or 2-07-YYY operator is in effect.
   integer :: icsc
-  ! Factor by which to multiply the reference value of subsequent jump/link table mnemonics
-  ! whose type indicator is "NUM"; set to 1 unless a 2-07-YYY operator is in effect.
+  !> Factor by which to multiply the reference value of subsequent jump/link table mnemonics
+  !> whose type indicator is "NUM"; set to 1 unless a 2-07-YYY operator is in effect.
   integer :: icrv
-  ! New data width (in bytes) for subsequent jump/link table mnemonics whose type indicator
-  ! is "CHR"; set to 0 unless a 2-08-YYY operator is in effect.
+  !> New data width (in bytes) for subsequent jump/link table mnemonics whose type indicator
+  !> is "CHR"; set to 0 unless a 2-08-YYY operator is in effect.
   integer :: incw
 end module moda_tabccc
 
