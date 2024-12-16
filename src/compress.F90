@@ -196,7 +196,7 @@ subroutine rdcmps(lun)
     elseif(ityp==3) then
       ! This is a character element.  If there are more than 8 characters, then only the first 8 will be unpacked by this
       ! routine, and a separate subsequent call to subroutine readlc() will be required to unpack the remainder of the string.
-      ! In this case, pointers will be saved within common /rlccmn/ for later use within readlc().
+      ! In this case, pointers will be saved within module @ref moda_rlccmn for later use within readlc().
       lelm = nbit/8
       nchr = min(8,lelm)
       ibsv = ibit
@@ -257,7 +257,7 @@ end subroutine rdcmps
 !> @author Woollen @date 2002-05-14
 subroutine cmsgini(lun,mesg,subset,idate,nsub,nbyt)
 
-  use modv_vars, only: mtv, nby1, nby5
+  use modv_vars, only: mtv, nby1, nby5, bmostr
 
   implicit none
 
@@ -268,10 +268,7 @@ subroutine cmsgini(lun,mesg,subset,idate,nsub,nbyt)
 
   character*128 bort_str
   character*8, intent(in) :: subset
-  character*4 bufr
   character tab
-
-  data bufr/'BUFR'/
 
   ! Get the message tag and type, and break up the date which can be either YYMMDDHH or YYYYMMDDHH
 
@@ -301,7 +298,7 @@ subroutine cmsgini(lun,mesg,subset,idate,nsub,nbyt)
 
   ! Section 0
 
-  call pkc(bufr ,  4 , mesg,mbit)
+  call pkc(bmostr,  4 , mesg,mbit)
   ! Note that the actual Section 0 length will be computed and stored below; for now, we're really only interested in
   ! advancing mbit by the correct amount, so we'll just store a default value of 0.
   call pkb(   0 , 24 , mesg,mbit)
@@ -377,7 +374,7 @@ end subroutine cmsgini
 !> order to hold the current subset (still stored for compression).
 !>
 !> This subroutine performs functions similar to NCEPLIBS-bufr
-!> subroutine msgupd() except that it acts on compressed bufr messages.
+!> subroutine msgupd() except that it acts on compressed BUFR messages.
 !>
 !> @param lunix - Absolute value is Fortran logical unit number for BUFR file
 !> - if lunix is less than zero, then this is a "flush" call and the buffer must be cleared out
@@ -385,7 +382,7 @@ end subroutine cmsgini
 !> @author Woollen @date 2002-05-14
 subroutine wrcmps(lunix)
 
-  use modv_vars, only: mxcdv, mxcsb, nby5
+  use modv_vars, only: mxcdv, mxcsb, nby5, bmcstr
 
   use moda_usrint
   use moda_msgcwd
@@ -650,7 +647,7 @@ subroutine wrcmps(lunix)
 
     ! Add Section 5
 
-    call pkc('7777',nby5,mgwa,ibit)
+    call pkc(bmcstr,nby5,mgwa,ibit)
 
     ! Check that the message byte counters agree, then write the message
 

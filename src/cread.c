@@ -120,7 +120,7 @@ crdbufr(int nfile, int *bufr, int mxwrd) {
 
     /* Find the start of the next BUFR message within the file. */
     fgetpos(pb[nfile], &lstpos[nfile]);
-    while (strncmp(wkchr, "BUFR", 4) != 0) {
+    while (strncmp(wkchr, BMOSTR, 4) != 0) {
         memmove(wkchr, &wkchr[1], 3);
         if (fread(wkchr + 3, 1, 1, pb[nfile]) != 1)
             return -1;
@@ -173,7 +173,7 @@ crdbufr(int nfile, int *bufr, int mxwrd) {
         fsetpos(pb[nfile], &nxtpos);
         return -2;
     }
-    if (strncmp(&wkchr[nbytrem-4], "7777", 4) != 0) {
+    if (strncmp(&wkchr[nbytrem-4], BMCSTR, 4) != 0) {
         fsetpos(pb[nfile], &nxtpos);
         return -2;
     }

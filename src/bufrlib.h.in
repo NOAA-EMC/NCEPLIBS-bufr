@@ -49,6 +49,12 @@ void stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, in
 /** Size of a character string needed to store the units of a Table B descriptor. */
 #define UNIT_STR_LEN 24
 
+/** Opening string of a BUFR message. */
+#define BMOSTR "@bmostr@"
+
+/** Closing string of a BUFR message. */
+#define BMCSTR "@bmcstr@"
+
 /**
  * Convert an FXY value from its WMO bit-wise representation to its
  * six-character representation.

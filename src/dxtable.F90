@@ -693,7 +693,7 @@ end subroutine dxinit
 !> @author Woollen @date 1994-01-06
 subroutine dxmini(mbay,mbyt,mb4,mba,mbb,mbd)
 
-  use modv_vars, only: mxmsgld4, mtv, nby0, nby1, nby2, nby5
+  use modv_vars, only: mxmsgld4, mtv, nby0, nby1, nby2, nby5, bmostr
 
   implicit none
 
@@ -734,7 +734,7 @@ subroutine dxmini(mbay,mbyt,mb4,mba,mbb,mbd)
 
   ! Section 0
 
-  call pkc('BUFR' ,  4 , mbay,mbit)
+  call pkc(bmostr ,  4 , mbay,mbit)
   call pkb(  mbyt , 24 , mbay,mbit)
   call pkb(     3 ,  8 , mbay,mbit)
 

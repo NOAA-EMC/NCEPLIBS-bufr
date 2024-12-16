@@ -330,6 +330,12 @@ module modv_vars
   !> Number of bytes in Section 5 of a BUFR message.
   integer, parameter :: nby5 = 4
 
+  !> Opening string of a BUFR message.
+  character*4, parameter :: bmostr = 'BUFR'
+
+  !> Closing string of a BUFR message.
+  character*4, parameter :: bmcstr = '7777'
+
   !> Master table for the last BUFR message that was read from a logical unit where
   !> Section 3 decoding is being used.
   !> This value is initialized to an artificially low number, in order to ensure that new
