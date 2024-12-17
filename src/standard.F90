@@ -73,7 +73,7 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
 
   use bufrlib
 
-  use modv_vars, only: im8b, nbytw
+  use modv_vars, only: im8b, nbytw, nby5, bmcstr
 
   use moda_s3list
 
@@ -87,7 +87,7 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
 
   character*128 bort_str
   character*8 subset
-  character*4 sevn
+  character*4 s5str
   character*1 tab
   character*(*), parameter :: bort_arrayoverflow = &
     'BUFRLIB: STNDRD - OVERFLOW OF OUTPUT (STANDARD) MESSAGE ARRAY; TRY A LARGER DIMENSION FOR THIS ARRAY'
@@ -107,7 +107,7 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
     return
   endif
 
-  ! lunit must point to an open bufr file.
+  ! lunit must point to an open BUFR file.
 
   call status(lunit,lun,il,im)
   if(il==0) call bort('BUFRLIB: STNDRD - BUFR FILE IS CLOSED, IT MUST BE OPEN')
@@ -130,9 +130,9 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
   endif
 
   mbit = (lenn-4)*8
-  call upc(sevn,4,msgin,mbit,.true.)
-  if(sevn/='7777') then
-    write(bort_str,'("BUFRLIB: STNDRD - INPUT MESSAGE DOES NOT END WITH ""7777"" (ENDS WITH ",A)') sevn
+  call upc(s5str,nby5,msgin,mbit,.true.)
+  if(s5str/=bmcstr) then
+    write(bort_str,'("BUFRLIB: STNDRD - INPUT MESSAGE DOES NOT END WITH ""7777"" (ENDS WITH ",A)') s5str
     call bort(bort_str)
   endif
 
@@ -279,7 +279,7 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
   lenn = len0+len1+len2+len3+len4+len5
   call pkb(lenn,24,msgot,ibit)
 
-  call pkc('7777',4,msgot,jbit)
+  call pkc(bmcstr,nby5,msgot,jbit)
 
   return
 end subroutine stndrd

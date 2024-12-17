@@ -3,7 +3,7 @@
 !>
 !> @author J. Woollen @date 1994-01-06
 
-!> Initialize numerous global variables and arrays within internal modules and COMMON blocks throughout the
+!> Initialize numerous global variables and arrays within internal modules and common blocks throughout the
 !> NCEPLIBS-bufr software.
 !>
 !> This subroutine isn't normally called directly by any application
@@ -14,7 +14,7 @@
 !> @authors J. Woollen J. Ator @date 1994-01-06
 subroutine bfrini
 
-  use modv_vars, only: maxtba, maxtbb, maxtbd, mxmsgl, nfiles, adsn, idnr
+  use modv_vars, only: maxtba, maxtbb, maxtbd, mxmsgl, nfiles, adsn, idnr, lun1, lun2
 
   use moda_stbfr
   use moda_idrdm
@@ -55,7 +55,7 @@ subroutine bfrini
   data nldxd /  38 ,  70 , 8*0 /
   data nld30 /   5 ,   6 , 8*0 /
 
-  ! Initialize module moda_bitbuf
+  ! Initialize module @ref moda_bitbuf
 
   maxbyt = min(10000,mxmsgl)
 
@@ -67,26 +67,26 @@ subroutine bfrini
   ipd3 = ifxy('206001')
   ipd4 = ifxy('063255')
 
-  ! Initialize module moda_stbfr
+  ! Initialize module @ref moda_stbfr
 
   do i=1,nfiles
     iolun(i) = 0
     iomsg(i) = 0
   enddo
 
-  ! Initialize module moda_idrdm
+  ! Initialize module @ref moda_idrdm
 
   do i=1,nfiles
     idrdm(i) = 0
   enddo
 
-  ! Initialize module moda_msglim
+  ! Initialize module @ref moda_msglim
 
   do i=1,nfiles
     msglim(i) = 3
   enddo
 
-  ! Initialize module moda_usrint
+  ! Initialize module @ref moda_usrint
 
   do i=1,nfiles
     nval(i) = 0
@@ -98,7 +98,7 @@ subroutine bfrini
     idnr(i) = ifxy(adsn(i))
   enddo
 
-  ! Initialize module moda_tababd
+  ! Initialize module @ref moda_tababd
 
   ! ntba(0) is the maximum number of entries within internal BUFR table A
   ntba(0) = maxtba
@@ -126,7 +126,7 @@ subroutine bfrini
     enddo
   enddo
 
-  ! Initialize module moda_bufrmg
+  ! Initialize module @ref moda_bufrmg
 
   do i=1,nfiles
     msglen(i) = 0
@@ -139,21 +139,21 @@ subroutine bfrini
   namb = 0
   ntot = 0
 
-  ! Initialize module moda_bufrsr
+  ! Initialize module @ref moda_bufrsr
 
   do i=1,nfiles
     jsr(i) = 0
   enddo
 
-  ! Initialize module moda_dscach
+  ! Initialize module @ref moda_dscach
 
   ncnem = 0
 
-  ! Initialize common /mstinf/
+  ! Initialize master BUFR table information
 
   cmtdir = &
     '@MASTER_TABLE_DIR_F@'
-  call mtinfo(cmtdir,98,99)
+  call mtinfo(cmtdir,lun1,lun2)
 
   return
 end subroutine bfrini
@@ -300,16 +300,16 @@ end function irev
 !> @author J. Woollen @date 1994-01-06
 subroutine jstnum(str,sign,iret)
 
+  use modv_vars, only: iprt
+
   implicit none
 
   integer, intent(out) :: iret
-  integer iprt, lstr, num, ier
+  integer lstr, num, ier
 
   character*(*), intent(inout) :: str
   character, intent(out) :: sign
   character*128 errstr
-
-  common /quiet/ iprt
 
   iret = 0
 
@@ -357,10 +357,8 @@ subroutine capit(str)
   integer i, j
 
   character*(*), intent(inout) :: str
-  character*26 upcs, lwcs
-
-  data upcs /'ABCDEFGHIJKLMNOPQRSTUVWXYZ'/
-  data lwcs /'abcdefghijklmnopqrstuvwxyz'/
+  character*26, parameter :: upcs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  character*26, parameter :: lwcs = 'abcdefghijklmnopqrstuvwxyz'
 
   do i=1,len(str)
     do j=1,26
@@ -511,14 +509,15 @@ end function iokoper
 !> @author J. Woollen @date 1996-10-09
 subroutine mrginv
 
+  use modv_vars, only: iprt
+
   implicit none
 
-  integer nrpl, nmrg, namb, ntot, iprt
+  integer nrpl, nmrg, namb, ntot
 
   character*128 errstr
 
   common /mrgcom/ nrpl, nmrg, namb, ntot
-  common /quiet/ iprt
 
   if(iprt>=0) then
     call errwrt('+++++++++++++++++++++BUFRLIB+++++++++++++++++++++++')

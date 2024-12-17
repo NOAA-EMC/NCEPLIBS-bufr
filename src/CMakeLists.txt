@@ -14,11 +14,23 @@ list(APPEND c_src
   arallocc.c cpmstabs.c cread.c crwbmg.c cfe.c icvidx.c restd.c stseq.c)
 
 list(APPEND c_hdr
-  cread.h mstabs.h rpseqs.h bufr_interface.h bufrlib.h)
+  cread.h mstabs.h rpseqs.h bufr_interface.h)
 
 # Create the misc.F90 file
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/misc.F90.in ${CMAKE_CURRENT_BINARY_DIR}/misc.F90 @ONLY)
 list(APPEND fortran_src ${CMAKE_CURRENT_BINARY_DIR}/misc.F90)
+
+# Create the bufrlib.h file
+foreach(_var IN ITEMS bmostr bmcstr)
+  file(STRINGS modules_vars.F90 _${_var}_tempstr REGEX "character.*${_var}")
+  if(_${_var}_tempstr MATCHES "= '([A-Z0-9]+)")
+    set(${_var} ${CMAKE_MATCH_1})
+  else()
+    message(FATAL_ERROR "Unable to parse variable ${_var} value from file modules_vars.F90")
+  endif()
+endforeach()
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bufrlib.h.in ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.h @ONLY)
+list(APPEND c_hdr ${CMAKE_CURRENT_BINARY_DIR}/bufrlib.h)
 
 include(TestBigEndian)
 test_big_endian(IS_BIG_ENDIAN)

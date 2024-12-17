@@ -19,7 +19,7 @@ subroutine arallocf
 
   use modv_vars, only: maxcd, maxjl, maxmem, maxmsg, maxss, maxtba, maxtbb, maxtbd, mxbtm, mxbtmse, &
                        mxcdv, mxcsb, mxdxts, mxlcc, mxmsgl, mxmsgld4, mxmtbb, mxmtbd, mxnrv, mxrst, &
-                       mxs01v, mxtamc, mxtco, mxh4wlc, nfiles, mxcnem, maxnc, maxrcr
+                       mxs01v, mxtamc, mxtco, mxh4wlc, nfiles, mxcnem, maxnc, maxrcr, iprt
 
   use moda_usrint
   use moda_usrbit
@@ -63,9 +63,7 @@ subroutine arallocf
   character*80 errstr
   character*36 brtstr
 
-  integer iost, iprt
-
-  common /quiet/ iprt
+  integer iost
 
   if ( iprt >= 1 ) then
     call errwrt ('++++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++++')

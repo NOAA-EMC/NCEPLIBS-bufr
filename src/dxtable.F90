@@ -27,14 +27,14 @@
 !> @author Woollen @date 1994-01-06
 subroutine readdx(lunit,lun,lundx)
 
+  use modv_vars, only: iprt
+
   implicit none
 
   integer, intent(in) :: lunit, lun, lundx
-  integer iprt, lud, ildx, imdx
+  integer lud, ildx, imdx
 
   character*128 errstr
-
-  common /quiet/ iprt
 
   ! Get the status of unit lundx
 
@@ -121,18 +121,18 @@ subroutine rdbfdx(lunit,lun)
 
   use bufrlib
 
+  use modv_vars, only: iprt
+
   use moda_mgwa
 
   implicit none
 
   integer, intent(in) :: lunit, lun
-  integer iprt, ict, ier, idxmsg, iupbs3
+  integer ict, ier, idxmsg, iupbs3
 
   character*128 errstr
 
   logical done
-
-  common /quiet/ iprt
 
   call dxinit(lun,0)
 
@@ -693,13 +693,13 @@ end subroutine dxinit
 !> @author Woollen @date 1994-01-06
 subroutine dxmini(mbay,mbyt,mb4,mba,mbb,mbd)
 
-  use modv_vars, only: mxmsgld4
+  use modv_vars, only: mxmsgld4, mtv, nby0, nby1, nby2, nby5, bmostr
 
   implicit none
 
   integer, intent(out) :: mbay(*), mbyt, mb4, mba, mbb, mbd
   integer maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, mtyp, msbt, mbit, ih, id, im, iy, i, nsub, idxs, ldxs, &
-    nby0, nby1, nby2, nby3, nby4, nby5, iupm
+    len3, nby4, iupm
 
   character*128 bort_str
   character*56 dxstr
@@ -726,19 +726,15 @@ subroutine dxmini(mbay,mbyt,mb4,mba,mbb,mbd)
   idxs = idxv+1
   ldxs = nxstr(idxs)
 
-  nby0 = 8
-  nby1 = 18
-  nby2 = 0
-  nby3 = 7 + nxstr(idxs) + 1
+  len3 = 7 + nxstr(idxs) + 1
   nby4 = 7
-  nby5 = 4
-  mbyt = nby0+nby1+nby2+nby3+nby4+nby5
+  mbyt = nby0+nby1+nby2+len3+nby4+nby5
 
-  if(mod(nby3,2)/=0) call bort ('BUFRLIB: DXMINI - LENGTH OF SECTION 3 IS NOT A MULTIPLE OF 2')
+  if(mod(len3,2)/=0) call bort ('BUFRLIB: DXMINI - LENGTH OF SECTION 3 IS NOT A MULTIPLE OF 2')
 
   ! Section 0
 
-  call pkc('BUFR' ,  4 , mbay,mbit)
+  call pkc(bmostr ,  4 , mbay,mbit)
   call pkb(  mbyt , 24 , mbay,mbit)
   call pkb(     3 ,  8 , mbay,mbit)
 
@@ -752,7 +748,7 @@ subroutine dxmini(mbay,mbyt,mb4,mba,mbb,mbd)
   call pkb(     0 ,  8 , mbay,mbit)
   call pkb(  mtyp ,  8 , mbay,mbit)
   call pkb(  msbt ,  8 , mbay,mbit)
-  call pkb(    36 ,  8 , mbay,mbit)
+  call pkb(   mtv ,  8 , mbay,mbit)
   call pkb(  idxv ,  8 , mbay,mbit)
   call pkb(    iy ,  8 , mbay,mbit)
   call pkb(    im ,  8 , mbay,mbit)
@@ -763,7 +759,7 @@ subroutine dxmini(mbay,mbyt,mb4,mba,mbb,mbd)
 
   ! Section 3
 
-  call pkb(  nby3 , 24 , mbay,mbit)
+  call pkb(  len3 , 24 , mbay,mbit)
   call pkb(     0 ,  8 , mbay,mbit)
   call pkb(     1 , 16 , mbay,mbit)
   call pkb(  2**7 ,  8 , mbay,mbit)
@@ -1660,7 +1656,7 @@ end subroutine stntbi
 !> @author Woollen @date 1994-01-06
 subroutine pktdd(id,lun,idn,iret)
 
-  use modv_vars, only: maxcd
+  use modv_vars, only: maxcd, iprt
 
   use moda_tababd
 
@@ -1668,13 +1664,12 @@ subroutine pktdd(id,lun,idn,iret)
 
   integer, intent(in) :: id, lun, idn
   integer, intent(out) :: iret
-  integer maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, iprt, ldd, nd, idm, iupm
+  integer maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, ldd, nd, idm, iupm
 
   character*128 errstr
   character*56 dxstr
 
   common /dxtab/ maxdx, idxv, nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
-  common /quiet/ iprt
 
   ! ldd points to the byte within tabd(id,lun) which contains (in packed integer format) a count of the number of child
   ! mnemonics stored thus far for this parent mnemonic.

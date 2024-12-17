@@ -196,7 +196,7 @@ subroutine rdcmps(lun)
     elseif(ityp==3) then
       ! This is a character element.  If there are more than 8 characters, then only the first 8 will be unpacked by this
       ! routine, and a separate subsequent call to subroutine readlc() will be required to unpack the remainder of the string.
-      ! In this case, pointers will be saved within common /rlccmn/ for later use within readlc().
+      ! In this case, pointers will be saved within module @ref moda_rlccmn for later use within readlc().
       lelm = nbit/8
       nchr = min(8,lelm)
       ibsv = ibit
@@ -257,19 +257,18 @@ end subroutine rdcmps
 !> @author Woollen @date 2002-05-14
 subroutine cmsgini(lun,mesg,subset,idate,nsub,nbyt)
 
+  use modv_vars, only: mtv, nby1, nby5, bmostr
+
   implicit none
 
   integer, intent(in) :: lun, idate, nsub
   integer, intent(inout) :: nbyt
   integer, intent(out) :: mesg(*)
-  integer mtyp, msbt, inod, isub, iret, jdate, mcen, mear, mmon, mday, mour, mmin, mbit, mbyt, len1, len3, i4dy
+  integer mtyp, msbt, inod, isub, iret, jdate, mcen, mear, mmon, mday, mour, mmin, mbit, mbyt, len3, i4dy
 
   character*128 bort_str
   character*8, intent(in) :: subset
-  character*4 bufr
   character tab
-
-  data bufr/'BUFR'/
 
   ! Get the message tag and type, and break up the date which can be either YYMMDDHH or YYYYMMDDHH
 
@@ -299,7 +298,7 @@ subroutine cmsgini(lun,mesg,subset,idate,nsub,nbyt)
 
   ! Section 0
 
-  call pkc(bufr ,  4 , mesg,mbit)
+  call pkc(bmostr,  4 , mesg,mbit)
   ! Note that the actual Section 0 length will be computed and stored below; for now, we're really only interested in
   ! advancing mbit by the correct amount, so we'll just store a default value of 0.
   call pkb(   0 , 24 , mesg,mbit)
@@ -307,9 +306,7 @@ subroutine cmsgini(lun,mesg,subset,idate,nsub,nbyt)
 
   ! Section 1
 
-  len1 = 18
-
-  call pkb(len1 , 24 , mesg,mbit)
+  call pkb(nby1 , 24 , mesg,mbit)
   call pkb(   0 ,  8 , mesg,mbit)
   call pkb(   3 ,  8 , mesg,mbit)
   call pkb(   7 ,  8 , mesg,mbit)
@@ -317,7 +314,7 @@ subroutine cmsgini(lun,mesg,subset,idate,nsub,nbyt)
   call pkb(   0 ,  8 , mesg,mbit)
   call pkb(mtyp ,  8 , mesg,mbit)
   call pkb(msbt ,  8 , mesg,mbit)
-  call pkb(  36 ,  8 , mesg,mbit)
+  call pkb( mtv ,  8 , mesg,mbit)
   call pkb(   0 ,  8 , mesg,mbit)
   call pkb(mear ,  8 , mesg,mbit)
   call pkb(mmon ,  8 , mesg,mbit)
@@ -353,7 +350,7 @@ subroutine cmsgini(lun,mesg,subset,idate,nsub,nbyt)
   !         (length of message up through fourth byte of Section 4)
   !      +  (length of compressed data portion of Section 4)
   !      +  (length of Section 5)
-  mbyt = mbit/8 + nbyt + 4
+  mbyt = mbit/8 + nbyt + nby5
 
   ! For output, make nbyt point to the current location of mbit, which is the byte after which to actually begin writing the
   ! compressed data into Section 4.
@@ -377,7 +374,7 @@ end subroutine cmsgini
 !> order to hold the current subset (still stored for compression).
 !>
 !> This subroutine performs functions similar to NCEPLIBS-bufr
-!> subroutine msgupd() except that it acts on compressed bufr messages.
+!> subroutine msgupd() except that it acts on compressed BUFR messages.
 !>
 !> @param lunix - Absolute value is Fortran logical unit number for BUFR file
 !> - if lunix is less than zero, then this is a "flush" call and the buffer must be cleared out
@@ -385,7 +382,7 @@ end subroutine cmsgini
 !> @author Woollen @date 2002-05-14
 subroutine wrcmps(lunix)
 
-  use modv_vars, only: mxcdv, mxcsb
+  use modv_vars, only: mxcdv, mxcsb, nby5, bmcstr
 
   use moda_usrint
   use moda_msgcwd
@@ -650,7 +647,7 @@ subroutine wrcmps(lunix)
 
     ! Add Section 5
 
-    call pkc('7777',4,mgwa,ibit)
+    call pkc(bmcstr,nby5,mgwa,ibit)
 
     ! Check that the message byte counters agree, then write the message
 

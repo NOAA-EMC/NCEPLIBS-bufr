@@ -133,7 +133,6 @@ end subroutine fortran_close
 !> info.), but otherwise no prior knowledge is required of the contents of the
 !> messages to be decoded.
 !>
-!>
 !> @param lunit - Fortran logical unit number for BUFR file (unless io is set to 'FIRST' or 'QUIET',
 !> in which case this is a dummy argument)
 !> @param io - flag indicating how lunit is to be used by the software:
@@ -149,7 +148,7 @@ end subroutine fortran_close
 !>   - 'APX' = same as 'APN', except backspace before appending
 !>   - 'NUL' = same as 'OUT', except don't write any messages whatsoever to lunit (e.g. when subroutine writsa() is to be used)
 !>   - 'INUL' = same as 'IN', except don't read any messages whatsoever from lunit (e.g. when subroutine readerme() is to be used)
-!>   - 'QUIET' = lunit is ignored; this is an indicator that the value for iprt in common block /quiet/ is being reset to the
+!>   - 'QUIET' = lunit is ignored; this is an indicator that the value for module variable iprt is being reset to the
 !>   value in lundx
 !>   - 'FIRST' = lunit and lundx are ignored; this is an indicator to initialize the NCEPLIBS-bufr software, in case this
 !>   subroutine was never previously called
@@ -158,7 +157,7 @@ end subroutine fortran_close
 !>   reading/writing from/to lunit (depending on the case); this value may be set equal to lunit if DX BUFR table information is
 !>   already embedded in lunit
 !>   - If io is set to 'QUIET' = indicator for degree of printout:
-!>      - -1 = no printout except for ABORT messages
+!>      - -1 = no printout except for abort messages
 !>      -  0 = limited printout (default)
 !>      -  1 = all warning messages are printed
 !>      -  2 = all warning and info messages are printed
@@ -169,7 +168,7 @@ recursive subroutine openbf(lunit,io,lundx)
 
   use bufrlib
 
-  use modv_vars, only: im8b, ifopbf, nfiles
+  use modv_vars, only: im8b, ifopbf, nfiles, iprt
 
   use moda_msgcwd
   use moda_stbfr
@@ -181,17 +180,15 @@ recursive subroutine openbf(lunit,io,lundx)
   implicit none
 
   integer, intent(in) :: lunit, lundx
-  integer my_lunit, my_lundx, iprt, iprtprv, lun, il, im
+  integer my_lunit, my_lundx, iprtprv, lun, il, im
 
   character*(*), intent(in) :: io
   character*255 filename, fileacc
   character*128 bort_str, errstr
   character*28 cprint(0:4)
 
-  common /quiet/ iprt
-
   data cprint/ &
-    ' (only ABORTs)              ', &
+    ' (only aborts)              ', &
     ' (limited -default)         ', &
     ' (all warnings)             ', &
     ' (all warnings+infos)       ', &
@@ -210,12 +207,8 @@ recursive subroutine openbf(lunit,io,lundx)
     return
   endif
 
-  ! If this is the first call to this subroutine, initialize iprt in /quiet/ as 0
-
-  if(ifopbf==0) iprt = 0
-
   if(io=='QUIET') then
-    ! override previous iprt value (printout indicator)
+    ! Override previous iprt value
     iprtprv = iprt
     iprt = lundx
     if(iprt<-1) iprt = -1
@@ -860,7 +853,7 @@ end subroutine rewnbf
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
 
-  use modv_vars, only: im8b, bmiss, iac
+  use modv_vars, only: im8b, bmiss, iac, iprt
 
   use moda_usrint
   use moda_msgcwd
@@ -874,7 +867,7 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
   integer, parameter :: maxtg = 100
-  integer nnod, ncon, nods, nodc, ivls, kons, iprt, my_lunin, my_i1, my_i2, lunit, lun, il, im, irec, isub, i, n, ntg, &
+  integer nnod, ncon, nods, nodc, ivls, kons, my_lunin, my_i1, my_i2, lunit, lun, il, im, irec, isub, i, n, ntg, &
     jdate, jbit, kbit, lbit, mbit, nbit, nibit, nbyt, nsb, node, nbmp, nrep, lret, linc, iac_prev, ityp, &
     ireadmg, ireadsb, nmsub
 
@@ -890,7 +883,6 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
   real*8 rval, ups
 
   common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
-  common /quiet/ iprt
 
   equivalence (cval,rval)
 

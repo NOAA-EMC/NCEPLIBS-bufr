@@ -218,7 +218,7 @@ crbmg(char *bmg, int mxmb, int *nmb, int *iret)
     /*
     ** Look for the start of the next BUFR message.
     */
-    while (strncmp("BUFR", bmg, 4) != 0) {
+    while (strncmp(BMOSTR, bmg, 4) != 0) {
         memmove(bmg, &bmg[1], 3);
         if ((*iret = rbytes(bmg, mxmb, 3, 1)) != 0) return;
     }
@@ -238,7 +238,7 @@ crbmg(char *bmg, int mxmb, int *nmb, int *iret)
     /*
     ** Check that the "7777" is in the expected location.
     */
-    *iret = ((strncmp("7777", &bmg[*nmb-4], 4) == 0) ? 0 : 2);
+    *iret = ((strncmp(BMCSTR, &bmg[*nmb-4], 4) == 0) ? 0 : 2);
 
     return;
 }

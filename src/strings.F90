@@ -440,7 +440,7 @@ subroutine parutg(lun,io,utg,nod,kon,val)
   ! user application has been streamlined to always call subroutine ufbint() with the same str, even though some of the
   ! mnemonics contained within that str may not exist within the sequence definition of every possible type/subtype that is
   ! being written by the application.  In such cases, by not being "picky", we could just allow the library to subsequently
-  ! (and quietly, if iprt happened to be set to -1 in common /quiet/) not actually store the value corresponding to such
+  ! (and quietly, if module variable iprt happened to be set to -1) not actually store the value corresponding to such
   ! mnemonics, rather than loudly complaining and aborting.
 
   if(kon==0 .and. (io==0 .or. atag=='NUL' .or. .not.picky)) then

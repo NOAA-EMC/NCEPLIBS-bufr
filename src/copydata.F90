@@ -511,17 +511,15 @@ end subroutine cpymem
 !> @author Woollen @date 1994-01-06
 subroutine cpyupd(lunit,lin,lun,ibyt)
 
+  use modv_vars, only: iprt, nby0, nby1, nby2, nby3
+
   use moda_msgcwd
   use moda_bitbuf
 
   implicit none
 
   integer, intent(in) :: lunit, lin, lun, ibyt
-  integer nby0, nby1, nby2, nby3, nby4, nby5, iprt, lbit, lbyt, nbyt, iupb
-
-  common /msgptr/ nby0,nby1,nby2,nby3,nby4,nby5
-
-  common /quiet/ iprt
+  integer lbit, lbyt, nbyt, iupb
 
   character*128 bort_str, errstr
 

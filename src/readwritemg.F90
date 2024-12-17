@@ -44,7 +44,7 @@ recursive subroutine readmg(lunxx,subset,jdate,iret)
 
   use bufrlib
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, iprt
 
   use moda_msgcwd
   use moda_sc3bfr
@@ -54,12 +54,10 @@ recursive subroutine readmg(lunxx,subset,jdate,iret)
 
   integer, intent(in) :: lunxx
   integer, intent(out) :: jdate, iret
-  integer iprt, my_lunxx, lunit, lun, il, im, ier, idxmsg
+  integer my_lunxx, lunit, lun, il, im, ier, idxmsg
 
   character*8, intent(out) :: subset
   character*128 errstr
-
-  common /quiet/ iprt
 
   ! Check for I8 integers
 
@@ -215,7 +213,7 @@ end function ireadmg
 !> @authors J. Woollen J. Ator @date 1995-06-28
 recursive subroutine readerme(mesg,lunit,subset,jdate,iret)
 
-  use modv_vars, only: mxmsgl, im8b, nbytw
+  use modv_vars, only: mxmsgl, im8b, nbytw, iprt, bmostr
 
   use moda_sc3bfr
   use moda_idrdm
@@ -225,7 +223,7 @@ recursive subroutine readerme(mesg,lunit,subset,jdate,iret)
 
   integer, intent(in) :: lunit, mesg(*)
   integer, intent(out) :: jdate, iret
-  integer iprt, my_lunit, iec0(2), lun, il, im, ii, lnmsg, lmsg, idxmsg, iupbs3
+  integer my_lunit, iec0(2), lun, il, im, ii, lnmsg, lmsg, idxmsg, iupbs3
 
   character*8, intent(out) :: subset
   character*8 sec0
@@ -234,8 +232,6 @@ recursive subroutine readerme(mesg,lunit,subset,jdate,iret)
   logical endtbl
 
   equivalence (sec0,iec0)
-
-  common /quiet/ iprt
 
   ! Check for I8 integers
 
@@ -276,7 +272,7 @@ recursive subroutine readerme(mesg,lunit,subset,jdate,iret)
 
   ! Confirm that the first 4 bytes of SEC0 contain 'BUFR'.
 
-  if(sec0(1:4)/='BUFR') &
+  if(sec0(1:4)/=bmostr) &
     call bort('BUFRLIB: READERME - FIRST 4 BYTES READ FROM RECORD NOT "BUFR", DOES NOT CONTAIN BUFR DATA')
 
   ! Parse the message section contents
@@ -598,7 +594,7 @@ subroutine msgwrt(lunit,mesg,mgbyt)
 
   use bufrlib
 
-  use modv_vars, only: mxmsgld4
+  use modv_vars, only: mxmsgld4, iprt, nby5, bmostr, bmcstr
 
   use moda_nulbfr
   use moda_bufrmg
@@ -611,16 +607,10 @@ subroutine msgwrt(lunit,mesg,mgbyt)
   implicit none
 
   integer, intent(in) :: lunit, mgbyt, mesg(*)
-  integer iprt, iec0(2), mbyt, ibit, kbit, ii, jj, len0, len1, len2, len3, len4, l5, iad4, iad5, lun, il, im, npbyt, mwrd, &
+  integer iec0(2), mbyt, ibit, kbit, ii, jj, len0, len1, len2, len3, len4, l5, iad4, iad5, lun, il, im, npbyt, mwrd, &
     nmwrd, iupbs01, idxmsg
 
   character*128 errstr
-  character*4 bufr, sevn
-
-  common /quiet/ iprt
-
-  data bufr /'BUFR'/
-  data sevn /'7777'/
 
   ! Make a local copy of the input message for use within this subroutine, since internal calls to any or all of the
   ! subroutines stndrd(), cnved4(), pkbs1(), atrcpt(), etc. may end up modifying the message before it finally gets
@@ -671,7 +661,7 @@ subroutine msgwrt(lunit,mesg,mgbyt)
     ibit = 32
     call pkb(mbyt,24,mgwa,ibit)
     ibit = (mbyt-4)*8
-    call pkc(sevn,4,mgwa,ibit)
+    call pkc(bmcstr,nby5,mgwa,ibit)
     call stndrd(lunit,mgwa,mxmsgld4,mgwb)
     ! Compute mbyt for the new standardized message
     mbyt = iupbs01(mgwb,'LENM')
@@ -724,11 +714,11 @@ subroutine msgwrt(lunit,mesg,mgbyt)
   ! Write Section 0 byte count and Section 5
 
   ibit = 0
-  call pkc(bufr, 4,mgwa,ibit)
+  call pkc(bmostr, 4,mgwa,ibit)
   call pkb(mbyt,24,mgwa,ibit)
 
   kbit = (mbyt-4)*8
-  call pkc(sevn, 4,mgwa,kbit)
+  call pkc(bmcstr,nby5,mgwa,kbit)
 
   ! Zero out the extra bytes which will be written. Note that the BUFR message is stored within the integer array mgwa(*),
   ! (rather than within a character array), so we need to make sure that the "7777" Is followed by zeroed-out bytes up to
@@ -769,12 +759,14 @@ end subroutine msgwrt
 
 !> Initialize, within the internal arrays, a new uncompressed BUFR message for output.
 !>
-!> Arrays are filled in common block msgptr and modules @ref moda_msgcwd and @ref moda_bitbuf.
+!> Arrays are filled in modules @ref moda_msgcwd and @ref moda_bitbuf.
 !>
 !> @param lun - file ID
 !>
 !> @author Woollen @date 1994-01-06
 subroutine msgini(lun)
+
+  use modv_vars, only: mtv, nby0, nby1, nby2, nby3, nby5, bmostr, bmcstr
 
   use moda_msgcwd
   use moda_ufbcpl
@@ -784,19 +776,14 @@ subroutine msgini(lun)
   implicit none
 
   integer, intent(in) :: lun
-  integer ibct, ipd1, ipd2, ipd3, ipd4, nby0, nby1, nby2, nby3, nby4, nby5, nbyt, mtyp, msbt, inod, isub, iret, &
+  integer ibct, ipd1, ipd2, ipd3, ipd4, nby4, nbyt, mtyp, msbt, inod, isub, iret, &
     mcen, mear, mmon, mday, mour, mmin, mbit
 
   character*128 bort_str
   character*8 subtag
-  character*4 bufr, sevn
   character tab
 
-  data bufr /'BUFR'/
-  data sevn /'7777'/
-
   common /padesc/ ibct,ipd1,ipd2,ipd3,ipd4
-  common /msgptr/ nby0,nby1,nby2,nby3,nby4,nby5
 
   ! Get the message tag and type, and break up the date
 
@@ -830,17 +817,12 @@ subroutine msgini(lun)
   ! Initialize the message
 
   mbit = 0
-  nby0 = 8
-  nby1 = 18
-  nby2 = 0
-  nby3 = 20
   nby4 = 4
-  nby5 = 4
   nbyt = nby0+nby1+nby2+nby3+nby4+nby5
 
   ! Section 0
 
-  call pkc(bufr ,  4 , mbay(1,lun),mbit)
+  call pkc(bmostr,  4 , mbay(1,lun),mbit)
   call pkb(nbyt , 24 , mbay(1,lun),mbit)
   call pkb(   3 ,  8 , mbay(1,lun),mbit)
 
@@ -854,7 +836,7 @@ subroutine msgini(lun)
   call pkb(   0 ,  8 , mbay(1,lun),mbit)
   call pkb(mtyp ,  8 , mbay(1,lun),mbit)
   call pkb(msbt ,  8 , mbay(1,lun),mbit)
-  call pkb(  36 ,  8 , mbay(1,lun),mbit)
+  call pkb( mtv ,  8 , mbay(1,lun),mbit)
   call pkb(   0 ,  8 , mbay(1,lun),mbit)
   call pkb(mear ,  8 , mbay(1,lun),mbit)
   call pkb(mmon ,  8 , mbay(1,lun),mbit)
@@ -884,7 +866,7 @@ subroutine msgini(lun)
 
   ! Section 5
 
-  call pkc(sevn ,  4 , mbay(1,lun),mbit)
+  call pkc(bmcstr,nby5, mbay(1,lun),mbit)
 
   ! Double check initial message length
 
@@ -973,20 +955,19 @@ end function msgfull
 !> @authors J. Woollen, J. Ator @date 2002-05-14
 recursive subroutine maxout(maxo)
 
-  use modv_vars, only: mxmsgl, im8b
+  use modv_vars, only: mxmsgl, im8b, iprt
 
   use moda_bitbuf
 
   implicit none
 
   integer, intent(in) :: maxo
-  integer my_maxo, iprt, newsiz, maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30
+  integer my_maxo, newsiz, maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30
 
   character*128 errstr
   character*56 dxstr
 
   common /dxtab/ maxdx,idxv,nxstr(10),ldxa(10),ldxb(10),ldxd(10),ld30(10),dxstr(10)
-  common /quiet/ iprt
 
   ! Check for I8 integers
 
@@ -1211,7 +1192,7 @@ end function lmsg
 !> @author J. Ator @date 2005-11-29
 recursive subroutine getlens (mbay,ll,len0,len1,len2,len3,len4,len5)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, nby5
 
   implicit none
 
@@ -1260,7 +1241,7 @@ recursive subroutine getlens (mbay,ll,len0,len1,len2,len3,len4,len5)
   len4 = iupb(mbay,iad4+1,24)
 
   if(ll<5) return
-  len5 = 4
+  len5 = nby5
 
   return
 end subroutine getlens

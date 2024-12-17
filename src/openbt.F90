@@ -29,15 +29,13 @@
 !> @author J. Woollen @date 1998-07-08
 recursive subroutine openbt(lundx,mtyp)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, iprt
 
   implicit none
 
   integer, intent(in) :: mtyp
   integer, intent(out) :: lundx
-  integer iprt, my_mtyp
-
-  common /quiet/ iprt
+  integer my_mtyp
 
   character*128 errstr
 

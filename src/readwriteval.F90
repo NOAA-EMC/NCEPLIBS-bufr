@@ -198,7 +198,7 @@ end function getvalnb
 !> @author J. Woollen @author J. Ator @date 2003-11-04
 recursive subroutine writlc(lunit,chr,str)
 
-  use modv_vars, only: im8b, mxlcc
+  use modv_vars, only: im8b, mxlcc, iprt
 
   use moda_usrint
   use moda_msgcwd
@@ -209,7 +209,7 @@ recursive subroutine writlc(lunit,chr,str)
   implicit none
 
   integer, intent(in) :: lunit
-  integer my_lunit, maxtg, iprt, lun, il, im, ntg, nnod, kon, ii, n, node, ioid, ival, mbit, nbit, nbmp, nchr, nbyt, nsubs, &
+  integer my_lunit, maxtg, lun, il, im, ntg, nnod, kon, ii, n, node, ioid, ival, mbit, nbit, nbmp, nchr, nbyt, nsubs, &
     itagct, len0, len1, len2, len3, l4, l5, mbyte, iupbs3
 
   character*(*), intent(in) :: chr, str
@@ -218,8 +218,6 @@ recursive subroutine writlc(lunit,chr,str)
   character*14 tgs(10)
 
   real roid
-
-  common /quiet/ iprt
 
   data maxtg /10/
 
@@ -405,7 +403,7 @@ end subroutine writlc
 !> @authors J. Woollen J. Ator @date 2003-11-04
 recursive subroutine readlc(lunit,chr,str)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, iprt
 
   use moda_usrint
   use moda_usrbit
@@ -417,7 +415,7 @@ recursive subroutine readlc(lunit,chr,str)
   implicit none
 
   integer, intent(in) :: lunit
-  integer my_lunit, maxtg, iprt, lchr, lun, il, im, ntg, nnod, kon, ii, n, nod, ioid, itagct, nchr, kbit
+  integer my_lunit, maxtg, lchr, lun, il, im, ntg, nnod, kon, ii, n, nod, ioid, itagct, nchr, kbit
 
   character*(*), intent(in) :: str
   character*(*), intent(out) :: chr
@@ -427,8 +425,6 @@ recursive subroutine readlc(lunit,chr,str)
   character*14 tgs(10)
 
   real roid
-
-  common /quiet/ iprt
 
   data maxtg /10/
 
@@ -644,7 +640,7 @@ end subroutine readlc
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
 
-  use modv_vars, only: im8b, bmiss
+  use modv_vars, only: im8b, bmiss, iprt
 
   use moda_usrint
   use moda_msgcwd
@@ -658,10 +654,9 @@ recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
-  integer iprt, nnod, ncon, nods, nodc, ivls, kons, ifirst1, ifirst2, my_lunin, my_i1, my_i2, lunit, lun, il, im, io
+  integer nnod, ncon, nods, nodc, ivls, kons, ifirst1, ifirst2, my_lunin, my_i1, my_i2, lunit, lun, il, im, io
 
   common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
-  common /quiet/ iprt
 
   data ifirst1 /0/, ifirst2 /0/
 
@@ -878,7 +873,7 @@ end subroutine ufbint
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
 
-  use modv_vars, only: im8b, bmiss, iac
+  use modv_vars, only: im8b, bmiss, iac, iprt
 
   use moda_usrint
   use moda_msgcwd
@@ -892,9 +887,7 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
-  integer iprt, ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, iac_prev
-
-  common /quiet/ iprt
+  integer ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, iac_prev
 
   data ifirst1 /0/
 
@@ -1085,7 +1078,7 @@ end subroutine ufbrep
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
 
-  use modv_vars, only: im8b, bmiss
+  use modv_vars, only: im8b, bmiss, iprt
 
   use moda_usrint
   use moda_msgcwd
@@ -1099,9 +1092,7 @@ recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
-  integer iprt, ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io
-
-  common /quiet/ iprt
+  integer ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io
 
   data ifirst1 /0/
 
@@ -1300,7 +1291,7 @@ end subroutine ufbstp
 !> @author J. Woollen @date 2000-09-19
 recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
 
-  use modv_vars, only: im8b, bmiss
+  use modv_vars, only: im8b, bmiss, iprt
 
   use moda_usrint
   use moda_msgcwd
@@ -1311,7 +1302,7 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
   integer, parameter :: mtag = 10
-  integer iprt, ifirst1, ifirst2, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, i, j, ntag, node, nods, ins1, ins2, insx, &
+  integer ifirst1, ifirst2, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, i, j, ntag, node, nods, ins1, ins2, insx, &
     nseq, isq, ityp, invwin, invtag
 
   real*8, intent(inout) :: usr(i1,i2)
@@ -1320,8 +1311,6 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
   character*156 bort_str
   character*128 errstr
   character*10 tags(mtag)
-
-  common /quiet/ iprt
 
   data ifirst1 /0/, ifirst2 /0/
 
@@ -1627,7 +1616,7 @@ end subroutine drfini
 !> @author J. Woollen @date 1994-01-06
 subroutine ufbrw(lun,usr,i1,i2,io,iret)
 
-  use modv_vars, only: bmiss
+  use modv_vars, only: bmiss, iprt
 
   use moda_usrint
   use moda_tables
@@ -1637,7 +1626,7 @@ subroutine ufbrw(lun,usr,i1,i2,io,iret)
 
   integer, intent(in) :: lun, i1, i2, io
   integer, intent(out) :: iret
-  integer iprt, nnod, ncon, nods, nodc, ivls, kons, inc1, inc2, ins1, ins2, invn, i, j, invwin, ibfms, lstjpb
+  integer nnod, ncon, nods, nodc, ivls, kons, inc1, inc2, ins1, ins2, invn, i, j, invwin, ibfms, lstjpb
 
   real*8, intent(inout) :: usr(i1,i2)
 
@@ -1645,7 +1634,6 @@ subroutine ufbrw(lun,usr,i1,i2,io,iret)
   character*10 tagstr, subset
 
   common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
-  common /quiet/ iprt
 
   subset=tag(inode(lun))
   iret = 0
@@ -1950,21 +1938,19 @@ end subroutine ufbsp
 !> @author J. Ator @date 2014-02-05
 recursive subroutine hold4wlc(lunit,chr,str)
 
-  use modv_vars, only: im8b, mxh4wlc
+  use modv_vars, only: im8b, mxh4wlc, iprt
 
   use moda_h4wlc
 
   implicit none
 
   integer, intent(in) :: lunit
-  integer my_lunit, iprt, lens, lenc, i
+  integer my_lunit, lens, lenc, i
 
   character*(*), intent(in) :: chr, str
 
   character*128 errstr
   character*14 mystr
-
-  common /quiet/ iprt
 
   ! Check for I8 integers
   if(im8b) then
@@ -2101,7 +2087,7 @@ end subroutine trybump
 !> @author Woollen @date 1994-01-06
 recursive subroutine ufbovr(lunit,usr,i1,i2,iret,str)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, iprt
 
   use moda_usrint
   use moda_msgcwd
@@ -2110,14 +2096,12 @@ recursive subroutine ufbovr(lunit,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunit, i1, i2
   integer, intent(out) :: iret
-  integer iprt, ifirst1, my_lunit, my_i1, my_i2, lun, il, im, io
+  integer ifirst1, my_lunit, my_i1, my_i2, lun, il, im, io
 
   character*(*), intent(in) :: str
   character*128 bort_str1, bort_str2, errstr
 
   real*8, intent(inout) :: usr(i1,i2)
-
-  common /quiet/ iprt
 
   data ifirst1 /0/
 
@@ -2235,7 +2219,7 @@ end subroutine ufbovr
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str)
 
-  use modv_vars, only: im8b, bmiss
+  use modv_vars, only: im8b, bmiss, iprt
 
   use moda_usrint
   use moda_msgcwd
@@ -2247,7 +2231,7 @@ recursive subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str)
 
   integer, intent(in) :: lunit, i1, i2, i3
   integer, intent(out) :: iret
-  integer invn(255), nnod, ncon, nods, nodc, ivls, kons, maxevn, iprt, my_lunit, my_i1, my_i2, my_i3, i, j, k, lun, il, im, &
+  integer invn(255), nnod, ncon, nods, nodc, ivls, kons, maxevn, my_lunit, my_i1, my_i2, my_i3, i, j, k, lun, il, im, &
     ins1, ins2, inc1, inc2, nnvn, nvnwin
 
   real*8, intent(out) :: usr(i1,i2,i3)
@@ -2255,8 +2239,6 @@ recursive subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str)
   logical nodgt0
 
   common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
-  common /ufbn3c/ maxevn
-  common /quiet/ iprt
 
   ! Check for I8 integers
 

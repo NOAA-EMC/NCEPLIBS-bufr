@@ -21,7 +21,7 @@
 !> @author J. Woollen @date 1994-01-06
 subroutine makestab
 
-  use modv_vars, only: bmiss, maxjl, nfiles
+  use modv_vars, only: bmiss, maxjl, nfiles, iprt
 
   use moda_usrint
   use moda_stbfr
@@ -34,14 +34,12 @@ subroutine makestab
 
   implicit none
 
-  integer iprt, lunit, lundx, lun, lum, n, itba, inc, newn, noda, node, inod, icmpdx, ishrdx
+  integer lunit, lundx, lun, lum, n, itba, inc, newn, noda, node, inod, icmpdx, ishrdx
 
   character*128 bort_str, errstr
   character*8 nemo
 
   logical expand
-
-  common /quiet/ iprt
 
   ! Reset pointer table and string cache.
 
@@ -334,12 +332,12 @@ subroutine tabsub(lun,nemo)
   use moda_nmikrp
   use moda_nrv203
   use moda_bitmaps
+  use moda_tabccc
 
   implicit none
 
   integer, intent(in) :: lun
-  integer jmp0(10), nodl(10), ntag(10,2), icdw, icsc, icrv, incw, maxlim, node, idn, itab, nseq, limb, n, jj, iyyy, &
-    irep, iknt, jum0, iokoper
+  integer jmp0(10), nodl(10), ntag(10,2), maxlim, node, idn, itab, nseq, limb, n, jj, iyyy, irep, iknt, jum0, iokoper
 
   character*128 bort_str
   character*8, intent(in) :: nemo
@@ -347,8 +345,6 @@ subroutine tabsub(lun,nemo)
   character*1 tab
 
   logical drop(10), ltamc
-
-  common /tabccc/ icdw, icsc, icrv, incw
 
   data maxlim /10/
 
@@ -584,19 +580,18 @@ subroutine tabent(lun,nemo,tab,itab,irep,iknt,jum0)
 
   use moda_tables
   use moda_nrv203
+  use moda_tabccc
 
   implicit none
 
   integer, intent(in) :: lun, itab, irep, iknt, jum0
-  integer icdw, icsc, icrv, incw, i, jm0, node, iscl, iref, ibit
+  integer i, jm0, node, iscl, iref, ibit
 
   character*24 unit
   character*10 rtag
   character*8, intent(in) :: nemo
   character, intent(in) :: tab
   character*3 typt
-
-  common /tabccc/ icdw, icsc, icrv, incw
 
   jm0 = jum0
 
@@ -1185,17 +1180,16 @@ end subroutine gettagpr
 !> @author Woollen @date 1994-01-06
 integer function invtag(node,lun,inv1,inv2) result(iret)
 
+  use modv_vars, only: iprt
+
   use moda_usrint
   use moda_tables
 
   implicit none
 
   integer, intent(in) :: node, lun, inv1, inv2
-  integer iprt
 
   character*10 tagn
-
-  common /quiet/ iprt
 
   if(node/=0) then
     tagn = tag(node)
@@ -1233,16 +1227,16 @@ end function invtag
 !> @author Woollen @date 1994-01-06
 integer function invwin(node,lun,inv1,inv2) result(iret)
 
+  use modv_vars, only: iprt
+
   use moda_usrint
 
   implicit none
 
   integer, intent(in) :: node, lun, inv1, inv2
-  integer iprt, idx
+  integer idx
 
   character*80 errstr
-
-  common /quiet/ iprt
 
   iret = 0
   if(node/=0) then
@@ -1435,15 +1429,16 @@ end subroutine conwin
 !> @author Woollen @date 1994-01-06
 integer function invcon(nc,lun,inv1,inv2) result(iret)
 
+  use modv_vars, only: iprt
+
   use moda_usrint
 
   implicit none
 
   integer, intent(in) :: nc, lun, inv1, inv2
-  integer nnod, ncon, nods, nodc, ivls, kons, iprt
+  integer nnod, ncon, nods, nodc, ivls, kons
 
   common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
-  common /quiet/ iprt
 
   if(inv1>0 .and. inv1<=nval(lun) .and. inv2>0 .and. inv2<=nval(lun)) then
     do iret=inv1,inv2
@@ -1583,17 +1578,17 @@ end subroutine nxtwin
 !> @author Woollen @date 1994-01-06
 integer function nvnwin(node,lun,inv1,inv2,invn,nmax) result(iret)
 
+  use modv_vars, only: iprt
+
   use moda_usrint
 
   implicit none
 
   integer, intent(in) :: node, lun, inv1, inv2, nmax
   integer, intent(out) :: invn(*)
-  integer iprt, i, n
+  integer i, n
 
   character*128 bort_str
-
-  common /quiet/ iprt
 
   iret = 0
 
