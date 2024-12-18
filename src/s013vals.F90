@@ -1263,7 +1263,7 @@ end subroutine minimg
 !> @author Woollen @date 2000-09-19
 subroutine cktaba(lun,subset,jdate,iret)
 
-  use modv_vars, only: iprt
+  use modv_vars, only: iprt, fxy_sbyct
 
   use moda_msgcwd
   use moda_sc3bfr
@@ -1275,8 +1275,8 @@ subroutine cktaba(lun,subset,jdate,iret)
   integer, intent(in) :: lun
   integer, intent(out) :: jdate, iret
   integer, parameter :: ncpfx = 3
-  integer ibct, ipd1, ipd2, ipd3, ipd4, mtyp, msbt, mty1, msb1, isub, ksub, len0, len1, len2, len3, l4, l5, lundx, ii, &
-    itab, inod, iad3, iad4, iyr, imo, idy, ihr, iupb, iupbs01, iupbs3, i4dy, igetdate
+  integer mtyp, msbt, mty1, msb1, isub, ksub, len0, len1, len2, len3, l4, l5, lundx, ii, &
+    itab, inod, iad3, iad4, iyr, imo, idy, ihr, iupb, ifxy, iupbs01, iupbs3, i4dy, igetdate
 
   character*128 bort_str, errstr
   character*8, intent(out) :: subset
@@ -1284,8 +1284,6 @@ subroutine cktaba(lun,subset,jdate,iret)
   character tab
 
   logical trybt
-
-  common /padesc/ ibct, ipd1, ipd2, ipd3, ipd4
 
   iret = 0
 
@@ -1361,7 +1359,7 @@ subroutine cktaba(lun,subset,jdate,iret)
         write(subset,'(A2,2I3.3)') cpfx(ii),mtyp,msbt
         call nemtbax(lun,subset,mty1,msb1,inod)
         if(inod>0) then
-          if(ksub==ibct) then
+          if(ksub==ifxy(fxy_sbyct)) then
             mbyt(lun) = (iad4+4)
             msgunp(lun) = 0
           else

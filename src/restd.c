@@ -114,7 +114,7 @@ restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
                 restd(lun, desc, &ncdesc, cdesc);
 
                 if ( ( *nctddesc > 0 ) &&
-                     ( ctddesc[(*nctddesc)-1] >  ifxy_f(MIN_FXY_REPL) ) &&
+                     ( ctddesc[(*nctddesc)-1] >  ifxy_f(FXY_MINR) ) &&
                      ( ctddesc[(*nctddesc)-1] <= ifxy_f("101255") ) ) {
                     /*
                     **  desc is replicated using fixed replication, so write
@@ -128,7 +128,7 @@ restd(int lun, int tddesc, int *nctddesc, int *ctddesc)
                     ctddesc[(*nctddesc)-1] = ifxy_f(adn);
                 }
                 else if ( ( *nctddesc > 1 ) &&
-                          ( ctddesc[(*nctddesc)-2] == ifxy_f(MIN_FXY_REPL) ) ) {
+                          ( ctddesc[(*nctddesc)-2] == ifxy_f(FXY_MINR) ) ) {
                     /*
                     **  desc is replicated using delayed replication, so write
                     **  the number of child descriptors into the X value of

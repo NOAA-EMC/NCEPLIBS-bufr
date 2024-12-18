@@ -28,14 +28,13 @@ subroutine bfrini
 
   implicit none
 
-  integer ndndx(10), nldxa(10), nldxb(10), nldxd(10), nld30(10), ibct, ipd1, ipd2, ipd3, ipd4, nrpl, nmrg, namb, ntot, &
+  integer ndndx(10), nldxa(10), nldxb(10), nldxd(10), nld30(10), nrpl, nmrg, namb, ntot, &
     maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, i, j, i1, ifxy
 
   character*240 cmtdir
   character*56 dxstr
   character*6 dndx(25,10)
 
-  common /padesc/ ibct, ipd1, ipd2, ipd3, ipd4
   common /dxtab/ maxdx, idxv, nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
   common /mrgcom/ nrpl,nmrg,namb,ntot
 
@@ -58,14 +57,6 @@ subroutine bfrini
   ! Initialize module @ref moda_bitbuf
 
   maxbyt = min(10000,mxmsgl)
-
-  ! Initialize common /padesc/
-
-  ibct = ifxy('063000')
-  ipd1 = ifxy('102000')
-  ipd2 = ifxy('031001')
-  ipd3 = ifxy('206001')
-  ipd4 = ifxy('063255')
 
   ! Initialize module @ref moda_stbfr
 

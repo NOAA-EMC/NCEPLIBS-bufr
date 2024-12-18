@@ -57,7 +57,7 @@ nummtb(int *idn, char *tab, int *ipt)
 
     char adn[FXY_STR_LEN+1], errstr[129];
 
-    if ( *idn >= ifxy_f(MIN_FXY_TABLED) ) {
+    if ( *idn >= ifxy_f(FXY_MINTD) ) {
         *tab = 'D';
         pifxyn = &idfxyn_c[0];
         nmt = nmtd_c;
@@ -425,14 +425,14 @@ stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncd
                              "DESCRIPTOR REPLICATION FACTOR FOR %s", adn);
                     bort_f(errstr);
                 }
-                else if ( cdesc[i+1] == ifxy_f("031002") ) {
-                    pkint = ifxy_f("360001");
+                else if ( cdesc[i+1] == ifxy_f(FXY_DRF16) ) {
+                    pkint = ifxy_f(FXY_DRP16);
                 }
-                else if ( cdesc[i+1] == ifxy_f("031001") ) {
-                    pkint = ifxy_f("360002");
+                else if ( cdesc[i+1] == ifxy_f(FXY_DRF8) ) {
+                    pkint = ifxy_f(FXY_DRP8);
                 }
-                else if ( cdesc[i+1] == ifxy_f("031000") ) {
-                    pkint = ifxy_f("360004");
+                else if ( cdesc[i+1] == ifxy_f(FXY_DRF1) ) {
+                    pkint = ifxy_f(FXY_DRP1);
                 }
                 else {
                     sprintf(errstr, "BUFRLIB: STSEQ - UNKNOWN DELAYED "
@@ -442,7 +442,7 @@ stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncd
                 i += 2;
             }
             else {  /* regular replication */
-                pkint = ifxy_f(MIN_FXY_REPL) + iy;
+                pkint = ifxy_f(FXY_MINR) + iy;
                 i++;
             }
             /*
@@ -466,7 +466,7 @@ stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncd
                          "DESCRIPTORS TO COMPLETE REPLICATION FOR %s", adn);
                 bort_f(errstr);
             }
-            else if ( ( ix == 1 ) && ( cdesc[i] >= ifxy_f(MIN_FXY_TABLED) ) ) {
+            else if ( ( ix == 1 ) && ( cdesc[i] >= ifxy_f(FXY_MINTD) ) ) {
                 /*
                 **  The only thing being replicated is a single Table D descriptor,
                 **  so there's no need to invent a new sequence for this replication
@@ -556,8 +556,8 @@ stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncd
             **  Note that associated fields are only applied to Table B descriptors,
             **  except for those in Class 31.
             */
-            if ( ( naf > 0 ) && ( pkint <= ifxy_f(MAX_FXY_TABLEB) ) &&
-                    ( ( pkint < ifxy_f("031000") ) ||
+            if ( ( naf > 0 ) && ( pkint <= ifxy_f(FXY_MAXTB) ) &&
+                    ( ( pkint < ifxy_f(FXY_DRF1) ) ||
                       ( pkint > ifxy_f("031255") ) )  ) {
                 for ( j = 0; j < naf; j++ ) {
                     pktdd_f(nd, lun, iafpk[j], &iret);

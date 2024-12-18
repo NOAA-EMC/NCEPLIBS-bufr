@@ -1,6 +1,5 @@
 /** @file
- *  @brief Enable a number of NCEPLIBS-bufr subprograms to be called from within
- *  the C part of the library.
+ *  @brief Enable a number of NCEPLIBS-bufr subprograms to be called from within the C part of the library.
  *
  *  This header file defines signatures which wrap a number of native Fortran subprograms
  *  in the library.  It also contains prototypes for native C functions in the library as
@@ -35,13 +34,31 @@ void stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, in
 #define FXY_STR_LEN 6
 
 /** Character string containing minimum FXY value for a replication descriptor. */
-#define MIN_FXY_REPL "101000"
+#define FXY_MINR "@fxy_minr@"
 
 /** Character string containing minimum FXY value for a Table D descriptor. */
-#define MIN_FXY_TABLED "300000"
+#define FXY_MINTD "@fxy_mintd@"
 
 /** Character string containing maximum FXY value for a Table B descriptor. */
-#define MAX_FXY_TABLEB "063255"
+#define FXY_MAXTB "@fxy_fbit@"
+
+/** Character string containing FXY value for NCEP Table D local descriptor denoting 16-bit delayed replication of a sequence using ( ) notation. */
+#define FXY_DRP16 "@fxy_drp16@"
+
+/** Character string containing FXY value for NCEP Table D local descriptor denoting 8-bit delayed replication of a sequence using { } notation. */
+#define FXY_DRP8 "@fxy_drp8@"
+
+/** Character string containing FXY value for NCEP Table D local descriptor denoting 1-bit delayed replication of a sequence using < > notation. */
+#define FXY_DRP1 "@fxy_drp1@"
+
+/** Character string containing FXY value for long (16-bit) delayed replication factor. */
+#define FXY_DRF16 "@fxy_drf16@"
+
+/** Character string containing FXY value for medium (8-bit) delayed replication factor. */
+#define FXY_DRF8 "@fxy_drf8@"
+
+/** Character string containing FXY value for short (1-bit) delayed replication factor. */
+#define FXY_DRF1 "@fxy_drf1@"
 
 /** Size of a character string needed to store a mnemonic. */
 #define NEMO_STR_LEN 8

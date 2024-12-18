@@ -604,25 +604,23 @@ end subroutine elemdx
 !> @author Woollen @date 1994-01-06
 subroutine dxinit(lun,ioi)
 
-  use modv_vars, only: idnr
+  use modv_vars, only: idnr, fxy_fbit, fxy_sbyct, fxy_drf16, fxy_drf8, fxy_drf1
 
   use moda_tababd
 
   implicit none
 
   integer, intent(in) :: lun, ioi
-  integer ibct, ipd1, ipd2, ipd3, ipd4, ninib, ninid, n, i, iret, ifxy
+  integer ninib, ninid, n, i, iret, ifxy
 
   character*8 inib(6,5),inid(5)
   character*6 adn30
 
-  common /padesc/ ibct, ipd1, ipd2, ipd3, ipd4
-
-  data inib  /'------','BYTCNT  ','BYTES  ','+0','+0','16', &
-              '------','BITPAD  ','NONE   ','+0','+0','1 ', &
-              '031000','DRF1BIT ','NUMERIC','+0','+0','1 ', &
-              '031001','DRF8BIT ','NUMERIC','+0','+0','8 ', &
-              '031002','DRF16BIT','NUMERIC','+0','+0','16'/
+  data inib  / '------','BYTCNT  ','BYTES  ','+0','+0','16', &
+               '------','BITPAD  ','NONE   ','+0','+0','1 ', &
+               fxy_drf1,'DRF1BIT ','NUMERIC','+0','+0','1 ', &
+               fxy_drf8,'DRF8BIT ','NUMERIC','+0','+0','8 ', &
+              fxy_drf16,'DRF16BIT','NUMERIC','+0','+0','16'/
   data ninib /5/
 
   data inid  /'        ', &
@@ -653,8 +651,8 @@ subroutine dxinit(lun,ioi)
 
   ! Initialize table with apriori Table B and D entries
 
-  inib(1,1) = adn30(ibct,6)
-  inib(1,2) = adn30(ipd4,6)
+  inib(1,1) = fxy_sbyct
+  inib(1,2) = fxy_fbit
 
   do i=1,ninib
     ntbb(lun) = ntbb(lun)+1
