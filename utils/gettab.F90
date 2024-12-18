@@ -12,6 +12,10 @@
 !> @author Woollen @date 2000-01-01
 program gettab
 
+#ifdef NAGFOR
+  use f90_unix_proc, only: exit
+#endif
+
   implicit none
 
   character(len=255) :: file        !> name of filename to read

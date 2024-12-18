@@ -17,6 +17,10 @@
 !-----------------------------------------------------------------------
       PROGRAM READBP
 
+#ifdef NAGFOR
+  use f90_unix_proc, only: exit
+#endif
+
       character(120) ::  FILE
       character(50)  ::  optarg
       character(40)  ::  HSTR,OSTR,QSTR

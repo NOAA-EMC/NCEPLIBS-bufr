@@ -10,6 +10,10 @@
 !> @author J Woollen @date 1997
 PROGRAM CMPBQM
 
+#ifdef NAGFOR
+  use f90_unix_proc, only: exit
+#endif
+
   CHARACTER*255 FILE
   CHARACTER*50 HEADR,OBSTR,QMSTR
   CHARACTER*20 VARS(7)

@@ -566,7 +566,7 @@ subroutine sntbbe ( ifxyn, line, mxmtbb, nmtbb, imfxyn, cmscl, cmsref, cmbw, cmu
   implicit none
 
   integer, intent(in) :: ifxyn, mxmtbb
-  integer, intent(out) :: nmtbb, imfxyn(*)
+  integer, intent(inout) :: nmtbb, imfxyn(*)
   integer ntag, ii, nemock
 
   character, intent(out) :: cmelem(120,*), cmunit(24,*), cmsref(12,*), cmmnem(8,*), cmscl(4,*), cmbw(4,*), cmdsc(*)*4
@@ -710,7 +710,8 @@ subroutine sntbde ( lunt, ifxyn, line, mxmtbd, mxelem, nmtbd, imfxyn, cmmnem, cm
   implicit none
 
   integer, intent(in) :: lunt, ifxyn, mxmtbd, mxelem
-  integer, intent(out) :: nmtbd, imfxyn(*), nmelem(*), iefxyn(mxmtbd,mxelem)
+  integer, intent(out) :: imfxyn(*), nmelem(*), iefxyn(mxmtbd,mxelem)
+  integer, intent(inout) :: nmtbd
   integer ii, ipt, ntag, nelem, nemock, ifxy, igetfxy, igetntbl
 
   character*(*), intent(in) :: line

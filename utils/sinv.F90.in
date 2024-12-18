@@ -12,6 +12,10 @@
 !> @author J Woollen @date 2010
 program sinv
 
+#ifdef NAGFOR
+  use f90_unix_proc, only: exit
+#endif
+
   parameter (maxa=16000000)
   parameter (maxs=1000)
 

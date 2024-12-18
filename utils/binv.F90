@@ -10,6 +10,10 @@
 !> @author J Woollen @date 1994
 PROGRAM BINV
 
+#ifdef NAGFOR
+  use f90_unix_proc, only: exit
+#endif
+
   PARAMETER (MAXSUB=100)
 
   CHARACTER*255 FILE

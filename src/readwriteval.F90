@@ -650,9 +650,8 @@ recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
   character*(*), intent(in) :: str
   character*128 bort_str1, bort_str2, errstr
 
-  real*8, intent(inout) :: usr(i1,i2)
-
   integer, intent(in) :: lunin, i1, i2
+  real*8, intent(inout) :: usr(i1,i2)
   integer, intent(out) :: iret
   integer nnod, ncon, nods, nodc, ivls, kons, ifirst1, ifirst2, my_lunin, my_i1, my_i2, lunit, lun, il, im, io
 
@@ -883,9 +882,8 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
   character*(*), intent(in) :: str
   character*128 bort_str1, bort_str2, errstr
 
-  real*8, intent(inout) :: usr(i1,i2)
-
   integer, intent(in) :: lunin, i1, i2
+  real*8, intent(inout) :: usr(i1,i2)
   integer, intent(out) :: iret
   integer ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, iac_prev
 
@@ -1088,9 +1086,8 @@ recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
   character*(*), intent(in) :: str
   character*128 bort_str1, bort_str2, errstr
 
-  real*8, intent(inout) :: usr(i1,i2)
-
   integer, intent(in) :: lunin, i1, i2
+  real*8, intent(inout) :: usr(i1,i2)
   integer, intent(out) :: iret
   integer ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io
 

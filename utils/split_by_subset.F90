@@ -14,6 +14,10 @@
 
 program split_by_subset
 
+#ifdef NAGFOR
+  use f90_unix_proc, only: exit
+#endif
+
   implicit none
 
   integer, parameter :: maxsub = 100

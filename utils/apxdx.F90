@@ -21,6 +21,10 @@
 !> @author J. Ator @date 2009-07-01
 program apxdx
 
+#ifdef NAGFOR
+  use f90_unix_proc, only: exit
+#endif
+
   implicit none
 
   character*240 cdxtbl, cbffil

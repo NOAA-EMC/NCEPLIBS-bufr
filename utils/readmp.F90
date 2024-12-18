@@ -12,6 +12,10 @@
 !> @author J. Woollen @date 2002-02-24
   program readmp
 
+#ifdef NAGFOR
+  use f90_unix_proc, only: exit
+#endif
+
   implicit none
 
   character(255)     :: file        !> name of filename to read
