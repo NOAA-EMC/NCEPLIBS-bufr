@@ -39,11 +39,11 @@ program split_by_subset
         call openbf(lunit,'IN',lunit)
      else
         write(6,'(a)') 'File ' // trim(adjustl(finput)) // ' does not exist'
-        call exit(1)
+        stop 1
      endif
   else
      write(6,'(a)') 'Usage: split_by_subset <bufrfile> will split a BUFR file into subsets'
-     call exit(2)
+     stop 2
   endif
 
   !> initialize counters
@@ -114,4 +114,3 @@ program split_by_subset
 
   stop
 end program split_by_subset
-

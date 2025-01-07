@@ -8,21 +8,21 @@
 !> @return 0 for success, error message otherwise.
 !>
 !> @author J Woollen @date 1997
-PROGRAM CMPBQM
+program cmpbqm
 
-  CHARACTER*255 FILE
-  CHARACTER*50 HEADR,OBSTR,QMSTR
-  CHARACTER*20 VARS(7)
-  CHARACTER*8  SUBSET,DATE
-  DIMENSION    KNT(300,7,0:17),HDR(5),OBS(8,255),QMS(8,255)
-  LOGICAL      exist
-  REAL*8       HDR,OBS,QMS
+  character*255 file
+  character*50 headr,obstr,qmstr
+  character*20 vars(7)
+  character*8  subset,date
+  dimension    knt(300,7,0:17),hdr(5),obs(8,255),qms(8,255)
+  logical      exist
+  real*8       hdr,obs,qms
 
-  DATA HEADR /'SID XOB YOB DHR TYP              '/
-  DATA OBSTR /'POB QOB TOB ZOB UOB PWO RHO VOB  '/
-  DATA QMSTR /'PQM QQM TQM ZQM WQM PWQ RHQ      '/
+  data headr /'SID XOB YOB DHR TYP              '/
+  data obstr /'POB QOB TOB ZOB UOB PWO RHO VOB  '/
+  data qmstr /'PQM QQM TQM ZQM WQM PWQ RHQ      '/
 
-  DATA VARS   /'PRESSURE        ',&
+  data vars   /'PRESSURE        ',&
        'SPECIFIC HUMIDTY',&
        'TEMPERATURE     ',&
        'HEIGHT          ',&
@@ -30,99 +30,98 @@ PROGRAM CMPBQM
        'PRECIPITABLE H2O',&
        'RELATIVE HUMIDTY'/
 
-  DATA LUBFR /8    /
-  DATA VMAX  /10E10/
+  data lubfr /8    /
+  data vmax  /10E10/
 
   !-----------------------------------------------------------------------
   !-----------------------------------------------------------------------
 
-  IREC = 0
-  KNT = 0
+  irec = 0
+  knt = 0
 
-  !  OPEN A FILE - GET A DATE
+  !  Open a file - get a date
   !  ------------------------
 
   call get_command_argument(1,file); file=trim(adjustl(file))
   if (file == '') then
      print *, 'Usage: Usage: cmpbqm <prepbufrfile> will print prep inventory by variable, report type, and qc mark'
-     call exit(2)
+     stop 2
   endif
   inquire(file=file,exist=exist)
   if (.not.exist) then
      print *, trim(file)//' does not exist'
-     call exit(3)
+     stop 3
   endif
 
   open(lubfr,file=file,form='unformatted')
-  CALL OPENBF(LUBFR,'IN',LUBFR)
-  CALL READMG(LUBFR,SUBSET,IDATE,IRET)
-  IF(IRET/=0) GOTO 900
-  WRITE(DATE,'(I8)') IDATE
-  DO I=1,8
-     IF(DATE(I:I)==' ') DATE(I:I) = '0'
-  ENDDO
-  PRINT'(''DATA  VALID AT  '',A8)',DATE
+  call openbf(lubfr,'IN',lubfr)
+  call readmg(lubfr,subset,idate,iret)
+  if(iret/=0) call bort('CMPBQM - ERROR READING BUFR FILE ')
+  write(date,'(i8)') idate
+  do i=1,8
+     if(date(i:i)==' ') date(i:i) = '0'
+  enddo
+  print'(''DATA  VALID AT  '',A8)',date
 
-  !  READ THRU THE PREPDA RECORDS
+  !  Read thru the prepda records
   !  ----------------------------
 
-10 CALL READSB(LUBFR,IRET)
-  IF(IRET/=0) THEN
-     CALL READMG(LUBFR,SUBSET,IDATE,IRET)
-     IF(IRET/=0) GOTO 100
-     CALL UFBCNT(LUBFR,IREC,ISUB)
-     GOTO 10
-  ENDIF
-  QMS = 10E10
-  CALL UFBINT(LUBFR,HDR,5,1,IRET,HEADR)
-  CALL UFBINT(LUBFR,OBS,8,255,NLEV,OBSTR)
-  CALL UFBINT(LUBFR,QMS,8,255,NLEV,QMSTR)
+10 call readsb(lubfr,iret)
+  if(iret/=0) then
+     call readmg(lubfr,subset,idate,iret)
+     if(iret/=0) goto 100
+     call ufbcnt(lubfr,irec,isub)
+     goto 10
+  endif
+  qms = 10E10
+  call ufbint(lubfr,hdr,5,1,iret,headr)
+  call ufbint(lubfr,obs,8,255,nlev,obstr)
+  call ufbint(lubfr,qms,8,255,nlev,qmstr)
 
-  KX = NINT(HDR(5))
+  kx = nint(hdr(5))
 
-  DO L=1,NLEV
-     DO K=1,7
-        IQ = -1
-        IF(K==5) OBS(5,L) = MAX(OBS(5,L),OBS(8,L))
-        IF(OBS(K,L)<VMAX .AND. QMS(K,L)<VMAX) THEN
-           IQ = NINT(QMS(K,L))
-        ELSEIF(OBS(K,L)<VMAX .AND. QMS(K,L)>=VMAX) THEN
-           IQ = 16
-        ELSEIF(OBS(K,L)>=VMAX .AND. QMS(K,L)<VMAX) THEN
-           IQ = 17
-        ENDIF
-        IF(IQ>=0) KNT(KX,K,IQ) = KNT(KX,K,IQ)+1
-     ENDDO
-  ENDDO
+  do l=1,nlev
+     do k=1,7
+        iq = -1
+        if(k==5) obs(5,l) = max(obs(5,l),obs(8,l))
+        if(obs(k,l)<vmax .and. qms(k,l)<vmax) then
+           iq = nint(qms(k,l))
+        elseif(obs(k,l)<vmax .and. qms(k,l)>=vmax) then
+           iq = 16
+        elseif(obs(k,l)>=vmax .and. qms(k,l)<vmax) then
+           iq = 17
+        endif
+        if(iq>=0) knt(kx,k,iq) = knt(kx,k,iq)+1
+     enddo
+  enddo
 
-  GOTO 10
+  goto 10
 
-  !  FINISH UP
+  !  Finish up
   !  ---------
 
-100 DO K=1,7
-     PRINT*,VARS(K)
-     PRINT*
-     DO KX=1,300
-        ITOT = 0; igood=0; ifail=0
-        DO IQ=0,17
-           ITOT = ITOT+KNT(KX,K,IQ)
+100 do k=1,7
+     print*,vars(k)
+     print*
+     do kx=1,300
+        itot = 0; igood=0; ifail=0
+        do iq=0,17
+           itot = itot+knt(kx,k,iq)
            if(iq<=3) then
-              igood=igood+KNT(KX,K,IQ)
+              igood=igood+knt(kx,k,iq)
            elseif(iq<=7) then
-              ifail=ifail+KNT(KX,K,IQ)
+              ifail=ifail+knt(kx,k,iq)
            endif
-        ENDDO
-        IF(ITOT>0) PRINT 101,KX,ITOT,igood,ifail,(KNT(KX,K,IQ),IQ=8,17)
-101     FORMAT(I3,I6,2('|', I6),&
-             2('|', I6),&
-             1('|',6I6),&
-             2('|', I6))
-     ENDDO
-     PRINT*
-  ENDDO
+        enddo
+        if(itot>0) print 101,kx,itot,igood,ifail,(knt(kx,k,iq),iq=8,17)
+101     format(i3,i6,2('|', i6),&
+             2('|', i6),&
+             1('|',6i6),&
+             2('|', i6))
+     enddo
+     print*
+  enddo
 
-  PRINT*,'******CMPBQM PROCESSED ',IREC,' BUFR RECORDS******'
-  STOP
-900 CALL BORT('CMPBQM - ERROR READING BUFR FILE ')
-END PROGRAM CMPBQM
+  print*,'******CMPBQM PROCESSED ',IREC,' BUFR RECORDS******'
+  stop
+end program cmpbqm

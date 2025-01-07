@@ -38,7 +38,7 @@ program sinv
   narg=command_argument_count()
   if(narg<1) then
      write(*,*)'Usage: sinv satbufrfile <tabledir> will print inventory of satbufrfile by platform and instrument'
-     call exit(2)
+     stop 2
   endif
   call get_command_argument(1,file)
   file = trim(adjustl(file))
@@ -101,10 +101,6 @@ program sinv
   write(*,'(/23x,i10/)') jsat
 
 end program sinv
-!> @file
-!> @brief Looks in the BUFR tables to get meaning strings for satellite platform and instrument codes
-!>
-!> @author J Woollen @date 2010
 
 !> This subroutine looks in the master BUFR tables for meaning strings associated with specified
 !> code figures for the satellite platform and instrument.

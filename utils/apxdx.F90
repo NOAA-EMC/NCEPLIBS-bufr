@@ -34,19 +34,19 @@ program apxdx
   narg = command_argument_count()
   if ( narg /= 2 ) then
     print *,'Usage: apxdx BUFRfile DXtable'
-    call exit(1)
+    stop 1
   endif
   call get_command_argument( 1, cbffil )
   inquire ( file = cbffil, exist = exists )
   if ( .not. exists ) then
     print *,'Specified BUFR file ' // trim(cbffil) // ' does not exist'
-    call exit(2)
+    stop 2
   endif
   call get_command_argument( 2, cdxtbl )
   inquire ( file = cdxtbl, exist = exists )
   if ( .not. exists ) then
     print *,'Specified DX table ' // trim(cdxtbl) // ' does not exist'
-    call exit(3)
+    stop 3
   endif
 
   ! Read the user DX table into the NCEPLIBS-bufr library.

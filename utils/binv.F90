@@ -8,18 +8,18 @@
 !> @return 0 for success, error message otherwise.
 !>
 !> @author J Woollen @date 1994
-PROGRAM BINV
+program binv
 
-  PARAMETER (MAXSUB=100)
+  parameter (maxsub=100)
 
-  CHARACTER*255 FILE
-  CHARACTER*8   SUBSET
-  CHARACTER*8   SUB(MAXSUB)
+  character*255 file
+  character*8   subset
+  character*8   sub(maxsub)
   integer*8     ninv(3,maxsub)
   real*8        xsub, xmsg
   logical       exist
 
-  DATA LUNBF  /20/
+  data lunbf  /20/
 
   !-----------------------------------------------------------------------
   nmbyt(lunit)= iupvs01(lunit,'LENM')
@@ -30,61 +30,61 @@ PROGRAM BINV
   narg=command_argument_count()
   if(narg/=1) then
      print *,'Usage: binv <bufrfile> will print bufrfile inventory by message type'
-     call exit(2)
+     stop 2
   endif
 
   call get_command_argument(1,file)
-  file = TRIM(file)//CHAR(0)
+  file = trim(file)//char(0)
   inquire(file=file,exist=exist)
   if (.not.exist) then
      print *,trim(file)//' does not exist'
-     call exit(3)
+     stop 3
   endif
   open(lunbf,file=file,form='unformatted')
 
-  NINV = 0
-  NSUB = 0
+  ninv = 0
+  nsub = 0
 
 
-  !  COMPUTE AN MESSAGE INVENTORY BY SUBSETS
-  !  ---------------------------------------
+  !  Compute a message inventory by subsets
+  !  --------------------------------------
 
-  CALL OPENBF(LUNBF,'IN',LUNBF)
-  DO WHILE(IREADMG(LUNBF,SUBSET,IDATE)==0)
-     ISUB = 0
-     DO I=1,NSUB
-        IF(SUBSET==SUB(I)) ISUB = I
-     ENDDO
-     IF(ISUB==0) THEN
-        IF(NSUB+1>MAXSUB) CALL BORT('NSUB TOO BIG')
-        SUB(NSUB+1) = SUBSET
-        NSUB = NSUB+1
-        ISUB = NSUB
-     ENDIF
-     NINV(1,ISUB) = NINV(1,ISUB)+1
-     NINV(2,ISUB) = NINV(2,ISUB)+NMSUB(LUNBF)
-     NINV(3,ISUB) = NINV(3,ISUB)+NMBYT(LUNBF)
-  ENDDO
+  call openbf(lunbf,'IN',lunbf)
+  do while(ireadmg(lunbf,subset,idate)==0)
+     isub = 0
+     do i=1,nsub
+        if(subset==sub(i)) isub = i
+     enddo
+     if(isub==0) then
+        if(nsub+1>maxsub) call bort('NSUB TOO BIG')
+        sub(nsub+1) = subset
+        nsub = nsub+1
+        isub = nsub
+     endif
+     ninv(1,isub) = ninv(1,isub)+1
+     ninv(2,isub) = ninv(2,isub)+nmsub(lunbf)
+     ninv(3,isub) = ninv(3,isub)+nmbyt(lunbf)
+  enddo
 
-  !  PRINT THE INVENTORY
+  !  Print the inventory
   !  -------------------
 
   print*
   print'(a4,6x,2(a10,4x),a11)','type','messages','subsets','bytes'
   print*
-  DO J=1,NSUB
+  do j=1,nsub
      xmsg = ninv(1,j)
      xsub = ninv(2,j)
      print'(a8,2x,2(i10,4x),i11,4x,f8.2)',sub(j),(ninv(i,j),i=1,3),xsub/xmsg
-     IF(J>1) THEN
-        NINV(1,1) = NINV(1,1)+NINV(1,J)
-        NINV(2,1) = NINV(2,1)+NINV(2,J)
-        NINV(3,1) = NINV(3,1)+NINV(3,J)
-     ENDIF
-  ENDDO
+     if(j>1) then
+        ninv(1,1) = ninv(1,1)+ninv(1,j)
+        ninv(2,1) = ninv(2,1)+ninv(2,j)
+        ninv(3,1) = ninv(3,1)+ninv(3,j)
+     endif
+  enddo
 
   print'(a8,2x,2(i10,4x),i11,4x)','TOTAL   ',(ninv(i,1),i=1,3)
   print*
 
-  STOP
-END PROGRAM BINV
+  stop
+end program binv
