@@ -903,3 +903,19 @@ module moda_tablef
   !> - 'Y' = Yes
   character :: cdmf = 'N'
 end module moda_tablef
+
+!> Declare variables for use when merging parts of different data subsets.
+!>
+!> Data values within this module are stored by subroutine invmrg().
+!>
+!> @author J. Ator @date 2025-01-06
+module moda_mrgcom
+  !> Number of expansions of Table D mnemonics using short (1-bit) delayed replication.
+  integer :: nrpl = 0
+  !> Number of merges.
+  integer :: nmrg = 0
+  !> Number of potential merges that weren't made because of ambiguities.
+  integer :: namb = 0
+  !> Total number of calls to subroutine invmrg().
+  integer :: ntot = 0
+end module moda_mrgcom

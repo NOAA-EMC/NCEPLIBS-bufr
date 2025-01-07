@@ -959,12 +959,12 @@ recursive subroutine maxout(maxo)
   implicit none
 
   integer, intent(in) :: maxo
-  integer my_maxo, newsiz, maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30
+  integer my_maxo, newsiz, nxstr, ldxa, ldxb, ldxd, ld30
 
   character*128 errstr
   character*56 dxstr
 
-  common /dxtab/ maxdx,idxv,nxstr(10),ldxa(10),ldxb(10),ldxd(10),ld30(10),dxstr(10)
+  common /dxtab/ nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
 
   ! Check for I8 integers
 
@@ -996,7 +996,6 @@ recursive subroutine maxout(maxo)
   endif
 
   maxbyt = newsiz
-  maxdx  = newsiz
 
   return
 end subroutine maxout

@@ -355,6 +355,12 @@ module modv_vars
   !> application program.
   integer :: mtv = 36
 
+  !> Local table version number to be encoded in output BUFR messages.
+  !> This variable is initialized to a default value which can be
+  !> overridden by a subsequent call to subroutine pkvs01() within the
+  !> application program.
+  integer :: idxv = 1
+
   !> Number of bytes in Section 0 of a BUFR message.
   integer, parameter :: nby0 = 8
 

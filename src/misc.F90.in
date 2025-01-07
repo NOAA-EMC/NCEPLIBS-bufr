@@ -28,15 +28,14 @@ subroutine bfrini
 
   implicit none
 
-  integer ndndx(10), nldxa(10), nldxb(10), nldxd(10), nld30(10), nrpl, nmrg, namb, ntot, &
-    maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, i, j, i1, ifxy
+  integer ndndx(10), nldxa(10), nldxb(10), nldxd(10), nld30(10), nxstr, ldxa, ldxb, ldxd, ld30, &
+    i, j, i1, ifxy
 
   character*240 cmtdir
   character*56 dxstr
   character*6 dndx(25,10)
 
-  common /dxtab/ maxdx, idxv, nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
-  common /mrgcom/ nrpl,nmrg,namb,ntot
+  common /dxtab/ nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
 
   data (dndx(i,1),i=1,25)/ &
     '102000','031001','000001','000002', &
@@ -100,10 +99,6 @@ subroutine bfrini
 
   ! Initialize common /dxtab/
 
-  maxdx = maxbyt
-  ! idxv is the version number of the local tables
-  idxv = 1
-
   do j=1,10
     ldxa(j) = nldxa(j)
     ldxb(j) = nldxb(j)
@@ -122,13 +117,6 @@ subroutine bfrini
   do i=1,nfiles
     msglen(i) = 0
   enddo
-
-  ! Initialize common /mrgcom/
-
-  nrpl = 0
-  nmrg = 0
-  namb = 0
-  ntot = 0
 
   ! Initialize module @ref moda_bufrsr
 
@@ -502,13 +490,11 @@ subroutine mrginv
 
   use modv_vars, only: iprt
 
+  use moda_mrgcom
+
   implicit none
 
-  integer nrpl, nmrg, namb, ntot
-
   character*128 errstr
-
-  common /mrgcom/ nrpl, nmrg, namb, ntot
 
   if(iprt>=0) then
     call errwrt('+++++++++++++++++++++BUFRLIB+++++++++++++++++++++++')
