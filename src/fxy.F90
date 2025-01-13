@@ -288,6 +288,8 @@ end function numbck
 !> @author J. Woollen @date 2002-05-14
 subroutine numtbd(lun,idn,nemo,tab,iret)
 
+  use modv_vars, only: fxy_mintd
+
   use moda_tababd
 
   implicit none
@@ -303,7 +305,7 @@ subroutine numtbd(lun,idn,nemo,tab,iret)
   iret = 0
   tab = ' '
 
-  if(idn>=ifxy('300000')) then
+  if(idn>=ifxy(fxy_mintd)) then
     ! Look for idn in Table D
     do i=1,ntbd(lun)
       if(idn==idnd(i,lun)) then

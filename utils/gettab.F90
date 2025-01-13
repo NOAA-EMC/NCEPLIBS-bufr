@@ -23,12 +23,12 @@ program gettab
   call get_command_argument(1,file); file=trim(adjustl(file))
   if (file == '') then
     print *,'Usage: gettab <bufrfile> will print the internal BUFR table'
-    call exit(2)
+    stop 2
   else
     inquire(file=file,exist=exist)
     if (.not.exist) then
       print *,trim(file)//' does not exist'
-      call exit(3)
+      stop 3
     endif
   endif
 
@@ -42,4 +42,3 @@ program gettab
 
   stop
 end program gettab
-

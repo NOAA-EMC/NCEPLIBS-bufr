@@ -583,7 +583,8 @@ end subroutine ufdump
 !> @author J. Ator @date 2004-08-18
 recursive subroutine dxdump(lunit,ldxot)
 
-  use modv_vars, only: im8b, reps
+  use modv_vars, only: im8b, reps, fxy_fbit, fxy_sbyct, fxy_drp16, fxy_drp8, fxy_drp8s, fxy_drp1, &
+    fxy_drf16, fxy_drf8, fxy_drf1
 
   use moda_tababd
   use moda_nmikrp
@@ -603,8 +604,8 @@ recursive subroutine dxdump(lunit,ldxot)
   data cardi4  /'|------------------------------------------------------------------------------|'/
 
   ! Statement functions
-  tbskip(adn) = ((adn=='063000').or.(adn=='063255').or.(adn=='031000').or.(adn=='031001').or.(adn=='031002'))
-  tdskip(adn) = ((adn=='360001').or.(adn=='360002').or.(adn=='360003').or.(adn=='360004'))
+  tbskip(adn) = ((adn==fxy_sbyct).or.(adn==fxy_fbit).or.(adn==fxy_drf16).or.(adn==fxy_drf8).or.(adn==fxy_drf1))
+  tdskip(adn) = ((adn==fxy_drp16).or.(adn==fxy_drp8).or.(adn==fxy_drp8s).or.(adn==fxy_drp1))
 
   ! Check for I8 integers.
 

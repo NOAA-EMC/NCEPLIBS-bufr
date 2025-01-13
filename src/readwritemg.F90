@@ -766,7 +766,7 @@ end subroutine msgwrt
 !> @author Woollen @date 1994-01-06
 subroutine msgini(lun)
 
-  use modv_vars, only: mtv, nby0, nby1, nby2, nby3, nby5, bmostr, bmcstr
+  use modv_vars, only: mtv, nby0, nby1, nby2, nby3, nby5, bmostr, bmcstr, fxy_fbit, fxy_sbyct, fxy_drf8
 
   use moda_msgcwd
   use moda_ufbcpl
@@ -776,14 +776,11 @@ subroutine msgini(lun)
   implicit none
 
   integer, intent(in) :: lun
-  integer ibct, ipd1, ipd2, ipd3, ipd4, nby4, nbyt, mtyp, msbt, inod, isub, iret, &
-    mcen, mear, mmon, mday, mour, mmin, mbit
+  integer nby4, nbyt, mtyp, msbt, inod, isub, iret, mcen, mear, mmon, mday, mour, mmin, mbit, ifxy
 
   character*128 bort_str
   character*8 subtag
   character tab
-
-  common /padesc/ ibct,ipd1,ipd2,ipd3,ipd4
 
   ! Get the message tag and type, and break up the date
 
@@ -851,12 +848,12 @@ subroutine msgini(lun)
   call pkb(   0 ,  8 , mbay(1,lun),mbit)
   call pkb(   0 , 16 , mbay(1,lun),mbit)
   call pkb(2**7 ,  8 , mbay(1,lun),mbit)
-  call pkb(ibct , 16 , mbay(1,lun),mbit)
+  call pkb(ifxy(fxy_sbyct), 16, mbay(1,lun),mbit)
   call pkb(isub , 16 , mbay(1,lun),mbit)
-  call pkb(ipd1 , 16 , mbay(1,lun),mbit)
-  call pkb(ipd2 , 16 , mbay(1,lun),mbit)
-  call pkb(ipd3 , 16 , mbay(1,lun),mbit)
-  call pkb(ipd4 , 16 , mbay(1,lun),mbit)
+  call pkb(ifxy('102000') , 16, mbay(1,lun),mbit)
+  call pkb(ifxy(fxy_drf8) , 16, mbay(1,lun),mbit)
+  call pkb(ifxy('206001') , 16, mbay(1,lun),mbit)
+  call pkb(ifxy(fxy_fbit), 16, mbay(1,lun),mbit)
   call pkb(   0 ,  8 , mbay(1,lun),mbit)
 
   ! Section 4
@@ -962,12 +959,12 @@ recursive subroutine maxout(maxo)
   implicit none
 
   integer, intent(in) :: maxo
-  integer my_maxo, newsiz, maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30
+  integer my_maxo, newsiz, nxstr, ldxa, ldxb, ldxd, ld30
 
   character*128 errstr
   character*56 dxstr
 
-  common /dxtab/ maxdx,idxv,nxstr(10),ldxa(10),ldxb(10),ldxd(10),ld30(10),dxstr(10)
+  common /dxtab/ nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
 
   ! Check for I8 integers
 
@@ -999,7 +996,6 @@ recursive subroutine maxout(maxo)
   endif
 
   maxbyt = newsiz
-  maxdx  = newsiz
 
   return
 end subroutine maxout

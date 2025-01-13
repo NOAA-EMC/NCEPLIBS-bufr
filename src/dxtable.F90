@@ -604,25 +604,23 @@ end subroutine elemdx
 !> @author Woollen @date 1994-01-06
 subroutine dxinit(lun,ioi)
 
-  use modv_vars, only: idnr
+  use modv_vars, only: idnr, fxy_fbit, fxy_sbyct, fxy_drf16, fxy_drf8, fxy_drf1
 
   use moda_tababd
 
   implicit none
 
   integer, intent(in) :: lun, ioi
-  integer ibct, ipd1, ipd2, ipd3, ipd4, ninib, ninid, n, i, iret, ifxy
+  integer ninib, ninid, n, i, iret, ifxy
 
   character*8 inib(6,5),inid(5)
   character*6 adn30
 
-  common /padesc/ ibct, ipd1, ipd2, ipd3, ipd4
-
-  data inib  /'------','BYTCNT  ','BYTES  ','+0','+0','16', &
-              '------','BITPAD  ','NONE   ','+0','+0','1 ', &
-              '031000','DRF1BIT ','NUMERIC','+0','+0','1 ', &
-              '031001','DRF8BIT ','NUMERIC','+0','+0','8 ', &
-              '031002','DRF16BIT','NUMERIC','+0','+0','16'/
+  data inib  / '------','BYTCNT  ','BYTES  ','+0','+0','16', &
+               '------','BITPAD  ','NONE   ','+0','+0','1 ', &
+               fxy_drf1,'DRF1BIT ','NUMERIC','+0','+0','1 ', &
+               fxy_drf8,'DRF8BIT ','NUMERIC','+0','+0','8 ', &
+              fxy_drf16,'DRF16BIT','NUMERIC','+0','+0','16'/
   data ninib /5/
 
   data inid  /'        ', &
@@ -653,8 +651,8 @@ subroutine dxinit(lun,ioi)
 
   ! Initialize table with apriori Table B and D entries
 
-  inib(1,1) = adn30(ibct,6)
-  inib(1,2) = adn30(ipd4,6)
+  inib(1,1) = fxy_sbyct
+  inib(1,2) = fxy_fbit
 
   do i=1,ninib
     ntbb(lun) = ntbb(lun)+1
@@ -693,18 +691,18 @@ end subroutine dxinit
 !> @author Woollen @date 1994-01-06
 subroutine dxmini(mbay,mbyt,mb4,mba,mbb,mbd)
 
-  use modv_vars, only: mxmsgld4, mtv, nby0, nby1, nby2, nby5, bmostr
+  use modv_vars, only: mxmsgld4, mtv, nby0, nby1, nby2, nby5, bmostr, idxv
 
   implicit none
 
   integer, intent(out) :: mbay(*), mbyt, mb4, mba, mbb, mbd
-  integer maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, mtyp, msbt, mbit, ih, id, im, iy, i, nsub, idxs, ldxs, &
+  integer nxstr, ldxa, ldxb, ldxd, ld30, mtyp, msbt, mbit, ih, id, im, iy, i, nsub, idxs, ldxs, &
     len3, nby4, iupm
 
   character*128 bort_str
   character*56 dxstr
 
-  common /dxtab/ maxdx, idxv, nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
+  common /dxtab/ nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
 
   msbt = idxv
 
@@ -840,18 +838,19 @@ end subroutine writdx
 !> @author J. Ator @date 2009-03-23
 recursive subroutine wrdxtb(lundx,lunot)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, idxv
 
   use moda_tababd
   use moda_mgwa
+  use moda_bitbuf, only: maxbyt
 
   implicit none
 
   integer, intent(in) :: lundx, lunot
-  integer maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, my_lundx, my_lunot, ldx, lot, il, im, lda, ldb, ldd, l30, nseq, &
+  integer nxstr, ldxa, ldxb, ldxd, ld30, my_lundx, my_lunot, ldx, lot, il, im, lda, ldb, ldd, l30, nseq, &
     mbit, mbyt, mby4, mbya, mbyb, mbyd, i, j, jj, idn, lend, len0, len1, len2, l3, l4, l5, iupb, iupm
 
-  common /dxtab/ maxdx, idxv, nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
+  common /dxtab/ nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
 
   character*56 dxstr
   character*6 adn30
@@ -896,7 +895,7 @@ recursive subroutine wrdxtb(lundx,lunot)
   ! Table A information
 
   do i=1,ntba(lot)
-    if(msgfull(mbyt,lda,maxdx).or.(iupb(mgwa,mbya,8)==255)) then
+    if(msgfull(mbyt,lda,maxbyt).or.(iupb(mgwa,mbya,8)==255)) then
       call msgwrt(lunot,mgwa,mbyt)
       call dxmini(mgwa,mbyt,mby4,mbya,mbyb,mbyd)
     endif
@@ -916,7 +915,7 @@ recursive subroutine wrdxtb(lundx,lunot)
   ! Table B information
 
   do i=1,ntbb(lot)
-    if(msgfull(mbyt,ldb,maxdx).or.(iupb(mgwa,mbyb,8)==255)) then
+    if(msgfull(mbyt,ldb,maxbyt).or.(iupb(mgwa,mbyb,8)==255)) then
       call msgwrt(lunot,mgwa,mbyt)
       call dxmini(mgwa,mbyt,mby4,mbya,mbyb,mbyd)
     endif
@@ -936,7 +935,7 @@ recursive subroutine wrdxtb(lundx,lunot)
   do i=1,ntbd(lot)
     nseq = iupm(tabd(i,lot)(ldd+1:ldd+1),8)
     lend = ldd+1 + l30*nseq
-    if(msgfull(mbyt,lend,maxdx).or.(iupb(mgwa,mbyd,8)==255)) then
+    if(msgfull(mbyt,lend,maxbyt).or.(iupb(mgwa,mbyd,8)==255)) then
       call msgwrt(lunot,mgwa,mbyt)
       call dxmini(mgwa,mbyt,mby4,mbya,mbyb,mbyd)
     endif
@@ -980,14 +979,14 @@ end subroutine wrdxtb
 !> @author J. Ator @date 2009-03-23
 subroutine stbfdx(lun,mesg)
 
-  use modv_vars, only: maxcd
+  use modv_vars, only: maxcd, idxv
 
   use moda_tababd
 
   implicit none
 
   integer, intent(in) :: lun, mesg(*)
-  integer maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, ldxbd(10), ldxbe(10), ja, jb, idxs, i3, i, j, n, nd, ndd, idn, &
+  integer nxstr, ldxa, ldxb, ldxd, ld30, ldxbd(10), ldxbe(10), ja, jb, idxs, i3, i, j, n, nd, ndd, idn, &
     jbit, len0, len1, len2, len3, l4, l5, lda, ldb, ldd, ldbd, ldbe, l30, ia, la, ib, lb, id, ld, iret, &
     ifxy, iupb, iupbs01, igetntbi, idn30
 
@@ -1000,7 +999,7 @@ subroutine stbfdx(lun,mesg)
   character*8 nemo
   character*6 numb, cidn
 
-  common /dxtab/ maxdx, idxv, nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
+  common /dxtab/ nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
 
   data ldxbd /38, 70, 8*0/
   data ldxbe /42, 42, 8*0/
@@ -1656,7 +1655,7 @@ end subroutine stntbi
 !> @author Woollen @date 1994-01-06
 subroutine pktdd(id,lun,idn,iret)
 
-  use modv_vars, only: maxcd, iprt
+  use modv_vars, only: maxcd, iprt, idxv
 
   use moda_tababd
 
@@ -1664,12 +1663,12 @@ subroutine pktdd(id,lun,idn,iret)
 
   integer, intent(in) :: id, lun, idn
   integer, intent(out) :: iret
-  integer maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, ldd, nd, idm, iupm
+  integer nxstr, ldxa, ldxb, ldxd, ld30, ldd, nd, idm, iupm
 
   character*128 errstr
   character*56 dxstr
 
-  common /dxtab/ maxdx, idxv, nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
+  common /dxtab/ nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
 
   ! ldd points to the byte within tabd(id,lun) which contains (in packed integer format) a count of the number of child
   ! mnemonics stored thus far for this parent mnemonic.
@@ -1730,18 +1729,20 @@ end subroutine pktdd
 !> @author J. Woollen @date 1994-01-06
 subroutine uptdd(id,lun,ient,iret)
 
+  use modv_vars, only: idxv
+
   use moda_tababd
 
   implicit none
 
   integer, intent(in) :: id, lun, ient
   integer, intent(out) :: iret
-  integer maxdx, idxv, nxstr, ldxa, ldxb, ldxd, ld30, ldd, ndsc, idsc, iupm
+  integer nxstr, ldxa, ldxb, ldxd, ld30, ldd, ndsc, idsc, iupm
 
   character*128 bort_str
   character*56 dxstr
 
-  common /dxtab/ maxdx, idxv, nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
+  common /dxtab/ nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
 
   ! Check if ient is in bounds
 

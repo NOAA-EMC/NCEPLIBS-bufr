@@ -86,23 +86,63 @@ module modv_vars
   !> in YYYYMMDDHH (4-digit year) format.
   integer :: lendat = 8
 
+  !> Opening string of a BUFR message.
+  character*4, parameter :: bmostr = 'BUFR'
+
+  !> Closing string of a BUFR message.
+  character*4, parameter :: bmcstr = '7777'
+
+  !> Minimum FXY value for a Table D descriptor.
+  character*6, parameter :: fxy_mintd = '300000'
+
+  !> Minimum FXY value for a replication descriptor.
+  character*6, parameter :: fxy_minr = '101000'
+
+  !> FXY value for NCEP Table B local descriptor containing a subset byte count.
+  character*6, parameter :: fxy_sbyct = '063000'
+
+  !> FXY value for NCEP Table B local descriptor containing a fill bit.
+  !> This is also the maximum FXY value for a Table B descriptor.
+  character*6, parameter :: fxy_fbit = '063255'
+
+  !> FXY value for short (1-bit) delayed replication factor.
+  character*6, parameter :: fxy_drf1 = '031000'
+
+  !> FXY value for medium (8-bit) delayed replication factor.
+  character*6, parameter :: fxy_drf8 = '031001'
+
+  !> FXY value for long (16-bit) delayed replication factor.
+  character*6, parameter :: fxy_drf16 = '031002'
+
+  !> FXY value for NCEP Table D local descriptor denoting 1-bit delayed replication of a sequence using < > notation.
+  character*6, parameter :: fxy_drp1 = '360004'
+
+  !> FXY value for NCEP Table D local descriptor denoting 8-bit delayed replication of a sequence using { } notation.
+  character*6, parameter :: fxy_drp8 = '360002'
+
+  !> FXY value for NCEP Table D local descriptor denoting 8-bit delayed replication of a sequence using [ ] notation.
+  character*6, parameter :: fxy_drp8s = '360003'
+
+  !> FXY value for NCEP Table D local descriptor denoting 16-bit delayed replication of a sequence using ( ) notation.
+  character*6, parameter :: fxy_drp16 = '360001'
+
   !> Replication indicators used in DX BUFR tables.
-  character, parameter :: reps(10) =    (/     '"',     '(',     '{',     '[',     '<', &
-                                               '"',     ')',     '}',     ']',     '>'/)
+  character, parameter :: reps(10) =    (/      '"',       '(',      '{',       '[',      '<', &
+                                                '"',       ')',      '}',       ']',      '>'/)
 
   !> Replication tags corresponding to reps.
-  character*3, parameter :: typs(10) =  (/   'REP',   'DRP',   'DRP',   'DRS',   'DRB', &
-                                             'SEQ',   'RPC',   'RPC',   'RPS',   'SEQ'/)
+  character*3, parameter :: typs(10) =  (/    'REP',     'DRP',    'DRP',     'DRS',    'DRB', &
+                                              'SEQ',     'RPC',    'RPC',     'RPS',    'SEQ'/)
 
   !> FXY values corresponding to reps.
-  character*6, parameter :: adsn(10) =  (/'101000','360001','360002','360003','360004', &
-                                          '101255','031002','031001','031001','031000'/)
+  character*6, parameter :: adsn(10) =  (/ fxy_minr, fxy_drp16, fxy_drp8, fxy_drp8s, fxy_drp1, &
+                                           '101255', fxy_drf16, fxy_drf8, fxy_drf8 , fxy_drf1/)
 
   !> WMO bit-wise representations of FXY values corresponding to reps.
   integer :: idnr(10)
 
   !> Lengths of delayed replication factors corresponding to each type of replication in reps.
-  integer, parameter :: lens(5) =       (/       0,      16,       8,       8,       1/)
+  integer, parameter :: lens(5) =       (/        0,        16,        8,         8,        1/)
 
   !> Maximum number of child descriptors that can be included within
   !> the sequence definition of a Table D descriptor, not counting the
@@ -315,6 +355,12 @@ module modv_vars
   !> application program.
   integer :: mtv = 36
 
+  !> Local table version number to be encoded in output BUFR messages.
+  !> This variable is initialized to a default value which can be
+  !> overridden by a subsequent call to subroutine pkvs01() within the
+  !> application program.
+  integer :: idxv = 1
+
   !> Number of bytes in Section 0 of a BUFR message.
   integer, parameter :: nby0 = 8
 
@@ -329,12 +375,6 @@ module modv_vars
 
   !> Number of bytes in Section 5 of a BUFR message.
   integer, parameter :: nby5 = 4
-
-  !> Opening string of a BUFR message.
-  character*4, parameter :: bmostr = 'BUFR'
-
-  !> Closing string of a BUFR message.
-  character*4, parameter :: bmcstr = '7777'
 
   !> Master table for the last BUFR message that was read from a logical unit where
   !> Section 3 decoding is being used.

@@ -13,13 +13,13 @@
 !> @author J. Woollen @date 1994-01-06
 
 !-----------------------------------------------------------------------
-! READ AND DISPLAY AN ON29BUFR FILE ONE REPORT AT A TIME
+! Read and display an on29bufr file one report at a time
 !-----------------------------------------------------------------------
-      PROGRAM READBP
+program readbp
 
-      character(120) ::  FILE
+      character(120) ::  file
       character(50)  ::  optarg
-      character(40)  ::  HSTR,OSTR,QSTR
+      character(40)  ::  hstr,ostr,qstr
       character(10)  ::  val
       character(8)   ::  sid,sta,subset,msg,cmc(17)
       character(3)   ::  vars(8)
@@ -27,20 +27,20 @@
       real(8)        ::  hdr(10),obs(10,255),qms(10,255),qmc(17),xob,yob
       logical        ::  window,steam,level,dump,hedr,exist
 
-      EQUIVALENCE    (HDR(1),SID)
-      EQUIVALENCE    (qmc,cmc)
+      equivalence    (hdr(1),sid)
+      equivalence    (qmc,cmc)
 
-      DATA HSTR/'SID XOB YOB DHR ELV T29 ITP TYP SRC PRG '/
-      DATA OSTR/'CAT POB QOB TOB ZOB UOB VOB PSL         '/
-      DATA QSTR/'PQM QQM TQM ZQM WQM PSQ                 '/
+      data hstr/'SID XOB YOB DHR ELV T29 ITP TYP SRC PRG '/
+      data ostr/'CAT POB QOB TOB ZOB UOB VOB PSL         '/
+      data qstr/'PQM QQM TQM ZQM WQM PSQ                 '/
 
-      DATA VARS/'LVL','CAT','POB','SPH','TOB','ZOB','UOB','VOB'/
-      DATA CMC /'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','*'/
+      data vars/'LVL','CAT','POB','SPH','TOB','ZOB','UOB','VOB'/
+      data cmc /'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','*'/
 
-      DATA LUBFR  /8    /
-      DATA STA    /'   '/
+      data lubfr  /8    /
+      data sta    /'   '/
       data msg    /'   '/
-      DATA POB    /0/
+      data pob    /0/
       data irt    /0/
       data itp    /0/
       data ikx    /0/
@@ -56,7 +56,7 @@
 !  check for filename argument
 
       narg=command_argument_count()
-1     if(narg<1) THEN
+1     if(narg<1) then
         call printx('                                                                                                        ')
         call printx('Usage: readbp <-s> <-w> <m> <-k> <-r> <-d> <-n> <-h>  prep bufrfile                                     ')
         call printx('                                                                                                        ')
@@ -77,8 +77,8 @@
         call printx('                                                                                                        ')
         call printx('Optional arguments will be applied in concert in most cases                                             ')
         call printx('                                                                                                        ')
-        call exit(2)
-      ENDIF
+        stop 2
+      endif
 
       iarg=1
       do while(iarg<=narg)
@@ -113,7 +113,7 @@
       iarg=iarg+1
       enddo
 
-! check if file exists, then open it, else exit
+! if file exists then open it, else stop
 
       narg=0
       if(file=='nofile') goto 1
@@ -121,7 +121,7 @@
       inquire(file=file,exist=exist)
       if (.not.exist) then
          print *, trim(file)//' does not exist'
-         call exit(3)
+         stop 3
       endif
 
 !  open the bufr input file
@@ -131,95 +131,92 @@
       call openbf(lubfr,'IN',lubfr)
       call datelen(10)
 
-!  READ A SUBSET - READ ANOTHER MESSAGE WHEN NO MORE SUBSETS
+!  Read a subset - read another message when no more subsets
 !  ---------------------------------------------------------
 
       do while(ireadmg(lubfr,subset,idate)==0)
       do while(ireadsb(lubfr)==0)
       call ufbcnt(lubfr,irec,isub)
 
-      IF(msg/=' ' .and. msg/=subset) exit
+      IF(msg/=' ' .and. msg/=subset) stop
 
       if(dump) then
          call ufdump(lubfr,6)
          goto 99
       endif
 
-!  MOVE SUBSET CONTENTS INTO THIS PROGRAM
+!  Move subset contents into this program
 !  --------------------------------------
 
-      CALL UFBINT(LUBFR,HDR,10,  1,IRET,HSTR)
+      call ufbint(lubfr,hdr,10,  1,iret,hstr)
       xob = hdr(2)
       yob = hdr(3)
       jrt = nint(hdr(6))
       jtp = nint(hdr(7))
       jkx = nint(hdr(8))
-      IF(STA/=' ' .AND. STA/=SID(1:nsta)) cycle
-      IF(irt/=0   .and. irt/=jrt) cycle
-      IF(itp/=0   .and. itp/=jtp) cycle
-      IF(ikx/=0   .and. ikx/=jkx) cycle
+      if(sta/=' ' .and. sta/=sid(1:nsta)) cycle
+      if(irt/=0   .and. irt/=jrt) cycle
+      if(itp/=0   .and. itp/=jtp) cycle
+      if(ikx/=0   .and. ikx/=jkx) cycle
       if(window) then
          if(.not.(xob>=x1 .and. xob<=x2))cycle
          if(.not.(yob>=y1 .and. yob<=y2))cycle
       endif
 
-      CALL UFBINT(LUBFR,OBS,10,255,NLEV,OSTR)
-      CALL UFBINT(LUBFR,QMS,10,255,NLEQ,QSTR)
-      IF(NLEV/=NLEQ) STOP 'NLEV<>NLEQ'
+      call ufbint(lubfr,obs,10,255,nlev,ostr)
+      call ufbint(lubfr,qms,10,255,nleq,qstr)
+      if(nlev/=nleq) stop 'NLEV<>NLEQ'
 
-!  MOVE CAT 8 DATA TO PRINT RANGE
+!  Move cat 8 data to print range
 !  ------------------------------
-      DO L=1,NLEV
-      IF(OBS(1,L)==8) THEN
-         OBS(2,L) = OBS(9,L)
-         OBS(3,L) = OBS(10,L)
-      ENDIF
-      ENDDO
+      do l=1,nlev
+        if(obs(1,l)==8) then
+          obs(2,l) = obs(9,l)
+          obs(3,l) = obs(10,l)
+        endif
+      enddo
 
-!  PRINT A REPORT 20 LINES AT A TIME
+!  Print a report 20 lines at a time
 !  ---------------------------------
 
       if(hedr) then
-      print'(a8,1x,a8,7(f8.2,1x))',subset,(hdr(i),i=1,8)
-      if(steam) cycle
-      goto 99
-
+        print'(a8,1x,a8,7(f8.2,1x))',subset,(hdr(i),i=1,8)
+        if(steam) cycle
+        goto 99
       else
-
-      print'(80(''-''))'
-      PRINT'(''MESSAGE: '',A8,2(2X,I4),i12 )' , SUBSET,IREC,ISUB,idate
-      PRINT'(''STATION: '',A8,1X,2(F8.2,1X))' , (HDR(I),I= 1,3)
-      PRINT'(''TIME:    '',I10,2x,F8.2     )' , IDATE,HDR(4)
-      PRINT'(''ELV:     '',F8.2            )' , (HDR(5)       )
-      PRINT'(''TYPE:    '',3(F8.0,1X)      )' , (HDR(I),I= 6,8)
-      PRINT'(''DATA:    ''                 )'
-
+        print'(80(''-''))'
+        print'(''MESSAGE: '',a8,2(2x,i4),i12 )' , subset,irec,isub,idate
+        print'(''STATION: '',a8,1x,2(f8.2,1X))' , (hdr(i),i= 1,3)
+        print'(''TIME:    '',i10,2x,f8.2     )' , idate,hdr(4)
+        print'(''ELV:     '',f8.2            )' , (hdr(5)       )
+        print'(''TYPE:    '',3(f8.0,1x)      )' , (hdr(i),i= 6,8)
+        print'(''DATA:    ''                 )'
       endif
 
       do l=1,nlev
-      do i=1,7
-      iqm = nint(qms(i,l))
-      if(iqm<0)iqm=10e8
-      iqm = min(iqm,16)
-      qms(i,l) = qmc(iqm+1)
-      enddo
+        do i=1,7
+          iqm = nint(qms(i,l))
+          if(iqm<0)iqm=10e8
+          iqm = min(iqm,16)
+          qms(i,l) = qmc(iqm+1)
+        enddo
       enddo
 
-      NLNE = 7
-      PRINT'(2(1X,A3),6(8X,A3))',VARS
-      DO 12 L=1,NLEV
-      NLNE = NLNE+1
-      PRINT 11, L,NINT(OBS(1,L)),(OBS(I,L),QMS(MIN(I-1,5),L),I=2,7)
-11    FORMAT(2I4,6(1X,F7.1,'(',A1,')'))
-12    ENDDO
-      PRINT'(80(''-''))'
+      nlne = 7
+      print'(2(1x,a3),6(8x,a3))',vars
+      do l=1,nlev
+        nlne = nlne+1
+        print 11, l,nint(obs(1,l)),(obs(i,l),qms(min(i-1,5),l),i=2,7)
+11      format(2i4,6(1x,f7.1,'(',a1,')'))
+      enddo
+      print'(80(''-''))'
       if(steam) cycle
 
-!  GO TO READ THE NEXT SUBSET IF NO 'Q' YOU
-!  ----------------------------------------
+!  Go to read the next subset if no 'Q'
+!  ------------------------------------
 
-99    READ(5,'(a)',iostat=iostat) optarg
-      IF(optarg(1:1)=='q') then
+99    read(5,'(a)',iostat=iostat) optarg
+      if(optarg(1:1)=='q') then
          stop
       elseif(optarg(1:1)=='s') then
          read(optarg(2:50),*) sta
@@ -242,23 +239,22 @@
       enddo  ! end of subset  loop
       enddo  ! end of message loop
 
-!  HERE WHEN ALL MESSAGES HAVE BEEN READ
+!  Here when all messages have been read
 !  -------------------------------------
 
-      STOP
-      END program
+      stop
+end program readbp
 
-      !> Print long lines to stdout using advance=no format clause.
-      !>
-      !> @param str String to print.
-      !>
-      !> @author J. Woollen @date 1994-01-06
-      subroutine printx(str)
-      character(*) :: str
-      lens=len(str)
-      do i=1,lens-1
-      write(*,'(a1)',advance="no")str(i:i)
-      enddo
-      write(*,'(a1)')str(lens:lens)
-      end subroutine
-
+!> Print long lines to stdout using advance=no format clause.
+!>
+!> @param str String to print.
+!>
+!> @author J. Woollen @date 1994-01-06
+subroutine printx(str)
+  character(*) :: str
+  lens=len(str)
+  do i=1,lens-1
+    write(*,'(a1)',advance="no")str(i:i)
+  enddo
+  write(*,'(a1)')str(lens:lens)
+end subroutine

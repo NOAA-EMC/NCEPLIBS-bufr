@@ -21,7 +21,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/misc.F90.in ${CMAKE_CURRENT_BINARY_DI
 list(APPEND fortran_src ${CMAKE_CURRENT_BINARY_DIR}/misc.F90)
 
 # Create the bufrlib.h file
-foreach(_var IN ITEMS bmostr bmcstr)
+foreach(_var IN ITEMS bmostr bmcstr fxy_fbit fxy_mintd fxy_minr fxy_drp16 fxy_drp8 fxy_drp1 fxy_drf16 fxy_drf8 fxy_drf1)
   file(STRINGS modules_vars.F90 _${_var}_tempstr REGEX "character.*${_var}")
   if(_${_var}_tempstr MATCHES "= '([A-Z0-9]+)")
     set(${_var} ${CMAKE_MATCH_1})

@@ -1479,18 +1479,17 @@ recursive subroutine invmrg(lubfi,lubfj)
 
   use moda_usrint
   use moda_tables
+  use moda_mrgcom
 
   implicit none
 
   integer, intent(in) :: lubfi, lubfj
-  integer nrpl, nmrg, namb, ntot, my_lubfi, my_lubfj, luni, il, im, lunj, jl, jm, is, js, node, nodj, ityp, iwrds, jwrds, &
+  integer my_lubfi, my_lubfj, luni, il, im, lunj, jl, jm, is, js, node, nodj, ityp, iwrds, jwrds, &
     n, ioff, nwords, ibfms
 
   character*128 bort_str
 
   logical herei, herej, missi, missj, samei
-
-  common /mrgcom/ nrpl, nmrg, namb, ntot
 
   ! Check for I8 integers
 

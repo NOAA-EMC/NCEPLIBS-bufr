@@ -26,12 +26,12 @@
   call get_command_argument(1,file); file=trim(adjustl(file))
   if (file == '') then
      print *, 'Usage: readmp <bufrfile> will print reports one at a time'
-     call exit(2)
+     stop 2
   endif
   inquire(file=file,exist=exist)
   if (.not.exist) then
      print *,trim(file)//' does not exist'
-     call exit(3)
+     stop 3
   endif
   call get_command_argument(2,go); go=trim(adjustl(go)) ! this for testing
   open(lunit,file=file,form='unformatted')

@@ -68,6 +68,7 @@ recursive integer function icbfms ( str, lstr ) result ( iret )
 
   integer, intent(in) :: lstr
   integer my_lstr, numchr, ii, iupm
+  integer*8 il8z
 
   equivalence(strz,rl8z)
 
@@ -96,7 +97,7 @@ recursive integer function icbfms ( str, lstr ) result ( iret )
     do ii = 1, numchr
       strz(ii:ii) = str(ii:ii)
     end do
-    write (zz,'(z16.16)') rl8z
+    write (zz,'(z16.16)') transfer(rl8z,il8z)
     ii = 2*(8-numchr)+1
     if ( zz(ii:16)==zm_be(ii:16) .or. zz(ii:16)==zm_le(ii:16) ) then
       iret = 1
