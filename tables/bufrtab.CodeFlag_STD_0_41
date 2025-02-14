@@ -1,7 +1,7 @@
 Table F STD |  0 | 41
 #
 # Standard BUFR Table CODE/FLAG, Master Table 0, Version 41
-# This file was generated: 2023/11/30 16:42:09
+# This file was generated: 2025/02/14 14:50:57
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -640,7 +640,7 @@ Table F STD |  0 | 41
               | 71 > | Hurricane Weather Research and Forecasting (HWRF) Model
               | 72 > | Hurricane Non-Hydrostatic Multiscale Model on the B Grid (HNMMB)
               | 73 > | Fog Forecast model - Ocean Products Center
-              | 74 > | Gulf of Mexico Wind/Wave
+              | 74 > | Gulf of America Wind/Wave
               | 75 > | Gulf of Alaska Wind/Wave
               | 76 > | Bias-corrected Medium Range Forecast
               | 77 > | 126 wave triangular, 28 layer Spectral model from GFS model
@@ -2366,7 +2366,7 @@ Table F STD |  0 | 41
               | 616 > | NOAA Imaging multi-spectral radiometer (vis/IR) VIIRS (Visible/infrared imager radiometer suite)
               | 617 > | NOAA Imaging multi-spectral radiometer ABI (Advanced baseline imager)
               | 618 > | NOAA High-resolution optical imager GLM (Geostationary lightning mapper)
-              | 620 > | NOAA Atmospheric temperature and humidity sounder CrIRS/NP (Cross track infrared sounder/NPOESS)
+              | 620 > | NOAA Atmospheric temperature and humidity sounder CrIS/NP (Cross track infrared sounder/NPOESS)
               | 621 > | NOAA Atmospheric temperature and humidity sounder ATMS (Advanced technology microwave sounder)
               | 622 > | NOAA Radiometer MSS (Multispectral scanning system)
               | 623 > | NOAA Radiometer MSU (Microwave sounding unit)
@@ -8066,8 +8066,8 @@ Table F STD |  0 | 41
               | 23   | Payload rear orientation
 
   0-33-095 | MWITF ; FLAG
-              | 1 > | PRTs or THMs temperatures are missing or with anomalous readings
-              | 2 > | PRTs temperatures of OBCT used in the radiometric calibrations are missing or with anomalous readings
+              | 1 > | PRT or THM temperatures are missing or with anomalous readings
+              | 2 > | PRT temperatures of OBCT used in the radiometric calibrations are missing or with anomalous readings
               | 3 > | THMs temperatures of SVR used in the radiometric calibrations are missing or with anomalous readings
               | 4 > | THMs temperatures of main reflector are missing or with anomalous readings
               | 5 > | THMs temperatures of the racetrack are missing or with anomalous readings
@@ -8085,7 +8085,7 @@ Table F STD |  0 | 41
               | 9 > | Cold space view radiance averaged value over scans is degraded due to missing or anomalous values (this is valid for the low-reference calibration load when the back-up calibration is applied for channels MWI-1 to MWI-3)
               | 10 > | Non-linearity parameter computed using noise diodes is missing (meaningful only for channels MWI-1 to MWI-3)
               | 11 > | Non-linearity parameter computed using noise diodes is degraded (meaningful only for channels MWI-1 to MWI-3)
-              | 12 > | PRTs or THMs temperatures of current scan are missing or with anomalous readings
+              | 12 > | PRT or THM temperatures of current scan are missing or with anomalous readings
               | 13 > | Moon intrusion in cold space degraded calibration (less than Nvalid_c valid samples are not affected by Moon for the considered channel and scan)
               | 14 > | Back-up calibration with noise diodes performed (meaningful only for MWI-1 to MWI-3)
               | 15   | Degraded receiver temperatures lead to degraded calibration
@@ -8115,7 +8115,7 @@ Table F STD |  0 | 41
   0-33-099 | MWINSF ; FLAG
               | 1 > | Geolocation of channel is erroneous or degraded
               | 2 > | Time sequence error
-              | 3 > | Missing or corrupted NAVATT file lead to the use of predicted orbit files
+              | 3 > | Missing or corrupted NAVATT file led to the use of predicted orbit files
               | 4 > | NAVATT attitude data is degraded
               | 5 > | Time correlation error (missing IERS bulletin)
               | 6 > | Invalid ephemeris or attitude data
@@ -8130,7 +8130,7 @@ Table F STD |  0 | 41
               | 15   | Predicted orbit file not available
 
   0-33-100 | ICITF ; FLAG
-              | 1 > | PRTs or THMs temperatures are missing or with anomalous readings
+              | 1 > | PRT or THM temperatures are missing or with anomalous readings
               | 2 > | PRT temperatures of OBCT used in the radiometric calibrations are missing or with anomalous readings
               | 3 > | PRT temperatures of SVR used in the radiometric calibrations are missing or with anomalous readings
               | 4 > | PRT temperatures of IRP and sun shield are missing or with anomalous readings
@@ -8148,7 +8148,7 @@ Table F STD |  0 | 41
               | 7 > | Cold space view radiance averaged value over scans is missing
               | 8 > | OBCT view radiance averaged value over scans is degraded due to missing or anomalous values
               | 9 > | Cold space view radiance averaged value over scans is degraded due to missing or anomalous values
-              | 10 > | PRTs or THMs temperatures of current scan are missing or with anomalous readings
+              | 10 > | PRT or THM temperatures of current scan are missing or with anomalous readings
               | 11 > | Moon intrusion in cold space degraded calibration (less than Nvalid_c valid samples are not affected by Moon for the considered channel and scan)
               | 12   | Degraded or missing Back-end Temperatures lead to degraded calibration
 
@@ -8176,7 +8176,7 @@ Table F STD |  0 | 41
   0-33-104 | ICINSF ; FLAG
               | 1 > | Geolocation of channel is erroneous or degraded
               | 2 > | Time sequence error
-              | 3 > | Missing or corrupted NAVATT file lead to the use of predicted orbit files
+              | 3 > | Missing or corrupted NAVATT file led to the use of predicted orbit files
               | 4 > | NAVATT attitude data is degraded
               | 5 > | Time correlation error (missing IERS bulletin)
               | 6 > | Invalid ephemeris or attitude data
@@ -8195,7 +8195,7 @@ Table F STD |  0 | 41
               | 2 > | MR spillover correction relative to emission by instrument platform is not applied
               | 3 > | SVR spillover correction relative to emission by instrument platform is not applied
               | 4 > | SVR sidelobe correction is not applied
-              | 5 > | Full cross-polarization correction including small angles correction is applied
+              | 5 > | Full cross-polarization correction including small angle correction is applied
               | 6 > | Dynamic sidelobe correction is not applied for ICI-1
               | 7 > | Dynamic sidelobe correction is not applied for ICI-2
               | 8 > | Dynamic sidelobe correction is not applied for ICI-3
@@ -8207,7 +8207,7 @@ Table F STD |  0 | 41
               | 3 > | MR spillover correction relative to emission by instrument platform is not applied
               | 4 > | SVR spillover correction relative to emission by instrument platform is not applied
               | 5 > | SVR sidelobe correction is not applied
-              | 6 > | Full cross-polarization correction including small angles correction is applied
+              | 6 > | Full cross-polarization correction including small angle correction is applied
               | 7 > | RFI correction in the Earth view is not applied
               | 8 > | Dynamic sidelobe correction is not applied for MWI-1
               | 9 > | Dynamic sidelobe correction is not applied for MWI-2

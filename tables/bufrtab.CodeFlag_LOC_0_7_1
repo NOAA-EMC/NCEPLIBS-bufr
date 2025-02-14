@@ -1,7 +1,7 @@
 Table F LOC |  0 | 7 |  1
 #
 # Local BUFR Table CODE/FLAG, Master Table 0, Originating Center 7, Version 1
-# This file was generated: 2024/11/20 18:37:17
+# This file was generated: 2025/02/14 14:51:02
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -211,6 +211,8 @@ Table F LOC |  0 | 7 |  1
               | 133 > | Nanjing GTS1-2/GFE(L) (China)
               | 134 > | iMet-4 GPS radiosonde (USA)
               | 135 > | Meisei iMS-100 GPS radiosonde w/thermistor sensor, capacitance relative humidity sensor, and derived pressure from GPS height (Japan)
+              | 136 > | Meisei iMDS-17 GPS dropsonde w/thermistor sensor, capacitance relative humidity sensor, and capacitance pressure sensor (Japan)
+              | 138 > | WEATHEX WxR-301D with derived pressure from GPS (Republic of Korea)
               | 141 > | Vaisala RS41 with pressure derived from GPS height/DigiCORA MW41 (Finland)
               | 142 > | Vaisala RS41 with pressure derived from GPS height/AUTOSONDE (Finland)
               | 143 > | NanJing Daqiao XGP-3G (China)
@@ -226,6 +228,7 @@ Table F LOC |  0 | 7 |  1
               | 162 > | MARL-A or Vektor-M - MRZ-3MK (Russian Federation)
               | 163 > | Modem M20 radiosonde w/thermistor sensor, capacitance relative humidity sensor, and derived pressure from GPS height (France)
               | 164 > | Modem PilotSonde GPS radiosonde (France)
+              | 165 > | Meteosis MTS-01 (Turkiye)
               | 173 > | MARL-A (Russian Federation) - ASPAN-15 (Kazakhstan)
               | 177 > | Modem GPSonde M10 (France)
               | 182 > | Lockheed Martin LMS-6 w/chip thermistor, external boom mounted polymer capacitive relative humidity sensor, capacitive pressure sensor and GPS wind
@@ -235,6 +238,16 @@ Table F LOC |  0 | 7 |  1
               | 191 > | NCAR research dropsonde NRD41 with GPS and Vaisala RS41-based sensor module (United States)
               | 192 > | Vaisala/NCAR dropsonde RD94 with GPS and Vaisala RS92-based sensor module (Finland/USA)
               | 193 > | Vaisala/NCAR dropsonde RD41 with GPS and Vaisala RS41-based sensor module (Finland/USA)
+              | 200 > | Nanjing GTS11 (China)
+              | 201 > | Shanghai GTS12 (China)
+              | 202 > | Taiyuan GTS13 (China)
+              | 203 > | Shanghai GTS14 (China)
+              | 204 > | Beijing GTH1 (China)
+              | 205 > | Nanjing GTH2 (China)
+              | 206 > | Tianjin GTH3 (China)
+              | 207 > | Aerospace Newsky Technology GTH4 (China)
+              | 208 > | Taiyuan GTH5 (China)
+              | 209 > | Shanghai GTH6 (China)
            | 0-55-007=130,131,134,135,230,231,234,235
               | 97 > | Inertial navigation system
               | 98 > | OMEGA
