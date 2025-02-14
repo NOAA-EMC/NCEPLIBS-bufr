@@ -1,7 +1,7 @@
 Table F STD |  0 | 33
 #
 # Standard BUFR Table CODE/FLAG, Master Table 0, Version 33
-# This file was generated: 2021/05/11 22:56:39
+# This file was generated: 2025/02/14 14:50:44
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -584,7 +584,7 @@ Table F STD |  0 | 33
               | 71 > | Hurricane Weather Research and Forecasting (HWRF) Model
               | 72 > | Hurricane Non-Hydrostatic Multiscale Model on the B Grid (HNMMB)
               | 73 > | Fog Forecast model - Ocean Products Center
-              | 74 > | Gulf of Mexico Wind/Wave
+              | 74 > | Gulf of America Wind/Wave
               | 75 > | Gulf of Alaska Wind/Wave
               | 76 > | Bias-corrected Medium Range Forecast
               | 77 > | 126 wave triangular, 28 layer Spectral model from GFS model
@@ -2222,7 +2222,7 @@ Table F STD |  0 | 33
               | 616 > | NOAA Imaging multi-spectral radiometer (vis/IR) VIIRS (Visible/infrared imager radiometer suite)
               | 617 > | NOAA Imaging multi-spectral radiometer ABI (Advanced baseline imager)
               | 618 > | NOAA High-resolution optical imager GLM (Geostationary lightning mapper)
-              | 620 > | NOAA Atmospheric temperature and humidity sounder CrIRS/NP (Cross track infrared sounder/NPOESS)
+              | 620 > | NOAA Atmospheric temperature and humidity sounder CrIS/NP (Cross track infrared sounder/NPOESS)
               | 621 > | NOAA Atmospheric temperature and humidity sounder ATMS (Advanced technology microwave sounder)
               | 622 > | NOAA Radiometer MSS (Multispectral scanning system)
               | 623 > | NOAA Radiometer MSU (Microwave sounding unit)
