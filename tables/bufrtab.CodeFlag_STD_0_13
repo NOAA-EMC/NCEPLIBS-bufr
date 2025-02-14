@@ -566,7 +566,7 @@ Table F STD |  0 | 13
            | 0-01-031,0-01-033,0-01-035=254
               | 1 > | Quality values derived from the EUMETSAT QI (Quality Indicator) method, with the forecast consistency test
               | 2 > | Quality values derived from the EUMETSAT QI (Quality Indicator) method, excluding the forecast consistency test
-              | 3 > | Quality values derived from the NESDIS RFF (Recursive Filter Function) method
+              | 3   | Quality values derived from the NESDIS RFF (Recursive Filter Function) method
 
   0-01-033 | OGCE ; CODE
               | 0 > | WMO Secretariat
@@ -949,7 +949,7 @@ Table F STD |  0 | 13
               | 180 > | Moscow
               | 190 > | Muscat
               | 200 > | Khabarovsk
-              | 210 > | Novosibirsk
+              | 210   | Novosibirsk
 
   0-01-035 | ORIGC ; CODE
               | 0 > | WMO Secretariat
