@@ -2,6 +2,25 @@
 # Release Notes
 @brief Detailed description of changes included within each new release.
 
+## Version 12.2.0 - February 19, 2025
+
+* Removed subprograms ufbin3 and nevn from the library. These subprograms had previously been used to support
+the processing of NCEP prepfits files, which are now obsolete.
+[[Issue #601](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/601)]
+
+* Added capability to encode Table C marker operators within BUFR messages.
+[[Issue #611](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/611)]
+
+* Eliminated duplication when generating internal replication sequences from master tables.
+[[Issue #612](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/612)]
+
+* Fixed a bug which occurred in certain situations when encoding multiple delayed replication factors within
+subroutine drfini().
+[[Issue #623](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/623)]
+
+* Upgraded debufr utility to handle BUFR messages up to 7.5Mb in size.
+[[Issue #630](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/630)]
+
 ## Version 12.1.0 - July 10, 2024
 
 * Added support for IntelLLVM (OneAPI) compilers.
