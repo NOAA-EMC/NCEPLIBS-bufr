@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.1.0</span>
+   &#160;<span id="projectnumber">12.2.0</span>
    </div>
   </td>
  </tr>
@@ -95,6 +95,7 @@ $(document).ready(function(){initNavTree('arallocc_8c.html',''); initResizable()
 <div class="textblock"><code>#include &quot;<a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="cread_8h_source.html">cread.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="mstabs_8h_source.html">mstabs.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="rpseqs_8h_source.html">rpseqs.h</a>&quot;</code><br />
 </div>
 <p><a href="arallocc_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -161,9 +162,9 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2014-12-04 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="arallocc_8c_source.html#l00029">29</a> of file <a class="el" href="arallocc_8c_source.html">arallocc.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="arallocc_8c_source.html#l00030">30</a> of file <a class="el" href="arallocc_8c_source.html">arallocc.c</a>.</p>
 
-<p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, <a class="el" href="mstabs_8h.html#aa0f8eb7c3a1ca9a66a0933d97a3422ab">cbbw_c</a>, <a class="el" href="mstabs_8h.html#a19c8207a7b2c18f50438f51f066bad7b">cbelem_c</a>, <a class="el" href="mstabs_8h.html#a7c0149a5419b96753491953e92ce35b0">cbmnem_c</a>, <a class="el" href="mstabs_8h.html#a49e37dddeae6e1e71da2444d40c6d232">cbscl_c</a>, <a class="el" href="mstabs_8h.html#a1209038da13334a450146c0caa5ae9ad">cbsref_c</a>, <a class="el" href="mstabs_8h.html#a558051c0c39c5c6181019fb4231797d1">cbunit_c</a>, <a class="el" href="mstabs_8h.html#a309b9730283bc44b297b44f4e32db7f1">cdmnem_c</a>, <a class="el" href="mstabs_8h.html#a3e8f3bcd901b3809309c431d2825d636">cdseq_c</a>, <a class="el" href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a>, <a class="el" href="mstabs_8h.html#acdfc509abed04b3bc643a4171c419fa4">ibfxyn_c</a>, <a class="el" href="mstabs_8h.html#a006ec50bbb9f20fad017eb980cc7afa0">idefxy_c</a>, <a class="el" href="mstabs_8h.html#a2798d24f3443eeee2999eddf34d24c19">idfxyn_c</a>, <a class="el" href="bufr__interface_8h.html#a0b06d7dc9ae1ba6147ad0f1ea3d359bb">igetprm_f()</a>, <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, <a class="el" href="mstabs_8h.html#ad9af08676809848df12a73ece2a37182">ndelem_c</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
+<p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, <a class="el" href="mstabs_8h.html#aa0f8eb7c3a1ca9a66a0933d97a3422ab">cbbw_c</a>, <a class="el" href="mstabs_8h.html#a19c8207a7b2c18f50438f51f066bad7b">cbelem_c</a>, <a class="el" href="mstabs_8h.html#a7c0149a5419b96753491953e92ce35b0">cbmnem_c</a>, <a class="el" href="mstabs_8h.html#a49e37dddeae6e1e71da2444d40c6d232">cbscl_c</a>, <a class="el" href="mstabs_8h.html#a1209038da13334a450146c0caa5ae9ad">cbsref_c</a>, <a class="el" href="mstabs_8h.html#a558051c0c39c5c6181019fb4231797d1">cbunit_c</a>, <a class="el" href="rpseqs_8h.html#a24aa1baebc11ce6abf3ead8256f38803">cdescs</a>, <a class="el" href="mstabs_8h.html#a309b9730283bc44b297b44f4e32db7f1">cdmnem_c</a>, <a class="el" href="mstabs_8h.html#a3e8f3bcd901b3809309c431d2825d636">cdseq_c</a>, <a class="el" href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a>, <a class="el" href="rpseqs_8h.html#a6edccabc4d438f6859856ef07e30f5d9">iafpks</a>, <a class="el" href="mstabs_8h.html#acdfc509abed04b3bc643a4171c419fa4">ibfxyn_c</a>, <a class="el" href="mstabs_8h.html#a006ec50bbb9f20fad017eb980cc7afa0">idefxy_c</a>, <a class="el" href="mstabs_8h.html#a2798d24f3443eeee2999eddf34d24c19">idfxyn_c</a>, <a class="el" href="bufr__interface_8h.html#a0b06d7dc9ae1ba6147ad0f1ea3d359bb">igetprm_f()</a>, <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, <a class="el" href="rpseqs_8h.html#a5339bc1b8006b14e4ccbf5dda327f2d7">MAX_RPSQ</a>, <a class="el" href="mstabs_8h.html#ad9af08676809848df12a73ece2a37182">ndelem_c</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
 
 </div>
 </div>
@@ -187,9 +188,9 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2014-12-04 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="arallocc_8c_source.html#l00090">90</a> of file <a class="el" href="arallocc_8c_source.html">arallocc.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="arallocc_8c_source.html#l00083">83</a> of file <a class="el" href="arallocc_8c_source.html">arallocc.c</a>.</p>
 
-<p class="reference">References <a class="el" href="mstabs_8h.html#aa0f8eb7c3a1ca9a66a0933d97a3422ab">cbbw_c</a>, <a class="el" href="mstabs_8h.html#a19c8207a7b2c18f50438f51f066bad7b">cbelem_c</a>, <a class="el" href="mstabs_8h.html#a7c0149a5419b96753491953e92ce35b0">cbmnem_c</a>, <a class="el" href="mstabs_8h.html#a49e37dddeae6e1e71da2444d40c6d232">cbscl_c</a>, <a class="el" href="mstabs_8h.html#a1209038da13334a450146c0caa5ae9ad">cbsref_c</a>, <a class="el" href="mstabs_8h.html#a558051c0c39c5c6181019fb4231797d1">cbunit_c</a>, <a class="el" href="mstabs_8h.html#a309b9730283bc44b297b44f4e32db7f1">cdmnem_c</a>, <a class="el" href="mstabs_8h.html#a3e8f3bcd901b3809309c431d2825d636">cdseq_c</a>, <a class="el" href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a>, <a class="el" href="mstabs_8h.html#acdfc509abed04b3bc643a4171c419fa4">ibfxyn_c</a>, <a class="el" href="mstabs_8h.html#a006ec50bbb9f20fad017eb980cc7afa0">idefxy_c</a>, <a class="el" href="mstabs_8h.html#a2798d24f3443eeee2999eddf34d24c19">idfxyn_c</a>, <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, <a class="el" href="mstabs_8h.html#ad9af08676809848df12a73ece2a37182">ndelem_c</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
+<p class="reference">References <a class="el" href="mstabs_8h.html#aa0f8eb7c3a1ca9a66a0933d97a3422ab">cbbw_c</a>, <a class="el" href="mstabs_8h.html#a19c8207a7b2c18f50438f51f066bad7b">cbelem_c</a>, <a class="el" href="mstabs_8h.html#a7c0149a5419b96753491953e92ce35b0">cbmnem_c</a>, <a class="el" href="mstabs_8h.html#a49e37dddeae6e1e71da2444d40c6d232">cbscl_c</a>, <a class="el" href="mstabs_8h.html#a1209038da13334a450146c0caa5ae9ad">cbsref_c</a>, <a class="el" href="mstabs_8h.html#a558051c0c39c5c6181019fb4231797d1">cbunit_c</a>, <a class="el" href="rpseqs_8h.html#a24aa1baebc11ce6abf3ead8256f38803">cdescs</a>, <a class="el" href="mstabs_8h.html#a309b9730283bc44b297b44f4e32db7f1">cdmnem_c</a>, <a class="el" href="mstabs_8h.html#a3e8f3bcd901b3809309c431d2825d636">cdseq_c</a>, <a class="el" href="cfe_8c.html#a1242c4d43753a37cdb9abfb3f01e5583">dlloctbf()</a>, <a class="el" href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a>, <a class="el" href="rpseqs_8h.html#a6edccabc4d438f6859856ef07e30f5d9">iafpks</a>, <a class="el" href="mstabs_8h.html#acdfc509abed04b3bc643a4171c419fa4">ibfxyn_c</a>, <a class="el" href="mstabs_8h.html#a006ec50bbb9f20fad017eb980cc7afa0">idefxy_c</a>, <a class="el" href="mstabs_8h.html#a2798d24f3443eeee2999eddf34d24c19">idfxyn_c</a>, <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, <a class="el" href="mstabs_8h.html#ad9af08676809848df12a73ece2a37182">ndelem_c</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
 
 </div>
 </div>

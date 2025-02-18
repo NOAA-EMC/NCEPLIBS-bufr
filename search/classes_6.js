@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['restd_5fc_788',['restd_c',['../interfacebufrlib_1_1restd__c.html',1,'bufrlib']]]
+  ['sorttbf_5fc_842',['sorttbf_c',['../interfacebufrlib_1_1sorttbf__c.html',1,'bufrlib']]],
+  ['srchtbf_5fc_843',['srchtbf_c',['../interfacebufrlib_1_1srchtbf__c.html',1,'bufrlib']]],
+  ['strtbfe_5fc_844',['strtbfe_c',['../interfacebufrlib_1_1strtbfe__c.html',1,'bufrlib']]],
+  ['stseq_5fc_845',['stseq_c',['../interfacebufrlib_1_1stseq__c.html',1,'bufrlib']]]
 ];

@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.1.0</span>
+   &#160;<span id="projectnumber">12.2.0</span>
    </div>
   </td>
  </tr>
@@ -178,7 +178,7 @@ Functions/Subroutines</h2></td></tr>
 
 <p>Specify whether BUFR messages output by future calls to <a class="el" href="index.html#hierarchy">message-writing subroutines</a> should be encapsulated with IEEE Fortran control words when being written to output files. </p>
 <p>If control words are requested, then one 4-byte control word is written to the output file prior to the start of each BUFR message, and a second 4-byte control word is written to the output file after the end of each BUFR message. Each of these control words contains the byte count for the enclosed BUFR message, and they can be written using either big-endian or little-endian byte ordering, regardless of the native endianness of the local machine.</p>
-<p>This subroutine can be called at any time after the first call to subroutine <a class="el" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d" title="Connect a new file to the NCEPLIBS-bufr software for input or output operations, or initialize the li...">openbf()</a>, and the specified value for iblk will remain in effect for all future calls to <a class="el" href="index.html#hierarchy">message-writing subroutines</a> for all Fortran logical units that are open for output within the application program, unless a subsequent call is made to this subroutine to reset the value of iblk again. If this subroutine is never called, a default value of 0 is used for iblk, as set within subroutine <a class="el" href="misc_8F90.html#ab3f045cc170403305543e34e30b87001" title="Initialize numerous global variables and arrays within internal modules and COMMON blocks throughout ...">bfrini()</a>.</p>
+<p>This subroutine can be called at any time after the first call to subroutine <a class="el" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d" title="Connect a new file to the NCEPLIBS-bufr software for input or output operations, or initialize the li...">openbf()</a>, and the specified value for iblk will remain in effect for all future calls to <a class="el" href="index.html#hierarchy">message-writing subroutines</a> for all Fortran logical units that are open for output within the application program, unless a subsequent call is made to this subroutine to reset the value of iblk again. If this subroutine is never called, a default value of 0 is used for iblk, as set within subroutine <a class="el" href="misc_8F90.html#ab3f045cc170403305543e34e30b87001" title="Initialize numerous global variables and arrays within internal modules and common blocks throughout ...">bfrini()</a>.</p>
 <dl class="section remark"><dt>Remarks</dt><dd><ul>
 <li>This subroutine can be used to generate BUFR files consistent with historical archives, dating back to older versions of the NCEPLIBS-bufr software which used Fortran to directly read/write BUFR messages from/to files. Standard Fortran historically didn't have a way to read/write binary data streams without control words, so as a result many historical archives contain these by default. However, newer versions of the NCEPLIBS-bufr software use C to directly read/write BUFR messages from/to files (including historical archives), so control words are no longer necessary and are therefore now disabled by default when writing BUFR messages to output files.</li>
 </ul>

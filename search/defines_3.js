@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['nemo_5fstr_5flen_1556',['NEMO_STR_LEN',['../bufrlib_8h.html#aaf134edc1efd697331c03effd4d056e0',1,'bufrlib.h']]]
+  ['max_5fmeaning_5flen_1660',['MAX_MEANING_LEN',['../cfe_8c.html#a655e9465dd48c1e8a068b4689748e509',1,'cfe.c']]],
+  ['max_5frpsq_1661',['MAX_RPSQ',['../rpseqs_8h.html#a5339bc1b8006b14e4ccbf5dda327f2d7',1,'rpseqs.h']]],
+  ['mxfnlen_1662',['MXFNLEN',['../crwbmg_8c.html#adcb9ca74c59f88b5a3d6bd10c8095692',1,'crwbmg.c']]]
 ];

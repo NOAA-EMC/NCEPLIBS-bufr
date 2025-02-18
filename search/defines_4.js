@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['unit_5fstr_5flen_1557',['UNIT_STR_LEN',['../bufrlib_8h.html#a9043f4f41d0f9e6a276f936a03416f69',1,'bufrlib.h']]]
+  ['nemo_5fstr_5flen_1663',['NEMO_STR_LEN',['../bufrlib_8h.html#aaf134edc1efd697331c03effd4d056e0',1,'bufrlib.h']]]
 ];

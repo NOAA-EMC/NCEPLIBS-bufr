@@ -1,0 +1,26 @@
+var dxtable_8F90 =
+[
+    [ "dxinit", "dxtable_8F90.html#ae1a2a7cf7f60579fa9e9399a25f4930b", null ],
+    [ "dxmini", "dxtable_8F90.html#a30167b1b9b52074ad5db11d45665d551", null ],
+    [ "elemdx", "dxtable_8F90.html#a0669d7561ae99961babcdb2022073052", null ],
+    [ "idxmsg", "dxtable_8F90.html#aea259cd399ca3121a66475a2ea73ec65", null ],
+    [ "igetntbi", "dxtable_8F90.html#ad7abde76f89f036b69d944c260fbe2d4", null ],
+    [ "nemdefs", "dxtable_8F90.html#ad6352a1c1fdec4ba0adb0173781e4542", null ],
+    [ "nemtba", "dxtable_8F90.html#a36f644b9119ebf87f957bfe023e5cc45", null ],
+    [ "nemtbax", "dxtable_8F90.html#a8ea33660d62d74dee92cf7bf9541c1cd", null ],
+    [ "nemtbb", "dxtable_8F90.html#a21fa5817ff8a6f471dca950fbaa693ba", null ],
+    [ "nemtbd", "dxtable_8F90.html#aa0b7269b3a7df645e6917bfd4ba72b32", null ],
+    [ "nenubd", "dxtable_8F90.html#ae672eaf27f17dc904b894f347d89c233", null ],
+    [ "pktdd", "dxtable_8F90.html#aae6295132b2eb71f969417879832ed47", null ],
+    [ "rdbfdx", "dxtable_8F90.html#aef89e4de1387c4bcdeda0a64e8c6d308", null ],
+    [ "rdusdx", "dxtable_8F90.html#a3c5a3be625c365b782f36c0cb772ae35", null ],
+    [ "readdx", "dxtable_8F90.html#adc51a45a8d628c17cd4d749733df506b", null ],
+    [ "rsvfvm", "dxtable_8F90.html#a437a4acba1f5e0b3173da0cafc101e9c", null ],
+    [ "seqsdx", "dxtable_8F90.html#a591d4a2752e5c69299905fb910f7fcc7", null ],
+    [ "stbfdx", "dxtable_8F90.html#ac59d8db430cbb1cbe7ced7ebc386ef4a", null ],
+    [ "stntbi", "dxtable_8F90.html#aaa433680a14847a3fd64a6fa1b877211", null ],
+    [ "stntbia", "dxtable_8F90.html#ac0b4a9cb7d5c89dfe084698b9bb4042e", null ],
+    [ "uptdd", "dxtable_8F90.html#aeec2544ee0e0d8587c6687cda7023e54", null ],
+    [ "wrdxtb", "dxtable_8F90.html#a81ea6d2408950b5728790bc8f8c80261", null ],
+    [ "writdx", "dxtable_8F90.html#ac8141d6ac66d21c3fd2be3251a6a40c3", null ]
+];

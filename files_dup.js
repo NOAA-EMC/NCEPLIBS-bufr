@@ -12,8 +12,7 @@ var files_dup =
       [ "ccbfl_c", "interfacebufr__interface_1_1ccbfl__c.html", "interfacebufr__interface_1_1ccbfl__c" ],
       [ "cobfl_c", "interfacebufr__interface_1_1cobfl__c.html", "interfacebufr__interface_1_1cobfl__c" ],
       [ "crbmg_c", "interfacebufr__interface_1_1crbmg__c.html", "interfacebufr__interface_1_1crbmg__c" ],
-      [ "cwbmg_c", "interfacebufr__interface_1_1cwbmg__c.html", "interfacebufr__interface_1_1cwbmg__c" ],
-      [ "dlloctbf_c", "interfacebufr__interface_1_1dlloctbf__c.html", "interfacebufr__interface_1_1dlloctbf__c" ]
+      [ "cwbmg_c", "interfacebufr__interface_1_1cwbmg__c.html", "interfacebufr__interface_1_1cwbmg__c" ]
     ] ],
     [ "bufr_interface.h", "bufr__interface_8h.html", "bufr__interface_8h" ],
     [ "bufrlib.F90", "bufrlib_8F90.html", [
@@ -72,6 +71,7 @@ var files_dup =
     [ "readwritesb.F90", "readwritesb_8F90.html", "readwritesb_8F90" ],
     [ "readwriteval.F90", "readwriteval_8F90.html", "readwriteval_8F90" ],
     [ "restd.c", "restd_8c.html", "restd_8c" ],
+    [ "rpseqs.h", "rpseqs_8h.html", "rpseqs_8h" ],
     [ "s013vals.F90", "s013vals_8F90.html", "s013vals_8F90" ],
     [ "sinv.F90", "sinv_8F90.html", "sinv_8F90" ],
     [ "split_by_subset.F90", "split__by__subset_8F90.html", "split__by__subset_8F90" ],

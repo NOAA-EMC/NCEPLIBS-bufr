@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.1.0</span>
+   &#160;<span id="projectnumber">12.2.0</span>
    </div>
   </td>
  </tr>
@@ -139,6 +139,9 @@ Modules</h2></td></tr>
 <tr class="memitem:namespacemoda__mgwb"><td class="memItemLeft" align="right" valign="top">module &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__mgwb.html">moda_mgwb</a></td></tr>
 <tr class="memdesc:namespacemoda__mgwb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declare an array used by various subroutines and functions to hold a temporary working copy of a BUFR message. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacemoda__mrgcom"><td class="memItemLeft" align="right" valign="top">module &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__mrgcom.html">moda_mrgcom</a></td></tr>
+<tr class="memdesc:namespacemoda__mrgcom"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declare variables for use when merging parts of different data subsets. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacemoda__msgcmp"><td class="memItemLeft" align="right" valign="top">module &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__msgcmp.html">moda_msgcmp</a></td></tr>
 <tr class="memdesc:namespacemoda__msgcmp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declare a variable used to indicate whether output BUFR messages should be compressed. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,6 +192,9 @@ Modules</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacemoda__tababd"><td class="memItemLeft" align="right" valign="top">module &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__tababd.html">moda_tababd</a></td></tr>
 <tr class="memdesc:namespacemoda__tababd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declare arrays and variables used to store DX BUFR tables internally for multiple file IDs. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacemoda__tabccc"><td class="memItemLeft" align="right" valign="top">module &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__tabccc.html">moda_tabccc</a></td></tr>
+<tr class="memdesc:namespacemoda__tabccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declare variables for use with certain Table C operators in the internal jump/link table. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacemoda__tablef"><td class="memItemLeft" align="right" valign="top">module &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__tablef.html">moda_tablef</a></td></tr>
 <tr class="memdesc:namespacemoda__tablef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declare a variable used to indicate whether master code and flag tables should be read. <br /></td></tr>
@@ -310,9 +316,18 @@ Variables</h2></td></tr>
 <tr class="memitem:af1ca5281543dc4ce645d861f7f744c6d"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__nrv203.html#af1ca5281543dc4ce645d861f7f744c6d">moda_nrv203::ibtnrv</a></td></tr>
 <tr class="memdesc:af1ca5281543dc4ce645d861f7f744c6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bits in Section 4 occupied by each new reference value for the current 2-03-YYY operator in scope; set to 0 if no such operator is currently in scope.  <a href="namespacemoda__nrv203.html#af1ca5281543dc4ce645d861f7f744c6d">More...</a><br /></td></tr>
 <tr class="separator:af1ca5281543dc4ce645d861f7f744c6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70a224458d62bb0e617313d4e05d976b"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__tabccc.html#a70a224458d62bb0e617313d4e05d976b">moda_tabccc::icdw</a></td></tr>
+<tr class="memdesc:a70a224458d62bb0e617313d4e05d976b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bits by which to modify the data width of subsequent jump/link table mnemonics whose type indicator is "NUM"; set to 0 unless a 2-01-YYY or 2-07-YYY operator is in effect.  <a href="namespacemoda__tabccc.html#a70a224458d62bb0e617313d4e05d976b">More...</a><br /></td></tr>
+<tr class="separator:a70a224458d62bb0e617313d4e05d976b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52a37b6bcc7ed3492325f47e1f8018ab"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__msgmem.html#a52a37b6bcc7ed3492325f47e1f8018ab">moda_msgmem::icdxts</a></td></tr>
 <tr class="memdesc:a52a37b6bcc7ed3492325f47e1f8018ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of consecutive messages within mdx which constitute each DX BUFR table, beginning with the corresponding ifdxts.  <a href="namespacemoda__msgmem.html#a52a37b6bcc7ed3492325f47e1f8018ab">More...</a><br /></td></tr>
 <tr class="separator:a52a37b6bcc7ed3492325f47e1f8018ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a785d2d36be7d1f598ea6d827386978f4"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__tabccc.html#a785d2d36be7d1f598ea6d827386978f4">moda_tabccc::icrv</a></td></tr>
+<tr class="memdesc:a785d2d36be7d1f598ea6d827386978f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factor by which to multiply the reference value of subsequent jump/link table mnemonics whose type indicator is "NUM"; set to 1 unless a 2-07-YYY operator is in effect.  <a href="namespacemoda__tabccc.html#a785d2d36be7d1f598ea6d827386978f4">More...</a><br /></td></tr>
+<tr class="separator:a785d2d36be7d1f598ea6d827386978f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5325016ada1d1e03d49737e28d92ce47"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__tabccc.html#a5325016ada1d1e03d49737e28d92ce47">moda_tabccc::icsc</a></td></tr>
+<tr class="memdesc:a5325016ada1d1e03d49737e28d92ce47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number by which to modify the scale of subsequent jump/link table mnemonics whose type indicator is "NUM"; set to 0 unless a 2-02-YYY or 2-07-YYY operator is in effect.  <a href="namespacemoda__tabccc.html#a5325016ada1d1e03d49737e28d92ce47">More...</a><br /></td></tr>
+<tr class="separator:a5325016ada1d1e03d49737e28d92ce47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37df9d6a60023612be784db0b759da3b"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__msgcwd.html#a37df9d6a60023612be784db0b759da3b">moda_msgcwd::idate</a></td></tr>
 <tr class="memdesc:a37df9d6a60023612be784db0b759da3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Section 1 date-time of message.  <a href="namespacemoda__msgcwd.html#a37df9d6a60023612be784db0b759da3b">More...</a><br /></td></tr>
 <tr class="separator:a37df9d6a60023612be784db0b759da3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -355,6 +370,9 @@ Variables</h2></td></tr>
 <tr class="memitem:a7e5d5589bde01337616f2527beed519f"><td class="memItemLeft" align="right" valign="top">integer *8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__comprs.html#a7e5d5589bde01337616f2527beed519f">moda_comprs::incr</a></td></tr>
 <tr class="memdesc:a7e5d5589bde01337616f2527beed519f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increment used when compressing non-character data values.  <a href="namespacemoda__comprs.html#a7e5d5589bde01337616f2527beed519f">More...</a><br /></td></tr>
 <tr class="separator:a7e5d5589bde01337616f2527beed519f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a889fda4f92be8677aecb3548c824fd18"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__tabccc.html#a889fda4f92be8677aecb3548c824fd18">moda_tabccc::incw</a></td></tr>
+<tr class="memdesc:a889fda4f92be8677aecb3548c824fd18"><td class="mdescLeft">&#160;</td><td class="mdescRight">New data width (in bytes) for subsequent jump/link table mnemonics whose type indicator is "CHR"; set to 0 unless a 2-08-YYY operator is in effect.  <a href="namespacemoda__tabccc.html#a889fda4f92be8677aecb3548c824fd18">More...</a><br /></td></tr>
+<tr class="separator:a889fda4f92be8677aecb3548c824fd18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a034d50224d3416c855472ead1043b1aa"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__msgcwd.html#a034d50224d3416c855472ead1043b1aa">moda_msgcwd::inode</a></td></tr>
 <tr class="memdesc:a034d50224d3416c855472ead1043b1aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table A mnemonic for type of BUFR message.  <a href="namespacemoda__msgcwd.html#a034d50224d3416c855472ead1043b1aa">More...</a><br /></td></tr>
 <tr class="separator:a034d50224d3416c855472ead1043b1aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -607,6 +625,9 @@ Variables</h2></td></tr>
 <tr class="memitem:af2710ff69575fa7a323c654e7998e142"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__msgmem.html#af2710ff69575fa7a323c654e7998e142">moda_msgmem::mxdxw</a></td></tr>
 <tr class="memdesc:af2710ff69575fa7a323c654e7998e142"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of entries that can be stored within mdx.  <a href="namespacemoda__msgmem.html#af2710ff69575fa7a323c654e7998e142">More...</a><br /></td></tr>
 <tr class="separator:af2710ff69575fa7a323c654e7998e142"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca7ba3c13394414e82f8bfd925fd6d9f"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__mrgcom.html#aca7ba3c13394414e82f8bfd925fd6d9f">moda_mrgcom::namb</a> = 0</td></tr>
+<tr class="memdesc:aca7ba3c13394414e82f8bfd925fd6d9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of potential merges that weren't made because of ambiguities.  <a href="namespacemoda__mrgcom.html#aca7ba3c13394414e82f8bfd925fd6d9f">More...</a><br /></td></tr>
+<tr class="separator:aca7ba3c13394414e82f8bfd925fd6d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99268fc2b9168fcbbd5f8ab70e6da0b7"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__usrbit.html#a99268fc2b9168fcbbd5f8ab70e6da0b7">moda_usrbit::nbit</a></td></tr>
 <tr class="memdesc:a99268fc2b9168fcbbd5f8ab70e6da0b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length (in bits) of each packed data value in data subset.  <a href="namespacemoda__usrbit.html#a99268fc2b9168fcbbd5f8ab70e6da0b7">More...</a><br /></td></tr>
 <tr class="separator:a99268fc2b9168fcbbd5f8ab70e6da0b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -640,6 +661,9 @@ Variables</h2></td></tr>
 <tr class="memitem:a013b7b1f0e72002222c0ee2ae5a3dcac"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__h4wlc.html#a013b7b1f0e72002222c0ee2ae5a3dcac">moda_h4wlc::nh4wlc</a> = 0</td></tr>
 <tr class="memdesc:a013b7b1f0e72002222c0ee2ae5a3dcac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of long character strings being stored.  <a href="namespacemoda__h4wlc.html#a013b7b1f0e72002222c0ee2ae5a3dcac">More...</a><br /></td></tr>
 <tr class="separator:a013b7b1f0e72002222c0ee2ae5a3dcac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61d7a9354052881b929a1c7afeff24f2"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__mrgcom.html#a61d7a9354052881b929a1c7afeff24f2">moda_mrgcom::nmrg</a> = 0</td></tr>
+<tr class="memdesc:a61d7a9354052881b929a1c7afeff24f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of merges.  <a href="namespacemoda__mrgcom.html#a61d7a9354052881b929a1c7afeff24f2">More...</a><br /></td></tr>
+<tr class="separator:a61d7a9354052881b929a1c7afeff24f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43a1031d5c017c6f61ba6deabe22daad"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__msgcwd.html#a43a1031d5c017c6f61ba6deabe22daad">moda_msgcwd::nmsg</a></td></tr>
 <tr class="memdesc:a43a1031d5c017c6f61ba6deabe22daad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current message pointer within logical unit.  <a href="namespacemoda__msgcwd.html#a43a1031d5c017c6f61ba6deabe22daad">More...</a><br /></td></tr>
 <tr class="separator:a43a1031d5c017c6f61ba6deabe22daad"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -658,6 +682,9 @@ Variables</h2></td></tr>
 <tr class="memitem:a574b3c666f5e8aa725910e20a739f561"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__comprx.html#a574b3c666f5e8aa725910e20a739f561">moda_comprx::nrow</a></td></tr>
 <tr class="memdesc:a574b3c666f5e8aa725910e20a739f561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of data values for each data subset in message.  <a href="namespacemoda__comprx.html#a574b3c666f5e8aa725910e20a739f561">More...</a><br /></td></tr>
 <tr class="separator:a574b3c666f5e8aa725910e20a739f561"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace7f78e015bbce02e77bb95dec7efa06"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__mrgcom.html#ace7f78e015bbce02e77bb95dec7efa06">moda_mrgcom::nrpl</a> = 0</td></tr>
+<tr class="memdesc:ace7f78e015bbce02e77bb95dec7efa06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of expansions of Table D mnemonics using short (1-bit) delayed replication.  <a href="namespacemoda__mrgcom.html#ace7f78e015bbce02e77bb95dec7efa06">More...</a><br /></td></tr>
+<tr class="separator:ace7f78e015bbce02e77bb95dec7efa06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ee3ae8f4cfb91d15189834b8b62d41f"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__rlccmn.html#a6ee3ae8f4cfb91d15189834b8b62d41f">moda_rlccmn::nrst</a></td></tr>
 <tr class="memdesc:a6ee3ae8f4cfb91d15189834b8b62d41f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of long character strings in data subset.  <a href="namespacemoda__rlccmn.html#a6ee3ae8f4cfb91d15189834b8b62d41f">More...</a><br /></td></tr>
 <tr class="separator:a6ee3ae8f4cfb91d15189834b8b62d41f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -688,6 +715,9 @@ Variables</h2></td></tr>
 <tr class="memitem:aef82673973ab814f34658d9a1e5f3404"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__bitmaps.html#aef82673973ab814f34658d9a1e5f3404">moda_bitmaps::ntco</a></td></tr>
 <tr class="memdesc:aef82673973ab814f34658d9a1e5f3404"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of Table C operators (with an XX value of 21 or greater) within the data subset definition of the corresponding Table A mnemonic in inodtamc.  <a href="namespacemoda__bitmaps.html#aef82673973ab814f34658d9a1e5f3404">More...</a><br /></td></tr>
 <tr class="separator:aef82673973ab814f34658d9a1e5f3404"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71cc22e6cdcdf0d9d885f3e2418905a9"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__mrgcom.html#a71cc22e6cdcdf0d9d885f3e2418905a9">moda_mrgcom::ntot</a> = 0</td></tr>
+<tr class="memdesc:a71cc22e6cdcdf0d9d885f3e2418905a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total number of calls to subroutine <a class="el" href="readwritesb_8F90.html#aa926be9632b9da3990e2591f0386ee94" title="Merge parts of data subsets which have duplicate space and time coordinates but different or unique o...">invmrg()</a>.  <a href="namespacemoda__mrgcom.html#a71cc22e6cdcdf0d9d885f3e2418905a9">More...</a><br /></td></tr>
+<tr class="separator:a71cc22e6cdcdf0d9d885f3e2418905a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b6c0eaf2305df7abddd8c6c66723526"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__nulbfr.html#a1b6c0eaf2305df7abddd8c6c66723526">moda_nulbfr::null</a></td></tr>
 <tr class="memdesc:a1b6c0eaf2305df7abddd8c6c66723526"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output switch for each file ID:  <a href="namespacemoda__nulbfr.html#a1b6c0eaf2305df7abddd8c6c66723526">More...</a><br /></td></tr>
 <tr class="separator:a1b6c0eaf2305df7abddd8c6c66723526"><td class="memSeparator" colspan="2">&#160;</td></tr>

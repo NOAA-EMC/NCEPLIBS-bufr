@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['fxy_5fstr_5flen_1549',['FXY_STR_LEN',['../bufrlib_8h.html#a320fb202c17784943f8223593c9123dd',1,'bufrlib.h']]]
+  ['bmcstr_1647',['BMCSTR',['../bufrlib_8h.html#a0eaedf1628e74c9cf33925349602c234',1,'bufrlib.h']]],
+  ['bmostr_1648',['BMOSTR',['../bufrlib_8h.html#a6cac2647154ce58c562d8bcd3ebdfd30',1,'bufrlib.h']]]
 ];
