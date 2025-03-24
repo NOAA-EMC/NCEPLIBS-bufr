@@ -851,9 +851,10 @@ end subroutine rewnbf
 !> further information about Table B mnemonics)
 !>
 !> @author J. Woollen @date 1994-01-06
+
 recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
 
-  use modv_vars, only: im8b, bmiss, iac, iprt
+  use modv_vars, only: part, im8b, bmiss, iac, iprt
 
   use moda_usrint
   use moda_msgcwd
@@ -864,8 +865,8 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
   implicit none
 
   integer*8 ival, lref, ninc, mps, lps
-  integer, intent(in) :: lunin, i1, i2
-  integer, intent(out) :: iret
+  integer, intent(in)    :: lunin, i1, i2
+  integer, intent(inout) :: iret
   integer, parameter :: maxtg = 100
   integer nnod, ncon, nods, nodc, ivls, kons, my_lunin, my_i1, my_i2, lunit, lun, il, im, irec, isub, i, n, ntg, &
     jdate, jbit, kbit, lbit, mbit, nbit, nibit, nbyt, nsb, node, nbmp, nrep, lret, linc, iac_prev, ityp, &
@@ -877,7 +878,7 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
   character*10 tgs(maxtg)
   character*8 subset, cval
 
-  logical openit, overflow, just_count, need_node
+  logical  :: parta, openit, overflow, just_count, need_node
 
   real*8, intent(out) :: tab(i1,i2)
   real*8 rval, ups
@@ -901,6 +902,21 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
     im8b=.true.
     return
   endif
+
+!  entry to resume ufbtab reading where it left off
+!  ------------------------------------------------
+
+      if(part.and.iret<0) then
+         parta = .false.
+         lunit = abs(lunin)
+         tab   = bmiss
+         iret  = 0
+         irec  = 0
+         isub  = 0
+         goto 11
+      else
+         parta = .true.
+      endif
 
   ! Make sure subroutine openbf() has been called at least once before trying to call subroutine status(); otherwise,
   ! status() might try to access array space that hasn't yet been dynamically allocated.
@@ -946,12 +962,25 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
     enddo
   endif
 
+11  continue
+
   outer: do while (.not. just_count)
-    ! Read the next message from the file
-    if(ireadmg(-lunit,subset,jdate)<0) exit
-    call string(str,lun,i1,0)
-    if(irec>0) nods(irec) = 0
-    if(isub>0) nods(isub) = 0
+
+    if(parta) then
+       ! Read the next message from the file
+       if(ireadmg(-lunit,subset,jdate)<0) exit
+       call string(str,lun,i1,0)
+       if(irec>0) nods(irec) = 0
+       if(isub>0) nods(isub) = 0
+    endif
+
+    if(part) then
+       IF(IRET+MSUB(LUN).GT.I2) then
+          iret=-iret
+          return
+       endif
+       parta=.true. 
+    endif
 
     if(msgunp(lun)/=2) then
       ! The message is uncompressed

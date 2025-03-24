@@ -50,6 +50,16 @@ module modv_vars
   !> -  3 = all warning, info and debug messages are printed
   integer :: iprt = 0
 
+  !> Indicator for ufbtab to determine whether to read results in chunks or 
+  !> read only as many as fit into the input array as defined. Chunks are
+  !> useful is the ufbtab caller can process intermediate results in between
+  !> calls to read additional chunks. Otherwise if the input array is not
+  !> big enough to contain all ufbtab results in a single call, ufbtab will
+  !> return the partial results with an informative message.
+  !>  - .true. = read chunks, return results with -count in iret until finished
+  !>  - .false.= attempt to read all requested results, return count in iret
+  logical :: part = .false.
+
   !> Directory on local file system containing master BUFR tables.  This is set to a
   !> default value within subroutine bfrini(), but it can be changed at any time via
   !> a call to subroutine mtinfo().

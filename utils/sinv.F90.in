@@ -12,6 +12,8 @@
 !> @author J Woollen @date 2010
 program sinv
 
+  use modv_vars, only: part
+
   parameter (maxa=16000000)
   parameter (maxs=1000)
 
@@ -20,7 +22,7 @@ program sinv
   character(8)   subset
   character      ci*16,cj*80
   dimension      isat(0:maxs,0:maxs)
-  real(8)        said(maxa),siid(maxa)
+  real(8)        said(2,maxa)
   logical        exist
 
   data lunbf  /20/
@@ -63,25 +65,24 @@ program sinv
   ! read through the file and collect counts of satid and sat inst combinations
 
   open(lunbf,file=file,form='unformatted')
-  call ufbtab(lunbf,said,1,maxa,nret,'SAID')
-  call ufbtab(lunbf,siid,1,maxa,nrex,'SIID')
-
-  ! need to open the bufrfile with the satellites of interest
-
-  open(lunbf,file=file,form='unformatted')
   call openbf(lunbf,'IN',lunbf)
-  call readmg(lunbf,subset,idate,iret)
-  call codflg('Y')
 
-  ! make a table of sat ids and sat instruments
-
-  do n=1,max(nret,nrex)
-     i = nint(said(n))
-     j = nint(siid(n))
+  nret=0; part=.true.  
+  do while(nret<=0) 
+     call ufbtab(lunbf,said,2,maxa,nret,'SAID SIID')
+     do n=1,abs(nret)
+     i = said(1,n)
+     j = said(2,n)
      if(i>maxs.or.i<0) i=0
      if(j>maxs.or.j<0) j=0
      isat(i,j) = isat(i,j)+1
+     enddo
   enddo
+
+  ! need to open the bufrfile with the satellites of interest
+
+  call readmg(lunbf,subset,idate,iret)
+  call codflg('Y')
 
   ! print the summary of satid and sat inst combinations
 
