@@ -1181,3 +1181,43 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
 
   return
 end subroutine ufbtab
+
+!> Specify whether ufbtab should act in default operating mode, meaning it 
+!> will read layers of elements into the output array until eof is reached
+!> on the input file, or until the input array becomes full. In the default
+!> mode the operation is one or done, meaning if the output array is not big
+!> enough for all requested elements found in the BUFR file, it returns
+!> with full but incomplete results. In cases where an application can
+!> process data in between succesive calls to ufbtab, thus reusing array
+!> space in order to process the complete dataset, a flag can be set to
+!> accomodate this activity. The part logical flag in introduced for this
+!> purpose. 
+!>
+!> The default value is .false., meaning that if this subroutine is
+!> never called, then the ufbtab subroutine will operate in default mode.
+!> Otherwise, the specification in any call to this subroutine remains
+!> in effect unless and until it is overridden by a subsequent future
+!> call to this same subroutine. If setpart(.true.) is called, then
+!> if the input array is too small for holding all the data in the file
+!> ufbtab will return a negative return code, indicating that there are
+!> abs(iret) results available, and additional results can be obtained
+!> via an additional call to ufbrep. The return code should not be
+!> modified between successive calls. Ufbtab will operate normally in
+!> part mode when and if all results from the file are exhausted.
+!>
+!> Note: Arg iret should be 0 in the first call to ufbtab in part mode.
+!>
+!> @author J. Woollen @date 2025-03-28 
+subroutine setpart ( xpart )
+
+  use modv_vars, only: part
+
+  implicit none
+
+  logical, intent(in) :: xpart
+
+  part = xpart
+
+return
+end subroutine setpart
+

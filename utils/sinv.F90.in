@@ -12,8 +12,6 @@
 !> @author J Woollen @date 2010
 program sinv
 
-  use modv_vars, only: part
-
   parameter (maxa=16000000)
   parameter (maxs=1000)
 
@@ -34,6 +32,8 @@ program sinv
   jsat=0
   said=0
   ssid=0
+
+  call setpart(.true.) ! put ufbtab in partial read mode
 
   ! get filename argument
 
