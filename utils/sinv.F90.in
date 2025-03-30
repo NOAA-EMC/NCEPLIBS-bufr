@@ -7,6 +7,11 @@
 !> satbufrfile by platform and instrument.  The optional tabledir argument can be used
 !> to specify a custom directory for the master BUFR tables.
 !>
+!> Use of part mode of subroutine ufbtab has been implemented in this utility to
+!> ensure all data from the target file is obtained via successive calls to ufbrep.
+!> See operational details of using ufbtab part mode in the docblock of bufrlib 
+!> subroutine setpart.
+!>
 !> @return 0 for success, error message otherwise.
 !>
 !> @author J Woollen @date 2010
@@ -67,7 +72,7 @@ program sinv
   open(lunbf,file=file,form='unformatted')
   call openbf(lunbf,'IN',lunbf)
 
-  nret=0; part=.true.  
+  nret=0
   do while(nret<=0) 
      call ufbtab(lunbf,said,2,maxa,nret,'SAID SIID')
      do n=1,abs(nret)
