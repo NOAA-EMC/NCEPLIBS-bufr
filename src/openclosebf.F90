@@ -811,6 +811,13 @@ end subroutine rewnbf
 !> tab will contain the data values read from a different data subset,
 !> so the value i2 must be at least as large as the total number of data
 !> subsets in the BUFR file.
+!> 
+!> A control flag (part) has been provided to switch ufbtab into part
+!> mode where data from a large file can be obtained by repeated calls
+!> to ufbtab returning partial results until all data available has been
+!> read from the file and returned to the caller. Operational details 
+!> for using ufbtab part mode are found in the doc block of subroutine
+!> setpart.
 !>
 !> If logical unit abs(lunin) has already been opened
 !> via a previous call to subroutine openbf(), then this subroutine
@@ -1205,7 +1212,9 @@ end subroutine ufbtab
 !> modified between successive calls. Ufbtab will operate normally in
 !> part mode when and if all results from the file are exhausted.
 !>
-!> Note: Arg iret should be 0 in the first call to ufbtab in part mode.
+!> Note: ufbtab input arg iret must =0 in the first call in part mode.
+!>
+!> @param xpart - logical value to store in variable part
 !>
 !> @author J. Woollen @date 2025-03-28 
 subroutine setpart ( xpart )
