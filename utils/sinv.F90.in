@@ -76,8 +76,8 @@ program sinv
   do while(nret<=0) 
      call ufbtab(lunbf,said,2,maxa,nret,'SAID SIID')
      do n=1,abs(nret)
-     i = said(1,n)
-     j = said(2,n)
+     i = nint(said(1,n))
+     j = nint(said(2,n))
      if(i>maxs.or.i<0) i=0
      if(j>maxs.or.j<0) j=0
      isat(i,j) = isat(i,j)+1
