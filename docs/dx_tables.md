@@ -67,8 +67,7 @@ more Table B (or other Table D) mnemonics.
 mnemonics are defined in terms of their scale factor, reference value,
 bit width, and units.
 
-<div id="section1">
-### Section 1
+### Section 1 {#section1}
 
 The first section of a BUFR tables file is where all Table A, B and D
 mnemonics are initially declared, assigned a unique FXY number, and
@@ -164,10 +163,8 @@ place of the "A" which is used in the DX tables file. The "A" that
 appears within the FXY number corresponding to each Table A mnemonic
 within the tables file is only there so that such mnemonics can be
 easily distinguished from Table D mnemonics by the software.
-</div>
 
-<div id="section2">
-### Section 2
+### Section 2 {#section2}
 
 The second section of a DX BUFR tables file is used to define, for
 each Table A and Table D mnemonic that was previously declared in the
@@ -614,10 +611,9 @@ subroutine ufbrep() to access all such values simultaneously, even if
 we weren't interested in all of them. And we'd also lose the
 intuitiveness provided by having available, within the mnemonic
 itself, the name of the mnemonic to which the corresponding value
-applies.  </div>
+applies.
 
-<div id="section3">
-### Section 3
+### Section 3 {#section3}
 
 The third section of a DX BUFR tables file is used to define the scale
 factor, reference value, data width, and units for all of the Table B
@@ -647,9 +643,7 @@ within the first section.  Any mnemonic whose corresponding data
 values are to be treated as character data must have its units listed
 as "CCITT IA5", which is just a formal synonym for ASCII.
 
-</div>
-<div id="bftab">
-## Sample DX BUFR tables file
+## Sample DX BUFR tables file {#bftab}
 
 <pre>
 .------------------------------------------------------------------------------.
@@ -1115,6 +1109,3 @@ as "CCITT IA5", which is just a formal synonym for ASCII.
 |          |      |             |     |                          |-------------|
 `------------------------------------------------------------------------------'
 </pre>
-
-</div>
-

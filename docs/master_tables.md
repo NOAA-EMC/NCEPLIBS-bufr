@@ -68,8 +68,7 @@ Now that we've discussed the content and naming conventions for master
 BUFR table files, let's turn our attention to the actual format of
 these files:
 
-<div id="TableB">
-## Table B
+## Table B {#TableB}
 
 As described above, two master Table B files (one standard and one
 local) are required for each BUFR message that is to be read and
@@ -188,10 +187,8 @@ software, within the tables subdirectory:
 - [Standard Table B for Master Table 0 (WMO), Version 43](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_43)
 - [Local Table B for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_LOC_0_7_1)
 
-</div>
 
-<div id="TableD">
-## Table D
+## Table D {#TableD}
 
 As was the case for [Table B](#TableB), two master Table D files (one
 standard and one local) are also required for each BUFR message that
@@ -324,10 +321,8 @@ distribution package for the software, within the tables subdirectory:
 - [Standard Table D for Master Table 0 (WMO), Version 43](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_43)
 - [Local Table D for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_LOC_0_7_1)
 
-</div>
 
-<div id="CodeFlag">
-## Code/Flag Tables
+## Code/Flag Tables {#CodeFlag}
 
 Unlike for [Table B](#TableB) and [Table D](#TableD), master Code/Flag
 tables are optional when the IO='SEC3' option is specified during a
@@ -553,5 +548,3 @@ the tables subdirectory:
 - [Standard Code/Flag Tables for Master Table 0 (WMO), Version 42](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_42)
 - [Standard Code/Flag Tables for Master Table 0 (WMO), Version 43](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_43)
 - [Local Code/Flag Tables for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_LOC_0_7_1)
-
-</div>
