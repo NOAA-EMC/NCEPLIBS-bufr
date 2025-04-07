@@ -40,15 +40,15 @@ Code manager: [Jeff Ator](mailto:jeff.ator@noaa.gov)
 
 Download tarball from
 [Releases](https://github.com/NOAA-EMC/NCEPLIBS-bufr/releases) and
-unpack.
+unpack, or `git clone https://github.com/NOAA-EMC/NCEPLIBS-bufr`.
 
-<pre>
-mkdir build && cd build
-cmake -DCMAKE_INSTALL_PREFIX=path1 -DMASTER_TABLE_DIR=path2 ..
-make -j4
-ctest
-make install
-</pre>
+```console
+cmake -S NCEPLIBS-bufr -B NCEPLIBS-bufr/build -DCMAKE_INSTALL_PREFIX=path1 -DMASTER_TABLE_DIR=path2 # <add'l CMake options>
+cmake --build NCEPLIBS-bufr/build -j4
+ctest --test-dir NCEPLIBS-bufr/build # <add'l CTest options>
+# Install to CMAKE_INSTALL_PREFIX (/usr/local by default):
+cmake --install NCEPLIBS-bufr/build
+```
 
 Both `path1` and `path2` may be full or relative pathnames
 on the system, up to a maximum of 240 characters each.
