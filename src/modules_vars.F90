@@ -26,6 +26,13 @@ module modv_vars
   !> call to subroutine setim8b().
   logical :: im8b = .false.
 
+  !> Status indicator to keep track of whether all future calls to
+  !> subroutine ufbtab() should attempt to read through the entire BUFR file
+  !> (the default), or whether they should attempt to return partial results
+  !> from the file across multiple successive calls to the subroutine.
+  !> This value can be changed at any time via a call to subroutine setpart().
+  logical :: part = .false.
+
   !> Status indicator to keep track of whether all future BUFR output
   !> messages should be encapsulated with IEEE Fortran control words.
   !> The default value is 0, but it can be changed at any
@@ -49,16 +56,6 @@ module modv_vars
   !> -  2 = all warning and info messages are printed
   !> -  3 = all warning, info and debug messages are printed
   integer :: iprt = 0
-
-  !> Indicator for ufbtab to determine whether to read results in chunks or 
-  !> read only as many as fit into the input array as defined. Chunks are
-  !> useful is the ufbtab caller can process intermediate results in between
-  !> calls to read additional chunks. Otherwise if the input array is not
-  !> big enough to contain all ufbtab results in a single call, ufbtab will
-  !> return the partial results with an informative message.
-  !>  - .true. = read chunks, return results with -count in iret until finished
-  !>  - .false.= attempt to read all requested results, return count in iret
-  logical :: part = .false.
 
   !> Directory on local file system containing master BUFR tables.  This is set to a
   !> default value within subroutine bfrini(), but it can be changed at any time via

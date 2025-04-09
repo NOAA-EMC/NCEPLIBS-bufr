@@ -805,20 +805,6 @@ end subroutine rewnbf
 !> entire BUFR file.  It is similar to subroutine ufbtam(), except
 !> that ufbtam() works on data subsets within internal arrays.
 !>
-!> It is the user's responsibility to ensure that tab is dimensioned
-!> sufficiently large enough to accommodate the number of data values
-!> that are to be read from the BUFR file.  Specifically, each row of
-!> tab will contain the data values read from a different data subset,
-!> so the value i2 must be at least as large as the total number of data
-!> subsets in the BUFR file.
-!> 
-!> A control flag (part) has been provided to switch ufbtab into part
-!> mode where data from a large file can be obtained by repeated calls
-!> to ufbtab returning partial results until all data available has been
-!> read from the file and returned to the caller. Operational details 
-!> for using ufbtab part mode are found in the doc block of subroutine
-!> setpart.
-!>
 !> If logical unit abs(lunin) has already been opened
 !> via a previous call to subroutine openbf(), then this subroutine
 !> will save the current file position, rewind the file to the
@@ -828,6 +814,19 @@ end subroutine rewnbf
 !> then this subroutine will open it via an internal call to
 !> subroutine openbf(), read through the entire file, and then close
 !> it via an internal call to subroutine closbf().
+!>
+!> Unless a prior call has been made to subroutine setpart() with
+!> xpart = .true., then it's the user's responsibility to ensure that tab is dimensioned
+!> sufficiently large enough to accommodate the number of data values
+!> that are to be read from the entire BUFR file.  Specifically, each row of
+!> tab will contain the data values read from a different data subset,
+!> so the value i2 must be at least as large as the total number of data
+!> subsets in the BUFR file.  However, if subroutine setpart() was previously
+!> called with xpart = .true., then this subroutine will read as many as i2 data
+!> subsets from the file and possibly return with a negative iret value to indicate
+!> that it has only partially read through the file, and in which case the application
+!> program can then call this subroutine again and in a repeated fashion to return each
+!> successive chunk of up to the next i2 data subsets from the file.
 !>
 !> @remarks
 !> - If lunin < 0, the number of data subsets in the BUFR file will
@@ -852,7 +851,14 @@ end subroutine rewnbf
 !> @param tab - Data values
 !> @param i1 - First dimension of tab as allocated within the calling program
 !> @param i2 - Second dimension of tab as allocated within the calling program
-!> @param iret - Number of data subsets in BUFR file
+!> @param iret - Status indicator
+!>  - On input, and when subroutine setpart() has been previously called with xpart = .true., then a value of zero
+!>    indicates that this is the first call to this subroutine, while a negative value
+!>    indicates that this is a repeated call to this subroutine.  Otherwise this value is ignored.
+!>  - On output, the absolute value is the number of data subsets returned.  In addition, and when subroutine setpart()
+!>    has been previously called with xpart = .true., then a negative value indicates that the BUFR file has only been
+!>    partially read, and that therefore this subroutine can be called again to read another successive chunk of up
+!>    to i2 data subsets from the file.
 !> @param str - String of blank-separated Table B mnemonics, in one-to-one correspondence with the number of data values
 !> that will be read from each data subset within the first dimension of tab (see [DX BUFR Tables](@ref dfbftab) for
 !> further information about Table B mnemonics)
@@ -872,7 +878,7 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
   implicit none
 
   integer*8 ival, lref, ninc, mps, lps
-  integer, intent(in)    :: lunin, i1, i2
+  integer, intent(in) :: lunin, i1, i2
   integer, intent(inout) :: iret
   integer, parameter :: maxtg = 100
   integer nnod, ncon, nods, nodc, ivls, kons, my_lunin, my_i1, my_i2, lunit, lun, il, im, irec, isub, i, n, ntg, &
@@ -885,12 +891,14 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
   character*10 tgs(maxtg)
   character*8 subset, cval
 
-  logical  :: parta, openit, overflow, just_count, need_node
+  logical :: openit, overflow, just_count, need_node, need_newmsg
 
   real*8, intent(out) :: tab(i1,i2)
   real*8 rval, ups
 
   common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
+
+  save lun, openit
 
   equivalence (cval,rval)
 
@@ -910,57 +918,19 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
     return
   endif
 
-!  entry to resume ufbtab reading where it left off
-!  ------------------------------------------------
-
-      if(part.and.iret<0) then
-         parta = .false.
-         lunit = abs(lunin)
-         tab   = bmiss
-         iret  = 0
-         irec  = 0
-         isub  = 0
-         goto 11
-      else
-         parta = .true.
-      endif
-
-  ! Make sure subroutine openbf() has been called at least once before trying to call subroutine status(); otherwise,
-  ! status() might try to access array space that hasn't yet been dynamically allocated.
-  call openbf(0,'FIRST',0)
-
-  lunit = abs(lunin)
-  call status(lunit,lun,il,im)
-  openit = il==0
-
-  if(openit) then
-    ! Open BUFR file connected to unit lunit if it isn't already open
-    call openbf(lunit,'INX',lunit)
-  else
-    ! If BUFR file already opened, save position and rewind to first data message
-    call rewnbf(lunit,0)
-  endif
+  ! Set counters to zero
+  irec = 0
+  isub = 0
 
   ! Initialize all of the output array values to the current value for "missing"
   tab(1:i1,1:i2) = bmiss
 
-  ! Set counters to zero
-  iret = 0
-  irec = 0
-  isub = 0
-
   iac_prev = iac
   iac = 1
 
-  overflow = .false.
-
-  ! Check for count subset only option
+  lunit = abs(lunin)
   just_count = lunin<lunit
-  if(just_count) then
-    do while(ireadmg(-lunit,subset,jdate)>=0)
-      iret = iret+nmsub(lunit)
-    enddo
-  else
+  if (.not. just_count) then
     ! Check for special tags in string
     call parstr(str,tgs,maxtg,ntg,' ',.true.)
     do i=1,ntg
@@ -969,24 +939,46 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
     enddo
   endif
 
-11  continue
+  overflow = .false.
+
+  if(part.and.iret<0) then
+    ! The previous call to this subroutine only partially read through the file, so resume reading from
+    ! the point where it previously left off.
+    need_newmsg = .false.
+    iret = 0
+  else
+    ! Make sure subroutine openbf() has been called at least once before trying to call subroutine status();
+    ! otherwise, status() might try to access array space that hasn't yet been dynamically allocated.
+    call openbf(0,'FIRST',0)
+    call status(lunit,lun,il,im)
+    openit = il==0
+    if(openit) then
+      ! Open BUFR file connected to unit lunit if it isn't already open
+      call openbf(lunit,'INX',lunit)
+    else
+      ! If BUFR file already opened, save position and rewind to first data message
+      call rewnbf(lunit,0)
+    endif
+    need_newmsg = .true.
+    iret = 0
+    ! Check for count subset only option
+    if(just_count) then
+      do while(ireadmg(-lunit,subset,jdate)>=0)
+        iret = iret+nmsub(lunit)
+      enddo
+    endif
+  endif
 
   outer: do while (.not. just_count)
 
-    if(parta) then
-       ! Read the next message from the file
-       if(ireadmg(-lunit,subset,jdate)<0) exit
-       call string(str,lun,i1,0)
-       if(irec>0) nods(irec) = 0
-       if(isub>0) nods(isub) = 0
-    endif
-
-    if(part) then
-       IF(IRET+MSUB(LUN).GT.I2) then
-          iret=-iret
-          return
-       endif
-       parta=.true. 
+    if(need_newmsg) then
+      ! Read the next message from the file
+      if(ireadmg(-lunit,subset,jdate)<0) exit
+      call string(str,lun,i1,0)
+      if(irec>0) nods(irec) = 0
+      if(isub>0) nods(isub) = 0
+    else
+      need_newmsg=.true.
     endif
 
     if(msgunp(lun)/=2) then
@@ -996,8 +988,13 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
         ! Get the next subset from the message
         if(nsub(lun)==msub(lun)) cycle outer
         if(iret+1>i2) then
-          overflow = .true.
-          exit outer
+          if(part) then
+            iret=-iret
+            return
+          else
+            overflow = .true.
+            exit outer
+          endif
         endif
         iret = iret+1
         do i=1,nnod
@@ -1064,8 +1061,13 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
       ! The message is compressed
 
       if(iret+msub(lun)>i2) then
-        overflow = .true.
-        exit outer
+        if(part) then
+          iret=-iret
+          return
+        else
+          overflow = .true.
+          exit outer
+        endif
       endif
       if(irec>0.or.isub>0) then
         do nsb=1,msub(lun)
@@ -1189,32 +1191,29 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
   return
 end subroutine ufbtab
 
-!> Specify whether ufbtab should act in default operating mode, meaning it 
-!> will read layers of elements into the output array until eof is reached
-!> on the input file, or until the input array becomes full. In the default
-!> mode the operation is one or done, meaning if the output array is not big
-!> enough for all requested elements found in the BUFR file, it returns
-!> with full but incomplete results. In cases where an application can
-!> process data in between succesive calls to ufbtab, thus reusing array
-!> space in order to process the complete dataset, a flag can be set to
-!> accomodate this activity. The part logical flag in introduced for this
-!> purpose. 
+!> Specify whether future calls to subroutine ufbtab() should attempt to
+!> return full or partial results.
 !>
 !> The default value is .false., meaning that if this subroutine is
-!> never called, then the ufbtab subroutine will operate in default mode.
-!> Otherwise, the specification in any call to this subroutine remains
+!> never called, then subroutine ufbtab() will always
+!> attempt to read through a full BUFR file whenever it is called,
+!> and will return with incomplete results and a diagnostic if the output
+!> array provided is not large enough to accommodate the number of data values
+!> available within the full BUFR file.
+!>
+!> Otherwise, in cases where an application program has the ability to
+!> process partial successive chunks of data in between repeated calls to
+!> subroutine ufbtab(), then this subroutine can be explicitly called with
+!> xpart = .true. to indicate this, and in which case multiple successive calls
+!> to subroutine ufbtab() can then be made to read through an entire BUFR file,
+!> and reusing the same output array space each time.
+!>
+!> In any case, the specification in any call to this subroutine remains
 !> in effect unless and until it is overridden by a subsequent future
-!> call to this same subroutine. If setpart(.true.) is called, then
-!> if the input array is too small for holding all the data in the file
-!> ufbtab will return a negative return code, indicating that there are
-!> abs(iret) results available, and additional results can be obtained
-!> via an additional call to ufbrep. The return code should not be
-!> modified between successive calls. Ufbtab will operate normally in
-!> part mode when and if all results from the file are exhausted.
+!> call to this same subroutine from within the same application program.
 !>
-!> Note: ufbtab input arg iret must =0 in the first call in part mode.
-!>
-!> @param xpart - logical value to store in variable part
+!> @param xpart - .true. iff future calls to subroutine ufbtab() should attempt
+!> to return partial results
 !>
 !> @author J. Woollen @date 2025-03-28 
 subroutine setpart ( xpart )
@@ -1227,6 +1226,6 @@ subroutine setpart ( xpart )
 
   part = xpart
 
-return
+  return
 end subroutine setpart
 
