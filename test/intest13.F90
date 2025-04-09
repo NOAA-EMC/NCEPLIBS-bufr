@@ -8,7 +8,7 @@ program intest13
 
   integer mxr8pm, mxr8lv, mxr8pm_uc, mxr8lv_uc
   parameter (mxr8pm = 3, mxr8pm_uc = 4)
-  parameter (mxr8lv = 120000, mxr8lv_uc = 300)
+  parameter (mxr8lv = 240, mxr8lv_uc = 300)
 
   integer nr8lv, nr8lv_uc
 
@@ -25,22 +25,22 @@ program intest13
   call setpart(.true.)
 
   ! Open the compressed file.
-  open(unit = 11, file = 'testfiles/data/satwndbufr', form ='unformatted')
+  open(unit = 11, file = 'testfiles/IN_12', form ='unformatted')
 
   ! Make the necessary repeated calls to ufbtab and check some output values from each
   ! successive chunk.
   nr8lv = 0  ! When using ufbtab in this way, we need to explicitly initialize this value to 0 before the first call.
-  call ufbtab(11, r8arr, mxr8pm, mxr8lv, nr8lv, 'SAID SSNX SCCF')
-  if (nr8lv /= -120000 .or. nint(r8arr(1,50000)) /= 259 .or. &
-        nint(r8arr(2,50000)) /= 30000 .or. nint(r8arr(3,50000)/1000000) /= 461538400) stop 1
+  call ufbtab(11, r8arr, mxr8pm, mxr8lv, nr8lv, 'SAZA SOZA HMSL')
+  if (nr8lv /= -235 .or. nint(r8arr(1,120)*100) /= 966 .or. &
+        nint(r8arr(2,120)*100) /= 15729 .or. nint(r8arr(3,120)) /= 829360) stop 1
 
-  call ufbtab(11, r8arr, mxr8pm, mxr8lv, nr8lv, 'SAID SSNX SCCF')
-  if (nr8lv /= -120000 .or. nint(r8arr(1,50000)) /= 54 .or. &
-        nint(r8arr(2,50000)) /= 80000 .or. nint(r8arr(3,50000)/1000000) /= 428300000) stop 2
+  call ufbtab(11, r8arr, mxr8pm, mxr8lv, nr8lv, 'SAZA SOZA HMSL')
+  if (nr8lv /= -212 .or. nint(r8arr(1,120)*100) /= 481 .or. &
+        nint(r8arr(2,120)*100) /= 15619 .or. nint(r8arr(3,120)) /= 829400) stop 2
 
-  call ufbtab(11, r8arr, mxr8pm, mxr8lv, nr8lv, 'SAID SSNX SCCF')
-  if (nr8lv /= 67711  .or. nint(r8arr(1,50000)) /= 57 .or. &
-        nint(r8arr(2,50000)) /= 72000 .or. nint(r8arr(3,50000)/1000000) /= 40788100) stop 3
+  call ufbtab(11, r8arr, mxr8pm, mxr8lv, nr8lv, 'SAZA SOZA HMSL')
+  if (nr8lv /= 215 .or. nint(r8arr(1,120)*100) /= 3189 .or. &
+        nint(r8arr(2,120)*100) /= 15357 .or. nint(r8arr(3,120)) /= 829450) stop 3
 
   call closbf(11)
 
