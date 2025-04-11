@@ -25,19 +25,17 @@ meteorological data.
 
 ```
 git clone https://github.com/NOAA-EMC/NCEPLIBS-bufr
-cmake -S NCEPLIBS-bufr -B NCEPLIBS-bufr/build # <add'l CMake options>
-cmake --build NCEPLIBS-bufr/build
-ctest --test-dir NCEPLIBS-bufr/build # <add'l CTest options>
-# Install to CMAKE_INSTALL_PREFIX (/usr/local by default):
-cmake --install NCEPLIBS-bufr/build
+cmake -S NCEPLIBS-bufr -B my_build
+cmake --build my_build
+ctest --test-dir my_build
+cmake --install my_build
 ```
 
-### CMake options
+Any of the following options can be used to configure the build via `-D<Option>=<Value>`
+within the first of the above cmake commands.  Otherwise the corresponding default value will be used.
 
-The following CMake build options can be used to configure the build by setting them with `-D<OPTION>=<VALUE>`.
-
-| Option | Description | Default |
-|--------|-------------|---------|
+| Option | Description | Default Value |
+|--------|-------------|---------------|
 | CMAKE_INSTALL_PREFIX | Installation path | /usr/local |
 | CMAKE_POSITION_INDEPENDENT_CODE | Enable position-independent code (PIC) for static build | OFF |
 | ENABLE_DOCS | Enable generation of doxygen-based documentation. | OFF |
