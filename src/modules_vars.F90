@@ -26,6 +26,13 @@ module modv_vars
   !> call to subroutine setim8b().
   logical :: im8b = .false.
 
+  !> Status indicator to keep track of whether all future calls to
+  !> subroutine ufbtab() should attempt to read through the entire BUFR file
+  !> (the default), or whether they should attempt to return partial results
+  !> from the file across multiple successive calls to the subroutine.
+  !> This value can be changed at any time via a call to subroutine setpart().
+  logical :: part = .false.
+
   !> Status indicator to keep track of whether all future BUFR output
   !> messages should be encapsulated with IEEE Fortran control words.
   !> The default value is 0, but it can be changed at any
