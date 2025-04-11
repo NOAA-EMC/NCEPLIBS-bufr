@@ -21,6 +21,30 @@ can be used to read (decode) and write (encode) data in BUFR, which is
 a [WMO](https://public.wmo.int) standard format for the exchange of
 meteorological data.
 
+## Installation
+
+```
+git clone https://github.com/NOAA-EMC/NCEPLIBS-bufr
+cmake -S NCEPLIBS-bufr -B my_build
+cmake --build my_build
+ctest --test-dir my_build
+cmake --install my_build
+```
+
+Any of the following options can be used to configure the build via `-D<Option>=<Value>`
+within the first of the above cmake commands.  Otherwise the corresponding default value will be used.
+
+| Option | Description | Default Value |
+|--------|-------------|---------------|
+| CMAKE_INSTALL_PREFIX | Installation path | /usr/local |
+| CMAKE_POSITION_INDEPENDENT_CODE | Enable position-independent code (PIC) for static build | OFF |
+| ENABLE_DOCS | Enable generation of doxygen-based documentation. | OFF |
+| ENABLE_PYTHON | Enable building python module 'ncepbufr' | OFF |
+| BUILD_SHARED_LIBS | Enable building shared libraries | OFF |
+| BUILD_UTILS | Enable building utilities | ON |
+| BUILD_TESTING | Enable automated testing | ON |
+| TEST_FILE_DIR | Check this directory for test files before using FTP | . |
+
 ## The BUFR Format
 
 @anchor manual
