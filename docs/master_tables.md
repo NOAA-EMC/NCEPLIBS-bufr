@@ -94,11 +94,7 @@ table only becomes necessary when the messages themselves actually
 contain one or more local descriptors defined by that particular
 originating center.
 
-<br>
-
 Here now is the format for each master Table B:
-
-<br>
 
 The first line of the file is as follows, where the symbols correspond
 to those used in the file naming convention described above. In this
@@ -202,8 +198,6 @@ descriptors from the originating center in question are included
 within a message; otherwise, the
 [default local Table D file from NCEP (originating center 7)](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_LOC_0_7_1)
 can be used as a placeholder.
-
-<br>
 
 The format of the first line of each master Table D file is the same
 as for Table B:
@@ -332,8 +326,6 @@ one or more calls to subroutine getcfmng(), and in which case a prior
 call to subroutine codflg() is also required with the value of CF set
 to 'Y'.
 
-<br>
-
 Whenever master Code/Flag tables are used, they must exist within the
 same local filesystem directory specified by CMTDIR during the most
 recent call to subroutine mtinfo(). And just like for Table B and
@@ -343,8 +335,6 @@ local entries, and where the
 [default local Code/Flag tables file from NCEP (originating center 7)](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableF_LOC_0_7_1)
 can be used as a placeholder for the local file whenever the BUFR
 messages to be decoded contain only standard descriptors.
-
-<br>
 
 The format of the first line of each master Code/Flag table file is the same as for Tables B and D:
 
