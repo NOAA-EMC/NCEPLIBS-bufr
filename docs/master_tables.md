@@ -7,9 +7,9 @@
 
 This document describes the format and concept of master BUFR
 tables. These are required by the NCEPLIBS-bufr software whenever the
-IO='SEC3' option is specified during a call to subroutine openbf() for
+io='SEC3' option is specified during a call to subroutine openbf() for
 the reading/decoding of a file of BUFR messages. Otherwise, if a
-different value of IO is specified, then only a
+different value of io is specified, then only a
 [DX BUFR tables](@ref dfbftab) file is normally required, and master
 BUFR tables are not needed.
 
@@ -46,7 +46,7 @@ Local tables:        bufrtab.Table.<i>X</i>_LOC_<i>M</i>_<i>C</i>_<i>L</i>
 
 Whenever any of the [message-reading subroutines](@ref hierarchy) are
 used to read a new BUFR message from a Fortran logical unit that was
-previously opened using subroutine openbf() with IO='SEC3', the
+previously opened using subroutine openbf() with io='SEC3', the
 identification section (Section 1) of the message is automatically
 scanned to determine the above values for that message. The BUFRLIB
 software then automatically generates the four necessary filenames
@@ -325,7 +325,7 @@ distribution package for the software, within the tables subdirectory:
 ## Code/Flag Tables {#CodeFlag}
 
 Unlike for [Table B](#TableB) and [Table D](#TableD), master Code/Flag
-tables are optional when the IO='SEC3' option is specified during a
+tables are optional when the io='SEC3' option is specified during a
 call to subroutine openbf() for the reading/decoding of BUFR
 messages. Instead, they are only required if the user intends to make
 one or more calls to subroutine getcfmng(), and in which case a prior
