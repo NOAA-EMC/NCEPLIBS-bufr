@@ -69,6 +69,8 @@ When building the library, associated utilities are included by default.
 If these are not desired, then they can be disabled by adding `-DBUILD_UTILS=OFF`
 to the first of the above cmake commands.
 
+NCEPLIBS-bufr is also available through [Spack](https://spack.io) as '[bufr](https://github.com/spack/spack/tree/develop/var/spack/repos/builtin/packages/bufr)'.
+
 ## References
 
 - WMO, [Manual on Codes (WMO No. 306), Volume I.2, Part B - Binary Codes](https://library.wmo.int/idurl/4/35625)
