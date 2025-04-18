@@ -3,6 +3,8 @@
 @brief Description and format of DX BUFR tables for use with the library.
 @anchor dfbftab
 
+<br>
+
 Every BUFR file must have DX BUFR tables associated with it, unless
 the 'SEC3' decoding option is specified during the call to
 openbf(). For all other cases, DX table information must be
@@ -85,15 +87,11 @@ are more familiar with BUFR will immediately recognize these F, X, and
 Y values as those that are defined within the
 [official documentation of the BUFR code form](@ref manual).
 
-<br>
-
 By international convention, a mnemonic should not be given an X value
 between 00 and 47 along with a Y value between 001 and 191 unless that
 mnemonic, when subsequently defined, corresponds exactly to the BUFR
 descriptor having that same FXY number within the
 [official WMO master BUFR tables](@ref wmomstab).
-
-<br>
 
 For example, in our [sample DX BUFR tables file](#bftab), mnemonic
 "WMOB" is declared with an FXY number of 001001; therefore, it has the
@@ -104,8 +102,6 @@ within the official WMO master BUFR tables. This concept should be
 somewhat intuitive, but it's obviously very important when the BUFRLIB
 software is to be used to encode BUFR messages that may potentially be
 read by other users in other organizations around the world.
-
-<br>
 
 In looking further at our [sample DX BUFR tables file](#bftab), we see
 that the lines within the first section each contain a "|" character
@@ -126,8 +122,6 @@ declarations, until it reaches a line which does not contain a "|"
 character in each of columns 1, 12, 21, and 80, at which point it then
 knows that the first section of the tables file has ended.
 
-<br>
-
 If a Table A mnemonic consists of 8 characters (i.e. the maximum) and
 if characters 3 through 8 are all digits, then the mnemonic is also
 used by the software to set the data category and local subcategory
@@ -136,16 +130,12 @@ subsets corresponding to that mnemonic. In such cases, characters 3
 through 5 define the category, and characters 6 through 8 define the
 subcategory.
 
-<br>
-
 Referring to our [sample DX BUFR tables file](#bftab) where we've
 defined three different Table A mnemonics, we've also indicated that,
 e.g. when we use the software to write/encode data subsets according
 to the Table A mnemonic "NC002007" (i.e. wind profiler), we want all
 BUFR messages which contain such data subsets to be encoded as
 category 2 and local subcategory 7 within Section 1 of the message.
-
-<br>
 
 Even if a Table A mnemonic doesn't meet the above criteria, BUFR
 message category and local subcategory values will still be set by the
@@ -171,8 +161,6 @@ each Table A and Table D mnemonic that was previously declared in the
 [first section](#section1), the sequence of Table B (and possibly
 other Table D) mnemonics which constitutes that mnemonic.
 
-<br>
-
 The format for this section is a "|" character in columns 1, 12, and
 80, with the mnemonic that is being defined listed in columns 3-10
 (left-justified), and the sequence of constituent mnemonics beginning
@@ -180,8 +168,6 @@ in column 14, each one separated from the others by one or more blank
 characters. For longer sequences, multiple successive lines may be
 used in a continuation fashion by repeating, within columns 3-10 of
 each continuation line, the mnemonic being defined.
-
-<br>
 
 For example, in our [sample DX BUFR tables file](#bftab), the Table D
 mnemonic MRPSC0 is defined as consisting of the sequence YEAR MNTH
@@ -196,12 +182,8 @@ will continue reading lines of the file as though they are part of the
 second section until it encounters one that does not adhere to this
 format.
 
-<br>
-
 Additional punctuation characters and symbols can be see in the
 [sample DX BUFR tables file](#bftab).
-
-<br>
 
 | Symbol | Meaning |
 |--------|---------|
@@ -209,8 +191,6 @@ Additional punctuation characters and symbols can be see in the
 | { }  | The enclosed mnemonic is replicated using 8-bit delayed replication (between 0 and 255 replications) |
 | ( )  | The enclosed mnemonic is replicated using 16-bit delayed replication (between 0 and 65535 replications) |
 | " "n | The enclosed mnemonic is replicated using regular (non-delayed) replication, with a fixed replication factor of n |
-
-<br>
 
 For example, the Table A mnemonic NC002001, which defines the layout
 of a data subset of the type "RAWINSONDE - FIXED LAND", consists of
@@ -247,14 +227,10 @@ the following sequence:
 and where, in turn, UAGP07, UAGP10, UATMP, etc. are also Table D
 mnemonics which can themselves be further resolved.
 
-<br>
-
 We can even nest certain replication sequences inside of other
 replication sequences, and, further, via the judicious use of the &lt;
 &gt; indicator, even turn on/off entire sequences of data values
 simply and efficiently.
-
-<br>
 
 An example of this is the UAWSH (i.e. "RADIOSONDE WIND SHEAR DATA")
 sequence, whose constituent data values are only ever present in a
@@ -269,8 +245,6 @@ message, this can add up to significant encoding efficiency, and, in
 turn, the use of less required storage space per BUFR message. So, in
 summary, the judicious use of replication can even lead to more
 efficient data storage for certain types of data.
-
-<br>
 
 Looking back again at the [sample DX BUFR tables file](#bftab), notice
 how several of the Table D mnemonics such as RCPTIM and BID are used
@@ -289,13 +263,9 @@ one particular Table B mnemonic and then replicating the sequence
 mnemonic.  For a specific example of such a situation, take a look at
 the definition of RAWRPT within the sample file.
 
-<br>
-
 Before we end our discussion on the second section of our sample BUFR
 tables file, there are a few other special situations that we need to
 explain in further detail:
-
-<br>
 
 First, notice how a 201YYY indicator precedes each occurrence of ACAV
 within the definition of the Table D sequence mnemonic OBSEQ as well
@@ -303,8 +273,6 @@ as each occurrence of HINC within the definition of the Table A
 mnemonic NC002007. This indicator is called an <i>operator</i>, and
 readers more familiar with the details of BUFR will no doubt recognize
 it from Table C of the [official WMO master BUFR tables](@ref wmomstab).
-
-<br>
 
 In short, the effect of this operator is that, for each Table B
 mnemonic which follows it within the current sequence, and continuing
@@ -316,19 +284,13 @@ BUFR tables file, so that the net effect is to change the number of
 bits occupied by the data value corresponding to that mnemonic within
 the overall data subset. Thus, for example, the sequence:
 
-<br>
-
 201132  HINC  201000
-
-<br>
 
 indicates that ( 132 - 128 ) = 4 bits should be added to the data
 width that was defined for mnemonic HINC within the [third
 section](#section3) of the DX BUFR tables file, and, therefore, that
 for this occurrence of that mnemonic within the overall data subset,
 the corresponding data value will occupy ( 12 + 4 ) = 16 bits.
-
-<br>
 
 Other than 201YYY, the BUFRLIB software also supports the similar use
 of the 202YYY (change scale), 203YYY (change reference value), 204YYY
@@ -337,7 +299,6 @@ data width for local descriptor), 207YYY (increase scale, reference
 value and data width) and 208YYY (change data width for CCITT IA5
 descriptor) operators from BUFR Table C.
 
-<br>
 @anchor ufbsubs
 
 Next, take a look at the subset definitions for Table A mnemonics
@@ -373,57 +334,49 @@ replicated in each case, different BUFRLIB subroutines need to be used
 to retrieve all of the respective PRLC, GEOP, TMDB and TMDP values in
 each case.  For example, within the first subset definition TBLAEX1,
 we have delayed replication using the notation {PRGPTMDP}, so we could
-use subroutine ufbint() with STR='PRLC GEOP TMDB TMDP' to retrieve all
-of the replications of these mnemonics into our output USR array,
-where each row of USR would contain corresponding values for PRLC,
+use subroutine ufbint() with str='PRLC GEOP TMDB TMDP' to retrieve all
+of the replications of these mnemonics into our output usr array,
+where each row of usr would contain corresponding values for PRLC,
 GEOP, TMDB and TMDP in the first four columns, and where the return
-value IRET would tell us how many rows of USR were actually filled
+value iret would tell us how many rows of usr were actually filled
 with such values (i.e. the total number of replications that were
 read).
 
-<br>
-
-Alternatively, we could use subroutine ufbseq() with STR='PRGPTMDP',
+Alternatively, we could use subroutine ufbseq() with str='PRGPTMDP',
 which would accomplish the exact same thing.  Or, if we only wanted to
 know the total number of replications without actually reading out all
 of the respective PRLC, GEOP, TMDB and TMDP values, we could also call
-subroutine ufbint() with STR='{PRGPTMDP}', and the corresponding array
-location in USR would contain the same value that would have been
-returned in IRET during our earlier call to ufbint() with STR='PRLC
+subroutine ufbint() with str='{PRGPTMDP}', and the corresponding array
+location in usr would contain the same value that would have been
+returned in iret during our earlier call to ufbint() with str='PRLC
 GEOP TMDB TMDP', or during our earlier call to ufbseq() with
-STR='PRGPTMDP'.
-
-<br>
+str='PRGPTMDP'.
 
 The second subset definition TBLAEX2 is different, because here
 instead of delayed replication we have fixed replication using the
 notation "PRGPTMDP"100, so in this case we must instead use subroutine
-ufbrep() with STR='PRLC GEOP TMDB TMDP' in order to read all of the
+ufbrep() with str='PRLC GEOP TMDB TMDP' in order to read all of the
 respective PRLC, GEOP, TMDB and TMDP values into the first four
-columns of our USR array.  However, since in this case the number of
-replications is fixed at 100, then the return value IRET would always
+columns of our usr array.  However, since in this case the number of
+replications is fixed at 100, then the return value iret would always
 be set to 100, and if there were less than 100 actual rows of
-available data values, then the remaining rows of USR up through row
+available data values, then the remaining rows of usr up through row
 100 would be filled out with "missing" values by the BUFRLIB software.
-
-<br>
 
 The third subset definition TBLAEX3 is a bit more interesting, because
 we once again have delayed replication using the notation {PRGPTMDP}
 just like in TBLAEX1; however, in this case there are additional
 subsequent occurrences of Table B mnemonic PRLC which appear outside
 of the delayed replication sequence.  So in this case we again have to
-use subroutine ufbrep() with STR='PRLC GEOP TMDB TMDP' in order to
+use subroutine ufbrep() with str='PRLC GEOP TMDB TMDP' in order to
 read all of the occurrences of PRLC from within the data subset, and
-the return value IRET will now be 2 larger than in our earlier example
+the return value iret will now be 2 larger than in our earlier example
 for the TBLAEX1 subset definition, because now we have 2 extra rows in
-USR which contain additional PRLC values in the first column.  If we
-had instead tried to use subroutine ufbint() with the same STR value
+usr which contain additional PRLC values in the first column.  If we
+had instead tried to use subroutine ufbint() with the same str value
 for this TBLAEX3 subset definition, then we wouldn't have been able to
-read those last 2 extra rows, and our USR output array instead would
+read those last 2 extra rows, and our usr output array instead would
 have looked exactly as it did in our earlier TBLAEX1 example.
-
-<br>
 
 The fourth and final subset definition TBLAEX4 is even more
 interesting, not to mention a bit more contrived.  Here we have
@@ -435,48 +388,48 @@ replication.  Again, this is a contrived example, but it will serve to
 better explain how subroutine ufbrep() actually works, and also how it
 behaves slightly differently from ufbint() and ufbseq() as well as
 from yet another subroutine ufbstp().  First of all, in the case of
-subroutine ufbrep(), the first listed mnemonic in STR is always
-treated as a "pivot", meaning that the second dimension of USR
+subroutine ufbrep(), the first listed mnemonic in str is always
+treated as a "pivot", meaning that the second dimension of usr
 (i.e. the number of rows) is always defined by subsequent occurrences
 of this pivot mnemonic within the overall subset definition, and where
-any remaining mnemonics within STR are always independently searched
+any remaining mnemonics within str are always independently searched
 for between each successive occurrence of the pivot mnemonic.  So in
-the case of subroutine ufbrep() with STR='PRLC GEOP TMDB TMDP' for
-TBLAEX4, there will be 4 rows of values in the returned USR array as
+the case of subroutine ufbrep() with str='PRLC GEOP TMDB TMDP' for
+TBLAEX4, there will be 4 rows of values in the returned usr array as
 follows, since there were 4 total occurrences of the pivot mnemonic
 PRLC:
 
 <table border>
 <tr>
-  <th>USR(I,J)</th>
-  <th>J=1</th>
-  <th>J=2</th>
-  <th>J=3</th>
-  <th>J=4</th>
+  <th>usr(i,j)</th>
+  <th>j=1</th>
+  <th>j=2</th>
+  <th>j=3</th>
+  <th>j=4</th>
 </tr>
 <tr>
-  <th>I=1</th>
+  <th>i=1</th>
   <td>1st PRLC value</td>
   <td>1st GEOP value</td>
   <td>1st TMDB value</td>
   <td>1st TMDP value</td>
 </tr>
 <tr>
-  <th>I=2</th>
+  <th>i=2</th>
   <td>2nd PRLC value</td>
   <td>2nd GEOP value</td>
   <td>2nd TMDB value</td>
   <td>2nd TMDP value</td>
 </tr>
 <tr>
-  <th>I=3</th>
+  <th>i=3</th>
   <td>3rd PRLC value</td>
   <td>3rd GEOP value</td>
   <td>3rd TMDB value</td>
   <td>3rd TMDP value</td>
 </tr>
 <tr>
-  <th>I=4</th>
+  <th>i=4</th>
   <td>4th PRLC value</td>
   <td>4th GEOP value</td>
   <td>4th TMDB value</td>
@@ -489,40 +442,40 @@ mnemonics GEOP, TMDB and TMDP between each occurrence of the pivot
 mnemonic PRLC, so the varying order of those mnemonics between each
 successive occurrence of PRLC was immaterial, and all of the requested
 values were found and returned.  However, contrast that with what the
-first 4 rows of USR would look like if we called subroutine ufbstp()
-with the same STR='PRLC GEOP TMDB TMDP':
+first 4 rows of usr would look like if we called subroutine ufbstp()
+with the same str='PRLC GEOP TMDB TMDP':
 
 <table border>
 <tr>
-  <th>USR(I,J)</th>
-  <th>J=1</th>
-  <th>J=2</th>
-  <th>J=3</th>
-  <th>J=4</th>
+  <th>usr(i,j)</th>
+  <th>j=1</th>
+  <th>j=2</th>
+  <th>j=3</th>
+  <th>j=4</th>
 </tr>
 <tr>
-  <th>I=1</th>
+  <th>i=1</th>
   <td>1st PRLC value</td>
   <td>1st GEOP value</td>
   <td>1st TMDB value</td>
   <td>1st TMDP value</td>
 </tr>
 <tr>
-  <th>I=2</th>
+  <th>i=2</th>
   <td>2nd PRLC value</td>
   <td>2nd GEOP value</td>
   <td><b>"missing" value</b></td>
   <td><b>"missing" value</b></td>
 </tr>
 <tr>
-  <th>I=3</th>
+  <th>i=3</th>
   <td>3rd PRLC value</td>
   <td>3rd GEOP value</td>
   <td>3rd TMDB value</td>
   <td><b>"missing" value</b></td>
 </tr>
 <tr>
-  <th>I=4</th>
+  <th>i=4</th>
   <td>4th PRLC value</td>
   <td>4th GEOP value</td>
   <td><b>"missing" value</b></td>
@@ -535,7 +488,7 @@ occurrence of the pivot mnemonic PRLC is now very important when using
 subroutine ufbstp().  Specifically, ufbstp() only ever moves forward
 from each occurrence of the pivot mnemonic, and for only one non-pivot
 mnemonic at a time in the same exact order in which they appear in
-STR.  So in this case, in the second row of the output USR array, it
+str.  So in this case, in the second row of the output usr array, it
 searched forward from PRLC for the first occurrence of GEOP, and then
 only after it found that did it search for the next mnemonic in the
 string (i.e. TMDB), but only searching forward from GEOP rather than
@@ -544,9 +497,7 @@ mnemonic PRLC and searching from there.  And since it couldn't find
 any occurrence of TMDB between the location of GEOP within the second
 replication and the third occurrence of the pivot mnemonic PRLC which
 signaled the start of the third repliation, then TMDB and TMDP both
-ended up as "missing" in the second row of the returned USR array.
-
-<br>
+ended up as "missing" in the second row of the returned usr array.
 
 Similarly for the third replication, and starting from the third
 occurrence of the pivot mnemonic PRLC, it finds GEOP and then begins
@@ -555,14 +506,12 @@ until after it has already stepped past TMDP. And since it can only
 move forward from the point where it found TMDB, then it never finds
 TMDP for the third replication before it encounters the fourth and
 final occurrence of the pivot mnemonic PRLC, which in turn is why TMDP
-is "missing" in the third row of the returned USR array.  Finally, for
+is "missing" in the third row of the returned usr array.  Finally, for
 the fourth replication, and starting from the fourth occurrence of the
 pivot mnemonic PRLC, it finds GEOP and then begins searching from
 there for TMDB, but by that point it has already stepped past TMDB, so
 it never finds that nor the subsequent TMDP mnemonic, and therefore
-both of those values are "missing" in the fourth row of USR as well.
-
-<br>
+both of those values are "missing" in the fourth row of usr as well.
 
 Next, take a look at the definitions of the Table D sequence mnemonics
 TMPSQ3, WNDSQ2, and PCPSQ3; in particular, notice that, within these
@@ -595,8 +544,6 @@ important, because the BUFRLIB software will actually check that the
 immediately-following mnemonic matches the last 4 characters of the
 following-value mnemonic and will diagnose an error if it does not.
 
-<br>
-
 In general, the "following-value" attribute is useful because it
 allows the same mnemonic to be used repeatedly within the same overall
 Table A data subset definition in a very intuitive fashion and yet,
@@ -620,10 +567,8 @@ factor, reference value, data width, and units for all of the Table B
 mnemonics that were previously declared in the [first
 section](#section1). The units definition for each Table B mnemonic
 determines how data values corresponding to that mnemonic are
-read/written from/to the REAL*8 array USR within BUFRLIB subroutines
+read/written from/to the real*8 array usr within BUFRLIB subroutines
 such as ufbint(), ufbrep() and ufbseq().
-
-<br>
 
 In looking again at our [sample DX BUFR tables file](#bftab), we see
 that the format for the third section of such a file is the usual "|"
@@ -633,8 +578,6 @@ it was previously within the [first section](#section1)), the scale
 factor (right-justified from column 17), the reference value
 (right-justified from column 31), the bit width (right-justified from
 column 37), and the units (left-justified from column 41).
-
-<br>
 
 As with the previous two sections, blank separator lines may be
 employed in order to improve human-readability. It's recommended to

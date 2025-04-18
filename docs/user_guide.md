@@ -16,7 +16,7 @@
 
 ## Introduction
 
-This library contains subroutines, functions and other utilities that
+This library contains subroutines, functions and other [utilities](@ref utilities) that
 can be used to read (decode) and write (encode) data in BUFR, which is
 a [WMO](https://public.wmo.int) standard format for the exchange of
 meteorological data.
@@ -25,10 +25,10 @@ meteorological data.
 
 ```
 git clone https://github.com/NOAA-EMC/NCEPLIBS-bufr
-cmake -S NCEPLIBS-bufr -B my_build
-cmake --build my_build
-ctest --test-dir my_build
-cmake --install my_build
+cmake -S NCEPLIBS-bufr -B NCEPLIBS-bufr/build
+cmake --build NCEPLIBS-bufr/build
+ctest --test-dir NCEPLIBS-bufr/build
+cmake --install NCEPLIBS-bufr/build
 ```
 
 Any of the following options can be used to configure the build via `-D<Option>=<Value>`
@@ -37,6 +37,7 @@ within the first of the above cmake commands.  Otherwise the corresponding defau
 | Option | Description | Default Value |
 |--------|-------------|---------------|
 | CMAKE_INSTALL_PREFIX | Installation path | /usr/local |
+| MASTER_TABLE_DIR | Installation path of master tables | $CMAKE_INSTALL_PREFIX |
 | CMAKE_POSITION_INDEPENDENT_CODE | Enable position-independent code (PIC) for static build | OFF |
 | ENABLE_DOCS | Enable generation of doxygen-based documentation. | OFF |
 | ENABLE_PYTHON | Enable building python module 'ncepbufr' | OFF |

@@ -43,10 +43,10 @@ Download tarball from
 unpack, or `git clone https://github.com/NOAA-EMC/NCEPLIBS-bufr`.
 
 ```
-cmake -S NCEPLIBS-bufr -B my_build -DCMAKE_INSTALL_PREFIX=path1 -DMASTER_TABLE_DIR=path2
-cmake --build my_build -j4
-ctest --test-dir my_build
-cmake --install my_build
+cmake -S NCEPLIBS-bufr -B NCEPLIBS-bufr/build -DCMAKE_INSTALL_PREFIX=path1 -DMASTER_TABLE_DIR=path2
+cmake --build NCEPLIBS-bufr/build -j4
+ctest --test-dir NCEPLIBS-bufr/build
+cmake --install NCEPLIBS-bufr/build
 ```
 
 Both `path1` and `path2` may be full or relative pathnames
