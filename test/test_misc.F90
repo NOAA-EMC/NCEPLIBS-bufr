@@ -312,6 +312,17 @@ program test_misc
   call openbf(11, 'QUIET', 0)
   call closbf(11)
 
+  ! Test seqsdx() to make sure it can handle an 8-character mnemonic which is fixed-replicated 255 times
+  open(unit = 11, file = 'testfiles/test_misc_OUT', form = 'UNFORMATTED', iostat = ios)
+  if (ios /= 0) stop 3
+  open(unit = 12, file = 'testfiles/OUT_2_bufrtab', iostat = ios)
+  if (ios /= 0) stop 3
+  call openbf(11, 'OUT', 12)
+  card = '| DRPSTAK  | "ALTCORRN"255                                                     |'
+  call seqsdx(card, 1)
+  close (11)
+  close (12)
+
   ! Test various parameters for isetprm().
   prms = (/ 'MAXTBA ', 'MAXTBB ', 'MAXTBD ', 'MXMTBB ', 'MXMTBD ', 'MAXJL  ', 'MXNAF  ', &
     'MXMTBF ', 'MXS01V ', 'MXBTM  ', 'MXBTMSE', 'MXTAMC ', 'MXTCO  ', 'MXRST  ', 'MAXNC  ' /)
