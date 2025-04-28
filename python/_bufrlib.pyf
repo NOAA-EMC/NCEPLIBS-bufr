@@ -153,6 +153,5 @@ subroutine writlc(lunit,chr,st) ! in readwriteval.F90
     character*(*),intent(in) :: chr
     character*(*),intent(in) :: st
 end subroutine writelc
-
-    end interface 
+    end interface
 end python module _bufrlib
