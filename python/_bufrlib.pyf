@@ -148,6 +148,11 @@ end subroutine writsb
 subroutine cmpmsg(cmp) ! in cmpmsg.f
     character*(*),intent(in) :: cmp
 end subroutine cmpmsg
+subroutine writlc(lunit,chr,st) ! in readwriteval.F90
+    integer,intent(in) :: lunit
+    character*(*),intent(in) :: chr
+    character*(*),intent(in) :: st
+end subroutine writelc
 
     end interface 
 end python module _bufrlib
