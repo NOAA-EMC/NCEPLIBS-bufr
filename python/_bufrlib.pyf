@@ -1,82 +1,82 @@
 python module _bufrlib
     interface
 
-subroutine bvers(cverstr) ! in bvers.f
+subroutine bvers(cverstr) ! in misc.F90
     character*12,intent(out) :: cverstr
 end subroutine bvers
-subroutine closbf(lunit) ! in closbf.f
+subroutine closbf(lunit) ! in openclosebf.F90
     integer :: lunit
 end subroutine closbf
-subroutine closmg(lunin) ! in closmg.f
+subroutine closmg(lunin) ! in readwritemg.F90
     integer :: lunin
 end subroutine closmg
-subroutine copymg(lunin,lunot) ! in copymg.f
+subroutine copymg(lunin,lunot) ! in copydata.F90
     integer :: lunin
     integer :: lunot
 end subroutine copymg
-subroutine datelen(len_bn) ! in datelen.f
+subroutine datelen(len_bn) ! in s013vals.F90
     integer :: len_bn
 end subroutine datelen
-subroutine dxdump(lunit,ldxot) ! in dxdump.f
+subroutine dxdump(lunit,ldxot) ! in dumpdata.F90
     integer :: lunit
     integer :: ldxot
 end subroutine dxdump
-subroutine fortran_open(filename, lunit, format, position, iret)
+subroutine fortran_open(filename, lunit, format, position, iret) ! in openclosebf.F90
     character*(*), intent(in) :: filename, format, position
     integer,intent(in) :: lunit
     integer,intent(out) :: iret
 end subroutine fortran_open
-subroutine fortran_close(lunit,iret)
+subroutine fortran_close(lunit,iret) ! in openclosebf.F90
     integer,intent(in) :: lunit
     integer,intent(out) :: iret
 end subroutine fortran_close
-function getbmiss() ! in getbmiss.f
+function getbmiss() ! in missing.F90
     real*8 :: getbmiss
 end function getbmiss
-function igetprm(cprmnm)
+function igetprm(cprmnm) ! in arallocf.F90
     character*(*), intent(in) :: cprmnm
     integer, intent(out) :: igetprm
 end function igetprm
-function ireadsb(lunit) ! in ireadsb.f
+function ireadsb(lunit) ! in readwritesb.F90
     integer :: lunit
     integer :: ireadsb
 end function ireadsb
-function isetprm(cprmnm, ipval)
+function isetprm(cprmnm, ipval) ! in arallocf.F90
     character*(*), intent(in) :: cprmnm
     integer, intent(in) :: ipval
 end function isetprm
-function nmsub(lunit) ! in nmsub.f
+function nmsub(lunit) ! in readwritemg.F90
     integer :: lunit
     integer :: nmsub
 end function nmsub
-subroutine openbf(lunit,io,lundx) ! in openbf.f
+subroutine openbf(lunit,io,lundx) ! in openclosebf.F90
     integer :: lunit
     character*(*) :: io
     integer :: lundx
 end subroutine openbf
-subroutine openmb(lunit,subset,jdate) ! in openmb.f
+subroutine openmb(lunit,subset,jdate) ! in readwritemg.F90
     integer :: lunit
     character*(*) :: subset
     integer :: jdate
 end subroutine openmb
-subroutine readmg(lunxx,subset,jdate,iret) ! in readmg.f
+subroutine readmg(lunxx,subset,jdate,iret) ! in readwritemg.F90
     integer :: lunxx
     character*8, intent(out) :: subset
     integer,intent(out) :: jdate
     integer,intent(out) :: iret
 end subroutine readmg
-subroutine rewnbf(lunit,isr) ! in rewnbf.f
+subroutine rewnbf(lunit,isr) ! in openclosebf.F90
     integer,intent(in) :: lunit
     integer,intent(in) :: isr
 end subroutine rewnbf
-subroutine rtrcpt(lunit,iyr,imo,idy,ihr,imi,iret) ! in rtrcpt.f
+subroutine rtrcpt(lunit,iyr,imo,idy,ihr,imi,iret) ! in tankrcpt.F90
     integer,intent(in) :: lunit
     integer,intent(out) :: iyr,imo,idy,ihr,imi,iret
 end subroutine rtrcpt
-subroutine setbmiss(xmiss) ! in setbmiss.f
+subroutine setbmiss(xmiss) ! in missing.F90
     real*8 :: xmiss
 end subroutine setbmiss
-subroutine strcpt(cf,iyr,imo,idy,ihr,imi) ! in strcpt.f
+subroutine strcpt(cf,iyr,imo,idy,ihr,imi) ! in tankrcpt.F90
     character*1 :: cf
     integer :: iyr
     integer :: imo
@@ -84,57 +84,57 @@ subroutine strcpt(cf,iyr,imo,idy,ihr,imi) ! in strcpt.f
     integer :: ihr
     integer :: imi
 end subroutine strcpt
-subroutine ufbcpy(lubin,lubot) ! in ufbcpy.f
+subroutine ufbcpy(lubin,lubot) ! in copydata.F90
     integer :: lubin
     integer :: lubot
 end subroutine ufbcpy
-subroutine ufbdmp(lunin,luprt) ! in ufbdmp.f
+subroutine ufbdmp(lunin,luprt) ! in dumpdata.F90
     integer :: lunin
     integer :: luprt
 end subroutine ufbdmp
-subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str) ! in ufbevn.f
+subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str) ! in readwriteval.F90
     integer,intent(in) :: lunit
     real*8, intent(inout), dimension(i1,i2,i3) :: usr
     integer, intent(in) :: i1,i2,i3
     integer, intent(out) :: iret
     character*(*), intent(in) :: str
 end subroutine ufbevn
-subroutine ufbint(lunin,usr,i1,i2,iret,str) ! in ufbint.f
+subroutine ufbint(lunin,usr,i1,i2,iret,str) ! in readwriteval.F90
     integer,intent(in) :: lunin
     real*8, intent(inout), dimension(i1,i2) :: usr
     integer, intent(in) :: i1,i2
     integer, intent(out) :: iret
     character*(*), intent(in) :: str
 end subroutine ufbint
-subroutine readlc(lunit, chr, str) ! in readlc.f
+subroutine readlc(lunit, chr, str) ! in readwriteval.F90
     integer,intent(in) :: lunit
     character*64, intent(out) :: chr
     character*(*), intent(in) :: str
 end subroutine readlc
-subroutine ufbqcd(lunit,nemo,qcd) ! in ufbqcd.f
+subroutine ufbqcd(lunit,nemo,qcd) ! in cftbvs.F90
     integer, intent(in) :: lunit
     character*(*), intent(in) :: nemo
     real, intent(out) :: qcd
 end subroutine ufbqcd
-subroutine ufbrep(lunio,usr,i1,i2,iret,str) ! in ufbrep.f
+subroutine ufbrep(lunio,usr,i1,i2,iret,str) ! in readwriteval.F90
     integer,intent(in) :: lunio
     real*8, intent(inout), dimension(i1,i2) :: usr
     integer, intent(in) :: i1,i2
     integer, intent(out) :: iret
     character*(*),intent(in) :: str
 end subroutine ufbrep
-subroutine ufbseq(lunin,usr,i1,i2,iret,str) ! in ufbseq.f
+subroutine ufbseq(lunin,usr,i1,i2,iret,str) ! in readwriteval.F90
     integer, intent(in) :: lunin
     real*8, intent(inout), dimension(i1,i2) :: usr
     integer, intent(in) :: i1,i2
     integer, intent(out) :: iret
     character*(*), intent(in) :: str
 end subroutine ufbseq
-subroutine ufdump(lunit,luprt) ! in ufdump.f
+subroutine ufdump(lunit,luprt) ! in datadump.F90
     integer :: lunit
     integer :: luprt
 end subroutine ufdump
-subroutine upftbv(lunit,nemo,val,mxib,ibit,nib) ! in upftbv.f
+subroutine upftbv(lunit,nemo,val,mxib,ibit,nib) ! in cftbvs.F90
     integer,intent(in) :: lunit
     character*(*),intent(in) :: nemo
     real*8, intent(in) :: val
@@ -142,16 +142,16 @@ subroutine upftbv(lunit,nemo,val,mxib,ibit,nib) ! in upftbv.f
     integer, intent(out) :: ibit(mxib)
     integer, intent(out) :: nib
 end subroutine upftbv
-subroutine writsb(lunit) ! in writsb.f
+subroutine writsb(lunit) ! in readwritesb.F90
     integer :: lunit
 end subroutine writsb
-subroutine cmpmsg(cmp) ! in cmpmsg.f
+subroutine cmpmsg(cmp) ! in compress.F90
     character*(*),intent(in) :: cmp
 end subroutine cmpmsg
 subroutine writlc(lunit,chr,st) ! in readwriteval.F90
     integer,intent(in) :: lunit
     character*(*),intent(in) :: chr
     character*(*),intent(in) :: st
-end subroutine writelc
+end subroutine writlc
     end interface
 end python module _bufrlib
