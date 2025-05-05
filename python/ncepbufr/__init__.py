@@ -446,6 +446,27 @@ class open:
         except Exception as error:
             print(f"An exception occurred {error}")
         return result
+    def write_long_string(self,s,mnemonic,first=False):
+        """
+        Encode long character string and write to the current message.
+        String must be ASCII encodable otherwise an exception will be
+        raised.
+
+        If first is true then writsb will be called first.
+
+        Example:
+
+            :::python
+            >>> bufr = ncepbufr.open(filename)
+            >>> bufr.write_long_string('test123',mnemonic='PTIDC',end=True)
+        """
+        if len(mnemonic.split()) > 1:
+            raise ValueError('only one mnemonic per call to write_long_string')
+        if first:
+            _bufrlib.writsb(self.lunit)
+        dat = s.encode('ASCII')
+        _bufrlib.writlc(self.lunit,dat,mnemonic)
+
     def read_subset(self,mnemonics,rep=False,seq=False,events=False):
         """
         decode the data from the currently loaded message subset
