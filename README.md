@@ -43,10 +43,10 @@ Download tarball from
 unpack, or `git clone https://github.com/NOAA-EMC/NCEPLIBS-bufr`.
 
 ```
-cmake -S NCEPLIBS-bufr -B my_build -DCMAKE_INSTALL_PREFIX=path1 -DMASTER_TABLE_DIR=path2
-cmake --build my_build -j4
-ctest --test-dir my_build
-cmake --install my_build
+cmake -S NCEPLIBS-bufr -B NCEPLIBS-bufr/build -DCMAKE_INSTALL_PREFIX=path1 -DMASTER_TABLE_DIR=path2
+cmake --build NCEPLIBS-bufr/build -j4
+ctest --test-dir NCEPLIBS-bufr/build
+cmake --install NCEPLIBS-bufr/build
 ```
 
 Both `path1` and `path2` may be full or relative pathnames
@@ -68,6 +68,8 @@ to the first of the above cmake commands and then omitting the subsequent `ctest
 When building the library, associated utilities are included by default.
 If these are not desired, then they can be disabled by adding `-DBUILD_UTILS=OFF`
 to the first of the above cmake commands.
+
+NCEPLIBS-bufr is also available through [Spack](https://spack.io) as '[bufr](https://github.com/spack/spack/tree/develop/var/spack/repos/builtin/packages/bufr)'.
 
 ## References
 

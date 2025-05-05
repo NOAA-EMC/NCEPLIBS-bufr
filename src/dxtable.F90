@@ -336,18 +336,16 @@ subroutine seqsdx(card,lun)
   implicit none
 
   integer, intent(in) :: lun
-  integer maxtgs, maxtag, ntag, idn, jdn, iseq, irep, i, j, n, itab, iret, ier, numr, nemock
+  integer ntag, idn, jdn, iseq, irep, i, j, n, itab, iret, ier, numr, nemock
+  integer, parameter :: maxtgs = 250, maxtag = 13
 
   character*128 bort_str1, bort_str2
   character*80 seqs
   character*80, intent(in) :: card
-  character*12 atag, tags(250)
+  character*(maxtag) atag, tags(maxtgs)
   character*8 nemo, nema, nemb
   character*6 adn30, clemon
   character tab
-
-  data maxtgs /250/
-  data maxtag /12/
 
   ! Find the sequence tag in Table D and parse the sequence string
 
