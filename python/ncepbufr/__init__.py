@@ -458,7 +458,8 @@ class open:
 
             :::python
             >>> bufr = ncepbufr.open(filename)
-            >>> bufr.write_long_string('test123',mnemonic='PTIDC',end=True)
+            >>> bufr.open_message('TEST',0)
+            >>> bufr.write_long_string('test123',mnemonic='PTIDC',first=True)
         """
         if len(mnemonic.split()) > 1:
             raise ValueError('only one mnemonic per call to write_long_string')
