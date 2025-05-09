@@ -148,6 +148,13 @@ end subroutine writsb
 subroutine cmpmsg(cmp) ! in compress.F90
     character*(*),intent(in) :: cmp
 end subroutine cmpmsg
+subroutine stdmsg(std) ! in standard.F90
+    character*(*),intent(in) :: std
+end subroutine stdmsg
+subroutine pkvs01(s01mnem,ival) ! in s013vals.F90
+    character*(*),intent(in) :: s01mnem
+    integer,intent(in) :: ival
+end subroutine pkvs01
 subroutine writlc(lunit,chr,st) ! in readwriteval.F90
     integer,intent(in) :: lunit
     character*(*),intent(in) :: chr
