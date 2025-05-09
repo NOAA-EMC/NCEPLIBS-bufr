@@ -45,6 +45,21 @@ def get_missing_value():
     """
     return _bufrlib.getbmiss()
 
+def standardize(std='N'):
+    """
+    Ensure all output is WMO-standardized in subsequent writes to the bufr file.
+    `std`: `'Y'` for Yes, default is `'N'` for No.
+    """
+    _bufrlib.stdmsg(std)
+
+def set_Section01_value(s01_mnemonic, value):
+    """
+    Set a custom Section 0 or Section 1 message value for all subsequent writes to the bufr file,
+    overriding the internal default for that particular value.
+    Valid s01_mnemonics are listed in the docblock of the pkvs01 source file.
+    """
+    _bufrlib.pkvs01(s01_mnemonic, value)
+
 def set_datelength(charlen):
     """
     set number of digits for date specification (10 gives `YYYYMMDDHH`)
@@ -67,11 +82,13 @@ class open:
 
         `filename`: bufr file name.
 
-        `mode`: `'r'` for read, `'w'` for write, `'a'` for append (default
-        `'r'`).
+        `mode`: `'r'` for read (default)
+                `'w'` for write
+                `'n'` for write but excluding table messages
+                `'a'` for append
 
         `table`:  bufr table filename or ncepbufr.open instance.
-        Must be specified for `mode='w'`, optional for `mode='r'`.
+        Must be specified for `mode='w'` or `mode='n'`, optional for `mode='r' or `mode='a'`.
         If table is an existing ncepbufr.open instance, the table
         will be shared. If not, it is assumed to be the filename of a bufr table.
         For `mode='r'`, bufr table embedded in file will be used if not specified.
@@ -85,15 +102,18 @@ class open:
             raise IOError("too many files open")
         if mode == 'r':
             self._ioflag = 'IN'
-        elif mode == 'w':
+        elif mode == 'w' or mode == 'n':
             if table is None:
-                msg="must specify file containing bufr table when mode='w'"
+                msg="must specify file containing bufr table when mode='w' or `mode='n'"
                 raise ValueError(msg)
-            self._ioflag = 'OUT'
+            if mode == 'w':
+                self._ioflag = 'OUT'
+            else:
+                self._ioflag = 'NODX'
         elif mode == 'a':
             self._ioflag = 'APN'
         else:
-            raise ValueError("mode must be 'r', 'w' or 'a'")
+            raise ValueError("mode must be 'r', 'w', 'n', or 'a'")
         if mode == 'r' or mode == 'a':
             if not os.path.isfile(filename):
                 msg='%s does not exist' % filename
@@ -119,7 +139,7 @@ class open:
                         raise IOError(msg)
                     _funits.remove(self.lundx)
                 _bufrlib.openbf(self.lunit,self._ioflag,self.lundx)
-        elif mode == 'w':
+        elif mode == 'w' or mode == 'n':
             try:
                 # share a bufr table with another instance
                 self.lundx = table.lunit
@@ -314,14 +334,14 @@ class open:
         """
         return prepbufr event program code
         associated with specified mnemonic
-        (see `src/ufbqcd.f` for more details)
+        (see cftbvs.F90 for more details)
         """
         return _bufrlib.ufbqcd(self.lunit, mnemonic)
     def get_flag_table_bits(self, mnemonic, val):
         """
         return bit settings associated with
         a specifed value and flag table mnemonic
-        (see src/upftbv.f for more details)
+        (see cftbvs.F90 for more details)
         """
         ibits, nbits = _bufrlib.upftbv(self.lunit, mnemonic, float(val), _maxevents)
         return ibits[:nbits]
@@ -485,11 +505,11 @@ class open:
         trying to decode a subset using `ncepbufr.open.read_subset`.
 
         if `rep = True`, `ufbrep` is used to read data represented
-        a regular replication sequence.  See the comments in `src/ufbrep.f` for
-        more details. Used for radiance data.
+        a regular replication sequence.  See the comments in readwritevals.F90 for
+        more details.
 
         if `seq=True`, `ufbseq` is used to read data represented by
-        a sequence mnemonic. Used for gps data.
+        a sequence mnemonic.
 
         if `events=True`, `ufbevn` is used to read prepbufr
         "events", and a 3-d array is returned.
@@ -539,11 +559,11 @@ class open:
         is used to write the data.
 
         if `rep = True`, `ufbrep` is used to write data represented
-        a regular replication sequence.  See the comments in `src/ufbrep.f` for
-        more details. Used for radiance data.
+        a regular replication sequence.  See the comments in readwritevals.F90 for
+        more details.
 
         if `seq=True`, `ufbseq` is used to write data represented by
-        a sequence mnemonic. Used for gps data.
+        a sequence mnemonic.
 
         if `events=True`, `ufbevn` is used to write prepbufr
         "events" (a 3-d data array is required)
