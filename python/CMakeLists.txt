@@ -48,7 +48,7 @@ endif()
 
 if(BUILD_TESTING)
   # Add tests
-  set(pytest_list checkpoint gps misc prepbufr rad satwnd write)
+  set(pytest_list checkpoint gps misc prepbufr rad satwnd write outtest12)
   foreach(pytestname ${pytest_list})
     add_test(
       NAME test_pyncepbufr_${pytestname}
