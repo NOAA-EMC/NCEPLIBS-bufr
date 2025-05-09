@@ -82,13 +82,13 @@ class open:
 
         `filename`: bufr file name.
 
-        `mode`: `'r'` for read (default)
-                `'w'` for write
-                `'n'` for write but excluding table messages
+        `mode`: `'r'` for read (default),
+                `'w'` for write,
+                `'n'` for write but excluding table messages,
                 `'a'` for append
 
         `table`:  bufr table filename or ncepbufr.open instance.
-        Must be specified for `mode='w'` or `mode='n'`, optional for `mode='r' or `mode='a'`.
+        Must be specified for `mode='w'` or `mode='n'`, optional for `mode='r'` or `mode='a'`.
         If table is an existing ncepbufr.open instance, the table
         will be shared. If not, it is assumed to be the filename of a bufr table.
         For `mode='r'`, bufr table embedded in file will be used if not specified.
