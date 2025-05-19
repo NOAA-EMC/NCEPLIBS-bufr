@@ -1,7 +1,7 @@
 Table B STD |  0 | 43
 #
 # Standard BUFR Table B, Master Table 0, Version 43
-# This file was generated: 2024/11/20 18:37:16
+# This file was generated: 2025/05/19 19:55:34
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME
@@ -329,7 +329,7 @@ Table B STD |  0 | 43
   0-03-030 |   0 |           0 |   3 | Code table        | ATST     ;     ; Antenna status
   0-03-031 |  11 |           0 |  16 | m                 | CBFWHM   ;     ; Channel bandwidth, full width half maximum (FWHM)
   0-03-032 |  -6 |           0 |  26 | Hz                | CCF      ;     ; Channel centre frequency
-  0-03-033 |  -6 |           0 |  26 | Hz                | CBW      ;     ; Channel band width
+  0-03-033 |  -6 |           0 |  26 | Hz                | CBW      ;     ; Channel bandwidth
   0-03-034 |   9 |           0 |  16 | m                 | CWL      ;     ; Channel wavelength
   0-04-001 |   0 |           0 |  12 | Year              | YEAR     ;     ; Year
   0-04-002 |   0 |           0 |   4 | Month             | MNTH     ;     ; Month
@@ -843,11 +843,11 @@ Table B STD |  0 | 43
   0-13-162 |   2 |           0 |   8 | kg m**-2          | CLWA     ;     ; Cloud liquid water
   0-13-163 |   0 |           0 |  16 | kg m**-2          | SWEMS    ;     ; Snow water equivalent
   0-13-164 |   3 |     -131072 |  18 | m                 | SIFB     ;     ; Sea ice freeboard
-  0-13-165 |   0 |           0 |  14 | J kg**-1          | CAPEST   ;     ; CAPE (convective available potential energy)
+  0-13-165 |   0 |           0 |  14 | J kg**-1          | CAPEST   ;     ; Convective available potential energy (CAPE)
   0-13-166 |   1 |           0 |  10 | K                 | TTIDX    ;     ; Total totals index
   0-13-167 |   1 |       -1000 |  11 | K                 | STT      ;     ; S index (STT)
   0-13-168 |   1 |        -100 |   8 | K                 | FTIDX    ;     ; Fog threat index
-  0-13-169 |   1 |        -100 |   8 | K/K               | MDPI     ;     ; MDPI (microburst day potential index)
+  0-13-169 |   1 |        -100 |   8 | K/K               | MDPI     ;     ; Microburst day potential index (MDPI)
   0-13-170 |   1 |       -1000 |  11 | K                 | TQIDX    ;     ; TQ index
   0-13-171 |   0 |       -1000 |  10 | J kg**-1          | CINST    ;     ; CIN (convective inhibition)
   0-14-001 |  -3 |      -65536 |  17 | J m**-2           | LWR24    ;     ; Long-wave radiation, integrated over 24 hours
@@ -1286,7 +1286,7 @@ Table B STD |  0 | 43
   0-22-043 |   2 |           0 |  15 | K                 | SST1     ;     ; Sea/water temperature
   0-22-044 |   1 |           0 |  14 | m s**-1           | SVEL     ;     ; Sound velocity
   0-22-045 |   3 |           0 |  19 | K                 | SSTH     ;     ; Sea/water temperature
-  0-22-046 |   2 |           0 |   7 | Numeric           | SIFR     ;     ; Sea ice fraction
+  0-22-046 |   2 |           0 |   7 | Numeric           | SIFR     ;     ; Sea-ice fraction
   0-22-049 |   2 |           0 |  15 | K                 | SST0     ;     ; Sea-surface temperature
   0-22-050 |   2 |           0 |   8 | K                 | SSTD     ;     ; Standard deviation sea-surface temperature
   0-22-055 |   0 |           0 |  10 | Numeric           | FCYN     ;     ; Float cycle number
@@ -1824,7 +1824,7 @@ Table B STD |  0 | 43
   0-41-003 |   3 |           0 |  17 | umol kg**-1       | DSNT     ;     ; Dissolved nitrates
   0-41-004 |   4 |           0 |  19 | mg m**-3          | CHLA     ;     ; Chlorophyll-A
   0-41-005 |   2 |           0 |  12 | NTU               | TURBDN   ;     ; Turbidity
-  0-41-006 |   4 |       70000 |  15 | Numeric           | SWPH     ;     ; Sea water pH
+  0-41-006 |   4 |       70000 |  15 | Numeric           | SWPH     ;     ; Seawater pH
   0-41-007 |   7 |           0 |  20 | m**-1             | BBP700   ;     ; BBP700
   0-42-001 |   0 |           0 |   9 | Degree            | DSWDSP   ;     ; Dominant swell wave direction of spectral partition
   0-42-002 |   1 |           0 |   9 | m                 | SSWHSP   ;     ; Significant swell wave height of spectral partition

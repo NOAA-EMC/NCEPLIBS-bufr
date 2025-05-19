@@ -1,7 +1,7 @@
 Table B LOC |  0 | 7 |  1
 #
 # Local BUFR Table B, Master Table 0, Originating Center 7, Version 1
-# This file was generated: 2024/11/20 18:37:17
+# This file was generated: 2025/05/19 19:36:47
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME
@@ -46,7 +46,7 @@ Table B LOC |  0 | 7 |  1
   0-02-227 |  -2 |           0 |  12 | m                 | ATREC    ;     ; Along track resolution (coarse)
   0-02-231 |   2 |           0 |  13 | Degree            | RAIAH    ;     ; Radar incidence angle (high accuracy)
   0-02-232 |   2 |           0 |  16 | Degree            | RALAH    ;     ; Radar look angle (high accuracy)
-  0-04-192 |   5 |       -2400 |  13 | Hour              | DHR      ;     ; PREPFITS: Observation time minus cycle time
+  0-04-192 |   5 |       -2400 |  13 | Hour              | DHR      ;     ; Observation time minus cycle time
   0-04-193 |   0 |           0 |   3 | Code table        | DAYW     ;     ; Day of the week
   0-04-194 |   0 |           0 |  24 | s                 | FTIM     ;     ; Forecast time
   0-04-195 |   0 |           0 |  12 | Year              | PSYR     ;     ; Time of last known position of buoy
@@ -116,9 +116,9 @@ Table B LOC |  0 | 7 |  1
   0-08-225 |   0 |           0 |   5 | Code table        | HGTSIG   ;     ; Height significance
   0-08-226 |   0 |           0 |   5 | Code table        | DCHSIG   ;     ; Discharge significance
   0-08-227 |   0 |           0 |   5 | Code table        | FCTSIG   ;     ; Forecast significance
-  0-10-192 |   1 |           0 |  14 | mb                | PMO      ;     ; PREPFITS: Mean sea-level pressure observation
-  0-10-194 |   0 |       -1000 |  17 | m                 | ELV      ;     ; PREPFITS: Station elevation
-  0-10-195 |   0 |       -1000 |  17 | m                 | ZOB      ;     ; PREPFITS: Height
+  0-10-192 |   1 |           0 |  14 | mb                | PMO      ;     ; Mean sea-level pressure observation
+  0-10-194 |   0 |       -1000 |  17 | m                 | ELV      ;     ; Station elevation
+  0-10-195 |   0 |       -1000 |  17 | m                 | ZOB      ;     ; Height
   0-10-196 |   0 |      -10000 |  20 | m**2 s**-2        | XMGP10   ;     ; Extrapolated mandatory level geopotential
   0-10-197 |   0 |           0 |  13 | m                 | HPBL     ;     ; Height of the planetary boundary layer
   0-10-199 |   0 |       -1000 |  17 | m                 | ELV      ;     ; PREPBUFR: Station elevation
@@ -179,11 +179,11 @@ Table B LOC |  0 | 7 |  1
   0-11-249 |   1 |       -4096 |  13 | m s**-1           | VCL      ;     ; PREPBUFR: Climatological v-component wind value
   0-11-250 |   1 |           0 |  10 | m s**-1           | UCS      ;     ; PREPBUFR: Standard deviation of climatological u-component wind value
   0-11-251 |   1 |           0 |  10 | m s**-1           | VCS      ;     ; PREPBUFR: Standard deviation of climatological v-component wind value
-  0-11-252 |   0 |           0 |   9 | kt                | FFO      ;     ; PREPBUFR/PREPFITS: Wind speed observation
+  0-11-252 |   0 |           0 |   9 | kt                | FFO      ;     ; PREPBUFR: Wind speed observation
   0-11-253 |   1 |           0 |  10 | m s**-1           | WOETU    ;     ; PREPBUFR: Analysis-tuned wind observation error
   0-11-254 |   1 |       -4096 |  13 | m s**-1           | UFCMOD   ;     ; PREPBUFR: Model forecast (background) u-component wind value
   0-11-255 |   1 |       -4096 |  13 | m s**-1           | VFCMOD   ;     ; PREPBUFR: Model forecast (background) v-component wind value
-  0-12-192 |   1 |       -2732 |  14 | Celsius           | TOB      ;     ; PREPFITS: Temperature observation (dry-bulb or virtual)
+  0-12-192 |   1 |       -2732 |  14 | Celsius           | TOB      ;     ; Temperature observation (dry-bulb or virtual)
   0-12-193 |   2 |           0 |  16 | K                 | CTTP     ;     ; Temperature (city)
   0-12-194 |   2 |           0 |  16 | K                 | CTMX     ;     ; Maximum temperature (city)
   0-12-195 |   2 |           0 |  16 | K                 | CTMN     ;     ; Minimum temperature (city)
@@ -651,15 +651,15 @@ Table B LOC |  0 | 7 |  1
   0-50-003 |   0 |           0 |   7 | Numeric           | PROCN    ;     ; PREPBUFR: Process number for this MPI run
   0-50-004 |   0 |           0 |   7 | Numeric           | MGPT     ;     ; BUFR message number
   0-50-005 |   0 |           0 |  24 | CCITT IA5         | SRC      ;     ; PREPBUFR: File name of data source
-  0-50-192 |   0 |           0 |  14 | J kg**-1          | CAPE     ;     ; PREPBUFR/PREPFITS: Convective available potential energy
-  0-50-193 |   0 |       -3890 |  12 | J kg**-1          | CINH     ;     ; PREPBUFR/PREPFITS: Convective inhibition
-  0-50-194 |   1 |         -50 |  10 | K                 | LI       ;     ; PREPFITS: Lifted index
-  0-50-195 |  -1 |         -40 |  16 | m                 | PBL      ;     ; PREPFITS: Planetary boudary layer height
-  0-50-196 |   1 |           0 |  14 | mb                | TROP     ;     ; PREPFITS: Tropopause level
-  0-50-197 |   1 |           0 |  14 | m                 | CDBZ     ;     ; PREPFITS: Height of base of cloud
-  0-50-198 |  -1 |         -40 |  16 | m                 | TKEPBL   ;     ; PREPFITS: Turbulence kinetic energy based planetary boundary layer height
-  0-50-199 |  -1 |         -40 |  16 | m                 | RIPBL    ;     ; PREPFITS: Richardson number planetary boundary layer height
-  0-50-200 |  -1 |         -40 |  16 | m                 | MIXHT    ;     ; PREPFITS: Mixed layer height
+  0-50-192 |   0 |           0 |  14 | J kg**-1          | CAPE     ;     ; PREPBUFR: Convective available potential energy
+  0-50-193 |   0 |       -3890 |  12 | J kg**-1          | CINH     ;     ; PREPBUFR: Convective inhibition
+  0-50-194 |   1 |         -50 |  10 | K                 | LI       ;     ; Lifted index
+  0-50-195 |  -1 |         -40 |  16 | m                 | PBL      ;     ; Planetary boudary layer height
+  0-50-196 |   1 |           0 |  14 | mb                | TROP     ;     ; Tropopause level
+  0-50-197 |   1 |           0 |  14 | m                 | CDBZ     ;     ; Height of base of cloud
+  0-50-198 |  -1 |         -40 |  16 | m                 | TKEPBL   ;     ; Turbulence kinetic energy based planetary boundary layer height
+  0-50-199 |  -1 |         -40 |  16 | m                 | RIPBL    ;     ; Richardson number planetary boundary layer height
+  0-50-200 |  -1 |         -40 |  16 | m                 | MIXHT    ;     ; Mixed layer height
   0-50-210 |   0 |           0 |  10 | Flag table        | SLQFS    ;     ; Scan line quality flags for SAPHIR/MADRAS
   0-50-211 |   0 |           0 |   3 | Code table        | PLMD     ;     ; Payload mode for SAPHIR
   0-50-213 |   0 |           0 |   4 | Code table        | SMODE    ;     ; Satellite mode for SAPHIR/MADRAS
