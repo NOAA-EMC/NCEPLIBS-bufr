@@ -1,7 +1,7 @@
-Table F STD |  0 | 41
+Table F STD |  0 | 44
 #
-# Standard BUFR Table CODE/FLAG, Master Table 0, Version 41
-# This file was generated: 2025/05/19 19:55:33
+# Standard BUFR Table CODE/FLAG, Master Table 0, Version 44
+# This file was generated: 2025/05/19 19:36:47
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -30,6 +30,9 @@ Table F STD |  0 | 41
               | 3 > | METOP-1 (Metop-B)
               | 4 > | METOP-2 (Metop-A)
               | 5 > | METOP-3 (Metop-C)
+              | 6 > | CO2M-A
+              | 7 > | CO2M-B
+              | 8 > | CO2M-C
               | 20 > | SPOT1
               | 21 > | SPOT2
               | 22 > | SPOT3
@@ -77,10 +80,14 @@ Table F STD |  0 | 41
               | 74 > | METEOSAT 15
               | 75 > | METEOSAT 16
               | 76 > | METEOSAT 17
+              | 80 > | AWS1
               | 120 > | ADEOS
               | 121 > | ADEOS II
               | 122 > | GCOM-W1
+              | 123 > | GCOM-C
               | 140 > | GOSAT
+              | 141 > | GOSAT-2
+              | 142 > | GOSAT-GW
               | 150 > | GMS 3
               | 151 > | GMS 4
               | 152 > | GMS 5
@@ -144,6 +151,7 @@ Table F STD |  0 | 41
               | 271 > | GOES 17
               | 272 > | GOES 18
               | 273 > | GOES 19
+              | 280 > | SWOT
               | 281 > | QUIKSCAT
               | 282 > | TRMM
               | 283 > | CORIOLIS
@@ -202,6 +210,7 @@ Table F STD |  0 | 41
               | 526 > | FY-3G
               | 530 > | FY-4A
               | 531 > | FY-4B
+              | 540 > | Tianmu-1
               | 700 > | TIROS M (ITOS 1)
               | 701 > | NOAA 1
               | 702 > | NOAA 2
@@ -252,6 +261,8 @@ Table F STD |  0 | 41
               | 765 > | NIMBUS 5
               | 766 > | NIMBUS 6
               | 767 > | NIMBUS 7
+              | 768 > | Loft Orbital YAM Longbow
+              | 769 > | tomorrow.io 6U CubeSat
               | 780 > | ERBS
               | 781 > | UARS
               | 782 > | EARTH PROBE
@@ -267,6 +278,8 @@ Table F STD |  0 | 41
               | 802 > | CFOSAT
               | 803 > | GRACE C (GRACE-FO)
               | 804 > | GRACE D (GRACE-FO)
+              | 805 > | NOAA 22
+              | 806 > | NOAA 23
               | 810 > | COMS
               | 811 > | GEO-KOMPSAT-2A
               | 812 > | SCISAT-1
@@ -487,6 +500,8 @@ Table F STD |  0 | 41
               | 179 > | GeoOptics, Inc.
               | 180 > | PlanetiQ
               | 181 > | Atmospheric and Environmental Research (AER)
+              | 182 > | tomorrow.io
+              | 183 > | Scripps Institute of Oceanography (UC San Diego - United States)
               | 190 > | Cook Islands (NMC)
               | 191 > | French Polynesia (NMC)
               | 192 > | Tonga (NMC)
@@ -545,6 +560,7 @@ Table F STD |  0 | 41
               | 250 > | COnsortium for Small scale MOdelling  (COSMO)
               | 251 > | Meteorological Cooperation on Operational NWP (MetCoOp)
               | 252 > | Max Planck Institute for Meteorology (MPI-M)
+              | 253 > | Alfred Wegener Institute (AWI)
               | 254 > | EUMETSAT Operation Centre
               | 256 > | Angola (NMC)
               | 257 > | Benin (NMC)
@@ -589,7 +605,30 @@ Table F STD |  0 | 41
               | 296 > | French National Centre for Scientific Research (CNRS)
               | 297 > | Nanjing Institute of Environmental Sciences (NIES)
               | 298 > | Dynamic Meteorology Laboratory (LMD)
-              | 299   | The Rutherford Appleton Laboratory (RAL)
+              | 299 > | The Rutherford Appleton Laboratory (RAL)
+              | 300 > | Greek Atomic Energy Commission (Greece)
+              | 301 > | United States Environmental Protection Agency (USA)
+              | 302 > | Australian Radiation Protection and Nuclear Safety (Australia)
+              | 303 > | Authority for Nuclear Safety and Radiation Protection (The Netherlands)
+              | 304 > | Autorite de Surete Nucleaire (France)
+              | 305 > | Bundesamt fur Strahlenschutz (Germany)
+              | 306 > | National Commission for Nuclear Activities Control (Romania)
+              | 307 > | Consejo de Seguridad Nuclear (Spain)
+              | 308 > | Danish Emergency Management Agency (Denmark)
+              | 309 > | Norwegian Radiation Protection Agency (Norway)
+              | 310 > | Federal Agency for Nuclear Control (Belgium)
+              | 311 > | Institute of Radiation Protection and Dosimetry (Brazil)
+              | 312 > | National Inspectorate for Nuclear Safety and Radiation Protection (Italy)
+              | 313 > | Nuclear Regulatory Authority (Turkiye)
+              | 314 > | Nuclear Regulation Authority (Japan)
+              | 315 > | Nuclear Regulatory Agency (Bulgaria)
+              | 316 > | Ukrainian Radiation Protection Institute (Ukraine)
+              | 317 > | Health Canada Radio Protection Bureau (Canada)
+              | 318 > | Portuguese Society for Radiation Protection (Portugal)
+              | 319 > | Swedish Radiation Safety Authority (Sweden)
+              | 320 > | Radiation and Nuclear Safety Authority (Finland)
+              | 321 > | State Office for Nuclear Safety (Czechia)
+              | 322   | Nuclear Regulation Authority (Slovakia)
 
   0-01-032 | GNAP ; CODE
            | 0-01-031,0-01-033,0-01-035=34
@@ -902,6 +941,8 @@ Table F STD |  0 | 41
               | 179 > | GeoOptics, Inc.
               | 180 > | PlanetiQ
               | 181 > | Atmospheric and Environmental Research (AER)
+              | 182 > | tomorrow.io
+              | 183 > | Scripps Institute of Oceanography (UC San Diego - United States)
               | 190 > | Cook Islands (NMC)
               | 191 > | French Polynesia (NMC)
               | 192 > | Tonga (NMC)
@@ -960,9 +1001,13 @@ Table F STD |  0 | 41
               | 250 > | COnsortium for Small scale MOdelling  (COSMO)
               | 251 > | Meteorological Cooperation on Operational NWP (MetCoOp)
               | 252 > | Max Planck Institute for Meteorology (MPI-M)
+              | 253 > | Alfred Wegener Institute (AWI)
               | 254   | EUMETSAT Operation Centre
 
   0-01-034 | GSES ; CODE
+           | 0-01-031,0-01-033,0-01-035=183
+              | 1 > | Center for Western Weather and Water Extremes
+              | 2 > | Global Drifter Program
            | 0-01-031,0-01-033,0-01-035=34
               | 0 > | No sub-centre
               | 207 > | Syowa
@@ -1397,6 +1442,8 @@ Table F STD |  0 | 41
               | 179 > | GeoOptics, Inc.
               | 180 > | PlanetiQ
               | 181 > | Atmospheric and Environmental Research (AER)
+              | 182 > | tomorrow.io
+              | 183 > | Scripps Institute of Oceanography (UC San Diego - United States)
               | 190 > | Cook Islands (NMC)
               | 191 > | French Polynesia (NMC)
               | 192 > | Tonga (NMC)
@@ -1455,6 +1502,7 @@ Table F STD |  0 | 41
               | 250 > | COnsortium for Small scale MOdelling  (COSMO)
               | 251 > | Meteorological Cooperation on Operational NWP (MetCoOp)
               | 252 > | Max Planck Institute for Meteorology (MPI-M)
+              | 253 > | Alfred Wegener Institute (AWI)
               | 254 > | EUMETSAT Operation Centre
               | 256 > | Angola (NMC)
               | 257 > | Benin (NMC)
@@ -1499,7 +1547,30 @@ Table F STD |  0 | 41
               | 296 > | French National Centre for Scientific Research (CNRS)
               | 297 > | Nanjing Institute of Environmental Sciences (NIES)
               | 298 > | Dynamic Meteorology Laboratory (LMD)
-              | 299   | The Rutherford Appleton Laboratory (RAL)
+              | 299 > | The Rutherford Appleton Laboratory (RAL)
+              | 300 > | Greek Atomic Energy Commission (Greece)
+              | 301 > | United States Environmental Protection Agency (USA)
+              | 302 > | Australian Radiation Protection and Nuclear Safety (Australia)
+              | 303 > | Authority for Nuclear Safety and Radiation Protection (The Netherlands)
+              | 304 > | Autorite de Surete Nucleaire (France)
+              | 305 > | Bundesamt fur Strahlenschutz (Germany)
+              | 306 > | National Commission for Nuclear Activities Control (Romania)
+              | 307 > | Consejo de Seguridad Nuclear (Spain)
+              | 308 > | Danish Emergency Management Agency (Denmark)
+              | 309 > | Norwegian Radiation Protection Agency (Norway)
+              | 310 > | Federal Agency for Nuclear Control (Belgium)
+              | 311 > | Institute of Radiation Protection and Dosimetry (Brazil)
+              | 312 > | National Inspectorate for Nuclear Safety and Radiation Protection (Italy)
+              | 313 > | Nuclear Regulatory Authority (Turkiye)
+              | 314 > | Nuclear Regulation Authority (Japan)
+              | 315 > | Nuclear Regulatory Agency (Bulgaria)
+              | 316 > | Ukrainian Radiation Protection Institute (Ukraine)
+              | 317 > | Health Canada Radio Protection Bureau (Canada)
+              | 318 > | Portuguese Society for Radiation Protection (Portugal)
+              | 319 > | Swedish Radiation Safety Authority (Sweden)
+              | 320 > | Radiation and Nuclear Safety Authority (Finland)
+              | 321 > | State Office for Nuclear Safety (Czechia)
+              | 322   | Nuclear Regulation Authority (Slovakia)
 
   0-01-036 | AOOP ; CODE
               | 36001 > | Australia, Bureau of Meteorology (BOM)
@@ -1777,7 +1848,7 @@ Table F STD |  0 | 41
               | 644 > | Switzerland
               | 645 > | Syrian Arab Republic
               | 646 > | The Former Yugoslav Republic of Macedonia
-              | 647 > | Republic of Turkiye
+              | 647 > | Turkiye
               | 648 > | Ukraine
               | 649   | United Kingdom of Great Britain and Northern Ireland (RA VI)
 
@@ -1799,7 +1870,8 @@ Table F STD |  0 | 41
               | 2 > | Maximum Likelihood Estimation (MLE)
               | 3 > | Optimal Estimation Profile (OE-PRO)
               | 4 > | Group
-              | 5   | Group mid-bin
+              | 5 > | Group mid-bin
+              | 6   | Maximum Likelihood Estimation - High horizontal resolution (MLEsub)
 
   0-02-001 | TOST ; CODE
               | 0 > | Automatic
@@ -2012,7 +2084,7 @@ Table F STD |  0 | 41
               | 162 > | MARL-A or Vektor-M - MRZ-3MK (Russian Federation)
               | 163 > | Modem M20 radiosonde w/thermistor sensor, capacitance relative humidity sensor, and derived pressure from GPS height (France)
               | 164 > | Modem PilotSonde GPS radiosonde (France)
-              | 165 > | Meteosis MTS-01 (Republic of Turkiye)
+              | 165 > | Meteosis MTS-01 (Turkiye)
               | 173 > | MARL-A (Russian Federation) - ASPAN-15 (Kazakhstan)
               | 177 > | Modem GPSonde M10 (France)
               | 182 > | Lockheed Martin LMS-6 w/chip thermistor, external boom mounted polymer capacitive relative humidity sensor, capacitive pressure sensor and GPS wind
@@ -2025,7 +2097,13 @@ Table F STD |  0 | 41
               | 200 > | Nanjing GTS11 (China)
               | 201 > | Shanghai GTS12 (China)
               | 202 > | Taiyuan GTS13 (China)
-              | 203   | Shanghai GTS14 (China)
+              | 203 > | Shanghai GTS14 (China)
+              | 204 > | Beijing GTH1 (China)
+              | 205 > | Nanjing GTH2 (China)
+              | 206 > | Tianjin GTH3 (China)
+              | 207 > | Aerospace Newsky Technology GTH4 (China)
+              | 208 > | Taiyuan GTH5 (China)
+              | 209   | Shanghai GTH6 (China)
 
   0-02-013 | SIRC ; CODE
               | 0 > | No correction
@@ -2189,10 +2267,14 @@ Table F STD |  0 | 41
               | 205 > | EUMETSAT Radiometer MVIRI (METEOSAT visible and infrared imager)
               | 207 > | EUMETSAT Radiometer SEVIRI (Spinning enhanced visible and infrared imager)
               | 208 > | EUMETSAT Imaging multi-spectral radiometer (vis/IR) VIRI (VIRI)
+              | 209 > | ESA Radiometer MWR (EPS Sterna Radiometer)
               | 210 > | ESA/EUMETSAT/Thales Alenia Space Imager FCI (Flexible Combined Imager)
               | 211 > | ESA/EUMETSAT/Leonardo Imager LI (Lightning Imager)
               | 212 > | EUMETSAT/OHB Interferometer IRS (Infrared Sounder)
               | 213 > | ESA/EUMETSAT/Copernicus - Airbus Spectrometer S4 (Ultraviolet and Near-Infrared Multispectral Spectrometer (S4 UVN))
+              | 214 > | ESA Spectrometer CO2I (Integrated CO2 and NO2 Imaging Spectrometer)
+              | 215 > | ESA Multiple direction/polarization radiometer MAP (Multi-Angle Polarimeter)
+              | 216 > | ESA Imaging multi-spectral radiometer (vis/IR) CLIM (Cloud Imager)
               | 220 > | ESA/EUMETSAT Spectrometer GOME-2 (Global ozone monitoring experiment - 2)
               | 221 > | CNES/EUMETSAT Atmospheric temperature and humidity sounder IASI (Infrared atmospheric sounding interferometer)
               | 230 > | ESA/EUMETSAT Radiometer 3MI (Multi-viewing Multi-channel Multi-polarisation Imaging)
@@ -2258,6 +2340,7 @@ Table F STD |  0 | 41
               | 365 > | NASA Imaging multi-spectral radiometer (passive microwave) TMI (TRMM microwave imager)
               | 366 > | NASA Imaging multi-spectral radiometer (passive microwave) JMR (JASON-1 microwave radiometer)
               | 367 > | NASA Imaging multi-spectral radiometer AMR (Positioning ocean solid Earth ice dynamics orbiting navigator (double frequency solid state radar altimeter))
+              | 368 > | NASA Radiometer MWR (Microwave Radiometer)
               | 369 > | NASA Total and profile ozone LIMS (Limb infrared monitor of the stratosphere)
               | 370 > | NASA Total and profile ozone LRIR (Limb radiance inversion radiometer instrument)
               | 371 > | NASA Total and profile ozone EPIC (Earth polychromatic imaging camera)
@@ -2297,6 +2380,7 @@ Table F STD |  0 | 41
               | 432 > | NASA Spectrometer OCO (Orbiting Carbon Observatory)
               | 433 > | NASA Spectrometer TMS (TROPICS Millimeter-wave Sounder)
               | 434 > | NASA MW radiometer SMAP (Soil Moisture Active-Passive)
+              | 435 > | NASA Spectrometer TEMPO (Tropospheric Emissions Monitoring of Pollution)
               | 450 > | JAXA Communications ADEOS Comms (Communications package for ADEOS)
               | 451 > | JAXA Communications DCS (JAXA) (Data collection system (JAXA))
               | 453 > | NASDA Communications GMS Comms (Communications package on GMS)
@@ -2305,6 +2389,7 @@ Table F STD |  0 | 41
               | 461 > | NASDA Radar PR (Precipitation radar)
               | 462 > | NASDA Imaging microwave radar SAR (Synthetic aperture radar)
               | 470 > | JAXA Imaging microwave radar PALSAR (Phased array type L-band synthetic aperture radar)
+              | 477 > | JAXA Imaging multi-spectral radiometer (passive microwave) AMSR3 (Advanced Microwave Scanning Radiometer 3)
               | 478 > | JAXA Imaging multi-spectral radiometer (passive microwave) AMSR2 (Advanced microwave scanning radiometer 2)
               | 479 > | JAXA Imaging multi-spectral radiometer (passive microwave) AMSR-E (Advanced microwave scanning radiometer-EOS)
               | 480 > | JAXA High resolution optical imager PRISM (ALOS) (Panchromatic remote-sensing Instrument for stereo mapping)
@@ -2328,6 +2413,7 @@ Table F STD |  0 | 41
               | 518 > | JAXA Cloud and precipitation radar DPR (Dual-frequency precipitation radar)
               | 519 > | JAXA MW imaging/sounding radiometer, conical scanning GMI (GPM microwave imager)
               | 520 > | NASA Imaging radiometer SMMR (Scanning Multichannel Microwave Radiometer)
+              | 521 > | JAXA Spectrometer TANSO-FTS2 (Thermal and Near infrared Sensor for carbon Observations - Fourier Transform Spectrometer 2)
               | 526 > | GeoOptics GNSS occultation sounder Cion-A (GeoOptics Cion GNSS occultation receiver A)
               | 527 > | GeoOptics GNSS occultation sounder Cion-B (GeoOptics Cion GNSS occultation receiver B)
               | 528 > | GeoOptics GNSS occultation sounder Cion-C (GeoOptics Cion GNSS occultation receiver C)
@@ -2338,6 +2424,8 @@ Table F STD |  0 | 41
               | 533 > | Spire GNSS occultation sounder SGNOS-D (Spire global navigation satellite system occultation sounder D)
               | 534 > | PlanetiQ GNSS occultationsounder Pyxis-A (PlanetiQ Pyxis GNSS occultation receiver A)
               | 535 > | PlanetiQ GNSS occultationsounder Pyxis-B (PlanetiQ Pyxis GNSS occultation receiver B)
+              | 536 > | tomorrow.io Radiometer MWS (Microwave sounder)
+              | 537 > | tomorrow.io Radar KAPR (Ka band precipitation radar)
               | 540 > | NOAA Communications DCS (NOAA) (Data-collection system (NOAA))
               | 541 > | NOAA Communications GOES Comms (Communications package on GOES)
               | 542 > | NOAA Communications LANDSAT Comms (Communications package for LANDSAT)
@@ -2514,6 +2602,7 @@ Table F STD |  0 | 41
               | 985 > | CMA Conical scanning microwave imager MWRI-1 (Microwave radiation imager-1)
               | 986 > | CMA Conical scanning microwave imager MWRI-2 (Microwave radiation imager-2)
               | 987 > | CMA Conical scanning microwave imager MWRI-RM (Microwave radiation imager-Rain Mission)
+              | 988 > | CMA Conical scanning dual-frequency scatterometer WindRAD (Wind Radar)
               | 990 > | NASA Radiometer SMMR (Scanning multichannel microwave radiometer)
               | 991 > | NASA Radiometer THIR (Temperature-humidity infrared radiometer)
               | 992 > | NASA Radiometer NEMS (Nimbus-E Microwave Sounder)
@@ -2891,6 +2980,7 @@ Table F STD |  0 | 41
               | 2 > | KKS
               | 3 > | Guangzhou Shuangyi (China)
               | 4 > | ChemChina Zhuzhou (China)
+              | 5 > | WindBorne
               | 62   | Other
 
   0-02-081 | BTYPE ; CODE
@@ -2941,6 +3031,9 @@ Table F STD |  0 | 41
               | 5 > | Chip thermistor
               | 6 > | Mercury
               | 7 > | Alcohol/glycol
+              | 8 > | Platinum resistance thermometer
+              | 9 > | Thermistor
+              | 10 > | Thermocouple
               | 30   | Other
 
   0-02-097 | RHSENS ; CODE
@@ -3925,6 +4018,10 @@ Table F STD |  0 | 41
               | 2 > | Lower triangular correlation matrix square root (L from C=LL^T)
               | 3   | Inverse of lower triangular correlation matrix square root (L**-1)
 
+  0-08-027 | TSSHAM ; CODE
+              | 0 > | Unfiltered raw measurement including noises
+              | 1   | Low pass filtered sea-surface height for noise reduction
+
   0-08-029 | RSST ; CODE
               | 0 > | Open ocean or semi-enclosed sea
               | 1 > | Enclosed sea or lake
@@ -4228,6 +4325,15 @@ Table F STD |  0 | 41
               | 10057 > | 2-lambda-1-Oxidanyloxy-3-methylbut-3-en-1-ol (2-Hydroxy-1-isopropenylethylperoxy radical)
               | 10058 > | (Z)-4-Hydroperoxy-2-methyl-2-butenal
               | 10059 > | (Z)-4-Hydroperoxy-3-methyl-2-butenal
+              | 10060 > | Butene (C4H8)
+              | 10061 > | Pentene (C5H10)
+              | 10062 > | Hexene (C6H12)
+              | 10063 > | Heptene (C7H14)
+              | 10064 > | Octene (C8H16)
+              | 10065 > | Pentane (C5H12)
+              | 10066 > | Hexane (C6H14)
+              | 10067 > | Heptane (C7H16)
+              | 10068 > | Octane (C8H18)
               | 10500 > | Dimethyl sulphide (CH3SCH3 (DMS))
               | 10501 > | Dimethyl sulphoxide ((CH3)2SO (DMSO))
               | 20001 > | Hydrogen chloride (HCl)
@@ -4541,6 +4647,78 @@ Table F STD |  0 | 41
               | 30296 > | Lead (Pb)
               | 30297 > | Tellurium 131
               | 30298 > | Neodymium 137
+              | 30299 > | Pseudo radionuclide
+              | 30300 > | Silver 112
+              | 30301 > | Silver 115
+              | 30302 > | Barium 139
+              | 30303 > | Barium 141
+              | 30304 > | Barium 142
+              | 30305 > | Bromine 84
+              | 30306 > | Cadmium 115
+              | 30307 > | Cadmium 117
+              | 30308 > | Cadmium 117 metastable
+              | 30309 > | Cerium 145
+              | 30310 > | Cerium 146
+              | 30311 > | Cobalt 58 metastable
+              | 30312 > | Caesium 138
+              | 30313 > | Caesium 139
+              | 30314 > | Iodine 130 aerosol
+              | 30315 > | Iodine 130 elementary gaseous
+              | 30316 > | Iodine 130 organic bounded
+              | 30317 > | Iodine 132 metastable
+              | 30318 > | Iodine 134 metastable
+              | 30319 > | Indium 115 metastable
+              | 30320 > | Indium 117 metastable
+              | 30321 > | Krypton 83 metastable
+              | 30322 > | Lanthanum 142
+              | 30323 > | Lanthanum 143
+              | 30324 > | Manganese 56
+              | 30325 > | Molybdenum 101
+              | 30326 > | Molybdenum 102
+              | 30327 > | Neodymium 149
+              | 30328 > | Neodymium 151
+              | 30329 > | Palladium 109
+              | 30330 > | Palladium 112
+              | 30331 > | Praseodymium 145
+              | 30332 > | Praseodymium 146
+              | 30333 > | Praseodymium 147
+              | 30334 > | Rubidium 89
+              | 30335 > | Rubidium 90
+              | 30336 > | Rubidium 90 metastable
+              | 30337 > | Rhodium 105 metastable
+              | 30338 > | Rhodium 107
+              | 30339 > | Antimony 128
+              | 30340 > | Antimony 128 metastable
+              | 30341 > | Antimony 129 metastable
+              | 30342 > | Antimony 130
+              | 30343 > | Antimony 130 metastable
+              | 30344 > | Antimony 131
+              | 30345 > | Antimony 132
+              | 30346 > | Antimony 132 metastable
+              | 30347 > | Antimony 133
+              | 30348 > | Selenium 83
+              | 30349 > | Tin 127
+              | 30350 > | Tin 127 metastable
+              | 30351 > | Tin 128
+              | 30352 > | Tin 129 metastable
+              | 30353 > | Tin 130
+              | 30354 > | Strontium 93
+              | 30355 > | Technetium 101
+              | 30356 > | Technetium 102
+              | 30357 > | Technetium 104
+              | 30358 > | Technetium 105
+              | 30359 > | Tellurium 133
+              | 30360 > | Tellurium 133 metastable
+              | 30361 > | Tellurium 134
+              | 30362 > | Yttrium 93 metastable
+              | 30363 > | Yttrium 94
+              | 30364 > | Yttrium 95
+              | 30365 > | Zirconium 96
+              | 30366 > | Indium 117
+              | 30367 > | Lead 203
+              | 30368 > | Sodium 24
+              | 30369 > | Ruthenium 107
+              | 30370 > | Uranium 239
               | 40000 > | Singlet sigma oxygen (dioxygen (sigma singlet))
               | 40001 > | Singlet delta oxygen (dioxygen (delta singlet))
               | 40002 > | Singlet excited oxygen atom
@@ -4614,6 +4792,7 @@ Table F STD |  0 | 41
               | 62034 > | Rain water
               | 62035 > | Cloud water
               | 62036 > | Brown carbon dry
+              | 62037 > | Sea salt wet at 80% relative humidity
               | 62100 > | Alnus (Alder) pollen
               | 62101 > | Betula (Birch) pollen
               | 62102 > | Castanea (Chestnut) pollen
@@ -4691,6 +4870,10 @@ Table F STD |  0 | 41
   0-08-054 | QWSG ; CODE
               | 0 > | Wind speed or gust is as reported
               | 1   | Wind speed is greater than that reported (P in METAR/TAF/SPECI)
+
+  0-08-055 | MCAVGWC ; CODE
+              | 0 > | Calculate the area average of the u and v components at pressure levels from 0 to 500km centered on the surface vortex position
+              | 1   | Calculate the area average of the u and v components at pressure levels from 0 to radius greater than 500km centered on the surface vortex position
 
   0-08-060 | SSMS ; CODE
               | 1 > | Range
@@ -5131,7 +5314,8 @@ Table F STD |  0 | 41
               | 8 > | Snow cover
               | 9 > | Sea ice
               | 10 > | Standing water (e.g. temporary flooding)
-              | 11   | Snow
+              | 11 > | Snow
+              | 12   | Frozen soil
 
   0-13-041 | PGSC ; CODE
               | 1 > | A
@@ -8538,7 +8722,10 @@ Table F STD |  0 | 41
 
   0-40-036 | LL2BCT ; CODE
               | 0 > | Clear
-              | 1   | Cloud
+              | 1 > | Cloud
+              | 2 > | Aerosol
+              | 3 > | Attenuated
+              | 4   | Surface
 
   0-40-043 | SMNI ; CODE
               | 0 > | The platform is not undergoing a manoeuvre
@@ -8689,13 +8876,47 @@ Table F STD |  0 | 41
               | 9 > | Flag preceding the first 24 hours/day mark (set to on as a rule)
               | 10   | Telemetry package flag
 
+  0-40-077 | OPQF2 ; FLAG
+              | 1 > | Sea surface temperature not OK
+              | 2 > | Sea surface wind speed not OK
+              | 3 > | Atmospheric water vapour content not OK
+              | 4   | Cloud liquid water content not OK
+
   0-40-080 | CTIL2 ; FLAG
               | 1 > | Thin cirrus detection executed
               | 2 > | Thin cirrus detection indicates a cloud
               | 3 > | Aerosol dust detection executed
               | 4   | Aerosol dust detected
 
+  0-40-081 | OLCI1Q ; CODE
+              | 18 > | Land
+              | 19 > | Coastline
+              | 20 > | Fresh inland water
+              | 21 > | Tidal regions
+              | 22 > | Preliminary cloud
+              | 23 > | Stray light risk
+              | 24 > | Invalid
+              | 25 > | Cosmetic
+              | 26 > | Duplicated
+              | 27 > | Sun glint risk
+              | 28 > | Dubious
+              | 29 > | Saturated
+              | 30   | Partly saturated
+
   0-42-004 | CIPSWV ; CODE
               | 0 > | Wave direction resolved
               | 1   | 180-degree ambiguity not resolved
+
+  0-42-017 | SWVSQF ; CODE
+              | 0 > | Good
+              | 1 > | Medium
+              | 2 > | Low
+              | 3   | Poor
+
+  0-42-018 | SWVSPQF ; CODE
+              | 0 > | Very good
+              | 1 > | Good
+              | 2 > | Medium
+              | 3 > | Low
+              | 4   | Poor
 END

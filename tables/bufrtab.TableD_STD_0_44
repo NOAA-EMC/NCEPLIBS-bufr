@@ -1,7 +1,7 @@
-Table D STD |  0 | 43
+Table D STD |  0 | 44
 #
-# Standard BUFR Table D, Master Table 0, Version 43
-# This file was generated: 2025/05/19 19:55:34
+# Standard BUFR Table D, Master Table 0, Version 44
+# This file was generated: 2025/05/19 19:36:47
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC   ;DCOD ; NAME           <-- sequence definition
@@ -1683,14 +1683,14 @@ Table D STD |  0 | 43
            | 0-03-009   | Amount of forced ventilation at time of reading
 
   3-03-100 | FCSTIDXS   ;     ; Forecast indices
-           | 0-13-165 > | CAPE (convective available potential energy)
+           | 0-13-165 > | Convective available potential energy (CAPE)
            | 0-13-045 > | KO index
            | 0-13-166 > | Total totals index
            | 0-13-044 > | K index
            | 0-13-042 > | Parcel lifted index (to 500 hPa)
            | 0-13-167 > | S index (STT)
            | 0-13-168 > | Fog threat index
-           | 0-13-169 > | MDPI (microburst day potential index)
+           | 0-13-169 > | Microburst day potential index (MDPI)
            | 0-13-170 > | TQ index
            | 0-13-171   | CIN (convective inhibition)
 
@@ -3682,6 +3682,35 @@ Table D STD |  0 | 43
            | 0-13-117 > | Snow density (liquid water content)
            | 0-03-028 > | Method of snow water equivalent measurement
            | 0-13-163   | Snow water equivalent
+
+  3-07-104 | CRYOTMPF   ;     ; Cryo station temperature profile
+           | 3-01-150 > | WIGOS identifier
+           | 0-01-019 > | Long station or site name
+           | 0-02-001 > | Type of station
+           | 3-01-011 > | Year, month, day
+           | 3-01-013 > | Hour, minute, second
+           | 3-01-021 > | Latitude/longitude (high accuracy)
+           | 0-07-030 > | Height of station ground above mean sea level
+           | 0-08-029 > | Surface type
+           | 0-13-115 > | Ice thickness
+           | 0-20-062 > | State of the ground (with or without snow)
+           | 0-13-119 > | Snow depth
+           | 0-02-177 > | Method of snow depth measurement
+           | 0-08-010 > | Surface qualifier (temperature data)
+           | 0-12-161 > | Skin temperature
+           | 1-11-000 > | Delayed replication of 11 descriptors
+           | 0-31-001 > | Delayed descriptor replication factor
+           | 0-07-034 > | Vertical distance of sensor
+           | 0-02-096 > | Type of temperature sensor
+           | 0-12-101 > | Temperature/air temperature
+           | 0-12-131 > | Snow temperature
+           | 2-01-131 > | Change data width
+           | 2-02-129 > | Change scale
+           | 0-12-130 > | Soil temperature
+           | 2-02-000 > | Cancel change scale
+           | 2-01-000 > | Cancel change data width
+           | 0-12-133 > | Ice temperature
+           | 0-13-082   | Water temperature
 
   3-07-182 | SYNFLD2N   ;     ; Sequence for representation of synoptic reports from a fixed land station suitable for SYNOP data in compliance with reporting practices in RA II
            | 3-01-090 > | Surface station identification; time, horizontal and vertical coordinates
