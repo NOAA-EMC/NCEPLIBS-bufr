@@ -1,7 +1,7 @@
-Table B STD |  0 | 42
+Table B STD |  0 | 44
 #
-# Standard BUFR Table B, Master Table 0, Version 42
-# This file was generated: 2025/05/19 19:55:33
+# Standard BUFR Table B, Master Table 0, Version 44
+# This file was generated: 2025/05/19 19:36:47
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME
@@ -117,6 +117,7 @@ Table B STD |  0 | 42
   0-01-126 |   0 |           0 |  16 | Numeric           | WGOSISID ;     ; WIGOS issuer of identifier
   0-01-127 |   0 |           0 |  16 | Numeric           | WGOSISNM ;     ; WIGOS issue number
   0-01-128 |   0 |           0 | 128 | CCITT IA5         | WGOSLID  ;     ; WIGOS local identifier (character)
+  0-01-130 |   0 |           0 |  32 | CCITT IA5         | LSTMID   ;     ; Storm identifier (long)
   0-01-144 |   0 |           0 |  31 | Numeric           | SNSI     ;     ; Snapshot identifier
   0-01-145 |   0 |          -8 |  20 | Numeric           | LSID     ;     ; Light source identifier
   0-01-150 |   0 |           0 |  16 | Code table        | CRFS     ;     ; Coordinate reference system
@@ -446,6 +447,7 @@ Table B STD |  0 | 42
   0-07-031 |   1 |       -4000 |  17 | m                 | HBMSL    ;     ; Height of barometer above mean sea level
   0-07-032 |   2 |           0 |  16 | m                 | HSALG    ;     ; Height of sensor above local ground (or deck of marine platform)
   0-07-033 |   1 |           0 |  12 | m                 | HSAWS    ;     ; Height of sensor above water surface
+  0-07-034 |   2 |      -65000 |  17 | m                 | VDSS     ;     ; Vertical distance of sensor
   0-07-035 |   0 |           0 |  12 | Numeric           | MSZD     ;     ; Maximum size of z-dimension
   0-07-036 |   0 |           0 |  12 | Numeric           | LINZ     ;     ; Level index of z
   0-07-040 |   1 |    62000000 |  22 | m                 | IMPP     ;     ; Impact parameter
@@ -487,6 +489,7 @@ Table B STD |  0 | 42
   0-08-024 |   0 |           0 |   6 | Code table        | DFST     ;     ; Difference statistics
   0-08-025 |   0 |           0 |   4 | Code table        | TDQL     ;     ; Time difference qualifier
   0-08-026 |   0 |           0 |   6 | Code table        | MTXSIG   ;     ; Matrix significance
+  0-08-027 |   0 |           0 |   8 | Code table        | TSSHAM   ;     ; Type of sea-surface height anomaly measurement
   0-08-029 |   0 |           0 |   8 | Code table        | RSST     ;     ; Surface type
   0-08-030 |   0 |           0 |  13 | Numeric           | CTDD     ;     ; Manual on Codes (Volume I.1, Section C) Code table from which data are derived
   0-08-031 |   0 |           0 |   8 | Numeric           | DCAT     ;     ; Data category - CREX table A
@@ -511,6 +514,7 @@ Table B STD |  0 | 42
   0-08-052 |   0 |           0 |   5 | Code table        | CNDO     ;     ; Condition for which number of days of occurrence follows
   0-08-053 |   0 |           0 |   2 | Code table        | DOQL     ;     ; Day of occurrence qualifier
   0-08-054 |   0 |           0 |   3 | Code table        | QWSG     ;     ; Qualifier for wind speed or wind gusts
+  0-08-055 |   0 |           0 |   4 | Code table        | MCAVGWC  ;     ; Method used to calculate the average wind components after removing vortex
   0-08-060 |   0 |           0 |   4 | Code table        | SSMS     ;     ; Sample scanning mode significance
   0-08-065 |   0 |           0 |   2 | Code table        | SGIN     ;     ; Sun-glint indicator
   0-08-066 |   0 |           0 |   2 | Code table        | STIN     ;     ; Semi-transparency indicator
@@ -613,6 +617,8 @@ Table B STD |  0 | 42
   0-11-021 |   9 |      -65536 |  17 | s**-1             | RVORT    ;     ; Relative vorticity
   0-11-022 |   9 |      -65536 |  17 | s**-1             | DIVG     ;     ; Divergence
   0-11-023 |  -2 |      -65536 |  17 | m**2 s**-1        | VPOT     ;     ; Velocity potential
+  0-11-024 |   1 |       -4096 |  13 | m s**-1           | AUCAV    ;     ; Average u-component after the vortex removal
+  0-11-025 |   1 |       -4096 |  13 | m s**-1           | AVCAV    ;     ; Average v-component after the vortex removal
   0-11-030 |   0 |           0 |   6 | Code table        | DGOTX    ;     ; Extended degree of turbulence
   0-11-031 |   0 |           0 |   4 | Code table        | DGOT     ;     ; Degree of turbulence
   0-11-032 |  -1 |         -40 |  16 | m                 | HBOT     ;     ; Height of base of turbulence
@@ -736,6 +742,7 @@ Table B STD |  0 | 42
   0-12-130 |   2 |           0 |  16 | K                 | STEMH    ;     ; Soil temperature
   0-12-131 |   2 |           0 |  16 | K                 | NTEM     ;     ; Snow temperature
   0-12-132 |   2 |           0 |  16 | K                 | ITEM     ;     ; Ice surface temperature
+  0-12-133 |   2 |           0 |  16 | K                 | ICET     ;     ; Ice temperature
   0-12-151 |   2 |           0 |  12 | K                 | STDMT    ;     ; Standard deviation of daily mean temperature
   0-12-152 |   2 |           0 |  16 | K                 | HDMTH    ;     ; Highest daily mean temperature
   0-12-153 |   2 |           0 |  16 | K                 | LDMTH    ;     ; Lowest daily mean temperature
@@ -834,8 +841,10 @@ Table B STD |  0 | 42
   0-13-116 |   4 |           0 |  10 | m                 | WFTHK    ;     ; Water film thickness
   0-13-117 |   0 |           0 |  10 | kg m**-3          | SDEN     ;     ; Snow density (liquid water content)
   0-13-118 |   3 |          -2 |  14 | m                 | DOFSH    ;     ; Depth of fresh snow (high accuracy)
+  0-13-119 |   3 |      -10000 |  15 | m                 | SNDPST   ;     ; Snow depth
   0-13-155 |   5 |          -1 |  16 | kg m**-2 s**-1    | PRATH    ;     ; Intensity of precipitation (high accuracy)
   0-13-160 |   2 |        -350 |  10 | kg m**-2          | RDLC     ;     ; Radiometer liquid content
+  0-13-161 |   0 |           0 |  14 | J kg**-1          | MUCAPE   ;     ; Most unstable convective available potential energy (CAPE)
   0-13-162 |   2 |           0 |   8 | kg m**-2          | CLWA     ;     ; Cloud liquid water
   0-13-163 |   0 |           0 |  16 | kg m**-2          | SWEMS    ;     ; Snow water equivalent
   0-13-164 |   3 |     -131072 |  18 | m                 | SIFB     ;     ; Sea ice freeboard
@@ -1128,6 +1137,7 @@ Table B STD |  0 | 42
   0-21-017 |   1 |           0 |   8 | m s**-1           | DVSW     ;     ; Doppler velocity spectral width
   0-21-018 |   1 |           0 |  10 | m s**-1           | XNQV     ;     ; Extended NYQUIST velocity
   0-21-019 |   1 |           0 |  10 | m s**-1           | HNQV     ;     ; High NYQUIST velocity
+  0-21-020 |   3 |      -65536 |  17 | Numeric           | DYACOR   ;     ; Dynamic atmospheric correction
   0-21-021 |  -3 |           0 |   4 | m                 | ECHT     ;     ; Echo tops
   0-21-022 |   1 |           0 |  14 | m                 | RNBO     ;     ; Range bin offset
   0-21-023 |   0 |           0 |  14 | m                 | RNBS     ;     ; Range bin size
@@ -1815,6 +1825,7 @@ Table B STD |  0 | 42
   0-40-076 |   0 |           0 |  21 | Numeric           | RECMT    ;     ; Retrieval error covariance matrix for temperature in principal component domain
   0-40-077 |   0 |           0 |   8 | Flag table        | OPQF2    ;     ; Ocean product quality flag
   0-40-080 |   0 |           0 |   5 | Flag table        | CTIL2    ;     ; Cloud test results for IASI-NG level 2
+  0-40-081 |   0 |           0 |  31 | Flag table        | OLCI1Q   ;     ; OLCI Level 1 classification and quality
   0-41-001 |   3 |           0 |  18 | Pa                | PCO2     ;     ; pCO2
   0-41-002 |  12 |           0 |  16 | kg l**-1          | FLRS     ;     ; Fluorescence
   0-41-003 |   3 |           0 |  17 | umol kg**-1       | DSNT     ;     ; Dissolved nitrates
