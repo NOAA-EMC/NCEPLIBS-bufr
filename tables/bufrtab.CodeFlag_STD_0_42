@@ -1,7 +1,7 @@
 Table F STD |  0 | 42
 #
 # Standard BUFR Table CODE/FLAG, Master Table 0, Version 42
-# This file was generated: 2025/02/14 14:50:59
+# This file was generated: 2025/05/19 19:55:33
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -589,9 +589,9 @@ Table F STD |  0 | 42
               | 292 > | Helmholtz Centre for Environmental Research (UFZ)
               | 293 > | University of Bremen
               | 294 > | Netherlands Institute for Space Research (SRON)
-              | 295 > | The Royal Belgian Institute for Space Aeronomy (BIRA-IASB)
-              | 296 > | The French National Centre for Scientific Research (CNRS)
-              | 297 > | The Nanjing Institute of Environmental Sciences (NIES)
+              | 295 > | Royal Belgian Institute for Space Aeronomy (BIRA-IASB)
+              | 296 > | French National Centre for Scientific Research (CNRS)
+              | 297 > | Nanjing Institute of Environmental Sciences (NIES)
               | 298 > | Dynamic Meteorology Laboratory (LMD)
               | 299 > | The Rutherford Appleton Laboratory (RAL)
               | 300 > | Greek Atomic Energy Commission (Greece)
@@ -1524,9 +1524,9 @@ Table F STD |  0 | 42
               | 292 > | Helmholtz Centre for Environmental Research (UFZ)
               | 293 > | University of Bremen
               | 294 > | Netherlands Institute for Space Research (SRON)
-              | 295 > | The Royal Belgian Institute for Space Aeronomy (BIRA-IASB)
-              | 296 > | The French National Centre for Scientific Research (CNRS)
-              | 297 > | The Nanjing Institute of Environmental Sciences (NIES)
+              | 295 > | Royal Belgian Institute for Space Aeronomy (BIRA-IASB)
+              | 296 > | French National Centre for Scientific Research (CNRS)
+              | 297 > | Nanjing Institute of Environmental Sciences (NIES)
               | 298 > | Dynamic Meteorology Laboratory (LMD)
               | 299 > | The Rutherford Appleton Laboratory (RAL)
               | 300 > | Greek Atomic Energy Commission (Greece)

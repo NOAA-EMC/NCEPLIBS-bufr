@@ -1,7 +1,7 @@
 Table D STD |  0 | 41
 #
 # Standard BUFR Table D, Master Table 0, Version 41
-# This file was generated: 2024/07/05 17:22:07
+# This file was generated: 2025/05/19 19:55:32
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC   ;DCOD ; NAME           <-- sequence definition
@@ -2387,7 +2387,7 @@ Table D STD |  0 | 41
            | 0-07-065 > | Water pressure
            | 0-08-080 > | Qualifier for GTSPP quality flag
            | 0-33-050 > | Global GTSPP quality flag
-           | 0-41-006 > | Sea water pH
+           | 0-41-006 > | Seawater pH
            | 0-08-080 > | Qualifier for GTSPP quality flag
            | 0-33-050   | Global GTSPP quality flag
 
@@ -2764,7 +2764,7 @@ Table D STD |  0 | 41
            | 0-31-000 > | Short delayed descriptor replication factor
            | 0-20-060 > | Prevailing horizontal visibility
            | 3-07-014 > | Significant present or forecast weather
-           | 3-07-047   | METAR/SPECI/TAF clouds), replacing 3 07 01
+           | 3-07-047   | METAR/SPECI/TAF clouds
 
   3-07-049 | SEACONDT   ;     ; Sea conditions
            | 1-02-000 > | Delayed replication of 2 descriptors
@@ -2789,18 +2789,18 @@ Table D STD |  0 | 41
            | 0-20-089   | Runway friction coefficient
 
   3-07-051 | METARSPI   ;     ; Full METAR/SPECI
-           | 3-07-045 > | Main part of METAR/SPECI), replacing 3 07 01
+           | 3-07-045 > | Main part of METAR/SPECI
            | 3-07-046 > | METAR/SPECI visibility
            | 3-07-013 > | Runway visual range
            | 3-07-014 > | Significant present or forecast weather
-           | 3-07-047 > | METAR/SPECI/TAF clouds), replacing 3 07 01
+           | 3-07-047 > | METAR/SPECI/TAF clouds
            | 3-07-016 > | Significant recent weather phenomena
            | 3-07-017 > | Wind shear on runway(s)
            | 3-07-049 > | Sea conditions
            | 3-07-050 > | Runway state
            | 1-01-000 > | Delayed replication of 1 descriptor
            | 0-31-001 > | Delayed descriptor replication factor
-           | 3-07-048   | Trend type forecast), replacing 3 07 01
+           | 3-07-048   | Trend type forecast
 
   3-07-052 | AEROFSTI   ;     ; Aerodrome forecast identification and time interval
            | 0-01-063 > | ICAO location indicator
@@ -2834,7 +2834,7 @@ Table D STD |  0 | 41
            | 0-20-009 > | General weather indicator (TAF/METAR)
            | 0-20-060 > | Prevailing horizontal visibility
            | 3-07-014 > | Significant present or forecast weather
-           | 3-07-047   | METAR/SPECI/TAF clouds), replacing 3 07 01
+           | 3-07-047   | METAR/SPECI/TAF clouds
 
   3-07-054 | FSTEXTMP   ;     ; Forecast of extreme temperatures
            | 0-07-032 > | Height of sensor above local ground (or deck of marine platform)
@@ -4784,7 +4784,7 @@ Table D STD |  0 | 41
            | 1-07-000 > | Delayed replication of 7 descriptors
            | 0-31-001 > | Delayed descriptor replication factor
            | 0-03-032 > | Channel centre frequency
-           | 0-03-033 > | Channel band width
+           | 0-03-033 > | Channel bandwidth
            | 0-02-106 > | 3-dB beamwidth
            | 1-02-000 > | Delayed replication of 2 descriptors
            | 0-31-001 > | Delayed descriptor replication factor
@@ -6872,7 +6872,7 @@ Table D STD |  0 | 41
            | 0-40-051 > | Convergence of the iterative retrieval
            | 0-08-003 > | Vertical significance (satellite observations)
            | 0-21-166 > | Land fraction
-           | 0-22-046 > | Sea ice fraction
+           | 0-22-046 > | Sea-ice fraction
            | 0-10-001 > | Height of land surface
            | 0-08-023 > | First-order statistics
            | 0-10-001 > | Height of land surface
@@ -10492,7 +10492,7 @@ Table D STD |  0 | 41
            | 0-21-185 > | Specific band net instrumental correction for AGC
            | 0-13-164 > | Sea ice freeboard
            | 2-02-126 > | Change scale
-           | 0-22-046 > | Sea ice fraction
+           | 0-22-046 > | Sea-ice fraction
            | 2-02-000 > | Cancel change scale
            | 0-13-117 > | Snow density (liquid water content)
            | 0-13-013 > | Total snow depth
@@ -10627,7 +10627,7 @@ Table D STD |  0 | 41
            | 2-01-131 > | Change data width
            | 0-21-185 > | Specific band net instrumental correction for AGC
            | 2-01-000 > | Cancel change data width
-           | 0-22-179 > | Specific band significant wave height (negative reference)
+           | 0-22-179 > | Specific band significant wave height
            | 0-22-131 > | RMS specific band significant wave height
            | 0-22-132 > | Number of valid points for specific band significant wave height
            | 0-22-133 > | Specific band net instrument correction for significant wave height
@@ -10678,13 +10678,13 @@ Table D STD |  0 | 41
            | 2-01-131 > | Change data width
            | 0-21-185 > | Specific band net instrumental correction for AGC
            | 2-01-000 > | Cancel change data width
-           | 0-22-179 > | Specific band significant wave height (negative reference)
+           | 0-22-179 > | Specific band significant wave height
            | 0-22-133 > | Specific band net instrument correction for significant wave height
            | 0-22-146 > | OCOG range
            | 0-21-189 > | Corrected OCOG backscatter coefficient
            | 0-13-163 > | Snow water equivalent
            | 2-02-126 > | Change scale
-           | 0-22-046 > | Sea ice fraction
+           | 0-22-046 > | Sea-ice fraction
            | 2-02-000 > | Cancel change scale
            | 0-13-117 > | Snow density (liquid water content)
            | 0-13-013 > | Total snow depth
