@@ -166,8 +166,14 @@ end function getvalnb
 
 !> Write a long character string (greater than 8 bytes) to a data subset.
 !>
-!> The data subset should have already been written into a BUFR message before
-!> calling this subroutine to write a long character string into the subset.
+!> Unlike for other [values-writing subroutines](@ref hierarchy), a data subset
+!> should have already been written into the current BUFR message by calling one of the
+!> [subset-writing subroutines](@ref hierarchy) <b>before</b>
+!> calling this subroutine to write a long character string into that same subset.
+!> This unique call sequencing is due to the specific way in which this subroutine
+!> operates; however, and in cases where such a call sequencing may not
+!> be possible within an application program, then the use of subroutine hold4wlc()
+!> can be used instead.
 !>
 !> If there is more than one occurrence of str within the data subset
 !> definition, then each occurrence can be written via a separate call
@@ -181,7 +187,7 @@ end function getvalnb
 !> of a particular string, so a user could just specify 'LSTID'
 !> instead of 'LSTID#1'.
 !>
-!> Character strings which are 8 bytes or less in length can be
+!> Note that character strings which are 8 bytes or less in length can be
 !> written by converting the string into a real*8 value within the
 !> application program, and then using the real*8 usr array within a
 !> call to one of the NCEPLIBS-bufr
