@@ -18,10 +18,9 @@ while bufr.advance() == 0: # loop over messages.
         nlevs = obs.shape[-1]
         oer = bufr.read_subset(oestr)
         qcf = bufr.read_subset(qcstr)
-    # stop after first 2 messages.
+    # stop after first 2 messages
     if bufr.msg_counter == 2: break
-# check data
-# station_id,lon,lat,time,station_type,nlevs
+# check data values from the last subset that was read
 assert station_id.rstrip() == b'91925'
 np.testing.assert_almost_equal(lon,220.97)
 np.testing.assert_almost_equal(lat,-9.8)
@@ -69,9 +68,9 @@ while bufr.advance() == 0:
                 bend = data1b[m+2,k]
                 # look for zero frequency bending angle ob
                 if int(freq) == 0: break
-    # only loop over first 6 subsets
+    # stop after first 6 messages
     if bufr.msg_counter == 6: break
-# check data
+# check data values from the last subset that was read
 assert levs_ref == 247
 assert nskip == 2
 assert satid == 3
@@ -94,17 +93,16 @@ while bufr.advance() == 0:
         hdr2 = bufr.read_subset(hdstr2).squeeze()
         yyyymmddhhss ='%04i%02i%02i%02i%02i%02i' % tuple(hdr1[3:9])
         # for satellite id, see common code table c-5
-        # (http://www.emc.ncep.noaa.gov/mmb/data_processing/common_tbl_c1-c5.htm#c-5)
         # for sensor id, see common code table c-8
-        # (http://www.emc.ncep.noaa.gov/mmb/data_processing/common_tbl_c8-c14.htm#c-8)
         satid = int(hdr1[0])
         sensorid = int(hdr1[1])
         lat = hdr1[9]
         lon = hdr1[10]
         obs = bufr.read_subset('TMBR',rep=True).squeeze()
         nchanl = len(obs)
-    # only loop over first 4 subsets
+    # stop after first 4 messages
     if bufr.msg_counter == 4: break
+# check data values from the last subset that was read
 assert satid == 3
 assert nchanl == 15
 assert sensorid == 570
@@ -113,9 +111,9 @@ assert bufr.msg_type == 'NC021023'
 assert bufr.msg_date == 2013123121
 np.testing.assert_almost_equal(lat,37.6066)
 np.testing.assert_almost_equal(lon,-167.3253)
-obs_tst=np.array([1.4555e+02,1.4618e+02,2.1374e+02,2.4871e+02,2.4807e+02,2.3607e+02,\
- 2.2802e+02,2.2255e+02,2.1699e+02,2.1880e+02,2.2440e+02,2.2970e+02,\
- 2.3407e+02,1.0000e+11,2.0008e+02],np.float64)
+obs_tst=np.array([145.55,146.18,213.74,248.71,248.07,236.07,\
+ 228.02,222.55,216.99,218.80,224.40,229.70,\
+ 234.07,1.0000e+11,200.08],np.float64)
 np.testing.assert_array_almost_equal(obs,obs_tst)
 bufr.close()
 
@@ -133,8 +131,9 @@ while bufr.advance() == 0:
         lat = hdr[1]; lon = hdr[2]
         qm = hdr[12]
         obdata = bufr.read_subset(obstr).squeeze()
-    # only loop over first 4 subsets
+    # stop after first 4 messages
     if bufr.msg_counter == 4: break
+# check data values from the last subset that was read
 assert satid == 257
 assert windtype == 1
 assert bufr.msg_type == 'NC005010'
@@ -172,9 +171,6 @@ while bufr.advance() == 0:
     if nmsg == 15: break
     nmsg += 1
 bufr.restore()
-# As of PR 599, a bug has been fixed in library subroutine rewnbf(), so the following
-# statement is no longer needed.
-#bufr.load_subset()
 hdr = bufr.read_subset(hdstr).squeeze()
 station_id = hdr[0].tobytes()
 obs2 = bufr.read_subset(obstr)
@@ -208,3 +204,5 @@ while bufr.advance() == 0:
     # only loop over first 5 subsets
     if i_msg == 5: break
 bufr.close()
+
+print("SUCCESS!")

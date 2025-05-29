@@ -1,23 +1,32 @@
-from __future__ import print_function
 import ncepbufr
+import filecmp
 import numpy as np
 
-# run test.py first to create prepbufr.table file.
+# Create a copy of the prepbufr2.ref file
+
+# extract the embedded table and master table version number from the original file
+
+bufr = ncepbufr.open('data/prepbufr2.ref')
+bufr.dump_table('prepbufr.table') # dump the table to a file
+bufr.advance() # read the first message of the file
+mtv = bufr.get_Section01_value('MTV') # get the master table version number
+bufr.close()
+
+# now, use that table to write a new prepbufr2 file which (hopefully) matches the original
 
 hdstr='SID XOB YOB DHR TYP ELV SAID T29'
 obstr='POB QOB TOB ZOB UOB VOB PWO MXGS HOVI CAT PRSS TDO PMO'
 qcstr='PQM QQM TQM ZQM WQM NUL PWQ PMQ'
 oestr='POE QOE TOE NUL WOE NUL PWE'
 
-# open prepbufr file.
-
-bufr = ncepbufr.open('data/prepbufr2','w',table='prepbufr.table')
+ncepbufr.set_Section01_value('MTV',mtv) # make sure we encode the same master table version number
+bufr = ncepbufr.open('prepbufr2','w',table='prepbufr.table') # make sure we use the same embedded table
 idate=2010050700 # cycle time: YYYYMMDDHH
 subset='ADPSFC'  # surface land (SYNOPTIC, METAR) reports
 bufr.open_message(subset, idate)
 
 hdr = bufr.missing_value*np.ones(len(hdstr.split()),np.float64)
-hdr[0] = np.fromstring('KTKI    ',dtype=np.float64)[0]
+hdr[0] = np.frombuffer(b'KTKI    ',dtype=np.float64)[0]
 hdr[1]=263.4; hdr[2]=33.2; hdr[3] = -0.1; hdr[4]=287; hdr[5]=179
 # encode header for wind obs
 bufr.write_subset(hdr,hdstr)
@@ -53,7 +62,7 @@ bufr.open_message(subset, idate)
 
 # set header
 hdr[:]=bufr.missing_value
-hdr[0] = np.fromstring('72293   ',dtype=np.float64)[0]
+hdr[0] = np.frombuffer(b'72293   ',dtype=np.float64)[0]
 hdr[1]=242.9; hdr[2]=32.9; hdr[3]=0.0; hdr[5]=134.0
 
 # set obs, qcf, oer for  wind
@@ -104,14 +113,15 @@ bufr.close_message()
 # close bufr file
 bufr.close()
 
-# open bufr file, append another message to it.
-bufr = ncepbufr.open('data/prepbufr2','a')
+# reopen the prepbufr2 file and append another message to it
+
+bufr = ncepbufr.open('prepbufr2','a')
 # set data values
 hdr = bufr.missing_value*np.ones(len(hdstr.split()),np.float64)
 obs = bufr.missing_value*np.ones(len(obstr.split()),np.float64)
 oer = bufr.missing_value*np.ones(len(oestr.split()),np.float64)
 qcf = bufr.missing_value*np.ones(len(qcstr.split()),np.float64)
-hdr[0] = np.fromstring('KBOU    ',dtype=np.float64)[0]
+hdr[0] = np.frombuffer(b'KBOU    ',dtype=np.float64)[0]
 hdr[1]=-105.0;hdr[2]=40.0;hdr[3]=-1.0;hdr[4]=181
 obs[0]=300.0
 idate=2008120101  # YYYYMMDDHH
@@ -124,25 +134,8 @@ bufr.write_subset(qcf,qcstr,end=True) # end subset
 bufr.close_message()
 bufr.close()
 
-# read prepbufr file back in.
+# Make sure the prepbufr2 file we generated is correct and matches the original
+if not filecmp.cmp('prepbufr2','data/prepbufr2.ref',shallow=False):
+    raise Exception("Generated output did not match expected output!")
 
-bufr = ncepbufr.open('data/prepbufr2')
-#bufr.print_table() # print embedded table
-while bufr.advance() == 0: # loop over messages.
-    print(bufr.msg_counter, bufr.msg_type, bufr.msg_date)
-    while bufr.load_subset() == 0: # loop over subsets in message.
-        hdr = bufr.read_subset(hdstr).squeeze()
-        station_id = hdr[0].tostring()
-        obs = bufr.read_subset(obstr)
-        nlevs = obs.shape[-1]
-        oer = bufr.read_subset(oestr)
-        qcf = bufr.read_subset(qcstr)
-        print('station_id, lon, lat, time, station_type, levels =',\
-        station_id,hdr[1],hdr[2],hdr[3],int(hdr[4]),nlevs)
-        for k in range(nlevs):
-            if nlevs > 1:
-                print('level =',k+1)
-            print('obs',obs[:,k])
-            print('oer',oer[:,k])
-            print('qcf',qcf[:,k])
-bufr.close()
+print("SUCCESS!")

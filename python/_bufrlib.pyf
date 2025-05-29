@@ -155,6 +155,10 @@ subroutine pkvs01(s01mnem,ival) ! in s013vals.F90
     character*(*),intent(in) :: s01mnem
     integer,intent(in) :: ival
 end subroutine pkvs01
+function iupvs01(lunit,s01mnem) ! in s013vals.F90
+    integer,intent(in) :: lunit
+    character*(*),intent(in) :: s01mnem
+end function iupvs01
 subroutine writlc(lunit,chr,st) ! in readwriteval.F90
     integer,intent(in) :: lunit
     character*(*),intent(in) :: chr
