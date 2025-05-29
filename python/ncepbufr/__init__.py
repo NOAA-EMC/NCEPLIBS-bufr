@@ -47,14 +47,14 @@ def get_missing_value():
 
 def standardize(std='N'):
     """
-    Ensure all output is WMO-standardized in subsequent writes to the bufr file.
+    Ensure all output is WMO-standardized in all subsequent writes to all bufr files.
     `std`: `'Y'` for Yes, default is `'N'` for No.
     """
     _bufrlib.stdmsg(std)
 
 def set_Section01_value(s01_mnemonic, value):
     """
-    Set a custom Section 0 or Section 1 message value for all subsequent writes to the bufr file,
+    Set a custom Section 0 or Section 1 message value for all subsequent writes to all bufr files,
     overriding the internal default for that particular value.
     Valid s01_mnemonics are listed in the docblock of the pkvs01 source file.
     """
@@ -222,7 +222,7 @@ class open:
 
     def cmpmsg(self, cmp):
         """
-        compress the data in subsequent writes to the bufr file
+        Compress the data in all subsequent writes to all bufr files.
         """
         _bufrlib.cmpmsg(cmp)
 
@@ -268,6 +268,13 @@ class open:
             self.receipt_time = self._receipt_time()
             self.subsets = self._subsets()
             return 0
+    def get_Section01_value(self,s01_mnemonic):
+        """
+        Return a specified value from within Section 0 or Section 1 of the bufr message that was most
+        recently read from the bufr file.
+        Valid s01_mnemonics are listed in the docblock of the iupvs01 source file.
+        """
+        return _bufrlib.iupvs01(self.lunit,s01_mnemonic)
     def inventory(self):
         """
         return a list containing an inventory of the bufr file.

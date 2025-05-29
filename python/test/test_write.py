@@ -2,22 +2,25 @@ import ncepbufr
 import filecmp
 import numpy as np
 
-# extract a copy of the embedded table from the prepbufr file
+# Create a copy of the prepbufr2.ref file
 
-bufr = ncepbufr.open('data/prepbufr')
+# extract the embedded table and master table version number from the original file
+
+bufr = ncepbufr.open('data/prepbufr2.ref')
 bufr.dump_table('prepbufr.table') # dump the table to a file
+bufr.advance() # read the first message of the file
+mtv = bufr.get_Section01_value('MTV') # get the master table version number
 bufr.close()
 
-# now, use that table to write a new prepbufr2 file
+# now, use that table to write a new prepbufr2 file which (hopefully) matches the original
 
 hdstr='SID XOB YOB DHR TYP ELV SAID T29'
 obstr='POB QOB TOB ZOB UOB VOB PWO MXGS HOVI CAT PRSS TDO PMO'
 qcstr='PQM QQM TQM ZQM WQM NUL PWQ PMQ'
 oestr='POE QOE TOE NUL WOE NUL PWE'
 
-# make sure we encode the same master table version number as the original file
-ncepbufr.set_Section01_value('MTV',29)
-bufr = ncepbufr.open('prepbufr2','w',table='prepbufr.table')
+ncepbufr.set_Section01_value('MTV',mtv) # make sure we encode the same master table version number
+bufr = ncepbufr.open('prepbufr2','w',table='prepbufr.table') # make sure we use the same embedded table
 idate=2010050700 # cycle time: YYYYMMDDHH
 subset='ADPSFC'  # surface land (SYNOPTIC, METAR) reports
 bufr.open_message(subset, idate)
@@ -131,7 +134,7 @@ bufr.write_subset(qcf,qcstr,end=True) # end subset
 bufr.close_message()
 bufr.close()
 
-# Make sure the prepbufr2 file we generated is correct
+# Make sure the prepbufr2 file we generated is correct and matches the original
 if not filecmp.cmp('prepbufr2','data/prepbufr2.ref',shallow=False):
     raise Exception("Generated output did not match expected output!")
 
