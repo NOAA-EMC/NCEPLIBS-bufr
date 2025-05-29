@@ -204,3 +204,5 @@ while bufr.advance() == 0:
     # only loop over first 5 subsets
     if i_msg == 5: break
 bufr.close()
+
+print("SUCCESS!")
