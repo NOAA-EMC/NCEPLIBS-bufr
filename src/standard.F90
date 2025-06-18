@@ -227,9 +227,8 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
         islen = lsub-2
       else
         ! This is the only subset in the message, and it could possibly be an overlarge (> 65530 bytes) subset, in
-        ! which case we can't rely on the value stored in the byte counter.  either way, we don't really need it.
+        ! which case we can't rely on the value stored in the byte counter.  Either way, we don't really need it.
         islen = iad4+len4-(ibit/8)
-        if (mod(len4,2)==0) islen = islen - 1
       endif
       do l=1,islen
         call upb(nval,8,msgin,ibit)
