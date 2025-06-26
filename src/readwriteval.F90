@@ -288,7 +288,7 @@ recursive subroutine writlc(lunit,chr,str)
           catx(n,ncol)=' '
           ! The following statement enforces a limit of mxlcc characters per long character string when writing
           ! compressed messages. This limit keeps the array catx to a reasonable dimensioned size.
-          nchr=min(mxlcc,ibt(node)/8)
+          nchr=min(mxlcc,len(chr),ibt(node)/8)
           catx(n,ncol)=chr(1:nchr)
           call usrtpl(lun,1,1)
           return
