@@ -13,10 +13,12 @@ program test_misc
   integer imsg, idate, iunit
   integer*4 ireadmm, igetfxy, isetprm
   integer mbay(2)
-  character*8 subset
+  character*8 subset, lstr
+  character*9 ptidc
   integer iupb
   integer isbyt, iwid
   character*6 cfxy
+  character*80 card
   real*8 r8vals(10,600)
 
 #ifndef KIND_8
@@ -40,7 +42,6 @@ program test_misc
   character*12 char_12(1)
   character*24 char_24(1)
   character*120 char_120(1), char_120_2(2), char_120_2d(2,5)
-  character*80 card
   integer int_1d(1), int_1d_2(2), int_1d_3(2), int_2d(2,5)
   integer imt, imtv, iogce, iltv
   equivalence ( bfmg(1), ibfmg(1) )
@@ -142,6 +143,56 @@ program test_misc
   if ( ( iret /= 447 ) .or. ( nint(r8vals(3,5)*100000) /= 388187 ) .or. ( nint(r8vals(4,194)*100000) /= 6366768 ) .or. &
     ( nint(r8vals(5,213)*100) /= 4866 ) .or. ( nint(r8vals(6,370)*100) /= 15674 ) .or. ( nint(r8vals(1,444)) /= 5 ) .or. &
     ( nint(r8vals(2,444)) /= 209 ) ) stop 31
+
+  ! testing stndrd() w.r.t. change documented in issue #661
+  open(unit = 11, file = 'testfiles/test_misc_stndrd_out', form = 'UNFORMATTED', iostat = ios)
+  if (ios /= 0) stop 81
+  open(unit = 12, file = 'testfiles/test_misc_stndrd_DX', iostat = ios)
+  if (ios /= 0) stop 81
+  card = '| TESTSTR  | A48122 | TEST                                                     |'
+  write (12,'(A)') card
+  card = '| WGOSIDS  | 001125 | WIGOS identifier series                                  |'
+  write (12,'(A)') card
+  card = '| LSTN     | 001019 | Long station or site name                                |'
+  write (12,'(A)') card
+  card = '| TESTSTR  | WGOSIDS LSTN                                                      |'
+  write (12,'(A)') card
+  card = '| WGOSIDS  |    0 |           0 |   4 | Numeric                  |-------------|'
+  write (12,'(A)') card
+  card = '| LSTN     |    0 |           0 | 256 | CCITT IA5                |-------------|'
+  write (12,'(A)') card
+  close (12)
+  open(unit = 12, file = 'testfiles/test_misc_stndrd_DX', iostat = ios)
+  if (ios /= 0) stop 81
+  call openbf(11, 'NODX', 12)
+  call pkvs01('BEN', 4)
+  call stdmsg('Y')
+  call openmb(11, 'TESTSTR', 2025010100)
+  r8vals(1,1) = 0.
+  call ufbint(11, r8vals, 10, 1, iret, 'WGOSIDS' )
+  call writsb(11)
+  lstr = 'test 123'
+  call writlc(11, lstr, 'LSTN')
+  call closmg(11)
+  call closbf(11)
+  call closbf(12)
+
+  ! testing writlc() using compression and an input string whose allocated length is
+  ! shorter than the prescribed Table B width
+  open(unit = 11, file = 'testfiles/test_misc_OUT', form = 'UNFORMATTED', iostat = ios)
+  if (ios /= 0) stop 80
+  open(unit = 12, file = 'testfiles/OUT_2_bufrtab', iostat = ios)
+  if (ios /= 0) stop 80
+  call openbf(11, 'NODX', 12)
+  call cmpmsg('Y')
+  call openmg(11, 'NC031004', 2025022312)
+  r8vals(1,1) = 2025
+  call ufbint(11, r8vals, 10, 1, iret, 'YEAR' )
+  call writsb(11)
+  ptidc = 'TESTSTR01'
+  call writlc(11, ptidc, 'PTIDC')
+  call closbf(11)
+  call closbf(12)
 
   ! The following tests are only for the _4 and _d runs of test_misc, because many
   ! of the routines below aren't intended to ever be called directly by users, and
