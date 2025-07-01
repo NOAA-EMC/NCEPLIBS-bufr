@@ -74,14 +74,15 @@ module bufr_c2f_interface
     !> @author Ronald McLaren @date 2020-07-29
     subroutine copy_f_c_str(f_str, c_str, c_str_len)
       character(len=*), target, intent(in) :: f_str
-      character(kind=c_char, len=1), intent(inout) :: c_str(*)
+      character(kind=c_char), intent(inout) :: c_str(*)
       integer, intent(in) :: c_str_len
-      integer :: max_str_len
+      integer :: ii
 
       if (c_str_len /= 0) then
-        max_str_len = c_str_len
-        c_str(1)(1:max_str_len) = f_str(1:max_str_len)
-        c_str(1)(max_str_len:max_str_len) = c_null_char
+        do ii = 1, c_str_len
+          c_str(ii) = f_str(ii:ii)
+        enddo
+        c_str(c_str_len) = c_null_char
       end if
     end subroutine copy_f_c_str
 
@@ -788,7 +789,7 @@ module bufr_c2f_interface
     !> @author J. Ator  @date 2003-11-04
     subroutine numtbd_c(lun,idn,nemo,nemo_str_len,tab,iret) bind(C, name='numtbd_f')
       integer(c_int), value, intent(in) :: lun, idn, nemo_str_len
-      character(kind=c_char,len=1), intent(out) :: nemo(*), tab(*)
+      character(kind=c_char), intent(out) :: nemo(*), tab(*)
       integer(c_int), intent(out) :: iret
 
       character(len=9) :: nemo_f
@@ -797,7 +798,7 @@ module bufr_c2f_interface
       call numtbd(lun, idn, nemo_f, tab_f, iret)
 
       call copy_f_c_str(nemo_f, nemo, nemo_str_len)
-      tab(1)(1:1) = tab_f(1:1)
+      tab(1) = tab_f(1:1)
     end subroutine numtbd_c
 
     !> Convert an FXY value from its 6 character representation to its WMO bit-wise
@@ -974,20 +975,20 @@ module bufr_c2f_interface
     !> @author J. Ator @date 2023-04-07
     subroutine stntbi_c(n,lun,numb,nemo,celsq) bind(C, name='stntbi_f')
       integer(c_int), intent(in), value :: n, lun
-      character(kind=c_char, len=1), intent(in) :: numb(*), nemo(*), celsq(*)
+      character(kind=c_char), intent(in) :: numb(*), nemo(*), celsq(*)
       character(len=6) :: numb_f
       character(len=8) :: nemo_f
       character(len=55) :: celsq_f
       integer :: ii
 
       do ii = 1,6
-        numb_f(ii:ii) = numb(1)(ii:ii)
+        numb_f(ii:ii) = numb(ii)
       enddo
       do ii = 1,8
-        nemo_f(ii:ii) = nemo(1)(ii:ii)
+        nemo_f(ii:ii) = nemo(ii)
       enddo
       do ii = 1,55
-        celsq_f(ii:ii) = celsq(1)(ii:ii)
+        celsq_f(ii:ii) = celsq(ii)
       enddo
       call stntbi(n, lun, numb_f, nemo_f, celsq_f)
     end subroutine stntbi_c
