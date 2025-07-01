@@ -946,7 +946,7 @@ recursive subroutine wrdxtb(lundx,lunot)
     call pkb(nseq,8,mgwa,mbit)
     do j=1,nseq
       jj  = ldd+2 + (j-1)*2
-      idn = iupm(tabd(i,lot)(jj:jj),16)
+      idn = iupm(tabd(i,lot)(jj:jj+1),16)
       call pkc(adn30(idn,l30),l30,mgwa,mbit)
     enddo
     mbyt = mbyt+lend
@@ -1707,7 +1707,7 @@ subroutine pktdd(id,lun,idn,iret)
   ! Pack and store the descriptor.  idm points to the starting byte within tabd(id,lun) at which the idn value for this
   ! child mnemonic will be stored (as a packed integer of width = 2 bytes).
   idm = ldd+1 + (nd-1)*2
-  call ipkm(tabd(id,lun)(idm:idm),2,idn)
+  call ipkm(tabd(id,lun)(idm:idm+1),2,idn)
 
   return
 end subroutine pktdd
@@ -1757,7 +1757,7 @@ subroutine uptdd(id,lun,ient,iret)
   ! Return the descriptor indicated by ient
 
   idsc = ldd+1 + (ient-1)*2
-  iret = iupm(tabd(id,lun)(idsc:idsc),16)
+  iret = iupm(tabd(id,lun)(idsc:idsc+1),16)
 
   return
 end subroutine uptdd

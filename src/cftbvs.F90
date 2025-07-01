@@ -55,7 +55,7 @@ end function pkftbv
 !> This subroutine is the logical inverse of function pkftbv().
 !>
 !> According to the WMO standard, bits within a bit field are numbered from left to right, so bit #1 is always the
-!> high-order i.e. most significant) bit in any bit field.
+!> high-order (i.e. most significant) bit in any bit field.
 !>
 !> @param lunit - Fortran logical unit number for BUFR file
 !> @param nemo - Table B mnemonic with flag table units
