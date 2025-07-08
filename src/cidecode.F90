@@ -267,12 +267,12 @@ recursive integer function iupm(cbay,nbits) result(iret)
 
   implicit none
 
-  character*4, intent(in) :: cbay
+  character*(*), intent(in) :: cbay
   character*4 cint
   character*128 bort_str
 
   integer, intent(in) :: nbits
-  integer my_nbits, int, irev
+  integer my_nbits, int, irev, lcbay
 
   equivalence (cint,int)
 
@@ -294,7 +294,8 @@ recursive integer function iupm(cbay,nbits) result(iret)
       ', NBITS (",I4,"), IS > THE INTEGER WORD LENGTH ON THIS MACHINE, NBITW (",I3,")")') nbits,nbitw
     call bort(bort_str)
   endif
-  cint = cbay
+  lcbay = len(cbay)
+  cint(1:lcbay) = cbay(1:lcbay)
   int = irev(int)
   iret = ishft(int,nbits-nbitw)
 

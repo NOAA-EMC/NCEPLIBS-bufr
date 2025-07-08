@@ -51,13 +51,13 @@ module bufr_c2f_interface
     !>
     !> @author Ronald McLaren @date 2020-07-29
     function c_f_string(c_str) result(f_str)
-      character(kind=c_char,len=1), intent(in) :: c_str(*)
+      character(kind=c_char, len=1), intent(in) :: c_str(*)
       character(len=:), allocatable :: f_str
       integer :: nchars
 
       nchars = 1
       do while (c_str(nchars) /= c_null_char)
-          nchars = nchars + 1
+        nchars = nchars + 1
       end do
       nchars = nchars - 1
 
@@ -74,14 +74,15 @@ module bufr_c2f_interface
     !> @author Ronald McLaren @date 2020-07-29
     subroutine copy_f_c_str(f_str, c_str, c_str_len)
       character(len=*), target, intent(in) :: f_str
-      character(kind=c_char, len=1), intent(inout) :: c_str(*)
+      character(kind=c_char), intent(inout) :: c_str(*)
       integer, intent(in) :: c_str_len
-      integer :: max_str_len
+      integer :: ii
 
       if (c_str_len /= 0) then
-        max_str_len = c_str_len
-        c_str(1)(1:max_str_len) = f_str(1:max_str_len)
-        c_str(1)(max_str_len:max_str_len) = c_null_char
+        do ii = 1, c_str_len
+          c_str(ii) = f_str(ii:ii)
+        enddo
+        c_str(c_str_len) = c_null_char
       end if
     end subroutine copy_f_c_str
 
@@ -93,7 +94,7 @@ module bufr_c2f_interface
     !> @author Ronald McLaren @date 2020-07-29
     subroutine open_c(lunit, filepath) bind(C, name='open_f')
       integer(c_int), value, intent(in) :: lunit
-      character(kind=c_char, len=1) :: filepath
+      character(kind=c_char) :: filepath
 
       open(lunit, file=c_f_string(filepath))
     end subroutine open_c
@@ -121,7 +122,7 @@ module bufr_c2f_interface
     !> @author Ronald McLaren @date 2020-07-29
     subroutine openbf_c(bufr_unit, cio, table_file_id) bind(C, name='openbf_f')
       integer(c_int), value, intent(in) :: bufr_unit
-      character(kind=c_char, len=1), intent(in) :: cio(*)
+      character(kind=c_char), intent(in) :: cio(*)
       integer(c_int), value, intent(in) :: table_file_id
 
       call openbf(bufr_unit, c_f_string(cio), table_file_id)
@@ -165,7 +166,7 @@ module bufr_c2f_interface
     !> @author Ronald McLaren @date 2020-07-29
     function ireadmg_c(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bind(C, name='ireadmg_f')
       integer(c_int), value, intent(in) :: bufr_unit
-      character(kind=c_char, len=1), intent(out) :: c_subset(*)
+      character(kind=c_char), intent(out) :: c_subset(*)
       integer(c_int), intent(out) :: iddate
       integer(c_int), value, intent(in) :: subset_str_len
       integer(c_int) :: ires
@@ -213,7 +214,7 @@ module bufr_c2f_interface
       type(c_ptr), intent(inout) ::  c_data
       integer(c_int), value, intent(in) :: dim_1, dim_2
       integer(c_int), intent(out) :: iret
-      character(kind=c_char, len=1), intent(in) :: table_b_mnemonic(*)
+      character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       real, pointer :: f_data
 
       call c_f_pointer(c_data, f_data)
@@ -236,7 +237,7 @@ module bufr_c2f_interface
       type(c_ptr), intent(inout) :: c_data
       integer(c_int), value, intent(in) :: dim_1, dim_2
       integer(c_int), intent(out) :: iret
-      character(kind=c_char, len=1), intent(in) :: table_b_mnemonic(*)
+      character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       real, pointer :: f_data
 
       call c_f_pointer(c_data, f_data)
@@ -253,7 +254,7 @@ module bufr_c2f_interface
     !>
     !> @author Ronald McLaren @date 2020-07-29
     subroutine mtinfo_c(path, file_unit_1, file_unit_2) bind(C, name='mtinfo_f')
-      character(kind=c_char, len=1), intent(in) :: path(*)
+      character(kind=c_char), intent(in) :: path(*)
       integer(c_int), value, intent(in) :: file_unit_1
       integer(c_int), value, intent(in) :: file_unit_2
 
@@ -295,10 +296,10 @@ module bufr_c2f_interface
     subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str_len, iret) &
             bind(C, name='nemdefs_f')
       integer(c_int), value, intent(in) :: file_unit
-      character(kind=c_char,len=1), intent(in) :: mnemonic(*)
-      character(kind=c_char, len=1), intent(out) :: unit_c(*)
+      character(kind=c_char), intent(in) :: mnemonic(*)
+      character(kind=c_char), intent(out) :: unit_c(*)
       integer(c_int), value, intent(in) :: unit_str_len
-      character(kind=c_char, len=1), intent(out) :: desc_c(*)
+      character(kind=c_char), intent(out) :: desc_c(*)
       integer(c_int), value, intent(in) :: desc_str_len
       integer(c_int), intent(out) :: iret
 
@@ -333,7 +334,7 @@ module bufr_c2f_interface
     subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits, iret) &
             bind(C, name='nemspecs_f')
       integer(c_int), value, intent(in) :: file_unit
-      character(kind=c_char,len=1), intent(in) :: mnemonic(*)
+      character(kind=c_char), intent(in) :: mnemonic(*)
       integer(c_int), value, intent(in) ::mnemonic_idx
       integer(c_int), intent(out) :: scale
       integer(c_int), intent(out) :: reference
@@ -358,16 +359,16 @@ module bufr_c2f_interface
     subroutine nemtab_c(lun, mnemonic, descriptor, table_type, table_idx) &
             bind(C, name='nemtab_f')
       integer(c_int), value, intent(in) :: lun
-      character(kind=c_char,len=1), intent(in) :: mnemonic(*)
+      character(kind=c_char), intent(in) :: mnemonic(*)
       integer(c_int), intent(out) :: descriptor
-      character(kind=c_char,len=1), intent(out) :: table_type(*)
+      character(kind=c_char), intent(out) :: table_type(*)
       integer(c_int), intent(out) :: table_idx
 
       character(len=1) :: table_type_f
 
       call nemtab(lun, c_f_string(mnemonic), descriptor, table_type_f, table_idx)
 
-      table_type(1)(1:1) = table_type_f(1:1)
+      table_type(1) = table_type_f(1:1)
     end subroutine nemtab_c
 
     !> Get information about a Table B descriptor.
@@ -387,7 +388,7 @@ module bufr_c2f_interface
             bind(C, name='nemtbb_f')
       integer(c_int), intent(in), value :: lun
       integer(c_int), intent(in), value :: table_idx
-      character(kind=c_char,len=1), intent(out) :: unit_str(*)
+      character(kind=c_char), intent(out) :: unit_str(*)
       integer(c_int), intent(in), value :: unit_str_len
       integer(c_int), intent(out) :: scale
       integer(c_int), intent(out) :: reference
@@ -599,8 +600,8 @@ module bufr_c2f_interface
     subroutine readlc_c(lunit, str_id, output_str, output_str_len) bind(C, name='readlc_f')
       use moda_rlccmn
       integer(c_int), value, intent(in) :: lunit
-      character(kind=c_char, len=1), intent(in) :: str_id(*)
-      character(kind=c_char, len=1), intent(out) :: output_str(*)
+      character(kind=c_char), intent(in) :: str_id(*)
+      character(kind=c_char), intent(out) :: output_str(*)
       integer(c_int), intent(in), value :: output_str_len
 
       character(len=120) :: output_str_f
@@ -638,7 +639,7 @@ module bufr_c2f_interface
     !> @author J. Ator @date 2023-04-07
     function iupbs01_c(bufr, mnemonic) result(ires) bind(C, name='iupbs01_f')
       integer(c_int), intent(in) :: bufr(*)
-      character(kind=c_char, len=1), intent(in) :: mnemonic(*)
+      character(kind=c_char), intent(in) :: mnemonic(*)
       integer(c_int) :: ires
       integer :: iupbs01
 
@@ -656,7 +657,7 @@ module bufr_c2f_interface
     !>
     !> @author J. Ator @date 2023-04-07
     function igetprm_c(cprmnm) result(ires) bind(C, name='igetprm_f')
-      character(kind=c_char, len=1), intent(in) :: cprmnm(*)
+      character(kind=c_char), intent(in) :: cprmnm(*)
       integer(c_int) :: ires
       integer :: igetprm
 
@@ -674,7 +675,7 @@ module bufr_c2f_interface
     !>
     !> @author J. Ator @date 2023-04-07
     function isetprm_c(cprmnm,ipval) result(ires) bind(C, name='isetprm_f')
-      character(kind=c_char, len=1), intent(in) :: cprmnm(*)
+      character(kind=c_char), intent(in) :: cprmnm(*)
       integer(c_int), value, intent(in) :: ipval
       integer(c_int) :: ires
       integer :: isetprm
@@ -724,7 +725,7 @@ module bufr_c2f_interface
     !> @author J. Ator @date 2023-04-07
     subroutine cadn30_c(idn, adn, adn_str_len) bind(C, name='cadn30_f')
       integer(c_int), intent(in), value :: idn, adn_str_len
-      character(kind=c_char, len=1), intent(out) :: adn(*)
+      character(kind=c_char), intent(out) :: adn(*)
       character(len=8) :: adn_f
 
       call cadn30(idn, adn_f)
@@ -743,7 +744,7 @@ module bufr_c2f_interface
     !> @author Ronald McLaren  @date 2022-08-16
     function igetntbi_c(lun, table_type) result(ires) bind(C, name='igetntbi_f')
       integer(c_int), value, intent(in) :: lun
-      character(kind=c_char,len=1), intent(in) :: table_type(*)
+      character(kind=c_char), intent(in) :: table_type(*)
       integer(c_int) :: ires
       integer :: igetntbi
       character(len=1) :: table_type_f
@@ -764,12 +765,12 @@ module bufr_c2f_interface
     !> @author J. Ator @date 2003-11-04
     subroutine elemdx_c(card,lun) bind(C, name='elemdx_f')
       integer(c_int), value, intent(in) :: lun
-      character(kind=c_char, len=1), intent(in) :: card(*)
+      character(kind=c_char), intent(in) :: card(*)
       character(len=80) :: card_f
       integer :: ii
 
       do ii = 1,80
-        card_f(ii:ii) = card(1)(ii:ii)
+        card_f(ii:ii) = card(ii)
       enddo
       call elemdx(card_f, lun)
     end subroutine elemdx_c
@@ -788,7 +789,7 @@ module bufr_c2f_interface
     !> @author J. Ator  @date 2003-11-04
     subroutine numtbd_c(lun,idn,nemo,nemo_str_len,tab,iret) bind(C, name='numtbd_f')
       integer(c_int), value, intent(in) :: lun, idn, nemo_str_len
-      character(kind=c_char,len=1), intent(out) :: nemo(*), tab(*)
+      character(kind=c_char), intent(out) :: nemo(*), tab(*)
       integer(c_int), intent(out) :: iret
 
       character(len=9) :: nemo_f
@@ -797,7 +798,7 @@ module bufr_c2f_interface
       call numtbd(lun, idn, nemo_f, tab_f, iret)
 
       call copy_f_c_str(nemo_f, nemo, nemo_str_len)
-      tab(1)(1:1) = tab_f(1:1)
+      tab(1) = tab_f(1:1)
     end subroutine numtbd_c
 
     !> Convert an FXY value from its 6 character representation to its WMO bit-wise
@@ -811,7 +812,7 @@ module bufr_c2f_interface
     !>
     !> @author J. Ator @date 2023-04-07
     function ifxy_c(cfxy) result(ires) bind(C, name='ifxy_f')
-      character(kind=c_char, len=1), intent(in) :: cfxy(*)
+      character(kind=c_char), intent(in) :: cfxy(*)
       integer(c_int) :: ires
       integer :: ifxy
 
@@ -851,7 +852,7 @@ module bufr_c2f_interface
     !>
     !> @author J. Ator @date 2023-04-07
     function imrkopr_c(nemo) result(ires) bind(C, name='imrkopr_f')
-      character(kind=c_char, len=1), intent(in) :: nemo(*)
+      character(kind=c_char), intent(in) :: nemo(*)
       integer(c_int) :: ires
       integer :: imrkopr
 
@@ -891,7 +892,7 @@ module bufr_c2f_interface
       type(c_ptr), intent(inout) ::  c_data
       integer(c_int), value, intent(in) :: dim_1, dim_2
       integer(c_int), intent(out) :: iret
-      character(kind=c_char, len=1), intent(in) :: table_d_mnemonic(*)
+      character(kind=c_char), intent(in) :: table_d_mnemonic(*)
       real, pointer :: f_data
 
       call c_f_pointer(c_data, f_data)
@@ -914,7 +915,7 @@ module bufr_c2f_interface
     !> @author J. Ator @date 2023-04-07
     function ireadns_c(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bind(C, name='ireadns_f')
       integer(c_int), value, intent(in) :: bufr_unit
-      character(kind=c_char, len=1), intent(out) :: c_subset(*)
+      character(kind=c_char), intent(out) :: c_subset(*)
       integer(c_int), intent(out) :: iddate
       integer(c_int), value, intent(in) :: subset_str_len
       integer(c_int) :: ires
@@ -955,7 +956,7 @@ module bufr_c2f_interface
     !>
     !> @author J. Ator @date 2003-11-04
     subroutine strnum_c(str,num,iret) bind(C, name='strnum_f')
-      character(kind=c_char, len=1), intent(in) :: str(*)
+      character(kind=c_char), intent(in) :: str(*)
       integer(c_int), intent(out) :: num, iret
 
       call strnum(c_f_string(str), num, iret)
@@ -974,20 +975,20 @@ module bufr_c2f_interface
     !> @author J. Ator @date 2023-04-07
     subroutine stntbi_c(n,lun,numb,nemo,celsq) bind(C, name='stntbi_f')
       integer(c_int), intent(in), value :: n, lun
-      character(kind=c_char, len=1), intent(in) :: numb(*), nemo(*), celsq(*)
+      character(kind=c_char), intent(in) :: numb(*), nemo(*), celsq(*)
       character(len=6) :: numb_f
       character(len=8) :: nemo_f
       character(len=55) :: celsq_f
       integer :: ii
 
       do ii = 1,6
-        numb_f(ii:ii) = numb(1)(ii:ii)
+        numb_f(ii:ii) = numb(ii)
       enddo
       do ii = 1,8
-        nemo_f(ii:ii) = nemo(1)(ii:ii)
+        nemo_f(ii:ii) = nemo(ii)
       enddo
       do ii = 1,55
-        celsq_f(ii:ii) = celsq(1)(ii:ii)
+        celsq_f(ii:ii) = celsq(ii)
       enddo
       call stntbi(n, lun, numb_f, nemo_f, celsq_f)
     end subroutine stntbi_c
@@ -1037,7 +1038,7 @@ module bufr_c2f_interface
     !>
     !> @author J. Ator @date 2023-04-07
     subroutine bort_c(errstr) bind(C, name='bort_f')
-      character(kind=c_char, len=1), intent(in) :: errstr(*)
+      character(kind=c_char), intent(in) :: errstr(*)
 
       call bort(c_f_string(errstr))
     end subroutine bort_c
@@ -1054,7 +1055,7 @@ module bufr_c2f_interface
     !> @author J. Ator @date 2023-04-07
     subroutine openmb_c(bufr_unit, c_subset, iddate) bind(C, name='openmb_f')
       integer(c_int), value, intent(in) :: bufr_unit, iddate
-      character(kind=c_char, len=1), intent(in) :: c_subset(*)
+      character(kind=c_char), intent(in) :: c_subset(*)
 
       call openmb(bufr_unit, c_f_string(c_subset), iddate)
     end subroutine openmb_c
@@ -1068,7 +1069,7 @@ module bufr_c2f_interface
     !>
     !> @author J. Ator @date 2023-04-07
     subroutine bvers_c(cverstr, cverstr_len) bind(C, name='bvers_f')
-      character(kind=c_char, len=1), intent(out) :: cverstr(*)
+      character(kind=c_char), intent(out) :: cverstr(*)
       integer(c_int), value, intent(in) :: cverstr_len
       character(len=10) :: f_cverstr
 
@@ -1085,7 +1086,7 @@ module bufr_c2f_interface
     !>
     !> @author J. Ator @date 2023-04-07
     subroutine cmpmsg_c(cf) bind(C, name='cmpmsg_f')
-      character(kind=c_char, len=1), intent(in) :: cf(*)
+      character(kind=c_char), intent(in) :: cf(*)
 
       call cmpmsg(c_f_string(cf))
     end subroutine cmpmsg_c
