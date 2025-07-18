@@ -98,6 +98,7 @@ subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str) ! in readwriteval.F90
     integer, intent(in) :: i1,i2,i3
     integer, intent(out) :: iret
     character*(*), intent(in) :: str
+    usercode setjmphook();
 end subroutine ufbevn
 subroutine ufbint(lunin,usr,i1,i2,iret,str) ! in readwriteval.F90
     integer,intent(in) :: lunin
@@ -122,6 +123,7 @@ subroutine ufbrep(lunio,usr,i1,i2,iret,str) ! in readwriteval.F90
     integer, intent(in) :: i1,i2
     integer, intent(out) :: iret
     character*(*),intent(in) :: str
+    usercode setjmphook();
 end subroutine ufbrep
 subroutine ufbseq(lunin,usr,i1,i2,iret,str) ! in readwriteval.F90
     integer, intent(in) :: lunin
@@ -129,10 +131,12 @@ subroutine ufbseq(lunin,usr,i1,i2,iret,str) ! in readwriteval.F90
     integer, intent(in) :: i1,i2
     integer, intent(out) :: iret
     character*(*), intent(in) :: str
+    usercode setjmphook();
 end subroutine ufbseq
 subroutine ufdump(lunit,luprt) ! in datadump.F90
     integer :: lunit
     integer :: luprt
+    usercode setjmphook();
 end subroutine ufdump
 subroutine upftbv(lunit,nemo,val,mxib,ibit,nib) ! in cftbvs.F90
     integer,intent(in) :: lunit
@@ -141,29 +145,35 @@ subroutine upftbv(lunit,nemo,val,mxib,ibit,nib) ! in cftbvs.F90
     integer, intent(in) :: mxib
     integer, intent(out) :: ibit(mxib)
     integer, intent(out) :: nib
+    usercode setjmphook();
 end subroutine upftbv
 subroutine writsb(lunit) ! in readwritesb.F90
     integer :: lunit
+    usercode setjmphook();
 end subroutine writsb
 subroutine cmpmsg(cmp) ! in compress.F90
     character*(*),intent(in) :: cmp
+    usercode setjmphook();
 end subroutine cmpmsg
 subroutine stdmsg(std) ! in standard.F90
     character*(*),intent(in) :: std
+    usercode setjmphook();
 end subroutine stdmsg
 subroutine pkvs01(s01mnem,ival) ! in s013vals.F90
     character*(*),intent(in) :: s01mnem
     integer,intent(in) :: ival
+    usercode setjmphook();
 end subroutine pkvs01
 function iupvs01(lunit,s01mnem) ! in s013vals.F90
     integer,intent(in) :: lunit
     character*(*),intent(in) :: s01mnem
+    usercode setjmphook();
 end function iupvs01
 subroutine writlc(lunit,chr,st) ! in readwriteval.F90
     integer,intent(in) :: lunit
     character*(*),intent(in) :: chr
     character*(*),intent(in) :: st
+    usercode setjmphook();
 end subroutine writlc
-
     end interface 
 end python module _bufrlib
