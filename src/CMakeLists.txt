@@ -4,7 +4,7 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 list(APPEND fortran_src
-  modules_vars.F90 modules_arrs.F90 bitmaps.F90 blocks.F90 borts.F90 compress.F90 errwrt.F90
+  modules_vars.F90 modules_arrs.F90 bitmaps.F90 blocks.F90 borts.c compress.F90 errwrt.F90
   copydata.F90 dumpdata.F90 dxtable.F90 fxy.F90 jumplink.F90 mastertable.F90 missing.F90
   openbt.F90 cftbvs.F90 readwritemg.F90 readwritesb.F90 readwriteval.F90 s013vals.F90 tankrcpt.F90
   standard.F90 strings.F90 memmsgs.F90 ciencode.F90 cidecode.F90 arallocf.F90 openclosebf.F90
