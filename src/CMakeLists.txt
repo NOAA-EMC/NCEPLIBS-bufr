@@ -11,7 +11,7 @@ list(APPEND fortran_src
   bufr_interface.F90 bufr_c2f_interface.F90 x4884.F90 bufrlib.F90)
 
 list(APPEND c_src
-  arallocc.c cpmstabs.c cread.c crwbmg.c cfe.c icvidx.c restd.c stseq.c)
+  arallocc.c borts.c cpmstabs.c cread.c crwbmg.c cfe.c icvidx.c restd.c stseq.c)
 
 list(APPEND c_hdr
   cread.h mstabs.h rpseqs.h bufr_interface.h)

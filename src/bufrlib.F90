@@ -331,6 +331,30 @@ module bufrlib
       integer(c_int), intent(out) :: cdesc(*)
     end subroutine stseq_c
 
+    !> @fn bufrlib::bort_set_target_c::bort_set_target_c()
+    !> Set target location for returning to an application program in the event of a bort error.
+    !>
+    !> Wraps bort_set_target() function.
+    !>
+    !> Return code:
+    !> - 0 = target location was set during this call
+    !> - 1 = previously-set target location was returned to during this call
+    !>
+    !> @author J. Ator @date 2025-08-20
+    integer(c_int) function bort_set_target_c() bind(C, name='bort_set_target')
+      use iso_c_binding
+    end function bort_set_target_c
+
+    !> @fn bufrlib::bort_goto_target_c::bort_goto_target_c()
+    !> Return to the previously-set target location after a bort error.
+    !>
+    !> Wraps bort_goto_target() function.
+    !>
+    !> @author J. Ator @date 2025-08-20
+    subroutine bort_goto_target_c() bind(C, name='bort_goto_target')
+      use iso_c_binding
+    end subroutine bort_goto_target_c
+
   end interface
 
 end module bufrlib

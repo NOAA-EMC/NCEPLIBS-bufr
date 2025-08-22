@@ -857,7 +857,7 @@ module moda_tnkrcp
   !> application program:
   !> - 'N' = No (default)
   !> - 'Y' = Yes
-  character*1 :: ctrt = 'N'
+  character :: ctrt = 'N'
   !> Tank receipt year
   integer :: itryr
   !> Tank receipt month
@@ -903,6 +903,22 @@ module moda_tablef
   !> - 'Y' = Yes
   character :: cdmf = 'N'
 end module moda_tablef
+
+!> Declare variables used to optionally catch and return any future bort error string to the application program.
+!>
+!> @author J. Ator @date 2025-08-20
+module moda_borts
+  !> Flag indicating whether to catch and return any future bort error string to the application program;
+  !> this variable is initialized to a default value which can be overridden by a subsequent call to
+  !> subroutine bort_catcher() from within the application program:
+  !> - 'N' = No (default)
+  !> - 'Y' = Yes
+  character :: cbortcatch = 'N'
+  !> Bort error string
+  character*300 caught_str
+  !> Length of bort error string
+  integer caught_str_len
+end module moda_borts
 
 !> Declare variables for use when merging parts of different data subsets.
 !>

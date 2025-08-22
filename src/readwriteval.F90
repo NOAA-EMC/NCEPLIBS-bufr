@@ -406,7 +406,7 @@ end subroutine writlc
 !> @param str - Table B mnemonic of long character string to be retrieved, possibly supplemented with
 !> an ordinal occurrence notation
 !>
-!> @authors J. Woollen J. Ator @date 2003-11-04
+!> @authors J. Woollen, J. Ator @date 2003-11-04
 recursive subroutine readlc(lunit,chr,str)
 
   use modv_vars, only: im8b, iprt
