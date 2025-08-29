@@ -21,7 +21,7 @@ module bufr_c2f_interface
 
   private
   public :: open_c, close_c, openbf_c, closbf_c
-  public :: exitbufr_c, bort_c
+  public :: exitbufr_c, bort_c, readmg_c
   public :: ireadmg_c, ireadsb_c, ireadns_c, openmb_c
   public :: ufbint_c, ufbrep_c, ufbseq_c
   public :: mtinfo_c, bvers_c, status_c, ibfms_c
@@ -160,8 +160,8 @@ module bufr_c2f_interface
     !> @param subset_str_len - Length of the subset string
     !>
     !> @return ireadmg_c - Return code:
-    !>  - 0 new BUFR message was successfully read into internal arrays.
-    !>  - -1 there are no more BUFR messages in bufr_unit.
+    !>  - 0 new BUFR message was successfully read into internal arrays
+    !>  - -1 there are no more BUFR messages in bufr_unit
     !>
     !> @author Ronald McLaren @date 2020-07-29
     function ireadmg_c(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bind(C, name='ireadmg_f')
@@ -179,6 +179,34 @@ module bufr_c2f_interface
         call copy_f_c_str(f_subset, c_subset, int(subset_str_len))
       end if
     end function ireadmg_c
+
+    !> Read the next message from a BUFR file.
+    !>
+    !> Wraps readmg() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param c_subset - Subset string
+    !> @param iddate - Datetime of message
+    !> @param subset_str_len - Length of the subset string
+    !> @param ires - Return code:
+    !>  - 0 new BUFR message was successfully read into internal arrays
+    !>  - -1 there are no more BUFR messages in bufr_unit
+    !>
+    !> @author Jeff Ator @date 2025-08-25
+    subroutine readmg_c(bufr_unit, c_subset, iddate, subset_str_len, ires) bind(C, name='readmg_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      character(kind=c_char), intent(out) :: c_subset(*)
+      integer(c_int), intent(out) :: iddate
+      integer(c_int), value, intent(in) :: subset_str_len
+      integer(c_int), intent(out) :: ires
+      character(len=25) :: f_subset
+
+      call readmg(bufr_unit, f_subset, iddate, ires)
+
+      if (ires == 0) then
+        call copy_f_c_str(f_subset, c_subset, int(subset_str_len))
+      end if
+    end subroutine readmg_c
 
     !> Read the next data subset from a BUFR message.
     !> Wraps ireadsb() function.

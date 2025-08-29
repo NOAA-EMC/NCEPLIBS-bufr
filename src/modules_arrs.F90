@@ -908,12 +908,13 @@ end module moda_tablef
 !>
 !> @author J. Ator @date 2025-08-20
 module moda_borts
-  !> Flag indicating whether to catch and return any future bort error string to the application program;
-  !> this variable is initialized to a default value which can be overridden by a subsequent call to
-  !> subroutine bort_catcher() from within the application program:
-  !> - 'N' = No (default)
-  !> - 'Y' = Yes
-  character :: cbortcatch = 'N'
+  !> Status indicator to keep track of whether bort errors generated during all future calls to NCEPLIBS-bufr
+  !> subroutines and functions should be caught and returned to the application program.  The default value
+  !> is .false., meaning that any such bort error within the library will trigger an immediate abort of the
+  !> application program.  This value can be changed at any time via a call to subroutine catch_borts().
+  logical :: bort_catch = .false.
+  !> .true. iff bort_catch is .true. <b>and</b> a target location to which to return any caught error is not currently set.
+  logical :: bort_target_is_unset = .false.
   !> Bort error string
   character*300 caught_str
   !> Length of bort error string

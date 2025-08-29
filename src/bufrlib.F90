@@ -331,20 +331,6 @@ module bufrlib
       integer(c_int), intent(out) :: cdesc(*)
     end subroutine stseq_c
 
-    !> @fn bufrlib::bort_set_target_c::bort_set_target_c()
-    !> Set target location for returning to an application program in the event of a bort error.
-    !>
-    !> Wraps bort_set_target() function.
-    !>
-    !> Return code:
-    !> - 0 = target location was set during this call
-    !> - 1 = previously-set target location was returned to during this call
-    !>
-    !> @author J. Ator @date 2025-08-20
-    integer(c_int) function bort_set_target_c() bind(C, name='bort_set_target')
-      use iso_c_binding
-    end function bort_set_target_c
-
     !> @fn bufrlib::bort_goto_target_c::bort_goto_target_c()
     !> Return to the previously-set target location after a bort error.
     !>
@@ -354,6 +340,25 @@ module bufrlib
     subroutine bort_goto_target_c() bind(C, name='bort_goto_target')
       use iso_c_binding
     end subroutine bort_goto_target_c
+
+    !> @fn bufrlib::catch_bort_readmg_c::catch_bort_readmg_c(lunxx,subset,jdate,subset_str_len,iret)
+    !> Catch any bort error inside of subroutine readmg().
+    !>
+    !> @param lunxx - Absolute value is Fortran logical unit number for BUFR file
+    !> @param subset - Table A mnemonic for type of BUFR message that was read
+    !> @param jdate - Date-time stored within Section 1 of BUFR message that was read
+    !> @param subset_str_len - Allocated length of subset string
+    !>  @param iret - Return code
+    !>
+    !> Wraps catch_bort_readmg() function.
+    !>
+    !> @author J. Ator @date 2025-08-20
+    subroutine catch_bort_readmg_c(lunxx,subset,jdate,subset_str_len,iret) bind(C, name='catch_bort_readmg')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunxx, subset_str_len
+      character(kind=c_char), intent(out) :: subset(*)
+      integer(c_int), intent(out) :: jdate, iret
+    end subroutine catch_bort_readmg_c
 
   end interface
 

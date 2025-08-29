@@ -899,10 +899,16 @@ subroutine exitbufr
 
   use bufrlib
 
-  use modv_vars, only: ifopbf, nfiles
+  use modv_vars, only: ifopbf, nfiles, im8b, part, iblock, bmiss, lendat
 
   use moda_stbfr
   use moda_s01cm
+  use moda_h4wlc
+  use moda_msgstd
+  use moda_msgcmp
+  use moda_tablef
+  use moda_tnkrcp
+  use moda_borts
 
   ! Close any logical units that are open to the library.
 
@@ -914,10 +920,22 @@ subroutine exitbufr
 
   call ardllocf
 
-  ! Reset the library.
+  ! Reset other library values to their default settings.
 
   ns01v = 0
   ifopbf = 0
+  nh4wlc = 0
+  iblock = 0
+  lendat = 8
+  csmf = 'N'
+  ccmf = 'N'
+  cdmf = 'N'
+  ctrt = 'N'
+  bort_catch = .false.
+  bort_target_is_unset = .false.
+  im8b = .false.
+  part = .false.
+  bmiss = 10E10_8
 
   return
 end subroutine exitbufr
