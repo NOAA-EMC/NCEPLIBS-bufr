@@ -54,7 +54,7 @@ program intest14
   ! Fix the error and retry so we can continue on.
   call readns(lunit, subset, idate, iret)
   call check_for_bort(errstr, errstr_len)
-  if (errstr_len /= 0 .or. iret /= 0 .or. idate /= 2023022400) stop 8
+  if (errstr_len /= 0 .or. iret /= 0 .or. idate /= 23022400) stop 8
 
   call closbf(lunit)
 

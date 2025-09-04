@@ -177,7 +177,7 @@ recursive subroutine readns(lunit,subset,jdate,iret)
 
   use bufrlib
 
-  use modv_vars, only: im8b
+  use modv_vars, only: im8b, lendat
 
   use moda_msgcwd
   use moda_tables
@@ -226,6 +226,7 @@ recursive subroutine readns(lunit,subset,jdate,iret)
     subset = tag(inode(lun))(1:8)
   endif
   jdate = idate(lun)
+  if (lendat/=10) jdate = mod(jdate,10**8)
 
   ! Read the next subset in the BUFR file
 
