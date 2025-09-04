@@ -32,7 +32,7 @@ extern "C" {
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
-void open_f(int unit, const char* filepath);
+void open_f(int unit, const char *filepath);
 
 /**
  * Close a Fortran file from a C program.
@@ -55,7 +55,7 @@ void close_f(int unit);
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
-void openbf_f(int bufr_unit, const char* cio, int table_file_id);
+void openbf_f(int bufr_unit, const char *cio, int table_file_id);
 
 /**
  * Close a previously opened file and disconnect it from the library.
@@ -93,7 +93,7 @@ void exitbufr_f();
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
-int ireadmg_f(int bufr_unit, char* subset, int* iddate, int subset_len);
+int ireadmg_f(int bufr_unit, char *subset, int *iddate, int subset_len);
 
 /**
  * Read the next message from a BUFR file.
@@ -110,7 +110,7 @@ int ireadmg_f(int bufr_unit, char* subset, int* iddate, int subset_len);
  *
  * @author Jeff Ator @date 2025-08-25
  */
-void readmg_f(int bufr_unit, char* subset, int* iddate, int subset_len, int *ires);
+void readmg_f(int bufr_unit, char *subset, int *iddate, int subset_len, int *ires);
 
 /**
  * Read the next data subset from a BUFR message.
@@ -128,6 +128,20 @@ void readmg_f(int bufr_unit, char* subset, int* iddate, int subset_len, int *ire
 int ireadsb_f(int bufr_unit);
 
 /**
+ * Read the next data subset from a BUFR message.
+ *
+ * Wraps readsb() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from.
+ * @param ires - return code:
+ * - 0 new BUFR data subset was successfully read into internal arrays.
+ * - -1 there are no more BUFR data subsets in the BUFR message associated with bufr_unit
+ *
+ * @author Jeff Ator @date 2025-09-05
+ */
+void readsb_f(int bufr_unit, int *ires);
+
+/**
  * Read/write one or more data values from/to a data subset.
  *
  * Wraps ufbint() subroutine.
@@ -141,8 +155,8 @@ int ireadsb_f(int bufr_unit);
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
-void ufbint_f(int bufr_unit, void** c_data, int dim_1, int dim_2,
-              int* iret, const char* table_b_mnemonic);
+void ufbint_f(int bufr_unit, void **c_data, int dim_1, int dim_2,
+              int *iret, const char *table_b_mnemonic);
 
 /**
  * Read/write one or more data values from/to a data subset.
@@ -158,8 +172,8 @@ void ufbint_f(int bufr_unit, void** c_data, int dim_1, int dim_2,
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
-void ufbrep_f(int bufr_unit, void** c_data, int dim_1, int dim_2,
-              int* iret, const char* table_b_mnemonic);
+void ufbrep_f(int bufr_unit, void **c_data, int dim_1, int dim_2,
+              int *iret, const char *table_b_mnemonic);
 
 /**
  * Specify location of master BUFR tables on local file system.
@@ -172,7 +186,7 @@ void ufbrep_f(int bufr_unit, void** c_data, int dim_1, int dim_2,
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
-void mtinfo_f(const char* path, int file_unit_1, int file_unit_2);
+void mtinfo_f(const char *path, int file_unit_1, int file_unit_2);
 
 /**
  * Check whether a file is connected to the library.
@@ -186,7 +200,7 @@ void mtinfo_f(const char* path, int file_unit_1, int file_unit_2);
  *
  * @author Ronald Mclaren @date 2020-07-29
  */
-void status_f(int file_unit, int* lun, int* il, int* im);
+void status_f(int file_unit, int *lun, int *il, int *im);
 
 /**
  * Get the element name and units associated with a Table B mnemonic.
@@ -204,12 +218,12 @@ void status_f(int file_unit, int* lun, int* il, int* im);
  * @author Ronald Mclaren @date 2020-07-29
  */
 void nemdefs_f(int file_unit,
-               const char* mnemonic,
-               char* unit_c,
+               const char *mnemonic,
+               char *unit_c,
                int unit_str_len,
-               char* desc_c,
+               char *desc_c,
                int desc_str_len,
-               int* iret);
+               int *iret);
 
 /**
  * Get the scale factor, reference value and bit width associated with a
@@ -228,12 +242,12 @@ void nemdefs_f(int file_unit,
  * @author Ronald Mclaren @date 2022-08-08
  */
 void nemspecs_f(int file_unit,
-                const char* mnemonic,
+                const char *mnemonic,
                 int mnemonic_idx,
-                int* scale,
-                int* reference,
-                int* bits,
-                int* iret);
+                int *scale,
+                int *reference,
+                int *bits,
+                int *iret);
 
 /**
  * Get information about a descriptor.
@@ -249,10 +263,10 @@ void nemspecs_f(int file_unit,
  * @author Ronald Mclaren @date 2022-08-16
  */
 void nemtab_f(int lun,
-              const char* mnemonic,
-              int* descriptor,
-              char* table_type,
-              int* table_idx);
+              const char *mnemonic,
+              int *descriptor,
+              char *table_type,
+              int *table_idx);
 
 /**
  * Get information about a Table B descriptor.
@@ -271,11 +285,11 @@ void nemtab_f(int lun,
  */
   void nemtbb_f(int lun,
                 int table_idx,
-                char* unit_str,
+                char *unit_str,
                 int unit_str_len,
-                int* scale,
-                int* reference,
-                int* bits);
+                int *scale,
+                int *reference,
+                int *bits);
 
 /**
  * Get copy of the moda_tables ISC array.
@@ -285,7 +299,7 @@ void nemtab_f(int lun,
  *
  * @author Ronald McLaren @date 2022-03-23
  */
-void get_isc_f(int** isc_ptr, int* isc_size);
+void get_isc_f(int **isc_ptr, int *isc_size);
 
 /**
  * Get copy of the moda_tables LINK array.
@@ -295,7 +309,7 @@ void get_isc_f(int** isc_ptr, int* isc_size);
  *
  * @author Ronald McLaren @date 2022-03-23
  */
-void get_link_f(int** link_ptr, int* link_size);
+void get_link_f(int **link_ptr, int *link_size);
 
 /**
  * Get copy of the moda_tables ITP array.
@@ -305,7 +319,7 @@ void get_link_f(int** link_ptr, int* link_size);
  *
  * @author Ronald McLaren @date 2022-03-23
  */
-void get_itp_f(int** itp_ptr, int* itp_size);
+void get_itp_f(int **itp_ptr, int *itp_size);
 
 /**
  * Get copy of the moda_tables TYP array.
@@ -316,7 +330,7 @@ void get_itp_f(int** itp_ptr, int* itp_size);
  *
  * @author Ronald McLaren @date 2022-03-23
  */
-void get_typ_f(char** typ_ptr, int* typ_len, int* mem_size);
+void get_typ_f(char **typ_ptr, int *typ_len, int *mem_size);
 
 /**
  * Get copy of the moda_tables TAG array.
@@ -327,7 +341,7 @@ void get_typ_f(char** typ_ptr, int* typ_len, int* mem_size);
  *
  * @author Ronald McLaren @date 2022-03-23
  */
-void get_tag_f(char** tag_ptr, int* tag_len, int* mem_size);
+void get_tag_f(char **tag_ptr, int *tag_len, int *mem_size);
 
 /**
  * Get copy of the moda_tables JMPB array.
@@ -337,7 +351,7 @@ void get_tag_f(char** tag_ptr, int* tag_len, int* mem_size);
  *
  * @author Ronald McLaren @date 2022-03-23
  */
-void get_jmpb_f(int** jmpb_ptr, int* jmpb_size);
+void get_jmpb_f(int **jmpb_ptr, int *jmpb_size);
 
 
 /**
@@ -348,7 +362,7 @@ void get_jmpb_f(int** jmpb_ptr, int* jmpb_size);
  *
  * @author Ronald McLaren @date 2023-04-05
  */
-void get_irf_f(int** irf_ptr, int* irf_size);
+void get_irf_f(int **irf_ptr, int *irf_size);
 
 /**
  * Get the bufr node idx for the start node of the subset.
@@ -358,7 +372,7 @@ void get_irf_f(int** irf_ptr, int* irf_size);
  *
  * @author Ronald McLaren @date 2022-03-23
  */
-void get_inode_f(int lun, int* start_node);
+void get_inode_f(int lun, int *start_node);
 
 /**
  * Get the number of values in the current subset
@@ -368,7 +382,7 @@ void get_inode_f(int lun, int* start_node);
  *
  * @author Ronald McLaren @date 2022-03-23
  */
-void get_nval_f(int lun, int* num_nodes);
+void get_nval_f(int lun, int *num_nodes);
 
 /**
  * Get pointer to the moda_usrint VAL array.
@@ -379,7 +393,7 @@ void get_nval_f(int lun, int* num_nodes);
  *
  * @author Ronald McLaren @date 2022-03-23
  */
-void get_val_f(int lun, double** val_ptr, int* val_size);
+void get_val_f(int lun, double **val_ptr, int *val_size);
 
 /**
  * Get pointer to the moda_usrint INV array.
@@ -390,7 +404,7 @@ void get_val_f(int lun, double** val_ptr, int* val_size);
  *
  * @author Ronald McLaren @date 2022-03-23
  */
-void get_inv_f(int lun, int** inv_ptr, int* inv_size);
+void get_inv_f(int lun, int **inv_ptr, int *inv_size);
 
 /**
  *  Function used to get long strings from the BUFR file.
@@ -403,7 +417,7 @@ void get_inv_f(int lun, int** inv_ptr, int* inv_size);
  *
  * @author Ronald McLaren @date 2023-07-03
  */
-void readlc_f(int lunit, const char* str_id, char* output_str, int output_str_len);
+void readlc_f(int lunit, const char *str_id, char *output_str, int output_str_len);
 
 /**
  * Deletes the copies of the moda_tables arrays.
@@ -424,7 +438,7 @@ void delete_table_data_f();
  *
  *  @author J. Ator @date 2023-04-07
  */
-int iupbs01_f(int *bufr, char* mnemonic);
+int iupbs01_f(int *bufr, char *mnemonic);
 
 /**
  * Get the current value of a parameter.
@@ -486,8 +500,8 @@ int igetmxby_f(void);
  *
  * @author J. Ator @date 2023-04-07
  */
-void ufbseq_f(int bufr_unit, void** c_data, int dim_1, int dim_2,
-              int* iret, const char* table_d_mnemonic);
+void ufbseq_f(int bufr_unit, void **c_data, int dim_1, int dim_2,
+              int *iret, const char *table_d_mnemonic);
 
 /**
  * Read the next data subset from a BUFR file.
@@ -505,7 +519,25 @@ void ufbseq_f(int bufr_unit, void** c_data, int dim_1, int dim_2,
  *
  * @author J. Ator @date 2023-04-07
  */
-int ireadns_f(int bufr_unit, char* subset, int* iddate, int subset_len);
+int ireadns_f(int bufr_unit, char *subset, int *iddate, int subset_len);
+
+/**
+ * Read the next data subset from a BUFR file.
+ *
+ * Wraps readns() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from.
+ * @param subset - the subset string.
+ * @param iddate - datetime of message.
+ * @param subset_len - length of the subset string.
+ *
+ * @param ires - return code:
+ * - 0 new BUFR data subset was successfully read into internal arrays.
+ * - -1 there are no more BUFR data subsets in bufr_unit.
+ *
+ * @author J. Ator @date 2025-09-05
+ */
+void readns_f(int bufr_unit, char *subset, int *iddate, int subset_len, int *ires);
 
 /**
  * Test whether a data value is "missing".

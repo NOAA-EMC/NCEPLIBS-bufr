@@ -139,7 +139,7 @@ end subroutine catch_borts
 !> @author J. Ator @date 2025-08-25
 recursive subroutine check_for_bort(bort_str, bort_str_len)
 
-  use modv_vars, only: im8b
+  use modv_vars, only: iprt, im8b
 
   use moda_borts
 
@@ -160,9 +160,11 @@ recursive subroutine check_for_bort(bort_str, bort_str_len)
   endif
 
   if (.not. bort_catch) then
-    call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
-    call errwrt('BUFRLIB: CHECK_FOR_BORT WAS CALLED WITHOUT HAVING PREVIOUSLY CALLED CATCH_BORTS')
-    call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+    if (iprt >= 1) then
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+      call errwrt('BUFRLIB: CHECK_FOR_BORT WAS CALLED WITHOUT HAVING PREVIOUSLY CALLED CATCH_BORTS')
+      call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
+    endif
     bort_str_len = -1
   else if (caught_str_len == 0) then
     bort_str_len = 0

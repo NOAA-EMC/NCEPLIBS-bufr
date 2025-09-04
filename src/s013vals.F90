@@ -873,8 +873,7 @@ end subroutine upds3
 !> in effect for all future calls to any of the NCEPLIBS-bufr subroutines
 !> which read BUFR messages, unless a subsequent call is made to this
 !> subroutine to reset the value of len again.  If this subroutine is
-!> never called, a default value of 8 is used for len, as set within
-!> subroutine bfrini().
+!> never called, a default value of 8 is used for len.
 !>
 !> @param len - Length of Section 1 date-time values to be output by all future calls to
 !> message-reading subroutines:

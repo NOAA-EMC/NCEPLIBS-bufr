@@ -30,6 +30,8 @@
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine readsb(lunit,iret)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_msgcwd
@@ -37,6 +39,7 @@ recursive subroutine readsb(lunit,iret)
   use moda_bitbuf
   use moda_bitmaps
   use moda_stcode
+  use moda_borts
 
   implicit none
 
@@ -48,12 +51,20 @@ recursive subroutine readsb(lunit,iret)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call readsb(my_lunit,iret)
     call x48(iret,iret,1)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call catch_bort_readsb_c(lunit,iret)
+    bort_target_is_unset = .true.
     return
   endif
 
@@ -126,10 +137,8 @@ recursive integer function ireadsb(lunit) result(iret)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     iret=ireadsb(my_lunit)
-
     im8b=.true.
     return
   endif
@@ -166,10 +175,13 @@ end function ireadsb
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine readns(lunit,subset,jdate,iret)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_msgcwd
   use moda_tables
+  use moda_borts
 
   implicit none
 
@@ -178,18 +190,28 @@ recursive subroutine readns(lunit,subset,jdate,iret)
   integer my_lunit, lun, il, im
 
   character*8, intent(out) :: subset
+  character*9 csubset
 
   ! Check for I8 integers
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call readns(my_lunit,subset,jdate,iret)
     call x48(jdate,jdate,1)
     call x48(iret,iret,1)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call catch_bort_readns_c(lunit,csubset,jdate,len(csubset),iret)
+    subset(1:8) = csubset(1:8)
+    bort_target_is_unset = .true.
     return
   endif
 
@@ -251,11 +273,9 @@ recursive integer function ireadns(lunit,subset,idate) result(iret)
 
   if(im8b) then
      im8b=.false.
-
      call x84(lunit,my_lunit,1)
      iret=ireadns(my_lunit,subset,idate)
      call x48(idate,idate,1)
-
      im8b=.true.
      return
   endif
