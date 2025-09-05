@@ -40,6 +40,24 @@ module bufr_c2f_interface
 
   contains
 
+    !> Count the number of characters in a C string
+    !>
+    !> @param c_str - Pointer to a null-terminated C string
+    !>
+    !> @return nchars - Number of characters in c_str
+    !>
+    !> @author Jeff Ator @date 2025-09-05
+    function get_c_string_length(c_str) result(nchars)
+      character(kind=c_char, len=1), intent(in) :: c_str(*)
+      integer :: nchars
+
+      nchars = 1
+      do while (c_str(nchars) /= c_null_char)
+        nchars = nchars + 1
+      end do
+      nchars = nchars - 1
+    end function get_c_string_length
+
     !> Convert a C string into a Fortran string.
     !>
     !> @param c_str - Pointer to a null-terminated C string.
@@ -55,11 +73,7 @@ module bufr_c2f_interface
       character(len=:), allocatable :: f_str
       integer :: nchars
 
-      nchars = 1
-      do while (c_str(nchars) /= c_null_char)
-        nchars = nchars + 1
-      end do
-      nchars = nchars - 1
+      nchars = get_c_string_length(c_str)
 
       allocate(character(len=nchars) :: f_str)
       f_str = transfer(c_str(1:nchars), f_str)
@@ -121,11 +135,14 @@ module bufr_c2f_interface
     !>
     !> @author Ronald McLaren @date 2020-07-29
     subroutine openbf_c(bufr_unit, cio, table_file_id) bind(C, name='openbf_f')
-      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int), value, intent(in) :: bufr_unit, table_file_id
       character(kind=c_char), intent(in) :: cio(*)
-      integer(c_int), value, intent(in) :: table_file_id
+      character(len=5) :: io
+      integer :: lio
 
-      call openbf(bufr_unit, c_f_string(cio), table_file_id)
+      lio = get_c_string_length(cio)
+      io = transfer(cio(1:lio), io)
+      call openbf(bufr_unit, io(1:lio), table_file_id)
     end subroutine openbf_c
 
     !> Close a previously opened file and disconnect it from the library.
@@ -255,15 +272,18 @@ module bufr_c2f_interface
     !>
     !> @author Ronald McLaren @date 2020-07-29
     subroutine ufbint_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbint_f')
-      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2
       type(c_ptr), intent(inout) ::  c_data
-      integer(c_int), value, intent(in) :: dim_1, dim_2
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
+      character(len=80) :: str
       real, pointer :: f_data
+      integer :: lstr
 
+      lstr = get_c_string_length(table_b_mnemonic)
+      str = transfer(table_b_mnemonic(1:lstr), str)
       call c_f_pointer(c_data, f_data)
-      call ufbint(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))
+      call ufbint(bufr_unit, f_data, dim_1, dim_2, iret, str(1:lstr))
     end subroutine ufbint_c
 
     !> Read/write one or more data values from/to a data subset.
@@ -278,15 +298,18 @@ module bufr_c2f_interface
     !>
     !> @author Ronald McLaren @date 2020-07-29
     subroutine ufbrep_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbrep_f')
-      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2
       type(c_ptr), intent(inout) :: c_data
-      integer(c_int), value, intent(in) :: dim_1, dim_2
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
+      character(len=80) :: str
       real, pointer :: f_data
+      integer :: lstr
 
+      lstr = get_c_string_length(table_b_mnemonic)
+      str = transfer(table_b_mnemonic(1:lstr), str)
       call c_f_pointer(c_data, f_data)
-      call ufbrep(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_b_mnemonic))
+      call ufbrep(bufr_unit, f_data, dim_1, dim_2, iret, str(1:lstr))
     end subroutine ufbrep_c
 
     !> Specify location of master BUFR tables on local file system.
@@ -300,10 +323,13 @@ module bufr_c2f_interface
     !> @author Ronald McLaren @date 2020-07-29
     subroutine mtinfo_c(path, file_unit_1, file_unit_2) bind(C, name='mtinfo_f')
       character(kind=c_char), intent(in) :: path(*)
-      integer(c_int), value, intent(in) :: file_unit_1
-      integer(c_int), value, intent(in) :: file_unit_2
+      integer(c_int), value, intent(in) :: file_unit_1, file_unit_2
+      character(len=240) :: mtdir
+      integer :: lmtdir
 
-      call mtinfo(c_f_string(path), file_unit_1, file_unit_2)
+      lmtdir = get_c_string_length(path)
+      mtdir = transfer(path(1:lmtdir), mtdir)
+      call mtinfo(mtdir(1:lmtdir), file_unit_1, file_unit_2)
     end subroutine mtinfo_c
 
     !> Check whether a file is connected to the library.
@@ -340,19 +366,20 @@ module bufr_c2f_interface
     !> @author Ronald McLaren @date 2022-08-08
     subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str_len, iret) &
             bind(C, name='nemdefs_f')
-      integer(c_int), value, intent(in) :: file_unit
+      integer(c_int), value, intent(in) :: file_unit, unit_str_len, desc_str_len
       character(kind=c_char), intent(in) :: mnemonic(*)
-      character(kind=c_char), intent(out) :: unit_c(*)
-      integer(c_int), value, intent(in) :: unit_str_len
-      character(kind=c_char), intent(out) :: desc_c(*)
-      integer(c_int), value, intent(in) :: desc_str_len
+      character(kind=c_char), intent(out) :: unit_c(*), desc_c(*)
       integer(c_int), intent(out) :: iret
-
       character(len=25) :: unit_f
       character(len=55) :: desc_f
+      character(len=10) :: tag
+      integer :: ltag
+
+      ltag = get_c_string_length(mnemonic)
+      tag = transfer(mnemonic(1:ltag), tag)
 
       ! Get the unit and description strings
-      call nemdefs ( file_unit, c_f_string(mnemonic), desc_f, unit_f, iret)
+      call nemdefs ( file_unit, tag(1:ltag), desc_f, unit_f, iret)
 
       if (iret == 0) then
         ! Copy the unit Fortran string into the resulting C-style string.
@@ -378,16 +405,17 @@ module bufr_c2f_interface
     !> @author Ronald McLaren  @date 2022-08-08
     subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits, iret) &
             bind(C, name='nemspecs_f')
-      integer(c_int), value, intent(in) :: file_unit
+      integer(c_int), value, intent(in) :: file_unit, mnemonic_idx
       character(kind=c_char), intent(in) :: mnemonic(*)
-      integer(c_int), value, intent(in) ::mnemonic_idx
-      integer(c_int), intent(out) :: scale
-      integer(c_int), intent(out) :: reference
-      integer(c_int), intent(out) :: bits
-      integer(c_int), intent(out) :: iret
+      integer(c_int), intent(out) :: scale, reference, bits, iret
+      character(len=10) :: tag
+      integer :: ltag
+
+      ltag = get_c_string_length(mnemonic)
+      tag = transfer(mnemonic(1:ltag), tag)
 
       ! Get the scale, reference and bits
-      call nemspecs(file_unit, c_f_string(mnemonic), mnemonic_idx, scale, reference, bits, iret)
+      call nemspecs(file_unit, tag(1:ltag), mnemonic_idx, scale, reference, bits, iret)
     end subroutine nemspecs_c
 
     !> Get information about a descriptor.
@@ -405,13 +433,16 @@ module bufr_c2f_interface
             bind(C, name='nemtab_f')
       integer(c_int), value, intent(in) :: lun
       character(kind=c_char), intent(in) :: mnemonic(*)
-      integer(c_int), intent(out) :: descriptor
+      integer(c_int), intent(out) :: descriptor, table_idx
       character(kind=c_char), intent(out) :: table_type(*)
-      integer(c_int), intent(out) :: table_idx
-
       character(len=1) :: table_type_f
+      character(len=10) :: tag
+      integer :: ltag
 
-      call nemtab(lun, c_f_string(mnemonic), descriptor, table_type_f, table_idx)
+      ltag = get_c_string_length(mnemonic)
+      tag = transfer(mnemonic(1:ltag), tag)
+
+      call nemtab(lun, tag(1:ltag), descriptor, table_type_f, table_idx)
 
       table_type(1) = table_type_f(1:1)
     end subroutine nemtab_c
@@ -644,15 +675,18 @@ module bufr_c2f_interface
     !> @author Ronald McLaren @date 2023-07-03
     subroutine readlc_c(lunit, str_id, output_str, output_str_len) bind(C, name='readlc_f')
       use moda_rlccmn
-      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), value, intent(in) :: lunit, output_str_len
       character(kind=c_char), intent(in) :: str_id(*)
       character(kind=c_char), intent(out) :: output_str(*)
-      integer(c_int), intent(in), value :: output_str_len
-
       character(len=120) :: output_str_f
-      integer :: output_str_len_f
+      character(len=14) :: str
+      integer :: output_str_len_f, lstr
 
-      call readlc(lunit, output_str_f, c_f_string(str_id))
+      lstr = get_c_string_length(str_id)
+      str = transfer(str_id(1:lstr), str)
+
+      call readlc(lunit, output_str_f, str(1:lstr))
+
       output_str_len_f = len(trim(output_str_f)) + 1  ! add 1 for the null terminator
       call copy_f_c_str(output_str_f, output_str, min(output_str_len_f, output_str_len))
     end subroutine readlc_c
@@ -686,9 +720,13 @@ module bufr_c2f_interface
       integer(c_int), intent(in) :: bufr(*)
       character(kind=c_char), intent(in) :: mnemonic(*)
       integer(c_int) :: ires
-      integer :: iupbs01
+      integer :: iupbs01, ltag
+      character(len=10) :: tag
 
-      ires = iupbs01(bufr,c_f_string(mnemonic))
+      ltag = get_c_string_length(mnemonic)
+      tag = transfer(mnemonic(1:ltag), tag)
+
+      ires = iupbs01(bufr,tag(1:ltag))
     end function iupbs01_c
 
     !> Get the current value of a parameter.
@@ -933,15 +971,18 @@ module bufr_c2f_interface
     !>
     !> @author J. Ator @date 2023-04-07
     subroutine ufbseq_c(bufr_unit, c_data, dim_1, dim_2, iret, table_d_mnemonic) bind(C, name='ufbseq_f')
-      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2
       type(c_ptr), intent(inout) ::  c_data
-      integer(c_int), value, intent(in) :: dim_1, dim_2
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_d_mnemonic(*)
+      character(len=80) :: str
       real, pointer :: f_data
+      integer :: lstr
 
+      lstr = get_c_string_length(table_d_mnemonic)
+      str = transfer(table_d_mnemonic(1:lstr), str)
       call c_f_pointer(c_data, f_data)
-      call ufbseq(bufr_unit, f_data, dim_1, dim_2, iret, c_f_string(table_d_mnemonic))
+      call ufbseq(bufr_unit, f_data, dim_1, dim_2, iret, str(1:lstr))
     end subroutine ufbseq_c
 
     !> Read the next data subset from a BUFR file.
@@ -1128,8 +1169,13 @@ module bufr_c2f_interface
     subroutine openmb_c(bufr_unit, c_subset, iddate) bind(C, name='openmb_f')
       integer(c_int), value, intent(in) :: bufr_unit, iddate
       character(kind=c_char), intent(in) :: c_subset(*)
+      character(len=8) :: f_subset
+      integer :: lfs
 
-      call openmb(bufr_unit, c_f_string(c_subset), iddate)
+      lfs = get_c_string_length(c_subset)
+      f_subset = transfer(c_subset(1:lfs), f_subset)
+
+      call openmb(bufr_unit, f_subset(1:lfs), iddate)
     end subroutine openmb_c
 
     !> Get the version number of the NCEPLIBS-bufr software.
@@ -1159,8 +1205,10 @@ module bufr_c2f_interface
     !> @author J. Ator @date 2023-04-07
     subroutine cmpmsg_c(cf) bind(C, name='cmpmsg_f')
       character(kind=c_char), intent(in) :: cf(*)
+      character :: ch
 
-      call cmpmsg(c_f_string(cf))
+      ch = cf(1)
+      call cmpmsg(ch)
     end subroutine cmpmsg_c
 
 end module bufr_c2f_interface
