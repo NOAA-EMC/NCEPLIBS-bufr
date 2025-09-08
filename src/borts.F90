@@ -11,7 +11,7 @@
 !> @param str - Error message
 !>
 !> @author J. Woollen @date 1998-07-08
-subroutine bort(str)
+recursive subroutine bort(str)
 
   use bufrlib
 
@@ -44,7 +44,7 @@ end subroutine bort
 !> @param str2 - Second error message
 !>
 !> @author D. Keyser @date 2003-11-04
-subroutine bort2(str1,str2)
+recursive subroutine bort2(str1,str2)
 
   use bufrlib
 

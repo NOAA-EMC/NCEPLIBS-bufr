@@ -134,7 +134,7 @@ module bufr_c2f_interface
     !> @param table_file_id - table_file unit number
     !>
     !> @author Ronald McLaren @date 2020-07-29
-    subroutine openbf_c(bufr_unit, cio, table_file_id) bind(C, name='openbf_f')
+    recursive subroutine openbf_c(bufr_unit, cio, table_file_id) bind(C, name='openbf_f')
       integer(c_int), value, intent(in) :: bufr_unit, table_file_id
       character(kind=c_char), intent(in) :: cio(*)
       character(len=5) :: io
@@ -152,7 +152,7 @@ module bufr_c2f_interface
     !> @param bufr_unit - Fortran logical unit number to close
     !>
     !> @author Ronald McLaren @date 2020-07-29
-    subroutine closbf_c(bufr_unit) bind(C, name='closbf_f')
+    recursive subroutine closbf_c(bufr_unit) bind(C, name='closbf_f')
       integer(c_int), value, intent(in) :: bufr_unit
 
       call closbf(bufr_unit)
@@ -210,7 +210,7 @@ module bufr_c2f_interface
     !>  - -1 there are no more BUFR messages in bufr_unit
     !>
     !> @author Jeff Ator @date 2025-08-25
-    subroutine readmg_c(bufr_unit, c_subset, iddate, subset_str_len, ires) bind(C, name='readmg_f')
+    recursive subroutine readmg_c(bufr_unit, c_subset, iddate, subset_str_len, ires) bind(C, name='readmg_f')
       integer(c_int), value, intent(in) :: bufr_unit
       character(kind=c_char), intent(out) :: c_subset(*)
       integer(c_int), intent(out) :: iddate, ires
@@ -253,7 +253,7 @@ module bufr_c2f_interface
     !>  - -1 there are no more BUFR data subsets in bufr_unit
     !>
     !> @author Jeff Ator @date 2025-09-05
-    subroutine readsb_c(bufr_unit, ires) bind(C, name='readsb_f')
+    recursive subroutine readsb_c(bufr_unit, ires) bind(C, name='readsb_f')
       integer(c_int), value, intent(in) :: bufr_unit
       integer(c_int), intent(out) :: ires
 
@@ -1028,7 +1028,7 @@ module bufr_c2f_interface
     !>  - -1 there are no more BUFR data subsets in bufr_unit
     !>
     !> @author Jeff Ator @date 2025-09-05
-    subroutine readns_c(bufr_unit, c_subset, iddate, subset_str_len, ires) bind(C, name='readns_f')
+    recursive subroutine readns_c(bufr_unit, c_subset, iddate, subset_str_len, ires) bind(C, name='readns_f')
       integer(c_int), value, intent(in) :: bufr_unit
       character(kind=c_char), intent(out) :: c_subset(*)
       integer(c_int), intent(out) :: iddate, ires
