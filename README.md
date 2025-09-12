@@ -27,12 +27,14 @@ NCEPLIBS-bufr is used by numerous other projects including:
   (HRRR)](https://rapidrefresh.noaa.gov/hrrr/).
 - NOAA's [Rapid Refresh (RAP)](https://rapidrefresh.noaa.gov/) assimilation/modeling system.
 
-To submit bug reports, feature requests, or other code-related issues including installation and usage questions, please create a [GitHub issue](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues). For general NCEPLIBS inquiries, contact [Alex Richert](mailto:alexander.richert@noaa.gov).
+To submit bug reports, feature requests, or other code-related issues including installation and usage questions, please create a [GitHub issue](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues).
+
+For general NCEPLIBS inquiries, contact [Hang Lei](mailto:hang.lei@noaa.gov) or [Alex Richert](mailto:alexander.richert@noaa.gov). For issues and pull requests in other repositories (e.g., ufs-weather-model) requiring NCEPLIBS team attention, please tag [@NOAA-EMC/nceplibs](https://github.com/orgs/NOAA-EMC/teams/nceplibs).
 
 ## Authors
 
 Jack Woollen, Jeff Ator, Dennis Keyser, Stacey Bender, Diane Stokes, Ed Hartnett,
-Jeff Whitaker, Rahul Mahajan, Alex Richert, Ron McLaren, and Dom Heinzeller.
+Jeff Whitaker, Rahul Mahajan, Alex Richert, Ron McLaren, Dom Heinzeller, Jack Reeves Eyre, and Daniel O'Connor.
 
 Code manager: [Jeff Ator](mailto:jeff.ator@noaa.gov)
 
