@@ -39,7 +39,7 @@ catch_bort_openbf(int lunit, char *cio, int lundx, int cio_str_len)
     /* Set the target location to which to return if a bort error is caught. */
     if ( setjmp(context) == 1 ) return;
 
-    /* Add a trailing null to cio, for use with c_f_string inside of openbf_f. */
+    /* Add a trailing null to cio, for use with get_c_string_length inside of openbf_f. */
     cio[cio_str_len] = '\0';
 
     /* Recursively call the subroutine. */
@@ -127,4 +127,30 @@ catch_bort_readsb(int lunit, int *iret)
 
     /* Recursively call the subroutine. */
     readsb_f(lunit, iret);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbint().
+ *
+ * @param lunin - Absolute value is Fortran logical unit number for BUFR file
+ * @param usr - Data values
+ * @param i1 - First dimension of usr
+ * @param i2 - Second dimension of usr
+ * @param iret - Number of replications of cstr that were read/written from/to the data subset
+ * @param cstr - String of mnemonics to read/write from/to the data subset
+ * @param cstr_len - Length of cstr
+ *
+ * @author J. Ator @date 2025-09-22
+*/
+void
+catch_bort_ufbint(int lunin, double *usr, int i1, int i2, int *iret, char *cstr, int cstr_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to cstr, for use with get_c_string_length inside of ufbint_f. */
+    cstr[cstr_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    ufbint_f(lunin, (void**) &usr, i1, i2, iret, cstr);
 }

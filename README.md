@@ -27,9 +27,12 @@ NCEPLIBS-bufr is used by numerous other projects including:
   (HRRR)](https://rapidrefresh.noaa.gov/hrrr/).
 - NOAA's [Rapid Refresh (RAP)](https://rapidrefresh.noaa.gov/) assimilation/modeling system.
 
-To submit bug reports, feature requests, or other code-related issues including installation and usage questions, please create a [GitHub issue](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues).
+To submit bug reports, feature requests, or other code-related issues including installation and usage questions,
+please create a [GitHub issue](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues).
 
-For general NCEPLIBS inquiries, contact [Hang Lei](mailto:hang.lei@noaa.gov) or [Alex Richert](mailto:alexander.richert@noaa.gov). For issues and pull requests in other repositories (e.g., ufs-weather-model) requiring NCEPLIBS team attention, please tag [@NOAA-EMC/nceplibs](https://github.com/orgs/NOAA-EMC/teams/nceplibs).
+For general NCEPLIBS inquiries, contact [Hang Lei](mailto:hang.lei@noaa.gov) or [Alex Richert](mailto:alexander.richert@noaa.gov).
+For issues and pull requests in other repositories (e.g., ufs-weather-model) requiring NCEPLIBS team attention, please tag
+'[@NOAA-EMC/nceplibs](https://github.com/orgs/NOAA-EMC/teams/nceplibs)'.
 
 ## Authors
 
@@ -71,7 +74,8 @@ When building the library, associated utilities are included by default.
 If these are not desired, then they can be disabled by adding `-DBUILD_UTILS=OFF`
 to the first of the above cmake commands.
 
-NCEPLIBS-bufr is also available through [Spack](https://spack.io) as '[bufr](https://github.com/spack/spack-packages/blob/develop/repos/spack_repo/builtin/packages/bufr/package.py)'.
+NCEPLIBS-bufr is also available through [Spack](https://spack.io) as
+'[bufr](https://github.com/spack/spack-packages/blob/develop/repos/spack_repo/builtin/packages/bufr/package.py)'.
 
 ## References
 

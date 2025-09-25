@@ -25,6 +25,11 @@ program outtest2
   call setim8b ( .true. )
 #endif
 
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  call catch_borts(.true.)
+
   ! Get the library version number.
   call bvers ( libvrsn )
   if ( lgt( libvrsn, '10.1.1' ) ) then
@@ -36,16 +41,16 @@ program outtest2
   endif
 
   ! Open the input and output files.
-  open  ( unit = 10, file = 'testfiles/OUT_2_preAPX' )
-  open  ( unit = 11, file = 'out2.bufr', form ='unformatted')
+  open ( unit = 10, file = 'testfiles/OUT_2_preAPX' )
+  open ( unit = 11, file = 'out2.bufr', form ='unformatted')
 
   ! Copy the input file to the output file.
   call copybf ( 10, 11 )
 
   ! Now, open the BUFR tables file and re-open the output file for appending.  The re-open of the output
   ! file is needed because the previous call to copybf will have already closed it.
-  open  ( unit = 12, file = 'testfiles/OUT_2_bufrtab' )
-  open  ( unit = 11, file = 'out2.bufr', form ='unformatted')
+  open ( unit = 12, file = 'testfiles/OUT_2_bufrtab' )
+  open ( unit = 11, file = 'out2.bufr', form ='unformatted')
 
   call openbf ( 11, 'APX', 12 )
 

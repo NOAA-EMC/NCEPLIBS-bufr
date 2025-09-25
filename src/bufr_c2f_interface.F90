@@ -271,7 +271,7 @@ module bufr_c2f_interface
     !> @param table_b_mnemonic - String of mnemonics
     !>
     !> @author Ronald McLaren @date 2020-07-29
-    subroutine ufbint_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbint_f')
+    recursive subroutine ufbint_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbint_f')
       integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2
       type(c_ptr), intent(inout) ::  c_data
       integer(c_int), intent(out) :: iret
