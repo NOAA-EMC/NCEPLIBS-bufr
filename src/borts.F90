@@ -21,7 +21,7 @@ recursive subroutine bort(str)
 
   character*(*), intent(in) :: str
 
-  if (bort_catch) then
+  if (bort_catch == 'Y') then
     call strsuc(str, caught_str, caught_str_len)
     call bort_goto_target_c()
   endif
@@ -54,7 +54,7 @@ recursive subroutine bort2(str1,str2)
 
   character*(*), intent(in) :: str1, str2
 
-  if (bort_catch) then
+  if (bort_catch == 'Y') then
     call strsuc(str1, caught_str, caught_str_len)
     caught_str = str1(1:caught_str_len) // str2
     call strsuc(caught_str, caught_str, caught_str_len)
@@ -74,28 +74,28 @@ end subroutine bort2
 !> Specify whether subsequent bort errors should be caught and returned to the
 !> application program.
 !>
-!> The use of this subroutine allows for a more graceful exit from an application
+!> The use of this function allows for a more graceful exit from an application
 !> program in the event of any future bort error within the NCEPLIBS-bufr software.
 !> Specifically, whenever this capability is activated, and following any future call
-!> to any library subroutine or function, the application program can immediately call
+!> to any other library subroutine or function, the application program can immediately call
 !> subroutine check_for_bort() to check whether a bort error occurred within that
 !> previous subroutine or function and then react accordingly.  Otherwise, and by default,
 !> any such bort error within the library will trigger an immediate abort of the
 !> application program, and with the same error information instead written to the
 !> location specified via subroutine errwrt().
 !>
-!> This subroutine can be called at any point from within an application program,
+!> This function can be called at any point from within an application program,
 !> and the specified value for cbc will remain in effect for all future calls
 !> to all NCEPLIBS-bufr subroutines and functions, unless a subsequent call is
-!> made to this subroutine to reset the value of cbc again. If this subroutine is never
-!> called, then a default value of .false. is used for cbc.
+!> made to this function to reset the value of cbc again. If this function is never
+!> called, then a default value of 'N' is used for cbc.
 !>
 !> @note Application programs should exercise caution when the catching and
 !> returning of bort errors is enabled.  Specifically, and depending on the nature or severity
 !> of any error caught or its depth within the internal call stack, there's no guarantee that
 !> the library remains fully functional or in a useable state (for example, certain
 !> intermediate values may not have been restored to previous settings, internal memory may not
-!> have been fully deallocated, etc.).  Rather, the intent of this subroutine is to allow an
+!> have been fully deallocated, etc.).  Rather, the intent of this function is to allow an
 !> application program to gracefully exit if a serious NCEPLIBS-bufr error does occur,
 !> including potentially cleanly disengaging from other linked libraries or tasks.  So unless
 !> the caught error is fairly benign and local to the subroutine or function in question, it
@@ -105,30 +105,55 @@ end subroutine bort2
 !> to use subroutine exitbufr() to fully reset the NCEPLIBS-bufr software before attempting
 !> any future calls to the library.
 !>
-!> @param cbc - .true. iff subsequent bort errors within the NCEPLIBS-bufr
-!>     software should be caught and made available to the application program via
-!>     subroutine check_for_bort()
+!> @param cbc - Flag indicating whether subsequent bort errors within the NCEPLIBS-bufr
+!> software should be caught and made available to the application program via
+!> subroutine check_for_bort():
+!>  - 'N' = No (the default)
+!>  - 'Y' = Yes
+!> @returns catch_borts - Return code:
+!>  -  0 = Normal return
+!>  - -1 = Illegal value was input for cbc
 !>
 !> @author J. Ator @date 2025-08-25
-subroutine catch_borts(cbc)
+integer function catch_borts(cbc) result (iret)
+
+  use modv_vars, only: iprt
 
   use moda_borts
 
   implicit none
 
-  logical, intent(in) :: cbc
+  character, intent(in) :: cbc
+  character my_cbc
 
-  bort_catch = cbc
-  bort_target_is_unset = cbc
+  iret = 0
+  my_cbc = cbc
+  call capit(my_cbc)
+  if (iprt >= 1) call errwrt('++++++++++++++++++WARNING+++++++++++++++++++')
+
+  if (my_cbc == 'Y') then
+    bort_catch = my_cbc
+    bort_target_is_unset = .true.
+    if (iprt >= 1) call errwrt('BUFRLIB: CATCH_BORTS - ENABLING BORT CATCHING')
+  else if (my_cbc == 'N') then
+    bort_catch = my_cbc
+    bort_target_is_unset = .false.
+    if (iprt >= 1) call errwrt('BUFRLIB: CATCH_BORTS - DISABLING BORT CATCHING')
+  else
+    iret = -1
+    if (iprt >= 1) call errwrt('BUFRLIB: CATCH_BORTS - ILLEGAL INPUT VALUE; NO ACTION WAS TAKEN')
+  endif
+
+  if (iprt >= 1) call errwrt('++++++++++++++++++WARNING+++++++++++++++++++')
 
   return
-end subroutine catch_borts
+end function catch_borts
 
 !> Check whether a bort error occurred during a previous call to an NCEPLIBS-bufr
 !> subroutine or function.
 !>
-!> This subroutine should only be called if a prior call was made to subroutine
-!> catch_borts() from an application program with cbc set to .true.
+!> This subroutine should only be called if a prior call was made to function
+!> catch_borts() from an application program with cbc set to 'Y'
 !>
 !> @param bort_str - Error string, if such a bort error occurred; otherwise empty.
 !> @param bort_str_len - Length of bort_str:
@@ -159,7 +184,7 @@ recursive subroutine check_for_bort(bort_str, bort_str_len)
     return
   endif
 
-  if (.not. bort_catch) then
+  if (bort_catch == 'N') then
     if (iprt >= 1) then
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
       call errwrt('BUFRLIB: CHECK_FOR_BORT WAS CALLED WITHOUT HAVING PREVIOUSLY CALLED CATCH_BORTS')

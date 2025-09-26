@@ -7,7 +7,7 @@ program intest14
   implicit none
 
   integer errstr_len, lunit, idate, iret
-  integer*4 isetprm, ireadmg
+  integer*4 isetprm, ireadmg, catch_borts
 
   character errstr*400, subset*8
 
@@ -26,7 +26,7 @@ program intest14
   if (errstr_len /= -1) stop 2
 
   ! Activate bort catching.
-  call catch_borts(.true.)
+  if (catch_borts('Y') /= 0) stop 99
 
   ! Test the catching of a bad input argument to subroutine openbf.
   open(unit = lunit, file = 'testfiles/OUT_8_infile', form ='unformatted')

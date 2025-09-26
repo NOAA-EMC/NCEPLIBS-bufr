@@ -262,8 +262,9 @@ recursive subroutine strcpt(cf,iyr,imo,idy,ihr,imi)
 
   implicit none
 
-  character*1, intent(in) :: cf
+  character, intent(in) :: cf
   character*128 bort_str
+  character my_cf
 
   integer, intent(in) :: iyr, imo, idy, ihr, imi
   integer my_iyr, my_imo, my_idy, my_ihr, my_imi
@@ -272,25 +273,24 @@ recursive subroutine strcpt(cf,iyr,imo,idy,ihr,imi)
 
   if(im8b) then
     im8b=.false.
-
     call x84(iyr,my_iyr,1)
     call x84(imo,my_imo,1)
     call x84(idy,my_idy,1)
     call x84(ihr,my_ihr,1)
     call x84(imi,my_imi,1)
     call strcpt(cf,my_iyr,my_imo,my_idy,my_ihr,my_imi)
-
     im8b=.true.
     return
   endif
 
-  call capit(cf)
-  if(cf/='Y' .and. cf/='N') then
+  my_cf = cf
+  call capit(my_cf)
+  if(my_cf /= 'Y' .and. my_cf /= 'N') then
     write(bort_str,'("BUFRLIB: STRCPT - INPUT ARGUMENT IS ",A1,", IT MUST BE EITHER Y OR N")') cf
     call bort(bort_str)
   endif
 
-  ctrt = cf
+  ctrt = my_cf
   if(ctrt=='Y') then
     itryr = iyr
     itrmo = imo

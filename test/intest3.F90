@@ -7,7 +7,7 @@
 program intest3
   implicit none
 
-  integer*4 ireadns, ifbget, lcmgdf, ibfms
+  integer*4 ireadns, ifbget, lcmgdf, ibfms, catch_borts
 
   integer mxr8pm, mxr8lv
   parameter (mxr8pm = 6)
@@ -31,7 +31,7 @@ program intest3
 
   ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
   ! the lines of code in any routines where bort catching is enabled.
-  call catch_borts(.true.)
+  if (catch_borts('Y') /= 0) stop 99
 
   ! Open the input file.
   open(unit = 11, file = 'testfiles/IN_3', form ='unformatted')

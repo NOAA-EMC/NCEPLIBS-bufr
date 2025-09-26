@@ -6,7 +6,7 @@
 program outtest2
   implicit none
 
-  integer*4 igetsc, iupbs01
+  integer*4 igetsc, iupbs01, catch_borts
 
   integer nsc, nrf, nbt, ierns, nlv, nutb, lmgbf, mxbfmg
   parameter ( mxbfmg = 50000 )
@@ -22,13 +22,13 @@ program outtest2
   print *, 'Testing writing OUT_2 using OPENBF IO = APX and embedded tables'
 
 #ifdef KIND_8
-  call setim8b ( .true. )
+  call setim8b (.true.)
 #endif
 
 
   ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
   ! the lines of code in any routines where bort catching is enabled.
-  call catch_borts(.true.)
+  if (catch_borts('Y') /= 0) stop 99
 
   ! Get the library version number.
   call bvers ( libvrsn )

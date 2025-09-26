@@ -931,7 +931,7 @@ subroutine exitbufr
   ccmf = 'N'
   cdmf = 'N'
   ctrt = 'N'
-  bort_catch = .false.
+  bort_catch = 'N'
   bort_target_is_unset = .false.
   im8b = .false.
   part = .false.
@@ -1009,10 +1009,8 @@ recursive integer function isetprm ( cprmnm, ipval ) result ( iret )
 
   if ( im8b ) then
     im8b = .false.
-
     call x84 ( ipval, my_ipval, 1 )
     iret = isetprm ( cprmnm, my_ipval )
-
     im8b = .true.
     return
   endif
@@ -1077,7 +1075,7 @@ recursive integer function isetprm ( cprmnm, ipval ) result ( iret )
   else
     iret = -1
     call errwrt('++++++++++++++++++WARNING+++++++++++++++++++')
-    errstr = 'BUFRLIB: ISETPRM - UNKNOWN INPUT PARAMETER '// CPRMNM // ' -- NO ACTION WAS TAKEN'
+    errstr = 'BUFRLIB: ISETPRM - UNKNOWN INPUT PARAMETER '// cprmnm // ' -- NO ACTION WAS TAKEN'
     call errwrt(errstr)
     call errwrt('++++++++++++++++++WARNING+++++++++++++++++++')
   endif
@@ -1194,7 +1192,7 @@ integer function igetprm ( cprmnm ) result ( iret )
   else
     iret = -1
     call errwrt('++++++++++++++++++WARNING+++++++++++++++++++')
-    errstr = 'BUFRLIB: IGETPRM - UNKNOWN INPUT PARAMETER '// CPRMNM
+    errstr = 'BUFRLIB: IGETPRM - UNKNOWN INPUT PARAMETER '// cprmnm
     call errwrt(errstr)
     call errwrt('++++++++++++++++++WARNING+++++++++++++++++++')
   endif
