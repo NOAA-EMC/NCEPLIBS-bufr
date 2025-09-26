@@ -13,7 +13,7 @@ program intest1
   integer ierndv, iernds, mxr8pm, mxr8lv, iertgp, nr8lv
   integer len0, len1, len2, len3, len4, len5
   integer*4 mxbf, nbyt, ierr
-  integer*4 iupbs01, iupbs3, ireadsb, ibfms
+  integer*4 iupbs01, iupbs3, ireadsb, ibfms, catch_borts
   parameter (mxbf = 20000)
   parameter (mxbfd4 = mxbf/4)
   parameter (mxds3 = 20)
@@ -34,6 +34,10 @@ program intest1
 #ifdef KIND_8
   call setim8b(.true.)
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   ! Open the test file.
   call cobfl_c(filnam, filost)

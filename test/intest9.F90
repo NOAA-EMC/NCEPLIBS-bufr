@@ -8,7 +8,7 @@ program intest9
 
   implicit none
 
-  integer*4 ireadmg, ireadsb
+  integer*4 ireadmg, ireadsb, catch_borts
 
   real*8 hdr(5,1)
 
@@ -21,6 +21,10 @@ program intest9
 #ifdef KIND_8
   call setim8b ( .true. )
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   open ( unit = 11, file = 'testfiles/IN_9', form ='unformatted' )
 

@@ -37,7 +37,7 @@ program outtest7
 
   implicit none
 
-  integer*4 ireadmg, icopysb
+  integer*4 ireadmg, icopysb, catch_borts
 
   integer imesg(10), isub(3), iostat1, iostat2, icnt1, icnt2, idate, ier, ii, istart, nlv
 
@@ -51,6 +51,10 @@ program outtest7
 #ifdef KIND_8
   call setim8b ( .true. )
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   ! Open the input files.
   call fortran_open ( 'testfiles/OUT_7_infile1', 21, 'unformatted', 'rewind', iostat1 )

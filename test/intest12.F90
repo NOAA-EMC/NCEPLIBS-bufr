@@ -35,7 +35,7 @@ program intest12
 
   implicit none
 
-  integer*4 ireadmg, ireadsb, nmsub, igetsc
+  integer*4 ireadmg, ireadsb, nmsub, igetsc, catch_borts
 
   integer icnt, idate, ios1, ii, iret
 
@@ -46,6 +46,10 @@ program intest12
 #ifdef KIND_8
   call setim8b ( .true. )
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   allocate ( character(len=120000) :: errstr )
   errstr_len = 0

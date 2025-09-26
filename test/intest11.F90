@@ -9,7 +9,7 @@ program intest11
   implicit none
 
   integer*4, parameter :: mxbf = 200000
-  integer*4 lenmg, ierrb
+  integer*4 lenmg, ierrb, catch_borts
 
   integer, parameter :: mxbfd4 = mxbf/4
   integer ibfmg(mxbfd4), ibfmg2(mxbfd4), imesg(50)
@@ -25,6 +25,10 @@ program intest11
 #ifdef KIND_8
   call setim8b ( .true. )
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   ! Use crbmg to read the first message from the file into an array.
   call cobfl_c ( filnam, 'r' )

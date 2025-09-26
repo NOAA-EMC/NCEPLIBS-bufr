@@ -35,7 +35,7 @@ program outtest10
 
   implicit none
 
-  integer*4 ireadmg, isetprm
+  integer*4 ireadmg, isetprm, catch_borts
 
   integer iostat1, iostat2, iostat3, iostat4, mesgtyp, icomp, jdate, mgct, iret
 
@@ -46,6 +46,10 @@ program outtest10
 #ifdef KIND_8
   call setim8b ( .true. )
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   errstr_len = 0
 

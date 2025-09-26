@@ -11,6 +11,7 @@ program intest13
   parameter (mxr8lv = 240, mxr8lv_uc = 300)
 
   integer nr8lv, nr8lv_uc
+  integer*4 catch_borts
 
   real*8 r8arr(mxr8pm, mxr8lv), r8arr_uc(mxr8pm_uc, mxr8lv_uc)
 
@@ -19,6 +20,10 @@ program intest13
 #ifdef KIND_8
   call setim8b(.true.)
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   ! Call setpart to indicate that we want to make repeated calls to ufbtab to return
   ! the contents of the input file in successive chunks.

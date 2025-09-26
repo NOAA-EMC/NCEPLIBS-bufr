@@ -12,6 +12,7 @@ program intest5
   integer, parameter :: mxr8lv = 10
 
   integer imgdt, lcmg, ier, nlv
+  integer*4 catch_borts
 
   real*8 r8vals ( mxr8pm, mxr8lv ), r81dvals ( mxr8pm )
 
@@ -22,6 +23,10 @@ program intest5
 #ifdef KIND_8
   call setim8b ( .true. )
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   open ( unit = 11, file = 'testfiles/IN_5', form ='unformatted')
 

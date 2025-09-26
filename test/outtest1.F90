@@ -9,7 +9,7 @@ program outtest1
 
   real*8 r8ymd(3,1), r8ltl(2,1), r8flv(1,5), r8oth(10,1), r8acrn(1,3), r8val
 
-  integer*4 lcmgdf
+  integer*4 lcmgdf, catch_borts
 
   integer nsc(5), nrf(5), nbt(5), ierns(5)
   integer nsa, nra, nba, iernsa, nsm, nrm, nbm, iernsm
@@ -25,6 +25,10 @@ program outtest1
 #ifdef KIND_8
   call setim8b ( .true. )
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   ! Get the library version number, and specify the use of big-endian blocking.
   call bvers ( libvrsn )

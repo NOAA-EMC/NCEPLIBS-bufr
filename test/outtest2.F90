@@ -25,7 +25,6 @@ program outtest2
   call setim8b (.true.)
 #endif
 
-
   ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
   ! the lines of code in any routines where bort catching is enabled.
   if (catch_borts('Y') /= 0) stop 99

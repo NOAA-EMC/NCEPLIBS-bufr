@@ -9,6 +9,7 @@ program outtest12
   real*8 r8bitmap(16), r8data(10,1), r8pccf(3), r8mrkr(3)
 
   integer nlv, ii, jj, iostat1, iostat2
+  integer*4 catch_borts
 
   character ptidc*16
 
@@ -17,6 +18,10 @@ program outtest12
 #ifdef KIND_8
   call setim8b ( .true. )
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   ! Open the BUFR table and output file.
   open ( unit = 11, file = 'out12.bufr', form ='unformatted', iostat = iostat1 )
