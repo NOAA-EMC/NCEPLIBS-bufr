@@ -38,7 +38,7 @@ program intest10
 
   integer*4, parameter :: mxbf = 50000
   integer*4 lenmg, ierrb
-  integer*4 isetprm
+  integer*4 isetprm, catch_borts
 
   integer icnt, iunt, imesg(150), idate, iret, ios1, ios2, lundx, lun, il, im, imsg, ii
   integer, parameter :: mxbfd4 = mxbf/4
@@ -54,6 +54,10 @@ program intest10
 #ifdef KIND_8
   call setim8b ( .true. )
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   if ( ( isetprm ( 'MAXMSG', 125 ) /= 0 ) .or. ( isetprm ( 'MAXMEM', 125000 ) /= 0 ) ) stop 1
 

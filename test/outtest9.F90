@@ -40,7 +40,7 @@ program outtest9
   parameter ( mxbfmg = 50000 )
   integer mgbf ( mxbfmg )
 
-  integer*4 nmsub, icopysb
+  integer*4 nmsub, icopysb, catch_borts
 
   real*8 r8arr1(4,1), r8arr2(4,2)
 
@@ -51,6 +51,10 @@ program outtest9
 #ifdef KIND_8
   call setim8b ( .true. )
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   open ( unit = 11, file = 'testfiles/OUT_9_infile1', form = 'unformatted' )
   open ( unit = 12, file = 'testfiles/OUT_9_infile2', form = 'unformatted' )

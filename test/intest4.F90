@@ -9,7 +9,7 @@ program intest4
 
   implicit none
 
-  integer*4 ireadsb, iupbs01, iupbs3, ibfms, lmsg, nmwrd, iupm
+  integer*4 ireadsb, iupbs01, iupbs3, ibfms, lmsg, nmwrd, iupm, catch_borts
   integer*4 mxbf, nbyt, ierr
 
   integer ier, imgdt, nds3, ii
@@ -37,6 +37,10 @@ program intest4
 #ifdef KIND_8
   call setim8b(.true.)
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   ! Open the test file.
   call cobfl_c(filnam, filost)

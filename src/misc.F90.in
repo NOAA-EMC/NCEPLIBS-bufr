@@ -11,7 +11,7 @@
 !> subroutine openbf() during the first time that subroutine is called
 !> by any application program.
 !>
-!> @authors J. Woollen J. Ator @date 1994-01-06
+!> @authors J. Woollen, J. Ator @date 1994-01-06
 subroutine bfrini
 
   use modv_vars, only: maxtba, maxtbb, maxtbd, mxmsgl, nfiles, adsn, idnr, lun1, lun2

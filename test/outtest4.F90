@@ -36,7 +36,7 @@ program outtest4
 
   implicit none
 
-  integer*4 isetprm, ireadsb, igetmxby, icbfms, iupbs01, igetdate
+  integer*4 isetprm, ireadsb, igetmxby, icbfms, iupbs01, igetdate, catch_borts
 
   integer mxval1, mxval2, mxlvl, mxbfmg, ilena, ilenb
   parameter ( mxval1 = 200 )
@@ -60,6 +60,10 @@ program outtest4
 #ifdef KIND_8
   call setim8b ( .true. )
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   ! Set some custom array sizes.
   if ( ( isetprm ( 'NFILES', 6 ) /= 0 ) .or. ( isetprm ( 'MXMSGL', 400000 ) /= 0 ) .or. &

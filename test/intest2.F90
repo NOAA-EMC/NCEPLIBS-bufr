@@ -6,7 +6,7 @@
 ! Ed Hartnett, J. Ator, 2/15/2023
 program intest2
   implicit none
-  integer*4 ireadmg, iupvs01, nmsub, ibfms
+  integer*4 ireadmg, iupvs01, nmsub, ibfms, catch_borts
   integer mxr8pm, mxr8lv
   parameter (mxr8pm = 10)
   parameter (mxr8lv = 255)
@@ -20,6 +20,10 @@ program intest2
 #ifdef KIND_8
   call setim8b(.true.)
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   ! Open the test files.
   open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED')

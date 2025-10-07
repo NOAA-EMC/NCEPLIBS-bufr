@@ -194,6 +194,12 @@ program test_misc
   call closbf(11)
   call closbf(12)
 
+  ! testing calling check_for_bort() without having previously called catch_borts()
+  call openbf(11, 'QUIET', 1)  ! this will print a warning message via errwrt()
+  call check_for_bort(card, iret)
+  if (iret /= -1) stop 88
+  call openbf(11, 'QUIET', 0)
+
   ! The following tests are only for the _4 and _d runs of test_misc, because many
   ! of the routines below aren't intended to ever be called directly by users, and
   ! therefore those routines aren't configured to handle the passing of 8-byte

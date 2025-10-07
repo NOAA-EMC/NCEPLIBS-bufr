@@ -6,7 +6,7 @@
 program outtest2
   implicit none
 
-  integer*4 igetsc, iupbs01
+  integer*4 igetsc, iupbs01, catch_borts
 
   integer nsc, nrf, nbt, ierns, nlv, nutb, lmgbf, mxbfmg
   parameter ( mxbfmg = 50000 )
@@ -22,8 +22,12 @@ program outtest2
   print *, 'Testing writing OUT_2 using OPENBF IO = APX and embedded tables'
 
 #ifdef KIND_8
-  call setim8b ( .true. )
+  call setim8b (.true.)
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   ! Get the library version number.
   call bvers ( libvrsn )
@@ -36,16 +40,16 @@ program outtest2
   endif
 
   ! Open the input and output files.
-  open  ( unit = 10, file = 'testfiles/OUT_2_preAPX' )
-  open  ( unit = 11, file = 'out2.bufr', form ='unformatted')
+  open ( unit = 10, file = 'testfiles/OUT_2_preAPX' )
+  open ( unit = 11, file = 'out2.bufr', form ='unformatted')
 
   ! Copy the input file to the output file.
   call copybf ( 10, 11 )
 
   ! Now, open the BUFR tables file and re-open the output file for appending.  The re-open of the output
   ! file is needed because the previous call to copybf will have already closed it.
-  open  ( unit = 12, file = 'testfiles/OUT_2_bufrtab' )
-  open  ( unit = 11, file = 'out2.bufr', form ='unformatted')
+  open ( unit = 12, file = 'testfiles/OUT_2_bufrtab' )
+  open ( unit = 11, file = 'out2.bufr', form ='unformatted')
 
   call openbf ( 11, 'APX', 12 )
 

@@ -176,16 +176,18 @@ recursive subroutine openbf(lunit,io,lundx)
   use moda_lushr
   use moda_nulbfr
   use moda_stcode
+  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit, lundx
-  integer my_lunit, my_lundx, iprtprv, lun, il, im
+  integer my_lunit, my_lundx, iprtprv, lun, il, im, lcio
 
   character*(*), intent(in) :: io
   character*255 filename, fileacc
   character*128 bort_str, errstr
   character*28 cprint(0:4)
+  character*6 cio
 
   data cprint/ &
     ' (only aborts)              ', &
@@ -198,12 +200,21 @@ recursive subroutine openbf(lunit,io,lundx)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call x84(lundx,my_lundx,1)
     call openbf(my_lunit,io,my_lundx)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call strsuc(io,cio,lcio)
+    call catch_bort_openbf_c(lunit,cio,lundx,lcio)
+    bort_target_is_unset = .true.
     return
   endif
 
@@ -334,6 +345,7 @@ recursive subroutine closbf(lunit)
   use modv_vars, only: im8b
 
   use moda_nulbfr
+  use moda_borts
 
   implicit none
 
@@ -346,12 +358,20 @@ recursive subroutine closbf(lunit)
 
   if(im8b) then
      im8b=.false.
-
      call x84(lunit,my_lunit,1)
      call closbf(my_lunit)
-
      im8b=.true.
      return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call catch_bort_closbf_c(lunit)
+    bort_target_is_unset = .true.
+    return
   endif
 
   if ( .not. allocated(null) ) then

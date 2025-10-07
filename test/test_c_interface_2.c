@@ -78,7 +78,7 @@ int main() {
 
     /* Read the second data subset from the BUFR message and check some values. */
     if ( ( ireadns_f( BUFR_INPUT_FILE_UNIT, msg_subset, &iddate, SUBSET_STRING_LEN ) != 0 ) ||
-         ( strncmp( msg_subset, "MSTTB001", 8) != 0 ) || ( iddate != 2016041815 ) ) {
+         ( strncmp( msg_subset, "MSTTB001", 8) != 0 ) || ( iddate != 16041815 ) ) {
         printf( "%s\n", "ireadns check FAILED!" );
         exit(1);
     }

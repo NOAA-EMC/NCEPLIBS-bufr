@@ -49,6 +49,7 @@ recursive subroutine readmg(lunxx,subset,jdate,iret)
   use moda_msgcwd
   use moda_sc3bfr
   use moda_bitbuf
+  use moda_borts
 
   implicit none
 
@@ -57,19 +58,29 @@ recursive subroutine readmg(lunxx,subset,jdate,iret)
   integer my_lunxx, lunit, lun, il, im, ier, idxmsg
 
   character*8, intent(out) :: subset
+  character*9 csubset
   character*128 errstr
 
   ! Check for I8 integers
 
   if(im8b) then
-    im8b=.false.
-
+    im8b = .false.
     call x84(lunxx,my_lunxx,1)
     call readmg(my_lunxx,subset,jdate,iret)
     call x48(jdate,jdate,1)
     call x48(iret,iret,1)
+    im8b = .true.
+    return
+  endif
 
-    im8b=.true.
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call catch_bort_readmg_c(lunxx,csubset,jdate,len(csubset),iret)
+    subset(1:8) = csubset(1:8)
+    bort_target_is_unset = .true.
     return
   endif
 
@@ -153,13 +164,11 @@ recursive integer function ireadmg(lunit,subset,idate) result(iret)
   ! Check for I8 integers
 
   if(im8b) then
-     im8b=.false.
-
+     im8b = .false.
      call x84(lunit,my_lunit,1)
      iret=ireadmg(my_lunit,subset,idate)
      call x48(idate,idate,1)
-
-     im8b=.true.
+     im8b = .true.
      return
   endif
 

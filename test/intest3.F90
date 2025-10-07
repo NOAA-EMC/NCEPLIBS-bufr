@@ -7,7 +7,7 @@
 program intest3
   implicit none
 
-  integer*4 ireadns, ifbget, lcmgdf, ibfms
+  integer*4 ireadns, ifbget, lcmgdf, ibfms, catch_borts
 
   integer mxr8pm, mxr8lv
   parameter (mxr8pm = 6)
@@ -29,6 +29,11 @@ program intest3
   call setim8b(.true.)
 #endif
 
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
+
+  ! Open the input file.
   open(unit = 11, file = 'testfiles/IN_3', form ='unformatted')
 
   ! First, read some values from all of the data subsets.
@@ -50,7 +55,7 @@ program intest3
   r8val = r8arr(1,9)
   if (c8val(1:5) /= 'COMO2') stop 6
 
-  ! (Re)open the file for usual reading of each subset one at a time.
+  ! (Re)open the input file for usual reading of each subset one at a time.
   call openbf ( 11, 'IN', 11 )
   isct = 0
 

@@ -36,7 +36,7 @@ program intest6
 
   implicit none
 
-  integer*4 nmsub
+  integer*4 nmsub, catch_borts
 
   integer iyr, imon, iday, ihour, imgdt, ier, icnt, iunt, nsub
 
@@ -57,6 +57,21 @@ program intest6
 #endif
 
   allocate ( character(len=240000) :: errstr )
+
+  ! Test calling catch_borts in various ways.
+  call openbf ( 21, 'QUIET', 1 )
+  errstr_len = 0
+  if ( catch_borts('X') /= -1 ) stop 97
+  if ( index( errstr(1:errstr_len), 'CATCH_BORTS - ILLEGAL INPUT VALUE' ) == 0 ) stop 97
+  errstr_len = 0
+  if ( catch_borts('N') /= 0 ) stop 98
+  if ( index( errstr(1:errstr_len), 'CATCH_BORTS - DISABLING BORT CATCHING' ) == 0 ) stop 98
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  errstr_len = 0
+  if ( catch_borts('Y') /= 0 ) stop 99
+  if ( index( errstr(1:errstr_len), 'CATCH_BORTS - ENABLING BORT CATCHING' ) == 0 ) stop 99
+  call openbf ( 21, 'QUIET', 0 )
 
   open ( unit = 21, file = 'testfiles/IN_6_infile1', form = 'unformatted')
   open ( unit = 22, file = 'testfiles/IN_6_infile2', form = 'unformatted')

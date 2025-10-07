@@ -7,7 +7,7 @@ program outtest11
   implicit none
 
   integer imgdt, ios1, ios2, ios3
-  integer*4 ireadns, isetprm
+  integer*4 ireadns, isetprm, catch_borts
 
   character*8 cmgtag
 
@@ -16,6 +16,10 @@ program outtest11
 #ifdef KIND_8
   call setim8b ( .true. )
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   open ( unit = 11, file = 'testfiles/OUT_11_infile1', form = 'unformatted', iostat = ios1 )
   open ( unit = 12, file = 'testfiles/OUT_11_infile2', form = 'unformatted', iostat = ios2 )

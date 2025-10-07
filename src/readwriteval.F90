@@ -406,7 +406,7 @@ end subroutine writlc
 !> @param str - Table B mnemonic of long character string to be retrieved, possibly supplemented with
 !> an ordinal occurrence notation
 !>
-!> @authors J. Woollen J. Ator @date 2003-11-04
+!> @authors J. Woollen, J. Ator @date 2003-11-04
 recursive subroutine readlc(lunit,chr,str)
 
   use modv_vars, only: im8b, iprt
@@ -646,19 +646,23 @@ end subroutine readlc
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
 
+  use bufrlib
+
   use modv_vars, only: im8b, bmiss, iprt
 
   use moda_usrint
   use moda_msgcwd
+  use moda_borts
 
   implicit none
 
   character*(*), intent(in) :: str
   character*128 bort_str1, bort_str2, errstr
+  character*85 cstr
 
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
-  integer nnod, ncon, nods, nodc, ivls, kons, ifirst1, ifirst2, my_lunin, my_i1, my_i2, lunit, lun, il, im, io
+  integer nnod, ncon, nods, nodc, ivls, kons, ifirst1, ifirst2, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, lcstr
 
   real*8, intent(inout) :: usr(i1,i2)
 
@@ -677,6 +681,17 @@ recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
     call ufbint(my_lunin,usr,my_i1,my_i2,iret,str)
     call x48(iret,iret,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call strsuc(str,cstr,lcstr)
+    call catch_bort_ufbint_c(lunin,usr,i1,i2,iret,cstr,lcstr)
+    bort_target_is_unset = .true.
     return
   endif
 

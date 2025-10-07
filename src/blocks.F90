@@ -105,7 +105,7 @@ end subroutine blocks
 !> units that are open for output within the application program,
 !> unless a subsequent call is made to this subroutine to reset the
 !> value of iblk again. If this subroutine is never called, a default
-!> value of 0 is used for iblk, as set within subroutine bfrini().
+!> value of 0 is used for iblk.
 !>
 !> @remarks
 !> - This subroutine can be used to generate BUFR files consistent

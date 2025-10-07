@@ -1201,13 +1201,15 @@ subroutine codflg(cf)
   character, intent(in) :: cf
 
   character*128 bort_str
+  character my_cf
 
-  call capit(cf)
-  if(cf/='Y'.and. cf/='N') then
+  my_cf = cf
+  call capit(my_cf)
+  if(my_cf /= 'Y' .and. my_cf /= 'N') then
     write(bort_str,'("BUFRLIB: CODFLG - INPUT ARGUMENT IS ",A1,", IT MUST BE EITHER Y OR N")') cf
     call bort(bort_str)
   endif
-  cdmf = cf
+  cdmf = my_cf
 
   return
 end subroutine codflg

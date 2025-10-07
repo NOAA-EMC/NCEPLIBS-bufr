@@ -92,11 +92,11 @@ end subroutine x84
 !> Fortran will use 8-byte integers.
 !>
 !> The default value is .false., meaning that if this subroutine is
-!> never called, then the NCEPLIBS-bufr will expect that all future calls
-!> from the application program will use 4-byte integer arguments.
-!> Otherwise, the specification in any call to this subroutine remains
-!> in effect unless and until it is overridden by a subsequent future
-!> call to this same subroutine.
+!> never called, then the NCEPLIBS-bufr software will expect that all calls
+!> to the library from the application program will use 4-byte integer arguments.
+!> In any case, the specification in any call to this subroutine remains
+!> in effect for all future calls to the library, unless and until it is
+!> overridden by a subsequent future call to this same subroutine.
 !>
 !> @param int8b - .true. iff 8-byte integers will be used
 !> for all integer arguments passed to and from all future calls to
@@ -113,5 +113,5 @@ subroutine setim8b ( int8b )
 
   im8b = int8b
 
-return
+  return
 end subroutine setim8b

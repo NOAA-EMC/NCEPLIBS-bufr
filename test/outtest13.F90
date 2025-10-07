@@ -8,7 +8,7 @@ program outtest13
 
   implicit none
 
-  integer*4 ireadsb
+  integer*4 ireadsb, catch_borts
 
   integer ier, ii, ios1, ios2, imgdt, nrept, nchn(1), ndrpcs(3), nvals
 
@@ -23,6 +23,10 @@ program outtest13
 #ifdef KIND_8
   call setim8b ( .true. )
 #endif
+
+  ! Activate bort catching. No bort errors should occur, but this way we can fully exercise all of
+  ! the lines of code in any routines where bort catching is enabled.
+  if (catch_borts('Y') /= 0) stop 99
 
   ! Open the BUFR input and output files.
 
