@@ -108,8 +108,8 @@ end subroutine bort2
 !> @param cbc - Flag indicating whether subsequent bort errors within the NCEPLIBS-bufr
 !> software should be caught and made available to the application program via
 !> subroutine check_for_bort():
-!>  - 'N' = No (the default)
-!>  - 'Y' = Yes
+!>  - 'N' (or 'n') = No (the default)
+!>  - 'Y' (or 'y') = Yes
 !> @returns catch_borts - Return code:
 !>  -  0 = Normal return
 !>  - -1 = Illegal value was input for cbc
