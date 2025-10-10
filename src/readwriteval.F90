@@ -685,7 +685,6 @@ recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
   endif
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
-
   if (bort_target_is_unset) then
     bort_target_is_unset = .false.
     caught_str_len = 0
@@ -894,19 +893,23 @@ end subroutine ufbint
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
 
+  use bufrlib
+
   use modv_vars, only: im8b, bmiss, iac, iprt
 
   use moda_usrint
   use moda_msgcwd
+  use moda_borts
 
   implicit none
 
   character*(*), intent(in) :: str
   character*128 bort_str1, bort_str2, errstr
+  character*85 cstr
 
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
-  integer ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, iac_prev
+  integer ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, iac_prev, lcstr
 
   real*8, intent(inout) :: usr(i1,i2)
 
@@ -923,6 +926,16 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
     call ufbrep(my_lunin,usr,my_i1,my_i2,iret,str)
     call x48(iret,iret,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call strsuc(str,cstr,lcstr)
+    call catch_bort_ufbrep_c(lunin,usr,i1,i2,iret,cstr,lcstr)
+    bort_target_is_unset = .true.
     return
   endif
 
@@ -1312,11 +1325,14 @@ end subroutine ufbstp
 !> @author J. Woollen @date 2000-09-19
 recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
 
+  use bufrlib
+
   use modv_vars, only: im8b, bmiss, iprt
 
   use moda_usrint
   use moda_msgcwd
   use moda_tables
+  use moda_borts
 
   implicit none
 
@@ -1324,13 +1340,14 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
   integer, intent(out) :: iret
   integer, parameter :: mtag = 10
   integer ifirst1, ifirst2, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, i, j, ntag, node, nods, ins1, ins2, insx, &
-    nseq, isq, ityp, invwin, invtag
+    nseq, isq, ityp, invwin, invtag, lcstr
 
   real*8, intent(inout) :: usr(i1,i2)
 
   character*(*), intent(in) :: str
   character*156 bort_str
   character*128 errstr
+  character*85 cstr
   character*10 tags(mtag)
 
   data ifirst1 /0/, ifirst2 /0/
@@ -1346,6 +1363,16 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
     call ufbseq(my_lunin,usr,my_i1,my_i2,iret,str)
     call x48(iret,iret,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call strsuc(str,cstr,lcstr)
+    call catch_bort_ufbseq_c(lunin,usr,i1,i2,iret,cstr,lcstr)
+    bort_target_is_unset = .true.
     return
   endif
 

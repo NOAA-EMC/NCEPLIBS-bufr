@@ -154,3 +154,55 @@ catch_bort_ufbint(int lunin, double *usr, int i1, int i2, int *iret, char *cstr,
     /* Recursively call the subroutine. */
     ufbint_f(lunin, (void**) &usr, i1, i2, iret, cstr);
 }
+
+/**
+ * Catch any bort error inside of subroutine ufbrep().
+ *
+ * @param lunin - Absolute value is Fortran logical unit number for BUFR file
+ * @param usr - Data values
+ * @param i1 - First dimension of usr
+ * @param i2 - Second dimension of usr
+ * @param iret - Number of replications of cstr that were read/written from/to the data subset
+ * @param cstr - String of mnemonics to read/write from/to the data subset
+ * @param cstr_len - Length of cstr
+ *
+ * @author J. Ator @date 2025-10-06
+*/
+void
+catch_bort_ufbrep(int lunin, double *usr, int i1, int i2, int *iret, char *cstr, int cstr_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to cstr, for use with get_c_string_length inside of ufbrep_f. */
+    cstr[cstr_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    ufbrep_f(lunin, (void**) &usr, i1, i2, iret, cstr);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbseq().
+ *
+ * @param lunin - Absolute value is Fortran logical unit number for BUFR file
+ * @param usr - Data values
+ * @param i1 - First dimension of usr
+ * @param i2 - Second dimension of usr
+ * @param iret - Number of replications of cstr that were read/written from/to the data subset
+ * @param cstr - Mnemonic describing sequence to read/write from/to the data subset
+ * @param cstr_len - Length of cstr
+ *
+ * @author J. Ator @date 2025-10-06
+*/
+void
+catch_bort_ufbseq(int lunin, double *usr, int i1, int i2, int *iret, char *cstr, int cstr_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to cstr, for use with get_c_string_length inside of ufbseq_f. */
+    cstr[cstr_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    ufbseq_f(lunin, (void**) &usr, i1, i2, iret, cstr);
+}

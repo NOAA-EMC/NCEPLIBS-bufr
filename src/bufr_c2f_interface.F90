@@ -297,7 +297,7 @@ module bufr_c2f_interface
     !> @param table_b_mnemonic - String of mnemonics
     !>
     !> @author Ronald McLaren @date 2020-07-29
-    subroutine ufbrep_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbrep_f')
+    recursive subroutine ufbrep_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbrep_f')
       integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2
       type(c_ptr), intent(inout) :: c_data
       integer(c_int), intent(out) :: iret
@@ -970,7 +970,7 @@ module bufr_c2f_interface
     !> @param table_d_mnemonic - Table A or Table D mnemonic.
     !>
     !> @author J. Ator @date 2023-04-07
-    subroutine ufbseq_c(bufr_unit, c_data, dim_1, dim_2, iret, table_d_mnemonic) bind(C, name='ufbseq_f')
+    recursive subroutine ufbseq_c(bufr_unit, c_data, dim_1, dim_2, iret, table_d_mnemonic) bind(C, name='ufbseq_f')
       integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2
       type(c_ptr), intent(inout) ::  c_data
       integer(c_int), intent(out) :: iret
