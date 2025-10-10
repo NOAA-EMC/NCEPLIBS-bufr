@@ -276,7 +276,7 @@ module bufr_c2f_interface
       type(c_ptr), intent(inout) ::  c_data
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
-      character(len=80) :: str
+      character(len=90) :: str
       real, pointer :: f_data
       integer :: lstr
 
@@ -302,7 +302,7 @@ module bufr_c2f_interface
       type(c_ptr), intent(inout) :: c_data
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
-      character(len=80) :: str
+      character(len=90) :: str
       real, pointer :: f_data
       integer :: lstr
 
@@ -975,7 +975,7 @@ module bufr_c2f_interface
       type(c_ptr), intent(inout) ::  c_data
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_d_mnemonic(*)
-      character(len=80) :: str
+      character(len=90) :: str
       real, pointer :: f_data
       integer :: lstr
 

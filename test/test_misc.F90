@@ -19,7 +19,7 @@ program test_misc
   integer isbyt, iwid
   character*6 cfxy
   character*80 card
-  real*8 r8vals(10,600)
+  real*8 r8vals(10,600), r8vals2(4,100), r8vals3(3,10)
 
 #ifndef KIND_8
   character*5 char5
@@ -199,6 +199,35 @@ program test_misc
   call check_for_bort(card, iret)
   if (iret /= -1) stop 88
   call openbf(11, 'QUIET', 0)
+
+  ! testing ufbint to ensure it doesn't return iret > i2 when reading
+  open(unit = 11, file = 'testfiles/IN_1', form = 'UNFORMATTED', iostat = ios)
+  if (ios /= 0) stop 3
+  call openbf(11, 'SEC3', 11)
+  call mtinfo('../tables', 80, 81)
+  call readns(11, subset, idate, iret)
+  if ( iret /= 0 ) stop 811
+  ! there are 191 total replications of 'PRLC TMDB WDIR WSPD' in the subset, but
+  ! iret should return as 100 (instead of 191) since r8vals2 is only dimensioned
+  ! to hold a maximum of 100 such replications
+  call ufbint(11, r8vals2, 4, 100, iret, 'PRLC TMDB WDIR WSPD' )
+  if ( iret /= 100 ) stop 812
+  call closbf(11)
+
+  ! testing ufbrep and ufbstp to ensure they don't return iret > i2 when reading
+  open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
+  if (ios /= 0) stop 3
+  call openbf(11, 'IN', 11)
+  call readns(11, subset, idate, iret)
+  if ( iret /= 0 ) stop 813
+  ! there are 12 total replications of 'TSIG DAYS HOUR' in the subset, but
+  ! iret should return as 10 (instead of 12) since r8vals3 is only dimensioned
+  ! to hold a maximum of 10 such replications
+  call ufbrep(11, r8vals3, 3, 10, iret, 'TSIG DAYS HOUR' )
+  if ( iret /= 10 ) stop 814
+  call ufbstp(11, r8vals3, 3, 10, iret, 'TSIG DAYS HOUR' )
+  if ( iret /= 10 ) stop 815
+  call closbf(11)
 
   ! The following tests are only for the _4 and _d runs of test_misc, because many
   ! of the routines below aren't intended to ever be called directly by users, and
