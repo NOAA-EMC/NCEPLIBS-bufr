@@ -748,6 +748,21 @@ recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
   ! Call the mnemonic reader/writer
   call ufbrw(lun,usr,i1,i2,io,iret)
 
+  ! If incomplete read then write a diagnostic and reset iret.
+  if(io==0 .and. iret>i2) then
+    if(iprt>=0) then
+      call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
+      errstr = 'BUFRLIB: UFBINT - MNEMONIC STRING READ IN IS: ' // str
+      call errwrt(errstr)
+      write (errstr,'("THE NUMBER OF ''LEVELS'' AVAILABLE IN THE SUBSET '// &
+        '(",I5,") IS GREATER THAN THE NUMBER REQUESTED (",I5,") - INCOMPLETE READ")')  iret,i2
+      call errwrt(errstr)
+      call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
+      call errwrt(' ')
+    endif
+    iret = i2
+  endif
+
   ! If incomplete write try to initialize replication sequence or return
   if(io==1 .and. iret/=i2 .and. iret>=0) then
     call trybump(lun,usr,i1,i2,io,iret)
@@ -996,6 +1011,21 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
   ! Call the mnemonic reader/writer
   call ufbrp(lun,usr,i1,i2,io,iret)
 
+  ! If incomplete read then write a diagnostic and reset iret.
+  if(io==0 .and. iret>i2) then
+    if(iprt>=0) then
+      call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
+      errstr = 'BUFRLIB: UFBREP - MNEMONIC STRING READ IN IS: ' // str
+      call errwrt(errstr)
+      write (errstr,'("THE NUMBER OF ''LEVELS'' AVAILABLE IN THE SUBSET '// &
+        '(",I5,") IS GREATER THAN THE NUMBER REQUESTED (",I5,") - INCOMPLETE READ")')  iret,i2
+      call errwrt(errstr)
+      call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
+      call errwrt(' ')
+    endif
+    iret = i2
+  endif
+
   if(io==1 .and. iret<i2) then
     write(bort_str1,'("BUFRLIB: UFBREP - MNEMONIC STRING READ IN IS: ",A)') str
     write(bort_str2,'(18X,"THE NUMBER OF ''LEVELS'' ACTUALLY '// &
@@ -1197,6 +1227,21 @@ recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
 
   ! Call the mnemonic reader/writer
   call ufbsp(lun,usr,i1,i2,io,iret)
+
+  ! If incomplete read then write a diagnostic and reset iret.
+  if(io==0 .and. iret>i2) then
+    if(iprt>=0) then
+      call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
+      errstr = 'BUFRLIB: UFBSTP - MNEMONIC STRING READ IN IS: ' // str
+      call errwrt(errstr)
+      write (errstr,'("THE NUMBER OF ''LEVELS'' AVAILABLE IN THE SUBSET '// &
+        '(",I5,") IS GREATER THAN THE NUMBER REQUESTED (",I5,") - INCOMPLETE READ")')  iret,i2
+      call errwrt(errstr)
+      call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
+      call errwrt(' ')
+    endif
+    iret = i2
+  endif
 
   if(io==1 .and. iret/=i2) then
     write(bort_str1,'("BUFRLIB: UFBSTP - MNEMONIC STRING READ IN IS: ",A)') str
@@ -1750,27 +1795,14 @@ subroutine ufbrw(lun,usr,i1,i2,io,iret)
               enddo
             endif
             ! Read user values
-            if(io==0) then
-              if(iret<=i2) then
-                do i=1,nnod
-                  usr(i,iret) = bmiss
-                  if(nods(i)>0) then
-                    invn = invwin(nods(i),lun,ins1,ins2)
-                    if(invn>0) usr(i,iret) = val(invn,lun)
-                  endif
-                enddo
-              else
-                if(iprt>=0) then
-                  call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
-                  write ( unit=errstr, fmt='(A,I5,A)' ) 'BUFRLIB: UFBRW - INCOMPLETE READ; ONLY THE FIRST ', i2, &
-                    ' (=4TH INPUT ARG.) ''LEVELS'' WERE READ'
-                  call errwrt(errstr)
-                  call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
-                  call errwrt(' ')
+            if(io==0 .and. iret<=i2) then
+              do i=1,nnod
+                usr(i,iret) = bmiss
+                if(nods(i)>0) then
+                  invn = invwin(nods(i),lun,ins1,ins2)
+                  if(invn>0) usr(i,iret) = val(invn,lun)
                 endif
-                iret = i2
-                return
-              endif
+              enddo
             endif
             ! Decide what to do next
             if(io==1 .and. iret==i2) return
@@ -1814,8 +1846,6 @@ end subroutine ufbrw
 !> @author J. Woollen @date 1994-01-06
 subroutine ufbrp(lun,usr,i1,i2,io,iret)
 
-  use modv_vars, only: iprt
-
   use moda_usrint
 
   implicit none
@@ -1825,8 +1855,6 @@ subroutine ufbrp(lun,usr,i1,i2,io,iret)
   integer nnod, ncon, nods, nodc, ivls, kons, ins1, ins2, invn, i, nz, invtag
 
   real*8, intent(inout) :: usr(i1,i2)
-
-  character*128 errstr
 
   common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
 
@@ -1847,26 +1875,13 @@ subroutine ufbrp(lun,usr,i1,i2,io,iret)
         if(ins2==0) ins2 = nval(lun)
         iret = iret+1
         ! Read user values
-        if(io==0) then
-          if(iret<=i2) then
-            do i=1,nnod
-              if(nods(i)>0) then
-                invn = invtag(nods(i),lun,ins1,ins2)
-                if(invn>0) usr(i,iret) = val(invn,lun)
-              endif
-            enddo
-          else
-            if(iprt>=0) then
-              call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
-              write ( unit=errstr, fmt='(A,I5,A)' ) 'BUFRLIB: UFBRP - INCOMPLETE READ; ONLY THE FIRST ', i2, &
-                ' (=4TH INPUT ARG.) ''LEVELS'' WERE READ'
-              call errwrt(errstr)
-              call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
-              call errwrt(' ')
+        if(io==0 .and. iret<=i2) then
+          do i=1,nnod
+            if(nods(i)>0) then
+              invn = invtag(nods(i),lun,ins1,ins2)
+              if(invn>0) usr(i,iret) = val(invn,lun)
             endif
-            iret = i2
-            return
-          endif
+          enddo
         endif
         ! Write user values
         if(io==1 .and. iret<=i2) then
@@ -1915,8 +1930,6 @@ end subroutine ufbrp
 !> @author J. Woollen @date 1999-11-18
 subroutine ufbsp(lun,usr,i1,i2,io,iret)
 
-  use modv_vars, only: iprt
-
   use moda_usrint
 
   implicit none
@@ -1926,8 +1939,6 @@ subroutine ufbsp(lun,usr,i1,i2,io,iret)
   integer nnod, ncon, nods, nodc, ivls, kons, ins1, ins2, invn, invm, i, invtag
 
   real*8, intent(inout) :: usr(i1,i2)
-
-  character*128 errstr
 
   common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
 
@@ -1944,28 +1955,15 @@ subroutine ufbsp(lun,usr,i1,i2,io,iret)
     if(ins2==0) ins2 = nval(lun)
     iret = iret+1
     ! Read user values
-    if(io==0) then
-      if(iret<=i2) then
-        invm = ins1
-        do i=1,nnod
-          if(nods(i)>0) then
-            invn = invtag(nods(i),lun,invm,ins2)
-            if(invn>0) usr(i,iret) = val(invn,lun)
-            invm = max(invn,invm)
-          endif
-        enddo
-      else
-        if(iprt>=0) then
-          call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
-          write ( unit=errstr, fmt='(A,I5,A)' ) 'BUFRLIB: UFBSP - INCOMPLETE READ; ONLY THE FIRST ', i2, &
-            ' (=4TH INPUT ARG.) ''LEVELS'' WERE READ'
-          call errwrt(errstr)
-          call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
-          call errwrt(' ')
+    if(io==0 .and. iret<=i2) then
+      invm = ins1
+      do i=1,nnod
+        if(nods(i)>0) then
+          invn = invtag(nods(i),lun,invm,ins2)
+          if(invn>0) usr(i,iret) = val(invn,lun)
+          invm = max(invn,invm)
         endif
-        iret = i2
-        return
-      endif
+      enddo
     endif
     ! Write user values
     if(io==1 .and. iret<=i2) then
