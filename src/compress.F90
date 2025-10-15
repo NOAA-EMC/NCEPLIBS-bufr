@@ -25,8 +25,8 @@
 !> it is not activated by default.
 !>
 !> @param cf - Flag indicating whether future BUFR output messages are to be compressed:
-!>  - 'N' = No (the default)
-!>  - 'Y' = Yes
+!>  - 'N' (or 'n') = No (the default)
+!>  - 'Y' (or 'y') = Yes
 !>
 !> @author J. Ator @date 2005-03-09
 subroutine cmpmsg(cf)
@@ -42,7 +42,7 @@ subroutine cmpmsg(cf)
   my_cf = cf
   call capit(my_cf)
   if(my_cf /= 'Y' .and. my_cf /= 'N') then
-    write(bort_str,'("BUFRLIB: CMPMSG - INPUT ARGUMENT IS ",A1,", IT MUST BE EITHER Y OR N")') cf
+    write(bort_str,'("BUFRLIB: CMPMSG - INPUT ARGUMENT IS ",A1,", IT MUST BE EITHER Y, y, N OR n")') cf
     call bort(bort_str)
   endif
   ccmf = my_cf

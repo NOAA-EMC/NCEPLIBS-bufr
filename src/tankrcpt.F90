@@ -236,7 +236,7 @@ end subroutine rtrcpt
 !> program, unless a subsequent call is made to this subroutine to reset the value of cf again.  If this subroutine is never
 !> called, a default value of 'N' is used for cf, as set within module @ref moda_tnkrcp.
 !>
-!> Whenever this subroutine is called with cf = 'N', the values in iyr, imo, idy, ihr, and imi are ignored.
+!> Whenever this subroutine is called with cf = 'N' (or 'n'), the values in iyr, imo, idy, ihr, and imi are ignored.
 !>
 !> @remarks
 !> - Tank receipt time is an NCEP extension to Section 1 of the [official WMO BUFR regulations](@ref manual).
@@ -245,8 +245,8 @@ end subroutine rtrcpt
 !>
 !> @param cf - Flag indicating whether future BUFR output messages should include the tank receipt
 !> time defined by iyr, imo, idy, ihr, and imi:
-!> - 'N' = No (the default)
-!> - 'Y' = Yes
+!> - 'N' (or 'n') = No (the default)
+!> - 'Y' (or 'y') = Yes
 !> @param iyr - Tank receipt year
 !> @param imo - Tank receipt month
 !> @param idy - Tank receipt day
@@ -286,7 +286,7 @@ recursive subroutine strcpt(cf,iyr,imo,idy,ihr,imi)
   my_cf = cf
   call capit(my_cf)
   if(my_cf /= 'Y' .and. my_cf /= 'N') then
-    write(bort_str,'("BUFRLIB: STRCPT - INPUT ARGUMENT IS ",A1,", IT MUST BE EITHER Y OR N")') cf
+    write(bort_str,'("BUFRLIB: STRCPT - INPUT ARGUMENT IS ",A1,", IT MUST BE EITHER Y, y, N OR n")') cf
     call bort(bort_str)
   endif
 

@@ -11,6 +11,8 @@ program intest14
 
   character errstr*400, subset*8
 
+  real*8 r8arr(18, 2)
+
   print *, 'Testing use of CATCH_BORTS for more graceful exits after bort errors'
 
 #ifdef KIND_8
@@ -55,6 +57,13 @@ program intest14
   call readns(lunit, subset, idate, iret)
   call check_for_bort(errstr, errstr_len)
   if (errstr_len /= 0 .or. iret /= 0 .or. idate /= 23022400) stop 8
+
+  ! Test the catching of a bad (longer than 80 character) input string to subroutine ufbint.
+  call ufbint(lunit, r8arr, 18, 2, iret, &
+    'YEAR MNTH DAYS HOUR MINU RPID CLAT CLON SELV CORN QMAT TMDB QMDD TMDP REHU QMST SST1')
+  call check_for_bort(errstr, errstr_len)
+  if ( errstr_len <= 0 .or. index( errstr(1:errstr_len), 'STRING - INPUT STRING (') == 0 .or. &
+    index( errstr(1:errstr_len), '> LIMIT OF 80 CHAR.') == 0 ) stop 9
 
   call closbf(lunit)
 

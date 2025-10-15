@@ -1168,8 +1168,8 @@ end subroutine getntbe
 !>
 !> @param cf - Flag indicating whether or not to include code and flag table information during all future reads of
 !> master BUFR tables:
-!>   - 'N' = No (the default)
-!>   - 'Y' = Yes
+!>   - 'N' (or 'n') = No (the default)
+!>   - 'Y' (or 'y') = Yes
 !>
 !> See [Master BUFR Tables](@ref dfbfmstab)
 !> for more information about master BUFR tables.  In particlar, note
@@ -1206,7 +1206,7 @@ subroutine codflg(cf)
   my_cf = cf
   call capit(my_cf)
   if(my_cf /= 'Y' .and. my_cf /= 'N') then
-    write(bort_str,'("BUFRLIB: CODFLG - INPUT ARGUMENT IS ",A1,", IT MUST BE EITHER Y OR N")') cf
+    write(bort_str,'("BUFRLIB: CODFLG - INPUT ARGUMENT IS ",A1,", IT MUST BE EITHER Y, y, N OR n")') cf
     call bort(bort_str)
   endif
   cdmf = my_cf

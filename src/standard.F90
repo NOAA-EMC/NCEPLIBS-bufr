@@ -28,8 +28,8 @@
 !> value of 'N' is used for cf.
 !>
 !> @param cf - Flag indicating whether future BUFR output messages are to be standardized:
-!>  - 'N' = No (the default)
-!>  - 'Y' = Yes
+!>  - 'N' (or 'n') = No (the default)
+!>  - 'Y' (or 'y') = Yes
 !>
 !> @author J. Ator @date 2004-08-18
 subroutine stdmsg(cf)
@@ -45,7 +45,7 @@ subroutine stdmsg(cf)
   my_cf = cf
   call capit(my_cf)
   if(my_cf /= 'Y' .and. my_cf /= 'N') then
-    write(bort_str,'("BUFRLIB: STDMSG - INPUT ARGUMENT IS ",A1,", IT MUST BE EITHER Y OR N")') cf
+    write(bort_str,'("BUFRLIB: STDMSG - INPUT ARGUMENT IS ",A1,", IT MUST BE EITHER Y, y, N OR n")') cf
     call bort(bort_str)
   endif
   csmf = my_cf
