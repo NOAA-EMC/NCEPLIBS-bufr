@@ -407,7 +407,7 @@ void get_val_f(int lun, double **val_ptr, int *val_size);
 void get_inv_f(int lun, int **inv_ptr, int *inv_size);
 
 /**
- *  Function used to get long strings from the BUFR file.
+ * Read a long string from the BUFR file.
  *
  * @param lunit - Fortran logical unit.
  * @param str_id - Mnemonic for the string for the source field plus the index number
@@ -589,6 +589,33 @@ void bvers_f(char *cverstr, int cverstr_len);
  * @author J. Ator @date 2023-04-07
  */
 void cmpmsg_f(char *cf);
+
+/**
+ * Specify the use of compression when writing BUFR messages.
+ *
+ * Wraps catch_borts() function.
+ *
+ * @param cf - Flag indicating whether subsequent bort errors should be caught
+ * and returned to the application program ('Y' = Yes, 'N' = No).
+ *
+ * @return - -1 if cf contained an illegal value, otherwise 0
+ *
+ * @author J. Ator @date 2025-10-15
+ */
+int catch_borts_f(char *cf);
+
+/**
+ * Check whether a bort error was caught during a previous call to a library
+ * function or subroutine
+ *
+ * Wraps check_for_bort() subroutine.
+ *
+ * @param error_str - Error string if a bort error occurred; otherwise empty
+ * @param error_str_len - Allocated size of error_str
+ *
+ * @author J. Ator @date 2025-10-15
+ */
+void check_for_bort_f(char *error_str, int error_str_len);
 
 #ifdef __cplusplus
 }
