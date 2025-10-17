@@ -409,6 +409,8 @@ end subroutine writlc
 !> @authors J. Woollen, J. Ator @date 2003-11-04
 recursive subroutine readlc(lunit,chr,str)
 
+  use bufrlib
+
   use modv_vars, only: im8b, iprt
 
   use moda_usrint
@@ -417,11 +419,12 @@ recursive subroutine readlc(lunit,chr,str)
   use moda_bitbuf
   use moda_tables
   use moda_rlccmn
+  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit
-  integer my_lunit, maxtg, lchr, lun, il, im, ntg, nnod, kon, ii, n, nod, ioid, itagct, nchr, kbit
+  integer my_lunit, maxtg, lchr, lun, il, im, ntg, nnod, kon, ii, n, nod, ioid, itagct, nchr, kbit, lcstr, lcchr, ncchr
 
   character*(*), intent(in) :: str
   character*(*), intent(out) :: chr
@@ -429,6 +432,8 @@ recursive subroutine readlc(lunit,chr,str)
   character*128 bort_str, errstr
   character*10 ctag
   character*14 tgs(10)
+  character*15 cstr
+  character*(:), allocatable :: cchr
 
   real roid
 
@@ -445,6 +450,20 @@ recursive subroutine readlc(lunit,chr,str)
 
   chr = ' '
   lchr=len(chr)
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call strsuc(str,cstr,lcstr)
+    lcchr = lchr + 1  ! Allow extra byte in cchr for the trailing null in C
+    allocate(character*(lcchr) :: cchr)
+    call catch_bort_readlc_c(lunit,cstr,lcstr,cchr,lcchr,ncchr)
+    chr(1:ncchr) = cchr(1:ncchr)
+    deallocate(cchr)
+    bort_target_is_unset = .true.
+    return
+  endif
 
   ! Check the file status
   call status(lunit,lun,il,im)

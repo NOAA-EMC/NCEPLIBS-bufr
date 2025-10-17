@@ -673,11 +673,11 @@ module bufr_c2f_interface
     !> @param output_str_len - Size of the result string buffer
     !>
     !> @author Ronald McLaren @date 2023-07-03
-    subroutine readlc_c(lunit, str_id, output_str, output_str_len) bind(C, name='readlc_f')
+    recursive subroutine readlc_c(lunit, str_id, output_str, output_str_len) bind(C, name='readlc_f')
       integer(c_int), value, intent(in) :: lunit, output_str_len
       character(kind=c_char), intent(in) :: str_id(*)
       character(kind=c_char), intent(out) :: output_str(*)
-      character(len=120) :: output_str_f
+      character(len=256) :: output_str_f
       character(len=14) :: str
       integer :: output_str_len_f, lstr
 

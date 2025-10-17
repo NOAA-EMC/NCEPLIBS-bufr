@@ -355,7 +355,7 @@ module bufrlib
     subroutine catch_bort_openbf_c(lunit,cio,lundx,cio_str_len) bind(C, name='catch_bort_openbf')
       use iso_c_binding
       integer(c_int), value, intent(in) :: lunit, lundx, cio_str_len
-      character(kind=c_char), intent(in) :: cio
+      character(kind=c_char), intent(inout) :: cio(*)
     end subroutine catch_bort_openbf_c
 
     !> @fn bufrlib::catch_bort_closbf_c::catch_bort_closbf_c(lunit)
@@ -442,7 +442,7 @@ module bufrlib
       use iso_c_binding
       integer(c_int), value, intent(in) :: lunin, i1, i2, cstr_len
       integer(c_int), intent(out) :: iret
-      character(kind=c_char), intent(in) :: cstr
+      character(kind=c_char), intent(inout) :: cstr(*)
       real(c_double), intent(inout) :: usr(i1,*)
     end subroutine catch_bort_ufbint_c
 
@@ -464,7 +464,7 @@ module bufrlib
       use iso_c_binding
       integer(c_int), value, intent(in) :: lunin, i1, i2, cstr_len
       integer(c_int), intent(out) :: iret
-      character(kind=c_char), intent(in) :: cstr
+      character(kind=c_char), intent(inout) :: cstr(*)
       real(c_double), intent(inout) :: usr(i1,*)
     end subroutine catch_bort_ufbrep_c
 
@@ -486,9 +486,30 @@ module bufrlib
       use iso_c_binding
       integer(c_int), value, intent(in) :: lunin, i1, i2, cstr_len
       integer(c_int), intent(out) :: iret
-      character(kind=c_char), intent(in) :: cstr
+      character(kind=c_char), intent(inout) :: cstr(*)
       real(c_double), intent(inout) :: usr(i1,*)
     end subroutine catch_bort_ufbseq_c
+
+    !> @fn bufrlib::catch_bort_readlc_c::catch_bort_readlc_c(lunit,cstr,cstr_len,chr,chr_len,nchr)
+    !> Catch any bort error inside of subroutine readlc().
+    !>
+    !> Wraps catch_bort_readlc() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param cstr - Mnemonic of long character string to read from data subset
+    !> @param cstr_len - Length of cstr
+    !> @param chr - Long character string corresponding to cstr
+    !> @param chr_len - Allocated length of chr
+    !> @param nchr - Number of characters returned in chr
+    !>
+    !> @author J. Ator @date 2025-10-15
+    subroutine catch_bort_readlc_c(lunit,cstr,cstr_len,chr,chr_len,nchr) bind(C, name='catch_bort_readlc')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, cstr_len, chr_len
+      integer(c_int), intent(out) :: nchr
+      character(kind=c_char), intent(inout) :: cstr(*)
+      character(kind=c_char), intent(out) :: chr(*)
+    end subroutine catch_bort_readlc_c
 
   end interface
 
