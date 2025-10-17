@@ -186,23 +186,40 @@ np.testing.assert_array_almost_equal(oer_save.filled(), oer2.filled())
 np.testing.assert_array_almost_equal(qcf_save.filled(), qcf2.filled())
 bufr.close()
 
-# test reading long strings
+# test reading long strings, and using bort catching
+assert ncepbufr.bortcatch('Y') == 0
 bufr = ncepbufr.open('data/xx103')
+bortstr = ncepbufr.bortcheck()
+assert len(bortstr) == 0
 test_station_names = ['BOUEE_LION', 'BOUEE_ANTILLES',
                       'BOUEE_COTE D\'AZUR',
                       'GULF OF MAINE', 'TENERIFE']
 test_report_ids = ['6100002', '4100300', '6100001', '4400005', '1300131']
 i_msg = 0
 while bufr.advance() == 0:
+    bortstr = ncepbufr.bortcheck()
+    assert len(bortstr) == 0
     # Just read the first subset from each message.
     if bufr.load_subset() == 0:
+        bortstr = ncepbufr.bortcheck()
+        assert len(bortstr) == 0
+        stsnrpid = bufr.read_long_string(mnemonic='CLATH') # This should catch and return a bort error
+        bortstr = ncepbufr.bortcheck()
+        assert len(bortstr) != 0
+        assert "BUFRLIB: READLC - MNEMONIC CLATH          DOES NOT REPRESENT A CHARACTER ELEMENT" in bortstr
         stsn = bufr.read_long_string(mnemonic='STSN')
-        rpid = bufr.read_long_string(mnemonic='RPID')
+        bortstr = ncepbufr.bortcheck()
+        assert len(bortstr) == 0
         assert stsn == test_station_names[i_msg]
+        rpid = bufr.read_long_string(mnemonic='RPID')
+        bortstr = ncepbufr.bortcheck()
+        assert len(bortstr) == 0
         assert rpid == test_report_ids[i_msg]
         i_msg = i_msg + 1
     # only loop over first 5 subsets
     if i_msg == 5: break
 bufr.close()
+bortstr = ncepbufr.bortcheck()
+assert len(bortstr) == 0
 
 print("SUCCESS!")
