@@ -142,27 +142,27 @@ int ireadsb_f(int bufr_unit);
 void readsb_f(int bufr_unit, int *ires);
 
 /**
- *  Write the next data subset to a BUFR message.
+ * Write the next data subset to a BUFR message.
  *
- *  Wraps writsb() subroutine.
+ * Wraps writsb() subroutine.
  *
- *  @param bufr_unit - Fortran logical unit number to write to
+ * @param bufr_unit - Fortran logical unit number to write to
  *
- *  @author Jeff Ator @date 2025-10-20
+ * @author Jeff Ator @date 2025-10-20
  */
 void writsb_f(int bufr_unit);
 
 /**
- *  Write the next data subset to a BUFR message, and return a copy of any completed message.
+ * Write the next data subset to a BUFR message, and return a copy of any completed message.
  *
- *  Wraps writsa() subroutine.
+ * Wraps writsa() subroutine.
  *
- *  @param bufr_unit - Fortran logical unit number to write to
- *  @param bufr_len - Allocated length of bufr array
- *  @param bufr - BUFR message
- *  @param nbufr - Number of integers returned in bufr array, or 0 if no message was returned
+ * @param bufr_unit - Fortran logical unit number to write to
+ * @param bufr_len - Allocated length of bufr array
+ * @param bufr - BUFR message
+ * @param nbufr - Number of integers returned in bufr array, or 0 if no message was returned
  *
- *  @author Jeff Ator @date 2025-10-20
+ * @author Jeff Ator @date 2025-10-20
  */
 void writsa_f(int bufr_unit, int bufr_len, int *bufr, int *nbufr);
 
@@ -198,6 +198,23 @@ void ufbint_f(int bufr_unit, void **c_data, int dim_1, int dim_2,
  * @author Ronald Mclaren @date 2020-07-29
  */
 void ufbrep_f(int bufr_unit, void **c_data, int dim_1, int dim_2,
+              int *iret, const char *table_b_mnemonic);
+
+/**
+ * Read/write one or more data values from/to a data subset.
+ *
+ * Wraps ufbstp() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from.
+ * @param c_data - pointer to a pointer to a pre-allocated buffer.
+ * @param dim_1 - dimensionality of data to read or write.
+ * @param dim_2 - dimensionality of data to read or write.
+ * @param iret - length of data read.
+ * @param table_b_mnemonic - string of mnemonics.
+ *
+ * @author Jeff Ator @date 2025-10-24
+ */
+void ufbstp_f(int bufr_unit, void **c_data, int dim_1, int dim_2,
               int *iret, const char *table_b_mnemonic);
 
 /**
@@ -443,6 +460,18 @@ void get_inv_f(int lun, int **inv_ptr, int *inv_size);
  * @author Ronald McLaren @date 2023-07-03
  */
 void readlc_f(int lunit, const char *str_id, char *output_str, int output_str_len);
+
+/**
+ * Write a long string to the BUFR file.
+ *
+ * @param lunit - Fortran logical unit.
+ * @param str - Mnemonic for the string for the source field plus the index number
+ *                  (ex: 'IDMN#2')
+ * @param chr - Value corresponding to str
+ *
+ * @author Jeff Ator @date 2025-10-24
+ */
+void writlc_f(int lunit, const char *str, const char *chr);
 
 /**
  * Deletes the copies of the moda_tables arrays.

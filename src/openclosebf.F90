@@ -417,9 +417,12 @@ end subroutine closbf
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine status(lunit,lun,il,im)
 
+  use bufrlib
+
   use modv_vars, only: im8b, nfiles
 
   use moda_stbfr
+  use moda_borts
 
   implicit none
 
@@ -433,14 +436,22 @@ recursive subroutine status(lunit,lun,il,im)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call status(my_lunit,lun,il,im)
     call x48(lun,lun,1)
     call x48(il,il,1)
     call x48(im,im,1)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call catch_bort_status_c(lunit,lun,il,im)
+    bort_target_is_unset = .true.
     return
   endif
 

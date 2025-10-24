@@ -64,6 +64,26 @@ catch_bort_closbf(int lunit)
 }
 
 /**
+ * Catch any bort error inside of subroutine status().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param lun - File ID associated with lunit
+ * @param il - File status
+ * @param im - Message status
+ *
+ * @author J. Ator @date 2025-10-24
+*/
+void
+catch_bort_status(int lunit, int *lun, int *il, int *im)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    status_f(lunit, lun, il, im);
+}
+
+/**
  * Catch any bort error inside of subroutine readmg().
  *
  * @param lunxx - Absolute value is Fortran logical unit number for BUFR file
@@ -265,6 +285,32 @@ catch_bort_ufbrep(int lunin, double *usr, int i1, int i2, int *iret, char *cstr,
 }
 
 /**
+ * Catch any bort error inside of subroutine ufbstp().
+ *
+ * @param lunin - Absolute value is Fortran logical unit number for BUFR file
+ * @param usr - Data values
+ * @param i1 - First dimension of usr
+ * @param i2 - Second dimension of usr
+ * @param iret - Number of replications of cstr that were read/written from/to the data subset
+ * @param cstr - String of mnemonics to read/write from/to the data subset
+ * @param cstr_len - Length of cstr
+ *
+ * @author J. Ator @date 2025-10-24
+*/
+void
+catch_bort_ufbstp(int lunin, double *usr, int i1, int i2, int *iret, char *cstr, int cstr_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to cstr, for use with get_c_string_length inside of ufbstp_f. */
+    cstr[cstr_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    ufbstp_f(lunin, (void**) &usr, i1, i2, iret, cstr);
+}
+
+/**
  * Catch any bort error inside of subroutine ufbseq().
  *
  * @param lunin - Absolute value is Fortran logical unit number for BUFR file
@@ -315,4 +361,31 @@ catch_bort_readlc(int lunit, char *cstr, int cstr_len, char *chr, int chr_len, i
     readlc_f(lunit, cstr, chr, chr_len);
 
     *nchr = (int) strlen(chr);
+}
+
+/**
+ * Catch any bort error inside of subroutine writlc().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param cstr - Mnemonic of long character string to write to data subset
+ * @param cstr_len - Length of cstr
+ * @param cchr - Long character string corresponding to cstr
+ * @param cchr_len - Length of cchr
+ *
+ * @author J. Ator @date 2025-10-24
+*/
+void
+catch_bort_writlc(int lunit, char *cstr, int cstr_len, char *cchr, int cchr_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to cstr, for use with get_c_string_length inside of writlc_f. */
+    cstr[cstr_len] = '\0';
+
+    /* Add a trailing null to cchr, for use with get_c_string_length inside of writlc_f. */
+    cchr[cchr_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    writlc_f(lunit, cstr, cchr);
 }

@@ -371,6 +371,23 @@ module bufrlib
       integer(c_int), value, intent(in) :: lunit
     end subroutine catch_bort_closbf_c
 
+    !> @fn bufrlib::catch_bort_status_c::catch_bort_status_c(lunit,lun,il,im)
+    !> Catch any bort error inside of subroutine status().
+    !>
+    !> Wraps catch_bort_status() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param lun - File ID associated with lunit
+    !> @param il - File status
+    !> @param im - Message status
+    !>
+    !> @author J. Ator @date 2025-10-24
+    subroutine catch_bort_status_c(lunit,lun,il,im) bind(C, name='catch_bort_status')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: lun, il, im
+    end subroutine catch_bort_status_c
+
     !> @fn bufrlib::catch_bort_readmg_c::catch_bort_readmg_c(lunxx,subset,jdate,subset_str_len,iret)
     !> Catch any bort error inside of subroutine readmg().
     !>
@@ -532,6 +549,28 @@ module bufrlib
       real(c_double), intent(inout) :: usr(i1,*)
     end subroutine catch_bort_ufbrep_c
 
+    !> @fn bufrlib::catch_bort_ufbstp_c::catch_bort_ufbstp_c(lunin,usr,i1,i2,iret,cstr,cstr_len)
+    !> Catch any bort error inside of subroutine ufbstp().
+    !>
+    !> Wraps catch_bort_ufbstp() function.
+    !>
+    !> @param lunin - Absolute value is Fortran logical unit number for BUFR file
+    !> @param usr - Data values
+    !> @param i1 - First dimension of usr
+    !> @param i2 - Second dimension of usr
+    !> @param iret - Number of replications of cstr that were read/written from/to the data subset
+    !> @param cstr - String of mnemonics to read/write from/to the data subset
+    !> @param cstr_len - Length of cstr
+    !>
+    !> @author J. Ator @date 2025-10-24
+    subroutine catch_bort_ufbstp_c(lunin,usr,i1,i2,iret,cstr,cstr_len) bind(C, name='catch_bort_ufbstp')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunin, i1, i2, cstr_len
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(inout) :: cstr(*)
+      real(c_double), intent(inout) :: usr(i1,*)
+    end subroutine catch_bort_ufbstp_c
+
     !> @fn bufrlib::catch_bort_ufbseq_c::catch_bort_ufbseq_c(lunin,usr,i1,i2,iret,cstr,cstr_len)
     !> Catch any bort error inside of subroutine ufbseq().
     !>
@@ -574,6 +613,24 @@ module bufrlib
       character(kind=c_char), intent(inout) :: cstr(*)
       character(kind=c_char), intent(out) :: chr(*)
     end subroutine catch_bort_readlc_c
+
+    !> @fn bufrlib::catch_bort_writlc_c::catch_bort_writlc_c(lunit,cstr,cstr_len,cchr,cchr_len)
+    !> Catch any bort error inside of subroutine writlc().
+    !>
+    !> Wraps catch_bort_writlc() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param cstr - Mnemonic of long character string to write to data subset
+    !> @param cstr_len - Length of cstr
+    !> @param cchr - Long character string corresponding to cstr
+    !> @param cchr_len - Length of cchr
+    !>
+    !> @author J. Ator @date 2025-10-24
+    subroutine catch_bort_writlc_c(lunit,cstr,cstr_len,cchr,cchr_len) bind(C, name='catch_bort_writlc')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, cstr_len, cchr_len
+      character(kind=c_char), intent(inout) :: cstr(*), cchr(*)
+    end subroutine catch_bort_writlc_c
 
   end interface
 
