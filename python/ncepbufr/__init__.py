@@ -52,6 +52,22 @@ def standardize(std='N'):
     """
     _bufrlib.stdmsg(std)
 
+def bortcatch(cbc='N'):
+    """
+    Enable catching of any future bort error for return to application program via bortcheck.
+    `cbc`: `'Y'` for Yes, default is `'N'` for No, and in which case any bort error will
+    terminate the application program.
+    """
+    return _bufrlib.catch_borts(cbc)
+
+def bortcheck():
+    """
+    Check if a bort error occurred within the most-recently called BUFRLIB subroutine or function.
+    If so, then an error message is returned.  If not, then an empty string is returned.
+    """
+    bstr, bstr_len = _bufrlib.check_for_bort()
+    return bstr.strip().decode('utf-8')
+
 def set_Section01_value(s01_mnemonic, value):
     """
     Set a custom Section 0 or Section 1 message value for all subsequent writes to all bufr files,

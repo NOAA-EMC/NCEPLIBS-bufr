@@ -206,3 +206,30 @@ catch_bort_ufbseq(int lunin, double *usr, int i1, int i2, int *iret, char *cstr,
     /* Recursively call the subroutine. */
     ufbseq_f(lunin, (void**) &usr, i1, i2, iret, cstr);
 }
+
+/**
+ * Catch any bort error inside of subroutine readlc().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param cstr - Mnemonic of long character string to read from data subset
+ * @param cstr_len - Length of cstr
+ * @param chr - Long character string corresponding to cstr
+ * @param chr_len - Allocated length of chr
+ * @param nchr - Number of characters returned in chr
+ *
+ * @author J. Ator @date 2025-10-15
+*/
+void
+catch_bort_readlc(int lunit, char *cstr, int cstr_len, char *chr, int chr_len, int *nchr)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to cstr, for use with get_c_string_length inside of readlc_f. */
+    cstr[cstr_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    readlc_f(lunit, cstr, chr, chr_len);
+
+    *nchr = (int) strlen(chr);
+}

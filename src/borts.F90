@@ -157,9 +157,9 @@ end function catch_borts
 !>
 !> @param bort_str - Error string, if such a bort error occurred; otherwise empty.
 !> @param bort_str_len - Length of bort_str:
-!>  -1 = Subroutine catch_borts() was not previously called
-!>   0 = No bort error occurred
-!>  >0 = Length of bort_str, up to a maximum of 300 characters
+!>  - -1 = Subroutine catch_borts() was not previously called
+!>  -  0 = No bort error occurred
+!>  - >0 = Length of bort_str, up to a maximum of 300 characters
 !>
 !> @author J. Ator @date 2025-08-25
 recursive subroutine check_for_bort(bort_str, bort_str_len)

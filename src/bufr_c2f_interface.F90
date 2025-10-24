@@ -27,7 +27,7 @@ module bufr_c2f_interface
   public :: mtinfo_c, bvers_c, status_c, ibfms_c
   public :: get_isc_c, get_link_c, get_itp_c, get_typ_c, get_tag_c, get_jmpb_c
   public :: get_inode_c, get_nval_c, get_val_c, get_inv_c, get_irf_c, readlc_c
-  public :: delete_table_data_c
+  public :: delete_table_data_c, cmpmsg_c, catch_borts_c, check_for_bort_c
   public :: iupbs01_c, imrkopr_c, istdesc_c, ifxy_c
   public :: igetntbi_c, igettdi_c, stntbi_c
   public :: igetprm_c, isetprm_c, maxout_c, igetmxby_c
@@ -664,7 +664,7 @@ module bufr_c2f_interface
       inv_ptr = c_loc(inv(1, lun))
     end subroutine get_inv_c
 
-    !> Function used to get long strings from the BUFR file.
+    !> Get a long string from the BUFR file.
     !>
     !> @param lunit - Fortran logical unit.
     !> @param str_id - Mnemonic for the string for the source field plus the index number
@@ -673,12 +673,11 @@ module bufr_c2f_interface
     !> @param output_str_len - Size of the result string buffer
     !>
     !> @author Ronald McLaren @date 2023-07-03
-    subroutine readlc_c(lunit, str_id, output_str, output_str_len) bind(C, name='readlc_f')
-      use moda_rlccmn
+    recursive subroutine readlc_c(lunit, str_id, output_str, output_str_len) bind(C, name='readlc_f')
       integer(c_int), value, intent(in) :: lunit, output_str_len
       character(kind=c_char), intent(in) :: str_id(*)
       character(kind=c_char), intent(out) :: output_str(*)
-      character(len=120) :: output_str_f
+      character(len=256) :: output_str_f
       character(len=14) :: str
       integer :: output_str_len_f, lstr
 
@@ -1210,5 +1209,47 @@ module bufr_c2f_interface
       ch = cf(1)
       call cmpmsg(ch)
     end subroutine cmpmsg_c
+
+    !> Specify whether subsequent bort errors should be caught and returned to
+    !> the application program
+    !>
+    !> Wraps catch_borts() function.
+    !>
+    !> @param cf - Flag indicating whether subsequent bort errors should be caught
+    !> and returned to the application program ('Y' = Yes, 'N' = No).
+    !>
+    !> @return catch_borts_c - -1 if cf contained an illegal value, otherwise 0
+    !>
+    !> @author J. Ator @date 2025-10-15
+    function catch_borts_c(cf) result(ires) bind(C, name='catch_borts_f')
+      character(kind=c_char), intent(in) :: cf(*)
+      character :: ch
+      integer(c_int) :: ires
+      integer :: catch_borts
+
+      ch = cf(1)
+      ires = catch_borts(ch)
+    end function catch_borts_c
+
+    !> Check whether a bort error was caught during a previous call to a library
+    !> function or subroutine
+    !>
+    !> Wraps check_for_bort() subroutine.
+    !>
+    !> @param error_str - Error string if a bort error occurred; otherwise empty
+    !> @param error_str_len - Allocated size of error_str
+    !>
+    !> @author J. Ator @date 2025-10-15
+    subroutine check_for_bort_c(error_str, error_str_len) bind(C, name='check_for_bort_f')
+      integer(c_int), value, intent(in) :: error_str_len
+      character(kind=c_char), intent(out) :: error_str(*)
+      character(len=310) :: error_str_f
+      integer :: error_str_len_f
+
+      call check_for_bort(error_str_f, error_str_len_f)
+
+      error_str_len_f = error_str_len_f + 1  ! add 1 for the null terminator
+      call copy_f_c_str(error_str_f, error_str, min(error_str_len_f, error_str_len))
+    end subroutine check_for_bort_c
 
 end module bufr_c2f_interface
