@@ -349,7 +349,7 @@ module bufrlib
     !> @param lunit - Fortran logical unit number for BUFR file
     !> @param cio - Flag indicating how lunit is to be used by the software
     !> @param lundx - Fortran logical unit number containing DX BUFR table information
-    !> @param cio_str_len - Length of cio
+    !> @param cio_str_len - Length of cio string
     !>
     !> @author J. Ator @date 2025-09-05
     subroutine catch_bort_openbf_c(lunit,cio,lundx,cio_str_len) bind(C, name='catch_bort_openbf')
@@ -390,6 +390,40 @@ module bufrlib
       integer(c_int), intent(out) :: jdate, iret
     end subroutine catch_bort_readmg_c
 
+    !> @fn bufrlib::catch_bort_openmb_c::catch_bort_openmb_c(lunit,subset,subset_str_len,jdate)
+    !> Catch any bort error inside of subroutine openmb().
+    !>
+    !> Wraps catch_bort_openmb() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param subset - Table A mnemonic for type of BUFR message to be written
+    !> @param subset_str_len - Length of subset string
+    !> @param jdate - Date-time to be written into Section 1 of BUFR message
+    !>
+    !> @author J. Ator @date 2025-10-20
+    subroutine catch_bort_openmb_c(lunit,subset,subset_str_len,jdate) bind(C, name='catch_bort_openmb')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, subset_str_len, jdate
+      character(kind=c_char), intent(inout) :: subset(*)
+    end subroutine catch_bort_openmb_c
+
+    !> @fn bufrlib::catch_bort_openmg_c::catch_bort_openmg_c(lunit,subset,subset_str_len,jdate)
+    !> Catch any bort error inside of subroutine openmg().
+    !>
+    !> Wraps catch_bort_openmg() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param subset - Table A mnemonic for type of BUFR message to be written
+    !> @param subset_str_len - Length of subset string
+    !> @param jdate - Date-time to be written into Section 1 of BUFR message
+    !>
+    !> @author J. Ator @date 2025-10-20
+    subroutine catch_bort_openmg_c(lunit,subset,subset_str_len,jdate) bind(C, name='catch_bort_openmg')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, subset_str_len, jdate
+      character(kind=c_char), intent(inout) :: subset(*)
+    end subroutine catch_bort_openmg_c
+
     !> @fn bufrlib::catch_bort_readns_c::catch_bort_readns_c(lunit,subset,jdate,subset_str_len,iret)
     !> Catch any bort error inside of subroutine readns().
     !>
@@ -423,6 +457,36 @@ module bufrlib
       integer(c_int), value, intent(in) :: lunit
       integer(c_int), intent(out) :: iret
     end subroutine catch_bort_readsb_c
+
+    !> @fn bufrlib::catch_bort_writsb_c::catch_bort_writsb_c(lunit)
+    !> Catch any bort error inside of subroutine writsb().
+    !>
+    !> Wraps catch_bort_writsb() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !>
+    !> @author J. Ator @date 2025-10-20
+    subroutine catch_bort_writsb_c(lunit) bind(C, name='catch_bort_writsb')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+    end subroutine catch_bort_writsb_c
+
+    !> @fn bufrlib::catch_bort_writsa_c::catch_bort_writsa_c(lunxx,bufr_len,bufr,nbufr)
+    !> Catch any bort error inside of subroutine writsa().
+    !>
+    !> Wraps catch_bort_writsa() function.
+    !>
+    !> @param lunxx - Absolute value is Fortran logical unit number for BUFR file
+    !> @param bufr_len - Allocated length of bufr array
+    !> @param bufr - BUFR message
+    !> @param nbufr - Number of integers returned in bufr array, or 0 if no message was returned
+    !>
+    !> @author J. Ator @date 2025-10-20
+    subroutine catch_bort_writsa_c(lunxx,bufr_len,bufr,nbufr) bind(C, name='catch_bort_writsa')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunxx, bufr_len
+      integer(c_int), intent(out) :: bufr(*), nbufr
+    end subroutine catch_bort_writsa_c
 
     !> @fn bufrlib::catch_bort_ufbint_c::catch_bort_ufbint_c(lunin,usr,i1,i2,iret,cstr,cstr_len)
     !> Catch any bort error inside of subroutine ufbint().

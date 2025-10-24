@@ -392,7 +392,7 @@ end subroutine rdmsgw
 !> becomes exactly like that of subroutine openmg().
 !>
 !> @param lunit - Fortran logical unit number for BUFR file
-!> @param subset - Table A mnemonic for type of BUFR BUFR message to be opened
+!> @param subset - Table A mnemonic for type of BUFR message to be opened
 !> (see [DX BUFR Tables](@ref dfbftab) for further information about Table A mnemonics)
 !> @param jdate - Date-time to be stored within Section 1 of BUFR message being opened,
 !> in format of either YYMMDDHH or YYYYMMDDHH
@@ -400,16 +400,20 @@ end subroutine rdmsgw
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine openmb(lunit,subset,jdate)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_msgcwd
+  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit, jdate
-  integer my_lunit, my_jdate, lun, il, im, mtyp, mstb, inod, i4dy
+  integer my_lunit, my_jdate, lun, il, im, mtyp, mstb, inod, i4dy, lcsb
 
   character*(*), intent(in) :: subset
+  character*9 csubset
 
   logical open
 
@@ -417,12 +421,21 @@ recursive subroutine openmb(lunit,subset,jdate)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call x84(jdate,my_jdate,1)
     call openmb(my_lunit,subset,my_jdate)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call strsuc(subset,csubset,lcsb)
+    call catch_bort_openmb_c(lunit,csubset,lcsb,jdate)
+    bort_target_is_unset = .true.
     return
   endif
 
@@ -472,27 +485,40 @@ end subroutine openmb
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine openmg(lunit,subset,jdate)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_msgcwd
+  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit, jdate
-  integer my_lunit, my_jdate, lun, il, im, mtyp, mstb, inod, i4dy
+  integer my_lunit, my_jdate, lun, il, im, mtyp, mstb, inod, i4dy, lcsb
 
   character*(*), intent(in) :: subset
+  character*9 csubset
 
   ! Check for I8 integers
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call x84(jdate,my_jdate,1)
     call openmg(my_lunit,subset,my_jdate)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call strsuc(subset,csubset,lcsb)
+    call catch_bort_openmg_c(lunit,csubset,lcsb,jdate)
+    bort_target_is_unset = .true.
     return
   endif
 

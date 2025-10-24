@@ -322,9 +322,12 @@ end function ireadns
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine writsb(lunit)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_msgcmp
+  use moda_borts
 
   implicit none
 
@@ -335,11 +338,19 @@ recursive subroutine writsb(lunit)
 
   if(im8b) then
     im8b=.false.
-
-    call x84 ( lunit, my_lunit, 1 )
-    call writsb ( my_lunit )
-
+    call x84(lunit,my_lunit,1)
+    call writsb(my_lunit)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call catch_bort_writsb_c(lunit)
+    bort_target_is_unset = .true.
     return
   endif
 
@@ -442,10 +453,13 @@ end subroutine writsb
 !> @author J. Woollen @author J. Ator @date 1994-01-06
 recursive subroutine writsa(lunxx,lmsgt,msgt,msgl)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_bufrmg
   use moda_msgcmp
+  use moda_borts
 
   implicit none
 
@@ -457,14 +471,22 @@ recursive subroutine writsa(lunxx,lmsgt,msgt,msgl)
 
   if(im8b) then
     im8b=.false.
-
-    call x84 ( lunxx, my_lunxx, 1 )
-    call x84 ( lmsgt, my_lmsgt, 1 )
-    call writsa ( my_lunxx, my_lmsgt*2, msgt, msgl )
+    call x84(lunxx,my_lunxx,1)
+    call x84(lmsgt,my_lmsgt,1)
+    call writsa(my_lunxx, my_lmsgt*2, msgt, msgl)
     msgl = msgl/2
-    call x48 ( msgl, msgl, 1 )
-
+    call x48(msgl,msgl,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call catch_bort_writsa_c(lunxx,lmsgt,msgt,msgl)
+    bort_target_is_unset = .true.
     return
   endif
 
