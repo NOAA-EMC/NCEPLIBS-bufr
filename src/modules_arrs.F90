@@ -917,9 +917,9 @@ module moda_borts
   !> .true. iff bort_catch is 'Y' <b>and</b> a target location to which to return any caught error is not currently set.
   logical :: bort_target_is_unset = .false.
   !> Bort error string.
-  character*300 caught_str
+  character*300 :: caught_str
   !> Length of bort error string.
-  integer caught_str_len
+  integer :: caught_str_len = 0
 end module moda_borts
 
 !> Declare variables for use when merging parts of different data subsets.

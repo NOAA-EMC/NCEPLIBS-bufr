@@ -889,10 +889,11 @@ end subroutine ardllocf
 !>   unrelated tasks without continuing to tie up all of the
 !>   allocated memory space within the library.  Otherwise, and
 !>   unless there's a need to change parameter sizes following the
-!>   first call to subroutine openbf(), then there's no need to ever
-!>   call this subroutine within an application program, since all
-!>   allocated memory will automatically get freed anyway by the
-!>   operating system once the application program terminates.
+!>   first call to subroutine openbf(), then there's no need to
+!>   explicitly call this subroutine from within an application
+!>   program for memory deallocation purposes, since all allocated
+!>   memory will automatically get freed anyway by the operating
+!>   system once the application program terminates.
 !>
 !> @author J. Ator @date 2015-03-02
 subroutine exitbufr
@@ -933,6 +934,7 @@ subroutine exitbufr
   ctrt = 'N'
   bort_catch = 'N'
   bort_target_is_unset = .false.
+  caught_str_len = 0
   im8b = .false.
   part = .false.
   bmiss = 10E10_8
