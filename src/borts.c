@@ -309,6 +309,29 @@ catch_bort_ufbstp(int lunin, double *usr, int i1, int i2, int *iret, char *cstr,
     /* Recursively call the subroutine. */
     ufbstp_f(lunin, (void**) &usr, i1, i2, iret, cstr);
 }
+/**
+ * Catch any bort error inside of subroutine drfini().
+ *
+ * @param lunit - Fortran logical unit number to write to
+ * @param mdrf - Array of delayed replication factors
+ * @param ndrf - Number of delayed replication factors in mdrf
+ * @param drftag - Table D mnemonic
+ * @param drftag_len - Length of drftag
+ *
+ * @author Jeff Ator @date 2025-10-28
+*/
+void
+catch_bort_drfini(int lunit, int *mdrf, int ndrf, char *drftag, int drftag_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to drftag, for use with get_c_string_length inside of drfini_f. */
+    drftag[drftag_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    drfini_f(lunit, mdrf, ndrf, drftag);
+}
 
 /**
  * Catch any bort error inside of subroutine ufbseq().

@@ -541,6 +541,20 @@ void maxout_f(int max0);
 int igetmxby_f(void);
 
 /**
+ * Explicitly initialize delayed replication factors for writing to a data subset
+ *
+ * Wraps drfini() subroutine.
+ *
+ * @param bufr_unit - Fortran logical unit number to write to
+ * @param mdrf - Array of delayed replication factors
+ * @param ndrf - Number of delayed replication factors in mdrf
+ * @param table_d_mnemonic - Table D mnemonic
+ *
+ * @author Jeff Ator @date 2025-10-28
+*/
+void drfini_f(int bufr_unit, int *mdrf, int ndrf, const char *table_d_mnemonic);
+
+/**
  * Read/write an entire sequence of data values from/to a data subset.
  *
  * Wraps ufbseq() subroutine.

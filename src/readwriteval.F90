@@ -1693,18 +1693,22 @@ end subroutine ufbseq
 !> @author J. Woollen @date 2002-05-14
 recursive subroutine drfini(lunit,mdrf,ndrf,drftag)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_usrint
   use moda_tables
+  use moda_borts
 
   implicit none
 
   character*(*), intent(in) :: drftag
+  character*12 cdrftag
 
   integer, intent(in) :: mdrf(*), lunit, ndrf
   integer, parameter :: mxdrf = 2000
-  integer my_mdrf(mxdrf), my_lunit, my_ndrf, lun, il, im, m, n, node
+  integer my_mdrf(mxdrf), my_lunit, my_ndrf, lun, il, im, m, n, node, lcdrftag
 
   ! Check for I8 integers
   if(im8b) then
@@ -1714,6 +1718,16 @@ recursive subroutine drfini(lunit,mdrf,ndrf,drftag)
     call x84(mdrf(1),my_mdrf(1),my_ndrf)
     call drfini(my_lunit,my_mdrf,my_ndrf,drftag)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call strsuc(drftag,cdrftag,lcdrftag)
+    call catch_bort_drfini_c(lunit,mdrf,ndrf,cdrftag,lcdrftag)
+    bort_target_is_unset = .true.
     return
   endif
 

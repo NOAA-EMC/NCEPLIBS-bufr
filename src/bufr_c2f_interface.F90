@@ -26,7 +26,7 @@ module bufr_c2f_interface
   public :: get_inv_c, get_irf_c, readlc_c, delete_table_data_c, cmpmsg_c, catch_borts_c, check_for_bort_c, iupbs01_c
   public :: imrkopr_c, istdesc_c, ifxy_c, igetntbi_c, igettdi_c, stntbi_c, igetprm_c, isetprm_c, maxout_c, igetmxby_c
   public :: elemdx_c, cadn30_c, strnum_c, uptdd_c, pktdd_c, nemdefs_c, nemspecs_c, nemtab_c, nemtbb_c, numtbd_c
-  public :: writsb_c, writsa_c, ufbstp_c, writlc_c
+  public :: writsb_c, writsa_c, ufbstp_c, writlc_c, drfini_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -288,7 +288,7 @@ module bufr_c2f_interface
     !>
     !> Wraps ufbint() subroutine.
     !>
-    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param bufr_unit - Fortran logical unit number to read from or write to
     !> @param c_data - C-style pointer to a pre-allocated buffer
     !> @param dim_1, dim_2 - Dimensionality of data to read or write
     !> @param iret - Return value, length of data read
@@ -314,7 +314,7 @@ module bufr_c2f_interface
     !>
     !> Wraps ufbrep() subroutine.
     !>
-    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param bufr_unit - Fortran logical unit number to read from or write to
     !> @param c_data - C-style pointer to a pre-allocated buffer
     !> @param dim_1, dim_2 - Dimensionality of data to read or write
     !> @param iret - Return value, length of data read
@@ -340,7 +340,7 @@ module bufr_c2f_interface
     !>
     !> Wraps ufbstp() subroutine.
     !>
-    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param bufr_unit - Fortran logical unit number to read from or write to
     !> @param c_data - C-style pointer to a pre-allocated buffer
     !> @param dim_1, dim_2 - Dimensionality of data to read or write
     !> @param iret - Return value, length of data read
@@ -1032,11 +1032,33 @@ module bufr_c2f_interface
       ires = istdesc(idn)
     end function istdesc_c
 
+    !> Explicitly initialize delayed replication factors for writing to a data subset
+    !>
+    !> Wraps drfini() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to write to
+    !> @param mdrf - Array of delayed replication factors
+    !> @param ndrf - Number of delayed replication factors in mdrf
+    !> @param table_d_mnemonic - Table D mnemonic
+    !>
+    !> @author Jeff Ator @date 2025-10-28
+    recursive subroutine drfini_c(bufr_unit, mdrf, ndrf, table_d_mnemonic) bind(C, name='drfini_f')
+      integer(c_int), value, intent(in) :: bufr_unit, ndrf
+      integer(c_int), intent(in) :: mdrf(*)
+      character(kind=c_char), intent(in) :: table_d_mnemonic(*)
+      character(len=12) :: str
+      integer :: lstr
+
+      lstr = get_c_string_length(table_d_mnemonic)
+      str = transfer(table_d_mnemonic(1:lstr), str)
+      call drfini(bufr_unit, mdrf, ndrf, str(1:lstr))
+    end subroutine drfini_c
+
     !> Read/write an entire sequence of data values from/to a data subset.
     !>
     !> Wraps ufbseq() subroutine.
     !>
-    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param bufr_unit - Fortran logical unit number to read from or write to
     !> @param c_data - C-style pointer to a pre-allocated buffer
     !> @param dim_1, dim_2 - Dimensionality of data to read or write
     !> @param iret - Return value, length of data read

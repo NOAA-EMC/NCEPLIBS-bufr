@@ -571,6 +571,25 @@ module bufrlib
       real(c_double), intent(inout) :: usr(i1,*)
     end subroutine catch_bort_ufbstp_c
 
+    !> @fn bufrlib::catch_bort_drfini_c::catch_bort_drfini_c(lunit,mdrf,ndrf,drftag,drftag_len)
+    !> Catch any bort error inside of subroutine drfini().
+    !>
+    !> Wraps catch_bort_drfini() function.
+    !>
+    !> @param lunit - Fortran logical unit number to write to
+    !> @param mdrf - Array of delayed replication factors
+    !> @param ndrf - Number of delayed replication factors in mdrf
+    !> @param drftag - Table D mnemonic
+    !> @param drftag_len - Length of drftag
+    !>
+    !> @author Jeff Ator @date 2025-10-28
+    subroutine catch_bort_drfini_c(lunit,mdrf,ndrf,drftag,drftag_len) bind(C, name='catch_bort_drfini')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, ndrf, drftag_len
+      integer(c_int), intent(in) :: mdrf(*)
+      character(kind=c_char), intent(inout) :: drftag(*)
+    end subroutine catch_bort_drfini_c
+
     !> @fn bufrlib::catch_bort_ufbseq_c::catch_bort_ufbseq_c(lunin,usr,i1,i2,iret,cstr,cstr_len)
     !> Catch any bort error inside of subroutine ufbseq().
     !>
