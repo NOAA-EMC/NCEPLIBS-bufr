@@ -48,7 +48,7 @@ endif()
 
 if(BUILD_TESTING)
   # Add tests
-  set(pytest_list misc write outtest12)
+  set(pytest_list misc write outtest12 outtest13)
   foreach(pytestname ${pytest_list})
     add_test(
       NAME test_pyncepbufr_${pytestname}

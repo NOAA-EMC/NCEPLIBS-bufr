@@ -81,6 +81,15 @@ np.testing.assert_almost_equal(rlat,46.85915)
 np.testing.assert_almost_equal(height,59844.0)
 np.testing.assert_almost_equal(ref,0.068)
 np.testing.assert_almost_equal(bend*1.e6,4.8)
+# check the bit settings corresponding to a particular flag table value
+qfro_bits = bufr.get_flag_table_bits('QFRO',44800)
+assert len(qfro_bits) == 6
+assert qfro_bits[0] == 1
+assert qfro_bits[1] == 3
+assert qfro_bits[2] == 5
+assert qfro_bits[3] == 6
+assert qfro_bits[4] == 7
+assert qfro_bits[5] == 8
 bufr.close()
 
 # read amsua radiance file.
