@@ -204,6 +204,8 @@ end function getvalnb
 !> @author J. Woollen @author J. Ator @date 2003-11-04
 recursive subroutine writlc(lunit,chr,str)
 
+  use bufrlib
+
   use modv_vars, only: im8b, mxlcc, iprt
 
   use moda_usrint
@@ -211,17 +213,20 @@ recursive subroutine writlc(lunit,chr,str)
   use moda_bitbuf
   use moda_tables
   use moda_comprs
+  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit
   integer my_lunit, maxtg, lun, il, im, ntg, nnod, kon, ii, n, node, ioid, ival, mbit, nbit, nbmp, nchr, nbyt, nsubs, &
-    itagct, len0, len1, len2, len3, l4, l5, mbyte, iupbs3
+    itagct, len0, len1, len2, len3, l4, l5, mbyte, iupbs3, lcstr, lcchr
 
   character*(*), intent(in) :: chr, str
   character*128 bort_str, errstr
   character*10 ctag
   character*14 tgs(10)
+  character*15 cstr
+  character*256 cchr
 
   real roid
 
@@ -234,7 +239,18 @@ recursive subroutine writlc(lunit,chr,str)
     call writlc(my_lunit,chr,str)
     im8b=.true.
     return
-  endiF
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call strsuc(str,cstr,lcstr)
+    call strsuc(chr,cchr,lcchr)
+    call catch_bort_writlc_c(lunit,cstr,lcstr,cchr,lcchr)
+    bort_target_is_unset = .true.
+    return
+  endif
 
   ! Check the file status.
   call status(lunit,lun,il,im)
@@ -1161,19 +1177,23 @@ end subroutine ufbrep
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
 
+  use bufrlib
+
   use modv_vars, only: im8b, bmiss, iprt
 
   use moda_usrint
   use moda_msgcwd
+  use moda_borts
 
   implicit none
 
   character*(*), intent(in) :: str
   character*128 bort_str1, bort_str2, errstr
+  character*90 cstr
 
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
-  integer ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io
+  integer ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, lcstr
 
   real*8, intent(inout) :: usr(i1,i2)
 
@@ -1190,6 +1210,16 @@ recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
     call ufbstp(my_lunin,usr,my_i1,my_i2,iret,str)
     call x48(iret,iret,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call strsuc(str,cstr,lcstr)
+    call catch_bort_ufbstp_c(lunin,usr,i1,i2,iret,cstr,lcstr)
+    bort_target_is_unset = .true.
     return
   endif
 
@@ -1663,18 +1693,22 @@ end subroutine ufbseq
 !> @author J. Woollen @date 2002-05-14
 recursive subroutine drfini(lunit,mdrf,ndrf,drftag)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_usrint
   use moda_tables
+  use moda_borts
 
   implicit none
 
   character*(*), intent(in) :: drftag
+  character*12 cdrftag
 
   integer, intent(in) :: mdrf(*), lunit, ndrf
   integer, parameter :: mxdrf = 2000
-  integer my_mdrf(mxdrf), my_lunit, my_ndrf, lun, il, im, m, n, node
+  integer my_mdrf(mxdrf), my_lunit, my_ndrf, lun, il, im, m, n, node, lcdrftag
 
   ! Check for I8 integers
   if(im8b) then
@@ -1684,6 +1718,16 @@ recursive subroutine drfini(lunit,mdrf,ndrf,drftag)
     call x84(mdrf(1),my_mdrf(1),my_ndrf)
     call drfini(my_lunit,my_mdrf,my_ndrf,drftag)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call strsuc(drftag,cdrftag,lcdrftag)
+    call catch_bort_drfini_c(lunit,mdrf,ndrf,cdrftag,lcdrftag)
+    bort_target_is_unset = .true.
     return
   endif
 

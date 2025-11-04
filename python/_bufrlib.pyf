@@ -155,6 +155,17 @@ subroutine check_for_bort(bort_str,bort_str_len) ! in borts.F90
     integer, intent(out) :: bort_str_len
     character*300, intent(out) :: bort_str
 end subroutine check_for_bort
+subroutine drfini(lunit,mdrf,ndrf,drftag) ! in readwriteval.F90
+    integer, intent(in) :: lunit, mdrf(*), ndrf
+    character*(*), intent(in) :: drftag
+end subroutine drfini
+subroutine mtinfo(cmtdir,lunmt1,lunmt2) ! in mastertable.F90
+    integer, intent(in) :: lunmt1, lunmt2
+    character*(*), intent(in) :: cmtdir
+end subroutine mtinfo
+subroutine maxout(maxo) ! in readwritemg.F90
+    integer, intent(in) :: maxo
+end subroutine maxout
 
     end interface 
 end python module _bufrlib

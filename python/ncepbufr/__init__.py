@@ -13,9 +13,13 @@ _funits = list(range(1,100))
 # remove unit numbers used for stdin and stdout
 _funits.remove(5)
 _funits.remove(6)
+# remove unit numbers used within set_mastertable_info
+_funits.remove(98)
+_funits.remove(99)
 _maxdim = 5000 # max number of data levels in message
 _maxevents = 255 # max number of prepbufr events in message
-_nmaxseq = _maxevents # max size of sequence in message
+_maxseq = 1800 # max size of sequence in message
+_maxseqdim = 1000 # max number of sequence data levels in message
 
 def set_param(key, value):
     """
@@ -32,6 +36,18 @@ def get_param(key):
     get the values BUFRLIB internal parameters controlling size limits.
     see 'set_param' docstring for allowable parameter names."""
     return _bufrlib.igetprm(key)
+
+def set_mastertables_dir(tablepath):
+    """
+    set directory location of master tables on local system
+    """
+    _bufrlib.mtinfo(tablepath,98,99)
+
+def set_outputmessage_maxlen(maxlen):
+    """
+    set maximum size (in bytes) of any output BUFR message
+    """
+    _bufrlib.maxout(maxlen)
 
 def set_missing_value(missing_value):
     """
@@ -99,15 +115,17 @@ class open:
         `filename`: bufr file name.
 
         `mode`: `'r'` for read (default),
+                `'s'` for read using Section3,
                 `'w'` for write,
                 `'n'` for write but excluding table messages,
                 `'a'` for append
 
         `table`:  bufr table filename or ncepbufr.open instance.
-        Must be specified for `mode='w'` or `mode='n'`, optional for `mode='r'` or `mode='a'`.
+        Must be specified for `mode='w'` or `mode='n'`, optional for `mode='r'`, `mode='s'` or `mode='a'`.
         If table is an existing ncepbufr.open instance, the table
         will be shared. If not, it is assumed to be the filename of a bufr table.
         For `mode='r'`, bufr table embedded in file will be used if not specified.
+        For `mode='s'`, master bufr tables will be used.
         """
         # randomly choose available fortran unit number
         self.lunit = random.choice(_funits)
@@ -118,6 +136,8 @@ class open:
             raise IOError("too many files open")
         if mode == 'r':
             self._ioflag = 'IN'
+        elif mode == 's':
+            self._ioflag = 'SEC3'
         elif mode == 'w' or mode == 'n':
             if table is None:
                 msg="must specify file containing bufr table when mode='w' or `mode='n'"
@@ -129,8 +149,8 @@ class open:
         elif mode == 'a':
             self._ioflag = 'APN'
         else:
-            raise ValueError("mode must be 'r', 'w', 'n', or 'a'")
-        if mode == 'r' or mode == 'a':
+            raise ValueError("mode must be 'r', 's', 'w', 'n', or 'a'")
+        if mode == 'r' or mode == 's' or mode == 'a':
             if not os.path.isfile(filename):
                 msg='%s does not exist' % filename
                 raise IOError(msg)
@@ -368,6 +388,12 @@ class open:
         """
         ibits, nbits = _bufrlib.upftbv(self.lunit, mnemonic, float(val), _maxevents)
         return ibits[:nbits]
+    def initialize_drfs(self, drfs, mnemonic):
+        """
+        initialize delayed replication factors for writing
+        data into delayed replication sequences
+        """
+        _bufrlib.drfini(self.lunit, drfs, len(drfs), mnemonic)
     def checkpoint(self):
         """
         mark where we are in the bufr file,
@@ -551,15 +577,14 @@ class open:
             raise IOError('subset not loaded, call load_subset first')
         ndim = len(mnemonics.split())
         if np.array([rep,seq,events]).sum() > 1:
-            raise ValueError('only one of rep, seq and events cannot be True')
+            raise ValueError('only one of rep, seq and events can be True')
         if seq:
-            data = np.empty((_nmaxseq,_maxdim),np.float64,order='F')
-            levs = _bufrlib.ufbseq(self.lunit,data,mnemonics,_nmaxseq,_maxdim)
+            data = np.empty((_maxseq,_maxseqdim),np.float64,order='F')
+            levs = _bufrlib.ufbseq(self.lunit,data,mnemonics,_maxseq,_maxseqdim)
         elif rep:
             data = np.empty((ndim,_maxdim),np.float64,order='F')
             levs = _bufrlib.ufbrep(self.lunit,data,mnemonics,ndim,_maxdim)
         elif events:
-            #data = np.empty((ndim,_maxdim,maxevents),np.float64,order='F')
             data = np.empty((ndim,_maxdim,_maxevents),np.float64,order='F')
             levs = _bufrlib.ufbevn(self.lunit,data,mnemonics,ndim,_maxdim,_maxevents)
         else:
@@ -608,7 +633,7 @@ class open:
             msg = 'data in write_subset must be 1,2 or 3d'
             raise ValueError(msg)
         if np.array([rep,seq,events]).sum() > 1:
-            raise ValueError('only one of rep, seq and events cannot be True')
+            raise ValueError('only one of rep, seq and events can be True')
         if seq:
             levs = _bufrlib.ufbseq(self.lunit,dataf,mnemonics,dataf.shape[0],\
                     dataf.shape[1])

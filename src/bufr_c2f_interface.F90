@@ -20,19 +20,13 @@ module bufr_c2f_interface
   implicit none
 
   private
-  public :: open_c, close_c, openbf_c, closbf_c
-  public :: exitbufr_c, bort_c, readmg_c, readsb_c, readns_c
-  public :: ireadmg_c, ireadsb_c, ireadns_c, openmb_c
-  public :: ufbint_c, ufbrep_c, ufbseq_c
-  public :: mtinfo_c, bvers_c, status_c, ibfms_c
-  public :: get_isc_c, get_link_c, get_itp_c, get_typ_c, get_tag_c, get_jmpb_c
-  public :: get_inode_c, get_nval_c, get_val_c, get_inv_c, get_irf_c, readlc_c
-  public :: delete_table_data_c, cmpmsg_c, catch_borts_c, check_for_bort_c
-  public :: iupbs01_c, imrkopr_c, istdesc_c, ifxy_c
-  public :: igetntbi_c, igettdi_c, stntbi_c
-  public :: igetprm_c, isetprm_c, maxout_c, igetmxby_c
-  public :: elemdx_c, cadn30_c, strnum_c, uptdd_c, pktdd_c
-  public :: nemdefs_c, nemspecs_c, nemtab_c, nemtbb_c, numtbd_c
+  public :: open_c, close_c, openbf_c, closbf_c, exitbufr_c, bort_c, readmg_c, readsb_c, readns_c, ireadmg_c, ireadsb_c
+  public :: ireadns_c, openmb_c, openmg_c, ufbint_c, ufbrep_c, ufbseq_c, mtinfo_c, bvers_c, status_c, ibfms_c
+  public :: get_isc_c, get_link_c, get_itp_c, get_typ_c, get_tag_c, get_jmpb_c, get_inode_c, get_nval_c, get_val_c
+  public :: get_inv_c, get_irf_c, readlc_c, delete_table_data_c, cmpmsg_c, catch_borts_c, check_for_bort_c, iupbs01_c
+  public :: imrkopr_c, istdesc_c, ifxy_c, igetntbi_c, igettdi_c, stntbi_c, igetprm_c, isetprm_c, maxout_c, igetmxby_c
+  public :: elemdx_c, cadn30_c, strnum_c, uptdd_c, pktdd_c, nemdefs_c, nemspecs_c, nemtab_c, nemtbb_c, numtbd_c
+  public :: writsb_c, writsa_c, ufbstp_c, writlc_c, drfini_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -260,11 +254,41 @@ module bufr_c2f_interface
       call readsb(bufr_unit, ires)
     end subroutine readsb_c
 
+    !> Write the next data subset to a BUFR message.
+    !>
+    !> Wraps writsb() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to write to
+    !>
+    !> @author Jeff Ator @date 2025-10-20
+    recursive subroutine writsb_c(bufr_unit) bind(C, name='writsb_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+
+      call writsb(bufr_unit)
+    end subroutine writsb_c
+
+    !> Write the next data subset to a BUFR message, and return a copy of any completed message.
+    !>
+    !> Wraps writsa() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to write to
+    !> @param bufr_len - Allocated length of bufr array
+    !> @param bufr - BUFR message
+    !> @param nbufr - Number of integers returned in bufr array, or 0 if no message was returned
+    !>
+    !> @author Jeff Ator @date 2025-10-20
+    recursive subroutine writsa_c(bufr_unit,bufr_len,bufr,nbufr) bind(C, name='writsa_f')
+      integer(c_int), value, intent(in) :: bufr_unit, bufr_len
+      integer(c_int), intent(out) :: bufr(*), nbufr
+
+      call writsa(bufr_unit, bufr_len, bufr, nbufr)
+    end subroutine writsa_c
+
     !> Read/write one or more data values from/to a data subset.
     !>
     !> Wraps ufbint() subroutine.
     !>
-    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param bufr_unit - Fortran logical unit number to read from or write to
     !> @param c_data - C-style pointer to a pre-allocated buffer
     !> @param dim_1, dim_2 - Dimensionality of data to read or write
     !> @param iret - Return value, length of data read
@@ -290,7 +314,7 @@ module bufr_c2f_interface
     !>
     !> Wraps ufbrep() subroutine.
     !>
-    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param bufr_unit - Fortran logical unit number to read from or write to
     !> @param c_data - C-style pointer to a pre-allocated buffer
     !> @param dim_1, dim_2 - Dimensionality of data to read or write
     !> @param iret - Return value, length of data read
@@ -311,6 +335,32 @@ module bufr_c2f_interface
       call c_f_pointer(c_data, f_data)
       call ufbrep(bufr_unit, f_data, dim_1, dim_2, iret, str(1:lstr))
     end subroutine ufbrep_c
+
+    !> Read/write one or more data values from/to a data subset.
+    !>
+    !> Wraps ufbstp() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from or write to
+    !> @param c_data - C-style pointer to a pre-allocated buffer
+    !> @param dim_1, dim_2 - Dimensionality of data to read or write
+    !> @param iret - Return value, length of data read
+    !> @param table_b_mnemonic - String of mnemonics
+    !>
+    !> @author J. Ator @date 2025-10-24
+    recursive subroutine ufbstp_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbstp_f')
+      integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2
+      type(c_ptr), intent(inout) :: c_data
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(in) :: table_b_mnemonic(*)
+      character(len=90) :: str
+      real, pointer :: f_data
+      integer :: lstr
+
+      lstr = get_c_string_length(table_b_mnemonic)
+      str = transfer(table_b_mnemonic(1:lstr), str)
+      call c_f_pointer(c_data, f_data)
+      call ufbstp(bufr_unit, f_data, dim_1, dim_2, iret, str(1:lstr))
+    end subroutine ufbstp_c
 
     !> Specify location of master BUFR tables on local file system.
     !>
@@ -342,7 +392,7 @@ module bufr_c2f_interface
     !> @param im - Message status.
     !>
     !> @author Ronald McLaren  @date 2022-03-23
-    subroutine status_c(file_unit, lun, il, im) bind(C, name='status_f')
+    recursive subroutine status_c(file_unit, lun, il, im) bind(C, name='status_f')
       integer(c_int), value, intent(in) :: file_unit
       integer(c_int), intent(out) :: lun
       integer(c_int), intent(out) :: il
@@ -690,6 +740,30 @@ module bufr_c2f_interface
       call copy_f_c_str(output_str_f, output_str, min(output_str_len_f, output_str_len))
     end subroutine readlc_c
 
+    !> Write a long string to the BUFR file.
+    !>
+    !> @param lunit - Fortran logical unit.
+    !> @param str - Mnemonic for the string for the source field plus the index number
+    !>                 (ex: 'IDMN#2')
+    !> @param chr - Value corresponding to str
+    !>
+    !> @author Jeff Ator @date 2025-10-24
+    recursive subroutine writlc_c(lunit, str, chr) bind(C, name='writlc_f')
+      integer(c_int), value, intent(in) :: lunit
+      character(kind=c_char), intent(in) :: str(*), chr(*)
+      character(len=14) :: my_str
+      character(len=255) :: my_chr
+      integer :: lstr, lchr
+
+      lstr = get_c_string_length(str)
+      my_str = transfer(str(1:lstr), my_str)
+
+      lchr = get_c_string_length(chr)
+      my_chr = transfer(chr(1:lchr), my_chr)
+
+      call writlc(lunit, my_chr(1:lchr), my_str(1:lstr))
+    end subroutine writlc_c
+
     !> Deletes the copies of the moda_tables arrays.
     !>
     !> @author Ronald McLaren @date 2022-03-23
@@ -958,11 +1032,33 @@ module bufr_c2f_interface
       ires = istdesc(idn)
     end function istdesc_c
 
+    !> Explicitly initialize delayed replication factors for writing to a data subset
+    !>
+    !> Wraps drfini() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to write to
+    !> @param mdrf - Array of delayed replication factors
+    !> @param ndrf - Number of delayed replication factors in mdrf
+    !> @param table_d_mnemonic - Table D mnemonic
+    !>
+    !> @author Jeff Ator @date 2025-10-28
+    recursive subroutine drfini_c(bufr_unit, mdrf, ndrf, table_d_mnemonic) bind(C, name='drfini_f')
+      integer(c_int), value, intent(in) :: bufr_unit, ndrf
+      integer(c_int), intent(in) :: mdrf(*)
+      character(kind=c_char), intent(in) :: table_d_mnemonic(*)
+      character(len=12) :: str
+      integer :: lstr
+
+      lstr = get_c_string_length(table_d_mnemonic)
+      str = transfer(table_d_mnemonic(1:lstr), str)
+      call drfini(bufr_unit, mdrf, ndrf, str(1:lstr))
+    end subroutine drfini_c
+
     !> Read/write an entire sequence of data values from/to a data subset.
     !>
     !> Wraps ufbseq() subroutine.
     !>
-    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param bufr_unit - Fortran logical unit number to read from or write to
     !> @param c_data - C-style pointer to a pre-allocated buffer
     !> @param dim_1, dim_2 - Dimensionality of data to read or write
     !> @param iret - Return value, length of data read
@@ -1165,7 +1261,7 @@ module bufr_c2f_interface
     !> @param iddate - Date-time to be stored within Section 1 of message.
     !>
     !> @author J. Ator @date 2023-04-07
-    subroutine openmb_c(bufr_unit, c_subset, iddate) bind(C, name='openmb_f')
+    recursive subroutine openmb_c(bufr_unit, c_subset, iddate) bind(C, name='openmb_f')
       integer(c_int), value, intent(in) :: bufr_unit, iddate
       character(kind=c_char), intent(in) :: c_subset(*)
       character(len=8) :: f_subset
@@ -1176,6 +1272,28 @@ module bufr_c2f_interface
 
       call openmb(bufr_unit, f_subset(1:lfs), iddate)
     end subroutine openmb_c
+
+    !> Open a new message for output in a BUFR file that was
+    !> previously opened for writing.
+    !>
+    !> Wraps openmg() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to write to.
+    !> @param c_subset - Table A mnemonic of message.
+    !> @param iddate - Date-time to be stored within Section 1 of message.
+    !>
+    !> @author J. Ator @date 2025-10-20
+    recursive subroutine openmg_c(bufr_unit, c_subset, iddate) bind(C, name='openmg_f')
+      integer(c_int), value, intent(in) :: bufr_unit, iddate
+      character(kind=c_char), intent(in) :: c_subset(*)
+      character(len=8) :: f_subset
+      integer :: lfs
+
+      lfs = get_c_string_length(c_subset)
+      f_subset = transfer(c_subset(1:lfs), f_subset)
+
+      call openmg(bufr_unit, f_subset(1:lfs), iddate)
+    end subroutine openmg_c
 
     !> Get the version number of the NCEPLIBS-bufr software.
     !>
