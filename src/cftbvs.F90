@@ -31,11 +31,9 @@ recursive real*8 function pkftbv(nbits,ibit) result(r8val)
 
   if(im8b) then
     im8b=.false.
-
     call x84(nbits,my_nbits,1)
     call x84(ibit,my_ibit,1)
     r8val=pkftbv(my_nbits,my_ibit)
-
     im8b=.true.
     return
   endif
@@ -89,13 +87,11 @@ recursive subroutine upftbv(lunit,nemo,val,mxib,ibit,nib)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call x84(mxib,my_mxib,1)
     call upftbv( my_lunit, nemo, val, my_mxib*2, ibit, nib )
     call x48(ibit(1),ibit(1),nib)
     call x48(nib,nib,1)
-
     im8b=.true.
     return
   endif
@@ -394,16 +390,21 @@ end subroutine getcfmng
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbqcd(lunit,nemo,iqcd)
 
+  use bufrlib
+
   use modv_vars, only: im8b
+
+  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit
   integer, intent(out) :: iqcd
-  integer my_lunit, lun, il, im, idn, iret
+  integer my_lunit, lun, il, im, idn, iret, lcn
 
   character*(*), intent(in) :: nemo
   character*128 bort_str
+  character*12 cnemo
   character*6 fxy, adn30
   character tab
 
@@ -415,6 +416,17 @@ recursive subroutine ufbqcd(lunit,nemo,iqcd)
     call ufbqcd(my_lunit,nemo,iqcd)
     call x48(iqcd,iqcd,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call strsuc(nemo,cnemo,lcn)
+    call catch_bort_ufbqcd_c(lunit,cnemo,iqcd,lcn)
+    bort_target_is_unset = .true.
     return
   endif
 
@@ -454,14 +466,19 @@ end subroutine ufbqcd
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbqcp(lunit,iqcp,nemo)
 
+  use bufrlib
+
   use modv_vars, only: im8b
+
+  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit, iqcp
-  integer my_lunit, my_iqcp, lun, il, im, idn, iret, ifxy
+  integer my_lunit, my_iqcp, lun, il, im, idn, iret, ifxy, lnm, ncn
 
   character*(*), intent(out) :: nemo
+  character*9 cnemo
   character tab
 
   ! Check for I8 integers
@@ -472,6 +489,19 @@ recursive subroutine ufbqcp(lunit,iqcp,nemo)
     call x84(iqcp,my_iqcp,1)
     call ufbqcp(my_lunit,my_iqcp,nemo)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call catch_bort_ufbqcp_c(lunit,iqcp,cnemo,len(cnemo),ncn)
+    nemo = ' '
+    lnm = min(len(nemo),ncn)
+    nemo(1:lnm) = cnemo(1:lnm)
+    bort_target_is_unset = .true.
     return
   endif
 

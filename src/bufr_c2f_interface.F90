@@ -26,7 +26,7 @@ module bufr_c2f_interface
   public :: get_inv_c, get_irf_c, readlc_c, delete_table_data_c, cmpmsg_c, catch_borts_c, check_for_bort_c, iupbs01_c
   public :: imrkopr_c, istdesc_c, ifxy_c, igetntbi_c, igettdi_c, stntbi_c, igetprm_c, isetprm_c, maxout_c, igetmxby_c
   public :: elemdx_c, cadn30_c, strnum_c, uptdd_c, pktdd_c, nemdefs_c, nemspecs_c, nemtab_c, nemtbb_c, numtbd_c
-  public :: writsb_c, writsa_c, ufbstp_c, writlc_c, drfini_c
+  public :: writsb_c, writsa_c, ufbstp_c, writlc_c, drfini_c, ufbcnt_c, ufbevn_c, ufbqcd_c, ufbqcp_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -81,7 +81,7 @@ module bufr_c2f_interface
     !>
     !> @author Ronald McLaren @date 2020-07-29
     subroutine copy_f_c_str(f_str, c_str, c_str_len)
-      character(len=*), target, intent(in) :: f_str
+      character(len=*), intent(in) :: f_str
       character(kind=c_char), intent(inout) :: c_str(*)
       integer, intent(in) :: c_str_len
       integer :: ii
@@ -176,10 +176,9 @@ module bufr_c2f_interface
     !>
     !> @author Ronald McLaren @date 2020-07-29
     function ireadmg_c(bufr_unit, c_subset, iddate, subset_str_len) result(ires) bind(C, name='ireadmg_f')
-      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int), value, intent(in) :: bufr_unit, subset_str_len
       character(kind=c_char), intent(out) :: c_subset(*)
       integer(c_int), intent(out) :: iddate
-      integer(c_int), value, intent(in) :: subset_str_len
       integer(c_int) :: ires
       character(len=25) :: f_subset
       integer :: ireadmg
@@ -205,10 +204,9 @@ module bufr_c2f_interface
     !>
     !> @author Jeff Ator @date 2025-08-25
     recursive subroutine readmg_c(bufr_unit, c_subset, iddate, subset_str_len, ires) bind(C, name='readmg_f')
-      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int), value, intent(in) :: bufr_unit, subset_str_len
       character(kind=c_char), intent(out) :: c_subset(*)
       integer(c_int), intent(out) :: iddate, ires
-      integer(c_int), value, intent(in) :: subset_str_len
       character(len=25) :: f_subset
 
       call readmg(bufr_unit, f_subset, iddate, ires)
@@ -361,6 +359,32 @@ module bufr_c2f_interface
       call c_f_pointer(c_data, f_data)
       call ufbstp(bufr_unit, f_data, dim_1, dim_2, iret, str(1:lstr))
     end subroutine ufbstp_c
+
+    !> Read one or more data values from a data subset.
+    !>
+    !> Wraps ufbevn() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param c_data - C-style pointer to a pre-allocated buffer
+    !> @param dim_1, dim_2, dim_3 - Dimensionality of data to read
+    !> @param iret - Return value, length of data read
+    !> @param table_b_mnemonic - String of mnemonics
+    !>
+    !> @author J. Ator @date 2025-11-05
+    recursive subroutine ufbevn_c(bufr_unit, c_data, dim_1, dim_2, dim_3, iret, table_b_mnemonic) bind(C, name='ufbevn_f')
+      integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2, dim_3
+      type(c_ptr), intent(out) ::  c_data
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(in) :: table_b_mnemonic(*)
+      character(len=90) :: str
+      real, pointer :: f_data
+      integer :: lstr
+
+      lstr = get_c_string_length(table_b_mnemonic)
+      str = transfer(table_b_mnemonic(1:lstr), str)
+      call c_f_pointer(c_data, f_data)
+      call ufbevn(bufr_unit, f_data, dim_1, dim_2, dim_3, iret, str(1:lstr))
+    end subroutine ufbevn_c
 
     !> Specify location of master BUFR tables on local file system.
     !>
@@ -1369,5 +1393,64 @@ module bufr_c2f_interface
       error_str_len_f = error_str_len_f + 1  ! add 1 for the null terminator
       call copy_f_c_str(error_str_f, error_str, min(error_str_len_f, error_str_len))
     end subroutine check_for_bort_c
+
+    !> Get the current location of the file pointer within a BUFR file.
+    !>
+    !> Wraps ufbcnt() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit.
+    !> @param kmsg - Message number
+    !> @param ksub - Subset number
+    !>
+    !> @author J. Ator @date 2025-11-05
+    recursive subroutine ufbcnt_c(lunit, kmsg, ksub) bind(C, name='ufbcnt_f')
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: kmsg, ksub
+
+      call ufbcnt(lunit, kmsg, ksub)
+    end subroutine ufbcnt_c
+
+    !> Return a prepbufr program code corresponding to a mnemonic.
+    !>
+    !> Wraps ufbqcd() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit.
+    !> @param cnemo - Mnemonic
+    !> @param iqcd - Y value of descriptor associated with mnemonic
+    !>
+    !> @author J. Ator @date 2025-11-05
+    recursive subroutine ufbqcd_c(lunit, cnemo, iqcd) bind(C, name='ufbqcd_f')
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: iqcd
+      character(kind=c_char), intent(in) :: cnemo(*)
+      character(len=12) :: nemo
+      integer :: lcn
+
+      lcn = get_c_string_length(cnemo)
+      nemo = transfer(cnemo(1:lcn), nemo)
+      call ufbqcd(lunit, nemo(1:lcn), iqcd)
+    end subroutine ufbqcd_c
+
+    !> Return a mnemonic corresponding to a prepbufr program code.
+    !>
+    !> Wraps ufbqcp() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit.
+    !> @param iqcp - Y value of a Category 63 Table D descriptor
+    !> @param cnemo - Mnemonic associated with iqcp
+    !> @param cnemo_len - Allocated length of cnemo string
+    !>
+    !> @author J. Ator @date 2025-11-05
+    recursive subroutine ufbqcp_c(lunit, iqcp, cnemo, cnemo_len) bind(C, name='ufbqcp_f')
+      integer(c_int), value, intent(in) :: lunit, iqcp, cnemo_len
+      character(kind=c_char), intent(out) :: cnemo(*)
+      character(len=8) :: nemo
+      integer :: lnm
+
+      call ufbqcp(lunit, iqcp, nemo)
+
+      lnm = len(trim(nemo)) + 1  ! add 1 for the null terminator
+      call copy_f_c_str(nemo, cnemo, min(lnm, cnemo_len))
+    end subroutine ufbqcp_c
 
 end module bufr_c2f_interface

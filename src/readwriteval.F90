@@ -2375,20 +2375,24 @@ end subroutine ufbovr
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str)
 
+  use bufrlib
+
   use modv_vars, only: im8b, bmiss, iprt
 
   use moda_usrint
   use moda_msgcwd
+  use moda_borts
 
   implicit none
 
   character*(*), intent(in) :: str
   character*128 errstr
+  character*90 cstr
 
   integer, intent(in) :: lunit, i1, i2, i3
   integer, intent(out) :: iret
   integer invn(255), nnod, ncon, nods, nodc, ivls, kons, maxevn, my_lunit, my_i1, my_i2, my_i3, i, j, k, lun, il, im, &
-    ins1, ins2, inc1, inc2, nnvn, nvnwin
+    ins1, ins2, inc1, inc2, nnvn, nvnwin, lcstr
 
   real*8, intent(out) :: usr(i1,i2,i3)
 
@@ -2407,6 +2411,16 @@ recursive subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str)
     call ufbevn(my_lunit,usr,my_i1,my_i2,my_i3,iret,str)
     call x48(iret,iret,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call strsuc(str,cstr,lcstr)
+    call catch_bort_ufbevn_c(lunit,usr,i1,i2,i3,iret,cstr,lcstr)
+    bort_target_is_unset = .true.
     return
   endif
 

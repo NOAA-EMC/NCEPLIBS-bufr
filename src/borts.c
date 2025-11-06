@@ -309,6 +309,34 @@ catch_bort_ufbstp(int lunin, double *usr, int i1, int i2, int *iret, char *cstr,
     /* Recursively call the subroutine. */
     ufbstp_f(lunin, (void**) &usr, i1, i2, iret, cstr);
 }
+
+/**
+ * Catch any bort error inside of subroutine ufbevn().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param usr - Data values
+ * @param i1 - First dimension of usr
+ * @param i2 - Second dimension of usr
+ * @param i3 - Third dimension of usr
+ * @param iret - Number of replications of cstr that were read from the data subset
+ * @param cstr - String of mnemonics to read from the data subset
+ * @param cstr_len - Length of cstr
+ *
+ * @author J. Ator @date 2025-11-05
+*/
+void
+catch_bort_ufbevn(int lunit, double *usr, int i1, int i2, int i3, int *iret, char *cstr, int cstr_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to cstr, for use with get_c_string_length inside of ufbevn_f. */
+    cstr[cstr_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    ufbevn_f(lunit, (void**) &usr, i1, i2, i3, iret, cstr);
+}
+
 /**
  * Catch any bort error inside of subroutine drfini().
  *
@@ -411,4 +439,69 @@ catch_bort_writlc(int lunit, char *cstr, int cstr_len, char *cchr, int cchr_len)
 
     /* Recursively call the subroutine. */
     writlc_f(lunit, cstr, cchr);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbcnt().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param kmsg - Message number
+ * @param ksub - Subset number
+ *
+ * @author J. Ator @date 2025-11-05
+*/
+void
+catch_bort_ufbcnt(int lunit, int *kmsg, int *ksub)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if (setjmp(context) == 1) return;
+
+    /* Recursively call the subroutine. */
+    ufbcnt_f(lunit, kmsg, ksub);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbqcd().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param cnemo - Mnemonic associated with a Category 63 Table D descriptor
+ * @param iqcd - Y value of descriptor associated with mnemonic
+ * @param cnemo_len - Length of cnemo
+ *
+ * @author J. Ator @date 2025-11-05
+*/
+void
+catch_bort_ufbqcd(int lunit, char *cnemo, int *iqcd, int cnemo_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if (setjmp(context) == 1) return;
+
+    /* Add a trailing null to cnemo, for use with get_c_string_length inside of ufbqcd_f. */
+    cnemo[cnemo_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    ufbqcd_f(lunit, cnemo, iqcd);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbqcp().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param iqcp - Y value of a Category 63 Table D descriptor
+ * @param cnemo - Mnemonic associated with iqcp
+ * @param cnemo_len - Allocated length of cnemo string
+ * @param ncn - Number of characters returned in cnemo
+ *
+ * @author J. Ator @date 2025-11-05
+*/
+void
+catch_bort_ufbqcp(int lunit, int iqcp, char *cnemo, int cnemo_len, int *ncn)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if (setjmp(context) == 1) return;
+
+    /* Recursively call the subroutine. */
+    ufbqcp_f(lunit, iqcp, cnemo, cnemo_len);
+
+    *ncn = (int) strlen(cnemo);
 }
