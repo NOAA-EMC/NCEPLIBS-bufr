@@ -727,6 +727,55 @@ module bufrlib
       character(kind=c_char), intent(out) :: cnemo(*)
     end subroutine catch_bort_ufbqcp_c
 
+    !> @fn bufrlib::catch_bort_getcfmng_c::catch_bort_getcfmng_c(lunit,cnemoi,lcni,ivali,cnemod,lcnd,ivald,cmeang_c,lcmgc,lnmng,iret)
+    !> Catch any bort error inside of subroutine getcfmng().
+    !>
+    !> Wraps catch_bort_getcfmng() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param cnemoi - Mnemonic to search for
+    !> @param lcni - Length of cnemoi
+    !> @param ivali - Value associated with cnemoi
+    !> @param cnemod - Optional second mnemonic upon which cnemoi may depend
+    !> @param lcnd - Length of cnemod
+    !> @param ivald - Value associated with cnemod
+    !> @param cmeang_c - Meaning associated with cnemoi and ivali (and possibly cnemod and ivald as well)
+    !> @param lcmgc - Allocated length of cmeang_c
+    !> @param lnmng - Number of characters returned in cmeang_c
+    !> @param iret - Return code from call to getcfmng_f
+    !>
+    !> @author J. Ator @date 2025-11-05
+    subroutine catch_bort_getcfmng_c(lunit,cnemoi,lcni,ivali,cnemod,lcnd,ivald,cmeang_c,lcmgc,lnmng,iret) &
+        bind(C, name='catch_bort_getcfmng')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, lcni, ivali, lcnd, ivald, lcmgc
+      integer(c_int), intent(out) :: lnmng, iret
+      character(kind=c_char), intent(inout) :: cnemoi(*), cnemod(*)
+      character(kind=c_char), intent(out) :: cmeang_c(*)
+    end subroutine catch_bort_getcfmng_c
+
+    !> @fn bufrlib::catch_bort_upftbv_c::catch_bort_upftbv_c(lunit,cnemo,lcn,val,ibit,mxib,nib)
+    !> Catch any bort error inside of subroutine upftbv().
+    !>
+    !> Wraps catch_bort_upftbv() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param cnemo - Mnemonic with flag table units
+    !> @param lcn - Length of cnemo
+    !> @param val - Value corresponding to cnemo
+    !> @param ibit - Bit numbers which were set to "On" in val
+    !> @param mxib - Allocated size of ibit
+    !> @param nib - Number of bit numbers returned in ibit
+    !>
+    !> @author J. Ator @date 2025-11-05
+    subroutine catch_bort_upftbv_c(lunit,cnemo,lcn,val,ibit,mxib,nib) bind(C, name='catch_bort_upftbv')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, lcn, mxib
+      integer(c_int), intent(out) :: ibit(*), nib
+      real(c_double), value, intent(in) :: val
+      character(kind=c_char), intent(inout) :: cnemo(*)
+    end subroutine catch_bort_upftbv_c
+
   end interface
 
 end module bufrlib

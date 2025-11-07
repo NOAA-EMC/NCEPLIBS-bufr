@@ -757,6 +757,40 @@ void ufbqcd_f(int lunit, char *cnemo, int *iqcd);
 */
 void ufbqcp_f(int lunit, int iqcp, char *cnemo, int cnemo_len);
 
+/**
+ * Get the meaning of a numerical value from a code or flag table.
+ *
+ * Wraps getcfmng() subroutine.
+ *
+ * @param lunit - Fortran logical unit
+ * @param cnemoi - Mnemonic to search for
+ * @param ivali - Value associated with cnemoi
+ * @param cnemod - Optional second mnemonic upon which cnemoi may depend
+ * @param ivald - Value associated with cnemod
+ * @param cmeang_c - Meaning associated with cnemoi and ivali (and possibly cnemod and ivald as well)
+ * @param lcmgc - Allocated length of cmeang_c
+ * @param iret - Return code from call to getcfmng
+ *
+ * @author J. Ator @date 2025-11-05
+*/
+void getcfmng_f(int lunit, char *cnemoi, int ivali, char *cnemod, int ivald, char *cmeang_c, int lcmgc, int *iret);
+
+/**
+ * Get the bit settings equivalent to a given numerical value for a flag table mnemonic.
+ *
+ * Wraps upftbv() subroutine.
+ *
+ * @param lunit - Fortran logical unit
+ * @param cnemo - Mnemonic with flag table units
+ * @param val - Value corresponding to cnemo
+ * @param ibit - Bit numbers which were set to "On" in val
+ * @param mxib - Allocated size of ibit
+ * @param nib - Number of bit numbers returned in ibit
+ *
+ * @author J. Ator @date 2025-11-05
+*/
+void upftbv_f(int lunit, char *cnemo, double val, int *ibit, int mxib, int *nib);
+
 #ifdef __cplusplus
 }
 #endif

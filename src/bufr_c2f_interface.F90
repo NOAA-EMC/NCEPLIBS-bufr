@@ -26,7 +26,8 @@ module bufr_c2f_interface
   public :: get_inv_c, get_irf_c, readlc_c, delete_table_data_c, cmpmsg_c, catch_borts_c, check_for_bort_c, iupbs01_c
   public :: imrkopr_c, istdesc_c, ifxy_c, igetntbi_c, igettdi_c, stntbi_c, igetprm_c, isetprm_c, maxout_c, igetmxby_c
   public :: elemdx_c, cadn30_c, strnum_c, uptdd_c, pktdd_c, nemdefs_c, nemspecs_c, nemtab_c, nemtbb_c, numtbd_c
-  public :: writsb_c, writsa_c, ufbstp_c, writlc_c, drfini_c, ufbcnt_c, ufbevn_c, ufbqcd_c, ufbqcp_c
+  public :: writsb_c, writsa_c, ufbstp_c, writlc_c, drfini_c, ufbcnt_c, ufbevn_c, ufbqcd_c, ufbqcp_c, getcfmng_c
+  public :: upftbv_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -275,7 +276,7 @@ module bufr_c2f_interface
     !> @param nbufr - Number of integers returned in bufr array, or 0 if no message was returned
     !>
     !> @author Jeff Ator @date 2025-10-20
-    recursive subroutine writsa_c(bufr_unit,bufr_len,bufr,nbufr) bind(C, name='writsa_f')
+    recursive subroutine writsa_c(bufr_unit, bufr_len, bufr, nbufr) bind(C, name='writsa_f')
       integer(c_int), value, intent(in) :: bufr_unit, bufr_len
       integer(c_int), intent(out) :: bufr(*), nbufr
 
@@ -1452,5 +1453,66 @@ module bufr_c2f_interface
       lnm = len(trim(nemo)) + 1  ! add 1 for the null terminator
       call copy_f_c_str(nemo, cnemo, min(lnm, cnemo_len))
     end subroutine ufbqcp_c
+
+    !> Get the meaning of a numerical value from a code or flag table
+    !>
+    !> @param lunit - Fortran logical unit.
+    !> @param cnemoi - Mnemonic to search for
+    !> @param ivali - Value associated with cnemoi
+    !> @param cnemod - Optional second mnemonic upon which cnemoi may depend
+    !> @param ivald - Value associated with cnemod
+    !> @param cmeang_c - Meaning associated with cnemoi and ivali (and possibly cnemod and ivald as well)
+    !> @param lcmgc - Allocated length of cmeang_c
+    !> @param iret - Return code from call to getcfmng
+    !>
+    !> @author J. Ator @date 2025-11-05
+    recursive subroutine getcfmng_c(lunit, cnemoi, ivali, cnemod, ivald, cmeang_c, lcmgc, iret) &
+        bind(C, name='getcfmng_f')
+      integer(c_int), value, intent(in) :: lunit, ivali, ivald, lcmgc
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(in) :: cnemoi(*), cnemod(*)
+      character(kind=c_char), intent(out) :: cmeang_c(*)
+      character(len=600) :: cmeang
+      character(len=8) :: nemoi, nemod
+      integer :: lcni, lcnd, lcmg, mxchr_f
+
+      lcni = get_c_string_length(cnemoi)
+      nemoi = transfer(cnemoi(1:lcni), nemoi)
+      lcnd = get_c_string_length(cnemod)
+      nemod = transfer(cnemod(1:lcnd), nemod)
+
+      ! leave room for a trailing null when determining how much space to allow getcfmng to write into
+      mxchr_f = min(len(cmeang), lcmgc) - 1
+
+      call getcfmng(lunit, nemoi(1:lcni), ivali, nemod(1:lcnd), ivald, cmeang(1:mxchr_f), lcmg, iret)
+
+      lcmg = lcmg + 1  ! add 1 for the null terminator
+      call copy_f_c_str(cmeang, cmeang_c, min(lcmg, lcmgc))
+    end subroutine getcfmng_c
+
+    !> Get the bit settings equivalent to a given numerical value for a flag table mnemonic.
+    !>
+    !> Wraps upftbv() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit.
+    !> @param cnemo - Mnemonic with flag table units
+    !> @param val - Value corresponding to cnemo
+    !> @param ibit - Bit numbers which were set to "On" in val
+    !> @param mxib - Allocated size of ibit
+    !> @param nib - Number of bit numbers returned in ibit
+    !>
+    !> @author J. Ator @date 2025-11-05
+    recursive subroutine upftbv_c(lunit, cnemo, val, ibit, mxib, nib) bind(C, name='upftbv_f')
+      integer(c_int), value, intent(in) :: lunit, mxib
+      integer(c_int), intent(out) :: ibit(*), nib
+      real(c_double), value, intent(in) :: val
+      character(kind=c_char), intent(in) :: cnemo(*)
+      character(len=12) :: nemo
+      integer :: lcn
+
+      lcn = get_c_string_length(cnemo)
+      nemo = transfer(cnemo(1:lcn), nemo)
+      call upftbv(lunit, nemo(1:lcn), val, mxib, ibit, nib)
+    end subroutine upftbv_c
 
 end module bufr_c2f_interface

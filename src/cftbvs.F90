@@ -66,18 +66,22 @@ end function pkftbv
 !> @author J. Ator @date 2005-11-29
 recursive subroutine upftbv(lunit,nemo,val,mxib,ibit,nib)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_tababd
+  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit, mxib
   integer, intent(out) :: ibit(*), nib
-  integer my_lunit, my_mxib, lun, il, im, idn, i, n, nbits, iersn
+  integer my_lunit, my_mxib, lun, il, im, idn, i, n, nbits, iersn, lcn
 
   character*(*), intent(in) :: nemo
   character*128 bort_str
+  character*12 cnemo
   character tab
 
   real*8, intent(in) :: val
@@ -89,10 +93,21 @@ recursive subroutine upftbv(lunit,nemo,val,mxib,ibit,nib)
     im8b=.false.
     call x84(lunit,my_lunit,1)
     call x84(mxib,my_mxib,1)
-    call upftbv( my_lunit, nemo, val, my_mxib*2, ibit, nib )
+    call upftbv(my_lunit,nemo,val,my_mxib*2,ibit,nib)
     call x48(ibit(1),ibit(1),nib)
     call x48(nib,nib,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call strsuc(nemo,cnemo,lcn)
+    call catch_bort_upftbv_c(lunit,cnemo,lcn,val,ibit,mxib,nib)
+    bort_target_is_unset = .true.
     return
   endif
 
@@ -220,32 +235,53 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
 
   use moda_tababd
   use moda_tablef
+  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit, ivali, ivald
   integer, intent(out) :: lnmng, iret
-  integer ifxyd(10), my_lunit, my_ivali, my_ivald, lun, il, im, itmp, ii, ifxyi, lcmg, n, ntg, iret2, ierbd, ifxy, ireadmt
+  integer ifxyd(10), my_lunit, my_ivali, my_ivald, lun, il, im, itmp, ii, ifxyi, lcmg, n, ntg, iret2, ierbd, ifxy, ireadmt, &
+    lcni, lcnd, lcmgc
 
   character*(*), intent(in) :: nemoi, nemod
   character*(*), intent(out) :: cmeang
   character*128 bort_str
+  character*9 cnemoi, cnemod
   character*8 nemo, my_nemoi, my_nemod
   character tab
+  character*(:), allocatable :: cmeang_c
 
   ! Check for I8 integers
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call x84(ivali,my_ivali,1)
     call x84(ivald,my_ivald,1)
     call getcfmng(my_lunit,nemoi,my_ivali,nemod,my_ivald,cmeang,lnmng,iret)
     call x48(lnmng,lnmng,1)
     call x48(iret,iret,1)
-
     im8b=.true.
+    return
+  endif
+
+  cmeang = ' '
+  lcmg = len ( cmeang )
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    call strsuc(nemoi,cnemoi,lcni)
+    call strsuc(nemod,cnemod,lcnd)
+    lcmgc = lcmg + 1  ! Allow extra byte in cmeang_c for the trailing null in C
+    allocate(character*(lcmgc) :: cmeang_c)
+    call catch_bort_getcfmng_c(lunit,cnemoi,lcni,ivali,cnemod,lcnd,ivald,cmeang_c,lcmgc,lnmng,iret)
+    cmeang(1:lnmng) = cmeang_c(1:lnmng)
+    deallocate(cmeang_c)
+    bort_target_is_unset = .true.
     return
   endif
 
@@ -264,8 +300,6 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
   ! Check the validity of the input mnemonic(s).  Include special handling for originating centers, originating subcenters, data
   ! types and data subtypes, since those can be reported in Section 1 of a BUFR message as well as in Section 3, so if a user
   ! requests those mnemonics we can't necessarily assume they came from within Section 3.
-
-  lcmg = len ( cmeang )
 
   my_nemoi = '        '
   do ii = 1, min ( 8, len( nemoi ) )

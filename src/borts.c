@@ -505,3 +505,63 @@ catch_bort_ufbqcp(int lunit, int iqcp, char *cnemo, int cnemo_len, int *ncn)
 
     *ncn = (int) strlen(cnemo);
 }
+
+/**
+ * Catch any bort error inside of subroutine getcfmng().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param cnemoi - Mnemonic to search for
+ * @param lcni - Length of cnemoi
+ * @param ivali - Value associated with cnemoi
+ * @param cnemod - Optional second mnemonic upon which cnemoi may depend
+ * @param lcnd - Length of cnemod
+ * @param ivald - Value associated with cnemod
+ * @param cmeang_c - Meaning associated with cnemoi and ivali (and possibly cnemod and ivald as well)
+ * @param lcmgc - Allocated length of cmeang_c
+ * @param lnmng - Number of characters returned in cmeang_c
+ * @param iret - Return code from call to getcfmng_f
+ *
+ * @author J. Ator @date 2025-11-05
+*/
+void
+catch_bort_getcfmng(int lunit, char *cnemoi, int lcni, int ivali, char *cnemod, int lcnd, int ivald,
+                    char *cmeang_c, int lcmgc, int *lnmng, int *iret)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if (setjmp(context) == 1) return;
+
+    /* Add trailing nulls to input strings, for use with get_c_string_length inside of getcfmng_f. */
+    cnemoi[lcni] = '\0';
+    cnemod[lcnd] = '\0';
+
+    /* Recursively call the subroutine. */
+    getcfmng_f(lunit, cnemoi, ivali, cnemod, ivald, cmeang_c, lcmgc, iret);
+
+    *lnmng = (int) strlen(cmeang_c);
+}
+
+/**
+ * Catch any bort error inside of subroutine upftbv().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param cnemo - Mnemonic with flag table units
+ * @param lcn - Length of cnemo
+ * @param val - Value corresponding to cnemo
+ * @param ibit - Bit numbers which were set to "On" in val
+ * @param mxib - Allocated size of ibit
+ * @param nib - Number of bit numbers returned in ibit
+ *
+ * @author J. Ator @date 2025-11-05
+*/
+void
+catch_bort_upftbv(int lunit, char *cnemo, int lcn, double val, int *ibit, int mxib, int *nib)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if (setjmp(context) == 1) return;
+
+    /* Add a trailing null to cnemo, for use with get_c_string_length inside of upftbv_f. */
+    cnemo[lcn] = '\0';
+
+    /* Recursively call the subroutine. */
+    upftbv_f(lunit, cnemo, val, ibit, mxib, nib);
+}
