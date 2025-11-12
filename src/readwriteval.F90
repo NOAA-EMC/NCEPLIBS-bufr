@@ -435,12 +435,12 @@ recursive subroutine readlc(lunit,chr,str)
   use moda_bitbuf
   use moda_tables
   use moda_rlccmn
-  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit
-  integer my_lunit, maxtg, lchr, lun, il, im, ntg, nnod, kon, ii, n, nod, ioid, itagct, nchr, kbit, lcstr, lcchr, ncchr
+  integer my_lunit, maxtg, lchr, lun, il, im, ntg, nnod, kon, ii, n, nod, ioid, itagct, nchr, kbit, lcstr, lcchr, ncchr, &
+    bort_target_set
 
   character*(*), intent(in) :: str
   character*(*), intent(out) :: chr
@@ -468,16 +468,14 @@ recursive subroutine readlc(lunit,chr,str)
   lchr=len(chr)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call strsuc(str,cstr,lcstr)
     lcchr = lchr + 1  ! Allow extra byte in cchr for the trailing null in C
     allocate(character*(lcchr) :: cchr)
     call catch_bort_readlc_c(lunit,cstr,lcstr,cchr,lcchr,ncchr)
     chr(1:ncchr) = cchr(1:ncchr)
     deallocate(cchr)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 

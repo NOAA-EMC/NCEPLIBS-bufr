@@ -44,8 +44,8 @@ module moda_bitmaps
   integer :: lstnod
   !> Current count of consecutive occurrences of lstnod.
   integer :: lstnodct
-  !> true if a bitmap is in the process of being read for the current
-  !> data subset; false otherwise.
+  !> Set to .true. ff a bitmap is in the process of being read for the current
+  !> data subset.  Otherwise set to .false.
   logical :: linbtm
   !> Entries within jump/link table which contain Table A mnemonics.
   integer, allocatable :: inodtamc(:)
@@ -843,8 +843,8 @@ end module moda_usrtmp
 module moda_xtab
   !> Tracking index for each file ID. Set to
   !> .true. if the DX BUFR table for the corresponding logical unit has
-  !> changed since the previous call to subroutine makestab(); set to
-  !> .false. otherwise.
+  !> changed since the previous call to subroutine makestab().
+  !> Otherwise set to .false.
   logical, allocatable :: xtab(:)
 end module moda_xtab
 
@@ -914,7 +914,8 @@ module moda_borts
   !> - 'N' = No (default)
   !> - 'Y' = Yes
   character :: bort_catch = 'N'
-  !> .true. iff bort_catch is 'Y' <b>and</b> a target location to which to return any caught error is not currently set.
+  !> Set to .true. if bort_catch is 'Y' <b>and</b> a target location to which to return any caught error is not currently set.
+  !> Otherwise set to .false.
   logical :: bort_target_is_unset = .false.
   !> Bort error string.
   character*300 :: caught_str

@@ -127,6 +127,15 @@ cobfl(char *bfl, char io)
     unsigned short i, j;
 
     /*
+    ** If we're catching bort errors, set a target return location if one doesn't already exist.
+    */
+    if (bort_target_set_f() == 1) {
+        catch_bort_cobfl(bfl, io);
+        bort_target_unset_f();
+        return;
+    }
+
+    /*
     ** Copy the input arguments into local variables and check them for validity. This is especially
     ** important in case either of the arguments was passed in as a string literal by the calling
     ** program or else doesn't have a trailing NULL character.
@@ -199,6 +208,15 @@ crbmg(char *bmg, int mxmb, int *nmb, int *iret)
     char blanks[5] = "    ";
 
     /*
+    ** If we're catching bort errors, set a target return location if one doesn't already exist.
+    */
+    if (bort_target_set_f() == 1) {
+        catch_bort_crbmg(bmg, mxmb, nmb, iret);
+        bort_target_unset_f();
+        return;
+    }
+
+    /*
     ** Make sure that a file is open for reading.
     */
     if (pbf[0] == NULL) {
@@ -262,6 +280,15 @@ void
 cwbmg(char *bmg, int nmb, int *iret)
 {
     char errstr[129];
+
+    /*
+    ** If we're catching bort errors, set a target return location if one doesn't already exist.
+    */
+    if (bort_target_set_f() == 1) {
+        catch_bort_cwbmg(bmg, nmb, iret);
+        bort_target_unset_f();
+        return;
+    }
 
     /*
     ** Make sure that a file is open for writing.

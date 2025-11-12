@@ -29,6 +29,9 @@ void cwrbufr(int nfile, int *bufr, int nwrd);
 int icvidx(int ii, int jj, int numjj);
 void restd(int lunb, int tddesc, int *nctddesc, int *ctddesc);
 void stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncdesc);
+void catch_bort_cobfl(char *bfl, char io);
+void catch_bort_crbmg(char *bmg, int mxmb, int *nmb, int *iret);
+void catch_bort_cwbmg(char *bmg, int nmb, int *iret);
 
 /** Size of a character string needed to store an FXY value. */
 #define FXY_STR_LEN 6
@@ -261,3 +264,23 @@ void pktdd_f(int id, int lun, int idn, int *iret);
  * @author J. Ator @date 2023-04-07
  */
 void bort_f(char *errstr);
+
+/**
+ * Sets a new bort target, if bort catching is enabled and such a target doesn't already exist.
+ *
+ * Wraps bort_target_set() function.
+ *
+ * @return - 1 if a new bort target was set during this call, otherwise 0
+ *
+ * @author J. Ator @date 2025-11-05
+ */
+int bort_target_set_f(void);
+
+/**
+ * Clear any existing bort target.
+ *
+ * Wraps bort_target_unset() subroutine.
+ *
+ * @author J. Ator @date 2025-11-05
+ */
+void bort_target_unset_f(void);

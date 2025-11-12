@@ -4,12 +4,17 @@
 !
 ! J. Ator, 8/25/2025
 program intest14
+  use bufr_interface
+
   implicit none
 
   integer errstr_len, lunit, idate, iret
-  integer*4 isetprm, ireadmg, catch_borts
+  integer*4 isetprm, ireadmg, catch_borts, mxmb, nmb, ierr
+  parameter (mxmb = 1000)
 
   character errstr*400, subset*8
+  character bmg*1000
+  character*20 filnam / 'testfiles/IN_1' /
 
   real*8 r8arr(18, 2)
 
@@ -64,6 +69,17 @@ program intest14
   call check_for_bort(errstr, errstr_len)
   if ( errstr_len <= 0 .or. index( errstr(1:errstr_len), 'STRING - INPUT STRING (') == 0 .or. &
     index( errstr(1:errstr_len), '> LIMIT OF 80 CHAR.') == 0 ) stop 9
+
+  ! Test the catching of an illegal second input value to subroutine cobfl_c.
+  call cobfl_c(filnam, 'j')
+  call check_for_bort(errstr, errstr_len)
+  if ( errstr_len <= 0 .or. index( errstr(1:errstr_len), 'COBFL - SECOND ARGUMENT WAS (') == 0 .or. &
+    index( errstr(1:errstr_len), 'WHICH IS AN ILLEGAL VALUE') == 0 ) stop 10
+
+  ! Test the catching of an erroneous call to subroutine crbmg_c.
+  call crbmg_c(bmg, mxmb, nmb, ierr)
+  call check_for_bort(errstr, errstr_len)
+  if ( errstr_len <= 0 .or. index( errstr(1:errstr_len), 'CRBMG - NO FILE IS OPEN FOR READING') == 0 ) stop 11
 
   call closbf(lunit)
 

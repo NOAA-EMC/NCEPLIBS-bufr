@@ -565,3 +565,63 @@ catch_bort_upftbv(int lunit, char *cnemo, int lcn, double val, int *ibit, int mx
     /* Recursively call the subroutine. */
     upftbv_f(lunit, cnemo, val, ibit, mxib, nib);
 }
+
+/**
+ * Catch any bort error inside of function cobfl().
+ *
+ * @param bfl - System file to be opened
+ * @param io - Flag indicating how bfl is to be opened
+ *
+ * @author J. Ator @date 2025-11-05
+*/
+void
+catch_bort_cobfl(char *bfl, char io)
+{
+
+    /* Set the target location to which to return if a bort error is caught. */
+    if (setjmp(context) == 1) return;
+
+    /* Recursively call the subroutine. */
+    cobfl(bfl, io);
+}
+
+/**
+ * Catch any bort error inside of function crbmg().
+ *
+ * @param bmg - BUFR message
+ * @param mxmb - Allocated length of bmg
+ * @param nmb - Number of characters returned in bmg
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-11-05
+*/
+void
+catch_bort_crbmg(char *bmg, int mxmb, int *nmb, int *iret)
+{
+
+    /* Set the target location to which to return if a bort error is caught. */
+    if (setjmp(context) == 1) return;
+
+    /* Recursively call the subroutine. */
+    crbmg(bmg, mxmb, nmb, iret);
+}
+
+/**
+ * Catch any bort error inside of function cwbmg().
+ *
+ * @param bmg - BUFR message
+ * @param nmb - Number of characters in bmg
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-11-05
+*/
+void
+catch_bort_cwbmg(char *bmg, int nmb, int *iret)
+{
+
+    /* Set the target location to which to return if a bort error is caught. */
+    if (setjmp(context) == 1) return;
+
+    /* Recursively call the subroutine. */
+    cwbmg(bmg, nmb, iret);
+}

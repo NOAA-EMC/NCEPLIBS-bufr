@@ -1270,10 +1270,15 @@ module bufr_c2f_interface
     !> @param errstr - Error message.
     !>
     !> @author J. Ator @date 2023-04-07
-    subroutine bort_c(errstr) bind(C, name='bort_f')
+    recursive subroutine bort_c(errstr) bind(C, name='bort_f')
       character(kind=c_char), intent(in) :: errstr(*)
+      character(len=255) :: my_errstr
+      integer :: lers
 
-      call bort(c_f_string(errstr))
+      lers = get_c_string_length(errstr)
+      my_errstr = transfer(errstr(1:lers), my_errstr)
+
+      call bort(my_errstr(1:lers))
     end subroutine bort_c
 
     !> Open a new message for output in a BUFR file that was
@@ -1373,6 +1378,31 @@ module bufr_c2f_interface
       ch = cf(1)
       ires = catch_borts(ch)
     end function catch_borts_c
+
+    !> Sets a new bort target, if bort catching is enabled and such a target doesn't already exist.
+    !>
+    !> Wraps bort_target_set() function.
+    !>
+    !> @returns bort_target_set_c - Return code:
+    !>  - 0 = a new bort target was not set during this call, or bort catching is disabled
+    !>  - 1 = a new bort target was set during this call
+    !>
+    !> @author J. Ator @date 2025-11-05
+    function bort_target_set_c() result(ires) bind(C, name='bort_target_set_f')
+      integer(c_int) :: ires
+      integer :: bort_target_set
+
+      ires = bort_target_set()
+    end function bort_target_set_c
+
+    !> Clear any existing bort target.
+    !>
+    !> Wraps bort_target_unset() function.
+    !>
+    !> @author J. Ator @date 2025-11-05
+    subroutine bort_target_unset_c() bind(C, name='bort_target_unset_f')
+      call bort_target_unset
+    end subroutine bort_target_unset_c
 
     !> Check whether a bort error was caught during a previous call to a library
     !> function or subroutine
@@ -1474,17 +1504,14 @@ module bufr_c2f_interface
       character(kind=c_char), intent(out) :: cmeang_c(*)
       character(len=600) :: cmeang
       character(len=8) :: nemoi, nemod
-      integer :: lcni, lcnd, lcmg, mxchr_f
+      integer :: lcni, lcnd, lcmg
 
       lcni = get_c_string_length(cnemoi)
       nemoi = transfer(cnemoi(1:lcni), nemoi)
       lcnd = get_c_string_length(cnemod)
       nemod = transfer(cnemod(1:lcnd), nemod)
 
-      ! leave room for a trailing null when determining how much space to allow getcfmng to write into
-      mxchr_f = min(len(cmeang), lcmgc) - 1
-
-      call getcfmng(lunit, nemoi(1:lcni), ivali, nemod(1:lcnd), ivald, cmeang(1:mxchr_f), lcmg, iret)
+      call getcfmng(lunit, nemoi(1:lcni), ivali, nemod(1:lcnd), ivald, cmeang(1:min(len(cmeang), lcmgc)), lcmg, iret)
 
       lcmg = lcmg + 1  ! add 1 for the null terminator
       call copy_f_c_str(cmeang, cmeang_c, min(lcmg, lcmgc))
