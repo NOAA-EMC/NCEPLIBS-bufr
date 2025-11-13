@@ -71,13 +71,12 @@ recursive subroutine upftbv(lunit,nemo,val,mxib,ibit,nib)
   use modv_vars, only: im8b
 
   use moda_tababd
-  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit, mxib
   integer, intent(out) :: ibit(*), nib
-  integer my_lunit, my_mxib, lun, il, im, idn, i, n, nbits, iersn, lcn
+  integer my_lunit, my_mxib, lun, il, im, idn, i, n, nbits, iersn, lcn, bort_target_set
 
   character*(*), intent(in) :: nemo
   character*128 bort_str
@@ -102,12 +101,10 @@ recursive subroutine upftbv(lunit,nemo,val,mxib,ibit,nib)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call strsuc(nemo,cnemo,lcn)
     call catch_bort_upftbv_c(lunit,cnemo,lcn,val,ibit,mxib,nib)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -235,14 +232,13 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
 
   use moda_tababd
   use moda_tablef
-  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit, ivali, ivald
   integer, intent(out) :: lnmng, iret
   integer ifxyd(10), my_lunit, my_ivali, my_ivald, lun, il, im, itmp, ii, ifxyi, lcmg, n, ntg, iret2, ierbd, ifxy, ireadmt, &
-    lcni, lcnd, lcmgc
+    lcni, lcnd, lcmgc, bort_target_set
 
   character*(*), intent(in) :: nemoi, nemod
   character*(*), intent(out) :: cmeang
@@ -271,9 +267,7 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call strsuc(nemoi,cnemoi,lcni)
     call strsuc(nemod,cnemod,lcnd)
     lcmgc = lcmg + 1  ! Allow extra byte in cmeang_c for the trailing null in C
@@ -281,7 +275,7 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
     call catch_bort_getcfmng_c(lunit,cnemoi,lcni,ivali,cnemod,lcnd,ivald,cmeang_c,lcmgc,lnmng,iret)
     cmeang(1:lnmng) = cmeang_c(1:lnmng)
     deallocate(cmeang_c)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -428,13 +422,11 @@ recursive subroutine ufbqcd(lunit,nemo,iqcd)
 
   use modv_vars, only: im8b
 
-  use moda_borts
-
   implicit none
 
   integer, intent(in) :: lunit
   integer, intent(out) :: iqcd
-  integer my_lunit, lun, il, im, idn, iret, lcn
+  integer my_lunit, lun, il, im, idn, iret, lcn, bort_target_set
 
   character*(*), intent(in) :: nemo
   character*128 bort_str
@@ -455,12 +447,10 @@ recursive subroutine ufbqcd(lunit,nemo,iqcd)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call strsuc(nemo,cnemo,lcn)
     call catch_bort_ufbqcd_c(lunit,cnemo,iqcd,lcn)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -504,12 +494,10 @@ recursive subroutine ufbqcp(lunit,iqcp,nemo)
 
   use modv_vars, only: im8b
 
-  use moda_borts
-
   implicit none
 
   integer, intent(in) :: lunit, iqcp
-  integer my_lunit, my_iqcp, lun, il, im, idn, iret, ifxy, lnm, ncn
+  integer my_lunit, my_iqcp, lun, il, im, idn, iret, ifxy, lnm, ncn, bort_target_set
 
   character*(*), intent(out) :: nemo
   character*9 cnemo
@@ -528,14 +516,12 @@ recursive subroutine ufbqcp(lunit,iqcp,nemo)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call catch_bort_ufbqcp_c(lunit,iqcp,cnemo,len(cnemo),ncn)
     nemo = ' '
     lnm = min(len(nemo),ncn)
     nemo(1:lnm) = cnemo(1:lnm)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 

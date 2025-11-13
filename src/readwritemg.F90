@@ -49,13 +49,12 @@ recursive subroutine readmg(lunxx,subset,jdate,iret)
   use moda_msgcwd
   use moda_sc3bfr
   use moda_bitbuf
-  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunxx
   integer, intent(out) :: jdate, iret
-  integer my_lunxx, lunit, lun, il, im, ier, idxmsg
+  integer my_lunxx, lunit, lun, il, im, ier, idxmsg, bort_target_set
 
   character*8, intent(out) :: subset
   character*9 csubset
@@ -75,12 +74,10 @@ recursive subroutine readmg(lunxx,subset,jdate,iret)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call catch_bort_readmg_c(lunxx,csubset,jdate,len(csubset),iret)
     subset(1:8) = csubset(1:8)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -405,12 +402,11 @@ recursive subroutine openmb(lunit,subset,jdate)
   use modv_vars, only: im8b
 
   use moda_msgcwd
-  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit, jdate
-  integer my_lunit, my_jdate, lun, il, im, mtyp, mstb, inod, i4dy, lcsb
+  integer my_lunit, my_jdate, lun, il, im, mtyp, mstb, inod, i4dy, lcsb, bort_target_set
 
   character*(*), intent(in) :: subset
   character*9 csubset
@@ -430,12 +426,10 @@ recursive subroutine openmb(lunit,subset,jdate)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call strsuc(subset,csubset,lcsb)
     call catch_bort_openmb_c(lunit,csubset,lcsb,jdate)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -490,12 +484,11 @@ recursive subroutine openmg(lunit,subset,jdate)
   use modv_vars, only: im8b
 
   use moda_msgcwd
-  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit, jdate
-  integer my_lunit, my_jdate, lun, il, im, mtyp, mstb, inod, i4dy, lcsb
+  integer my_lunit, my_jdate, lun, il, im, mtyp, mstb, inod, i4dy, lcsb, bort_target_set
 
   character*(*), intent(in) :: subset
   character*9 csubset
@@ -513,12 +506,10 @@ recursive subroutine openmg(lunit,subset,jdate)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call strsuc(subset,csubset,lcsb)
     call catch_bort_openmg_c(lunit,csubset,lcsb,jdate)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 

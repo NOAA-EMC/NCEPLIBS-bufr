@@ -176,12 +176,11 @@ recursive subroutine openbf(lunit,io,lundx)
   use moda_lushr
   use moda_nulbfr
   use moda_stcode
-  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit, lundx
-  integer my_lunit, my_lundx, iprtprv, lun, il, im, lcio
+  integer my_lunit, my_lundx, iprtprv, lun, il, im, lcio, bort_target_set
 
   character*(*), intent(in) :: io
   character*255 filename, fileacc
@@ -209,12 +208,10 @@ recursive subroutine openbf(lunit,io,lundx)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call strsuc(io,cio,lcio)
     call catch_bort_openbf_c(lunit,cio,lundx,lcio)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -345,14 +342,13 @@ recursive subroutine closbf(lunit)
   use modv_vars, only: im8b
 
   use moda_nulbfr
-  use moda_borts
 
   implicit none
 
   character*128 errstr
 
   integer, intent(in) :: lunit
-  integer my_lunit, lun, il, im
+  integer my_lunit, lun, il, im, bort_target_set
 
   ! Check for i8 integers
 
@@ -366,11 +362,9 @@ recursive subroutine closbf(lunit)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call catch_bort_closbf_c(lunit)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -422,13 +416,12 @@ recursive subroutine status(lunit,lun,il,im)
   use modv_vars, only: im8b, nfiles
 
   use moda_stbfr
-  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit
   integer, intent(out) :: lun, il, im
-  integer my_lunit, i
+  integer my_lunit, i, bort_target_set
 
   character*128 bort_str, errstr
 
@@ -447,11 +440,9 @@ recursive subroutine status(lunit,lun,il,im)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call catch_bort_status_c(lunit,lun,il,im)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -613,13 +604,12 @@ recursive subroutine ufbcnt(lunit,kmsg,ksub)
   use modv_vars, only: im8b
 
   use moda_msgcwd
-  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit
   integer, intent(out) :: kmsg, ksub
-  integer my_lunit, lun, il, im
+  integer my_lunit, lun, il, im, bort_target_set
 
   ! Check for I8 integers
 
@@ -634,11 +624,10 @@ recursive subroutine ufbcnt(lunit,kmsg,ksub)
   endif
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+
+  if (bort_target_set() == 1) then
     call catch_bort_ufbcnt_c(lunit, kmsg, ksub)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
