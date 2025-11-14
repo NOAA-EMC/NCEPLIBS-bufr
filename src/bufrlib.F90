@@ -776,6 +776,48 @@ module bufrlib
       character(kind=c_char), intent(inout) :: cnemo(*)
     end subroutine catch_bort_upftbv_c
 
+    !> @fn bufrlib::catch_bort_ufbtab_c::catch_bort_ufbtab_c(lunin,tab,i1,i2,iret,cstr,cstr_len)
+    !> Catch any bort error inside of subroutine ufbtab().
+    !>
+    !> Wraps catch_bort_ufbtab() function.
+    !>
+    !> @param lunin - Absolute value is Fortran logical unit number for BUFR file
+    !> @param tab - Data values
+    !> @param i1 - First dimension of tab
+    !> @param i2 - Second dimension of tab
+    !> @param iret - Number of data subsets returned
+    !> @param cstr - String of mnemonics to read from each data subset
+    !> @param cstr_len - Length of cstr
+    !>
+    !> @author J. Ator @date 2025-11-13
+    subroutine catch_bort_ufbtab_c(lunin,tab,i1,i2,iret,cstr,cstr_len) bind(C, name='catch_bort_ufbtab')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunin, i1, i2, cstr_len
+      integer(c_int), intent(inout) :: iret
+      character(kind=c_char), intent(inout) :: cstr(*)
+      real(c_double), intent(inout) :: tab(i1,*)
+    end subroutine catch_bort_ufbtab_c
+
+    !> @fn bufrlib::catch_bort_ufbpos_c::catch_bort_ufbpos_c(lunit,irec,isub,subset,jdate,subset_str_len)
+    !> Catch any bort error inside of subroutine ufbpos().
+    !>
+    !> Wraps catch_bort_ufbpos() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param irec - Ordinal number of message to be read
+    !> @param isub - Ordinal number of subset to be read from (irec)th message
+    !> @param subset - Table A mnemonic for type of BUFR message that was read
+    !> @param jdate - Date-time stored within Section 1 of BUFR message that was read
+    !> @param subset_str_len - Allocated length of subset string
+    !>
+    !> @author J. Ator @date 2025-11-13
+    subroutine catch_bort_ufbpos_c(lunit,irec,isub,subset,jdate,subset_str_len) bind(C, name='catch_bort_ufbpos')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, subset_str_len, irec, isub
+      character(kind=c_char), intent(out) :: subset(*)
+      integer(c_int), intent(out) :: jdate
+    end subroutine catch_bort_ufbpos_c
+
   end interface
 
 end module bufrlib

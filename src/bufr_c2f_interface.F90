@@ -27,7 +27,7 @@ module bufr_c2f_interface
   public :: imrkopr_c, istdesc_c, ifxy_c, igetntbi_c, igettdi_c, stntbi_c, igetprm_c, isetprm_c, maxout_c, igetmxby_c
   public :: elemdx_c, cadn30_c, strnum_c, uptdd_c, pktdd_c, nemdefs_c, nemspecs_c, nemtab_c, nemtbb_c, numtbd_c
   public :: writsb_c, writsa_c, ufbstp_c, writlc_c, drfini_c, ufbcnt_c, ufbevn_c, ufbqcd_c, ufbqcp_c, getcfmng_c
-  public :: upftbv_c
+  public :: upftbv_c, ufbtab_c, ufbpos_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -1541,5 +1541,55 @@ module bufr_c2f_interface
       nemo = transfer(cnemo(1:lcn), nemo)
       call upftbv(lunit, nemo(1:lcn), val, mxib, ibit, nib)
     end subroutine upftbv_c
+
+    !> Read one or more data values from every data subset in a BUFR file.
+    !>
+    !> Wraps ufbtab() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param c_data - C-style pointer to a pre-allocated buffer
+    !> @param dim_1, dim_2 - Dimensionality of data to read
+    !> @param iret - Return value, number of data subsets read
+    !> @param table_b_mnemonic - String of mnemonics to read from each data subset
+    !>
+    !> @author J. Ator @date 2025-11-13
+    recursive subroutine ufbtab_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbtab_f')
+      integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2
+      type(c_ptr), intent(inout) ::  c_data
+      integer(c_int), intent(inout) :: iret
+      character(kind=c_char), intent(in) :: table_b_mnemonic(*)
+      character(len=90) :: str
+      real, pointer :: f_data
+      integer :: lstr
+
+      lstr = get_c_string_length(table_b_mnemonic)
+      str = transfer(table_b_mnemonic(1:lstr), str)
+      call c_f_pointer(c_data, f_data)
+
+      call ufbtab(bufr_unit, f_data, dim_1, dim_2, iret, str(1:lstr))
+    end subroutine ufbtab_c
+
+    !> Jump forwards or backwards to a specified data subset within a BUFR file.
+    !>
+    !> Wraps ufbpos() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param irec - Ordinal number of message to be read
+    !> @param isub - Ordinal number of subset to be read from (irec)th message
+    !> @param c_subset - Subset string
+    !> @param iddate - Datetime of message
+    !> @param subset_str_len - Length of the subset string
+    !>
+    !> @author Jeff Ator @date 2025-11-13
+    recursive subroutine ufbpos_c(bufr_unit, irec, isub, c_subset, iddate, subset_str_len) bind(C, name='ufbpos_f')
+      integer(c_int), value, intent(in) :: bufr_unit, subset_str_len, irec, isub
+      character(kind=c_char), intent(out) :: c_subset(*)
+      integer(c_int), intent(out) :: iddate
+      character(len=25) :: f_subset
+
+      call ufbpos(bufr_unit, irec, isub, f_subset, iddate)
+
+      call copy_f_c_str(f_subset, c_subset, subset_str_len)
+    end subroutine ufbpos_c
 
 end module bufr_c2f_interface

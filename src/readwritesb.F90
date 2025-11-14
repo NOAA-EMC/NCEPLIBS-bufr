@@ -919,9 +919,10 @@ recursive subroutine ufbpos(lunit,irec,isub,subset,jdate)
 
   integer, intent(in) :: lunit, irec, isub
   integer, intent(out) :: jdate
-  integer my_lunit, my_irec, my_isub, lun, il, im, jrec, jsub, iret
+  integer my_lunit, my_irec, my_isub, lun, il, im, jrec, jsub, iret, bort_target_set
 
   character*128 bort_str
+  character*9 csubset
   character*8, intent(out) :: subset
 
   ! Check for I8 integers
@@ -937,7 +938,16 @@ recursive subroutine ufbpos(lunit,irec,isub,subset,jdate)
     return
   endif
 
-  !  Make sure a file is open for input
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_ufbpos_c(lunit,irec,isub,csubset,jdate,len(csubset))
+    subset(1:8) = csubset(1:8)
+    call bort_target_unset
+    return
+  endif
+
+  ! Make sure a file is open for input
 
   call status(lunit,lun,il,im)
   if(il==0) call bort('BUFRLIB: UFBPOS - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
@@ -952,11 +962,11 @@ recursive subroutine ufbpos(lunit,irec,isub,subset,jdate)
     call bort(bort_str)
   endif
 
-  !  See where pointers are currently located
+  ! See where pointers are currently located
 
   call ufbcnt(lunit,jrec,jsub)
 
-  !  Rewind file if requested pointers are behind current pointers
+  ! Rewind file if requested pointers are behind current pointers
 
   if(irec<jrec .or. (irec==jrec.and.isub<jsub)) then
     call cewind_c(lun)

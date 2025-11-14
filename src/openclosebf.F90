@@ -899,6 +899,8 @@ end subroutine rewnbf
 
 recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
 
+  use bufrlib
+
   use modv_vars, only: part, im8b, bmiss, iac, iprt
 
   use moda_usrint
@@ -915,10 +917,11 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
   integer, parameter :: maxtg = 100
   integer nnod, ncon, nods, nodc, ivls, kons, my_lunin, my_i1, my_i2, lunit, lun, il, im, irec, isub, i, n, ntg, &
     jdate, jbit, kbit, lbit, mbit, nbit, nibit, nbyt, nsb, node, nbmp, nrep, lret, linc, iac_prev, ityp, &
-    ireadmg, ireadsb, nmsub
+    ireadmg, ireadsb, nmsub, lcstr, bort_target_set
 
   character*(*), intent(in) :: str
   character*128 errstr
+  character*90 cstr
   character*40 cref
   character*10 tgs(maxtg)
   character*8 subset, cval
@@ -947,6 +950,14 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
     call ufbtab(my_lunin,tab,my_i1,my_i2,iret,str)
     call x48(iret,iret,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+  if (bort_target_set() == 1) then
+    call strsuc(str,cstr,lcstr)
+    call catch_bort_ufbtab_c(lunin,tab,i1,i2,iret,cstr,lcstr)
+    call bort_target_unset
     return
   endif
 

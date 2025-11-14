@@ -791,6 +791,39 @@ void getcfmng_f(int lunit, char *cnemoi, int ivali, char *cnemod, int ivald, cha
 */
 void upftbv_f(int lunit, char *cnemo, double val, int *ibit, int mxib, int *nib);
 
+/**
+ * Read one or more data values from every data subset in a BUFR file.
+ *
+ * Wraps ufbtab() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from
+ * @param c_data - pointer to a pointer to a pre-allocated buffer.
+ * @param dim_1 - dimensionality of data to read
+ * @param dim_2 - dimensionality of data to read
+ * @param iret - return value, number of data subsets read
+ * @param table_b_mnemonic - String of mnemonics to read from each data subset
+ *
+ * @author J. Ator @date 2025-11-13
+ */
+void ufbtab_f(int bufr_unit, void **c_data, int dim_1, int dim_2,
+              int *iret, const char *table_b_mnemonic);
+
+/**
+ * Jump forwards or backwards to a specified data subset within a BUFR file.
+ *
+ * Wraps ufbpos() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from
+ * @param irec - Ordinal number of message to be read
+ * @param isub - Ordinal number of subset to be read from (irec)th message
+ * @param subset - the subset string
+ * @param iddate - datetime of message
+ * @param subset_len - length of the subset string
+ *
+ * @author Jeff Ator @date 2025-11-13
+ */
+void ufbpos_f(int bufr_unit, int irec, int isub, char *subset, int *iddate, int subset_len);
+
 #ifdef __cplusplus
 }
 #endif

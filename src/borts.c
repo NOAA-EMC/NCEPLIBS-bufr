@@ -625,3 +625,51 @@ catch_bort_cwbmg(char *bmg, int nmb, int *iret)
     /* Recursively call the subroutine. */
     cwbmg(bmg, nmb, iret);
 }
+
+/**
+ * Catch any bort error inside of subroutine ufbtab().
+ *
+ * @param lunin - Absolute value is Fortran logical unit number for BUFR file
+ * @param tab - Data values
+ * @param i1 - First dimension of tab
+ * @param i2 - Second dimension of tab
+ * @param iret - Number of data subsets returned
+ * @param cstr - String of mnemonics to read from each data subset
+ * @param cstr_len - Length of cstr
+ *
+ * @author J. Ator @date 2025-11-13
+*/
+void
+catch_bort_ufbtab(int lunin, double *tab, int i1, int i2, int *iret, char *cstr, int cstr_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to cstr, for use with get_c_string_length inside of ufbtab_f. */
+    cstr[cstr_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    ufbtab_f(lunin, (void**) &tab, i1, i2, iret, cstr);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbpos().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param irec - Ordinal number of message to be read
+ * @param isub - Ordinal number of subset to be read from (irec)th message
+ * @param subset - Table A mnemonic for type of BUFR message that was read
+ * @param jdate - Date-time stored within Section 1 of BUFR message that was read
+ * @param subset_str_len - Allocated length of subset string
+ *
+ * @author J. Ator @date 2025-11-13
+*/
+void
+catch_bort_ufbpos(int lunit, int irec, int isub, char *subset, int *jdate, int subset_str_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    ufbpos_f(lunit, irec, isub, subset, jdate, subset_str_len);
+}
