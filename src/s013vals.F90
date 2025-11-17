@@ -60,13 +60,11 @@ recursive subroutine gets1loc(s1mnem,iben,isbyt,iwid,iret)
 
   if(im8b) then
     im8b=.false.
-
     call x84(iben,my_iben,1)
     call gets1loc(s1mnem,my_iben,isbyt,iwid,iret)
     call x48(isbyt,isbyt,1)
     call x48(iwid,iwid,1)
     call x48(iret,iret,1)
-
     im8b=.true.
     return
   endif
@@ -263,9 +261,7 @@ recursive integer function iupbs01(mbay,s01mnem) result(iret)
 
   if(im8b) then
     im8b=.false.
-
     iret = iupbs01(mbay,s01mnem)
-
     im8b=.true.
     return
   endif
@@ -440,6 +436,8 @@ end function iupbs3
 !> @author J. Ator @date 2005-11-29
 recursive integer function iupvs01(lunit,s01mnem) result(iret)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_bitbuf
@@ -447,19 +445,27 @@ recursive integer function iupvs01(lunit,s01mnem) result(iret)
   implicit none
 
   character*(*), intent(in) :: s01mnem
+  character*12 cs01mnem
 
   integer, intent(in) :: lunit
-  integer my_lunit, lun, ilst, imst, iupbs01
+  integer my_lunit, lun, ilst, imst, iupbs01, bort_target_set, lcs
 
   ! Check for I8 integers
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     iret=iupvs01(my_lunit,s01mnem)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call strsuc(s01mnem,cs01mnem,lcs)
+    call catch_bort_iupvs01_c(lunit,cs01mnem,lcs,iret)
+    call bort_target_unset
     return
   endif
 
@@ -534,10 +540,8 @@ recursive subroutine pkbs1(ival,mbay,s1mnem)
 
   if (im8b) then
     im8b = .false.
-
     call x84(ival,my_ival,1)
     call pkbs1(my_ival,mbay,s1mnem)
-
     im8b = .true.
     return
   end if
@@ -616,6 +620,8 @@ end subroutine pkbs1
 !> @author J. Ator @date 2005-11-29
 recursive subroutine pkvs01(s01mnem,ival)
 
+  use bufrlib
+
   use modv_vars, only: im8b, mxs01v
 
   use moda_s01cm
@@ -625,19 +631,27 @@ recursive subroutine pkvs01(s01mnem,ival)
   character*(*), intent(in) :: s01mnem
 
   integer, intent(in) :: ival
-  integer my_ival, i
+  integer my_ival, i, bort_target_set, lcs
 
   character*128 bort_str
+  character*12 cs01mnem
 
   ! check for i8 integers
 
   if(im8b) then
     im8b=.false.
-
     call x84(ival,my_ival,1)
     call pkvs01(s01mnem,my_ival)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call strsuc(s01mnem,cs01mnem,lcs)
+    call catch_bort_pkvs01_c(cs01mnem,lcs,ival)
+    call bort_target_unset
     return
   endif
 
@@ -883,12 +897,14 @@ end subroutine upds3
 !> @author J. Woollen @date 1998-07-08
 recursive subroutine datelen(len)
 
+  use bufrlib
+
   use modv_vars, only: im8b, lendat
 
   implicit none
 
   integer, intent(in) :: len
-  integer my_len
+  integer my_len, bort_target_set
 
   character*128 bort_str
 
@@ -896,11 +912,17 @@ recursive subroutine datelen(len)
 
   if(im8b) then
     im8b=.false.
-
     call x84(len,my_len,1)
     call datelen(my_len)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_datelen_c(len)
+    call bort_target_unset
     return
   endif
 
@@ -1026,13 +1048,11 @@ recursive integer function igetdate(mbay,iyr,imo,idy,ihr) result(iret)
 
   if(im8b) then
      im8b=.false.
-
      iret=igetdate(mbay,iyr,imo,idy,ihr)
      call x48(iyr,iyr,1)
      call x48(imo,imo,1)
      call x48(idy,idy,1)
      call x48(ihr,ihr,1)
-
      im8b=.true.
      return
   endif
@@ -1073,10 +1093,8 @@ recursive integer function i4dy(idate) result(iret)
 
   if(im8b) then
     im8b=.false.
-
     call x84(idate,my_idate,1)
     iret=i4dy(my_idate)
-
     im8b=.true.
     return
   endif
@@ -1144,12 +1162,10 @@ recursive subroutine dumpbf(lunit,jdate,jdump)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call dumpbf(my_lunit,jdate,jdump)
     call x48(jdate(1),jdate(1),5)
     call x48(jdump(1),jdump(1),5)
-
     im8b=.true.
     return
   endif
@@ -1227,11 +1243,9 @@ recursive subroutine minimg(lunit,mini)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call x84(mini,my_mini,1)
     call minimg(my_lunit,my_mini)
-
     im8b=.true.
     return
   endif

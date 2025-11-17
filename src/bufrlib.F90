@@ -148,7 +148,7 @@ module bufrlib
     !> @param jj - Second (column) index.
     !> @param numjj - Maximum number of column indices.
     !>
-    !> Returns 1-dimensional index.
+    !> @returns 1-dimensional index.
     !>
     integer(c_int) function icvidx_c( ii, jj, numjj ) bind(C, name='icvidx')
       use iso_c_binding
@@ -817,6 +817,70 @@ module bufrlib
       character(kind=c_char), intent(out) :: subset(*)
       integer(c_int), intent(out) :: jdate
     end subroutine catch_bort_ufbpos_c
+
+    !> @fn bufrlib::catch_bort_datelen_c::catch_bort_datelen_c(len)
+    !> Catch any bort error inside of subroutine datelen().
+    !>
+    !> Wraps catch_bort_datelen() function.
+    !>
+    !> @param len - Length of Section 1 date-time values to be output by all future calls to message-reading subroutines
+    !>
+    !> @author J. Ator @date 2025-11-14
+    subroutine catch_bort_datelen_c(len) bind(C, name='catch_bort_datelen')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: len
+    end subroutine catch_bort_datelen_c
+
+    !> @fn bufrlib::catch_bort_iupvs01_c::catch_bort_iupvs01_c(lunit,s01mnem,s01mnem_str_len,iret)
+    !> Catch any bort error inside of function iupvs01().
+    !>
+    !> Wraps catch_bort_iupvs01() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param s01mnem - Mnemonic for value to be read from Section 0 or Section 1 of BUFR message
+    !> @param s01mnem_str_len - Length of s01mnem string
+    !> @param iret - Value corresponding to s01mnem
+    !>
+    !> @author J. Ator @date 2025-11-14
+    !>
+    subroutine catch_bort_iupvs01_c(lunit,s01mnem,s01mnem_str_len,iret) bind(C, name='catch_bort_iupvs01')
+      use iso_c_binding
+      integer(c_int), intent(in), value :: lunit, s01mnem_str_len
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(inout) :: s01mnem(*)
+    end subroutine catch_bort_iupvs01_c
+
+    !> @fn bufrlib::catch_bort_nmsub_c::catch_bort_nmsub_c(lunit,iret)
+    !> Catch any bort error inside of function nmsub().
+    !>
+    !> Wraps catch_bort_nmsub() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param iret - Number of data subsets
+    !>
+    !> @author J. Ator @date 2025-11-14
+    subroutine catch_bort_nmsub_c(lunit,iret) bind(C, name='catch_bort_nmsub')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: iret
+    end subroutine catch_bort_nmsub_c
+
+    !> @fn bufrlib::catch_bort_pkvs01_c::catch_bort_pkvs01_c(s01mnem,s01mnem_str_len,ival)
+    !> Catch any bort error inside of subroutine pkvs01().
+    !>
+    !> Wraps catch_bort_pkvs01() function.
+    !>
+    !> @param s01mnem - Mnemonic for value to be read from Section 0 or Section 1 of BUFR message
+    !> @param s01mnem_str_len - Length of s01mnem string
+    !> @param ival - Value corresponding to s01mnem
+    !>
+    !> @author J. Ator @date 2025-11-14
+    !>
+    subroutine catch_bort_pkvs01_c(s01mnem,s01mnem_str_len,ival) bind(C, name='catch_bort_pkvs01')
+      use iso_c_binding
+      integer(c_int), intent(in), value :: s01mnem_str_len, ival
+      character(kind=c_char), intent(inout) :: s01mnem(*)
+    end subroutine catch_bort_pkvs01_c
 
   end interface
 

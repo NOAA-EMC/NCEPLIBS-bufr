@@ -673,3 +673,84 @@ catch_bort_ufbpos(int lunit, int irec, int isub, char *subset, int *jdate, int s
     /* Recursively call the subroutine. */
     ufbpos_f(lunit, irec, isub, subset, jdate, subset_str_len);
 }
+
+/**
+ * Catch any bort error inside of subroutine datelen().
+ *
+ * @param len - Length of Section 1 date-time values to be output by all future calls to
+ * message-reading subroutines
+ *
+ * @author J. Ator @date 2025-11-14
+*/
+void
+catch_bort_datelen(int len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    datelen_f(len);
+}
+
+/**
+ * Catch any bort error inside of function iupvs01().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param s01mnem - Mnemonic for value to be read from Section 0 or Secion 1 of BUFR message
+ * @param s01mnem_str_len - Length of s01mnem string
+ * @param iret - Value corresponding to s01mnem
+ *
+ * @author J. Ator @date 2025-11-14
+*/
+void
+catch_bort_iupvs01(int lunit, char *s01mnem, int s01mnem_str_len, int *iret)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to s01mnem, for use with get_c_string_length inside of iupvs01_f. */
+    s01mnem[s01mnem_str_len] = '\0';
+
+    /* Recursively call the function. */
+    *iret = iupvs01_f(lunit, s01mnem);
+}
+
+/**
+ * Catch any bort error inside of function nmsub().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param iret - Number of data subsets
+ *
+ * @author J. Ator @date 2025-11-14
+*/
+void
+catch_bort_nmsub(int lunit, int *iret)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the function. */
+    *iret = nmsub_f(lunit);
+}
+
+/**
+ * Catch any bort error inside of subroutine pkvs01().
+ *
+ * @param s01mnem - Mnemonic for value to be read from Section 0 or Secion 1 of BUFR message
+ * @param s01mnem_str_len - Length of s01mnem string
+ * @param ival - Value corresponding to s01mnem
+ *
+ * @author J. Ator @date 2025-11-14
+*/
+void
+catch_bort_pkvs01(char *s01mnem, int s01mnem_str_len, int ival)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to s01mnem, for use with get_c_string_length inside of pkvs01_f. */
+    s01mnem[s01mnem_str_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    pkvs01_f(s01mnem, ival);
+}

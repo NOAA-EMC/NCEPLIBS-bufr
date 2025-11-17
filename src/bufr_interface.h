@@ -824,6 +824,58 @@ void ufbtab_f(int bufr_unit, void **c_data, int dim_1, int dim_2,
  */
 void ufbpos_f(int bufr_unit, int irec, int isub, char *subset, int *iddate, int subset_len);
 
+/**
+ * Specify the format of Section 1 date-time values that will be output by future calls to
+ * message-reading subroutines.
+ *
+ * Wraps datelen() subroutine.
+ *
+ * @param len - Length of Section 1 date-time values to be output by all future calls to
+ * message-reading subroutines.
+ *
+ * @author Jeff Ator @date 2025-11-14
+ */
+void datelen_f(int len);
+
+/**
+ * Read a specified value from within Section 0 or 1 of a BUFR message.
+ *
+ * Wraps iupvs01() function.
+ *
+ * @param bufr_unit - Fortran logical unit number to read from
+ * @param c_s01m - Mnemonic
+ *
+ * @returns Value corresponding to mnemonic
+ *
+ * @author Jeff Ator @date 2025-11-14
+ */
+int iupvs01_f(int bufr_unit, char *c_s01m);
+
+/**
+ * Get the total number of data subsets available within a BUFR message
+ *
+ * Wraps nmsub() function.
+ *
+ * @param bufr_unit - Fortran logical unit number to read from
+ *
+ * @returns Number of data subsets
+ *
+ * @author Jeff Ator @date 2025-11-14
+ */
+int nmsub_f(int bufr_unit);
+
+/**
+ * Specify a value to be written into Section 0 or 1 of all future BUFR messages
+ *
+ * Wraps pkvs01() subroutine.
+ *
+ * @param c_s01m - Mnemonic
+ * @param ival - Value corresponding to mnemonic
+ *
+ * @author Jeff Ator @date 2025-11-14
+ */
+void pkvs01_f(char *c_s01m, int ival);
+
 #ifdef __cplusplus
 }
 #endif

@@ -27,7 +27,7 @@ module bufr_c2f_interface
   public :: imrkopr_c, istdesc_c, ifxy_c, igetntbi_c, igettdi_c, stntbi_c, igetprm_c, isetprm_c, maxout_c, igetmxby_c
   public :: elemdx_c, cadn30_c, strnum_c, uptdd_c, pktdd_c, nemdefs_c, nemspecs_c, nemtab_c, nemtbb_c, numtbd_c
   public :: writsb_c, writsa_c, ufbstp_c, writlc_c, drfini_c, ufbcnt_c, ufbevn_c, ufbqcd_c, ufbqcp_c, getcfmng_c
-  public :: upftbv_c, ufbtab_c, ufbpos_c
+  public :: upftbv_c, ufbtab_c, ufbpos_c, datelen_c, iupvs01_c, nmsub_c, pkvs01_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -1591,5 +1591,78 @@ module bufr_c2f_interface
 
       call copy_f_c_str(f_subset, c_subset, subset_str_len)
     end subroutine ufbpos_c
+
+    !> Specify the format of Section 1 date-time values that will be output by future calls to message-reading subroutines.
+    !>
+    !> Wraps datelen() subroutine.
+    !>
+    !> @param len - Length of Section 1 date-time values to be output by all future calls to message-reading subroutines
+    !>
+    !> @author Jeff Ator @date 2025-11-14
+    recursive subroutine datelen_c(len) bind(C, name='datelen_f')
+      integer(c_int), value, intent(in) :: len
+
+      call datelen(len)
+    end subroutine datelen_c
+
+    !> Read a specified value from within Section 0 or 1 of a BUFR message.
+    !>
+    !> Wraps iupvs01() function.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param c_s01m - Mnemonic
+    !>
+    !> @returns iupvs01_c - Value corresponding to mnemonic
+    !>
+    !> @author Jeff Ator @date 2025-11-14
+    recursive function iupvs01_c(bufr_unit, c_s01m) result(ires) bind(C, name='iupvs01_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      character(kind=c_char), intent(in) :: c_s01m(*)
+      integer(c_int) :: ires
+      integer :: iupvs01, lfs
+      character(len=12) :: f_s01m
+
+      lfs = get_c_string_length(c_s01m)
+      f_s01m = transfer(c_s01m(1:lfs), f_s01m)
+
+      ires = iupvs01(bufr_unit, f_s01m(1:lfs))
+    end function iupvs01_c
+
+    !> Get the total number of data subsets available within a BUFR message
+    !>
+    !> Wraps nmsub() function.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !>
+    !> @returns nmsub_c - Number of data subsets
+    !>
+    !> @author Jeff Ator @date 2025-11-14
+    recursive function nmsub_c(bufr_unit) result(ires) bind(C, name='nmsub_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int) :: ires
+      integer :: nmsub
+
+      ires = nmsub(bufr_unit)
+    end function nmsub_c
+
+    !> Specify a value to be written into Section 0 or 1 of all future BUFR messages
+    !>
+    !> Wraps pkvs01() subroutine.
+    !>
+    !> @param c_s01m - Mnemonic
+    !> @param ival - Value corresponding to mnemonic
+    !>
+    !> @author Jeff Ator @date 2025-11-14
+    recursive subroutine pkvs01_c(c_s01m,ival) bind(C, name='pkvs01_f')
+      character(kind=c_char), intent(in) :: c_s01m(*)
+      integer(c_int), value, intent(in) :: ival
+      integer :: lfs
+      character(len=12) :: f_s01m
+
+      lfs = get_c_string_length(c_s01m)
+      f_s01m = transfer(c_s01m(1:lfs), f_s01m)
+
+      call pkvs01(f_s01m(1:lfs), ival)
+    end subroutine pkvs01_c
 
 end module bufr_c2f_interface

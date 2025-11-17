@@ -1096,6 +1096,8 @@ end subroutine padmsg
 !> @author J. Woollen @date 1994-01-06
 recursive integer function nmsub(lunit) result(iret)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_msgcwd
@@ -1103,17 +1105,23 @@ recursive integer function nmsub(lunit) result(iret)
   implicit none
 
   integer, intent(in) :: lunit
-  integer my_lunit, lun, il, im
+  integer my_lunit, lun, il, im, bort_target_set
 
   ! Check for I8 integers
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     iret=nmsub(my_lunit)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_nmsub_c(lunit,iret)
+    call bort_target_unset
     return
   endif
 
