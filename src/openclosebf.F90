@@ -176,12 +176,11 @@ recursive subroutine openbf(lunit,io,lundx)
   use moda_lushr
   use moda_nulbfr
   use moda_stcode
-  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit, lundx
-  integer my_lunit, my_lundx, iprtprv, lun, il, im, lcio
+  integer my_lunit, my_lundx, iprtprv, lun, il, im, lcio, bort_target_set
 
   character*(*), intent(in) :: io
   character*255 filename, fileacc
@@ -209,12 +208,10 @@ recursive subroutine openbf(lunit,io,lundx)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call strsuc(io,cio,lcio)
     call catch_bort_openbf_c(lunit,cio,lundx,lcio)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -345,14 +342,13 @@ recursive subroutine closbf(lunit)
   use modv_vars, only: im8b
 
   use moda_nulbfr
-  use moda_borts
 
   implicit none
 
   character*128 errstr
 
   integer, intent(in) :: lunit
-  integer my_lunit, lun, il, im
+  integer my_lunit, lun, il, im, bort_target_set
 
   ! Check for i8 integers
 
@@ -366,11 +362,9 @@ recursive subroutine closbf(lunit)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call catch_bort_closbf_c(lunit)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -422,13 +416,12 @@ recursive subroutine status(lunit,lun,il,im)
   use modv_vars, only: im8b, nfiles
 
   use moda_stbfr
-  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit
   integer, intent(out) :: lun, il, im
-  integer my_lunit, i
+  integer my_lunit, i, bort_target_set
 
   character*128 bort_str, errstr
 
@@ -447,11 +440,9 @@ recursive subroutine status(lunit,lun,il,im)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call catch_bort_status_c(lunit,lun,il,im)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -608,6 +599,8 @@ end subroutine wtstat
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbcnt(lunit,kmsg,ksub)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_msgcwd
@@ -616,7 +609,7 @@ recursive subroutine ufbcnt(lunit,kmsg,ksub)
 
   integer, intent(in) :: lunit
   integer, intent(out) :: kmsg, ksub
-  integer my_lunit, lun, il, im
+  integer my_lunit, lun, il, im, bort_target_set
 
   ! Check for I8 integers
 
@@ -627,6 +620,14 @@ recursive subroutine ufbcnt(lunit,kmsg,ksub)
     call x48(kmsg,kmsg,1)
     call x48(ksub,ksub,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_ufbcnt_c(lunit, kmsg, ksub)
+    call bort_target_unset
     return
   endif
 
@@ -898,6 +899,8 @@ end subroutine rewnbf
 
 recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
 
+  use bufrlib
+
   use modv_vars, only: part, im8b, bmiss, iac, iprt
 
   use moda_usrint
@@ -914,10 +917,11 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
   integer, parameter :: maxtg = 100
   integer nnod, ncon, nods, nodc, ivls, kons, my_lunin, my_i1, my_i2, lunit, lun, il, im, irec, isub, i, n, ntg, &
     jdate, jbit, kbit, lbit, mbit, nbit, nibit, nbyt, nsb, node, nbmp, nrep, lret, linc, iac_prev, ityp, &
-    ireadmg, ireadsb, nmsub
+    ireadmg, ireadsb, nmsub, lcstr, bort_target_set
 
   character*(*), intent(in) :: str
   character*128 errstr
+  character*90 cstr
   character*40 cref
   character*10 tgs(maxtg)
   character*8 subset, cval
@@ -946,6 +950,14 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
     call ufbtab(my_lunin,tab,my_i1,my_i2,iret,str)
     call x48(iret,iret,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+  if (bort_target_set() == 1) then
+    call strsuc(str,cstr,lcstr)
+    call catch_bort_ufbtab_c(lunin,tab,i1,i2,iret,cstr,lcstr)
+    call bort_target_unset
     return
   endif
 

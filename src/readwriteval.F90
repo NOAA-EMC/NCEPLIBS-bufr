@@ -213,13 +213,12 @@ recursive subroutine writlc(lunit,chr,str)
   use moda_bitbuf
   use moda_tables
   use moda_comprs
-  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit
   integer my_lunit, maxtg, lun, il, im, ntg, nnod, kon, ii, n, node, ioid, ival, mbit, nbit, nbmp, nchr, nbyt, nsubs, &
-    itagct, len0, len1, len2, len3, l4, l5, mbyte, iupbs3, lcstr, lcchr
+    itagct, len0, len1, len2, len3, l4, l5, mbyte, iupbs3, lcstr, lcchr, bort_target_set
 
   character*(*), intent(in) :: chr, str
   character*128 bort_str, errstr
@@ -242,13 +241,11 @@ recursive subroutine writlc(lunit,chr,str)
   endif
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call strsuc(str,cstr,lcstr)
     call strsuc(chr,cchr,lcchr)
     call catch_bort_writlc_c(lunit,cstr,lcstr,cchr,lcchr)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -435,12 +432,12 @@ recursive subroutine readlc(lunit,chr,str)
   use moda_bitbuf
   use moda_tables
   use moda_rlccmn
-  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit
-  integer my_lunit, maxtg, lchr, lun, il, im, ntg, nnod, kon, ii, n, nod, ioid, itagct, nchr, kbit, lcstr, lcchr, ncchr
+  integer my_lunit, maxtg, lchr, lun, il, im, ntg, nnod, kon, ii, n, nod, ioid, itagct, nchr, kbit, lcstr, lcchr, ncchr, &
+    bort_target_set
 
   character*(*), intent(in) :: str
   character*(*), intent(out) :: chr
@@ -468,16 +465,14 @@ recursive subroutine readlc(lunit,chr,str)
   lchr=len(chr)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call strsuc(str,cstr,lcstr)
     lcchr = lchr + 1  ! Allow extra byte in cchr for the trailing null in C
     allocate(character*(lcchr) :: cchr)
     call catch_bort_readlc_c(lunit,cstr,lcstr,cchr,lcchr,ncchr)
     chr(1:ncchr) = cchr(1:ncchr)
     deallocate(cchr)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -687,7 +682,6 @@ recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
 
   use moda_usrint
   use moda_msgcwd
-  use moda_borts
 
   implicit none
 
@@ -697,7 +691,8 @@ recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
-  integer nnod, ncon, nods, nodc, ivls, kons, ifirst1, ifirst2, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, lcstr
+  integer nnod, ncon, nods, nodc, ivls, kons, ifirst1, ifirst2, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, lcstr, &
+    bort_target_set
 
   real*8, intent(inout) :: usr(i1,i2)
 
@@ -720,12 +715,10 @@ recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
   endif
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call strsuc(str,cstr,lcstr)
     call catch_bort_ufbint_c(lunin,usr,i1,i2,iret,cstr,lcstr)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -949,7 +942,6 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
 
   use moda_usrint
   use moda_msgcwd
-  use moda_borts
 
   implicit none
 
@@ -959,7 +951,7 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
-  integer ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, iac_prev, lcstr
+  integer ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, iac_prev, lcstr, bort_target_set
 
   real*8, intent(inout) :: usr(i1,i2)
 
@@ -980,12 +972,10 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
   endif
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call strsuc(str,cstr,lcstr)
     call catch_bort_ufbrep_c(lunin,usr,i1,i2,iret,cstr,lcstr)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -1183,7 +1173,6 @@ recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
 
   use moda_usrint
   use moda_msgcwd
-  use moda_borts
 
   implicit none
 
@@ -1193,7 +1182,7 @@ recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
-  integer ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, lcstr
+  integer ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, lcstr, bort_target_set
 
   real*8, intent(inout) :: usr(i1,i2)
 
@@ -1214,12 +1203,10 @@ recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
   endif
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call strsuc(str,cstr,lcstr)
     call catch_bort_ufbstp_c(lunin,usr,i1,i2,iret,cstr,lcstr)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -1426,7 +1413,6 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
   use moda_usrint
   use moda_msgcwd
   use moda_tables
-  use moda_borts
 
   implicit none
 
@@ -1434,7 +1420,7 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
   integer, intent(out) :: iret
   integer, parameter :: mtag = 10
   integer ifirst1, ifirst2, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, i, j, ntag, node, nods, ins1, ins2, insx, &
-    nseq, isq, ityp, invwin, invtag, lcstr
+    nseq, isq, ityp, invwin, invtag, lcstr, bort_target_set
 
   real*8, intent(inout) :: usr(i1,i2)
 
@@ -1461,12 +1447,10 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
   endif
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call strsuc(str,cstr,lcstr)
     call catch_bort_ufbseq_c(lunin,usr,i1,i2,iret,cstr,lcstr)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -1699,7 +1683,6 @@ recursive subroutine drfini(lunit,mdrf,ndrf,drftag)
 
   use moda_usrint
   use moda_tables
-  use moda_borts
 
   implicit none
 
@@ -1708,7 +1691,7 @@ recursive subroutine drfini(lunit,mdrf,ndrf,drftag)
 
   integer, intent(in) :: mdrf(*), lunit, ndrf
   integer, parameter :: mxdrf = 2000
-  integer my_mdrf(mxdrf), my_lunit, my_ndrf, lun, il, im, m, n, node, lcdrftag
+  integer my_mdrf(mxdrf), my_lunit, my_ndrf, lun, il, im, m, n, node, lcdrftag, bort_target_set
 
   ! Check for I8 integers
   if(im8b) then
@@ -1722,12 +1705,10 @@ recursive subroutine drfini(lunit,mdrf,ndrf,drftag)
   endif
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call strsuc(drftag,cdrftag,lcdrftag)
     call catch_bort_drfini_c(lunit,mdrf,ndrf,cdrftag,lcdrftag)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -2375,6 +2356,8 @@ end subroutine ufbovr
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str)
 
+  use bufrlib
+
   use modv_vars, only: im8b, bmiss, iprt
 
   use moda_usrint
@@ -2384,11 +2367,12 @@ recursive subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str)
 
   character*(*), intent(in) :: str
   character*128 errstr
+  character*90 cstr
 
   integer, intent(in) :: lunit, i1, i2, i3
   integer, intent(out) :: iret
   integer invn(255), nnod, ncon, nods, nodc, ivls, kons, maxevn, my_lunit, my_i1, my_i2, my_i3, i, j, k, lun, il, im, &
-    ins1, ins2, inc1, inc2, nnvn, nvnwin
+    ins1, ins2, inc1, inc2, nnvn, nvnwin, lcstr, bort_target_set
 
   real*8, intent(out) :: usr(i1,i2,i3)
 
@@ -2407,6 +2391,15 @@ recursive subroutine ufbevn(lunit,usr,i1,i2,i3,iret,str)
     call ufbevn(my_lunit,usr,my_i1,my_i2,my_i3,iret,str)
     call x48(iret,iret,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call strsuc(str,cstr,lcstr)
+    call catch_bort_ufbevn_c(lunit,usr,i1,i2,i3,iret,cstr,lcstr)
+    call bort_target_unset
     return
   endif
 

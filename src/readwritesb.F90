@@ -39,13 +39,12 @@ recursive subroutine readsb(lunit,iret)
   use moda_bitbuf
   use moda_bitmaps
   use moda_stcode
-  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit
   integer, intent(out) :: iret
-  integer my_lunit, lun, il, im, ier, nbyt
+  integer my_lunit, lun, il, im, ier, nbyt, bort_target_set
 
   ! Check for I8 integers
 
@@ -60,11 +59,9 @@ recursive subroutine readsb(lunit,iret)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call catch_bort_readsb_c(lunit,iret)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -181,13 +178,12 @@ recursive subroutine readns(lunit,subset,jdate,iret)
 
   use moda_msgcwd
   use moda_tables
-  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit
   integer, intent(out) :: jdate, iret
-  integer my_lunit, lun, il, im
+  integer my_lunit, lun, il, im, bort_target_set
 
   character*8, intent(out) :: subset
   character*9 csubset
@@ -206,12 +202,10 @@ recursive subroutine readns(lunit,subset,jdate,iret)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call catch_bort_readns_c(lunit,csubset,jdate,len(csubset),iret)
     subset(1:8) = csubset(1:8)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -327,12 +321,11 @@ recursive subroutine writsb(lunit)
   use modv_vars, only: im8b
 
   use moda_msgcmp
-  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunit
-  integer my_lunit, lun, il, im
+  integer my_lunit, lun, il, im, bort_target_set
 
   ! Check for I8 integers
 
@@ -346,11 +339,9 @@ recursive subroutine writsb(lunit)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call catch_bort_writsb_c(lunit)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -459,13 +450,12 @@ recursive subroutine writsa(lunxx,lmsgt,msgt,msgl)
 
   use moda_bufrmg
   use moda_msgcmp
-  use moda_borts
 
   implicit none
 
   integer, intent(in) :: lunxx, lmsgt
   integer, intent(out) :: msgt(*), msgl
-  integer my_lunxx, my_lmsgt, lunit, lun, il, im, n
+  integer my_lunxx, my_lmsgt, lunit, lun, il, im, n, bort_target_set
 
   ! Check for I8 integers
 
@@ -482,11 +472,9 @@ recursive subroutine writsa(lunxx,lmsgt,msgt,msgl)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
-  if (bort_target_is_unset) then
-    bort_target_is_unset = .false.
-    caught_str_len = 0
+  if (bort_target_set() == 1) then
     call catch_bort_writsa_c(lunxx,lmsgt,msgt,msgl)
-    bort_target_is_unset = .true.
+    call bort_target_unset
     return
   endif
 
@@ -931,9 +919,10 @@ recursive subroutine ufbpos(lunit,irec,isub,subset,jdate)
 
   integer, intent(in) :: lunit, irec, isub
   integer, intent(out) :: jdate
-  integer my_lunit, my_irec, my_isub, lun, il, im, jrec, jsub, iret
+  integer my_lunit, my_irec, my_isub, lun, il, im, jrec, jsub, iret, bort_target_set
 
   character*128 bort_str
+  character*9 csubset
   character*8, intent(out) :: subset
 
   ! Check for I8 integers
@@ -949,7 +938,16 @@ recursive subroutine ufbpos(lunit,irec,isub,subset,jdate)
     return
   endif
 
-  !  Make sure a file is open for input
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_ufbpos_c(lunit,irec,isub,csubset,jdate,len(csubset))
+    subset(1:8) = csubset(1:8)
+    call bort_target_unset
+    return
+  endif
+
+  ! Make sure a file is open for input
 
   call status(lunit,lun,il,im)
   if(il==0) call bort('BUFRLIB: UFBPOS - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT')
@@ -964,11 +962,11 @@ recursive subroutine ufbpos(lunit,irec,isub,subset,jdate)
     call bort(bort_str)
   endif
 
-  !  See where pointers are currently located
+  ! See where pointers are currently located
 
   call ufbcnt(lunit,jrec,jsub)
 
-  !  Rewind file if requested pointers are behind current pointers
+  ! Rewind file if requested pointers are behind current pointers
 
   if(irec<jrec .or. (irec==jrec.and.isub<jsub)) then
     call cewind_c(lun)

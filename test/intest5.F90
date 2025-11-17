@@ -4,7 +4,6 @@
 !
 ! J. Ator, 2/24/2023
 program intest5
-  use bufr_interface
 
   implicit none
 

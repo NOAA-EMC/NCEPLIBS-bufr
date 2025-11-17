@@ -149,6 +149,44 @@ integer function catch_borts(cbc) result (iret)
   return
 end function catch_borts
 
+!> Sets a new bort target, if bort catching is enabled and such a target doesn't already exist.
+!>
+!> @returns bort_target_set - Return code:
+!>  - 0 = a new bort target was not set during this call, or bort catching is disabled
+!>  - 1 = a new bort target was set during this call
+!>
+!> @author J. Ator @date 2025-11-05
+integer function bort_target_set() result (iret)
+
+  use moda_borts
+
+  implicit none
+
+  if (bort_target_is_unset) then
+    bort_target_is_unset = .false.
+    caught_str_len = 0
+    iret = 1
+  else
+    iret = 0
+  endif
+
+  return
+end function bort_target_set
+
+!> Clear any existing bort target.
+!>
+!> @author J. Ator @date 2025-11-05
+subroutine bort_target_unset
+
+  use moda_borts
+
+  implicit none
+
+  bort_target_is_unset = .true.
+
+  return
+end subroutine bort_target_unset
+
 !> Check whether a bort error occurred during a previous call to an NCEPLIBS-bufr
 !> subroutine or function.
 !>
@@ -175,7 +213,6 @@ recursive subroutine check_for_bort(bort_str, bort_str_len)
   integer, intent(out) :: bort_str_len
 
   ! Check for I8 integers
-
   if(im8b) then
     im8b = .false.
     call check_for_bort(bort_str,bort_str_len)

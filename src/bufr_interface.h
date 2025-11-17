@@ -171,11 +171,11 @@ void writsa_f(int bufr_unit, int bufr_len, int *bufr, int *nbufr);
  *
  * Wraps ufbint() subroutine.
  *
- * @param bufr_unit - the Fortran logical unit number to read from.
+ * @param bufr_unit - the Fortran logical unit number to read from or write to.
  * @param c_data - pointer to a pointer to a pre-allocated buffer.
  * @param dim_1 - dimensionality of data to read or write.
  * @param dim_2 - dimensionality of data to read or write.
- * @param iret - return value, length of data read.
+ * @param iret - return value, length of data read or written.
  * @param table_b_mnemonic - string of mnemonics.
  *
  * @author Ronald Mclaren @date 2020-07-29
@@ -188,11 +188,11 @@ void ufbint_f(int bufr_unit, void **c_data, int dim_1, int dim_2,
  *
  * Wraps ufbrep() subroutine.
  *
- * @param bufr_unit - the Fortran logical unit number to read from.
+ * @param bufr_unit - the Fortran logical unit number to read from or write to.
  * @param c_data - pointer to a pointer to a pre-allocated buffer.
  * @param dim_1 - dimensionality of data to read or write.
  * @param dim_2 - dimensionality of data to read or write.
- * @param iret - length of data read.
+ * @param iret - length of data read or written.
  * @param table_b_mnemonic - string of mnemonics.
  *
  * @author Ronald Mclaren @date 2020-07-29
@@ -205,16 +205,34 @@ void ufbrep_f(int bufr_unit, void **c_data, int dim_1, int dim_2,
  *
  * Wraps ufbstp() subroutine.
  *
- * @param bufr_unit - the Fortran logical unit number to read from.
+ * @param bufr_unit - the Fortran logical unit number to read from or write to.
  * @param c_data - pointer to a pointer to a pre-allocated buffer.
  * @param dim_1 - dimensionality of data to read or write.
  * @param dim_2 - dimensionality of data to read or write.
- * @param iret - length of data read.
+ * @param iret - length of data read or written.
  * @param table_b_mnemonic - string of mnemonics.
  *
  * @author Jeff Ator @date 2025-10-24
  */
 void ufbstp_f(int bufr_unit, void **c_data, int dim_1, int dim_2,
+              int *iret, const char *table_b_mnemonic);
+
+/**
+ * Read one or more data values from a data subset.
+ *
+ * Wraps ufbevn() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from.
+ * @param c_data - pointer to a pointer to a pre-allocated buffer.
+ * @param dim_1 - dimensionality of data to read
+ * @param dim_2 - dimensionality of data to read
+ * @param dim_3 - dimensionality of data to read
+ * @param iret - return value, length of data read.
+ * @param table_b_mnemonic - string of mnemonics.
+ *
+ * @author J. Ator @date 2025-11-05
+ */
+void ufbevn_f(int bufr_unit, void **c_data, int dim_1, int dim_2, int dim_3,
               int *iret, const char *table_b_mnemonic);
 
 /**
@@ -559,11 +577,11 @@ void drfini_f(int bufr_unit, int *mdrf, int ndrf, const char *table_d_mnemonic);
  *
  * Wraps ufbseq() subroutine.
  *
- * @param bufr_unit - the Fortran logical unit number to read from.
+ * @param bufr_unit - the Fortran logical unit number to read from or write to.
  * @param c_data - pointer to a pointer to a pre-allocated buffer.
  * @param dim_1 - dimensionality of data to read or write.
  * @param dim_2 - dimensionality of data to read or write.
- * @param iret - return value, length of data read.
+ * @param iret - return value, length of data read or written.
  * @param table_d_mnemonic - Table A or Table D mnemonic.
  *
  * @author J. Ator @date 2023-04-07
@@ -698,6 +716,113 @@ int catch_borts_f(char *cf);
  * @author J. Ator @date 2025-10-15
  */
 void check_for_bort_f(char *error_str, int error_str_len);
+
+/**
+ * Get the current location of the file pointer within a BUFR file.
+ *
+ * Wraps ufbcnt() subroutine.
+ *
+ * @param lunit - Fortran logical unit
+ * @param kmsg - Message number
+ * @param ksub - Subset number
+ *
+ * @author J. Ator @date 2025-11-05
+*/
+void ufbcnt_f(int lunit, int *kmsg, int *ksub);
+
+/**
+ * Return a prepbufr program code corresponding to a mnemonic.
+ *
+ * Wraps ufbqcd() subroutine.
+ *
+ * @param lunit - Fortran logical unit
+ * @param cnemo - Mnemonic
+ * @param iqcd - Y value of descriptor associated with mnemonic
+ *
+ * @author J. Ator @date 2025-11-05
+*/
+void ufbqcd_f(int lunit, char *cnemo, int *iqcd);
+
+/**
+ * Return a mnemonic corresponding to a prepbufr program code.
+ *
+ * Wraps ufbqcp() subroutine.
+ *
+ * @param lunit - Fortran logical unit
+ * @param iqcp - Y value of a Category 63 Table D descriptor
+ * @param cnemo - Mnemonic associated with iqcp
+ * @param cnemo_len - Allocated length of cnemo string
+ *
+ * @author J. Ator @date 2025-11-05
+*/
+void ufbqcp_f(int lunit, int iqcp, char *cnemo, int cnemo_len);
+
+/**
+ * Get the meaning of a numerical value from a code or flag table.
+ *
+ * Wraps getcfmng() subroutine.
+ *
+ * @param lunit - Fortran logical unit
+ * @param cnemoi - Mnemonic to search for
+ * @param ivali - Value associated with cnemoi
+ * @param cnemod - Optional second mnemonic upon which cnemoi may depend
+ * @param ivald - Value associated with cnemod
+ * @param cmeang_c - Meaning associated with cnemoi and ivali (and possibly cnemod and ivald as well)
+ * @param lcmgc - Allocated length of cmeang_c
+ * @param iret - Return code from call to getcfmng
+ *
+ * @author J. Ator @date 2025-11-05
+*/
+void getcfmng_f(int lunit, char *cnemoi, int ivali, char *cnemod, int ivald, char *cmeang_c, int lcmgc, int *iret);
+
+/**
+ * Get the bit settings equivalent to a given numerical value for a flag table mnemonic.
+ *
+ * Wraps upftbv() subroutine.
+ *
+ * @param lunit - Fortran logical unit
+ * @param cnemo - Mnemonic with flag table units
+ * @param val - Value corresponding to cnemo
+ * @param ibit - Bit numbers which were set to "On" in val
+ * @param mxib - Allocated size of ibit
+ * @param nib - Number of bit numbers returned in ibit
+ *
+ * @author J. Ator @date 2025-11-05
+*/
+void upftbv_f(int lunit, char *cnemo, double val, int *ibit, int mxib, int *nib);
+
+/**
+ * Read one or more data values from every data subset in a BUFR file.
+ *
+ * Wraps ufbtab() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from
+ * @param c_data - pointer to a pointer to a pre-allocated buffer.
+ * @param dim_1 - dimensionality of data to read
+ * @param dim_2 - dimensionality of data to read
+ * @param iret - return value, number of data subsets read
+ * @param table_b_mnemonic - String of mnemonics to read from each data subset
+ *
+ * @author J. Ator @date 2025-11-13
+ */
+void ufbtab_f(int bufr_unit, void **c_data, int dim_1, int dim_2,
+              int *iret, const char *table_b_mnemonic);
+
+/**
+ * Jump forwards or backwards to a specified data subset within a BUFR file.
+ *
+ * Wraps ufbpos() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from
+ * @param irec - Ordinal number of message to be read
+ * @param isub - Ordinal number of subset to be read from (irec)th message
+ * @param subset - the subset string
+ * @param iddate - datetime of message
+ * @param subset_len - length of the subset string
+ *
+ * @author Jeff Ator @date 2025-11-13
+ */
+void ufbpos_f(int bufr_unit, int irec, int isub, char *subset, int *iddate, int subset_len);
 
 #ifdef __cplusplus
 }
