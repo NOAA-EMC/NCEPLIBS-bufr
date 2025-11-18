@@ -882,6 +882,55 @@ module bufrlib
       character(kind=c_char), intent(inout) :: s01mnem(*)
     end subroutine catch_bort_pkvs01_c
 
+    !> @fn bufrlib::catch_bort_datebf_c::catch_bort_datebf_c(lunit,mear,mmon,mday,mour,idate)
+    !> Catch any bort error inside of subroutine datebf().
+    !>
+    !> Wraps catch_bort_datebf() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param mear - Year stored within Section 1 of first data message
+    !> @param mmon - Month stored within Section 1 of first data message
+    !> @param mday - Day stored within Section 1 of first data message
+    !> @param mour - Hour stored within Section 1 of first data message
+    !> @param idate - Date-time stored within Section 1 of first data message
+    !>
+    !> @author J. Ator @date 2025-11-18
+    subroutine catch_bort_datebf_c(lunit,mear,mmon,mday,mour,idate) bind(C, name='catch_bort_datebf')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: mear, mmon, mday, mour, idate
+    end subroutine catch_bort_datebf_c
+
+    !> @fn bufrlib::catch_bort_dumpbf_c::catch_bort_dumpbf_c(lunit,jdate,jdump)
+    !> Catch any bort error inside of subroutine dumpbf().
+    !>
+    !> Wraps catch_bort_dumpbf() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param jdate - Dump center date-time stored within Section 1 of first "dummy" message
+    !> @param jdump - Dump initiation date-time stored within Section 1 of second "dummy" message
+    !>
+    !> @author J. Ator @date 2025-11-18
+    subroutine catch_bort_dumpbf_c(lunit,jdate,jdump) bind(C, name='catch_bort_dumpbf')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: jdate(*), jdump(*)
+    end subroutine catch_bort_dumpbf_c
+
+    !> @fn bufrlib::catch_bort_minimg_c::catch_bort_minimg_c(lunit,mini)
+    !> Catch any bort error inside of subroutine minimg().
+    !>
+    !> Wraps catch_bort_minimg() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param mini - Minutes value
+    !>
+    !> @author J. Ator @date 2025-11-18
+    subroutine catch_bort_minimg_c(lunit,mini) bind(C, name='catch_bort_minimg')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, mini
+    end subroutine catch_bort_minimg_c
+
   end interface
 
 end module bufrlib

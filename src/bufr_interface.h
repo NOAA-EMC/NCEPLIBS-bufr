@@ -876,6 +876,47 @@ int nmsub_f(int bufr_unit);
  */
 void pkvs01_f(char *c_s01m, int ival);
 
+/**
+ * Get the Section 1 date-time from the first data message of a BUFR file.
+ *
+ * Wraps datebf() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from
+ * @param mear - Year stored within Section 1 of first data message
+ * @param mmon - Month stored within Section 1 of first data message
+ * @param mday - Day stored within Section 1 of first data message
+ * @param mour - Hour stored within Section 1 of first data message
+ * @param idate - Date-time stored within Section 1 of first data message
+ *
+ * @author Jeff Ator @date 2025-11-18
+ */
+void datebf_f(int bufr_unit, int *mear, int *mmon, int *mday, int *mour, int *idate);
+
+/**
+ * Read the Section 1 date-time from the first two "dummy" messages of an NCEP dump file.
+ *
+ * Wraps dumpbf() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from
+ * @param jdate - Dump center date-time stored within Section 1 of first "dummy" message
+ * @param jdump - Dump initiation date-time stored within Section 1 of second "dummy" message
+ *
+ * @author Jeff Ator @date 2025-11-18
+ */
+void dumpbf_f(int bufr_unit, int *jdate, int *jdump);
+
+/**
+ * Write a minutes value into Section 1 of a BUFR message.
+ *
+ * Wraps minimg() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from
+ * @param mini - Minutes value
+ *
+ * @author Jeff Ator @date 2025-11-18
+ */
+void minimg_f(int bufr_unit, int mini);
+
 #ifdef __cplusplus
 }
 #endif

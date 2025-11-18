@@ -754,3 +754,62 @@ catch_bort_pkvs01(char *s01mnem, int s01mnem_str_len, int ival)
     /* Recursively call the subroutine. */
     pkvs01_f(s01mnem, ival);
 }
+
+/**
+ * Catch any bort error inside of subroutine datebf().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param mear - Year stored within Section 1 of first data message
+ * @param mmon - Month stored within Section 1 of first data message
+ * @param mday - Day stored within Section 1 of first data message
+ * @param mour - Hour stored within Section 1 of first data message
+ * @param idate - Date-time stored within Section 1 of first data message
+ *
+ * @author J. Ator @date 2025-11-18
+*/
+void
+catch_bort_datebf(int lunit, int *mear, int *mmon, int *mday, int *mour, int *idate)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    datebf_f(lunit, mear, mmon, mday, mour, idate);
+}
+
+/**
+ * Catch any bort error inside of subroutine dumpbf().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param jdate - Dump center date-time stored within Section 1 of first "dummy" message
+ * @param jdump - Dump initiation date-time stored within Section 1 of second "dummy" message
+ *
+ * @author J. Ator @date 2025-11-18
+*/
+void
+catch_bort_dumpbf(int lunit, int *jdate, int *jdump)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    dumpbf_f(lunit, jdate, jdump);
+}
+
+/**
+ * Catch any bort error inside of subroutine minimg().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param mini - Minutes value
+ *
+ * @author J. Ator @date 2025-11-18
+*/
+void
+catch_bort_minimg(int lunit, int mini)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    minimg_f(lunit, mini);
+}

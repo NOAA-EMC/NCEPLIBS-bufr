@@ -27,7 +27,7 @@ module bufr_c2f_interface
   public :: imrkopr_c, istdesc_c, ifxy_c, igetntbi_c, igettdi_c, stntbi_c, igetprm_c, isetprm_c, maxout_c, igetmxby_c
   public :: elemdx_c, cadn30_c, strnum_c, uptdd_c, pktdd_c, nemdefs_c, nemspecs_c, nemtab_c, nemtbb_c, numtbd_c
   public :: writsb_c, writsa_c, ufbstp_c, writlc_c, drfini_c, ufbcnt_c, ufbevn_c, ufbqcd_c, ufbqcp_c, getcfmng_c
-  public :: upftbv_c, ufbtab_c, ufbpos_c, datelen_c, iupvs01_c, nmsub_c, pkvs01_c
+  public :: upftbv_c, ufbtab_c, ufbpos_c, datelen_c, iupvs01_c, nmsub_c, pkvs01_c, datebf_c, dumpbf_c, minimg_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -1653,7 +1653,7 @@ module bufr_c2f_interface
     !> @param ival - Value corresponding to mnemonic
     !>
     !> @author Jeff Ator @date 2025-11-14
-    recursive subroutine pkvs01_c(c_s01m,ival) bind(C, name='pkvs01_f')
+    recursive subroutine pkvs01_c(c_s01m, ival) bind(C, name='pkvs01_f')
       character(kind=c_char), intent(in) :: c_s01m(*)
       integer(c_int), value, intent(in) :: ival
       integer :: lfs
@@ -1664,5 +1664,54 @@ module bufr_c2f_interface
 
       call pkvs01(f_s01m(1:lfs), ival)
     end subroutine pkvs01_c
+
+    !> Get the Section 1 date-time from the first data message of a BUFR file.
+    !>
+    !> Wraps datebf() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param mear - Year stored within Section 1 of first data message
+    !> @param mmon - Month stored within Section 1 of first data message
+    !> @param mday - Day stored within Section 1 of first data message
+    !> @param mour - Hour stored within Section 1 of first data message
+    !> @param idate - Date-time stored within Section 1 of first data message
+    !>
+    !> @author Jeff Ator @date 2025-11-18
+    recursive subroutine datebf_c(bufr_unit, mear, mmon, mday, mour, idate) bind(C, name='datebf_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int), intent(out) :: mear, mmon, mday, mour, idate
+
+      call datebf(bufr_unit, mear, mmon, mday, mour, idate)
+    end subroutine datebf_c
+
+    !> Read the Section 1 date-time from the first two "dummy" messages of an NCEP dump file.
+    !>
+    !> Wraps dumpbf() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param jdate - Dump center date-time stored within Section 1 of first "dummy" message
+    !> @param jdump - Dump initiation date-time stored within Section 1 of second "dummy" message
+    !>
+    !> @author Jeff Ator @date 2025-11-18
+    recursive subroutine dumpbf_c(bufr_unit, jdate, jdump) bind(C, name='dumpbf_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int), intent(out) :: jdate(*), jdump(*)
+
+      call dumpbf(bufr_unit, jdate, jdump)
+    end subroutine dumpbf_c
+
+    !> Write a minutes value into Section 1 of a BUFR message.
+    !>
+    !> Wraps minimg() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param mini - Minutes value
+    !>
+    !> @author Jeff Ator @date 2025-11-18
+    recursive subroutine minimg_c(bufr_unit, mini) bind(C, name='minimg_f')
+      integer(c_int), value, intent(in) :: bufr_unit, mini
+
+      call minimg(bufr_unit, mini)
+    end subroutine minimg_c
 
 end module bufr_c2f_interface

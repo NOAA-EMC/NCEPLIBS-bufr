@@ -355,9 +355,7 @@ recursive integer function iupbs3(mbay,s3mnem) result(iret)
 
   if(im8b) then
     im8b=.false.
-
     iret = iupbs3(mbay,s3mnem)
-
     im8b=.true.
     return
   endif
@@ -827,7 +825,7 @@ end subroutine reads3
 !> @remarks
 !> - The start of the BUFR message (i.e. the string 'BUFR') must be aligned on the first 4 bytes of mbay
 !> - This subroutine does not recursively resolve any Table D descriptors from within Section 3; rather, what is returned in
-!> CDS3 is the exact list of data descriptors as it appears within Section 3 of mbay
+!> cds3 is the exact list of data descriptors as it appears within Section 3 of mbay
 !>
 !> @param mbay - BUFR message
 !> @param lcds3 - Dimensioned size (in integers) of cds3 in the calling program; used by the subroutine to
@@ -853,11 +851,9 @@ recursive subroutine upds3(mbay,lcds3,cds3,nds3)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lcds3,my_lcds3,1)
     call upds3(mbay,my_lcds3,cds3,nds3)
     call x48(nds3,nds3,1)
-
     im8b=.true.
     return
   endif
@@ -946,12 +942,14 @@ end subroutine datelen
 !> @param mour - Hour stored within Section 1 of first data message
 !> @param idate - Date-time stored within Section 1 of first data message, in format of either
 !> YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine datelen()
-!>   -1 = First data message could not be found in BUFR file
+!>   - -1 = First data message could not be found in BUFR file
 !>
 !> Logical unit lunit must already be associated with a filename on the local system, typically via a Fortran "OPEN" statement.
 !>
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine datebf(lunit,mear,mmon,mday,mour,idate)
+
+  use bufrlib
 
   use modv_vars, only: im8b, iprt
 
@@ -961,7 +959,7 @@ recursive subroutine datebf(lunit,mear,mmon,mday,mour,idate)
 
   integer, intent(in) :: lunit
   integer, intent(out) :: mear, mmon, mday, mour, idate
-  integer my_lunit, lun, jl, jm, ier, idx, idxmsg, igetdate
+  integer my_lunit, lun, jl, jm, ier, idx, idxmsg, igetdate, bort_target_set
 
   character*128 errstr
 
@@ -969,7 +967,6 @@ recursive subroutine datebf(lunit,mear,mmon,mday,mour,idate)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call datebf(my_lunit,mear,mmon,mday,mour,idate)
     call x48(mear,mear,1)
@@ -977,8 +974,15 @@ recursive subroutine datebf(lunit,mear,mmon,mday,mour,idate)
     call x48(mday,mday,1)
     call x48(mour,mour,1)
     call x48(idate,idate,1)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_datebf_c(lunit,mear,mmon,mday,mour,idate)
+    call bort_target_unset
     return
   endif
 
@@ -1146,6 +1150,8 @@ end function i4dy
 !> @author J. Woollen @date 1996-12-11
 recursive subroutine dumpbf(lunit,jdate,jdump)
 
+  use bufrlib
+
   use modv_vars, only: im8b, iprt
 
   use moda_mgwa
@@ -1154,7 +1160,7 @@ recursive subroutine dumpbf(lunit,jdate,jdump)
 
   integer, intent(in) :: lunit
   integer, intent(out) :: jdate(*), jdump(*)
-  integer my_lunit, lun, jl, jm, ier, ii, igetdate, idxmsg, iupbs3, iupbs01
+  integer my_lunit, lun, jl, jm, ier, ii, igetdate, idxmsg, iupbs3, iupbs01, bort_target_set
 
   character*128 errstr
 
@@ -1167,6 +1173,14 @@ recursive subroutine dumpbf(lunit,jdate,jdump)
     call x48(jdate(1),jdate(1),5)
     call x48(jdump(1),jdump(1),5)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_dumpbf_c(lunit,jdate,jdump)
+    call bort_target_unset
     return
   endif
 
@@ -1230,6 +1244,8 @@ end subroutine dumpbf
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine minimg(lunit,mini)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_bitbuf
@@ -1237,7 +1253,7 @@ recursive subroutine minimg(lunit,mini)
   implicit none
 
   integer, intent(in) :: lunit, mini
-  integer my_lunit, my_mini, lun, il, im
+  integer my_lunit, my_mini, lun, il, im, bort_target_set
 
   ! Check for I8 integers.
 
@@ -1247,6 +1263,14 @@ recursive subroutine minimg(lunit,mini)
     call x84(mini,my_mini,1)
     call minimg(my_lunit,my_mini)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_minimg_c(lunit,mini)
+    call bort_target_unset
     return
   endif
 
