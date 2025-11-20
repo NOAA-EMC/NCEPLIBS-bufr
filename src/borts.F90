@@ -182,7 +182,7 @@ subroutine bort_target_unset
 
   implicit none
 
-  bort_target_is_unset = .true.
+  if (bort_catch == 'Y') bort_target_is_unset = .true.
 
   return
 end subroutine bort_target_unset

@@ -522,6 +522,8 @@ end function iupvs01
 !> @authors J. Ator, D. Keyser @date 2005-11-29
 recursive subroutine pkbs1(ival,mbay,s1mnem)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   implicit none
@@ -530,9 +532,10 @@ recursive subroutine pkbs1(ival,mbay,s1mnem)
 
   integer, intent(in) :: ival
   integer, intent(inout) :: mbay(*)
-  integer my_ival, iben, isbyt, iwid, iret, iupbs01, ibit
+  integer my_ival, iben, isbyt, iwid, iret, iupbs01, ibit, bort_target_set, lcs
 
   character*128 bort_str
+  character*12 cs1mnem
 
   ! Check for I8 integers.
 
@@ -542,7 +545,16 @@ recursive subroutine pkbs1(ival,mbay,s1mnem)
     call pkbs1(my_ival,mbay,s1mnem)
     im8b = .true.
     return
-  end if
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call strsuc(s1mnem,cs1mnem,lcs)
+    call catch_bort_pkbs1_c(ival,mbay,cs1mnem,lcs)
+    call bort_target_unset
+    return
+  endif
 
   iben = iupbs01(mbay,'BEN')
 
@@ -836,16 +848,19 @@ end subroutine reads3
 !> @author J. Ator @date 2003-11-04
 recursive subroutine upds3(mbay,lcds3,cds3,nds3)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   implicit none
 
   integer, intent(in) :: mbay(*), lcds3
   integer, intent(out) :: nds3
-  integer my_lcds3, len0, len1, len2, len3, l4, l5, ipt, jj, iupb
+  integer my_lcds3, len0, len1, len2, len3, l4, l5, ipt, ii, jj, iupb, bort_target_set
 
   character*6, intent(out) :: cds3(*)
   character*6 adn30
+  character, allocatable :: ccds3(:,:)
 
   ! Check for I8 integers.
 
@@ -855,6 +870,21 @@ recursive subroutine upds3(mbay,lcds3,cds3,nds3)
     call upds3(mbay,my_lcds3,cds3,nds3)
     call x48(nds3,nds3,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    allocate(ccds3(6,lcds3))
+    call catch_bort_upds3_c(mbay,lcds3,ccds3,nds3)
+    do ii = 1, nds3
+      do jj = 1, 6
+        cds3(ii)(jj:jj) = ccds3(jj,ii)
+      enddo
+    enddo
+    deallocate(ccds3)
+    call bort_target_unset
     return
   endif
 

@@ -893,7 +893,7 @@ void pkvs01_f(char *c_s01m, int ival);
 void datebf_f(int bufr_unit, int *mear, int *mmon, int *mday, int *mour, int *idate);
 
 /**
- * Read the Section 1 date-time from the first two "dummy" messages of an NCEP dump file.
+ * Get the Section 1 date-time from the first two "dummy" messages of an NCEP dump file.
  *
  * Wraps dumpbf() subroutine.
  *
@@ -916,6 +916,33 @@ void dumpbf_f(int bufr_unit, int *jdate, int *jdump);
  * @author Jeff Ator @date 2025-11-18
  */
 void minimg_f(int bufr_unit, int mini);
+
+/**
+ * Get the sequence of data descriptors contained within Section 3 of a BUFR message.
+ *
+ * Wraps upds3() subroutine.
+ *
+ * @param mbay - BUFR message
+ * @param lcds3 - Allocated length of cds3
+ * @param ccds3 - Data descriptor sequence within Section 3 of mbay
+ * @param nds3 - Number of descriptors returned in cds3
+ *
+ * @author Jeff Ator @date 2025-11-18
+ */
+void upds3_f(int *mbay, int lcds3, char (*ccds3)[6], int *nds3);
+
+/**
+ * Specify a value to be written into Section 1 of a BUFR message
+ *
+ * Wraps pkbs1() subroutine.
+ *
+ * @param ival - Value corresponding to mnemonic
+ * @param mbay - BUFR message
+ * @param c_s1m - Mnemonic
+ *
+ * @author Jeff Ator @date 2025-11-18
+ */
+void pkbs1_f(int ival, int *mbay, char *c_s1m);
 
 #ifdef __cplusplus
 }

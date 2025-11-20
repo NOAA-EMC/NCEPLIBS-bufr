@@ -736,7 +736,7 @@ catch_bort_nmsub(int lunit, int *iret)
 /**
  * Catch any bort error inside of subroutine pkvs01().
  *
- * @param s01mnem - Mnemonic for value to be read from Section 0 or Secion 1 of BUFR message
+ * @param s01mnem - Mnemonic for value to be written into Section 0 or Section 1 of BUFR message
  * @param s01mnem_str_len - Length of s01mnem string
  * @param ival - Value corresponding to s01mnem
  *
@@ -812,4 +812,47 @@ catch_bort_minimg(int lunit, int mini)
 
     /* Recursively call the subroutine. */
     minimg_f(lunit, mini);
+}
+
+/**
+ * Catch any bort error inside of subroutine upds3().
+ *
+ * @param mbay - BUFR message
+ * @param lcds3 - Allocated length of cds3
+ * @param ccds3 - Data descriptor sequence within Section 3 of mbay
+ * @param nds3 - Number of descriptors returned in cds3
+ *
+ * @author J. Ator @date 2025-11-18
+*/
+void
+catch_bort_upds3(int *mbay, int lcds3, char (*ccds3)[6], int *nds3)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    upds3_f(mbay, lcds3, ccds3, nds3);
+}
+
+/**
+ * Catch any bort error inside of subroutine pkbs1().
+ *
+ * @param ival - Value corresponding to s1mnem
+ * @param mbay - BUFR message
+ * @param s1mnem - Mnemonic for value to be written into Section 1 of BUFR message
+ * @param s1mnem_str_len - Length of s1mnem string
+ *
+ * @author J. Ator @date 2025-11-18
+*/
+void
+catch_bort_pkbs1(int ival, int *mbay, char *s1mnem, int s1mnem_str_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to s1mnem, for use with get_c_string_length inside of pkbs1_f. */
+    s1mnem[s1mnem_str_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    pkbs1_f(ival, mbay, s1mnem);
 }

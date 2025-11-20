@@ -870,7 +870,7 @@ module bufrlib
     !>
     !> Wraps catch_bort_pkvs01() function.
     !>
-    !> @param s01mnem - Mnemonic for value to be read from Section 0 or Section 1 of BUFR message
+    !> @param s01mnem - Mnemonic for value to be written into Section 0 or Section 1 of BUFR message
     !> @param s01mnem_str_len - Length of s01mnem string
     !> @param ival - Value corresponding to s01mnem
     !>
@@ -930,6 +930,44 @@ module bufrlib
       use iso_c_binding
       integer(c_int), value, intent(in) :: lunit, mini
     end subroutine catch_bort_minimg_c
+
+    !> @fn bufrlib::catch_bort_upds3_c::catch_bort_upds3_c(mbay,lcds3,cds3,nds3)
+    !> Catch any bort error inside of subroutine upds3().
+    !>
+    !> Wraps catch_bort_upds3() function.
+    !>
+    !> @param mbay - BUFR message
+    !> @param lcds3 - Allocated length of cds3
+    !> @param ccds3 - Data descriptor sequence within Section 3 of mbay
+    !> @param nds3 - Number of descriptors returned in cds3
+    !>
+    !> @author J. Ator @date 2025-11-18
+    subroutine catch_bort_upds3_c(mbay,lcds3,ccds3,nds3) bind(C, name='catch_bort_upds3')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lcds3
+      integer(c_int), intent(in) :: mbay(*)
+      integer(c_int), intent(out) :: nds3
+      character(kind=c_char), intent(out) :: ccds3(6,*)
+    end subroutine catch_bort_upds3_c
+
+    !> @fn bufrlib::catch_bort_pkbs1_c::catch_bort_pkbs1_c(ival,mbay,s1mnem,s1mnem_str_len)
+    !> Catch any bort error inside of subroutine pkbs1().
+    !>
+    !> Wraps catch_bort_pkbs1() function.
+    !>
+    !> @param ival - Value corresponding to s1mnem
+    !> @param mbay - BUFR message
+    !> @param s1mnem - Mnemonic for value to be written into Section 1 of BUFR message
+    !> @param s1mnem_str_len - Length of s1mnem string
+    !>
+    !> @author J. Ator @date 2025-11-18
+    !>
+    subroutine catch_bort_pkbs1_c(ival,mbay,s1mnem,s1mnem_str_len) bind(C, name='catch_bort_pkbs1')
+      use iso_c_binding
+      integer(c_int), intent(in), value :: s1mnem_str_len, ival
+      integer(c_int), intent(inout) :: mbay(*)
+      character(kind=c_char), intent(inout) :: s1mnem(*)
+    end subroutine catch_bort_pkbs1_c
 
   end interface
 

@@ -27,7 +27,8 @@ module bufr_c2f_interface
   public :: imrkopr_c, istdesc_c, ifxy_c, igetntbi_c, igettdi_c, stntbi_c, igetprm_c, isetprm_c, maxout_c, igetmxby_c
   public :: elemdx_c, cadn30_c, strnum_c, uptdd_c, pktdd_c, nemdefs_c, nemspecs_c, nemtab_c, nemtbb_c, numtbd_c
   public :: writsb_c, writsa_c, ufbstp_c, writlc_c, drfini_c, ufbcnt_c, ufbevn_c, ufbqcd_c, ufbqcp_c, getcfmng_c
-  public :: upftbv_c, ufbtab_c, ufbpos_c, datelen_c, iupvs01_c, nmsub_c, pkvs01_c, datebf_c, dumpbf_c, minimg_c
+  public :: upftbv_c, ufbtab_c, ufbpos_c, datelen_c, iupvs01_c, nmsub_c, pkvs01_c, datebf_c, dumpbf_c, minimg_c, upds3_c
+  public :: pkbs1_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -1684,7 +1685,7 @@ module bufr_c2f_interface
       call datebf(bufr_unit, mear, mmon, mday, mour, idate)
     end subroutine datebf_c
 
-    !> Read the Section 1 date-time from the first two "dummy" messages of an NCEP dump file.
+    !> Get the Section 1 date-time from the first two "dummy" messages of an NCEP dump file.
     !>
     !> Wraps dumpbf() subroutine.
     !>
@@ -1713,5 +1714,53 @@ module bufr_c2f_interface
 
       call minimg(bufr_unit, mini)
     end subroutine minimg_c
+
+    !> Get the sequence of data descriptors contained within Section 3 of a BUFR message.
+    !>
+    !> Wraps upds3() subroutine.
+    !>
+    !> @param mbay - BUFR message
+    !> @param lcds3 - Allocated length of cds3
+    !> @param ccds3 - Data descriptor sequence within Section 3 of mbay
+    !> @param nds3 - Number of descriptors returned in cds3
+    !>
+    !> @author Jeff Ator @date 2025-11-18
+    recursive subroutine upds3_c(mbay, lcds3, ccds3, nds3) bind(C, name='upds3_f')
+      integer(c_int), value, intent(in) :: lcds3
+      integer(c_int), intent(in) :: mbay(*)
+      integer(c_int), intent(out) :: nds3
+      character(kind=c_char), intent(out) :: ccds3(6,*)
+      character(len=6) :: cds3(600)
+      integer :: ii, jj
+
+      call upds3(mbay, lcds3, cds3, nds3)
+      do ii = 1, nds3
+        do jj = 1, 6
+          ccds3(jj,ii) = cds3(ii)(jj:jj)
+        enddo
+      enddo
+    end subroutine upds3_c
+
+    !> Specify a value to be written into Section 1 of a BUFR message
+    !>
+    !> Wraps pkbs1() subroutine.
+    !>
+    !> @param ival - Value corresponding to mnemonic
+    !> @param mbay - BUFR message
+    !> @param c_s1m - Mnemonic
+    !>
+    !> @author Jeff Ator @date 2025-11-18
+    recursive subroutine pkbs1_c(ival, mbay, c_s1m) bind(C, name='pkbs1_f')
+      character(kind=c_char), intent(in) :: c_s1m(*)
+      integer(c_int), value, intent(in) :: ival
+      integer(c_int), intent(inout) :: mbay(*)
+      integer :: lfs
+      character(len=12) :: f_s1m
+
+      lfs = get_c_string_length(c_s1m)
+      f_s1m = transfer(c_s1m(1:lfs), f_s1m)
+
+      call pkbs1(ival, mbay, f_s1m(1:lfs))
+    end subroutine pkbs1_c
 
 end module bufr_c2f_interface
