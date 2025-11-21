@@ -148,7 +148,7 @@ module bufrlib
     !> @param jj - Second (column) index.
     !> @param numjj - Maximum number of column indices.
     !>
-    !> @returns 1-dimensional index.
+    !> Returns 1-dimensional index.
     !>
     integer(c_int) function icvidx_c( ii, jj, numjj ) bind(C, name='icvidx')
       use iso_c_binding
