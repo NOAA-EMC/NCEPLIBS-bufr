@@ -27,7 +27,8 @@ module bufr_c2f_interface
   public :: imrkopr_c, istdesc_c, ifxy_c, igetntbi_c, igettdi_c, stntbi_c, igetprm_c, isetprm_c, maxout_c, igetmxby_c
   public :: elemdx_c, cadn30_c, strnum_c, uptdd_c, pktdd_c, nemdefs_c, nemspecs_c, nemtab_c, nemtbb_c, numtbd_c
   public :: writsb_c, writsa_c, ufbstp_c, writlc_c, drfini_c, ufbcnt_c, ufbevn_c, ufbqcd_c, ufbqcp_c, getcfmng_c
-  public :: upftbv_c, ufbtab_c, ufbpos_c
+  public :: upftbv_c, ufbtab_c, ufbpos_c, datelen_c, iupvs01_c, nmsub_c, pkvs01_c, datebf_c, dumpbf_c, minimg_c, upds3_c
+  public :: pkbs1_c, strcpt_c, rtrcpt_c, atrcpt_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -1591,5 +1592,233 @@ module bufr_c2f_interface
 
       call copy_f_c_str(f_subset, c_subset, subset_str_len)
     end subroutine ufbpos_c
+
+    !> Specify the format of Section 1 date-time values that will be output by future calls to message-reading subroutines.
+    !>
+    !> Wraps datelen() subroutine.
+    !>
+    !> @param len - Length of Section 1 date-time values to be output by all future calls to message-reading subroutines
+    !>
+    !> @author Jeff Ator @date 2025-11-14
+    recursive subroutine datelen_c(len) bind(C, name='datelen_f')
+      integer(c_int), value, intent(in) :: len
+
+      call datelen(len)
+    end subroutine datelen_c
+
+    !> Read a specified value from within Section 0 or 1 of a BUFR message.
+    !>
+    !> Wraps iupvs01() function.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param c_s01m - Mnemonic
+    !>
+    !> @returns iupvs01_c - Value corresponding to mnemonic
+    !>
+    !> @author Jeff Ator @date 2025-11-14
+    recursive function iupvs01_c(bufr_unit, c_s01m) result(ires) bind(C, name='iupvs01_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      character(kind=c_char), intent(in) :: c_s01m(*)
+      integer(c_int) :: ires
+      integer :: iupvs01, lfs
+      character(len=12) :: f_s01m
+
+      lfs = get_c_string_length(c_s01m)
+      f_s01m = transfer(c_s01m(1:lfs), f_s01m)
+
+      ires = iupvs01(bufr_unit, f_s01m(1:lfs))
+    end function iupvs01_c
+
+    !> Get the total number of data subsets available within a BUFR message
+    !>
+    !> Wraps nmsub() function.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !>
+    !> @returns nmsub_c - Number of data subsets
+    !>
+    !> @author Jeff Ator @date 2025-11-14
+    recursive function nmsub_c(bufr_unit) result(ires) bind(C, name='nmsub_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int) :: ires
+      integer :: nmsub
+
+      ires = nmsub(bufr_unit)
+    end function nmsub_c
+
+    !> Specify a value to be written into Section 0 or 1 of all future BUFR messages
+    !>
+    !> Wraps pkvs01() subroutine.
+    !>
+    !> @param c_s01m - Mnemonic
+    !> @param ival - Value corresponding to mnemonic
+    !>
+    !> @author Jeff Ator @date 2025-11-14
+    recursive subroutine pkvs01_c(c_s01m, ival) bind(C, name='pkvs01_f')
+      character(kind=c_char), intent(in) :: c_s01m(*)
+      integer(c_int), value, intent(in) :: ival
+      integer :: lfs
+      character(len=12) :: f_s01m
+
+      lfs = get_c_string_length(c_s01m)
+      f_s01m = transfer(c_s01m(1:lfs), f_s01m)
+
+      call pkvs01(f_s01m(1:lfs), ival)
+    end subroutine pkvs01_c
+
+    !> Get the Section 1 date-time from the first data message of a BUFR file.
+    !>
+    !> Wraps datebf() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param mear - Year stored within Section 1 of first data message
+    !> @param mmon - Month stored within Section 1 of first data message
+    !> @param mday - Day stored within Section 1 of first data message
+    !> @param mour - Hour stored within Section 1 of first data message
+    !> @param idate - Date-time stored within Section 1 of first data message
+    !>
+    !> @author Jeff Ator @date 2025-11-18
+    recursive subroutine datebf_c(bufr_unit, mear, mmon, mday, mour, idate) bind(C, name='datebf_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int), intent(out) :: mear, mmon, mday, mour, idate
+
+      call datebf(bufr_unit, mear, mmon, mday, mour, idate)
+    end subroutine datebf_c
+
+    !> Get the Section 1 date-time from the first two "dummy" messages of an NCEP dump file.
+    !>
+    !> Wraps dumpbf() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param jdate - Dump center date-time stored within Section 1 of first "dummy" message
+    !> @param jdump - Dump initiation date-time stored within Section 1 of second "dummy" message
+    !>
+    !> @author Jeff Ator @date 2025-11-18
+    recursive subroutine dumpbf_c(bufr_unit, jdate, jdump) bind(C, name='dumpbf_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int), intent(out) :: jdate(*), jdump(*)
+
+      call dumpbf(bufr_unit, jdate, jdump)
+    end subroutine dumpbf_c
+
+    !> Write a minutes value into Section 1 of a BUFR message.
+    !>
+    !> Wraps minimg() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param mini - Minutes value
+    !>
+    !> @author Jeff Ator @date 2025-11-18
+    recursive subroutine minimg_c(bufr_unit, mini) bind(C, name='minimg_f')
+      integer(c_int), value, intent(in) :: bufr_unit, mini
+
+      call minimg(bufr_unit, mini)
+    end subroutine minimg_c
+
+    !> Get the sequence of data descriptors contained within Section 3 of a BUFR message.
+    !>
+    !> Wraps upds3() subroutine.
+    !>
+    !> @param mbay - BUFR message
+    !> @param lcds3 - Allocated length of cds3
+    !> @param ccds3 - Data descriptor sequence within Section 3 of mbay
+    !> @param nds3 - Number of descriptors returned in cds3
+    !>
+    !> @author Jeff Ator @date 2025-11-18
+    recursive subroutine upds3_c(mbay, lcds3, ccds3, nds3) bind(C, name='upds3_f')
+      integer(c_int), value, intent(in) :: lcds3
+      integer(c_int), intent(in) :: mbay(*)
+      integer(c_int), intent(out) :: nds3
+      character(kind=c_char), intent(out) :: ccds3(6,*)
+      character(len=6) :: cds3(600)
+      integer :: ii, jj
+
+      call upds3(mbay, lcds3, cds3, nds3)
+      do ii = 1, nds3
+        do jj = 1, 6
+          ccds3(jj,ii) = cds3(ii)(jj:jj)
+        enddo
+      enddo
+    end subroutine upds3_c
+
+    !> Specify a value to be written into Section 1 of a BUFR message
+    !>
+    !> Wraps pkbs1() subroutine.
+    !>
+    !> @param ival - Value corresponding to mnemonic
+    !> @param mbay - BUFR message
+    !> @param c_s1m - Mnemonic
+    !>
+    !> @author Jeff Ator @date 2025-11-18
+    recursive subroutine pkbs1_c(ival, mbay, c_s1m) bind(C, name='pkbs1_f')
+      character(kind=c_char), intent(in) :: c_s1m(*)
+      integer(c_int), value, intent(in) :: ival
+      integer(c_int), intent(inout) :: mbay(*)
+      integer :: lfs
+      character(len=12) :: f_s1m
+
+      lfs = get_c_string_length(c_s1m)
+      f_s1m = transfer(c_s1m(1:lfs), f_s1m)
+
+      call pkbs1(ival, mbay, f_s1m(1:lfs))
+    end subroutine pkbs1_c
+
+    !> Specify a tank receipt time to be written into Section 1 of all future BUFR messages
+    !>
+    !> Wraps strcpt() subroutine.
+    !>
+    !> @param cf - Flag indicating whether future BUFR output messages should include a tank receipt time
+    !> @param iyr - Tank receipt year
+    !> @param imo - Tank receipt month
+    !> @param idy - Tank receipt day
+    !> @param ihr - Tank receipt hour
+    !> @param imi - Tank receipt minute
+    !>
+    !> @author J. Ator @date 2025-11-20
+    recursive subroutine strcpt_c(cf, iyr, imo, idy, ihr, imi) bind(C, name='strcpt_f')
+      integer(c_int), value, intent(in) :: iyr, imo, idy, ihr, imi
+      character(kind=c_char), intent(in) :: cf(*)
+      character :: ch
+
+      ch = cf(1)
+      call strcpt(ch, iyr, imo, idy, ihr, imi)
+    end subroutine strcpt_c
+
+    !> Get the tank receipt time from Section 1 of a BUFR message
+    !>
+    !> Wraps rtrcpt() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit
+    !> @param iyr - Tank receipt year
+    !> @param imo - Tank receipt month
+    !> @param idy - Tank receipt day
+    !> @param ihr - Tank receipt hour
+    !> @param imi - Tank receipt minute
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-11-20
+    recursive subroutine rtrcpt_c(lunit, iyr, imo, idy, ihr, imi, iret) bind(C, name='rtrcpt_f')
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: iyr, imo, idy, ihr, imi, iret
+
+      call rtrcpt(lunit, iyr, imo, idy, ihr, imi, iret)
+    end subroutine rtrcpt_c
+
+    !> Read a BUFR message and output an equivalent message with a tank receipt time added to Section 1
+    !>
+    !> Wraps atrcpt() subroutine.
+    !>
+    !> @param msgin - BUFR message
+    !> @param lmsgot - Allocated length of msgot
+    !> @param msgot - Copy of msgin with a tank receipt time added to Section 1
+    !>
+    !> @author J. Ator @date 2025-11-20
+    recursive subroutine atrcpt_c(msgin, lmsgot, msgot) bind(C, name='atrcpt_f')
+      integer(c_int), value, intent(in) :: lmsgot
+      integer(c_int), intent(in) :: msgin(*)
+      integer(c_int), intent(out) :: msgot(*)
+
+      call atrcpt(msgin, lmsgot, msgot)
+    end subroutine atrcpt_c
 
 end module bufr_c2f_interface

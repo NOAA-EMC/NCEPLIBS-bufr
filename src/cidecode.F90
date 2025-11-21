@@ -235,11 +235,9 @@ recursive integer function iupb(mbay,nbyt,nbit) result(iret)
 
   if(im8b) then
     im8b=.false.
-
     call x84(nbyt,my_nbyt,1)
     call x84(nbit,my_nbit,1)
     iret = iupb(mbay,my_nbyt,my_nbit)
-
     im8b=.true.
     return
   endif
@@ -280,10 +278,8 @@ recursive integer function iupm(cbay,nbits) result(iret)
 
   if(im8b) then
     im8b=.false.
-
     call x84(nbits,my_nbits,1)
     iret = iupm(cbay,my_nbits)
-
     im8b=.true.
     return
   endif

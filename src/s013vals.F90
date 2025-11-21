@@ -60,13 +60,11 @@ recursive subroutine gets1loc(s1mnem,iben,isbyt,iwid,iret)
 
   if(im8b) then
     im8b=.false.
-
     call x84(iben,my_iben,1)
     call gets1loc(s1mnem,my_iben,isbyt,iwid,iret)
     call x48(isbyt,isbyt,1)
     call x48(iwid,iwid,1)
     call x48(iret,iret,1)
-
     im8b=.true.
     return
   endif
@@ -263,9 +261,7 @@ recursive integer function iupbs01(mbay,s01mnem) result(iret)
 
   if(im8b) then
     im8b=.false.
-
     iret = iupbs01(mbay,s01mnem)
-
     im8b=.true.
     return
   endif
@@ -359,9 +355,7 @@ recursive integer function iupbs3(mbay,s3mnem) result(iret)
 
   if(im8b) then
     im8b=.false.
-
     iret = iupbs3(mbay,s3mnem)
-
     im8b=.true.
     return
   endif
@@ -440,6 +434,8 @@ end function iupbs3
 !> @author J. Ator @date 2005-11-29
 recursive integer function iupvs01(lunit,s01mnem) result(iret)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_bitbuf
@@ -447,19 +443,27 @@ recursive integer function iupvs01(lunit,s01mnem) result(iret)
   implicit none
 
   character*(*), intent(in) :: s01mnem
+  character*12 cs01mnem
 
   integer, intent(in) :: lunit
-  integer my_lunit, lun, ilst, imst, iupbs01
+  integer my_lunit, lun, ilst, imst, iupbs01, bort_target_set, lcs
 
   ! Check for I8 integers
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     iret=iupvs01(my_lunit,s01mnem)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call strsuc(s01mnem,cs01mnem,lcs)
+    call catch_bort_iupvs01_c(lunit,cs01mnem,lcs,iret)
+    call bort_target_unset
     return
   endif
 
@@ -518,6 +522,8 @@ end function iupvs01
 !> @authors J. Ator, D. Keyser @date 2005-11-29
 recursive subroutine pkbs1(ival,mbay,s1mnem)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   implicit none
@@ -526,21 +532,29 @@ recursive subroutine pkbs1(ival,mbay,s1mnem)
 
   integer, intent(in) :: ival
   integer, intent(inout) :: mbay(*)
-  integer my_ival, iben, isbyt, iwid, iret, iupbs01, ibit
+  integer my_ival, iben, isbyt, iwid, iret, iupbs01, ibit, bort_target_set, lcs
 
   character*128 bort_str
+  character*12 cs1mnem
 
   ! Check for I8 integers.
 
   if (im8b) then
     im8b = .false.
-
     call x84(ival,my_ival,1)
     call pkbs1(my_ival,mbay,s1mnem)
-
     im8b = .true.
     return
-  end if
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call strsuc(s1mnem,cs1mnem,lcs)
+    call catch_bort_pkbs1_c(ival,mbay,cs1mnem,lcs)
+    call bort_target_unset
+    return
+  endif
 
   iben = iupbs01(mbay,'BEN')
 
@@ -616,6 +630,8 @@ end subroutine pkbs1
 !> @author J. Ator @date 2005-11-29
 recursive subroutine pkvs01(s01mnem,ival)
 
+  use bufrlib
+
   use modv_vars, only: im8b, mxs01v
 
   use moda_s01cm
@@ -625,19 +641,27 @@ recursive subroutine pkvs01(s01mnem,ival)
   character*(*), intent(in) :: s01mnem
 
   integer, intent(in) :: ival
-  integer my_ival, i
+  integer my_ival, i, bort_target_set, lcs
 
   character*128 bort_str
+  character*12 cs01mnem
 
   ! check for i8 integers
 
   if(im8b) then
     im8b=.false.
-
     call x84(ival,my_ival,1)
     call pkvs01(s01mnem,my_ival)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call strsuc(s01mnem,cs01mnem,lcs)
+    call catch_bort_pkvs01_c(cs01mnem,lcs,ival)
+    call bort_target_unset
     return
   endif
 
@@ -813,7 +837,7 @@ end subroutine reads3
 !> @remarks
 !> - The start of the BUFR message (i.e. the string 'BUFR') must be aligned on the first 4 bytes of mbay
 !> - This subroutine does not recursively resolve any Table D descriptors from within Section 3; rather, what is returned in
-!> CDS3 is the exact list of data descriptors as it appears within Section 3 of mbay
+!> cds3 is the exact list of data descriptors as it appears within Section 3 of mbay
 !>
 !> @param mbay - BUFR message
 !> @param lcds3 - Dimensioned size (in integers) of cds3 in the calling program; used by the subroutine to
@@ -824,27 +848,43 @@ end subroutine reads3
 !> @author J. Ator @date 2003-11-04
 recursive subroutine upds3(mbay,lcds3,cds3,nds3)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   implicit none
 
   integer, intent(in) :: mbay(*), lcds3
   integer, intent(out) :: nds3
-  integer my_lcds3, len0, len1, len2, len3, l4, l5, ipt, jj, iupb
+  integer my_lcds3, len0, len1, len2, len3, l4, l5, ipt, ii, jj, iupb, bort_target_set
 
   character*6, intent(out) :: cds3(*)
   character*6 adn30
+  character, allocatable :: ccds3(:,:)
 
   ! Check for I8 integers.
 
   if(im8b) then
     im8b=.false.
-
     call x84(lcds3,my_lcds3,1)
     call upds3(mbay,my_lcds3,cds3,nds3)
     call x48(nds3,nds3,1)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    allocate(ccds3(6,lcds3))
+    call catch_bort_upds3_c(mbay,lcds3,ccds3,nds3)
+    do ii = 1, nds3
+      do jj = 1, 6
+        cds3(ii)(jj:jj) = ccds3(jj,ii)
+      enddo
+    enddo
+    deallocate(ccds3)
+    call bort_target_unset
     return
   endif
 
@@ -883,12 +923,14 @@ end subroutine upds3
 !> @author J. Woollen @date 1998-07-08
 recursive subroutine datelen(len)
 
+  use bufrlib
+
   use modv_vars, only: im8b, lendat
 
   implicit none
 
   integer, intent(in) :: len
-  integer my_len
+  integer my_len, bort_target_set
 
   character*128 bort_str
 
@@ -896,11 +938,17 @@ recursive subroutine datelen(len)
 
   if(im8b) then
     im8b=.false.
-
     call x84(len,my_len,1)
     call datelen(my_len)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_datelen_c(len)
+    call bort_target_unset
     return
   endif
 
@@ -924,12 +972,14 @@ end subroutine datelen
 !> @param mour - Hour stored within Section 1 of first data message
 !> @param idate - Date-time stored within Section 1 of first data message, in format of either
 !> YYMMDDHH or YYYYMMDDHH, depending on the most recent call to subroutine datelen()
-!>   -1 = First data message could not be found in BUFR file
+!>   - -1 = First data message could not be found in BUFR file
 !>
 !> Logical unit lunit must already be associated with a filename on the local system, typically via a Fortran "OPEN" statement.
 !>
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine datebf(lunit,mear,mmon,mday,mour,idate)
+
+  use bufrlib
 
   use modv_vars, only: im8b, iprt
 
@@ -939,7 +989,7 @@ recursive subroutine datebf(lunit,mear,mmon,mday,mour,idate)
 
   integer, intent(in) :: lunit
   integer, intent(out) :: mear, mmon, mday, mour, idate
-  integer my_lunit, lun, jl, jm, ier, idx, idxmsg, igetdate
+  integer my_lunit, lun, jl, jm, ier, idx, idxmsg, igetdate, bort_target_set
 
   character*128 errstr
 
@@ -947,7 +997,6 @@ recursive subroutine datebf(lunit,mear,mmon,mday,mour,idate)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call datebf(my_lunit,mear,mmon,mday,mour,idate)
     call x48(mear,mear,1)
@@ -955,8 +1004,15 @@ recursive subroutine datebf(lunit,mear,mmon,mday,mour,idate)
     call x48(mday,mday,1)
     call x48(mour,mour,1)
     call x48(idate,idate,1)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_datebf_c(lunit,mear,mmon,mday,mour,idate)
+    call bort_target_unset
     return
   endif
 
@@ -1026,13 +1082,11 @@ recursive integer function igetdate(mbay,iyr,imo,idy,ihr) result(iret)
 
   if(im8b) then
      im8b=.false.
-
      iret=igetdate(mbay,iyr,imo,idy,ihr)
      call x48(iyr,iyr,1)
      call x48(imo,imo,1)
      call x48(idy,idy,1)
      call x48(ihr,ihr,1)
-
      im8b=.true.
      return
   endif
@@ -1073,10 +1127,8 @@ recursive integer function i4dy(idate) result(iret)
 
   if(im8b) then
     im8b=.false.
-
     call x84(idate,my_idate,1)
     iret=i4dy(my_idate)
-
     im8b=.true.
     return
   endif
@@ -1128,6 +1180,8 @@ end function i4dy
 !> @author J. Woollen @date 1996-12-11
 recursive subroutine dumpbf(lunit,jdate,jdump)
 
+  use bufrlib
+
   use modv_vars, only: im8b, iprt
 
   use moda_mgwa
@@ -1136,7 +1190,7 @@ recursive subroutine dumpbf(lunit,jdate,jdump)
 
   integer, intent(in) :: lunit
   integer, intent(out) :: jdate(*), jdump(*)
-  integer my_lunit, lun, jl, jm, ier, ii, igetdate, idxmsg, iupbs3, iupbs01
+  integer my_lunit, lun, jl, jm, ier, ii, igetdate, idxmsg, iupbs3, iupbs01, bort_target_set
 
   character*128 errstr
 
@@ -1144,13 +1198,19 @@ recursive subroutine dumpbf(lunit,jdate,jdump)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call dumpbf(my_lunit,jdate,jdump)
     call x48(jdate(1),jdate(1),5)
     call x48(jdump(1),jdump(1),5)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_dumpbf_c(lunit,jdate,jdump)
+    call bort_target_unset
     return
   endif
 
@@ -1214,6 +1274,8 @@ end subroutine dumpbf
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine minimg(lunit,mini)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_bitbuf
@@ -1221,18 +1283,24 @@ recursive subroutine minimg(lunit,mini)
   implicit none
 
   integer, intent(in) :: lunit, mini
-  integer my_lunit, my_mini, lun, il, im
+  integer my_lunit, my_mini, lun, il, im, bort_target_set
 
   ! Check for I8 integers.
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call x84(mini,my_mini,1)
     call minimg(my_lunit,my_mini)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_minimg_c(lunit,mini)
+    call bort_target_unset
     return
   endif
 

@@ -818,6 +818,213 @@ module bufrlib
       integer(c_int), intent(out) :: jdate
     end subroutine catch_bort_ufbpos_c
 
+    !> @fn bufrlib::catch_bort_datelen_c::catch_bort_datelen_c(len)
+    !> Catch any bort error inside of subroutine datelen().
+    !>
+    !> Wraps catch_bort_datelen() function.
+    !>
+    !> @param len - Length of Section 1 date-time values to be output by all future calls to message-reading subroutines
+    !>
+    !> @author J. Ator @date 2025-11-14
+    subroutine catch_bort_datelen_c(len) bind(C, name='catch_bort_datelen')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: len
+    end subroutine catch_bort_datelen_c
+
+    !> @fn bufrlib::catch_bort_iupvs01_c::catch_bort_iupvs01_c(lunit,s01mnem,s01mnem_str_len,iret)
+    !> Catch any bort error inside of function iupvs01().
+    !>
+    !> Wraps catch_bort_iupvs01() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param s01mnem - Mnemonic for value to be read from Section 0 or Section 1 of BUFR message
+    !> @param s01mnem_str_len - Length of s01mnem string
+    !> @param iret - Value corresponding to s01mnem
+    !>
+    !> @author J. Ator @date 2025-11-14
+    !>
+    subroutine catch_bort_iupvs01_c(lunit,s01mnem,s01mnem_str_len,iret) bind(C, name='catch_bort_iupvs01')
+      use iso_c_binding
+      integer(c_int), intent(in), value :: lunit, s01mnem_str_len
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(inout) :: s01mnem(*)
+    end subroutine catch_bort_iupvs01_c
+
+    !> @fn bufrlib::catch_bort_nmsub_c::catch_bort_nmsub_c(lunit,iret)
+    !> Catch any bort error inside of function nmsub().
+    !>
+    !> Wraps catch_bort_nmsub() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param iret - Number of data subsets
+    !>
+    !> @author J. Ator @date 2025-11-14
+    subroutine catch_bort_nmsub_c(lunit,iret) bind(C, name='catch_bort_nmsub')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: iret
+    end subroutine catch_bort_nmsub_c
+
+    !> @fn bufrlib::catch_bort_pkvs01_c::catch_bort_pkvs01_c(s01mnem,s01mnem_str_len,ival)
+    !> Catch any bort error inside of subroutine pkvs01().
+    !>
+    !> Wraps catch_bort_pkvs01() function.
+    !>
+    !> @param s01mnem - Mnemonic for value to be written into Section 0 or Section 1 of BUFR message
+    !> @param s01mnem_str_len - Length of s01mnem string
+    !> @param ival - Value corresponding to s01mnem
+    !>
+    !> @author J. Ator @date 2025-11-14
+    !>
+    subroutine catch_bort_pkvs01_c(s01mnem,s01mnem_str_len,ival) bind(C, name='catch_bort_pkvs01')
+      use iso_c_binding
+      integer(c_int), intent(in), value :: s01mnem_str_len, ival
+      character(kind=c_char), intent(inout) :: s01mnem(*)
+    end subroutine catch_bort_pkvs01_c
+
+    !> @fn bufrlib::catch_bort_datebf_c::catch_bort_datebf_c(lunit,mear,mmon,mday,mour,idate)
+    !> Catch any bort error inside of subroutine datebf().
+    !>
+    !> Wraps catch_bort_datebf() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param mear - Year stored within Section 1 of first data message
+    !> @param mmon - Month stored within Section 1 of first data message
+    !> @param mday - Day stored within Section 1 of first data message
+    !> @param mour - Hour stored within Section 1 of first data message
+    !> @param idate - Date-time stored within Section 1 of first data message
+    !>
+    !> @author J. Ator @date 2025-11-18
+    subroutine catch_bort_datebf_c(lunit,mear,mmon,mday,mour,idate) bind(C, name='catch_bort_datebf')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: mear, mmon, mday, mour, idate
+    end subroutine catch_bort_datebf_c
+
+    !> @fn bufrlib::catch_bort_dumpbf_c::catch_bort_dumpbf_c(lunit,jdate,jdump)
+    !> Catch any bort error inside of subroutine dumpbf().
+    !>
+    !> Wraps catch_bort_dumpbf() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param jdate - Dump center date-time stored within Section 1 of first "dummy" message
+    !> @param jdump - Dump initiation date-time stored within Section 1 of second "dummy" message
+    !>
+    !> @author J. Ator @date 2025-11-18
+    subroutine catch_bort_dumpbf_c(lunit,jdate,jdump) bind(C, name='catch_bort_dumpbf')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: jdate(*), jdump(*)
+    end subroutine catch_bort_dumpbf_c
+
+    !> @fn bufrlib::catch_bort_minimg_c::catch_bort_minimg_c(lunit,mini)
+    !> Catch any bort error inside of subroutine minimg().
+    !>
+    !> Wraps catch_bort_minimg() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param mini - Minutes value
+    !>
+    !> @author J. Ator @date 2025-11-18
+    subroutine catch_bort_minimg_c(lunit,mini) bind(C, name='catch_bort_minimg')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, mini
+    end subroutine catch_bort_minimg_c
+
+    !> @fn bufrlib::catch_bort_upds3_c::catch_bort_upds3_c(mbay,lcds3,cds3,nds3)
+    !> Catch any bort error inside of subroutine upds3().
+    !>
+    !> Wraps catch_bort_upds3() function.
+    !>
+    !> @param mbay - BUFR message
+    !> @param lcds3 - Allocated length of cds3
+    !> @param ccds3 - Data descriptor sequence within Section 3 of mbay
+    !> @param nds3 - Number of descriptors returned in cds3
+    !>
+    !> @author J. Ator @date 2025-11-18
+    subroutine catch_bort_upds3_c(mbay,lcds3,ccds3,nds3) bind(C, name='catch_bort_upds3')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lcds3
+      integer(c_int), intent(in) :: mbay(*)
+      integer(c_int), intent(out) :: nds3
+      character(kind=c_char), intent(out) :: ccds3(6,*)
+    end subroutine catch_bort_upds3_c
+
+    !> @fn bufrlib::catch_bort_pkbs1_c::catch_bort_pkbs1_c(ival,mbay,s1mnem,s1mnem_str_len)
+    !> Catch any bort error inside of subroutine pkbs1().
+    !>
+    !> Wraps catch_bort_pkbs1() function.
+    !>
+    !> @param ival - Value corresponding to s1mnem
+    !> @param mbay - BUFR message
+    !> @param s1mnem - Mnemonic for value to be written into Section 1 of BUFR message
+    !> @param s1mnem_str_len - Length of s1mnem string
+    !>
+    !> @author J. Ator @date 2025-11-18
+    !>
+    subroutine catch_bort_pkbs1_c(ival,mbay,s1mnem,s1mnem_str_len) bind(C, name='catch_bort_pkbs1')
+      use iso_c_binding
+      integer(c_int), intent(in), value :: s1mnem_str_len, ival
+      integer(c_int), intent(inout) :: mbay(*)
+      character(kind=c_char), intent(inout) :: s1mnem(*)
+    end subroutine catch_bort_pkbs1_c
+
+    !> @fn bufrlib::catch_bort_strcpt_c::catch_bort_strcpt_c(cf,iyr,imo,idy,ihr,imi)
+    !> Catch any bort error inside of subroutine strcpt().
+    !>
+    !> Wraps catch_bort_strcpt() function.
+    !>
+    !> @param cf - Flag indicating whether future BUFR output messages should include a tank receipt time
+    !> @param iyr - Tank receipt year
+    !> @param imo - Tank receipt month
+    !> @param idy - Tank receipt day
+    !> @param ihr - Tank receipt hour
+    !> @param imi - Tank receipt minute
+    !>
+    !> @author J. Ator @date 2025-11-20
+    subroutine catch_bort_strcpt_c(cf,iyr,imo,idy,ihr,imi) bind(C, name='catch_bort_strcpt')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: iyr, imo, idy, ihr, imi
+      character(kind=c_char), intent(in) :: cf(*)
+    end subroutine catch_bort_strcpt_c
+
+    !> @fn bufrlib::catch_bort_rtrcpt_c::catch_bort_rtrcpt_c(lunit,iyr,imo,idy,ihr,imi,iret)
+    !> Catch any bort error inside of subroutine rtrcpt().
+    !>
+    !> Wraps catch_bort_rtrcpt() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param iyr - Tank receipt year
+    !> @param imo - Tank receipt month
+    !> @param idy - Tank receipt day
+    !> @param ihr - Tank receipt hour
+    !> @param imi - Tank receipt minute
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-11-20
+    subroutine catch_bort_rtrcpt_c(lunit,iyr,imo,idy,ihr,imi,iret) bind(C, name='catch_bort_rtrcpt')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: iyr, imo, idy, ihr, imi, iret
+    end subroutine catch_bort_rtrcpt_c
+
+    !> @fn bufrlib::catch_bort_atrcpt_c::catch_bort_atrcpt_c(msgin,lmsgot,msgot)
+    !> Catch any bort error inside of subroutine atrcpt().
+    !>
+    !> Wraps catch_bort_atrcpt() function.
+    !>
+    !> @param msgin - BUFR message
+    !> @param lmsgot - Allocated length of msgot
+    !> @param msgot - Copy of msgin with a tank receipt time added to Section 1
+    !>
+    !> @author J. Ator @date 2025-11-20
+    subroutine catch_bort_atrcpt_c(msgin,lmsgot,msgot) bind(C, name='catch_bort_atrcpt')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lmsgot
+      integer(c_int), intent(in) :: msgin(*)
+      integer(c_int), intent(out) :: msgot(*)
+    end subroutine catch_bort_atrcpt_c
+
   end interface
 
 end module bufrlib

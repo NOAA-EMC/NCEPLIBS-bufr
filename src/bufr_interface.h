@@ -824,6 +824,172 @@ void ufbtab_f(int bufr_unit, void **c_data, int dim_1, int dim_2,
  */
 void ufbpos_f(int bufr_unit, int irec, int isub, char *subset, int *iddate, int subset_len);
 
+/**
+ * Specify the format of Section 1 date-time values that will be output by future calls to
+ * message-reading subroutines.
+ *
+ * Wraps datelen() subroutine.
+ *
+ * @param len - Length of Section 1 date-time values to be output by all future calls to
+ * message-reading subroutines.
+ *
+ * @author Jeff Ator @date 2025-11-14
+ */
+void datelen_f(int len);
+
+/**
+ * Read a specified value from within Section 0 or 1 of a BUFR message.
+ *
+ * Wraps iupvs01() function.
+ *
+ * @param bufr_unit - Fortran logical unit number to read from
+ * @param c_s01m - Mnemonic
+ *
+ * @returns Value corresponding to mnemonic
+ *
+ * @author Jeff Ator @date 2025-11-14
+ */
+int iupvs01_f(int bufr_unit, char *c_s01m);
+
+/**
+ * Get the total number of data subsets available within a BUFR message
+ *
+ * Wraps nmsub() function.
+ *
+ * @param bufr_unit - Fortran logical unit number to read from
+ *
+ * @returns Number of data subsets
+ *
+ * @author Jeff Ator @date 2025-11-14
+ */
+int nmsub_f(int bufr_unit);
+
+/**
+ * Specify a value to be written into Section 0 or 1 of all future BUFR messages
+ *
+ * Wraps pkvs01() subroutine.
+ *
+ * @param c_s01m - Mnemonic
+ * @param ival - Value corresponding to mnemonic
+ *
+ * @author Jeff Ator @date 2025-11-14
+ */
+void pkvs01_f(char *c_s01m, int ival);
+
+/**
+ * Get the Section 1 date-time from the first data message of a BUFR file.
+ *
+ * Wraps datebf() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from
+ * @param mear - Year stored within Section 1 of first data message
+ * @param mmon - Month stored within Section 1 of first data message
+ * @param mday - Day stored within Section 1 of first data message
+ * @param mour - Hour stored within Section 1 of first data message
+ * @param idate - Date-time stored within Section 1 of first data message
+ *
+ * @author Jeff Ator @date 2025-11-18
+ */
+void datebf_f(int bufr_unit, int *mear, int *mmon, int *mday, int *mour, int *idate);
+
+/**
+ * Get the Section 1 date-time from the first two "dummy" messages of an NCEP dump file.
+ *
+ * Wraps dumpbf() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from
+ * @param jdate - Dump center date-time stored within Section 1 of first "dummy" message
+ * @param jdump - Dump initiation date-time stored within Section 1 of second "dummy" message
+ *
+ * @author Jeff Ator @date 2025-11-18
+ */
+void dumpbf_f(int bufr_unit, int *jdate, int *jdump);
+
+/**
+ * Write a minutes value into Section 1 of a BUFR message.
+ *
+ * Wraps minimg() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from
+ * @param mini - Minutes value
+ *
+ * @author Jeff Ator @date 2025-11-18
+ */
+void minimg_f(int bufr_unit, int mini);
+
+/**
+ * Get the sequence of data descriptors contained within Section 3 of a BUFR message.
+ *
+ * Wraps upds3() subroutine.
+ *
+ * @param mbay - BUFR message
+ * @param lcds3 - Allocated length of cds3
+ * @param ccds3 - Data descriptor sequence within Section 3 of mbay
+ * @param nds3 - Number of descriptors returned in cds3
+ *
+ * @author Jeff Ator @date 2025-11-18
+ */
+void upds3_f(int *mbay, int lcds3, char (*ccds3)[6], int *nds3);
+
+/**
+ * Specify a value to be written into Section 1 of a BUFR message
+ *
+ * Wraps pkbs1() subroutine.
+ *
+ * @param ival - Value corresponding to mnemonic
+ * @param mbay - BUFR message
+ * @param c_s1m - Mnemonic
+ *
+ * @author Jeff Ator @date 2025-11-18
+ */
+void pkbs1_f(int ival, int *mbay, char *c_s1m);
+
+/**
+ * Specify a tank receipt time to be written into Section 1 of all future BUFR messages
+ *
+ * Wraps strcpt() subroutine.
+ *
+ * @param cf - Flag indicating whether future BUFR output messages should include a tank receipt time
+ * @param iyr - Tank receipt year
+ * @param imo - Tank receipt month
+ * @param idy - Tank receipt day
+ * @param ihr - Tank receipt hour
+ * @param imi - Tank receipt minute
+ *
+ * @author Jeff Ator @date 2025-11-20
+ */
+void strcpt_f(char *cf, int iyr, int imo, int idy, int ihr, int imi);
+
+/**
+ * Get the tank receipt time from Section 1 of a BUFR message
+ *
+ * Wraps rtrcpt() subroutine.
+ *
+ * @param lunit - Fortran logical unit
+ * @param iyr - Tank receipt year
+ * @param imo - Tank receipt month
+ * @param idy - Tank receipt day
+ * @param ihr - Tank receipt hour
+ * @param imi - Tank receipt minute
+ * @param iret - Return code
+ *
+ * @author Jeff Ator @date 2025-11-20
+ */
+void rtrcpt_f(int lunit, int *iyr, int *imo, int *idy, int *ihr, int *imi, int *iret);
+
+/**
+ * Read a BUFR message and output an equivalent message with a tank receipt time added to Section 1
+ *
+ * Wraps atrcpt() subroutine.
+ *
+ * @param msgin - BUFR message
+ * @param lmsgot - Allocated length of msgot
+ * @param msgot - Copy of msgin with a tank receipt time added to Section 1
+ *
+ * @author Jeff Ator @date 2025-11-20
+ */
+void atrcpt_f(int *msgin, int lmsgot, int *msgot);
+
 #ifdef __cplusplus
 }
 #endif
