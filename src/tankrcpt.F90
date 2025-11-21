@@ -22,6 +22,8 @@
 !> @author J. Ator @date 2009-03-23
 recursive subroutine atrcpt(msgin,lmsgot,msgot)
 
+  use bufrlib
+
   use modv_vars, only: im8b, nbytw
 
   use moda_tnkrcp
@@ -30,17 +32,23 @@ recursive subroutine atrcpt(msgin,lmsgot,msgot)
 
   integer, intent(in) :: msgin(*), lmsgot
   integer, intent(out) :: msgot(*)
-  integer my_lmsgot, len0, len1, l2, l3, l4, l5, iad1, iad2, lenm, lenmot, len1ot, ibit, iupbs01
+  integer my_lmsgot, len0, len1, l2, l3, l4, l5, iad1, iad2, lenm, lenmot, len1ot, ibit, iupbs01, bort_target_set
 
   ! Check for I8 integers.
 
   if(im8b) then
     im8b=.false.
-
-    call x84 ( lmsgot, my_lmsgot, 1 )
-    call atrcpt ( msgin, my_lmsgot*2, msgot )
-
+    call x84(lmsgot, my_lmsgot, 1)
+    call atrcpt(msgin, my_lmsgot*2, msgot)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_atrcpt_c(msgin,lmsgot,msgot)
+    call bort_target_unset
     return
   endif
 
@@ -124,7 +132,6 @@ recursive subroutine rtrcptb(mbay,iyr,imo,idy,ihr,imi,iret)
 
   if(im8b) then
     im8b=.false.
-
     call rtrcptb(mbay,iyr,imo,idy,ihr,imi,iret)
     call x48(iyr,iyr,1)
     call x48(imo,imo,1)
@@ -132,7 +139,6 @@ recursive subroutine rtrcptb(mbay,iyr,imo,idy,ihr,imi,iret)
     call x48(ihr,ihr,1)
     call x48(imi,imi,1)
     call x48(iret,iret,1)
-
     im8b=.true.
     return
   endif
@@ -185,6 +191,8 @@ end subroutine rtrcptb
 !> @author J. Ator @date 2009-03-23
 recursive subroutine rtrcpt(lunit,iyr,imo,idy,ihr,imi,iret)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_bitbuf
@@ -193,13 +201,12 @@ recursive subroutine rtrcpt(lunit,iyr,imo,idy,ihr,imi,iret)
 
   integer, intent(in) :: lunit
   integer, intent(out) :: iyr, imo, idy, ihr, imi, iret
-  integer my_lunit, lun, il, im
+  integer my_lunit, lun, il, im, bort_target_set
 
   ! Check for I8 integers.
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call rtrcpt(my_lunit,iyr,imo,idy,ihr,imi,iret)
     call x48(iyr,iyr,1)
@@ -208,8 +215,15 @@ recursive subroutine rtrcpt(lunit,iyr,imo,idy,ihr,imi,iret)
     call x48(ihr,ihr,1)
     call x48(imi,imi,1)
     call x48(iret,iret,1)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_rtrcpt_c(lunit,iyr,imo,idy,ihr,imi,iret)
+    call bort_target_unset
     return
   endif
 
@@ -256,6 +270,8 @@ end subroutine rtrcpt
 !> @author J. Ator @date 2009-03-23
 recursive subroutine strcpt(cf,iyr,imo,idy,ihr,imi)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_tnkrcp
@@ -267,7 +283,7 @@ recursive subroutine strcpt(cf,iyr,imo,idy,ihr,imi)
   character my_cf
 
   integer, intent(in) :: iyr, imo, idy, ihr, imi
-  integer my_iyr, my_imo, my_idy, my_ihr, my_imi
+  integer my_iyr, my_imo, my_idy, my_ihr, my_imi, bort_target_set
 
   ! Check for I8 integers
 
@@ -280,6 +296,14 @@ recursive subroutine strcpt(cf,iyr,imo,idy,ihr,imi)
     call x84(imi,my_imi,1)
     call strcpt(cf,my_iyr,my_imo,my_idy,my_ihr,my_imi)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_strcpt_c(cf,iyr,imo,idy,ihr,imi)
+    call bort_target_unset
     return
   endif
 

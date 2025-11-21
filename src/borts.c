@@ -856,3 +856,67 @@ catch_bort_pkbs1(int ival, int *mbay, char *s1mnem, int s1mnem_str_len)
     /* Recursively call the subroutine. */
     pkbs1_f(ival, mbay, s1mnem);
 }
+
+/**
+ * Catch any bort error inside of subroutine strcpt().
+ *
+ * @param cf - Flag indicating whether future BUFR output messages should include a tank receipt time
+ * @param iyr - Tank receipt year
+ * @param imo - Tank receipt month
+ * @param idy - Tank receipt day
+ * @param ihr - Tank receipt hour
+ * @param imi - Tank receipt minute
+ *
+ * @author J. Ator @date 2025-11-20
+*/
+void
+catch_bort_strcpt(char *cf, int iyr, int imo, int idy, int ihr, int imi)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    strcpt_f(cf, iyr, imo, idy, ihr, imi);
+}
+
+/**
+ * Catch any bort error inside of subroutine rtrcpt().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param iyr - Tank receipt year
+ * @param imo - Tank receipt month
+ * @param idy - Tank receipt day
+ * @param ihr - Tank receipt hour
+ * @param imi - Tank receipt minute
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-11-20
+*/
+void
+catch_bort_rtrcpt(int lunit, int *iyr, int *imo, int *idy, int *ihr, int *imi, int *iret)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    rtrcpt_f(lunit, iyr, imo, idy, ihr, imi, iret);
+}
+
+/**
+ * Catch any bort error inside of subroutine atrcpt().
+ *
+ * @param msgin - BUFR message
+ * @param lmsgot - Allocated length of msgot
+ * @param msgot - Copy of msgin with a tank receipt time added to Section 1
+ *
+ * @author J. Ator @date 2025-11-20
+*/
+void
+catch_bort_atrcpt(int *msgin, int lmsgot, int *msgot)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    atrcpt_f(msgin, lmsgot, msgot);
+}

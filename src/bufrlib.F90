@@ -969,6 +969,62 @@ module bufrlib
       character(kind=c_char), intent(inout) :: s1mnem(*)
     end subroutine catch_bort_pkbs1_c
 
+    !> @fn bufrlib::catch_bort_strcpt_c::catch_bort_strcpt_c(cf,iyr,imo,idy,ihr,imi)
+    !> Catch any bort error inside of subroutine strcpt().
+    !>
+    !> Wraps catch_bort_strcpt() function.
+    !>
+    !> @param cf - Flag indicating whether future BUFR output messages should include a tank receipt time
+    !> @param iyr - Tank receipt year
+    !> @param imo - Tank receipt month
+    !> @param idy - Tank receipt day
+    !> @param ihr - Tank receipt hour
+    !> @param imi - Tank receipt minute
+    !>
+    !> @author J. Ator @date 2025-11-20
+    subroutine catch_bort_strcpt_c(cf,iyr,imo,idy,ihr,imi) bind(C, name='catch_bort_strcpt')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: iyr, imo, idy, ihr, imi
+      character(kind=c_char), intent(in) :: cf(*)
+    end subroutine catch_bort_strcpt_c
+
+    !> @fn bufrlib::catch_bort_rtrcpt_c::catch_bort_rtrcpt_c(lunit,iyr,imo,idy,ihr,imi,iret)
+    !> Catch any bort error inside of subroutine rtrcpt().
+    !>
+    !> Wraps catch_bort_rtrcpt() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param iyr - Tank receipt year
+    !> @param imo - Tank receipt month
+    !> @param idy - Tank receipt day
+    !> @param ihr - Tank receipt hour
+    !> @param imi - Tank receipt minute
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-11-20
+    subroutine catch_bort_rtrcpt_c(lunit,iyr,imo,idy,ihr,imi,iret) bind(C, name='catch_bort_rtrcpt')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: iyr, imo, idy, ihr, imi, iret
+    end subroutine catch_bort_rtrcpt_c
+
+    !> @fn bufrlib::catch_bort_atrcpt_c::catch_bort_atrcpt_c(msgin,lmsgot,msgot)
+    !> Catch any bort error inside of subroutine atrcpt().
+    !>
+    !> Wraps catch_bort_atrcpt() function.
+    !>
+    !> @param msgin - BUFR message
+    !> @param lmsgot - Allocated length of msgot
+    !> @param msgot - Copy of msgin with a tank receipt time added to Section 1
+    !>
+    !> @author J. Ator @date 2025-11-20
+    subroutine catch_bort_atrcpt_c(msgin,lmsgot,msgot) bind(C, name='catch_bort_atrcpt')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lmsgot
+      integer(c_int), intent(in) :: msgin(*)
+      integer(c_int), intent(out) :: msgot(*)
+    end subroutine catch_bort_atrcpt_c
+
   end interface
 
 end module bufrlib

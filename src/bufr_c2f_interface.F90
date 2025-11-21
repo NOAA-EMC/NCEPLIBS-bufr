@@ -28,7 +28,7 @@ module bufr_c2f_interface
   public :: elemdx_c, cadn30_c, strnum_c, uptdd_c, pktdd_c, nemdefs_c, nemspecs_c, nemtab_c, nemtbb_c, numtbd_c
   public :: writsb_c, writsa_c, ufbstp_c, writlc_c, drfini_c, ufbcnt_c, ufbevn_c, ufbqcd_c, ufbqcp_c, getcfmng_c
   public :: upftbv_c, ufbtab_c, ufbpos_c, datelen_c, iupvs01_c, nmsub_c, pkvs01_c, datebf_c, dumpbf_c, minimg_c, upds3_c
-  public :: pkbs1_c
+  public :: pkbs1_c, strcpt_c, rtrcpt_c, atrcpt_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -1762,5 +1762,63 @@ module bufr_c2f_interface
 
       call pkbs1(ival, mbay, f_s1m(1:lfs))
     end subroutine pkbs1_c
+
+    !> Specify a tank receipt time to be written into Section 1 of all future BUFR messages
+    !>
+    !> Wraps strcpt() subroutine.
+    !>
+    !> @param cf - Flag indicating whether future BUFR output messages should include a tank receipt time
+    !> @param iyr - Tank receipt year
+    !> @param imo - Tank receipt month
+    !> @param idy - Tank receipt day
+    !> @param ihr - Tank receipt hour
+    !> @param imi - Tank receipt minute
+    !>
+    !> @author J. Ator @date 2025-11-20
+    recursive subroutine strcpt_c(cf, iyr, imo, idy, ihr, imi) bind(C, name='strcpt_f')
+      integer(c_int), value, intent(in) :: iyr, imo, idy, ihr, imi
+      character(kind=c_char), intent(in) :: cf(*)
+      character :: ch
+
+      ch = cf(1)
+      call strcpt(ch, iyr, imo, idy, ihr, imi)
+    end subroutine strcpt_c
+
+    !> Get the tank receipt time from Section 1 of a BUFR message
+    !>
+    !> Wraps rtrcpt() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit
+    !> @param iyr - Tank receipt year
+    !> @param imo - Tank receipt month
+    !> @param idy - Tank receipt day
+    !> @param ihr - Tank receipt hour
+    !> @param imi - Tank receipt minute
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-11-20
+    recursive subroutine rtrcpt_c(lunit, iyr, imo, idy, ihr, imi, iret) bind(C, name='rtrcpt_f')
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: iyr, imo, idy, ihr, imi, iret
+
+      call rtrcpt(lunit, iyr, imo, idy, ihr, imi, iret)
+    end subroutine rtrcpt_c
+
+    !> Read a BUFR message and output an equivalent message with a tank receipt time added to Section 1
+    !>
+    !> Wraps atrcpt() subroutine.
+    !>
+    !> @param msgin - BUFR message
+    !> @param lmsgot - Allocated length of msgot
+    !> @param msgot - Copy of msgin with a tank receipt time added to Section 1
+    !>
+    !> @author J. Ator @date 2025-11-20
+    recursive subroutine atrcpt_c(msgin, lmsgot, msgot) bind(C, name='atrcpt_f')
+      integer(c_int), value, intent(in) :: lmsgot
+      integer(c_int), intent(in) :: msgin(*)
+      integer(c_int), intent(out) :: msgot(*)
+
+      call atrcpt(msgin, lmsgot, msgot)
+    end subroutine atrcpt_c
 
 end module bufr_c2f_interface

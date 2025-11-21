@@ -944,6 +944,52 @@ void upds3_f(int *mbay, int lcds3, char (*ccds3)[6], int *nds3);
  */
 void pkbs1_f(int ival, int *mbay, char *c_s1m);
 
+/**
+ * Specify a tank receipt time to be written into Section 1 of all future BUFR messages
+ *
+ * Wraps strcpt() subroutine.
+ *
+ * @param cf - Flag indicating whether future BUFR output messages should include a tank receipt time
+ * @param iyr - Tank receipt year
+ * @param imo - Tank receipt month
+ * @param idy - Tank receipt day
+ * @param ihr - Tank receipt hour
+ * @param imi - Tank receipt minute
+ *
+ * @author Jeff Ator @date 2025-11-20
+ */
+void strcpt_f(char *cf, int iyr, int imo, int idy, int ihr, int imi);
+
+/**
+ * Get the tank receipt time from Section 1 of a BUFR message
+ *
+ * Wraps rtrcpt() subroutine.
+ *
+ * @param lunit - Fortran logical unit
+ * @param iyr - Tank receipt year
+ * @param imo - Tank receipt month
+ * @param idy - Tank receipt day
+ * @param ihr - Tank receipt hour
+ * @param imi - Tank receipt minute
+ * @param iret - Return code
+ *
+ * @author Jeff Ator @date 2025-11-20
+ */
+void rtrcpt_f(int lunit, int *iyr, int *imo, int *idy, int *ihr, int *imi, int *iret);
+
+/**
+ * Read a BUFR message and output an equivalent message with a tank receipt time added to Section 1
+ *
+ * Wraps atrcpt() subroutine.
+ *
+ * @param msgin - BUFR message
+ * @param lmsgot - Allocated length of msgot
+ * @param msgot - Copy of msgin with a tank receipt time added to Section 1
+ *
+ * @author Jeff Ator @date 2025-11-20
+ */
+void atrcpt_f(int *msgin, int lmsgot, int *msgot);
+
 #ifdef __cplusplus
 }
 #endif
