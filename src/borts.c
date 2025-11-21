@@ -696,7 +696,7 @@ catch_bort_datelen(int len)
  * Catch any bort error inside of function iupvs01().
  *
  * @param lunit - Fortran logical unit number for BUFR file
- * @param s01mnem - Mnemonic for value to be read from Section 0 or Secion 1 of BUFR message
+ * @param s01mnem - Mnemonic for value to be read from Section 0 or Section 1 of BUFR message
  * @param s01mnem_str_len - Length of s01mnem string
  * @param iret - Value corresponding to s01mnem
  *
@@ -919,4 +919,131 @@ catch_bort_atrcpt(int *msgin, int lmsgot, int *msgot)
 
     /* Recursively call the subroutine. */
     atrcpt_f(msgin, lmsgot, msgot);
+}
+
+/**
+ * Catch any bort error inside of subroutine dxdump().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param luprt - Fortran logical unit number for print output
+ *
+ * @author J. Ator @date 2025-11-20
+*/
+void
+catch_bort_dxdump(int lunit, int luprt)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    dxdump_f(lunit, luprt);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbdmp().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param luprt - Fortran logical unit number for print output
+ *
+ * @author J. Ator @date 2025-11-20
+*/
+void
+catch_bort_ufbdmp(int lunit, int luprt)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    ufbdmp_f(lunit, luprt);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufdump().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param luprt - Fortran logical unit number for print output
+ *
+ * @author J. Ator @date 2025-11-20
+*/
+void
+catch_bort_ufdump(int lunit, int luprt)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    ufdump_f(lunit, luprt);
+}
+
+/**
+ * Catch any bort error inside of subroutine copybf().
+ *
+ * @param lunin - Fortran logical unit number for source BUFR file
+ * @param lunot - Fortran logical unit number for target BUFR file
+ *
+ * @author J. Ator @date 2025-11-20
+*/
+void
+catch_bort_copybf(int lunin, int lunot)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    copybf_f(lunin, lunot);
+}
+
+/**
+ * Catch any bort error inside of subroutine copymg().
+ *
+ * @param lunin - Fortran logical unit number for source BUFR file
+ * @param lunot - Fortran logical unit number for target BUFR file
+ *
+ * @author J. Ator @date 2025-11-20
+*/
+void
+catch_bort_copymg(int lunin, int lunot)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    copymg_f(lunin, lunot);
+}
+
+/**
+ * Catch any bort error inside of subroutine copysb().
+ *
+ * @param lunin - Fortran logical unit number for source BUFR file
+ * @param lunot - Fortran logical unit number for target BUFR file
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-11-20
+*/
+void
+catch_bort_copysb(int lunin, int lunot, int *iret)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    copysb_f(lunin, lunot, iret);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbcpy().
+ *
+ * @param lunin - Fortran logical unit number for source BUFR file
+ * @param lunot - Fortran logical unit number for target BUFR file
+ *
+ * @author J. Ator @date 2025-11-20
+*/
+void
+catch_bort_ufbcpy(int lunin, int lunot)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    ufbcpy_f(lunin, lunot);
 }

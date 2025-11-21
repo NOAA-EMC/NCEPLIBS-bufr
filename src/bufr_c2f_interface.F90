@@ -28,7 +28,7 @@ module bufr_c2f_interface
   public :: elemdx_c, cadn30_c, strnum_c, uptdd_c, pktdd_c, nemdefs_c, nemspecs_c, nemtab_c, nemtbb_c, numtbd_c
   public :: writsb_c, writsa_c, ufbstp_c, writlc_c, drfini_c, ufbcnt_c, ufbevn_c, ufbqcd_c, ufbqcp_c, getcfmng_c
   public :: upftbv_c, ufbtab_c, ufbpos_c, datelen_c, iupvs01_c, nmsub_c, pkvs01_c, datebf_c, dumpbf_c, minimg_c, upds3_c
-  public :: pkbs1_c, strcpt_c, rtrcpt_c, atrcpt_c
+  public :: pkbs1_c, strcpt_c, rtrcpt_c, atrcpt_c, dxdump_c, ufbdmp_c, ufdump_c, copybf_c, copymg_c, copysb_c, ufbcpy_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -1820,5 +1820,105 @@ module bufr_c2f_interface
 
       call atrcpt(msgin, lmsgot, msgot)
     end subroutine atrcpt_c
+
+    !> Print a copy of the DX BUFR table associated with a specified Fortran logical unit
+    !>
+    !> Wraps dxdump() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit for BUFR file
+    !> @param luprt - Fortran logical unit for print output
+    !>
+    !> @author J. Ator @date 2025-11-20
+    recursive subroutine dxdump_c(lunit, luprt) bind(C, name='dxdump_f')
+      integer(c_int), value, intent(in) :: lunit, luprt
+
+      call dxdump(lunit, luprt)
+    end subroutine dxdump_c
+
+    !> Print a verbose listing of the contents of a data subset
+    !>
+    !> Wraps ufbdmp() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit for BUFR file
+    !> @param luprt - Fortran logical unit for print output
+    !>
+    !> @author J. Ator @date 2025-11-20
+    recursive subroutine ufbdmp_c(lunit, luprt) bind(C, name='ufbdmp_f')
+      integer(c_int), value, intent(in) :: lunit, luprt
+
+      call ufbdmp(lunit, luprt)
+    end subroutine ufbdmp_c
+
+    !> Print a verbose listing of the contents of a data subset
+    !>
+    !> Wraps ufdump() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit for BUFR file
+    !> @param luprt - Fortran logical unit for print output
+    !>
+    !> @author J. Ator @date 2025-11-20
+    recursive subroutine ufdump_c(lunit, luprt) bind(C, name='ufdump_f')
+      integer(c_int), value, intent(in) :: lunit, luprt
+
+      call ufdump(lunit, luprt)
+    end subroutine ufdump_c
+
+    !> Copy an entire BUFR file from one Fortran logical unit to another
+    !>
+    !> Wraps copybf() subroutine.
+    !>
+    !> @param lunin - Fortran logical unit for source BUFR file
+    !> @param lunot - Fortran logical unit for target BUFR file
+    !>
+    !> @author J. Ator @date 2025-11-20
+    recursive subroutine copybf_c(lunin, lunot) bind(C, name='copybf_f')
+      integer(c_int), value, intent(in) :: lunin, lunot
+
+      call copybf(lunin, lunot)
+    end subroutine copybf_c
+
+    !> Copy a BUFR message from one Fortran logical unit to another
+    !>
+    !> Wraps copymg() subroutine.
+    !>
+    !> @param lunin - Fortran logical unit for source BUFR file
+    !> @param lunot - Fortran logical unit for target BUFR file
+    !>
+    !> @author J. Ator @date 2025-11-20
+    recursive subroutine copymg_c(lunin, lunot) bind(C, name='copymg_f')
+      integer(c_int), value, intent(in) :: lunin, lunot
+
+      call copymg(lunin, lunot)
+    end subroutine copymg_c
+
+    !> Copy a BUFR data subset from one Fortran logical unit to another
+    !>
+    !> Wraps copysb() subroutine.
+    !>
+    !> @param lunin - Fortran logical unit for source BUFR file
+    !> @param lunot - Fortran logical unit for target BUFR file
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-11-20
+    recursive subroutine copysb_c(lunin, lunot, iret) bind(C, name='copysb_f')
+      integer(c_int), value, intent(in) :: lunin, lunot
+      integer(c_int), intent(out) :: iret
+
+      call copysb(lunin, lunot, iret)
+    end subroutine copysb_c
+
+    !> Copy a BUFR data subset from one Fortran logical unit to another
+    !>
+    !> Wraps ufbcpy() subroutine.
+    !>
+    !> @param lunin - Fortran logical unit for source BUFR file
+    !> @param lunot - Fortran logical unit for target BUFR file
+    !>
+    !> @author J. Ator @date 2025-11-20
+    recursive subroutine ufbcpy_c(lunin, lunot) bind(C, name='ufbcpy_f')
+      integer(c_int), value, intent(in) :: lunin, lunot
+
+      call ufbcpy(lunin, lunot)
+    end subroutine ufbcpy_c
 
 end module bufr_c2f_interface

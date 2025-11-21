@@ -1025,6 +1025,106 @@ module bufrlib
       integer(c_int), intent(out) :: msgot(*)
     end subroutine catch_bort_atrcpt_c
 
+    !> @fn bufrlib::catch_bort_dxdump_c::catch_bort_dxdump_c(lunit,luprt)
+    !> Catch any bort error inside of subroutine dxdump().
+    !>
+    !> Wraps catch_bort_dxdump() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param lunit - Fortran logical unit number for print output
+    !>
+    !> @author J. Ator @date 2025-11-20
+    subroutine catch_bort_dxdump_c(lunit,luprt) bind(C, name='catch_bort_dxdump')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, luprt
+    end subroutine catch_bort_dxdump_c
+
+    !> @fn bufrlib::catch_bort_ufbdmp_c::catch_bort_ufbdmp_c(lunit,luprt)
+    !> Catch any bort error inside of subroutine ufbdmp().
+    !>
+    !> Wraps catch_bort_ufbdmp() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param lunit - Fortran logical unit number for print output
+    !>
+    !> @author J. Ator @date 2025-11-20
+    subroutine catch_bort_ufbdmp_c(lunit,luprt) bind(C, name='catch_bort_ufbdmp')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, luprt
+    end subroutine catch_bort_ufbdmp_c
+
+    !> @fn bufrlib::catch_bort_ufdump_c::catch_bort_ufdump_c(lunit,luprt)
+    !> Catch any bort error inside of subroutine ufdump().
+    !>
+    !> Wraps catch_bort_ufdump() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param luprt - Fortran logical unit number for print output
+    !>
+    !> @author J. Ator @date 2025-11-20
+    subroutine catch_bort_ufdump_c(lunit,luprt) bind(C, name='catch_bort_ufdump')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, luprt
+    end subroutine catch_bort_ufdump_c
+
+    !> @fn bufrlib::catch_bort_copybf_c::catch_bort_copybf_c(lunin,lunot)
+    !> Catch any bort error inside of subroutine copybf().
+    !>
+    !> Wraps catch_bort_copybf() function.
+    !>
+    !> @param lunin - Fortran logical unit number for source BUFR file
+    !> @param lunot - Fortran logical unit number for target BUFR file
+    !>
+    !> @author J. Ator @date 2025-11-20
+    subroutine catch_bort_copybf_c(lunin,lunot) bind(C, name='catch_bort_copybf')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunin, lunot
+    end subroutine catch_bort_copybf_c
+
+    !> @fn bufrlib::catch_bort_copymg_c::catch_bort_copymg_c(lunin,lunot)
+    !> Catch any bort error inside of subroutine copymg().
+    !>
+    !> Wraps catch_bort_copymg() function.
+    !>
+    !> @param lunin - Fortran logical unit number for source BUFR file
+    !> @param lunot - Fortran logical unit number for target BUFR file
+    !>
+    !> @author J. Ator @date 2025-11-20
+    subroutine catch_bort_copymg_c(lunin,lunot) bind(C, name='catch_bort_copymg')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunin, lunot
+    end subroutine catch_bort_copymg_c
+
+    !> @fn bufrlib::catch_bort_copysb_c::catch_bort_copysb_c(lunin,lunot)
+    !> Catch any bort error inside of subroutine copysb().
+    !>
+    !> Wraps catch_bort_copysb() function.
+    !>
+    !> @param lunin - Fortran logical unit number for source BUFR file
+    !> @param lunot - Fortran logical unit number for target BUFR file
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-11-20
+    subroutine catch_bort_copysb_c(lunin,lunot,iret) bind(C, name='catch_bort_copysb')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunin, lunot
+      integer(c_int), intent(out) :: iret
+    end subroutine catch_bort_copysb_c
+
+    !> @fn bufrlib::catch_bort_ufbcpy_c::catch_bort_ufbcpy_c(lunin,lunot)
+    !> Catch any bort error inside of subroutine ufbcpy().
+    !>
+    !> Wraps catch_bort_ufbcpy() function.
+    !>
+    !> @param lunin - Fortran logical unit number for source BUFR file
+    !> @param lunot - Fortran logical unit number for target BUFR file
+    !>
+    !> @author J. Ator @date 2025-11-20
+    subroutine catch_bort_ufbcpy_c(lunin,lunot) bind(C, name='catch_bort_ufbcpy')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunin, lunot
+    end subroutine catch_bort_ufbcpy_c
+
   end interface
 
 end module bufrlib

@@ -21,6 +21,8 @@
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine copybf(lunin,lunot)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_mgwa
@@ -28,18 +30,24 @@ recursive subroutine copybf(lunin,lunot)
   implicit none
 
   integer, intent(in) :: lunin, lunot
-  integer my_lunin, my_lunot, lun, il, im, ier, iupbs01
+  integer my_lunin, my_lunot, lun, il, im, ier, iupbs01, bort_target_set
 
   ! Check for I8 integers
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunin,my_lunin,1)
     call x84(lunot,my_lunot,1)
     call copybf(my_lunin,my_lunot)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_copybf_c(lunin,lunot)
+    call bort_target_unset
     return
   endif
 
@@ -106,6 +114,8 @@ end subroutine copybf
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine copymg(lunin,lunot)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_msgcwd
@@ -115,7 +125,7 @@ recursive subroutine copymg(lunin,lunot)
   implicit none
 
   integer, intent(in) :: lunin, lunot
-  integer my_lunin, my_lunot, lin, lot, il, im, mtyp, msbt, inod, mbym, iupbs01, iok2cpy
+  integer my_lunin, my_lunot, lin, lot, il, im, mtyp, msbt, inod, mbym, iupbs01, iok2cpy, bort_target_set
 
   character*8 subset
 
@@ -123,12 +133,18 @@ recursive subroutine copymg(lunin,lunot)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunin,my_lunin,1)
     call x84(lunot,my_lunot,1)
     call copymg(my_lunin,my_lunot)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_copymg_c(lunin,lunot)
+    call bort_target_unset
     return
   endif
 
@@ -201,6 +217,8 @@ end subroutine copymg
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine copysb(lunin,lunot,iret)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_msgcwd
@@ -211,19 +229,25 @@ recursive subroutine copysb(lunin,lunot,iret)
 
   integer, intent(in) :: lunin, lunot
   integer, intent(out) :: iret
-  integer my_lunin, my_lunot, lin, lot, il, im, mest, icmp, nbyt, len0, len1, len2, len3, len4, l5, iok2cpy
+  integer my_lunin, my_lunot, lin, lot, il, im, mest, icmp, nbyt, len0, len1, len2, len3, len4, l5, iok2cpy, bort_target_set
 
   ! Check for I8 integers
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunin,my_lunin,1)
     call x84(lunot,my_lunot,1)
     call copysb(my_lunin,my_lunot,iret)
     call x48(iret,iret,1)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_copysb_c(lunin,lunot,iret)
+    call bort_target_unset
     return
   endif
 
@@ -608,6 +632,8 @@ end subroutine cpyupd
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbcpy(lubin,lubot)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_usrint
@@ -618,18 +644,24 @@ recursive subroutine ufbcpy(lubin,lubot)
   implicit none
 
   integer, intent(in) :: lubin, lubot
-  integer my_lubin, my_lubot, lui, luo, il, im, n, iok2cpy
+  integer my_lubin, my_lubot, lui, luo, il, im, n, iok2cpy, bort_target_set
 
   ! Check for I8 integers
 
   if(im8b) then
     im8b=.false.
-
     call x84(lubin,my_lubin,1)
     call x84(lubot,my_lubot,1)
     call ufbcpy(my_lubin,my_lubot)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_ufbcpy_c(lubin,lubot)
+    call bort_target_unset
     return
   endif
 
