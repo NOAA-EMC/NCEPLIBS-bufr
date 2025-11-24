@@ -1,7 +1,7 @@
 Table F LOC |  0 | 7 |  1
 #
 # Local BUFR Table CODE/FLAG, Master Table 0, Originating Center 7, Version 1
-# This file was generated: 2025/02/14 14:51:02
+# This file was generated: 2025/11/24 20:24:12
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -5038,6 +5038,7 @@ Table F LOC |  0 | 7 |  1
               | 241 > | IASI radiances
               | 242 > | Megha-Tropiques SAPHIR L1A2 brightness temperatures
               | 246 > | GMI brightness temperatures
+              | 247 > | GCOM-W/Advanced Microwave Scanning Radiometer 2 (AMSR2) 1B brightness temperature data GSI 14 channel
               | 248 > | AMSR2 brightness temperatures
               | 249 > | AQUA/AIRS AMSU-A brightness temperatures - every field-of-view
               | 250 > | AQUA/AIRS AMSU-A brightness temperatures - central field-of-view
@@ -5133,6 +5134,7 @@ Table F LOC |  0 | 7 |  1
               | 32 > | Urbanet - University of South Alabama (MADIS)
               | 33 > | HF-METAR - one-minute ASOS
               | 34 > | RWIS - South Dakota Department of Transportation (MADIS)
+              | 35 > | Upper Missouri River Basin
               | 101 > | Cooperative observer surface - New England Pilot Project (NEPP) and Historical Climatology Network (HCN) (MADIS)
               | 102 > | Cooperative observer surface - NWS Cooperative Observers (SHEF)
               | 111 > | Mesonet - Climate Reference Network (MADIS)
