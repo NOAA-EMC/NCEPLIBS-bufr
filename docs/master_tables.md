@@ -182,6 +182,7 @@ software, within the tables subdirectory:
 - [Standard Table B for Master Table 0 (WMO), Version 42](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_42)
 - [Standard Table B for Master Table 0 (WMO), Version 43](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_43)
 - [Standard Table B for Master Table 0 (WMO), Version 44](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_44)
+- [Standard Table B for Master Table 0 (WMO), Version 45](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_45)
 - [Local Table B for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_LOC_0_7_1)
 
 
@@ -315,6 +316,7 @@ distribution package for the software, within the tables subdirectory:
 - [Standard Table D for Master Table 0 (WMO), Version 42](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_42)
 - [Standard Table D for Master Table 0 (WMO), Version 43](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_43)
 - [Standard Table D for Master Table 0 (WMO), Version 44](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_44)
+- [Standard Table D for Master Table 0 (WMO), Version 45](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_45)
 - [Local Table D for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_LOC_0_7_1)
 
 
@@ -540,4 +542,5 @@ the tables subdirectory:
 - [Standard Code/Flag Tables for Master Table 0 (WMO), Version 42](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_42)
 - [Standard Code/Flag Tables for Master Table 0 (WMO), Version 43](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_43)
 - [Standard Code/Flag Tables for Master Table 0 (WMO), Version 44](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_44)
+- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 45](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_45)
 - [Local Code/Flag Tables for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_LOC_0_7_1)
