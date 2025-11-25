@@ -1433,6 +1433,8 @@ end subroutine nemtbd
 !> @author J. Ator @date 2014-10-02
 recursive subroutine nemdefs ( lunit, nemo, celem, cunit, iret )
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_tababd
@@ -1441,10 +1443,13 @@ recursive subroutine nemdefs ( lunit, nemo, celem, cunit, iret )
 
   integer, intent(in) :: lunit
   integer, intent(out) :: iret
-  integer my_lunit, lun, il, im, idn, iloc, ls
+  integer my_lunit, lun, il, im, idn, iloc, ls, lcn, bort_target_set
 
   character*(*), intent(in) :: nemo
   character*(*), intent(out) :: celem, cunit
+  character*56 ccelem
+  character*25 ccunit
+  character*10 cnemo
   character tab
 
   ! Check for I8 integers.
@@ -1455,6 +1460,19 @@ recursive subroutine nemdefs ( lunit, nemo, celem, cunit, iret )
     call nemdefs ( my_lunit, nemo, celem, cunit, iret )
     call x48 ( iret, iret, 1 )
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if ( bort_target_set() == 1 ) then
+    call strsuc( nemo, cnemo, lcn )
+    call catch_bort_nemdefs_c( lunit, cnemo, lcn, ccelem, len(ccelem), ccunit, len(ccunit), iret )
+    ls = min(len(celem),55)
+    celem(1:ls) = ccelem(1:ls)
+    ls = min(len(cunit),24)
+    cunit(1:ls) = ccunit(1:ls)
+    call bort_target_unset
     return
   endif
 

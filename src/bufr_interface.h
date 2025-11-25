@@ -1075,6 +1075,35 @@ void copysb_f(int lunin, int lunot, int *iret);
  */
 void ufbcpy_f(int lunin, int lunot);
 
+/**
+ * Read a BUFR message from a memory array.
+ *
+ * Wraps readerme() subroutine.
+ *
+ * @param mesg - BUFR message
+ * @param bufr_unit - Fortran logical unit number
+ * @param subset - Subset string
+ * @param iddate - Datetime of message
+ * @param subset_len - Length of the subset string
+ * @param ires - Return code
+ *
+ * @author Jeff Ator @date 2025-11-25
+ */
+void readerme_f(int *mesg, int bufr_unit, char *subset, int *iddate, int subset_len, int *ires);
+
+/**
+ * Read a specified data subset from a BUFR file.
+ *
+ * Wraps rdmgsb() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param imsg - Message number
+ * @param isub - Subset number
+ *
+ * @author Jeff Ator @date 2025-11-25
+ */
+void rdmgsb_f(int lunit, int imsg, int isub);
+
 #ifdef __cplusplus
 }
 #endif

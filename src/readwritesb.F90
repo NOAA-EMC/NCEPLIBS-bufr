@@ -565,6 +565,8 @@ end subroutine writsa
 !> @author J. Woollen @date 2003-11-04
 recursive subroutine rdmgsb(lunit,imsg,isub)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_msgcwd
@@ -573,7 +575,7 @@ recursive subroutine rdmgsb(lunit,imsg,isub)
   implicit none
 
   integer, intent(in) :: lunit, imsg, isub
-  integer my_lunit, my_imsg, my_isub, lun, il, im, i, jdate, iret
+  integer my_lunit, my_imsg, my_isub, lun, il, im, i, jdate, iret, bort_target_set
 
   character*128 bort_str
   character*8 subset
@@ -582,13 +584,19 @@ recursive subroutine rdmgsb(lunit,imsg,isub)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call x84(imsg,my_imsg,1)
     call x84(isub,my_isub,1)
     call rdmgsb(my_lunit,my_imsg,my_isub)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_rdmgsb_c(lunit,imsg,isub)
+    call bort_target_unset
     return
   endif
 

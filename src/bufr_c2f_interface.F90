@@ -29,6 +29,7 @@ module bufr_c2f_interface
   public :: writsb_c, writsa_c, ufbstp_c, writlc_c, drfini_c, ufbcnt_c, ufbevn_c, ufbqcd_c, ufbqcp_c, getcfmng_c
   public :: upftbv_c, ufbtab_c, ufbpos_c, datelen_c, iupvs01_c, nmsub_c, pkvs01_c, datebf_c, dumpbf_c, minimg_c, upds3_c
   public :: pkbs1_c, strcpt_c, rtrcpt_c, atrcpt_c, dxdump_c, ufbdmp_c, ufdump_c, copybf_c, copymg_c, copysb_c, ufbcpy_c
+  public :: readerme_c, rdmgsb_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -1920,5 +1921,46 @@ module bufr_c2f_interface
 
       call ufbcpy(lunin, lunot)
     end subroutine ufbcpy_c
+
+    !> Read a BUFR message from a memory array.
+    !>
+    !> Wraps readerme() subroutine.
+    !>
+    !> @param mesg - BUFR message
+    !> @param bufr_unit - Fortran logical unit number
+    !> @param c_subset - Subset string
+    !> @param iddate - Datetime of message
+    !> @param subset_str_len - Length of the subset string
+    !> @param ires - Return code
+    !>
+    !> @author Jeff Ator @date 2025-11-25
+    recursive subroutine readerme_c(mesg, bufr_unit, c_subset, iddate, subset_str_len, ires) bind(C, name='readerme_f')
+      integer(c_int), value, intent(in) :: bufr_unit, subset_str_len
+      integer(c_int), intent(in) :: mesg(*)
+      integer(c_int), intent(out) :: iddate, ires
+      character(kind=c_char), intent(out) :: c_subset(*)
+      character(len=25) :: f_subset
+
+      call readerme(mesg, bufr_unit, f_subset, iddate, ires)
+
+      if (ires == 0) then
+        call copy_f_c_str(f_subset, c_subset, subset_str_len)
+      end if
+    end subroutine readerme_c
+
+    !> Read a specified data subset from a BUFR file.
+    !>
+    !> Wraps rdmgsb() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit for BUFR file
+    !> @param imsg - Message number
+    !> @param isub - Subset number
+    !>
+    !> @author J. Ator @date 2025-11-25
+    recursive subroutine rdmgsb_c(lunit, imsg, isub) bind(C, name='rdmgsb_f')
+      integer(c_int), value, intent(in) :: lunit, imsg, isub
+
+      call rdmgsb(lunit, imsg, isub)
+    end subroutine rdmgsb_c
 
 end module bufr_c2f_interface
