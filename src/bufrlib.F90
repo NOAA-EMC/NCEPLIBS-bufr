@@ -1031,7 +1031,7 @@ module bufrlib
     !> Wraps catch_bort_dxdump() function.
     !>
     !> @param lunit - Fortran logical unit number for BUFR file
-    !> @param lunit - Fortran logical unit number for print output
+    !> @param luprt - Fortran logical unit number for print output
     !>
     !> @author J. Ator @date 2025-11-20
     subroutine catch_bort_dxdump_c(lunit,luprt) bind(C, name='catch_bort_dxdump')
@@ -1045,7 +1045,7 @@ module bufrlib
     !> Wraps catch_bort_ufbdmp() function.
     !>
     !> @param lunit - Fortran logical unit number for BUFR file
-    !> @param lunit - Fortran logical unit number for print output
+    !> @param luprt - Fortran logical unit number for print output
     !>
     !> @author J. Ator @date 2025-11-20
     subroutine catch_bort_ufbdmp_c(lunit,luprt) bind(C, name='catch_bort_ufbdmp')
