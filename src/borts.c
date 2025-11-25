@@ -696,7 +696,7 @@ catch_bort_datelen(int len)
  * Catch any bort error inside of function iupvs01().
  *
  * @param lunit - Fortran logical unit number for BUFR file
- * @param s01mnem - Mnemonic for value to be read from Section 0 or Secion 1 of BUFR message
+ * @param s01mnem - Mnemonic for value to be read from Section 0 or Section 1 of BUFR message
  * @param s01mnem_str_len - Length of s01mnem string
  * @param iret - Value corresponding to s01mnem
  *
@@ -919,4 +919,227 @@ catch_bort_atrcpt(int *msgin, int lmsgot, int *msgot)
 
     /* Recursively call the subroutine. */
     atrcpt_f(msgin, lmsgot, msgot);
+}
+
+/**
+ * Catch any bort error inside of subroutine dxdump().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param luprt - Fortran logical unit number for print output
+ *
+ * @author J. Ator @date 2025-11-20
+*/
+void
+catch_bort_dxdump(int lunit, int luprt)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    dxdump_f(lunit, luprt);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbdmp().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param luprt - Fortran logical unit number for print output
+ *
+ * @author J. Ator @date 2025-11-20
+*/
+void
+catch_bort_ufbdmp(int lunit, int luprt)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    ufbdmp_f(lunit, luprt);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufdump().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param luprt - Fortran logical unit number for print output
+ *
+ * @author J. Ator @date 2025-11-20
+*/
+void
+catch_bort_ufdump(int lunit, int luprt)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    ufdump_f(lunit, luprt);
+}
+
+/**
+ * Catch any bort error inside of subroutine copybf().
+ *
+ * @param lunin - Fortran logical unit number for source BUFR file
+ * @param lunot - Fortran logical unit number for target BUFR file
+ *
+ * @author J. Ator @date 2025-11-20
+*/
+void
+catch_bort_copybf(int lunin, int lunot)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    copybf_f(lunin, lunot);
+}
+
+/**
+ * Catch any bort error inside of subroutine copymg().
+ *
+ * @param lunin - Fortran logical unit number for source BUFR file
+ * @param lunot - Fortran logical unit number for target BUFR file
+ *
+ * @author J. Ator @date 2025-11-20
+*/
+void
+catch_bort_copymg(int lunin, int lunot)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    copymg_f(lunin, lunot);
+}
+
+/**
+ * Catch any bort error inside of subroutine copysb().
+ *
+ * @param lunin - Fortran logical unit number for source BUFR file
+ * @param lunot - Fortran logical unit number for target BUFR file
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-11-20
+*/
+void
+catch_bort_copysb(int lunin, int lunot, int *iret)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    copysb_f(lunin, lunot, iret);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbcpy().
+ *
+ * @param lunin - Fortran logical unit number for source BUFR file
+ * @param lunot - Fortran logical unit number for target BUFR file
+ *
+ * @author J. Ator @date 2025-11-20
+*/
+void
+catch_bort_ufbcpy(int lunin, int lunot)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    ufbcpy_f(lunin, lunot);
+}
+
+/**
+ * Catch any bort error inside of subroutine nemdefs().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param cnemo - Mnemonic
+ * @param lcn - Length of cnemo
+ * @param ccelem - Element name
+ * @param ccelem_str_len - Allocated length of ccelem string
+ * @param ccunit - Units
+ * @param ccunit_str_len - Allocated length of ccunit string
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-11-25
+*/
+void
+catch_bort_nemdefs(int lunit, char *cnemo, int lcn, char *ccelem, int ccelem_str_len,
+                   char *ccunit, int ccunit_str_len, int *iret)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to cnemo, for use with get_c_string_length inside of nemdefs_f. */
+    cnemo[lcn] = '\0';
+
+    /* Recursively call the subroutine. */
+    nemdefs_f(lunit, cnemo, ccunit, ccunit_str_len, ccelem, ccelem_str_len, iret);
+}
+
+/**
+ * Catch any bort error inside of subroutine nemspecs().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param cnemo - Mnemonic
+ * @param lcn - Length of cnemo
+ * @param nnemo - Ordinal indicator of specific mnemonic occurrence
+ * @param nscl - Scale factor
+ * @param nref - Reference value
+ * @param nbts - Bit width
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-11-25
+*/
+void
+catch_bort_nemspecs(int lunit, char *cnemo, int lcn, int nnemo, int *nscl, int *nref, int *nbts, int *iret)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to cnemo, for use with get_c_string_length inside of nemspecs_f. */
+    cnemo[lcn] = '\0';
+
+    /* Recursively call the subroutine. */
+    nemspecs_f(lunit, cnemo, nnemo, nscl, nref, nbts, iret);
+}
+
+/**
+ * Catch any bort error inside of subroutine readerme().
+ *
+ * @param mesg - BUFR message
+ * @param lunit - Fortran logical unit number
+ * @param subset - Table A mnemonic for type of BUFR message that was read
+ * @param jdate - Date-time stored within Section 1 of BUFR message that was read
+ * @param subset_str_len - Allocated length of subset string
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-11-25
+*/
+void
+catch_bort_readerme(int *mesg, int lunit, char *subset, int *jdate, int subset_str_len, int *iret)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    readerme_f(mesg, lunit, subset, jdate, subset_str_len, iret);
+}
+
+/**
+ * Catch any bort error inside of subroutine rdmgsb().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param imsg - Message number
+ * @param isub - Subset number
+ *
+ * @author J. Ator @date 2025-11-25
+*/
+void
+catch_bort_rdmgsb(int lunit, int imsg, int isub)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    rdmgsb_f(lunit, imsg, isub);
 }

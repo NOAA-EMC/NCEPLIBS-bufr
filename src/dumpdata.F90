@@ -40,6 +40,8 @@
 !> @authors J. Woollen, J. Ator, D. Keyser @date 1994-01-06
 recursive subroutine ufbdmp(lunin,luprt)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_usrint
@@ -52,7 +54,7 @@ recursive subroutine ufbdmp(lunin,luprt)
   integer, intent(in) :: lunin, luprt
   integer, parameter :: mxfv = 31
   integer ifv(mxfv), my_lunin, my_luprt, luout, lunit, lun, il, im, nv, nd, it, ib, is, ir, jp, lk, jb, &
-    idn, nifv, nchr, n, ii, ipt, isz, isize, ibfms, icbfms
+    idn, nifv, nchr, n, ii, ipt, isz, isize, ibfms, icbfms, bort_target_set
 
   character lchr2*120, lchr*20, pmiss*20, bits*14, tg*10, tg_rj*10, vc*8, fmtf*7, tp*3, tab, you
 
@@ -67,12 +69,18 @@ recursive subroutine ufbdmp(lunin,luprt)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunin,my_lunin,1)
     call x84(luprt,my_luprt,1)
     call ufbdmp(my_lunin,my_luprt)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_ufbdmp_c(lunin,luprt)
+    call bort_target_unset
     return
   endif
 
@@ -243,7 +251,7 @@ recursive subroutine ufdump(lunit,luprt)
   integer, parameter :: mxfv = 31 , mxcfdp = 5, mxseq = 10, mxls = 10
   integer ifv(mxfv), icfdp(mxcfdp), idxrep(mxseq), numrep(mxseq), lsqnam(mxseq), lsct(mxls), my_lunit, my_luprt, &
     nseq, nls, lcfmeang, luout, lun, il, im, node, lnm2, lnm3, itmp, ityp, ii, jj, nifv, nv, n, nchr, idn, ipt, &
-    nrfe, nout, lcfmg, ifvd, iersf, ierbd, ierft, isz, isize, iscl, ireadmt, ibfms, icbfms, imrkopr
+    nrfe, nout, lcfmg, ifvd, iersf, ierbd, ierft, isz, isize, iscl, ireadmt, ibfms, icbfms, imrkopr, bort_target_set
   integer*8 ival
 
   real*8 rval
@@ -262,12 +270,18 @@ recursive subroutine ufdump(lunit,luprt)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call x84(luprt,my_luprt,1)
     call ufdump(my_lunit,my_luprt)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_ufdump_c(lunit,luprt)
+    call bort_target_unset
     return
   endif
 
@@ -583,6 +597,8 @@ end subroutine ufdump
 !> @author J. Ator @date 2004-08-18
 recursive subroutine dxdump(lunit,ldxot)
 
+  use bufrlib
+
   use modv_vars, only: im8b, reps, fxy_fbit, fxy_sbyct, fxy_drp16, fxy_drp8, fxy_drp8s, fxy_drp1, &
     fxy_drf16, fxy_drf8, fxy_drf1
 
@@ -592,7 +608,7 @@ recursive subroutine dxdump(lunit,ldxot)
   implicit none
 
   integer, intent(in) :: lunit, ldxot
-  integer my_lunit, my_ldxot, lun, il, im, n, na, nc, nch, ic, icms, nseq
+  integer my_lunit, my_ldxot, lun, il, im, n, na, nc, nch, ic, icms, nseq, bort_target_set
 
   character card*80, cardi1*80, cardi2*80, cardi3*80, cardi4*80, cmstr*20, wrk3*10, wrk1*8, wrk2*8, adn*6
 
@@ -611,12 +627,18 @@ recursive subroutine dxdump(lunit,ldxot)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call x84(ldxot,my_ldxot,1)
     call dxdump(my_lunit,my_ldxot)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_dxdump_c(lunit,ldxot)
+    call bort_target_unset
     return
   endif
 

@@ -990,6 +990,120 @@ void rtrcpt_f(int lunit, int *iyr, int *imo, int *idy, int *ihr, int *imi, int *
  */
 void atrcpt_f(int *msgin, int lmsgot, int *msgot);
 
+/**
+ * Print a copy of the DX BUFR table associated with a specified Fortran logical unit
+ *
+ * Wraps dxdump() subroutine.
+ *
+ * @param lunit - Fortran logical unit for BUFR file
+ * @param luprt - Fortran logical unit number for print output
+ *
+ * @author Jeff Ator @date 2025-11-20
+ */
+void dxdump_f(int lunit, int luprt);
+
+/**
+ * Print a verbose listing of the contents of a data subset
+ *
+ * Wraps ufbdmp() subroutine.
+ *
+ * @param lunit - Fortran logical unit for BUFR file
+ * @param luprt - Fortran logical unit number for print output
+ *
+ * @author Jeff Ator @date 2025-11-20
+ */
+void ufbdmp_f(int lunit, int luprt);
+
+/**
+ * Print a verbose listing of the contents of a data subset
+ *
+ * Wraps ufdump() subroutine.
+ *
+ * @param lunit - Fortran logical unit for BUFR file
+ * @param luprt - Fortran logical unit number for print output
+ *
+ * @author Jeff Ator @date 2025-11-20
+ */
+void ufdump_f(int lunit, int luprt);
+
+/**
+ * Copy an entire BUFR file from one Fortran logical unit to another
+ *
+ * Wraps copybf() subroutine.
+ *
+ * @param lunin - Fortran logical unit number for source BUFR file
+ * @param lunot - Fortran logical unit number for target BUFR file
+ *
+ * @author Jeff Ator @date 2025-11-20
+ */
+void copybf_f(int lunin, int lunot);
+
+/**
+ * Copy a BUFR message from one Fortran logical unit to another
+ *
+ * Wraps copymg() subroutine.
+ *
+ * @param lunin - Fortran logical unit number for source BUFR file
+ * @param lunot - Fortran logical unit number for target BUFR file
+ *
+ * @author Jeff Ator @date 2025-11-20
+ */
+void copymg_f(int lunin, int lunot);
+
+/**
+ * Copy a BUFR data subset from one Fortran logical unit to another
+ *
+ * Wraps copysb() subroutine.
+ *
+ * @param lunin - Fortran logical unit number for source BUFR file
+ * @param lunot - Fortran logical unit number for target BUFR file
+ * @param iret - Return code
+ *
+ * @author Jeff Ator @date 2025-11-20
+ */
+void copysb_f(int lunin, int lunot, int *iret);
+
+/**
+ * Copy a BUFR data subset from one Fortran logical unit to another
+ *
+ * Wraps ufbcpy() subroutine.
+ *
+ * @param lunin - Fortran logical unit number for source BUFR file
+ * @param lunot - Fortran logical unit number for target BUFR file
+ *
+ * @author Jeff Ator @date 2025-11-20
+ */
+void ufbcpy_f(int lunin, int lunot);
+
+/**
+ * Read a BUFR message from a memory array.
+ *
+ * Wraps readerme() subroutine.
+ *
+ * @param mesg - BUFR message
+ * @param bufr_unit - Fortran logical unit number
+ * @param subset - Subset string
+ * @param iddate - Datetime of message
+ * @param subset_len - Length of the subset string
+ * @param ires - Return code
+ *
+ * @author Jeff Ator @date 2025-11-25
+ */
+void readerme_f(int *mesg, int bufr_unit, char *subset, int *iddate, int subset_len, int *ires);
+
+/**
+ * Read a specified data subset from a BUFR file.
+ *
+ * Wraps rdmgsb() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param imsg - Message number
+ * @param isub - Subset number
+ *
+ * @author Jeff Ator @date 2025-11-25
+ */
+void rdmgsb_f(int lunit, int imsg, int isub);
+
 #ifdef __cplusplus
 }
 #endif

@@ -951,6 +951,8 @@ end subroutine drstpl
 !> @author J. Ator @date 2014-10-02
 recursive subroutine nemspecs ( lunit, nemo, nnemo, nscl, nref, nbts, iret )
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_usrint
@@ -962,16 +964,16 @@ recursive subroutine nemspecs ( lunit, nemo, nnemo, nscl, nref, nbts, iret )
 
   integer, intent(in) :: lunit, nnemo
   integer, intent(out) :: nscl, nref, nbts, iret
-  integer my_lunit, my_nnemo, lun, il, im, nidx, ierfst, node, ltn, jj
+  integer my_lunit, my_nnemo, lun, il, im, nidx, ierfst, node, ltn, jj, lcn, bort_target_set
 
   character*(*), intent(in) :: nemo
+  character*10 cnemo
   character*10 tagn
 
   ! Check for I8 integers.
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call x84(nnemo,my_nnemo,1)
     call nemspecs(my_lunit,nemo,my_nnemo,nscl,nref,nbts,iret)
@@ -979,8 +981,16 @@ recursive subroutine nemspecs ( lunit, nemo, nnemo, nscl, nref, nbts, iret )
     call x48(nref,nref,1)
     call x48(nbts,nbts,1)
     call x48(iret,iret,1)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call strsuc(nemo,cnemo,lcn)
+    call catch_bort_nemspecs_c(lunit,cnemo,lcn,nnemo,nscl,nref,nbts,iret)
+    call bort_target_unset
     return
   endif
 

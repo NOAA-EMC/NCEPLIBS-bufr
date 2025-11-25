@@ -219,6 +219,8 @@ end function ireadmg
 !> @authors J. Woollen J. Ator @date 1995-06-28
 recursive subroutine readerme(mesg,lunit,subset,jdate,iret)
 
+  use bufrlib
+
   use modv_vars, only: mxmsgl, im8b, nbytw, iprt, bmostr
 
   use moda_sc3bfr
@@ -229,9 +231,10 @@ recursive subroutine readerme(mesg,lunit,subset,jdate,iret)
 
   integer, intent(in) :: lunit, mesg(*)
   integer, intent(out) :: jdate, iret
-  integer my_lunit, iec0(2), lun, il, im, ii, lnmsg, lmsg, idxmsg, iupbs3
+  integer my_lunit, iec0(2), lun, il, im, ii, lnmsg, lmsg, idxmsg, iupbs3, bort_target_set
 
   character*8, intent(out) :: subset
+  character*9 csubset
   character*8 sec0
   character*128 errstr, bort_str
 
@@ -243,13 +246,20 @@ recursive subroutine readerme(mesg,lunit,subset,jdate,iret)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call readerme(mesg,my_lunit,subset,jdate,iret)
     call x48(jdate,jdate,1)
     call x48(iret,iret,1)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_readerme_c(mesg,lunit,csubset,jdate,len(csubset),iret)
+    subset(1:8) = csubset(1:8)
+    call bort_target_unset
     return
   endif
 
