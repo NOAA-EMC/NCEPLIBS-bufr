@@ -1279,6 +1279,84 @@ module bufrlib
       character(kind=c_char), intent(out) :: subset(*)
     end subroutine catch_bort_ufbmns_c
 
+    !> @fn bufrlib::catch_bort_rdmemm_c::catch_bort_rdmemm_c(imsg,subset,jdate,subset_str_len,iret)
+    !> Catch any bort error inside of subroutine rdmemm().
+    !>
+    !> Wraps catch_bort_rdmemm() function.
+    !>
+    !> @param imsg - Number of BUFR message to be read
+    !> @param subset - Table A mnemonic for type of BUFR message that was read
+    !> @param jdate - Date-time stored within Section 1 of BUFR message that was read
+    !> @param subset_str_len - Allocated length of subset string
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-12-01
+    subroutine catch_bort_rdmemm_c(imsg,subset,jdate,subset_str_len,iret) bind(C, name='catch_bort_rdmemm')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: imsg, subset_str_len
+      character(kind=c_char), intent(out) :: subset(*)
+      integer(c_int), intent(out) :: jdate, iret
+    end subroutine catch_bort_rdmemm_c
+
+    !> @fn bufrlib::catch_bort_rdmems_c::catch_bort_rdmems_c(isub,iret)
+    !> Catch any bort error inside of subroutine rdmems().
+    !>
+    !> Wraps catch_bort_rdmems() function.
+    !>
+    !> @param isub - Number of data subset to be read
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-12-01
+    subroutine catch_bort_rdmems_c(isub,iret) bind(C, name='catch_bort_rdmems')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: isub
+      integer(c_int), intent(out) :: iret
+    end subroutine catch_bort_rdmems_c
+
+    !> @fn bufrlib::catch_bort_ufbrms_c::catch_bort_ufbrms_c(imsg,isub,usr,i1,i2,iret,cstr,cstr_len)
+    !> Catch any bort error inside of subroutine ufbrms().
+    !>
+    !> Wraps catch_bort_ufbrms() function.
+    !>
+    !> @param imsg - Number of BUFR message to be read
+    !> @param isub - Number of data subset to be read from imsg
+    !> @param usr - Data values
+    !> @param i1 - First dimension of usr
+    !> @param i2 - Second dimension of usr
+    !> @param iret - Number of replications of cstr that were read from the data subset
+    !> @param cstr - String of mnemonics to read from the data subset
+    !> @param cstr_len - Length of cstr
+    !>
+    !> @author J. Ator @date 2025-12-01
+    subroutine catch_bort_ufbrms_c(imsg,isub,usr,i1,i2,iret,cstr,cstr_len) bind(C, name='catch_bort_ufbrms')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: imsg, isub, i1, i2, cstr_len
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(inout) :: cstr(*)
+      real(c_double), intent(inout) :: usr(i1,*)
+    end subroutine catch_bort_ufbrms_c
+
+    !> @fn bufrlib::catch_bort_ufbtam_c::catch_bort_ufbtam_c(tab,i1,i2,iret,cstr,cstr_len)
+    !> Catch any bort error inside of subroutine ufbtam().
+    !>
+    !> Wraps catch_bort_ufbtam() function.
+    !>
+    !> @param tab - Data values
+    !> @param i1 - First dimension of tab
+    !> @param i2 - Second dimension of tab
+    !> @param iret - Number of data subsets returned
+    !> @param cstr - String of mnemonics to read from each data subset
+    !> @param cstr_len - Length of cstr
+    !>
+    !> @author J. Ator @date 2025-12-01
+    subroutine catch_bort_ufbtam_c(tab,i1,i2,iret,cstr,cstr_len) bind(C, name='catch_bort_ufbtam')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: i1, i2, cstr_len
+      integer(c_int), intent(inout) :: iret
+      character(kind=c_char), intent(inout) :: cstr(*)
+      real(c_double), intent(inout) :: tab(i1,*)
+    end subroutine catch_bort_ufbtam_c
+
   end interface
 
 end module bufrlib

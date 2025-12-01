@@ -29,7 +29,7 @@ module bufr_c2f_interface
   public :: writsb_c, writsa_c, ufbstp_c, writlc_c, drfini_c, ufbcnt_c, ufbevn_c, ufbqcd_c, ufbqcp_c, getcfmng_c
   public :: upftbv_c, ufbtab_c, ufbpos_c, datelen_c, iupvs01_c, nmsub_c, pkvs01_c, datebf_c, dumpbf_c, minimg_c, upds3_c
   public :: pkbs1_c, strcpt_c, rtrcpt_c, atrcpt_c, dxdump_c, ufbdmp_c, ufdump_c, copybf_c, copymg_c, copysb_c, ufbcpy_c
-  public :: readerme_c, rdmgsb_c, ufbmem_c, ufbmex_c, ufbmms_c, ufbmns_c
+  public :: readerme_c, rdmgsb_c, ufbmem_c, ufbmex_c, ufbmms_c, ufbmns_c, rdmemm_c, rdmems_c, ufbrms_c, ufbtam_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -2040,5 +2040,97 @@ module bufr_c2f_interface
 
       call copy_f_c_str(f_subset, c_subset, subset_str_len)
     end subroutine ufbmns_c
+
+    !> Read a specified message from internal arrays.
+    !>
+    !> Wraps rdmemm() subroutine.
+    !>
+    !> @param imsg - Number of BUFR message to be read
+    !> @param c_subset - Subset string
+    !> @param jdate - Datetime of message
+    !> @param subset_str_len - Length of the subset string
+    !> @param ires - Return code
+    !>
+    !> @author Jeff Ator @date 2025-12-01
+    recursive subroutine rdmemm_c(imsg, c_subset, jdate, subset_str_len, ires) bind(C, name='rdmemm_f')
+      integer(c_int), value, intent(in) :: imsg, subset_str_len
+      character(kind=c_char), intent(out) :: c_subset(*)
+      integer(c_int), intent(out) :: jdate, ires
+      character(len=10) :: f_subset
+
+      call rdmemm(imsg, f_subset, jdate, ires)
+
+      if (ires == 0) then
+        call copy_f_c_str(f_subset, c_subset, subset_str_len)
+      end if
+    end subroutine rdmemm_c
+
+    !> Read a specified data subset from internal arrays.
+    !>
+    !> Wraps rdmems() subroutine.
+    !>
+    !> @param isub - Number of data subset to be read
+    !> @param ires - Return code
+    !>
+    !> @author Jeff Ator @date 2025-12-01
+    recursive subroutine rdmems_c(isub, ires) bind(C, name='rdmems_f')
+      integer(c_int), value, intent(in) :: isub
+      integer(c_int), intent(out) :: ires
+
+      call rdmems(isub, ires)
+    end subroutine rdmems_c
+
+    !> Read one or more data values from internal arrays.
+    !>
+    !> Wraps ufbrms() subroutine.
+    !>
+    !> @param imsg - Number of BUFR message to be read
+    !> @param isub - Number of data subset to be read from imsg
+    !> @param c_data - C-style pointer to a pre-allocated buffer
+    !> @param dim_1, dim_2 - Dimensionality of data to read
+    !> @param iret - Return value, length of data read
+    !> @param table_b_mnemonic - String of mnemonics
+    !>
+    !> @author Jeff Ator @date 2025-12-01
+    recursive subroutine ufbrms_c(imsg, isub, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbrms_f')
+      integer(c_int), value, intent(in) :: imsg, isub, dim_1, dim_2
+      type(c_ptr), intent(inout) ::  c_data
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(in) :: table_b_mnemonic(*)
+      character(len=90) :: str
+      real, pointer :: f_data
+      integer :: lstr
+
+      lstr = get_c_string_length(table_b_mnemonic)
+      str = transfer(table_b_mnemonic(1:lstr), str)
+      call c_f_pointer(c_data, f_data)
+      call ufbrms(imsg, isub, f_data, dim_1, dim_2, iret, str(1:lstr))
+    end subroutine ufbrms_c
+
+    !> Read one or more data values from every data subset in internal arrays.
+    !>
+    !> Wraps ufbtam() subroutine.
+    !>
+    !> @param c_data - C-style pointer to a pre-allocated buffer
+    !> @param dim_1, dim_2 - Dimensionality of data to read
+    !> @param iret - Return value, number of data subsets read
+    !> @param table_b_mnemonic - String of mnemonics to read from each data subset
+    !>
+    !> @author J. Ator @date 2025-12-01
+    recursive subroutine ufbtam_c(c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbtam_f')
+      integer(c_int), value, intent(in) :: dim_1, dim_2
+      type(c_ptr), intent(inout) ::  c_data
+      integer(c_int), intent(inout) :: iret
+      character(kind=c_char), intent(in) :: table_b_mnemonic(*)
+      character(len=90) :: str
+      real, pointer :: f_data
+      integer :: lstr
+
+      lstr = get_c_string_length(table_b_mnemonic)
+      str = transfer(table_b_mnemonic(1:lstr), str)
+      call c_f_pointer(c_data, f_data)
+
+      call ufbtam(f_data, dim_1, dim_2, iret, str(1:lstr))
+    end subroutine ufbtam_c
 
 end module bufr_c2f_interface

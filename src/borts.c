@@ -1225,3 +1225,94 @@ catch_bort_ufbmns(int irep, char *subset, int *idate, int subset_str_len)
     /* Recursively call the subroutine. */
     ufbmns_f(irep, subset, idate, subset_str_len);
 }
+
+/**
+ * Catch any bort error inside of subroutine rdmemm().
+ *
+ * @param imsg - Number of BUFR message to be read
+ * @param subset - Table A mnemonic for type of BUFR message that was read
+ * @param jdate - Date-time stored within Section 1 of BUFR message that was read
+ * @param subset_str_len - Allocated length of subset string
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-12-01
+*/
+void
+catch_bort_rdmemm(int imsg, char *subset, int *jdate, int subset_str_len, int *iret)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    rdmemm_f(imsg, subset, jdate, subset_str_len, iret);
+}
+
+/**
+ * Catch any bort error inside of subroutine rdmems().
+ *
+ * @param isub - Number of data subset to be read
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-12-01
+*/
+void
+catch_bort_rdmems(int isub, int *iret)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    rdmems_f(isub, iret);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbrms().
+ *
+ * @param imsg - Number of BUFR message to be read
+ * @param isub - Number of data subset to be read from imsg
+ * @param usr - Data values
+ * @param i1 - First dimension of usr
+ * @param i2 - Second dimension of usr
+ * @param iret - Number of replications of cstr that were read from the data subset
+ * @param cstr - String of mnemonics to read from the data subset
+ * @param cstr_len - Length of cstr
+ *
+ * @author J. Ator @date 2025-12-01
+*/
+void
+catch_bort_ufbrms(int imsg, int isub, double *usr, int i1, int i2, int *iret, char *cstr, int cstr_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to cstr, for use with get_c_string_length inside of ufbrms_f. */
+    cstr[cstr_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    ufbrms_f(imsg, isub, (void**) &usr, i1, i2, iret, cstr);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbtam().
+ *
+ * @param tab - Data values
+ * @param i1 - First dimension of tab
+ * @param i2 - Second dimension of tab
+ * @param iret - Number of data subsets returned
+ * @param cstr - String of mnemonics to read from each data subset
+ * @param cstr_len - Length of cstr
+ *
+ * @author J. Ator @date 2025-12-01
+*/
+void
+catch_bort_ufbtam(double *tab, int i1, int i2, int *iret, char *cstr, int cstr_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to cstr, for use with get_c_string_length inside of ufbtam_f. */
+    cstr[cstr_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    ufbtam_f((void**) &tab, i1, i2, iret, cstr);
+}

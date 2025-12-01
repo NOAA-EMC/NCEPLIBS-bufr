@@ -1142,7 +1142,7 @@ void ufbmex_f(int lunit, int lundx, int inew, int *iret, int *mesg);
  * @param isub - Number of data subset to be read from imsg
  * @param subset - Table A mnemonic for type of BUFR message that was read
  * @param jdate - Date-time stored within Section 1 of BUFR message that was read
- * @param subset_str_len - Allocated length of subset string
+ * @param subset_len - Allocated length of subset string
  *
  * @author Jeff Ator @date 2025-12-01
  */
@@ -1156,11 +1156,72 @@ void ufbmms_f(int imsg, int isub, char *subset, int *jdate, int subset_len);
  * @param irep - Number of data subset to be read
  * @param subset - Table A mnemonic for type of BUFR message that was read
  * @param idate - Date-time stored within Section 1 of BUFR message that was read
- * @param subset_str_len - Allocated length of subset string
+ * @param subset_len - Allocated length of subset string
  *
  * @author Jeff Ator @date 2025-12-01
  */
 void ufbmns_f(int irep, char *subset, int *idate, int subset_len);
+
+/**
+ * Read a specified message from internal arrays.
+ *
+ * Wraps rdmemm() subroutine.
+ *
+ * @param imsg - Number of BUFR message to be read
+ * @param subset - Table A mnemonic for type of BUFR message that was read
+ * @param jdate - Date-time stored within Section 1 of BUFR message that was read
+ * @param subset_len - Allocated length of subset string
+ * @param iret - Return code
+ *
+ * @author Jeff Ator @date 2025-12-01
+ */
+void rdmemm_f(int imsg, char *subset, int *jdate, int subset_len, int *iret);
+
+/**
+ * Read a specified data subset from internal arrays.
+ *
+ * Wraps rdmems() subroutine.
+ *
+ * @param isub - Number of data subset to be read
+ * @param iret - Return code
+ *
+ * @author Jeff Ator @date 2025-12-01
+ */
+void rdmems_f(int isub, int *iret);
+
+/**
+ * Read one or more data values from internal arrays.
+ *
+ * Wraps ufbrms() subroutine.
+ *
+ * @param imsg - Number of BUFR message to be read
+ * @param isub - Number of data subset to be read from imsg
+ * @param c_data - pointer to a pointer to a pre-allocated buffer.
+ * @param dim_1 - dimensionality of data to read or write.
+ * @param dim_2 - dimensionality of data to read or write.
+ * @param iret - return value, length of data read or written.
+ * @param table_b_mnemonic - string of mnemonics.
+ *
+ * @author Jeff Ator @date 2025-12-01
+ */
+void ufbrms_f(int imsg, int isub, void **c_data, int dim_1, int dim_2,
+              int *iret, const char *table_b_mnemonic);
+
+/**
+ * Read one or more data values from every data subset in internal arrays.
+ *
+ * Wraps ufbtam() subroutine.
+ *
+ * @param c_data - pointer to a pointer to a pre-allocated buffer.
+ * @param dim_1 - dimensionality of data to read
+ * @param dim_2 - dimensionality of data to read
+ * @param iret - return value, number of data subsets read
+ * @param table_b_mnemonic - String of mnemonics to read from each data subset
+ *
+ * @author J. Ator @date 2025-12-01
+ */
+void ufbtam_f(void **c_data, int dim_1, int dim_2,
+              int *iret, const char *table_b_mnemonic);
 
 #ifdef __cplusplus
 }
