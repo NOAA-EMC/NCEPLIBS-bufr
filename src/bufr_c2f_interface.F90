@@ -29,7 +29,7 @@ module bufr_c2f_interface
   public :: writsb_c, writsa_c, ufbstp_c, writlc_c, drfini_c, ufbcnt_c, ufbevn_c, ufbqcd_c, ufbqcp_c, getcfmng_c
   public :: upftbv_c, ufbtab_c, ufbpos_c, datelen_c, iupvs01_c, nmsub_c, pkvs01_c, datebf_c, dumpbf_c, minimg_c, upds3_c
   public :: pkbs1_c, strcpt_c, rtrcpt_c, atrcpt_c, dxdump_c, ufbdmp_c, ufdump_c, copybf_c, copymg_c, copysb_c, ufbcpy_c
-  public :: readerme_c, rdmgsb_c
+  public :: readerme_c, rdmgsb_c, ufbmem_c, ufbmex_c, ufbmms_c, ufbmns_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -1962,5 +1962,83 @@ module bufr_c2f_interface
 
       call rdmgsb(lunit, imsg, isub)
     end subroutine rdmgsb_c
+
+    !> Read an entire BUFR file into internal arrays.
+    !>
+    !> Wraps ufbmem() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit for BUFR file
+    !> @param inew - Processing option
+    !> @param iret - Number of BUFR messages that were read and stored into internal arrays
+    !> @param iunit - File status
+    !>
+    !> @author J. Ator @date 2025-11-25
+    recursive subroutine ufbmem_c(lunit, inew, iret, iunit) bind(C, name='ufbmem_f')
+      integer(c_int), value, intent(in) :: lunit, inew
+      integer(c_int), intent(out) :: iret, iunit
+
+      call ufbmem(lunit, inew, iret, iunit)
+    end subroutine ufbmem_c
+
+    !> Read an entire BUFR file into internal arrays.
+    !>
+    !> Wraps ufbmex() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit for BUFR file
+    !> @param lundx - Fortran logical unit number containing DX BUFR table information
+    !> @param inew - Processing option
+    !> @param iret - Number of BUFR messages that were read and stored into internal arrays
+    !> @param mesg - Types of BUFR messages that were read and stored into internal arrays
+    !>
+    !> @author J. Ator @date 2025-11-25
+    recursive subroutine ufbmex_c(lunit, lundx, inew, iret, mesg) bind(C, name='ufbmex_f')
+      integer(c_int), value, intent(in) :: lunit, lundx, inew
+      integer(c_int), intent(out) :: iret, mesg(*)
+
+      call ufbmex(lunit, lundx, inew, iret, mesg)
+    end subroutine ufbmex_c
+
+    !> Read a specified data subset from internal arrays.
+    !>
+    !> Wraps ufbmms() subroutine.
+    !>
+    !> @param imsg - Number of BUFR message to be read
+    !> @param isub - Number of data subset to be read from imsg
+    !> @param c_subset - Subset string
+    !> @param jdate - Datetime of message
+    !> @param subset_str_len - Length of the subset string
+    !>
+    !> @author Jeff Ator @date 2025-12-01
+    recursive subroutine ufbmms_c(imsg, isub, c_subset, jdate, subset_str_len) bind(C, name='ufbmms_f')
+      integer(c_int), value, intent(in) :: imsg, isub, subset_str_len
+      integer(c_int), intent(out) :: jdate
+      character(kind=c_char), intent(out) :: c_subset(*)
+      character(len=10) :: f_subset
+
+      call ufbmms(imsg, isub, f_subset, jdate)
+
+      call copy_f_c_str(f_subset, c_subset, subset_str_len)
+    end subroutine ufbmms_c
+
+    !> Read a specified data subset from internal arrays.
+    !>
+    !> Wraps ufbmns() subroutine.
+    !>
+    !> @param irep - Number of data subset to be read
+    !> @param c_subset - Subset string
+    !> @param idate - Datetime of message
+    !> @param subset_str_len - Length of the subset string
+    !>
+    !> @author Jeff Ator @date 2025-12-01
+    recursive subroutine ufbmns_c(irep, c_subset, idate, subset_str_len) bind(C, name='ufbmns_f')
+      integer(c_int), value, intent(in) :: irep, subset_str_len
+      integer(c_int), intent(out) :: idate
+      character(kind=c_char), intent(out) :: c_subset(*)
+      character(len=10) :: f_subset
+
+      call ufbmns(irep, f_subset, idate)
+
+      call copy_f_c_str(f_subset, c_subset, subset_str_len)
+    end subroutine ufbmns_c
 
 end module bufr_c2f_interface

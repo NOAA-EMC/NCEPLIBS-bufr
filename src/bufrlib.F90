@@ -1207,6 +1207,78 @@ module bufrlib
       integer(c_int), value, intent(in) :: lunit, imsg, isub
     end subroutine catch_bort_rdmgsb_c
 
+    !> @fn bufrlib::catch_bort_ufbmem_c::catch_bort_ufbmem_c(lunit,inew,iret,iunit)
+    !> Catch any bort error inside of subroutine ufbmem().
+    !>
+    !> Wraps catch_bort_ufbmem() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param inew - Processing option
+    !> @param iret - Number of BUFR messages that were read and stored into internal arrays
+    !> @param iunit - File status
+    !>
+    !> @author J. Ator @date 2025-11-25
+    subroutine catch_bort_ufbmem_c(lunit,inew,iret,iunit) bind(C, name='catch_bort_ufbmem')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, inew
+      integer(c_int), intent(out) :: iret, iunit
+    end subroutine catch_bort_ufbmem_c
+
+    !> @fn bufrlib::catch_bort_ufbmex_c::catch_bort_ufbmex_c(lunit,lundx,inew,iret,mesg)
+    !> Catch any bort error inside of subroutine ufbmex().
+    !>
+    !> Wraps catch_bort_ufbmex() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param lundx - Fortran logical unit number containing DX BUFR table information
+    !> @param inew - Processing option
+    !> @param iret - Number of BUFR messages that were read and stored into internal arrays
+    !> @param mesg - Types of BUFR messages that were read and stored into internal arrays
+    !>
+    !> @author J. Ator @date 2025-11-25
+    subroutine catch_bort_ufbmex_c(lunit,lundx,inew,iret,mesg) bind(C, name='catch_bort_ufbmex')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, lundx, inew
+      integer(c_int), intent(out) :: iret, mesg(*)
+    end subroutine catch_bort_ufbmex_c
+
+    !> @fn bufrlib::catch_bort_ufbmms_c::catch_bort_ufbmms_c(imsg,isub,subset,jdate,subset_str_len)
+    !> Catch any bort error inside of subroutine ufbmms().
+    !>
+    !> Wraps catch_bort_ufbmms() function.
+    !>
+    !> @param imsg - Number of BUFR message to be read
+    !> @param isub - Number of data subset to be read from imsg
+    !> @param subset - Table A mnemonic for type of BUFR message that was read
+    !> @param jdate - Date-time stored within Section 1 of BUFR message that was read
+    !> @param subset_str_len - Allocated length of subset string
+    !>
+    !> @author J. Ator @date 2025-12-01
+    subroutine catch_bort_ufbmms_c(imsg,isub,subset,jdate,subset_str_len) bind(C, name='catch_bort_ufbmms')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: imsg, isub, subset_str_len
+      integer(c_int), intent(out) :: jdate
+      character(kind=c_char), intent(out) :: subset(*)
+    end subroutine catch_bort_ufbmms_c
+
+    !> @fn bufrlib::catch_bort_ufbmns_c::catch_bort_ufbmns_c(irep,subset,jdate,subset_str_len)
+    !> Catch any bort error inside of subroutine ufbmns().
+    !>
+    !> Wraps catch_bort_ufbmns() function.
+    !>
+    !> @param irep - Number of data subset to be read
+    !> @param subset - Table A mnemonic for type of BUFR message that was read
+    !> @param idate - Date-time stored within Section 1 of BUFR message that was read
+    !> @param subset_str_len - Allocated length of subset string
+    !>
+    !> @author J. Ator @date 2025-12-01
+    subroutine catch_bort_ufbmns_c(irep,subset,idate,subset_str_len) bind(C, name='catch_bort_ufbmns')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: irep, subset_str_len
+      integer(c_int), intent(out) :: idate
+      character(kind=c_char), intent(out) :: subset(*)
+    end subroutine catch_bort_ufbmns_c
+
   end interface
 
 end module bufrlib

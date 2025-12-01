@@ -1104,6 +1104,64 @@ void readerme_f(int *mesg, int bufr_unit, char *subset, int *iddate, int subset_
  */
 void rdmgsb_f(int lunit, int imsg, int isub);
 
+/**
+ * Read an entire BUFR file into internal arrays.
+ *
+ * Wraps ufbmem() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param inew - Processing option
+ * @param iret - Number of BUFR messages that were read and stored into internal arrays
+ * @param iunit - File status
+ *
+ * @author Jeff Ator @date 2025-11-25
+ */
+void ufbmem_f(int lunit, int inew, int *iret, int *iunit);
+
+/**
+ * Read an entire BUFR file into internal arrays.
+ *
+ * Wraps ufbmex() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param lundx - Fortran logical unit number containing DX BUFR table information
+ * @param inew - Processing option
+ * @param iret - Number of BUFR messages that were read and stored into internal arrays
+ * @param mesg - Types of BUFR messages that were read and stored into internal arrays
+ *
+ * @author Jeff Ator @date 2025-11-25
+ */
+void ufbmex_f(int lunit, int lundx, int inew, int *iret, int *mesg);
+
+/**
+ * Read a specified data subset from internal arrays.
+ *
+ * Wraps ufbmms() subroutine.
+ *
+ * @param imsg - Number of BUFR message to be read
+ * @param isub - Number of data subset to be read from imsg
+ * @param subset - Table A mnemonic for type of BUFR message that was read
+ * @param jdate - Date-time stored within Section 1 of BUFR message that was read
+ * @param subset_str_len - Allocated length of subset string
+ *
+ * @author Jeff Ator @date 2025-12-01
+ */
+void ufbmms_f(int imsg, int isub, char *subset, int *jdate, int subset_len);
+
+/**
+ * Read a specified data subset from internal arrays.
+ *
+ * Wraps ufbmns() subroutine.
+ *
+ * @param irep - Number of data subset to be read
+ * @param subset - Table A mnemonic for type of BUFR message that was read
+ * @param idate - Date-time stored within Section 1 of BUFR message that was read
+ * @param subset_str_len - Allocated length of subset string
+ *
+ * @author Jeff Ator @date 2025-12-01
+ */
+void ufbmns_f(int irep, char *subset, int *idate, int subset_len);
+
 #ifdef __cplusplus
 }
 #endif

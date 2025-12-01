@@ -48,7 +48,7 @@ recursive subroutine ufbmem(lunit,inew,iret,iunit)
 
   integer, intent(in) :: lunit, inew
   integer, intent(out) :: iret, iunit
-  integer my_lunit, my_inew, iflg, itim, lun, il, im, itemp, ier, nmsg, lmem, i, mlast0, idxmsg, nmwrd
+  integer my_lunit, my_inew, iflg, itim, lun, il, im, itemp, ier, nmsg, lmem, i, mlast0, idxmsg, nmwrd, bort_target_set
 
   character*128 bort_str, errstr
 
@@ -56,14 +56,20 @@ recursive subroutine ufbmem(lunit,inew,iret,iunit)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call x84(inew,my_inew,1)
     call ufbmem(my_lunit,my_inew,iret,iunit)
     call x48(iret,iret,1)
     call x48(iunit,iunit,1)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_ufbmem_c(lunit,inew,iret,iunit)
+    call bort_target_unset
     return
   endif
 
@@ -213,6 +219,8 @@ end subroutine ufbmem
 !> @author J. Woollen @date 2012-01-26
 recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
 
+  use bufrlib
+
   use modv_vars, only: im8b, maxmem, maxmsg, iprt
 
   use moda_mgwa
@@ -224,13 +232,12 @@ recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
 
   integer, intent(in) :: lunit, lundx, inew
   integer, intent(out) :: mesg(*), iret
-  integer my_lunit, my_lundx, my_inew, nmesg, iflg, itim, ier, nmsg, lmem, i, mlast0, iupbs01, nmwrd
+  integer my_lunit, my_lundx, my_inew, nmesg, iflg, itim, ier, nmsg, lmem, i, mlast0, iupbs01, nmwrd, bort_target_set
 
   ! Check for I8 integers
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call x84(lundx,my_lundx,1)
     call x84(inew,my_inew,1)
@@ -243,8 +250,15 @@ recursive subroutine ufbmex(lunit,lundx,inew,iret,mesg)
     call ufbmex(my_lunit,my_lundx,my_inew,iret,mesg(1))
     call x48(mesg(1),mesg(1),nmesg+iret)
     call x48(iret,iret,1)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_ufbmex_c(lunit,lundx,inew,iret,mesg)
+    call bort_target_unset
     return
   endif
 
@@ -389,13 +403,11 @@ recursive subroutine readmm(imsg,subset,jdate,iret)
 
   if(im8b) then
     im8b=.false.
-
     call x84(imsg,imsg,1)
     call readmm(imsg,subset,jdate,iret)
     call x48(imsg,imsg,1)
     call x48(jdate,jdate,1)
     call x48(iret,iret,1)
-
     im8b=.true.
     return
   endif
@@ -441,12 +453,10 @@ recursive integer function ireadmm(imsg,subset,idate) result(iret)
 
   if(im8b) then
      im8b=.false.
-
      call x84(imsg,imsg,1)
      iret=ireadmm(imsg,subset,idate)
      call x48(imsg,imsg,1)
      call x48(idate,idate,1)
-
      im8b=.true.
      return
   endif
@@ -503,12 +513,10 @@ recursive subroutine rdmemm(imsg,subset,jdate,iret)
 
   if(im8b) then
     im8b=.false.
-
     call x84(imsg,my_imsg,1)
     call rdmemm(my_imsg,subset,jdate,iret)
     call x48(jdate,jdate,1)
     call x48(iret,iret,1)
-
     im8b=.true.
     return
   endif
@@ -828,6 +836,8 @@ end subroutine cpdxmm
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbmms(imsg,isub,subset,jdate)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_msgcwd
@@ -837,23 +847,30 @@ recursive subroutine ufbmms(imsg,isub,subset,jdate)
 
   integer, intent(in) :: imsg, isub
   integer, intent(out) :: jdate
-  integer my_imsg, my_isub, lun, il, im, iret
+  integer my_imsg, my_isub, lun, il, im, iret, bort_target_set
 
   character*8, intent(out) :: subset
-
   character*128 bort_str
+  character*9 csubset
 
   ! Check for I8 integers
 
   if(im8b) then
     im8b=.false.
-
     call x84(imsg,my_imsg,1)
     call x84(isub,my_isub,1)
     call ufbmms(my_imsg,my_isub,subset,jdate)
     call x48(jdate,jdate,1)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_ufbmms_c(imsg,isub,csubset,jdate,len(csubset))
+    subset(1:8) = csubset(1:8)
+    call bort_target_unset
     return
   endif
 
@@ -899,6 +916,8 @@ end subroutine ufbmms
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ufbmns(irep,subset,idate)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_msgmem
@@ -907,22 +926,29 @@ recursive subroutine ufbmns(irep,subset,idate)
 
   integer, intent(in) :: irep
   integer, intent(out) :: idate
-  integer my_irep, imsg, jrep, iret, ireadmm, nmsub
+  integer my_irep, imsg, jrep, iret, ireadmm, nmsub, bort_target_set
 
   character*8, intent(out) :: subset
-
   character*128 bort_str
+  character*9 csubset
 
   ! Check for I8 integers
 
   if(im8b) then
     im8b=.false.
-
     call x84(irep,my_irep,1)
     call ufbmns(my_irep,subset,idate)
     call x48(idate,idate,1)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_ufbmns_c(irep,csubset,idate,len(csubset))
+    subset(1:8) = csubset(1:8)
+    call bort_target_unset
     return
   endif
 

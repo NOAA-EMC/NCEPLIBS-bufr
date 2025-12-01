@@ -1143,3 +1143,85 @@ catch_bort_rdmgsb(int lunit, int imsg, int isub)
     /* Recursively call the subroutine. */
     rdmgsb_f(lunit, imsg, isub);
 }
+
+/**
+ * Catch any bort error inside of subroutine ufbmem().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param inew - Processing option
+ * @param iret - Number of BUFR messages that were read and stored into internal arrays
+ * @param iunit - File status
+ *
+ * @author J. Ator @date 2025-11-25
+*/
+void
+catch_bort_ufbmem(int lunit, int inew, int *iret, int *iunit)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    ufbmem_f(lunit, inew, iret, iunit);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbmex().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param lundx - Fortran logical unit number containing DX BUFR table information
+ * @param inew - Processing option
+ * @param iret - Number of BUFR messages that were read and stored into internal arrays
+ * @param mesg - Types of BUFR messages that were read and stored into internal arrays
+ *
+ * @author J. Ator @date 2025-11-25
+*/
+void
+catch_bort_ufbmex(int lunit, int lundx, int inew, int *iret, int *mesg)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    ufbmex_f(lunit, lundx, inew, iret, mesg);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbmms().
+ *
+ * @param imsg - Number of BUFR message to be read
+ * @param isub - Number of data subset to be read from imsg
+ * @param subset - Table A mnemonic for type of BUFR message that was read
+ * @param jdate - Date-time stored within Section 1 of BUFR message that was read
+ * @param subset_str_len - Allocated length of subset string
+ *
+ * @author J. Ator @date 2025-12-01
+*/
+void
+catch_bort_ufbmms(int imsg, int isub,  char *subset, int *jdate, int subset_str_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    ufbmms_f(imsg, isub, subset, jdate, subset_str_len);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbmns().
+ *
+ * @param irep - Number of data subset to be read
+ * @param subset - Table A mnemonic for type of BUFR message that was read
+ * @param idate - Date-time stored within Section 1 of BUFR message that was read
+ * @param subset_str_len - Allocated length of subset string
+ *
+ * @author J. Ator @date 2025-12-01
+*/
+void
+catch_bort_ufbmns(int irep, char *subset, int *idate, int subset_str_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    ufbmns_f(irep, subset, idate, subset_str_len);
+}
