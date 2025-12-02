@@ -1357,6 +1357,64 @@ module bufrlib
       real(c_double), intent(inout) :: tab(i1,*)
     end subroutine catch_bort_ufbtam_c
 
+    !> @fn bufrlib::catch_bort_cpymem_c::catch_bort_cpymem_c(lunot)
+    !> Catch any bort error inside of subroutine cpymem().
+    !>
+    !> Wraps catch_bort_cpymem() function.
+    !>
+    !> @param lunot - Fortran logical unit number for target BUFR file
+    !>
+    !> @author J. Ator @date 2025-12-02
+    subroutine catch_bort_cpymem_c(lunot) bind(C, name='catch_bort_cpymem')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunot
+    end subroutine catch_bort_cpymem_c
+
+    !> @fn bufrlib::catch_bort_ufbcup_c::catch_bort_ufbcup_c(lunin,lunot)
+    !> Catch any bort error inside of subroutine ufbcup().
+    !>
+    !> Wraps catch_bort_ufbcup() function.
+    !>
+    !> @param lunin - Fortran logical unit number for source BUFR file
+    !> @param lunot - Fortran logical unit number for target BUFR file
+    !>
+    !> @author J. Ator @date 2025-12-02
+    subroutine catch_bort_ufbcup_c(lunin,lunot) bind(C, name='catch_bort_ufbcup')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunin, lunot
+    end subroutine catch_bort_ufbcup_c
+
+    !> @fn bufrlib::catch_bort_stdmsg_c::catch_bort_stdmsg_c(cf)
+    !> Catch any bort error inside of subroutine stdmsg().
+    !>
+    !> Wraps catch_bort_stdmsg() function.
+    !>
+    !> @param cf - Flag indicating whether future BUFR output messages should be WMO-standard
+    !>
+    !> @author J. Ator @date 2025-12-02
+    subroutine catch_bort_stdmsg_c(cf) bind(C, name='catch_bort_stdmsg')
+      use iso_c_binding
+      character(kind=c_char), intent(in) :: cf(*)
+    end subroutine catch_bort_stdmsg_c
+
+    !> @fn bufrlib::catch_bort_stndrd_c::catch_bort_stndrd_c(lunit,msgin,lmsgot,msgot)
+    !> Catch any bort error inside of subroutine stndrd().
+    !>
+    !> Wraps catch_bort_stndrd() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param msgin - BUFR message
+    !> @param lmsgot - Allocated length of msgot
+    !> @param msgot - Copy of msgin now fully WMO-standardized
+    !>
+    !> @author J. Ator @date 2025-12-02
+    subroutine catch_bort_stndrd_c(lunit,msgin,lmsgot,msgot) bind(C, name='catch_bort_stndrd')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, lmsgot
+      integer(c_int), intent(in) :: msgin(*)
+      integer(c_int), intent(out) :: msgot(*)
+    end subroutine catch_bort_stndrd_c
+
   end interface
 
 end module bufrlib

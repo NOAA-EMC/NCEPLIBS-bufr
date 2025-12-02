@@ -1316,3 +1316,75 @@ catch_bort_ufbtam(double *tab, int i1, int i2, int *iret, char *cstr, int cstr_l
     /* Recursively call the subroutine. */
     ufbtam_f((void**) &tab, i1, i2, iret, cstr);
 }
+
+/**
+ * Catch any bort error inside of subroutine cpymem().
+ *
+ * @param lunot - Fortran logical unit number for target BUFR file
+ *
+ * @author J. Ator @date 2025-12-02
+*/
+void
+catch_bort_cpymem(int lunot)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    cpymem_f(lunot);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbcup().
+ *
+ * @param lunin - Fortran logical unit number for source BUFR file
+ * @param lunot - Fortran logical unit number for target BUFR file
+ *
+ * @author J. Ator @date 2025-12-02
+*/
+void
+catch_bort_ufbcup(int lunin, int lunot)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    ufbcup_f(lunin, lunot);
+}
+
+/**
+ * Catch any bort error inside of subroutine stdmsg().
+ *
+ * @param cf - Flag indicating whether future BUFR output messages should be WMO-standard
+ *
+ * @author J. Ator @date 2025-12-02
+*/
+void
+catch_bort_stdmsg(char *cf)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    stdmsg_f(cf);
+}
+
+/**
+ * Catch any bort error inside of subroutine stndrd().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param msgin - BUFR message
+ * @param lmsgot - Allocated length of msgot
+ * @param msgot - Copy of msgin now fully WMO-standardized
+ *
+ * @author J. Ator @date 2025-12-02
+*/
+void
+catch_bort_stndrd(int lunit, int *msgin, int lmsgot, int *msgot)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    stndrd_f(lunit, msgin, lmsgot, msgot);
+}

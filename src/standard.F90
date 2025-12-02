@@ -32,15 +32,27 @@
 !>  - 'Y' (or 'y') = Yes
 !>
 !> @author J. Ator @date 2004-08-18
-subroutine stdmsg(cf)
+recursive subroutine stdmsg(cf)
+
+  use bufrlib
 
   use moda_msgstd
 
   implicit none
 
+  integer bort_target_set
+
   character, intent(in) :: cf
   character*128 bort_str
   character my_cf
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_stdmsg_c(cf)
+    call bort_target_unset
+    return
+  endif
 
   my_cf = cf
   call capit(my_cf)
@@ -85,7 +97,7 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
   integer, intent(out) :: msgot(*)
   integer my_lunit, my_lmsgot, lun, il, im, len0, len1, len2, len3, len4, len5
   integer iad3, iad4, lenn, lenm, iupbs01, iupbs3, iupb, mxbyto, lbyto, ii, isub, itab, mtyp, msbt, inod
-  integer istdesc, ncd, iben, ibit, jbit, kbit, mbit, nad4, lsub, nsub, islen, kval, nval, i, k, l, n
+  integer istdesc, ncd, iben, ibit, jbit, kbit, mbit, nad4, lsub, nsub, islen, kval, nval, i, k, l, n, bort_target_set
 
   character*128 bort_str
   character*8 subset
@@ -100,12 +112,18 @@ recursive subroutine stndrd(lunit,msgin,lmsgot,msgot)
 
   if(im8b) then
     im8b=.false.
-
-    call x84 ( lunit, my_lunit, 1 )
-    call x84 ( lmsgot, my_lmsgot, 1 )
-    call stndrd ( my_lunit, msgin, my_lmsgot*2, msgot )
-
+    call x84(lunit,my_lunit,1)
+    call x84(lmsgot,my_lmsgot,1)
+    call stndrd(my_lunit,msgin,my_lmsgot*2,msgot)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_stndrd_c(lunit,msgin,lmsgot,msgot)
+    call bort_target_unset
     return
   endif
 

@@ -1223,6 +1223,54 @@ void ufbrms_f(int imsg, int isub, void **c_data, int dim_1, int dim_2,
 void ufbtam_f(void **c_data, int dim_1, int dim_2,
               int *iret, const char *table_b_mnemonic);
 
+/**
+ * Copy a message from internal arrays to a file
+ *
+ * Wraps cpymem() subroutine.
+ *
+ * @param lunot - Fortran logical unit number for target BUFR file
+ *
+ * @author Jeff Ator @date 2025-12-02
+ */
+void cpymem_f(int lunot);
+
+/**
+ * Copy unique elements of a data subset from one file to another
+ *
+ * Wraps ufbcup() subroutine.
+ *
+ * @param lunin - Fortran logical unit number for source BUFR file
+ * @param lunot - Fortran logical unit number for target BUFR file
+ *
+ * @author Jeff Ator @date 2025-12-02
+ */
+void ufbcup_f(int lunin, int lunot);
+
+/**
+ * Specify whether to standardize future output BUFR messages
+ *
+ * Wraps stdmsg() subroutine.
+ *
+ * @param cf - Flag indicating whether future BUFR output messages should be WMO-standard
+ *
+ * @author Jeff Ator @date 2025-12-02
+ */
+void stdmsg_f(char *cf);
+
+/**
+ * Standardize a copy of a BUFR message
+ *
+ * Wraps stndrd() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param msgin - BUFR message
+ * @param lmsgot - Allocated length of msgot
+ * @param msgot - Copy of msgin now fully WMO-standardized
+ *
+ * @author Jeff Ator @date 2025-11-20
+ */
+void stndrd_f(int lunit, int *msgin, int lmsgot, int *msgot);
+
 #ifdef __cplusplus
 }
 #endif

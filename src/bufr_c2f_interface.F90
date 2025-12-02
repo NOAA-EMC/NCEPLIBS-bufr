@@ -30,6 +30,7 @@ module bufr_c2f_interface
   public :: upftbv_c, ufbtab_c, ufbpos_c, datelen_c, iupvs01_c, nmsub_c, pkvs01_c, datebf_c, dumpbf_c, minimg_c, upds3_c
   public :: pkbs1_c, strcpt_c, rtrcpt_c, atrcpt_c, dxdump_c, ufbdmp_c, ufdump_c, copybf_c, copymg_c, copysb_c, ufbcpy_c
   public :: readerme_c, rdmgsb_c, ufbmem_c, ufbmex_c, ufbmms_c, ufbmns_c, rdmemm_c, rdmems_c, ufbrms_c, ufbtam_c
+  public :: cpymem_c, ufbcup_c, stdmsg_c, stndrd_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -2132,5 +2133,65 @@ module bufr_c2f_interface
 
       call ufbtam(f_data, dim_1, dim_2, iret, str(1:lstr))
     end subroutine ufbtam_c
+
+    !> Copy a message from internal arrays to a file
+    !>
+    !> Wraps cpymem() subroutine.
+    !>
+    !> @param lunot - Fortran logical unit for target BUFR file
+    !>
+    !> @author J. Ator @date 2025-12-02
+    recursive subroutine cpymem_c(lunot) bind(C, name='cpymem_f')
+      integer(c_int), value, intent(in) :: lunot
+
+      call cpymem(lunot)
+    end subroutine cpymem_c
+
+    !> Copy unique elements of a data subset from one file to another
+    !>
+    !> Wraps ufbcup() subroutine.
+    !>
+    !> @param lunin - Fortran logical unit for source BUFR file
+    !> @param lunot - Fortran logical unit for target BUFR file
+    !>
+    !> @author J. Ator @date 2025-12-02
+    recursive subroutine ufbcup_c(lunin, lunot) bind(C, name='ufbcup_f')
+      integer(c_int), value, intent(in) :: lunin, lunot
+
+      call ufbcup(lunin, lunot)
+    end subroutine ufbcup_c
+
+    !> Specify whether to standardize future output BUFR messages
+    !>
+    !> Wraps stdmsg() subroutine.
+    !>
+    !> @param cf - Flag indicating whether future BUFR output messages should be WMO-standard
+    !>
+    !> @author J. Ator @date 2025-12-02
+    recursive subroutine stdmsg_c(cf) bind(C, name='stdmsg_f')
+      character(kind=c_char), intent(in) :: cf(*)
+      character :: ch
+
+      ch = cf(1)
+      call stdmsg(ch)
+    end subroutine stdmsg_c
+
+    !> Standardize a copy of a BUFR message
+    !>
+    !> Wraps stndrd() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit for BUFR file
+    !> @param msgin - BUFR message
+    !> @param lmsgot - Allocated length of msgot
+    !> @param msgot - Copy of msgin now fully WMO-standardized
+    !>
+    !> @author J. Ator @date 2025-12-02
+    recursive subroutine stndrd_c(lunit, msgin, lmsgot, msgot) bind(C, name='stndrd_f')
+      integer(c_int), value, intent(in) :: lunit, lmsgot
+      integer(c_int), intent(in) :: msgin(*)
+      integer(c_int), intent(out) :: msgot(*)
+
+      call stndrd(lunit, msgin, lmsgot, msgot)
+    end subroutine stndrd_c
 
 end module bufr_c2f_interface
