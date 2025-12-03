@@ -1415,6 +1415,48 @@ module bufrlib
       integer(c_int), intent(out) :: msgot(*)
     end subroutine catch_bort_stndrd_c
 
+    !> @fn bufrlib::catch_bort_cmpmsg_c::catch_bort_cmpmsg_c(cf)
+    !> Catch any bort error inside of subroutine cmpmsg().
+    !>
+    !> Wraps catch_bort_cmpmsg() function.
+    !>
+    !> @param cf - Flag indicating whether future BUFR output messages should be compressed
+    !>
+    !> @author J. Ator @date 2025-12-02
+    subroutine catch_bort_cmpmsg_c(cf) bind(C, name='catch_bort_cmpmsg')
+      use iso_c_binding
+      character(kind=c_char), intent(in) :: cf(*)
+    end subroutine catch_bort_cmpmsg_c
+
+    !> @fn bufrlib::catch_bort_codflg_c::catch_bort_codflg_c(cf)
+    !> Catch any bort error inside of subroutine codflg().
+    !>
+    !> Wraps catch_bort_codflg() function.
+    !>
+    !> @param cf - Flag indicating whether code and flag table information should be included
+    !> when reading from master BUFR tables
+    !>
+    !> @author J. Ator @date 2025-12-02
+    subroutine catch_bort_codflg_c(cf) bind(C, name='catch_bort_codflg')
+      use iso_c_binding
+      character(kind=c_char), intent(in) :: cf(*)
+    end subroutine catch_bort_codflg_c
+
+    !> @fn bufrlib::catch_bort_bvers_c::catch_bort_bvers_c(verstr,verstr_len)
+    !> Catch any bort error inside of subroutine bvers().
+    !>
+    !> Wraps catch_bort_bvers() function.
+    !>
+    !> @param verstr - Version string
+    !> @param verstr_len - Allocated length of verstr
+    !>
+    !> @author J. Ator @date 2025-12-02
+    subroutine catch_bort_bvers_c(verstr,verstr_len) bind(C, name='catch_bort_bvers')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: verstr_len
+      character(kind=c_char), intent(out) :: verstr(*)
+    end subroutine catch_bort_bvers_c
+
   end interface
 
 end module bufrlib

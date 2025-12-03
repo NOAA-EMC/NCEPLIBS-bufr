@@ -30,7 +30,7 @@ module bufr_c2f_interface
   public :: upftbv_c, ufbtab_c, ufbpos_c, datelen_c, iupvs01_c, nmsub_c, pkvs01_c, datebf_c, dumpbf_c, minimg_c, upds3_c
   public :: pkbs1_c, strcpt_c, rtrcpt_c, atrcpt_c, dxdump_c, ufbdmp_c, ufdump_c, copybf_c, copymg_c, copysb_c, ufbcpy_c
   public :: readerme_c, rdmgsb_c, ufbmem_c, ufbmex_c, ufbmms_c, ufbmns_c, rdmemm_c, rdmems_c, ufbrms_c, ufbtam_c
-  public :: cpymem_c, ufbcup_c, stdmsg_c, stndrd_c
+  public :: cpymem_c, ufbcup_c, stdmsg_c, stndrd_c, codflg_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -1336,7 +1336,7 @@ module bufr_c2f_interface
     !> @param cverstr_len - Length of the version string.
     !>
     !> @author J. Ator @date 2023-04-07
-    subroutine bvers_c(cverstr, cverstr_len) bind(C, name='bvers_f')
+    recursive subroutine bvers_c(cverstr, cverstr_len) bind(C, name='bvers_f')
       character(kind=c_char), intent(out) :: cverstr(*)
       integer(c_int), value, intent(in) :: cverstr_len
       character(len=10) :: f_cverstr
@@ -1353,7 +1353,7 @@ module bufr_c2f_interface
     !> compressed ('Y' = Yes, 'N' = No).
     !>
     !> @author J. Ator @date 2023-04-07
-    subroutine cmpmsg_c(cf) bind(C, name='cmpmsg_f')
+    recursive subroutine cmpmsg_c(cf) bind(C, name='cmpmsg_f')
       character(kind=c_char), intent(in) :: cf(*)
       character :: ch
 
@@ -2193,5 +2193,21 @@ module bufr_c2f_interface
 
       call stndrd(lunit, msgin, lmsgot, msgot)
     end subroutine stndrd_c
+
+    !> Specify whether to read code and flag table information from master BUFR tables
+    !>
+    !> Wraps codflg() subroutine.
+    !>
+    !> @param cf - Flag indicating whether code and flag table information should be included
+    !> when reading from master BUFR tables
+    !>
+    !> @author J. Ator @date 2025-12-02
+    recursive subroutine codflg_c(cf) bind(C, name='codflg_f')
+      character(kind=c_char), intent(in) :: cf(*)
+      character :: ch
+
+      ch = cf(1)
+      call codflg(ch)
+    end subroutine codflg_c
 
 end module bufr_c2f_interface

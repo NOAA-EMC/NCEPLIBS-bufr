@@ -1267,9 +1267,21 @@ void stdmsg_f(char *cf);
  * @param lmsgot - Allocated length of msgot
  * @param msgot - Copy of msgin now fully WMO-standardized
  *
- * @author Jeff Ator @date 2025-11-20
+ * @author Jeff Ator @date 2025-12-02
  */
 void stndrd_f(int lunit, int *msgin, int lmsgot, int *msgot);
+
+/**
+ * Specify whether to read code and flag table information from master BUFR tables
+ *
+ * Wraps codflg() subroutine.
+ *
+ * @param cf - Flag indicating whether code and flag table information should be included
+ * when reading from master BUFR tables
+ *
+ * @author Jeff Ator @date 2025-12-02
+ */
+void codflg_f(char *cf);
 
 #ifdef __cplusplus
 }

@@ -29,15 +29,27 @@
 !>  - 'Y' (or 'y') = Yes
 !>
 !> @author J. Ator @date 2005-03-09
-subroutine cmpmsg(cf)
+recursive subroutine cmpmsg(cf)
+
+  use bufrlib
 
   use moda_msgcmp
 
   implicit none
 
+  integer bort_target_set
+
   character, intent(in) :: cf
   character*128 bort_str
   character my_cf
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_cmpmsg_c(cf)
+    call bort_target_unset
+    return
+  endif
 
   my_cf = cf
   call capit(my_cf)

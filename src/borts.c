@@ -1388,3 +1388,56 @@ catch_bort_stndrd(int lunit, int *msgin, int lmsgot, int *msgot)
     /* Recursively call the subroutine. */
     stndrd_f(lunit, msgin, lmsgot, msgot);
 }
+
+/**
+ * Catch any bort error inside of subroutine cmpmsg().
+ *
+ * @param cf - Flag indicating whether future BUFR output messages should be compressed
+ *
+ * @author J. Ator @date 2025-12-02
+*/
+void
+catch_bort_cmpmsg(char *cf)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    cmpmsg_f(cf);
+}
+
+/**
+ * Catch any bort error inside of subroutine codflg().
+ *
+ * @param cf - Flag indicating whether code and flag table information should be included
+ * when reading from master BUFR tables
+ *
+ * @author J. Ator @date 2025-12-02
+*/
+void
+catch_bort_codflg(char *cf)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    codflg_f(cf);
+}
+
+/**
+ * Catch any bort error inside of subroutine bvers().
+ *
+ * @param verstr - Version string
+ * @param verstr_len - Allocated length of verstr
+ *
+ * @author J. Ator @date 2025-12-02
+*/
+void
+catch_bort_bvers(char *verstr, int verstr_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    bvers_f(verstr, verstr_len);
+}

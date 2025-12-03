@@ -1192,16 +1192,28 @@ end subroutine getntbe
 !> 'N' is used for cf.
 !>
 !> @author J. Ator @date 2017-10-13
-subroutine codflg(cf)
+recursive subroutine codflg(cf)
+
+  use bufrlib
 
   use moda_tablef
 
   implicit none
 
+  integer bort_target_set
+
   character, intent(in) :: cf
 
   character*128 bort_str
   character my_cf
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_codflg_c(cf)
+    call bort_target_unset
+    return
+  endif
 
   my_cf = cf
   call capit(my_cf)
