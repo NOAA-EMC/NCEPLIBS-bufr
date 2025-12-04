@@ -30,7 +30,7 @@ module bufr_c2f_interface
   public :: upftbv_c, ufbtab_c, ufbpos_c, datelen_c, iupvs01_c, nmsub_c, pkvs01_c, datebf_c, dumpbf_c, minimg_c, upds3_c
   public :: pkbs1_c, strcpt_c, rtrcpt_c, atrcpt_c, dxdump_c, ufbdmp_c, ufdump_c, copybf_c, copymg_c, copysb_c, ufbcpy_c
   public :: readerme_c, rdmgsb_c, ufbmem_c, ufbmex_c, ufbmms_c, ufbmns_c, rdmemm_c, rdmems_c, ufbrms_c, ufbtam_c
-  public :: cpymem_c, ufbcup_c, stdmsg_c, stndrd_c, codflg_c
+  public :: cpymem_c, ufbcup_c, stdmsg_c, stndrd_c, codflg_c, gettagpr_c, gettagre_c, cnved4_c, lcmgdf_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -2121,7 +2121,7 @@ module bufr_c2f_interface
     recursive subroutine ufbtam_c(c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbtam_f')
       integer(c_int), value, intent(in) :: dim_1, dim_2
       type(c_ptr), intent(inout) ::  c_data
-      integer(c_int), intent(inout) :: iret
+      integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
       real, pointer :: f_data
@@ -2209,5 +2209,104 @@ module bufr_c2f_interface
       ch = cf(1)
       call codflg(ch)
     end subroutine codflg_c
+
+    !> Get the parent for a specified occurrence of a Table B or Table D mnemonic
+    !>
+    !> Wraps gettagpr() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number
+    !> @param c_tagch - Table B or Table D mnemonic
+    !> @param ntagch - Ordinal occurrence of c_tagch for which c_tagpr is to be returned
+    !> @param c_tagpr - Table D mnemonic
+    !> @param tagpr_len - Allocated length of c_tagpr
+    !> @param ires - Return code
+    !>
+    !> @author J. Ator @date 2025-12-03
+    recursive subroutine gettagpr_c(bufr_unit, c_tagch, ntagch, c_tagpr, tagpr_len, ires) bind(C, name='gettagpr_f')
+      integer(c_int), value, intent(in) :: bufr_unit, ntagch, tagpr_len
+      integer(c_int), intent(out) :: ires
+      character(kind=c_char), intent(in) :: c_tagch(*)
+      character(kind=c_char), intent(out) :: c_tagpr(*)
+      character(len=10) :: f_tagch, f_tagpr
+      integer :: lfc, lfp
+
+      lfc = get_c_string_length(c_tagch)
+      f_tagch = transfer(c_tagch(1:lfc), f_tagch)
+
+      call gettagpr(bufr_unit, f_tagch(1:lfc), ntagch, f_tagpr, ires)
+
+      lfp = len(trim(f_tagpr)) + 1  ! add 1 for the null terminator
+      call copy_f_c_str(f_tagpr, c_tagpr, min(lfp, tagpr_len))
+    end subroutine gettagpr_c
+
+    !> Check whether a specified Table B mnemonic references another Table B mnemonic via an internal bitmap
+    !>
+    !> Wraps gettagre() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number
+    !> @param c_tagi - Table B mnemonic
+    !> @param ntagi - Ordinal occurrence of c_tagi for which c_tagre is to be returned
+    !> @param c_tagre - Table B mnemonic referenced by c_tagi via an internal bitmap
+    !> @param tagre_len - Allocated length of c_tagre
+    !> @param ntagre - Ordinal occurrence of tagre referenced by (ntagi)th occurrence of tagi
+    !> @param ires - Return code
+    !>
+    !> @author J. Ator @date 2025-12-03
+    recursive subroutine gettagre_c(bufr_unit, c_tagi, ntagi, c_tagre, tagre_len, ntagre, ires) bind(C, name='gettagre_f')
+      integer(c_int), value, intent(in) :: bufr_unit, ntagi, tagre_len
+      integer(c_int), intent(out) :: ntagre, ires
+      character(kind=c_char), intent(in) :: c_tagi(*)
+      character(kind=c_char), intent(out) :: c_tagre(*)
+      character(len=10) :: f_tagi, f_tagre
+      integer :: lfi, lfr
+
+      lfi = get_c_string_length(c_tagi)
+      f_tagi = transfer(c_tagi(1:lfi), f_tagi)
+
+      call gettagre(bufr_unit, f_tagi(1:lfi), ntagi, f_tagre, ntagre, ires)
+
+      lfr = len(trim(f_tagre)) + 1  ! add 1 for the null terminator
+      call copy_f_c_str(f_tagre, c_tagre, min(lfr, tagre_len))
+    end subroutine gettagre_c
+
+    !> Convert a BUFR message to edition 4
+    !>
+    !> Wraps cnved4() subroutine.
+    !>
+    !> @param msgin - BUFR message
+    !> @param lmsgot - Allocated length of msgot
+    !> @param msgot - Copy of msgin now converted to edition 4
+    !>
+    !> @author J. Ator @date 2025-12-03
+    recursive subroutine cnved4_c(msgin, lmsgot, msgot) bind(C, name='cnved4_f')
+      integer(c_int), value, intent(in) :: lmsgot
+      integer(c_int), intent(in) :: msgin(*)
+      integer(c_int), intent(out) :: msgot(*)
+
+      call cnved4(msgin, lmsgot, msgot)
+    end subroutine cnved4_c
+
+    !> Check if a subset definition contains any long character strings
+    !>
+    !> Wraps lcmgdf() function.
+    !>
+    !> @param bufr_unit - Fortran logical unit number
+    !> @param c_subset - Table A mnemonic
+    !>
+    !> @returns lcmgdf_c - Return code
+    !>
+    !> @author J. Ator @date 2025-12-03
+    recursive function lcmgdf_c(bufr_unit, c_subset) result(ires) bind(C, name='lcmgdf_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int) :: ires
+      character(kind=c_char), intent(in) :: c_subset(*)
+      character(len=8) :: f_subset
+      integer :: lcmgdf, lfs
+
+      lfs = get_c_string_length(c_subset)
+      f_subset = transfer(c_subset(1:lfs), f_subset)
+
+      ires = lcmgdf(bufr_unit, f_subset(1:lfs))
+    end function lcmgdf_c
 
 end module bufr_c2f_interface

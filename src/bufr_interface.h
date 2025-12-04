@@ -1283,6 +1283,66 @@ void stndrd_f(int lunit, int *msgin, int lmsgot, int *msgot);
  */
 void codflg_f(char *cf);
 
+/**
+ * Get the parent for a specified occurrence of a Table B or Table D mnemonic
+ *
+ * Wraps gettagpr() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param tagch - Table B or Table D mnemonic
+ * @param ntagch - Ordinal occurrence of tagch for which tagpr is to be returned
+ * @param tagpr - Table D mnemonic
+ * @param tagpr_len - Allocated length of tagpr
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-12-03
+ */
+void gettagpr_f(int lunit, char *tagch, int ntagch, char *tagpr, int tagpr_len, int *iret);
+
+/**
+ * Get the parent for a specified occurrence of a Table B or Table D mnemonic
+ *
+ * Wraps gettagre() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param tagi - Table B mnemonic
+ * @param ntagi - Ordinal occurrence of tagi for which tagre is to be returned
+ * @param tagre - Table B mnemonic referenced by tagi via an internal bitmap
+ * @param tagre_len - Allocated length of tagre
+ * @param ntagre - Ordinal occurrence of tagre referenced by (ntagi)th occurrence of tagi
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-12-03
+ */
+void gettagre_f(int lunit, char *tagi, int ntagi, char *tagre, int tagre_len, int *ntagre, int *iret);
+
+/**
+ * Convert a BUFR message to edition 4
+ *
+ * Wraps cnved4() subroutine.
+ *
+ * @param msgin - BUFR message
+ * @param lmsgot - Allocated length of msgot
+ * @param msgot - Copy of msgin now converted to edition 4
+ *
+ * @author Jeff Ator @date 2025-12-03
+ */
+void cnved4_f(int *msgin, int lmsgot, int *msgot);
+
+/**
+ * Check if a subset definition contains any long character strings
+ *
+ * Wraps lcmgdf() function.
+ *
+ * @param bufr_unit - Fortran logical unit number
+ * @param c_subset - Table A mnemonic
+ *
+ * @returns Return code
+ *
+ * @author Jeff Ator @date 2025-12-03
+ */
+int lcmgdf_f(int bufr_unit, char *c_subset);
+
 #ifdef __cplusplus
 }
 #endif

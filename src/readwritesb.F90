@@ -840,6 +840,8 @@ end subroutine pad
 !> @author J. Ator @date 2009-07-09
 recursive integer function lcmgdf(lunit,subset) result(iret)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_tables
@@ -847,19 +849,27 @@ recursive integer function lcmgdf(lunit,subset) result(iret)
   implicit none
 
   integer, intent(in) :: lunit
-  integer my_lunit, lun, il, im, mtyp, msbt, inod, nte, i
+  integer my_lunit, lun, il, im, mtyp, msbt, inod, nte, i, lcs, bort_target_set
 
   character*8, intent(in) :: subset
+  character*9 csubset
 
   ! Check for I8 integers.
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     iret=lcmgdf(my_lunit,subset)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call strsuc(subset,csubset,lcs)
+    call catch_bort_lcmgdf_c(lunit,csubset,lcs,iret)
+    call bort_target_unset
     return
   endif
 

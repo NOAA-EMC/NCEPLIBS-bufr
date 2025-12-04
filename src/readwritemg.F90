@@ -1312,13 +1312,16 @@ end subroutine getlens
 !> @author J. Ator @date 2005-11-29
 recursive subroutine cnved4(msgin,lmsgot,msgot)
 
+  use bufrlib
+
   use modv_vars, only: im8b, nbytw
 
   implicit none
 
   integer, intent(in) :: msgin(*), lmsgot
   integer, intent(out) :: msgot(*)
-  integer my_lmsgot, i, nmw, len0, len1, len2, len3, l4, l5, iad2, iad4, lenm, lenmot, len1ot, len3ot, ibit, iupbs01, nmwrd
+  integer my_lmsgot, i, nmw, len0, len1, len2, len3, l4, l5, iad2, iad4, lenm, lenmot, len1ot, len3ot, ibit, &
+    iupbs01, nmwrd, bort_target_set
 
   ! Check for I8 integers.
 
@@ -1327,6 +1330,14 @@ recursive subroutine cnved4(msgin,lmsgot,msgot)
     call x84 ( lmsgot, my_lmsgot, 1 )
     call cnved4 ( msgin, my_lmsgot*2, msgot )
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_cnved4_c(msgin,lmsgot,msgot)
+    call bort_target_unset
     return
   endif
 

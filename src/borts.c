@@ -1441,3 +1441,106 @@ catch_bort_bvers(char *verstr, int verstr_len)
     /* Recursively call the subroutine. */
     bvers_f(verstr, verstr_len);
 }
+
+/**
+ * Catch any bort error inside of subroutine gettagpr().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param tagch - Table B or Table D mnemonic
+ * @param tagch_len - Length of tagch string
+ * @param ntagch - Ordinal occurrence of tagch for which tagpr is to be returned
+ * @param tagpr - Table D mnemonic
+ * @param tagpr_len - Allocated length of tagpr
+ * @param ntpchr - Number of characters returned in tagpr
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-12-03
+*/
+void
+catch_bort_gettagpr(int lunit, char *tagch, int tagch_len, int ntagch,
+                    char *tagpr, int tagpr_len, int *ntpchr, int *iret)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to tagch, for use with get_c_string_length inside of gettagpr_f. */
+    tagch[tagch_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    gettagpr_f(lunit, tagch, ntagch, tagpr, tagpr_len, iret);
+
+    *ntpchr = (int) strlen(tagpr);
+}
+
+/**
+ * Catch any bort error inside of subroutine gettagre().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param tagi - Table B mnemonic
+ * @param tagi_len - Length of tagi string
+ * @param ntagi - Ordinal occurrence of tagi for which tagre is to be returned
+ * @param tagre - Table B mnemonic referenced by tagi via an internal bitmap
+ * @param tagre_len - Allocated length of tagre
+ * @param ntagre - Ordinal occurrence of tagre referenced by (ntagi)th occurrence of tagi
+ * @param ntrchr - Number of characters returned in tagre
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-12-03
+*/
+void
+catch_bort_gettagre(int lunit, char *tagi, int tagi_len, int ntagi,
+                    char *tagre, int tagre_len, int *ntagre, int *ntrchr, int *iret)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to tagi, for use with get_c_string_length inside of gettagre_f. */
+    tagi[tagi_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    gettagre_f(lunit, tagi, ntagi, tagre, tagre_len, ntagre, iret);
+
+    *ntrchr = (int) strlen(tagre);
+}
+
+/**
+ * Catch any bort error inside of subroutine cnved4().
+ *
+ * @param msgin - BUFR message
+ * @param lmsgot - Allocated length of msgot
+ * @param msgot - Copy of msgin now converted to edition 4
+ *
+ * @author J. Ator @date 2025-12-03
+*/
+void
+catch_bort_cnved4(int *msgin, int lmsgot, int *msgot)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    cnved4_f(msgin, lmsgot, msgot);
+}
+
+/**
+ * Catch any bort error inside of function lcmgdf().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param subset - Table A mnemonic for type of BUFR message to be checked
+ * @param subset_str_len - Length of subset string
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-12-03
+*/
+void
+catch_bort_lcmgdf(int lunit, char *subset, int subset_str_len, int *iret)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to subset, for use with get_c_string_length inside of lcmgdf_f. */
+    subset[subset_str_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    *iret = lcmgdf_f(lunit, subset);
+}
