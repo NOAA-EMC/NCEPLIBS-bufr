@@ -1544,3 +1544,82 @@ catch_bort_lcmgdf(int lunit, char *subset, int subset_str_len, int *iret)
     /* Recursively call the subroutine. */
     *iret = lcmgdf_f(lunit, subset);
 }
+
+/**
+ * Catch any bort error inside of subroutine setvalnb().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param tagpv - Pivot mnemonic
+ * @param tagpv_len - Length of tagpv string
+ * @param ntagpv - Ordinal occurrence of tagpv to search for
+ * @param tagnb - Nearby mnemonic
+ * @param tagnb_len - Length of tagnb string
+ * @param ntagnb - Ordinal occurrence of tagnb to search for
+ * @param r8val - Value to be stored
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-12-05
+*/
+void
+catch_bort_setvalnb(int lunit, char *tagpv, int tagpv_len, int ntagpv,
+                    char *tagnb, int tagnb_len, int ntagnb, double r8val, int *iret)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add trailing nulls to input strings, for use with get_c_string_length inside of setvalnb_f. */
+    tagpv[tagpv_len] = '\0';
+    tagnb[tagnb_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    setvalnb_f(lunit, tagpv, ntagpv, tagnb, ntagnb, r8val, iret);
+}
+
+/**
+ * Catch any bort error inside of function getvalnb().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param tagpv - Pivot mnemonic
+ * @param tagpv_len - Length of tagpv string
+ * @param ntagpv - Ordinal occurrence of tagpv to search for
+ * @param tagnb - Nearby mnemonic
+ * @param tagnb_len - Length of tagnb string
+ * @param ntagnb - Ordinal occurrence of tagnb to search for
+ * @param r8val - Return value
+ *
+ * @author J. Ator @date 2025-12-03
+*/
+void
+catch_bort_getvalnb(int lunit, char *tagpv, int tagpv_len, int ntagpv,
+                    char *tagnb, int tagnb_len, int ntagnb, double *r8val)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add trailing nulls to input strings, for use with get_c_string_length inside of getvalnb_f. */
+    tagpv[tagpv_len] = '\0';
+    tagnb[tagnb_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    *r8val = getvalnb_f(lunit, tagpv, ntagpv, tagnb, ntagnb);
+}
+
+/**
+ * Catch any bort error inside of subroutine getabdb().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param itab - Allocated length of ctabdb
+ * @param ctabdb - Internal Table B and Table D information
+ * @param jtab - Number of entries returned in ctabdb
+ *
+ * @author J. Ator @date 2025-12-05
+*/
+void
+catch_bort_getabdb(int lunit, int itab, char (*ctabdb)[128], int *jtab)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    getabdb_f(lunit, itab, ctabdb, jtab);
+}

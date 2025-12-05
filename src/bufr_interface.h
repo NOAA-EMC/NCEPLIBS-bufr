@@ -1343,6 +1343,54 @@ void cnved4_f(int *msgin, int lmsgot, int *msgot);
  */
 int lcmgdf_f(int bufr_unit, char *c_subset);
 
+/**
+ * Write a data value corresponding to a specific occurrence of a mnemonic
+ *
+ * Wraps setvalnb() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param tagpv - Pivot mnemonic
+ * @param ntagpv - Ordinal occurrence of tagpv to search for
+ * @param tagnb - Nearby mnemonic
+ * @param ntagnb - Ordinal occurrence of tagnb to search for
+ * @param r8val - Value to be stored
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-12-05
+ */
+void setvalnb_f(int lunit, char *tagpv, int ntagpv, char *tagnb, int ntagnb, double r8val, int *iret);
+
+/**
+ * Read a data value corresponding to a specific occurrence of a mnemonic
+ *
+ * Wraps getvalnb() function.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param tagpv - Pivot mnemonic
+ * @param ntagpv - Ordinal occurrence of tagpv to search for
+ * @param tagnb - Nearby mnemonic
+ * @param ntagnb - Ordinal occurrence of tagnb to search for
+ *
+ * @returns Return value
+ *
+ * @author J. Ator @date 2025-12-05
+ */
+double getvalnb_f(int lunit, char *tagpv, int ntagpv, char *tagnb, int ntagnb);
+
+/**
+ * Get Table B and Table D information from the internal DX tables
+ *
+ * Wraps getabdb() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param itab - Allocated length of ctabdb
+ * @param ctabdb - Internal Table B and Table D information
+ * @param jtab - Number of entries returned in ctabdb
+ *
+ * @author J. Ator @date 2025-12-05
+ */
+void getabdb_f(int lunit, int itab, char (*ctabdb)[128], int *jtab);
+
 #ifdef __cplusplus
 }
 #endif

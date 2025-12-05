@@ -36,6 +36,8 @@
 !> @author J. Ator @date 2016-07-29
 recursive subroutine setvalnb ( lunit, tagpv, ntagpv, tagnb, ntagnb, r8val, iret )
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_usrint
@@ -46,9 +48,10 @@ recursive subroutine setvalnb ( lunit, tagpv, ntagpv, tagnb, ntagnb, r8val, iret
 
   integer, intent(in) :: lunit, ntagpv, ntagnb
   integer, intent(out) :: iret
-  integer my_lunit, my_ntagpv, my_ntagnb, lun, il, im, npv, nnb, ierft
+  integer my_lunit, my_ntagpv, my_ntagnb, lun, il, im, npv, nnb, ierft, lpv, lnb, bort_target_set
 
   character*(*), intent(in) :: tagpv, tagnb
+  character*9 ctagpv, ctagnb
 
   real*8, intent(in) ::  r8val
 
@@ -61,6 +64,16 @@ recursive subroutine setvalnb ( lunit, tagpv, ntagpv, tagnb, ntagnb, r8val, iret
     call setvalnb ( my_lunit, tagpv, my_ntagpv, tagnb, my_ntagnb, r8val, iret )
     call x48 ( iret, iret, 1 )
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if ( bort_target_set() == 1 ) then
+    call strsuc( tagpv, ctagpv, lpv )
+    call strsuc( tagnb, ctagnb, lnb )
+    call catch_bort_setvalnb_c( lunit, ctagpv, lpv, ntagpv, ctagnb, lnb, ntagnb, r8val, iret )
+    call bort_target_unset
     return
   endif
 
@@ -120,6 +133,8 @@ end subroutine setvalnb
 !> @author J. Ator @date 2012-09-12
 recursive real*8 function getvalnb ( lunit, tagpv, ntagpv, tagnb, ntagnb ) result ( r8val )
 
+  use bufrlib
+
   use modv_vars, only: im8b, bmiss
 
   use moda_usrint
@@ -129,9 +144,10 @@ recursive real*8 function getvalnb ( lunit, tagpv, ntagpv, tagnb, ntagnb ) resul
   implicit none
 
   integer, intent(in) :: lunit, ntagpv, ntagnb
-  integer my_lunit, my_ntagpv, my_ntagnb, lun, il, im, npv, nnb, ierft
+  integer my_lunit, my_ntagpv, my_ntagnb, lun, il, im, npv, nnb, ierft, lpv, lnb, bort_target_set
 
   character*(*), intent(in) :: tagpv, tagnb
+  character*9 ctagpv, ctagnb
 
   ! Check for I8 integers.
   if(im8b) then
@@ -141,6 +157,14 @@ recursive real*8 function getvalnb ( lunit, tagpv, ntagpv, tagnb, ntagnb ) resul
     call x84(ntagnb,my_ntagnb,1)
     r8val=getvalnb(my_lunit,tagpv,my_ntagpv,tagnb,my_ntagnb)
     im8b=.true.
+    return
+  endif
+
+  if ( bort_target_set() == 1 ) then
+    call strsuc( tagpv, ctagpv, lpv )
+    call strsuc( tagnb, ctagnb, lnb )
+    call catch_bort_getvalnb_c( lunit, ctagpv, lpv, ntagpv, ctagnb, lnb, ntagnb, r8val )
+    call bort_target_unset
     return
   endif
 

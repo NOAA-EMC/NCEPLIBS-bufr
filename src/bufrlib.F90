@@ -931,7 +931,7 @@ module bufrlib
       integer(c_int), value, intent(in) :: lunit, mini
     end subroutine catch_bort_minimg_c
 
-    !> @fn bufrlib::catch_bort_upds3_c::catch_bort_upds3_c(mbay,lcds3,cds3,nds3)
+    !> @fn bufrlib::catch_bort_upds3_c::catch_bort_upds3_c(mbay,lcds3,ccds3,nds3)
     !> Catch any bort error inside of subroutine upds3().
     !>
     !> Wraps catch_bort_upds3() function.
@@ -1540,6 +1540,72 @@ module bufrlib
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(inout) :: subset(*)
     end subroutine catch_bort_lcmgdf_c
+
+    !> @fn bufrlib::catch_bort_setvalnb_c::catch_bort_setvalnb_c(lunit,tagpv,tagpv_len,ntagpv,tagnb,tagnb_len,ntagnb,r8val,iret)
+    !> Catch any bort error inside of subroutine setvalnb().
+    !>
+    !> Wraps catch_bort_setvalnb() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param tagpv - Pivot mnemonic
+    !> @param tagpv_len - Length of tagpv string
+    !> @param ntagpv - Ordinal occurrence of tagpv to search for
+    !> @param tagnb - Nearby mnemonic
+    !> @param tagnb_len - Length of tagnb string
+    !> @param ntagnb - Ordinal occurrence of tagnb to search for
+    !> @param r8val - Value to be stored
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-12-05
+    subroutine catch_bort_setvalnb_c(lunit,tagpv,tagpv_len,ntagpv,tagnb,tagnb_len,ntagnb,r8val,iret) &
+        bind(C, name='catch_bort_setvalnb')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, tagpv_len, ntagpv, tagnb_len, ntagnb
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(inout) :: tagpv(*), tagnb(*)
+      real(c_double), value, intent(in) :: r8val
+    end subroutine catch_bort_setvalnb_c
+
+    !> @fn bufrlib::catch_bort_getvalnb_c::catch_bort_getvalnb_c(lunit,tagpv,tagpv_len,ntagpv,tagnb,tagnb_len,ntagnb,r8val)
+    !> Catch any bort error inside of subroutine getvalnb().
+    !>
+    !> Wraps catch_bort_getvalnb() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param tagpv - Pivot mnemonic
+    !> @param tagpv_len - Length of tagpv string
+    !> @param ntagpv - Ordinal occurrence of tagpv to search for
+    !> @param tagnb - Nearby mnemonic
+    !> @param tagnb_len - Length of tagnb string
+    !> @param ntagnb - Ordinal occurrence of tagnb to search for
+    !> @param r8val - Return value
+    !>
+    !> @author J. Ator @date 2025-12-05
+    subroutine catch_bort_getvalnb_c(lunit,tagpv,tagpv_len,ntagpv,tagnb,tagnb_len,ntagnb,r8val) &
+        bind(C, name='catch_bort_getvalnb')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, tagpv_len, ntagpv, tagnb_len, ntagnb
+      character(kind=c_char), intent(inout) :: tagpv(*), tagnb(*)
+      real(c_double), intent(out) :: r8val
+    end subroutine catch_bort_getvalnb_c
+
+    !> @fn bufrlib::catch_bort_getabdb_c::catch_bort_getabdb_c(lunit,itab,ctabdb,jtab)
+    !> Catch any bort error inside of subroutine getabdb().
+    !>
+    !> Wraps catch_bort_getabdb() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param itab - Allocated length of ctabdb
+    !> @param ctabdb - Internal Table B and Table D information
+    !> @param jtab - Number of entries returned in ctabdb
+    !>
+    !> @author J. Ator @date 2025-12-05
+    subroutine catch_bort_getabdb_c(lunit,itab,ctabdb,jtab) bind(C, name='catch_bort_getabdb')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, itab
+      integer(c_int), intent(out) :: jtab
+      character(kind=c_char), intent(out) :: ctabdb(128,*)
+    end subroutine catch_bort_getabdb_c
 
   end interface
 

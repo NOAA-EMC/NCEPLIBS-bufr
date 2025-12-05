@@ -31,6 +31,7 @@ module bufr_c2f_interface
   public :: pkbs1_c, strcpt_c, rtrcpt_c, atrcpt_c, dxdump_c, ufbdmp_c, ufdump_c, copybf_c, copymg_c, copysb_c, ufbcpy_c
   public :: readerme_c, rdmgsb_c, ufbmem_c, ufbmex_c, ufbmms_c, ufbmns_c, rdmemm_c, rdmems_c, ufbrms_c, ufbtam_c
   public :: cpymem_c, ufbcup_c, stdmsg_c, stndrd_c, codflg_c, gettagpr_c, gettagre_c, cnved4_c, lcmgdf_c
+  public :: setvalnb_c, getvalnb_c, getabdb_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -2308,5 +2309,88 @@ module bufr_c2f_interface
 
       ires = lcmgdf(bufr_unit, f_subset(1:lfs))
     end function lcmgdf_c
+
+    !> Write a data value corresponding to a specific occurrence of a mnemonic
+    !>
+    !> Wraps setvalnb() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number
+    !> @param c_tagpv - Pivot mnemonic
+    !> @param ntagpv - Ordinal occurrence of c_tagpv to search for
+    !> @param c_tagnb - Nearby mnemonic
+    !> @param ntagnb - Ordinal occurrence of c_tagnb to search for
+    !> @param r8val - Value to be stored
+    !> @param ires - Return code
+    !>
+    !> @author J. Ator @date 2025-12-05
+    recursive subroutine setvalnb_c(bufr_unit, c_tagpv, ntagpv, c_tagnb, ntagnb, r8val, ires) bind(C, name='setvalnb_f')
+      integer(c_int), value, intent(in) :: bufr_unit, ntagpv, ntagnb
+      integer(c_int), intent(out) :: ires
+      character(kind=c_char), intent(in) :: c_tagpv(*), c_tagnb(*)
+      real(c_double), value, intent(in) :: r8val
+      character(len=10) :: f_tagpv, f_tagnb
+      integer :: lfp, lfn
+
+      lfp = get_c_string_length(c_tagpv)
+      f_tagpv = transfer(c_tagpv(1:lfp), f_tagpv)
+      lfn = get_c_string_length(c_tagnb)
+      f_tagnb = transfer(c_tagnb(1:lfn), f_tagnb)
+
+      call setvalnb(bufr_unit, f_tagpv(1:lfp), ntagpv, f_tagnb(1:lfn), ntagnb, r8val, ires)
+    end subroutine setvalnb_c
+
+    !> Read a data value corresponding to a specific occurrence of a mnemonic
+    !>
+    !> Wraps getvalnb() function.
+    !>
+    !> @param bufr_unit - Fortran logical unit number
+    !> @param c_tagpv - Pivot mnemonic
+    !> @param ntagpv - Ordinal occurrence of c_tagpv to search for
+    !> @param c_tagnb - Nearby mnemonic
+    !> @param ntagnb - Ordinal occurrence of c_tagnb to search for
+    !>
+    !> @returns getvalnb_c - Return value
+    !>
+    !> @author J. Ator @date 2025-12-05
+    recursive function getvalnb_c(bufr_unit, c_tagpv, ntagpv, c_tagnb, ntagnb) result(r8val) bind(C, name='getvalnb_f')
+      integer(c_int), value, intent(in) :: bufr_unit, ntagpv, ntagnb
+      character(kind=c_char), intent(in) :: c_tagpv(*), c_tagnb(*)
+      real(c_double) :: r8val
+      character(len=10) :: f_tagpv, f_tagnb
+      integer :: lfp, lfn
+      real*8 :: getvalnb
+
+      lfp = get_c_string_length(c_tagpv)
+      f_tagpv = transfer(c_tagpv(1:lfp), f_tagpv)
+      lfn = get_c_string_length(c_tagnb)
+      f_tagnb = transfer(c_tagnb(1:lfn), f_tagnb)
+
+      r8val = getvalnb(bufr_unit, f_tagpv(1:lfp), ntagpv, f_tagnb(1:lfn), ntagnb)
+    end function getvalnb_c
+
+    !> Get Table B and Table D information from the internal DX tables
+    !>
+    !> Wraps getabdb() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param itab - Allocated length of ctabdb
+    !> @param ctabdb - Internal Table B and Table D information
+    !> @param jtab - Number of entries returned in ctabdb
+    !>
+    !> @author Jeff Ator @date 2025-12-05
+    recursive subroutine getabdb_c(lunit, itab, ctabdb, jtab) bind(C, name='getabdb_f')
+      integer(c_int), value, intent(in) :: lunit, itab
+      integer(c_int), intent(out) :: jtab
+      character(kind=c_char), intent(out) :: ctabdb(128,*)
+      character(len=128) :: tabdb(1000)
+      integer :: ii, jj
+
+      call getabdb(lunit, tabdb, itab, jtab)
+      do ii = 1, jtab
+        do jj = 1, 128
+          ctabdb(jj,ii) = tabdb(ii)(jj:jj)
+        enddo
+      enddo
+    end subroutine getabdb_c
 
 end module bufr_c2f_interface
