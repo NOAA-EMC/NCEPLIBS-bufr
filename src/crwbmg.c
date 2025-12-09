@@ -116,7 +116,7 @@ rbytes(char *bmg, int mxmb, int isloc, int newbytes)
  * @author J. Ator @date 2005-11-29
  */
 void
-cobfl(char *bfl, char io)
+cobfl(const char *bfl, char io)
 {
     char lbf[MXFNLEN+1];
     char lio;
@@ -277,7 +277,7 @@ crbmg(char *bmg, int mxmb, int *nmb, int *iret)
  * @author J. Ator @date 2005-11-29
  */
 void
-cwbmg(char *bmg, int nmb, int *iret)
+cwbmg(const char *bmg, int nmb, int *iret)
 {
     char errstr[129];
 

@@ -209,11 +209,9 @@ recursive subroutine ipkm(cbay,nbyt,n)
 
   if(im8b) then
     im8b=.false.
-
     call x84(n,my_n,1)
     call x84(nbyt,my_nbyt,1)
     call ipkm(cbay,my_nbyt,my_n)
-
     im8b=.true.
     return
   endif

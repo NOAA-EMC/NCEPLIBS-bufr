@@ -27,7 +27,7 @@
  * @author J. Woollen @date 2012-09-15
  */
 void
-openrb(int nfile, char *ufile) {
+openrb(int nfile, const char *ufile) {
     pb[nfile] = fopen(ufile, "rb ");
 }
 
@@ -40,7 +40,7 @@ openrb(int nfile, char *ufile) {
  * @author J. Woollen @date 2012-09-15
  */
 void
-openwb(int nfile, char *ufile) {
+openwb(int nfile, const char *ufile) {
     pb[nfile] = fopen(ufile, "wb ");
 }
 
@@ -53,7 +53,7 @@ openwb(int nfile, char *ufile) {
  * @author J. Woollen @date 2012-09-15
  */
 void
-openab(int nfile, char *ufile) {
+openab(int nfile, const char *ufile) {
     pb[nfile] = fopen(ufile, "a+b");
 }
 

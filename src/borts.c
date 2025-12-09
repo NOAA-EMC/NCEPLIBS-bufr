@@ -575,7 +575,7 @@ catch_bort_upftbv(int lunit, char *cnemo, int lcn, double val, int *ibit, int mx
  * @author J. Ator @date 2025-11-05
 */
 void
-catch_bort_cobfl(char *bfl, char io)
+catch_bort_cobfl(const char *bfl, char io)
 {
 
     /* Set the target location to which to return if a bort error is caught. */
@@ -616,7 +616,7 @@ catch_bort_crbmg(char *bmg, int mxmb, int *nmb, int *iret)
  * @author J. Ator @date 2025-11-05
 */
 void
-catch_bort_cwbmg(char *bmg, int nmb, int *iret)
+catch_bort_cwbmg(const char *bmg, int nmb, int *iret)
 {
 
     /* Set the target location to which to return if a bort error is caught. */

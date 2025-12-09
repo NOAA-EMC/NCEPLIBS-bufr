@@ -95,10 +95,8 @@ recursive subroutine writcp(lunit)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunit,my_lunit,1)
     call writcp(my_lunit)
-
     im8b=.true.
     return
   endif

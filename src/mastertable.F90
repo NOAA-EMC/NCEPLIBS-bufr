@@ -45,11 +45,9 @@ recursive subroutine mtinfo ( cmtdir, lunmt1, lunmt2 )
   ! Check for I8 integers
   if(im8b) then
     im8b=.false.
-
     call x84 ( lunmt1, my_lunmt1, 1 )
     call x84 ( lunmt2, my_lunmt2, 1 )
     call mtinfo ( cmtdir, my_lunmt1, my_lunmt2 )
-
     im8b=.true.
     return
   endif

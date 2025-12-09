@@ -12,9 +12,9 @@
 
 #pragma once
 
-void cobfl(char *bfl, char io);
+void cobfl(const char *bfl, char io);
 void crbmg(char *bmg, int mxmb, int *nmb, int *iret);
-void cwbmg(char *bmg, int nmb, int *iret);
+void cwbmg(const char *bmg, int nmb, int *iret);
 void ccbfl(void);
 
 /** Size of a character string needed to store a library version number. */
@@ -510,7 +510,7 @@ void delete_table_data_f();
  *
  *  @author J. Ator @date 2023-04-07
  */
-int iupbs01_f(int *bufr, char *mnemonic);
+int iupbs01_f(int *bufr, const char *mnemonic);
 
 /**
  * Get the current value of a parameter.
@@ -521,7 +521,7 @@ int iupbs01_f(int *bufr, char *mnemonic);
  *
  * @author J. Ator @date 2023-04-07
  */
-int igetprm_f(char *cprmnm);
+int igetprm_f(const char *cprmnm);
 
 /**
  * Define a customized parameter value for dynamic allocation.
@@ -533,7 +533,7 @@ int igetprm_f(char *cprmnm);
  *
  * @author J. Ator @date 2023-04-07
  */
-int isetprm_f(char *cprmnm, int ipval);
+int isetprm_f(const char *cprmnm, int ipval);
 
 /**
  * Define a customized maximum length for output BUFR messages.
@@ -650,7 +650,7 @@ int ibfms_f(double r8val);
  *
  * @author J. Ator @date 2023-04-07
  */
-void openmb_f(int bufr_unit, char *c_subset, int iddate);
+void openmb_f(int bufr_unit, const char *c_subset, int iddate);
 
 /**
  * Open a new message for output in a BUFR file that was previously
@@ -664,7 +664,7 @@ void openmb_f(int bufr_unit, char *c_subset, int iddate);
  *
  * @author J. Ator @date 2025-10-20
  */
-void openmg_f(int bufr_unit, char *c_subset, int iddate);
+void openmg_f(int bufr_unit, const char *c_subset, int iddate);
 
 /**
  * Get the version number of the NCEPLIBS-bufr software.
@@ -688,7 +688,7 @@ void bvers_f(char *cverstr, int cverstr_len);
  *
  * @author J. Ator @date 2023-04-07
  */
-void cmpmsg_f(char *cf);
+void cmpmsg_f(const char *cf);
 
 /**
  * Specify the use of compression when writing BUFR messages.
@@ -702,7 +702,7 @@ void cmpmsg_f(char *cf);
  *
  * @author J. Ator @date 2025-10-15
  */
-int catch_borts_f(char *cf);
+int catch_borts_f(const char *cf);
 
 /**
  * Check whether a bort error was caught during a previous call to a library
@@ -741,7 +741,7 @@ void ufbcnt_f(int lunit, int *kmsg, int *ksub);
  *
  * @author J. Ator @date 2025-11-05
 */
-void ufbqcd_f(int lunit, char *cnemo, int *iqcd);
+void ufbqcd_f(int lunit, const char *cnemo, int *iqcd);
 
 /**
  * Return a mnemonic corresponding to a prepbufr program code.
@@ -773,7 +773,8 @@ void ufbqcp_f(int lunit, int iqcp, char *cnemo, int cnemo_len);
  *
  * @author J. Ator @date 2025-11-05
 */
-void getcfmng_f(int lunit, char *cnemoi, int ivali, char *cnemod, int ivald, char *cmeang_c, int lcmgc, int *iret);
+void getcfmng_f(int lunit, const char *cnemoi, int ivali, const char *cnemod, int ivald,
+                char *cmeang_c, int lcmgc, int *iret);
 
 /**
  * Get the bit settings equivalent to a given numerical value for a flag table mnemonic.
@@ -789,7 +790,7 @@ void getcfmng_f(int lunit, char *cnemoi, int ivali, char *cnemod, int ivald, cha
  *
  * @author J. Ator @date 2025-11-05
 */
-void upftbv_f(int lunit, char *cnemo, double val, int *ibit, int mxib, int *nib);
+void upftbv_f(int lunit, const char *cnemo, double val, int *ibit, int mxib, int *nib);
 
 /**
  * Read one or more data values from every data subset in a BUFR file.
@@ -849,7 +850,7 @@ void datelen_f(int len);
  *
  * @author Jeff Ator @date 2025-11-14
  */
-int iupvs01_f(int bufr_unit, char *c_s01m);
+int iupvs01_f(int bufr_unit, const char *c_s01m);
 
 /**
  * Get the total number of data subsets available within a BUFR message
@@ -874,7 +875,7 @@ int nmsub_f(int bufr_unit);
  *
  * @author Jeff Ator @date 2025-11-14
  */
-void pkvs01_f(char *c_s01m, int ival);
+void pkvs01_f(const char *c_s01m, int ival);
 
 /**
  * Get the Section 1 date-time from the first data message of a BUFR file.
@@ -942,7 +943,7 @@ void upds3_f(int *mbay, int lcds3, char (*ccds3)[6], int *nds3);
  *
  * @author Jeff Ator @date 2025-11-18
  */
-void pkbs1_f(int ival, int *mbay, char *c_s1m);
+void pkbs1_f(int ival, int *mbay, const char *c_s1m);
 
 /**
  * Specify a tank receipt time to be written into Section 1 of all future BUFR messages
@@ -958,7 +959,7 @@ void pkbs1_f(int ival, int *mbay, char *c_s1m);
  *
  * @author Jeff Ator @date 2025-11-20
  */
-void strcpt_f(char *cf, int iyr, int imo, int idy, int ihr, int imi);
+void strcpt_f(const char *cf, int iyr, int imo, int idy, int ihr, int imi);
 
 /**
  * Get the tank receipt time from Section 1 of a BUFR message
@@ -1255,7 +1256,7 @@ void ufbcup_f(int lunin, int lunot);
  *
  * @author Jeff Ator @date 2025-12-02
  */
-void stdmsg_f(char *cf);
+void stdmsg_f(const char *cf);
 
 /**
  * Standardize a copy of a BUFR message
@@ -1281,7 +1282,7 @@ void stndrd_f(int lunit, int *msgin, int lmsgot, int *msgot);
  *
  * @author Jeff Ator @date 2025-12-02
  */
-void codflg_f(char *cf);
+void codflg_f(const char *cf);
 
 /**
  * Get the parent for a specified occurrence of a Table B or Table D mnemonic
@@ -1297,7 +1298,7 @@ void codflg_f(char *cf);
  *
  * @author J. Ator @date 2025-12-03
  */
-void gettagpr_f(int lunit, char *tagch, int ntagch, char *tagpr, int tagpr_len, int *iret);
+void gettagpr_f(int lunit, const char *tagch, int ntagch, char *tagpr, int tagpr_len, int *iret);
 
 /**
  * Get the parent for a specified occurrence of a Table B or Table D mnemonic
@@ -1314,7 +1315,7 @@ void gettagpr_f(int lunit, char *tagch, int ntagch, char *tagpr, int tagpr_len, 
  *
  * @author J. Ator @date 2025-12-03
  */
-void gettagre_f(int lunit, char *tagi, int ntagi, char *tagre, int tagre_len, int *ntagre, int *iret);
+void gettagre_f(int lunit, const char *tagi, int ntagi, char *tagre, int tagre_len, int *ntagre, int *iret);
 
 /**
  * Convert a BUFR message to edition 4
@@ -1341,7 +1342,7 @@ void cnved4_f(int *msgin, int lmsgot, int *msgot);
  *
  * @author Jeff Ator @date 2025-12-03
  */
-int lcmgdf_f(int bufr_unit, char *c_subset);
+int lcmgdf_f(int bufr_unit, const char *c_subset);
 
 /**
  * Write a data value corresponding to a specific occurrence of a mnemonic
@@ -1358,7 +1359,7 @@ int lcmgdf_f(int bufr_unit, char *c_subset);
  *
  * @author J. Ator @date 2025-12-05
  */
-void setvalnb_f(int lunit, char *tagpv, int ntagpv, char *tagnb, int ntagnb, double r8val, int *iret);
+void setvalnb_f(int lunit, const char *tagpv, int ntagpv, const char *tagnb, int ntagnb, double r8val, int *iret);
 
 /**
  * Read a data value corresponding to a specific occurrence of a mnemonic
@@ -1375,7 +1376,7 @@ void setvalnb_f(int lunit, char *tagpv, int ntagpv, char *tagnb, int ntagnb, dou
  *
  * @author J. Ator @date 2025-12-05
  */
-double getvalnb_f(int lunit, char *tagpv, int ntagpv, char *tagnb, int ntagnb);
+double getvalnb_f(int lunit, const char *tagpv, int ntagpv, const char *tagnb, int ntagnb);
 
 /**
  * Get Table B and Table D information from the internal DX tables

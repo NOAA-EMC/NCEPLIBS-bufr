@@ -578,10 +578,8 @@ recursive subroutine closmg(lunin)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunin,my_lunin,1)
     call closmg(my_lunin)
-
     im8b=.true.
     return
   endif

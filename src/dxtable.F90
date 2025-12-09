@@ -859,11 +859,9 @@ recursive subroutine wrdxtb(lundx,lunot)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lundx,my_lundx,1)
     call x84(lunot,my_lunot,1)
     call wrdxtb(my_lundx,my_lunot)
-
     im8b=.true.
     return
   endif
