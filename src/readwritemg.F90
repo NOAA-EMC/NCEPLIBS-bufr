@@ -563,6 +563,8 @@ end subroutine openmg
 !> @author J. Woollen, D. Keyser @date 1994-01-06
 recursive subroutine closmg(lunin)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_msgcwd
@@ -572,7 +574,7 @@ recursive subroutine closmg(lunin)
   implicit none
 
   integer, intent(in) :: lunin
-  integer my_lunin, lunit, lun, il, im
+  integer my_lunin, lunit, lun, il, im, bort_target_set
 
   ! Check for I8 integers
 
@@ -581,6 +583,14 @@ recursive subroutine closmg(lunin)
     call x84(lunin,my_lunin,1)
     call closmg(my_lunin)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_closmg_c(lunin)
+    call bort_target_unset
     return
   endif
 
@@ -1430,6 +1440,8 @@ end subroutine cnved4
 !> @author J. Woollen @date 1994-01-06
 recursive integer function ifbget(lunit) result(iret)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_msgcwd
@@ -1437,7 +1449,7 @@ recursive integer function ifbget(lunit) result(iret)
   implicit none
 
   integer, intent(in) :: lunit
-  integer my_lunit, lun, il, im
+  integer my_lunit, lun, il, im, bort_target_set
 
   ! Check for I8 integers
 
@@ -1446,6 +1458,14 @@ recursive integer function ifbget(lunit) result(iret)
     call x84(lunit,my_lunit,1)
     iret=ifbget(my_lunit)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_ifbget_c(lunit,iret)
+    call bort_target_unset
     return
   endif
 

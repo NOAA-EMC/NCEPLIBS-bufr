@@ -31,7 +31,8 @@ module bufr_c2f_interface
   public :: pkbs1_c, strcpt_c, rtrcpt_c, atrcpt_c, dxdump_c, ufbdmp_c, ufdump_c, copybf_c, copymg_c, copysb_c, ufbcpy_c
   public :: readerme_c, rdmgsb_c, ufbmem_c, ufbmex_c, ufbmms_c, ufbmns_c, rdmemm_c, rdmems_c, ufbrms_c, ufbtam_c
   public :: cpymem_c, ufbcup_c, stdmsg_c, stndrd_c, codflg_c, gettagpr_c, gettagre_c, cnved4_c, lcmgdf_c
-  public :: setvalnb_c, getvalnb_c, getabdb_c, ufbget_c, ufbinx_c, ufbovr_c
+  public :: setvalnb_c, getvalnb_c, getabdb_c, ufbget_c, ufbinx_c, ufbovr_c, closmg_c, ifbget_c, igetsc_c
+  public :: wrdxtb_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -1329,6 +1330,19 @@ module bufr_c2f_interface
       call openmg(bufr_unit, f_subset(1:lfs), iddate)
     end subroutine openmg_c
 
+    !> Close a BUFR message
+    !>
+    !> Wraps closmg() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to write to.
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive subroutine closmg_c(bufr_unit) bind(C, name='closmg_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+
+      call closmg(bufr_unit)
+    end subroutine closmg_c
+
     !> Get the version number of the NCEPLIBS-bufr software.
     !>
     !> Wraps bvers() subroutine.
@@ -2475,5 +2489,53 @@ module bufr_c2f_interface
       call c_f_pointer(c_data, f_data)
       call ufbovr(bufr_unit, f_data, dim_1, dim_2, iret, str(1:lstr))
     end subroutine ufbovr_c
+
+    !> Check if there are any more data subsets available within a BUFR message.
+    !>
+    !> Wraps ifbget() function.
+    !>
+    !> @param bufr_unit - Fortran logical unit number
+    !>
+    !> @returns ifbget_c - Return code
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive function ifbget_c(bufr_unit) result(ires) bind(C, name='ifbget_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int) :: ires
+      integer :: ifbget
+
+      ires = ifbget(bufr_unit)
+    end function ifbget_c
+
+    !> Check for an abnormal status code associated with the processing of a file
+    !>
+    !> Wraps igetsc() function.
+    !>
+    !> @param bufr_unit - Fortran logical unit number
+    !>
+    !> @returns igetsc_c - Return code
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive function igetsc_c(bufr_unit) result(ires) bind(C, name='igetsc_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int) :: ires
+      integer :: igetsc
+
+      ires = igetsc(bufr_unit)
+    end function igetsc_c
+
+    !> Generate DX BUFR table messages and write them to a output file
+    !>
+    !> Wraps wrdxtb() subroutine.
+    !>
+    !> @param lundx - Fortran logical unit number containing DX BUFR table information
+    !> @param lunot - Fortran logical unit number to write to
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive subroutine wrdxtb_c(lundx, lunot) bind(C, name='wrdxtb_f')
+      integer(c_int), value, intent(in) :: lundx, lunot
+
+      call wrdxtb(lundx, lunot)
+    end subroutine wrdxtb_c
 
 end module bufr_c2f_interface

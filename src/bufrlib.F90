@@ -441,6 +441,19 @@ module bufrlib
       character(kind=c_char), intent(inout) :: subset(*)
     end subroutine catch_bort_openmg_c
 
+    !> @fn bufrlib::catch_bort_closmg_c::catch_bort_closmg_c(lunit)
+    !> Catch any bort error inside of subroutine closmg().
+    !>
+    !> Wraps catch_bort_closmg() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_closmg_c(lunit) bind(C, name='catch_bort_closmg')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+    end subroutine catch_bort_closmg_c
+
     !> @fn bufrlib::catch_bort_readns_c::catch_bort_readns_c(lunit,subset,jdate,subset_str_len,iret)
     !> Catch any bort error inside of subroutine readns().
     !>
@@ -1673,6 +1686,50 @@ module bufrlib
       character(kind=c_char), intent(inout) :: cstr(*)
       real(c_double), intent(in) :: usr(i1,*)
     end subroutine catch_bort_ufbovr_c
+
+    !> @fn bufrlib::catch_bort_ifbget_c::catch_bort_ifbget_c(lunit,iret)
+    !> Catch any bort error inside of subroutine ifbget().
+    !>
+    !> Wraps catch_bort_ifbget() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_ifbget_c(lunit,iret) bind(C, name='catch_bort_ifbget')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: iret
+    end subroutine catch_bort_ifbget_c
+
+    !> @fn bufrlib::catch_bort_igetsc_c::catch_bort_igetsc_c(lunit,iret)
+    !> Catch any bort error inside of subroutine igetsc().
+    !>
+    !> Wraps catch_bort_igetsc() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_igetsc_c(lunit,iret) bind(C, name='catch_bort_igetsc')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: iret
+    end subroutine catch_bort_igetsc_c
+
+    !> @fn bufrlib::catch_bort_wrdxtb_c::catch_bort_wrdxtb_c(lundx,lunot)
+    !> Catch any bort error inside of subroutine wrdxtb().
+    !>
+    !> Wraps catch_bort_wrdxtb() function.
+    !>
+    !> @param lundx - Fortran logical unit number containing DX BUFR table information
+    !> @param lunot - Fortran logical unit number for output file
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_wrdxtb_c(lundx,lunot) bind(C, name='catch_bort_wrdxtb')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lundx, lunot
+    end subroutine catch_bort_wrdxtb_c
 
   end interface
 

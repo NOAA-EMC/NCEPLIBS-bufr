@@ -153,6 +153,23 @@ catch_bort_openmg(int lunit, char *subset, int subset_str_len, int jdate)
 }
 
 /**
+ * Catch any bort error inside of subroutine closmg().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ *
+ * @author J. Ator @date 2025-12-09
+*/
+void
+catch_bort_closmg(int lunit)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    closmg_f(lunit);
+}
+
+/**
  * Catch any bort error inside of subroutine readns().
  *
  * @param lunit - Fortran logical unit number for BUFR file
@@ -1701,4 +1718,58 @@ catch_bort_ufbovr(int lunit, double *usr, int i1, int i2, int *iret, char *cstr,
 
     /* Recursively call the subroutine. */
     ufbovr_f(lunit, (void**) &usr, i1, i2, iret, cstr);
+}
+
+/**
+ * Catch any bort error inside of function ifbget().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-12-09
+*/
+void
+catch_bort_ifbget(int lunit, int *iret)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    *iret = ifbget_f(lunit);
+}
+
+/**
+ * Catch any bort error inside of function igetsc().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-12-09
+*/
+void
+catch_bort_igetsc(int lunit, int *iret)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    *iret = igetsc_f(lunit);
+}
+
+/**
+ * Catch any bort error inside of subroutine wrdxtb().
+ *
+ * @param lundx - Fortran logical unit number containing DX BUFR table information
+ * @param lunot - Fortran logical unit number for output file
+ *
+ * @author J. Ator @date 2025-12-09
+*/
+void
+catch_bort_wrdxtb(int lundx, int lunot)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    wrdxtb_f(lundx, lunot);
 }

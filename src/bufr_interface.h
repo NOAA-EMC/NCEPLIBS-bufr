@@ -667,6 +667,17 @@ void openmb_f(int bufr_unit, const char *c_subset, int iddate);
 void openmg_f(int bufr_unit, const char *c_subset, int iddate);
 
 /**
+ * Close a BUFR message
+ *
+ * Wraps closmg() subroutine.
+ *
+ * @param bufr_unit - Fortran logical unit number to write to.
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+void closmg_f(int bufr_unit);
+
+/**
  * Get the version number of the NCEPLIBS-bufr software.
  *
  * Wraps bvers() subroutine.
@@ -1442,6 +1453,44 @@ void ufbinx_f(int bufr_unit, int imsg, int isub, void **c_data, int dim_1, int d
  */
 void ufbovr_f(int bufr_unit, void **c_data, int dim_1, int dim_2,
               int *iret, const char *table_b_mnemonic);
+
+/**
+ * Check if there are any more data subsets available within a BUFR message
+ *
+ * Wraps ifbget() function.
+ *
+ * @param bufr_unit - Fortran logical unit number
+ *
+ * @returns Return code
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+int ifbget_f(int bufr_unit);
+
+/**
+ * Check for an abnormal status code associated with the processing of a file
+ *
+ * Wraps igetsc() function.
+ *
+ * @param bufr_unit - Fortran logical unit number
+ *
+ * @returns Return code
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+int igetsc_f(int bufr_unit);
+
+/**
+ * Generate DX BUFR table messages and write them to a output file
+ *
+ * Wraps wrdxtb() subroutine.
+ *
+ * @param lundx - Fortran logical unit number containing DX BUFR table information
+ * @param lunot - Fortran logical unit number for output file
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+void wrdxtb_f(int lundx, int lunot);
 
 #ifdef __cplusplus
 }
