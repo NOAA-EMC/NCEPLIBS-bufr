@@ -1623,3 +1623,82 @@ catch_bort_getabdb(int lunit, int itab, char (*ctabdb)[128], int *jtab)
     /* Recursively call the subroutine. */
     getabdb_f(lunit, itab, ctabdb, jtab);
 }
+
+/**
+ * Catch any bort error inside of subroutine ufbget().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param tab - Data values
+ * @param i1 - Allocated length of tab
+ * @param iret - Return code
+ * @param cstr - String of mnemonics to read from the data subset
+ * @param cstr_len - Length of cstr
+ *
+ * @author J. Ator @date 2025-12-05
+*/
+void
+catch_bort_ufbget(int lunit, double *tab, int i1, int *iret, char *cstr, int cstr_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to cstr, for use with get_c_string_length inside of ufbget_f. */
+    cstr[cstr_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    ufbget_f(lunit, tab, i1, iret, cstr);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbinx().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param imsg - Number of BUFR message to be read
+ * @param isub - Number of data subset to be read from imsg
+ * @param usr - Data values
+ * @param i1 - First dimension of usr
+ * @param i2 - Second dimension of usr
+ * @param iret - Number of replications of cstr that were read from the data subset
+ * @param cstr - String of mnemonics to read from the data subset
+ * @param cstr_len - Length of cstr
+ *
+ * @author J. Ator @date 2025-12-05
+*/
+void
+catch_bort_ufbinx(int lunit, int imsg, int isub, double *usr, int i1, int i2, int *iret, char *cstr, int cstr_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to cstr, for use with get_c_string_length inside of ufbinx_f. */
+    cstr[cstr_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    ufbinx_f(lunit, imsg, isub, (void**) &usr, i1, i2, iret, cstr);
+}
+
+/**
+ * Catch any bort error inside of subroutine ufbovr().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param usr - Data values
+ * @param i1 - First dimension of usr
+ * @param i2 - Second dimension of usr
+ * @param iret - Number of replications of cstr that were written to the data subset
+ * @param cstr - String of mnemonics to write to the data subset
+ * @param cstr_len - Length of cstr
+ *
+ * @author J. Ator @date 2025-12-05
+*/
+void
+catch_bort_ufbovr(int lunit, double *usr, int i1, int i2, int *iret, char *cstr, int cstr_len)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Add a trailing null to cstr, for use with get_c_string_length inside of ufbovr_f. */
+    cstr[cstr_len] = '\0';
+
+    /* Recursively call the subroutine. */
+    ufbovr_f(lunit, (void**) &usr, i1, i2, iret, cstr);
+}

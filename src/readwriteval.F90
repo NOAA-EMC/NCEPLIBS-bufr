@@ -2248,6 +2248,8 @@ end subroutine trybump
 !> @author Woollen @date 1994-01-06
 recursive subroutine ufbovr(lunit,usr,i1,i2,iret,str)
 
+  use bufrlib
+
   use modv_vars, only: im8b, iprt
 
   use moda_usrint
@@ -2257,10 +2259,11 @@ recursive subroutine ufbovr(lunit,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunit, i1, i2
   integer, intent(out) :: iret
-  integer ifirst1, my_lunit, my_i1, my_i2, lun, il, im, io
+  integer ifirst1, my_lunit, my_i1, my_i2, lun, il, im, io, lcstr, bort_target_set
 
   character*(*), intent(in) :: str
   character*128 bort_str1, bort_str2, errstr
+  character*90 cstr
 
   real*8, intent(inout) :: usr(i1,i2)
 
@@ -2278,6 +2281,14 @@ recursive subroutine ufbovr(lunit,usr,i1,i2,iret,str)
     call ufbovr(my_lunit,usr,my_i1,my_i2,iret,str)
     call x48(iret,iret,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+  if (bort_target_set() == 1) then
+    call strsuc(str,cstr,lcstr)
+    call catch_bort_ufbovr_c(lunit,usr,i1,i2,iret,cstr,lcstr)
+    call bort_target_unset
     return
   endif
 
@@ -2575,6 +2586,8 @@ end subroutine ufbevn
 !> @author Woollen @date 2003-11-04
 recursive subroutine ufbinx(lunit,imsg,isub,usr,i1,i2,iret,str)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_msgcwd
@@ -2584,10 +2597,11 @@ recursive subroutine ufbinx(lunit,imsg,isub,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunit, imsg, isub, i1, i2
   integer, intent(out) :: iret
-  integer my_lunit, my_imsg, my_isub, my_i1, my_i2, lun, il, im, jdate, jret, i
+  integer my_lunit, my_imsg, my_isub, my_i1, my_i2, lun, il, im, jdate, jret, i, lcstr, bort_target_set
 
   character*(*), intent(in) :: str
   character*128 bort_str
+  character*90 cstr
   character*8 subset
 
   real*8, intent(out) :: usr(i1,i2)
@@ -2605,6 +2619,14 @@ recursive subroutine ufbinx(lunit,imsg,isub,usr,i1,i2,iret,str)
     call ufbinx(my_lunit,my_imsg,my_isub,usr,my_i1,my_i2,iret,str)
     call x48(iret,iret,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+  if (bort_target_set() == 1) then
+    call strsuc(str,cstr,lcstr)
+    call catch_bort_ufbinx_c(lunit,imsg,isub,usr,i1,i2,iret,cstr,lcstr)
+    call bort_target_unset
     return
   endif
 
@@ -2669,6 +2691,8 @@ end subroutine ufbinx
 !> @author Woollen @date 1994-01-06
 recursive subroutine ufbget(lunit,tab,i1,iret,str)
 
+  use bufrlib
+
   use modv_vars, only: im8b, bmiss
 
   use moda_usrint
@@ -2682,9 +2706,11 @@ recursive subroutine ufbget(lunit,tab,i1,iret,str)
   integer*8 ival
   integer, intent(in) :: lunit, i1
   integer, intent(out) :: iret
-  integer nnod, ncon, nods, nodc, ivls, kons, my_lunit, my_i1, lun, il, im, i, n, node, nbmp, kbit, invn, invwin
+  integer nnod, ncon, nods, nodc, ivls, kons, my_lunit, my_i1, lun, il, im, i, n, node, nbmp, kbit, invn, invwin, &
+    lcstr, bort_target_set
 
   character*(*), intent(in) :: str
+  character*90 cstr
   character*8 cval
 
   real*8, intent(out) :: tab(i1)
@@ -2703,6 +2729,14 @@ recursive subroutine ufbget(lunit,tab,i1,iret,str)
     call ufbget(my_lunit,tab,my_i1,iret,str)
     call x48(iret,iret,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+  if (bort_target_set() == 1) then
+    call strsuc(str,cstr,lcstr)
+    call catch_bort_ufbget_c(lunit,tab,i1,iret,cstr,lcstr)
+    call bort_target_unset
     return
   endif
 

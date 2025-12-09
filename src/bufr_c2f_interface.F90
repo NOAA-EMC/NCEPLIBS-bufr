@@ -31,7 +31,7 @@ module bufr_c2f_interface
   public :: pkbs1_c, strcpt_c, rtrcpt_c, atrcpt_c, dxdump_c, ufbdmp_c, ufdump_c, copybf_c, copymg_c, copysb_c, ufbcpy_c
   public :: readerme_c, rdmgsb_c, ufbmem_c, ufbmex_c, ufbmms_c, ufbmns_c, rdmemm_c, rdmems_c, ufbrms_c, ufbtam_c
   public :: cpymem_c, ufbcup_c, stdmsg_c, stndrd_c, codflg_c, gettagpr_c, gettagre_c, cnved4_c, lcmgdf_c
-  public :: setvalnb_c, getvalnb_c, getabdb_c
+  public :: setvalnb_c, getvalnb_c, getabdb_c, ufbget_c, ufbinx_c, ufbovr_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -1559,7 +1559,7 @@ module bufr_c2f_interface
     !> @author J. Ator @date 2025-11-13
     recursive subroutine ufbtab_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbtab_f')
       integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2
-      type(c_ptr), intent(inout) ::  c_data
+      type(c_ptr), intent(out) ::  c_data
       integer(c_int), intent(inout) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
@@ -2096,7 +2096,7 @@ module bufr_c2f_interface
     !> @author Jeff Ator @date 2025-12-01
     recursive subroutine ufbrms_c(imsg, isub, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbrms_f')
       integer(c_int), value, intent(in) :: imsg, isub, dim_1, dim_2
-      type(c_ptr), intent(inout) ::  c_data
+      type(c_ptr), intent(out) ::  c_data
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
@@ -2121,7 +2121,7 @@ module bufr_c2f_interface
     !> @author J. Ator @date 2025-12-01
     recursive subroutine ufbtam_c(c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbtam_f')
       integer(c_int), value, intent(in) :: dim_1, dim_2
-      type(c_ptr), intent(inout) ::  c_data
+      type(c_ptr), intent(out) ::  c_data
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
@@ -2392,5 +2392,88 @@ module bufr_c2f_interface
         enddo
       enddo
     end subroutine getabdb_c
+
+    !> Read one or more data values from a data subset without advancing the subset pointer
+    !>
+    !> Wraps ufbget() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param tab - Data values
+    !> @param i1 - Allocated length of tab
+    !> @param iret - Return code
+    !> @param table_b_mnemonic - String of mnemonics
+    !>
+    !> @author Jeff Ator @date 2025-12-05
+    recursive subroutine ufbget_c(bufr_unit, tab, i1, iret, table_b_mnemonic) bind(C, name='ufbget_f')
+      integer(c_int), value, intent(in) :: bufr_unit, i1
+      integer(c_int), intent(out) :: iret
+      real(c_double), intent(out) :: tab(*)
+      character(kind=c_char), intent(in) :: table_b_mnemonic(*)
+      character(len=90) :: str
+      integer :: lstr
+
+      lstr = get_c_string_length(table_b_mnemonic)
+      str = transfer(table_b_mnemonic(1:lstr), str)
+
+      call ufbget(bufr_unit, tab, i1, iret, str(1:lstr))
+    end subroutine ufbget_c
+
+    !> Read one or more data values from a specified data subset
+    !>
+    !> Wraps ufbinx() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param imsg - Number of BUFR message to be read
+    !> @param isub - Number of data subset to be read from imsg
+    !> @param c_data - C-style pointer to a pre-allocated buffer
+    !> @param dim_1, dim_2 - Dimensionality of data to read
+    !> @param iret - Return value, length of data read
+    !> @param table_b_mnemonic - String of mnemonics
+    !>
+    !> @author Jeff Ator @date 2025-12-05
+    recursive subroutine ufbinx_c(bufr_unit, imsg, isub, c_data, dim_1, dim_2, iret, table_b_mnemonic) &
+        bind(C, name='ufbinx_f')
+      integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2, imsg, isub
+      type(c_ptr), intent(out) ::  c_data
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(in) :: table_b_mnemonic(*)
+      character(len=90) :: str
+      real, pointer :: f_data
+      integer :: lstr
+
+      lstr = get_c_string_length(table_b_mnemonic)
+      str = transfer(table_b_mnemonic(1:lstr), str)
+
+      call c_f_pointer(c_data, f_data)
+      call ufbinx(bufr_unit, imsg, isub, f_data, dim_1, dim_2, iret, str(1:lstr))
+    end subroutine ufbinx_c
+
+    !> Overwrite one or more data values within a data subset
+    !>
+    !> Wraps ufbovr() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to write to
+    !> @param c_data - C-style pointer to a pre-allocated buffer
+    !> @param dim_1, dim_2 - Dimensionality of data to write
+    !> @param iret - Return value, length of data written
+    !> @param table_b_mnemonic - String of mnemonics
+    !>
+    !> @author Jeff Ator @date 2025-12-05
+    recursive subroutine ufbovr_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) &
+        bind(C, name='ufbovr_f')
+      integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2
+      type(c_ptr), intent(in) ::  c_data
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(in) :: table_b_mnemonic(*)
+      character(len=90) :: str
+      real, pointer :: f_data
+      integer :: lstr
+
+      lstr = get_c_string_length(table_b_mnemonic)
+      str = transfer(table_b_mnemonic(1:lstr), str)
+
+      call c_f_pointer(c_data, f_data)
+      call ufbovr(bufr_unit, f_data, dim_1, dim_2, iret, str(1:lstr))
+    end subroutine ufbovr_c
 
 end module bufr_c2f_interface

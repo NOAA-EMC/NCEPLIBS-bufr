@@ -795,7 +795,7 @@ module bufrlib
       integer(c_int), value, intent(in) :: lunin, i1, i2, cstr_len
       integer(c_int), intent(inout) :: iret
       character(kind=c_char), intent(inout) :: cstr(*)
-      real(c_double), intent(inout) :: tab(i1,*)
+      real(c_double), intent(out) :: tab(i1,*)
     end subroutine catch_bort_ufbtab_c
 
     !> @fn bufrlib::catch_bort_ufbpos_c::catch_bort_ufbpos_c(lunit,irec,isub,subset,jdate,subset_str_len)
@@ -1333,7 +1333,7 @@ module bufrlib
       integer(c_int), value, intent(in) :: imsg, isub, i1, i2, cstr_len
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(inout) :: cstr(*)
-      real(c_double), intent(inout) :: usr(i1,*)
+      real(c_double), intent(out) :: usr(i1,*)
     end subroutine catch_bort_ufbrms_c
 
     !> @fn bufrlib::catch_bort_ufbtam_c::catch_bort_ufbtam_c(tab,i1,i2,iret,cstr,cstr_len)
@@ -1354,7 +1354,7 @@ module bufrlib
       integer(c_int), value, intent(in) :: i1, i2, cstr_len
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(inout) :: cstr(*)
-      real(c_double), intent(inout) :: tab(i1,*)
+      real(c_double), intent(out) :: tab(i1,*)
     end subroutine catch_bort_ufbtam_c
 
     !> @fn bufrlib::catch_bort_cpymem_c::catch_bort_cpymem_c(lunot)
@@ -1606,6 +1606,73 @@ module bufrlib
       integer(c_int), intent(out) :: jtab
       character(kind=c_char), intent(out) :: ctabdb(128,*)
     end subroutine catch_bort_getabdb_c
+
+    !> @fn bufrlib::catch_bort_ufbget_c::catch_bort_ufbget_c(lunit,tab,i1,iret,cstr,cstr_len)
+    !> Catch any bort error inside of subroutine ufbget().
+    !>
+    !> Wraps catch_bort_ufbget() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param tab - Data values
+    !> @param i1 - Allocated length of tab
+    !> @param iret - Return code
+    !> @param cstr - String of mnemonics to read from the data subset
+    !> @param cstr_len - Length of cstr
+    !>
+    !> @author J. Ator @date 2025-12-05
+    subroutine catch_bort_ufbget_c(lunit,tab,i1,iret,cstr,cstr_len) bind(C, name='catch_bort_ufbget')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, i1, cstr_len
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(inout) :: cstr(*)
+      real(c_double), intent(out) :: tab(*)
+    end subroutine catch_bort_ufbget_c
+
+    !> @fn bufrlib::catch_bort_ufbinx_c::catch_bort_ufbinx_c(lunit,imsg,isub,usr,i1,i2,iret,cstr,cstr_len)
+    !> Catch any bort error inside of subroutine ufbinx().
+    !>
+    !> Wraps catch_bort_ufbinx() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param imsg - Number of BUFR message to be read
+    !> @param isub - Number of data subset to be read from imsg
+    !> @param usr - Data values
+    !> @param i1 - First dimension of usr
+    !> @param i2 - Second dimension of usr
+    !> @param iret - Number of replications of cstr that were read from the data subset
+    !> @param cstr - String of mnemonics to read from the data subset
+    !> @param cstr_len - Length of cstr
+    !>
+    !> @author J. Ator @date 2025-12-05
+    subroutine catch_bort_ufbinx_c(lunit,imsg,isub,usr,i1,i2,iret,cstr,cstr_len) bind(C, name='catch_bort_ufbinx')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, i1, i2, cstr_len, imsg, isub
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(inout) :: cstr(*)
+      real(c_double), intent(out) :: usr(i1,*)
+    end subroutine catch_bort_ufbinx_c
+
+    !> @fn bufrlib::catch_bort_ufbovr_c::catch_bort_ufbovr_c(lunit,usr,i1,i2,iret,cstr,cstr_len)
+    !> Catch any bort error inside of subroutine ufbovr().
+    !>
+    !> Wraps catch_bort_ufbovr() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param usr - Data values
+    !> @param i1 - First dimension of usr
+    !> @param i2 - Second dimension of usr
+    !> @param iret - Number of replications of cstr that were written to the data subset
+    !> @param cstr - String of mnemonics to write to the data subset
+    !> @param cstr_len - Length of cstr
+    !>
+    !> @author J. Ator @date 2025-12-05
+    subroutine catch_bort_ufbovr_c(lunit,usr,i1,i2,iret,cstr,cstr_len) bind(C, name='catch_bort_ufbovr')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, i1, i2, cstr_len
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(inout) :: cstr(*)
+      real(c_double), intent(in) :: usr(i1,*)
+    end subroutine catch_bort_ufbovr_c
 
   end interface
 

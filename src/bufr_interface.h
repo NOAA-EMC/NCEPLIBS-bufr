@@ -1391,6 +1391,57 @@ double getvalnb_f(int lunit, char *tagpv, int ntagpv, char *tagnb, int ntagnb);
  */
 void getabdb_f(int lunit, int itab, char (*ctabdb)[128], int *jtab);
 
+/**
+ * Read one or more data values from a data subset without advancing the subset pointer
+ *
+ * Wraps ufbget() subroutine.
+ *
+ * @param bufr_unit - Fortran logical unit number to read from
+ * @param tab - Data values
+ * @param i1 - Allocated length of tab
+ * @param iret - Return code
+ * @param table_b_mnemonic - String of mnemonics to read from the data subset
+ *
+ * @author J. Ator @date 2025-12-05
+ */
+void ufbget_f(int bufr_unit, double *tab, int i1, int *iret, const char *table_b_mnemonic);
+
+/**
+ * Read one or more data values from a specified data subset
+ *
+ * Wraps ufbinx() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from
+ * @param imsg - Number of BUFR message to be read
+ * @param isub - Number of data subset to be read from imsg
+ * @param c_data - pointer to a pointer to a pre-allocated buffer.
+ * @param dim_1 - dimensionality of data to read
+ * @param dim_2 - dimensionality of data to read
+ * @param iret - return value, length of data read
+ * @param table_b_mnemonic - string of mnemonics.
+ *
+ * @author J. Ator @date 2025-12-05
+ */
+void ufbinx_f(int bufr_unit, int imsg, int isub, void **c_data, int dim_1, int dim_2,
+              int *iret, const char *table_b_mnemonic);
+
+/**
+ * Overwrite one or more data values within a data subset
+ *
+ * Wraps ufbovr() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to write to
+ * @param c_data - pointer to a pointer to a pre-allocated buffer.
+ * @param dim_1 - dimensionality of data to write
+ * @param dim_2 - dimensionality of data to write
+ * @param iret - return value, length of data written
+ * @param table_b_mnemonic - string of mnemonics.
+ *
+ * @author J. Ator @date 2025-12-05
+ */
+void ufbovr_f(int bufr_unit, void **c_data, int dim_1, int dim_2,
+              int *iret, const char *table_b_mnemonic);
+
 #ifdef __cplusplus
 }
 #endif
