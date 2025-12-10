@@ -32,7 +32,7 @@ module bufr_c2f_interface
   public :: readerme_c, rdmgsb_c, ufbmem_c, ufbmex_c, ufbmms_c, ufbmns_c, rdmemm_c, rdmems_c, ufbrms_c, ufbtam_c
   public :: cpymem_c, ufbcup_c, stdmsg_c, stndrd_c, codflg_c, gettagpr_c, gettagre_c, cnved4_c, lcmgdf_c
   public :: setvalnb_c, getvalnb_c, getabdb_c, ufbget_c, ufbinx_c, ufbovr_c, closmg_c, ifbget_c, igetsc_c
-  public :: wrdxtb_c
+  public :: wrdxtb_c, mesgbf_c, mesgbc_c, invmrg_c, ipkm_c, iupm_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -2537,5 +2537,95 @@ module bufr_c2f_interface
 
       call wrdxtb(lundx, lunot)
     end subroutine wrdxtb_c
+
+    !> Get information from the first data message in a BUFR file
+    !>
+    !> Wraps mesgbf() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit number
+    !> @param mesgtyp - Message type
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive subroutine mesgbf_c(lunit, mesgtyp) bind(C, name='mesgbf_f')
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: mesgtyp
+
+      call mesgbf(lunit, mesgtyp)
+    end subroutine mesgbf_c
+
+    !> Get information from the first data message in a BUFR file
+    !>
+    !> Wraps mesgbc() subroutine.
+    !>
+    !> @param lunin - Fortran logical unit number
+    !> @param mesgtyp - Message type
+    !> @param icomp - Compression indicator
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive subroutine mesgbc_c(lunin, mesgtyp, icomp) bind(C, name='mesgbc_f')
+      integer(c_int), value, intent(in) :: lunin
+      integer(c_int), intent(out) :: mesgtyp, icomp
+
+      call mesgbc(lunin, mesgtyp, icomp)
+    end subroutine mesgbc_c
+
+    !> Merge parts of data subsets
+    !>
+    !> Wraps invmrg() subroutine.
+    !>
+    !> @param lubfi - Fortran logical unit number for input file
+    !> @param lubfj - Fortran logical unit number for output file
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive subroutine invmrg_c(lubfi, lubfj) bind(C, name='invmrg_f')
+      integer(c_int), value, intent(in) :: lubfi, lubfj
+
+      call invmrg(lubfi, lubfj)
+    end subroutine invmrg_c
+
+    !> Decode an integer from a character string
+    !>
+    !> Wraps iupm() function.
+    !>
+    !> @param cbay - Character string
+    !> @param nbits - Number of bits to decode from cbay
+    !> @param lcbay - Length of cbay
+    !>
+    !> @returns iupm_c - Decoded value
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive function iupm_c(cbay, nbits, lcbay) result(ires) bind(C, name='iupm_f')
+      character(kind=c_char), intent(in) :: cbay(*)
+      integer(c_int), value, intent(in) :: nbits, lcbay
+      integer(c_int) :: ires
+      integer :: iupm
+      character(len=8) :: f_cbay
+
+      f_cbay = transfer(cbay(1:lcbay), f_cbay)
+
+      ires = iupm(f_cbay(1:lcbay), nbits)
+    end function iupm_c
+
+    !> Encode an integer into a character string
+    !>
+    !> Wraps ipkm() subroutine.
+    !>
+    !> @param cbay - Character string
+    !> @param nbyt - Number of bytes of cbay within which to encode ival
+    !> @param ival - Value to encode
+    !> @param cbay_len - Allocated length of cbay
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive subroutine ipkm_c(cbay, nbyt, ival, cbay_len) bind(C, name='ipkm_f')
+      character(kind=c_char), intent(out) :: cbay(*)
+      integer(c_int), value, intent(in) :: nbyt, ival, cbay_len
+      character(len=8) :: f_cbay
+      integer :: nbytp1
+
+      call ipkm(f_cbay, nbyt, ival)
+
+      nbytp1 = nbyt + 1  ! add 1 for the null terminator
+      call copy_f_c_str(f_cbay, cbay, min(nbytp1, cbay_len))
+    end subroutine ipkm_c
 
 end module bufr_c2f_interface

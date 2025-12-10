@@ -261,16 +261,19 @@ end function iupb
 !> @author J. Woollen @date 1994-01-06
 recursive integer function iupm(cbay,nbits) result(iret)
 
+  use bufrlib
+
   use modv_vars, only: im8b, nbitw
 
   implicit none
 
   character*(*), intent(in) :: cbay
   character*4 cint
+  character*5 ccbay
   character*128 bort_str
 
   integer, intent(in) :: nbits
-  integer my_nbits, int, irev, lcbay
+  integer my_nbits, int, irev, lcbay, lccb, bort_target_set
 
   equivalence (cint,int)
 
@@ -281,6 +284,17 @@ recursive integer function iupm(cbay,nbits) result(iret)
     call x84(nbits,my_nbits,1)
     iret = iupm(cbay,my_nbits)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    lccb = nbits/8
+    if (mod(nbits,8)/=0) lccb = lccb + 1
+    ccbay(1:lccb) = cbay(1:lccb)
+    call catch_bort_iupm_c(ccbay,nbits,iret,lccb)
+    call bort_target_unset
     return
   endif
 

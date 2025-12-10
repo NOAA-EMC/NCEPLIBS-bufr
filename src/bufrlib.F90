@@ -1580,7 +1580,7 @@ module bufrlib
     end subroutine catch_bort_setvalnb_c
 
     !> @fn bufrlib::catch_bort_getvalnb_c::catch_bort_getvalnb_c(lunit,tagpv,tagpv_len,ntagpv,tagnb,tagnb_len,ntagnb,r8val)
-    !> Catch any bort error inside of subroutine getvalnb().
+    !> Catch any bort error inside of function getvalnb().
     !>
     !> Wraps catch_bort_getvalnb() function.
     !>
@@ -1688,7 +1688,7 @@ module bufrlib
     end subroutine catch_bort_ufbovr_c
 
     !> @fn bufrlib::catch_bort_ifbget_c::catch_bort_ifbget_c(lunit,iret)
-    !> Catch any bort error inside of subroutine ifbget().
+    !> Catch any bort error inside of function ifbget().
     !>
     !> Wraps catch_bort_ifbget() function.
     !>
@@ -1703,7 +1703,7 @@ module bufrlib
     end subroutine catch_bort_ifbget_c
 
     !> @fn bufrlib::catch_bort_igetsc_c::catch_bort_igetsc_c(lunit,iret)
-    !> Catch any bort error inside of subroutine igetsc().
+    !> Catch any bort error inside of function igetsc().
     !>
     !> Wraps catch_bort_igetsc() function.
     !>
@@ -1730,6 +1730,86 @@ module bufrlib
       use iso_c_binding
       integer(c_int), value, intent(in) :: lundx, lunot
     end subroutine catch_bort_wrdxtb_c
+
+    !> @fn bufrlib::catch_bort_mesgbf_c::catch_bort_mesgbf_c(lunit,mesgtyp)
+    !> Catch any bort error inside of subroutine mesgbf().
+    !>
+    !> Wraps catch_bort_mesgbf() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param mesgtyp - Message type
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_mesgbf_c(lunit,mesgtyp) bind(C, name='catch_bort_mesgbf')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: mesgtyp
+    end subroutine catch_bort_mesgbf_c
+
+    !> @fn bufrlib::catch_bort_mesgbc_c::catch_bort_mesgbc_c(lunin,mesgtyp,icomp)
+    !> Catch any bort error inside of subroutine mesgbc().
+    !>
+    !> Wraps catch_bort_mesgbc() function.
+    !>
+    !> @param lunin - Fortran logical unit number for BUFR file
+    !> @param mesgtyp - Message type
+    !> @param icomp - Compression indicator
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_mesgbc_c(lunin,mesgtyp,icomp) bind(C, name='catch_bort_mesgbc')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunin
+      integer(c_int), intent(out) :: mesgtyp, icomp
+    end subroutine catch_bort_mesgbc_c
+
+    !> @fn bufrlib::catch_bort_invmrg_c::catch_bort_invmrg_c(lubfi,lubfj)
+    !> Catch any bort error inside of subroutine invmrg().
+    !>
+    !> Wraps catch_bort_invmrg() function.
+    !>
+    !> @param lubfi - Fortran logical unit number for input file
+    !> @param lubfj - Fortran logical unit number for output file
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_invmrg_c(lubfi,lubfj) bind(C, name='catch_bort_invmrg')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lubfi, lubfj
+    end subroutine catch_bort_invmrg_c
+
+    !> @fn bufrlib::catch_bort_iupm_c::catch_bort_iupm_c(cbay,nbits,iret,lcbay)
+    !> Catch any bort error inside of function iupm().
+    !>
+    !> Wraps catch_bort_iupm() function.
+    !>
+    !> @param cbay - Character string
+    !> @param nbits - Number of bits to decode from cbay
+    !> @param iret - Decoded value
+    !> @param lcbay - Length of cbay
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_iupm_c(cbay,nbits,iret,lcbay) bind(C, name='catch_bort_iupm')
+      use iso_c_binding
+      character(kind=c_char), intent(inout) :: cbay(*)
+      integer(c_int), value, intent(in) :: nbits, lcbay
+      integer(c_int), intent(out) :: iret
+    end subroutine catch_bort_iupm_c
+
+    !> @fn bufrlib::catch_bort_ipkm_c::catch_bort_ipkm_c(cbay,nbyt,ival,cbay_len)
+    !> Catch any bort error inside of function ipkm().
+    !>
+    !> Wraps catch_bort_ipkm() function.
+    !>
+    !> @param cbay - Character string
+    !> @param nbyt - Number of bytes of cbay within which to encode ival
+    !> @param ival - Value to encode
+    !> @param cbay_len - Allocated length of cbay
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_ipkm_c(cbay,nbyt,ival,cbay_len) bind(C, name='catch_bort_ipkm')
+      use iso_c_binding
+      character(kind=c_char), intent(out) :: cbay(*)
+      integer(c_int), value, intent(in) :: nbyt, ival, cbay_len
+    end subroutine catch_bort_ipkm_c
 
   end interface
 

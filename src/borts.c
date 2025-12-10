@@ -598,7 +598,7 @@ catch_bort_cobfl(const char *bfl, char io)
     /* Set the target location to which to return if a bort error is caught. */
     if (setjmp(context) == 1) return;
 
-    /* Recursively call the subroutine. */
+    /* Recursively call the function. */
     cobfl(bfl, io);
 }
 
@@ -619,7 +619,7 @@ catch_bort_crbmg(char *bmg, int mxmb, int *nmb, int *iret)
     /* Set the target location to which to return if a bort error is caught. */
     if (setjmp(context) == 1) return;
 
-    /* Recursively call the subroutine. */
+    /* Recursively call the function. */
     crbmg(bmg, mxmb, nmb, iret);
 }
 
@@ -639,7 +639,7 @@ catch_bort_cwbmg(const char *bmg, int nmb, int *iret)
     /* Set the target location to which to return if a bort error is caught. */
     if (setjmp(context) == 1) return;
 
-    /* Recursively call the subroutine. */
+    /* Recursively call the function. */
     cwbmg(bmg, nmb, iret);
 }
 
@@ -1558,7 +1558,7 @@ catch_bort_lcmgdf(int lunit, char *subset, int subset_str_len, int *iret)
     /* Add a trailing null to subset, for use with get_c_string_length inside of lcmgdf_f. */
     subset[subset_str_len] = '\0';
 
-    /* Recursively call the subroutine. */
+    /* Recursively call the function. */
     *iret = lcmgdf_f(lunit, subset);
 }
 
@@ -1617,7 +1617,7 @@ catch_bort_getvalnb(int lunit, char *tagpv, int tagpv_len, int ntagpv,
     tagpv[tagpv_len] = '\0';
     tagnb[tagnb_len] = '\0';
 
-    /* Recursively call the subroutine. */
+    /* Recursively call the function. */
     *r8val = getvalnb_f(lunit, tagpv, ntagpv, tagnb, ntagnb);
 }
 
@@ -1734,7 +1734,7 @@ catch_bort_ifbget(int lunit, int *iret)
     /* Set the target location to which to return if a bort error is caught. */
     if ( setjmp(context) == 1 ) return;
 
-    /* Recursively call the subroutine. */
+    /* Recursively call the function. */
     *iret = ifbget_f(lunit);
 }
 
@@ -1752,7 +1752,7 @@ catch_bort_igetsc(int lunit, int *iret)
     /* Set the target location to which to return if a bort error is caught. */
     if ( setjmp(context) == 1 ) return;
 
-    /* Recursively call the subroutine. */
+    /* Recursively call the function. */
     *iret = igetsc_f(lunit);
 }
 
@@ -1772,4 +1772,101 @@ catch_bort_wrdxtb(int lundx, int lunot)
 
     /* Recursively call the subroutine. */
     wrdxtb_f(lundx, lunot);
+}
+
+/**
+ * Catch any bort error inside of subroutine mesgbf().
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param mesgtyp - Message type
+ *
+ * @author J. Ator @date 2025-12-09
+*/
+void
+catch_bort_mesgbf(int lunit, int *mesgtyp)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    mesgbf_f(lunit, mesgtyp);
+}
+
+/**
+ * Catch any bort error inside of subroutine mesgbc().
+ *
+ * @param lunin - Fortran logical unit number for BUFR file
+ * @param mesgtyp - Message type
+ * @param icomp - Compression indicator
+ *
+ * @author J. Ator @date 2025-12-09
+*/
+void
+catch_bort_mesgbc(int lunin, int *mesgtyp, int *icomp)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    mesgbc_f(lunin, mesgtyp, icomp);
+}
+
+/**
+ * Catch any bort error inside of subroutine invmrg().
+ *
+ * @param lubfi - Fortran logical unit number for input BUFR file
+ * @param lubfj - Fortran logical unit number for output BUFR file
+ *
+ * @author J. Ator @date 2025-12-09
+*/
+void
+catch_bort_invmrg(int lubfi, int lubfj)
+{
+    /* Set the target location to which to return if a bort error is caught. */
+    if ( setjmp(context) == 1 ) return;
+
+    /* Recursively call the subroutine. */
+    invmrg_f(lubfi, lubfj);
+}
+
+/**
+ * Catch any bort error inside of function iupm().
+ *
+ * @param cbay - Character string
+ * @param nbits - Number of bits to decode from cbay
+ * @param iret - Decoded value
+ * @param lcbay - Length of cbay
+ *
+ * @author J. Ator @date 2025-12-09
+*/
+void
+catch_bort_iupm(char *cbay, int nbits, int *iret, int lcbay)
+{
+
+    /* Set the target location to which to return if a bort error is caught. */
+    if (setjmp(context) == 1) return;
+
+    /* Recursively call the function. */
+    *iret = iupm_f(cbay, nbits, lcbay);
+}
+
+/**
+ * Catch any bort error inside of subroutine ipkm().
+ *
+ * @param cbay - Character string
+ * @param nbyt - Number of bytes of cbay within which to encode ival
+ * @param ival - Value to encode
+ * @param cbay_len - Allocated length of cbay
+ *
+ * @author J. Ator @date 2025-12-09
+*/
+void
+catch_bort_ipkm(char *cbay, int nbyt, int ival, int cbay_len)
+{
+
+    /* Set the target location to which to return if a bort error is caught. */
+    if (setjmp(context) == 1) return;
+
+    /* Recursively call the subroutine. */
+    ipkm_f(cbay, nbyt, ival, cbay_len);
 }

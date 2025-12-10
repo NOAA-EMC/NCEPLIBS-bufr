@@ -1534,6 +1534,8 @@ end subroutine usrtpl
 !> @author J. Woollen @date 1996-10-09
 recursive subroutine invmrg(lubfi,lubfj)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_usrint
@@ -1544,7 +1546,7 @@ recursive subroutine invmrg(lubfi,lubfj)
 
   integer, intent(in) :: lubfi, lubfj
   integer my_lubfi, my_lubfj, luni, il, im, lunj, jl, jm, is, js, node, nodj, ityp, iwrds, jwrds, &
-    n, ioff, nwords, ibfms
+    n, ioff, nwords, ibfms, bort_target_set
 
   character*128 bort_str
 
@@ -1558,6 +1560,14 @@ recursive subroutine invmrg(lubfi,lubfj)
     call x84(lubfj,my_lubfj,1)
     call invmrg(my_lubfi,my_lubfj)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_invmrg_c(lubfi,lubfj)
+    call bort_target_unset
     return
   endif
 

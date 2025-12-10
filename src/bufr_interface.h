@@ -1492,6 +1492,72 @@ int igetsc_f(int bufr_unit);
  */
 void wrdxtb_f(int lundx, int lunot);
 
+/**
+ * Get information from the first data message in a BUFR file
+ *
+ * Wraps mesgbf() subroutine.
+ *
+ * @param lunit - Fortran logical unit number
+ * @param mesgtyp - Message type
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+void mesgbf_f(int lunit, int *mesgtyp);
+
+/**
+ * Get information from the first data message in a BUFR file
+ *
+ * Wraps mesgbc() subroutine.
+ *
+ * @param lunin - Fortran logical unit number
+ * @param mesgtyp - Message type
+ * @param icomp - Compression indicator
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+void mesgbc_f(int lunin, int *mesgtyp, int *icomp);
+
+/**
+ * Merge parts of data subsets
+ *
+ * Wraps invmrg() subroutine.
+ *
+ * @param lubfi - Fortran logical unit number for input file
+ * @param lubfj - Fortran logical unit number for output file
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+void invmrg_f(int lubfi, int lubfj);
+
+/**
+ * Decode an integer from a character string
+ *
+ * Wraps iupm() function.
+ *
+ * @param cbay - Character string
+ * @param nbits - Number of bits to decode from cbay
+ * @param lcbay - Length of cbay
+ *
+ * @returns Decoded value
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+int iupm_f(const char *cbay, int nbits, int lcbay);
+
+/**
+ * Encode an integer into a character string
+ *
+ * Wraps ipkm() subroutine.
+ *
+ * @param cbay - Character string
+ * @param nbyt - Number of bytes of cbay within which to encode ival
+ * @param ival - Value to encode
+ * @param cbay_len - Allocated length of cbay
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+void ipkm_f(char *cbay, int nbyt, int ival, int cbay_len);
+
 #ifdef __cplusplus
 }
 #endif
