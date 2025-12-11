@@ -5,7 +5,11 @@
 !
 ! This program is called (repeatedly) by run_test_bort.sh, which
 ! passes in a series of subroutine names and test case numbers, and
-! expects each case to cause an abort.
+! expects each case to either cause an abort or catch an abort message.
+! In either case, this program returns a value >0 if it was successful
+! in causing the expected abort or catching the expected abort message.
+! Otherwise, or if some other problem occurred, it returns a value
+! of 0 to indicate failure.
 !
 ! Ed Hartnett 3/12/23
 program test_bort
@@ -43,12 +47,17 @@ program test_bort
   integer nseq, irps(20), knts(20)
   integer imt, imtv, iogce, iltv
   integer*8 nval
+  character*400 errstr
+  integer errstr_len
 
-  integer*4 isize, iupm, iupvs01, isetprm, nmsub, igettdi, igetsc, lcmgdf
+  integer*4 isize, iupm, iupvs01, isetprm, nmsub, igettdi, igetsc, lcmgdf, catch_borts
+  integer*4 msgl4, iret4
+  integer*4, parameter :: mxmb = 200000
+  integer, parameter :: mxmbd4 = mxmb/4
 
   character*25 filnam
-  character bfmg(200000)
-  integer ibfmg(50000), ibfmg2(50000)
+  character bfmg(mxmb)
+  integer ibfmg(mxmbd4), ibfmg2(mxmbd4)
   equivalence (bfmg(1),ibfmg(1))
 
 #ifdef KIND_8
@@ -56,21 +65,31 @@ program test_bort
 #endif
 
   num_args = command_argument_count()
-  if (num_args /= 2) then
-     print *, "Two command line arguments expected: subroutine name and test case"
+  if (num_args /= 2 .and. num_args /= 3) then
+     print *, "Either 2 or 3 command line arguments expected:"
+     print *, "    1. subroutine or function name"
+     print *, "    2. test case number"
+     print *, "    3. (optional) switch to catch the abort message rather than aborting"
      ! Return with 0 to fail the test.
      stop 0
   end if
 
-  ! Read the command line arguments, a name of subroutine, and a test
+  ! Read the command line arguments, a name of subroutine or function, and a test
   ! case number.
   call get_command_argument(1, sub_name, len, stat)
-  if (stat /= 0) stop 3
+  if (stat /= 0) stop 0
   call get_command_argument(2, test_case, len, stat)
-  if (stat /= 0) stop 4
-  print *, 'Testing ', sub_name, ' case ', test_case
+  if (stat /= 0) stop 0
+  if (num_args == 3) then
+    print *, 'Testing ', sub_name, ' case ', test_case, ' with bort catching enabled'
+    if (catch_borts('Y') /= 0) stop 0
+  else
+    print *, 'Testing ', sub_name, ' case ', test_case
+  endif
 
-  ! Run the test for the subroutine and test case.
+  ! Run the test for the routine and test case.  We should only ever reach any of the
+  ! checks for errstr_len and errstr if we're catching borts; otherwise, an actual abort
+  ! should occur inside of the routine.
   if (sub_name == 'adn30') then
      if (test_case == '1') then
         char_30 = adn30(0, 9)
@@ -85,10 +104,14 @@ program test_bort
      if (test_case == '1') then
         filnam = 'testfiles/IN_11'
         call cobfl_c ( filnam, 'r' )
-        call crbmg_c ( bfmg, 200000, msgl, iret )
-        if ( iret /= 0 ) stop 3
+        call crbmg_c ( bfmg, mxmb, msgl4, iret4 )
+        if ( iret4 /= 0 ) stop 0
         call ccbfl_c ()
         call atrcpt ( ibfmg, 5000, ibfmg2 )
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'ATRCPT - OVERFLOW OF OUTPUT MESSAGE ARRAY' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'bort') then
      if (test_case == '1') then
@@ -104,10 +127,10 @@ program test_bort
      endif
   elseif (sub_name == 'chekstab') then
      open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
        open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
-       if (ios /= 0) stop 3
+       if (ios /= 0) stop 0
        card = '| YEAR     | 004001 | YEAR                                                     |'
        write (12,'(A)') card
        card = '| YEAR     |    0 |           0 |  12 | YEAR                     |-------------|'
@@ -120,18 +143,31 @@ program test_bort
   elseif (sub_name == 'closmg') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call closmg(11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'CLOSMG - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '2') then
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call closmg(11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'CLOSMG - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'cmpmsg') then
      if (test_case == '1') then
         call cmpmsg('W')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'CMPMSG - INPUT ARGUMENT IS W, IT MUST BE EITHER Y, y, N OR n' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'cnved4') then
      open(unit = 31, file = '/dev/null')
@@ -140,181 +176,285 @@ program test_bort
         filnam = 'testfiles/IN_1'
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/OUT_3_bufrtab', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(31, 'IN', 12)
         filnam = 'testfiles/OUT_3'
      endif
      call cobfl_c( filnam, 'r' )
-     call crbmg_c(bfmg, 200000, msgl, iret)
+     call crbmg_c(bfmg, mxmb, msgl4, iret4)
      call readerme(ibfmg, 31, char_val_8, jdate, iret)
      call cnved4(ibfmg, 1, ibay)
+     call check_for_bort( errstr, errstr_len )
+     if (test_case == '2' .and. errstr_len > 0 .and. &
+       index( errstr(1:errstr_len), 'CNVED4 - OVERFLOW OF OUTPUT (EDITION 4) MESSAGE ARRAY' ) /= 0 ) stop 88
+     stop 0
   elseif (sub_name == 'codflg') then
      if (test_case == '1') then
         call codflg('W')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'CODFLG - INPUT ARGUMENT IS W, IT MUST BE EITHER Y, y, N OR n' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'copybf') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call copybf(11, 0)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'COPYBF - INPUT BUFR FILE IS OPEN, IT MUST BE CLOSED' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 12)
         call copybf(11, 12)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'COPYBF - OUTPUT BUFR FILE IS OPEN, IT MUST BE CLOSED' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'copymg') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call copymg(11, 0)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'COPYMG - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call copymg(12, 0)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'COPYMG - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call copymg(11, 0)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'COPYMG - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '4') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call readmg(11, char_val_8, jdate, iret)
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 12)
         call copymg(11, 12)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'COPYMG - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '5') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call readmg(11, char_val_8, jdate, iret)
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call copymg(11, 12)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'COPYMG - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'copysb') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call copysb(11, 0, ierr)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'COPYSB - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call copysb(12, 0, ierr)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'COPYSB - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 10)
         call copysb(11, 0, ierr)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'COPYSB - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '4') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 10)
         call readmg(11, char_val_8, jdate, iret)
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call copysb(11, 12, ierr)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'COPYSB - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '5') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 10)
         call readmg(11, char_val_8, jdate, iret)
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 10)
         call copysb(11, 12, ierr)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'COPYSB - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '6') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 10)
         call readmg(11, char_val_8, jdate, iret)
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call copysb(11, 12, ierr)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'COPYSB - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '7') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2_bufrtab', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 12)
         call readmg(11, char_val_8, jdate, iret)
         open(unit = 13, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 14, file = 'testfiles/IN_7_bufrtab', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(13, 'OUT', 14)
         call openmb(13, 'NC008023', 2021022312)
         call copysb(11, 13, ierr)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'COPYSB - INPUT AND OUTPUT BUFR FILES MUST HAVE THE SAME INTERNAL TABLES' ) /= 0 ) &
+          stop 88
+        stop 0
      endif
   elseif (sub_name == 'cpdxmm') then
      if (test_case == '1') then
        open(unit = 11, file = 'testfiles/IN_6_infile1', form = 'UNFORMATTED', iostat = ios)
-       if (ios /= 0) stop 3
+       if (ios /= 0) stop 0
        open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
-       if (ios /= 0) stop 3
-       if (isetprm('MXDXTS',1) /= 0) stop 3
+       if (ios /= 0) stop 0
+       if (isetprm('MXDXTS',1) /= 0) stop 0
        call ufbmem(11, 0, iret, iunit)
        call ufbmem(12, 1, iret, iunit)
        call ufbmns(18364, char_val_8, jdate)
      endif
   elseif (sub_name == 'cpymem') then
      open(unit = 11, file = 'testfiles/IN_6_infile1', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      call ufbmem(11, 0, iret, iunit)
      if (test_case == '1') then
         call cpymem(12)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), &
+          'CPYMEM - A MESSAGE MUST BE OPEN IN INPUT BUFR MESSAGES IN INTERNAL MEMORY, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         call rdmemm(167, char_val_8, jdate, ierr)
         call cpymem(12)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'CPYMEM - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '3') then
         call rdmemm(167, char_val_8, jdate, ierr)
         call openbf(12, 'IN', 11)
         call cpymem(12)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'CPYMEM - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '4') then
         call rdmemm(167, char_val_8, jdate, ierr)
         call openbf(12, 'OUT', 11)
         call openmg(12, 'NC004001', 2024020112)
         call cpymem(12)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), &
+          'CPYMEM - ALL MESSAGES MUST BE CLOSED IN OUTPUT BUFR FILE, A MESSAGE IS OPEN' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'datebf') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call datebf(11, mear, mmon, mday, mour, idate)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'DATEBF - INPUT BUFR FILE IS OPEN, IT MUST BE CLOSED' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'datelen') then
      if (test_case == '1') then
         call datelen(11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'DATELEN - INPUT ARGUMENT IS' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'dumpbf') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call dumpbf(11, jdate1, jdump1)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'DUMPBF - INPUT BUFR FILE IS OPEN, IT MUST BE CLOSED' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'dxdump') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         call dxdump(11, 6)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'DXDUMP - BUFR FILE IS CLOSED, IT MUST BE OPEN' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'elemdx') then
      open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      call openbf(11, 'IN', 11)
      if (test_case == '1') then
         card = '| RCPTIM   |    2 |           0 |  16 | DEGREES KELVIN           |-------------|'
@@ -334,17 +474,30 @@ program test_bort
      endif
   elseif (sub_name == 'getcfmng') then
      open(unit = 11, file = 'testfiles/IN_4', form ='unformatted', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
        call getcfmng(11, 'GCLONG', 254, ' ', -1, char_30, len, iret)
+       call check_for_bort( errstr, errstr_len )
+       if ( errstr_len > 0 .and. &
+         index( errstr(1:errstr_len), 'GETCFMNG - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+       stop 0
      elseif (test_case == '2') then
        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-       if (ios /= 0) stop 3
+       if (ios /= 0) stop 0
        call openbf(12, 'OUT', 11)
        call getcfmng(12, 'GCLONG', 254, ' ', -1, char_30, len, iret)
+       call check_for_bort( errstr, errstr_len )
+       if ( errstr_len > 0 .and. &
+         index( errstr(1:errstr_len), 'GETCFMNG - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+         stop 88
+       stop 0
      elseif (test_case == '3') then
        call openbf(11, 'IN', 11)
        call getcfmng(11, 'GCLONG', 254, ' ', -1, char_30, len, iret)
+       call check_for_bort( errstr, errstr_len )
+       if ( errstr_len > 0 .and. &
+         index( errstr(1:errstr_len), 'GETCFMNG - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+       stop 0
      elseif (test_case == '4') then
        call openbf(11, 'SEC3', 11)
        call readns(11, char_val_8, jdate, iret)
@@ -372,69 +525,69 @@ program test_bort
      endif
   elseif (sub_name == 'getntbe') then
      open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
         card = ' DUMMY |                                                                        '
         write (11,'(A)') card
         close (11)
         open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call getntbe(11, iret, card, jret)
      endif
   elseif (sub_name == 'gettbh') then
      open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
         card = 'Table B STD |  0                                                                '
         write (11,'(A)') card
         close (11)
         open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call gettbh(11, 12, 'B', imt, imtv, iogce, iltv)
      elseif (test_case == '2') then
         card = 'Table B STX |  0 | 38                                                           '
         write (11,'(A)') card
         close (11)
         open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call gettbh(11, 12, 'B', imt, imtv, iogce, iltv)
      elseif (test_case == '3') then
         card = 'Table B STD |  0 | 38                                                           '
         write (11,'(A)') card
         close (11)
         open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         card = 'Table B LOC |  0 | 7                                                            '
         write (12,'(A)') card
         close (12)
         open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call gettbh(11, 12, 'B', imt, imtv, iogce, iltv)
      elseif (test_case == '4') then
         card = 'Table B STD |  0 | 38                                                           '
         write (11,'(A)') card
         close (11)
         open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         card = 'Table B LOX |  0 | 7 |  1                                                       '
         write (12,'(A)') card
         close (12)
         open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call gettbh(11, 12, 'B', imt, imtv, iogce, iltv)
      elseif (test_case == '5') then
         card = 'Table B STD |  0 | 38                                                           '
         write (11,'(A)') card
         close (11)
         open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         card = 'Table B LOC |  1 | 7 |  1                                                       '
         write (12,'(A)') card
         close (12)
         open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call gettbh(11, 12, 'B', imt, imtv, iogce, iltv)
      endif
   elseif (sub_name == 'idn30') then
@@ -450,29 +603,42 @@ program test_bort
   elseif (sub_name == 'ifbget') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call ifbget(11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'IFBGET - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call ifbget(11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'IFBGET - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call ifbget(11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'IFBGET - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'igetntbi') then
      if (test_case == '1') then
-       if (isetprm('MAXTBB',15) /= 0) stop 3
+       if (isetprm('MAXTBB',15) /= 0) stop 0
        open(unit = 11, file = 'testfiles/IN_7', form = 'UNFORMATTED', iostat = ios)
-       if (ios /= 0) stop 3
+       if (ios /= 0) stop 0
        open(unit = 12, file = 'testfiles/IN_7_bufrtab', iostat = ios)
-       if (ios /= 0) stop 3
+       if (ios /= 0) stop 0
        call openbf(11, 'IN', 12)
      endif
   elseif (sub_name == 'igetrfel') then
@@ -480,7 +646,7 @@ program test_bort
      call cobfl_c( filnam, 'r' )
      open(unit = 31, file = '/dev/null')
      call openbf(31, 'SEC3', 31)
-     call crbmg_c(bfmg, 200000, msgl, iret)
+     call crbmg_c(bfmg, mxmb, msgl4, iret4)
      if (test_case == '1') then
         ! Change the last 2-37-000 operator in Section 3 to 2-35-000, so that the bitmap can't be located
         ! for any of the subsequent marker operators.
@@ -503,6 +669,10 @@ program test_bort
   elseif (sub_name == 'igetsc') then
      if (test_case == '1') then
        iret = igetsc(11)
+       call check_for_bort( errstr, errstr_len )
+       if ( errstr_len > 0 .and. &
+         index( errstr(1:errstr_len), 'IGETSC - BUFR FILE IS CLOSED, IT MUST BE OPEN' ) /= 0 ) stop 88
+       stop 0
      endif
   elseif (sub_name == 'igettdi') then
      if (test_case == '1') then
@@ -514,13 +684,17 @@ program test_bort
   elseif (sub_name == 'inctab') then
      if (test_case == '1') then
        open(unit = 11, file = 'testfiles/OUT_1', iostat = ios)
-       if (ios /= 0) stop 3
-       if (isetprm('MAXJL',10) /= 0) stop 3
+       if (ios /= 0) stop 0
+       if (isetprm('MAXJL',10) /= 0) stop 0
        call openbf(11, 'IN', 11)
      endif
   elseif (sub_name == 'ipkm') then
      if (test_case == '1') then
        call ipkm(char_val_8, 6, 29)
+       call check_for_bort( errstr, errstr_len )
+       if ( errstr_len > 0 .and. &
+         index( errstr(1:errstr_len), 'IPKM - NUMBER OF BYTES BEING PACKED , NBYT' ) /= 0 ) stop 88
+       stop 0
      endif
   elseif (sub_name == 'isize') then
      if (test_case == '1') then
@@ -531,23 +705,40 @@ program test_bort
   elseif (sub_name == 'iupm') then
      if (test_case == '1') then
         iret = iupm(char_8, 100)
+        !call check_for_bort( errstr, errstr_len )
+        !if ( errstr_len > 0 .and. &
+        !  index( errstr(1:errstr_len), 'IUPM - NUMBER OF BITS BEING UNPACKED, NBITS' ) /= 0 ) stop 88
+        !stop 0
      endif
   elseif (sub_name == 'iupvs01') then
      if (test_case == '1') then
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         iret = iupvs01(11, 'LENM')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'IUPVS01 - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 10)
         iret = iupvs01(11, 'LENM')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'IUPVS01 - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 10)
         iret = iupvs01(11, 'LENM')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'IUPVS01 - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'jstnum') then
      if (test_case == '1') then
@@ -556,20 +747,24 @@ program test_bort
      endif
   elseif (sub_name == 'lcmgdf') then
      open(unit = 11, file = 'testfiles/IN_4', form ='unformatted', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
        iret = lcmgdf(11, 'NC021206')
+       call check_for_bort( errstr, errstr_len )
+       if ( errstr_len > 0 .and. &
+         index( errstr(1:errstr_len), 'LCMGDF - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN' ) /= 0 ) stop 88
+       stop 0
      endif
   elseif (sub_name == 'lstjpb') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call readmg(11, char_val_8, jdate, iret)
         call lstjpb(-1, 1, 'DRP')
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call readmg(11, char_val_8, jdate, iret)
         call lstjpb(10000, 1, 'DRP')
@@ -578,20 +773,37 @@ program test_bort
      if (test_case == '1') then
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUX', 11)
      endif
      call minimg(11, 16)
+     if (test_case == '1') then
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'MINIMG - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
+        stop 0
+     elseif (test_case == '2') then
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'MINIMG - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) &
+          stop 88
+        stop 0
+     elseif (test_case == '3') then
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'MINIMG - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
+     endif
   elseif (sub_name == 'msgwrt') then
      filnam = 'testfiles/IN_2'
      call cobfl_c( filnam, 'r' )
      open(unit = 31, file = '/dev/null')
      call openbf(31, 'INUL', 31)
-     call crbmg_c(bfmg, 200000, msgl, iret)
+     call crbmg_c(bfmg, mxmb, msgl4, iret4)
      if (test_case == '1') then
         ibit = 64
         call pkb(25, 24, ibfmg, ibit)
@@ -617,15 +829,15 @@ program test_bort
   elseif (sub_name == 'nemtba') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call nemtba(11, 'SPOCK', mtyp, msbt, inod)
      endif
   elseif (sub_name == 'nemtbax') then
      open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
        char_val_8 = 'NC337200'
      elseif (test_case == '2') then
@@ -646,10 +858,10 @@ program test_bort
      call openmg(11, char_val_8, 2024020112)
   elseif (sub_name == 'nemtbb') then
      open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
        open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
-       if (ios /= 0) stop 3
+       if (ios /= 0) stop 0
        card = '| NC007200 | A54124 | MTYPE 007-200                                            |'
        write (12,'(A)') card
        card = '| YEAR     | 004001 | YEAR                                                     |'
@@ -664,7 +876,7 @@ program test_bort
        call nemtbb(1,-1,unit,iscl,iref,ibit)
      elseif (test_case == '2') then
        open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
-       if (ios /= 0) stop 3
+       if (ios /= 0) stop 0
        card = '| NC007200 | A54124 | MTYPE 007-200                                            |'
        write (12,'(A)') card
        card = '| STMID    | 001025 | STORM IDENTIFIER                                         |'
@@ -678,7 +890,7 @@ program test_bort
        call openbf(11, 'OUT', 12)
      elseif (test_case == '3') then
        open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
-       if (ios /= 0) stop 3
+       if (ios /= 0) stop 0
        card = '| NC007200 | A54124 | MTYPE 007-200                                            |'
        write (12,'(A)') card
        card = '| YEAR     | 004001 | YEAR                                                     |'
@@ -693,10 +905,10 @@ program test_bort
      endif
   elseif (sub_name == 'nemtbd') then
      open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
        open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
-       if (ios /= 0) stop 3
+       if (ios /= 0) stop 0
        card = '| NC007200 | A54124 | MTYPE 007-200                                            |'
        write (12,'(A)') card
        card = '| YEAR     | 004001 | YEAR                                                     |'
@@ -712,7 +924,7 @@ program test_bort
      endif
   elseif (sub_name == 'nenubd') then
      open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      call openbf(11, 'IN', 11)
      if (test_case == '1') then
         call nenubd('BPID    ','001008',1)
@@ -726,25 +938,38 @@ program test_bort
   elseif (sub_name == 'nmsub') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         iret = nmsub(11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'NMSUB - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_7_bufrtab', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         iret = nmsub(11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'NMSUB - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         iret = nmsub(11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'NMSUB - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'nvnwin') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call readns(11, char_val_8, jdate, iret)
         call nvnwin(1717, 1, 25, 175, jdate1, 5)
@@ -752,23 +977,35 @@ program test_bort
   elseif (sub_name == 'openbf') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'BBB', 11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'OPENBF - ILLEGAL SECOND (INPUT) ARGUMENT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call openbf(11, 'IN', 11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'OPENBF - THE FILE CONNECTED TO UNIT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '3') then
         do u = 1, 33
            open(unit = u+10, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-           if (ios /= 0) stop 3
+           if (ios /= 0) stop 0
            call openbf(u+10, 'IN', 11)
         end do
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'OPENBF - THERE ARE ALREADY 32 BUFR FILES OPENED' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'openmg') then
      open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
         call openbf(11, 'IN', 11)
         call openmg(11, 'F5FCMESG', 2021022312)
@@ -777,7 +1014,7 @@ program test_bort
      endif
   elseif (sub_name == 'openmb') then
      open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
         call openbf(11, 'IN', 11)
         call openmb(11, 'F5FCMESG', 2021022312)
@@ -807,17 +1044,17 @@ program test_bort
      else
         open(unit = 11, file = 'testfiles/data/prepbufr', form = 'UNFORMATTED', iostat = ios)
      endif
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '7') then
         open(unit = 12, file = 'testfiles/OUT_7_bufrtab', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call openmg(11, 'NC002104', 2024020112)
         call ufbint(11, real_2d, 1, 2, iret, 'RASCN>20')
      else
         call openbf(11, 'IN', 11)
         call readns(11, char_val_8, jdate, iret)
-        if (iret /= 0) stop 3
+        if (iret /= 0) stop 0
      endif
      if (test_case == '1') then
         call parusr(char_85, 1, 1, 1)
@@ -839,9 +1076,9 @@ program test_bort
      endif
   elseif (sub_name == 'parutg') then
      open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      open(unit = 10, file = 'testfiles/OUT_7_bufrtab', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      call openbf(12, 'OUT', 10)
      call openmg(12, 'NC002104', 2024020112)
      if (test_case == '1') then
@@ -864,13 +1101,13 @@ program test_bort
   elseif (sub_name == 'pkbs1') then
      filnam = 'testfiles/IN_2'
      call cobfl_c( filnam, 'r' )
-     call crbmg_c(bfmg, 200000, msgl, iret)
+     call crbmg_c(bfmg, mxmb, msgl4, iret4)
      if (test_case == '1') then
         call pkbs1(88, ibfmg, 'DUMMY')
      endif
   elseif (sub_name == 'pkvs01') then
      if (test_case == '1') then
-        if (isetprm('MXS01V',1) /= 0) stop 3
+        if (isetprm('MXS01V',1) /= 0) stop 0
         call openbf(11, 'IN', 11)
         call pkvs01('OGCE', 88)
         call pkvs01('OGCE', 84) ! test the overwrite logic too
@@ -879,18 +1116,18 @@ program test_bort
   elseif (sub_name == 'posapx') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call posapx(11)
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call posapx(12)
      endif
   elseif (sub_name == 'rdmgsb') then
      open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
         call rdmgsb(11, 3, 1)
      elseif (test_case == '2') then
@@ -898,9 +1135,9 @@ program test_bort
      endif
   elseif (sub_name == 'rdmtbb') then
      open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
         card = 'Table B STD |  0 | 38                                                           '
         write (11,'(A)') card
@@ -908,22 +1145,22 @@ program test_bort
         write (11,'(A)') card
         close (11)
         open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         card = 'Table B LOC |  0 | 7 |  1                                                       '
         write (12,'(A)') card
         card = ' 001001 |  0 |     2 |  12 | Code table   | QCWS  ; ; Wind speed quality mark   '
         write (12,'(A)') card
         close (12)
         open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call rdmtbb(11, 12, 1, imt, imtv, iogce, iltv, iret, &
                     int_1d, char_4, char_12, char_4, char_24, char_8, char_4, char_120)
      endif
   elseif (sub_name == 'rdmtbd') then
      open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
         card = 'Table D STD |  0 | 38                                                           '
         write (11,'(A)') card
@@ -931,22 +1168,22 @@ program test_bort
         write (11,'(A)') card
         close (11)
         open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         card = 'Table D LOC |  0 | 7 |  1                                                       '
         write (12,'(A)') card
         card = '   3-01-058 | LOWRESSEQ   ;     ; Low-resolution data sequence                  '
         write (12,'(A)') card
         close (12)
         open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call rdmtbd(11, 12, 1, 5, imt, imtv, iogce, iltv, iret, &
                     int_1d, char_8, char_4, char_120, int_1d_2, int_2d, char_120_2)
      endif
   elseif (sub_name == 'rdmtbf') then
      open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
         card = 'Table F STD |  0 | 35                                                           '
         write (11,'(A)') card
@@ -954,20 +1191,20 @@ program test_bort
         write (11,'(A)') card
         close (11)
         open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         card = 'Table F LOC |  0 | 7 |  1                                                       '
         write (12,'(A)') card
         card = '   002002 | NCDY3 ; CODE                                                        '
         write (12,'(A)') card
         close (12)
         open(unit = 12, file = 'testfiles/test_bort_master_loc', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call rdmtbf(11, 12)
      endif
   elseif (sub_name == 'rdusdx') then
      open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
      open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
         card = '| MY-MNEM  |        |                                                          |'
         write (12,'(A)') card
@@ -1014,16 +1251,16 @@ program test_bort
   elseif (sub_name == 'readerme') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 12)
         call readerme(int_1d, 12, char_val_8, jdate, iret)
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call readerme(int_1d, 11, char_val_8, jdate, iret)
      elseif (test_case == '3') then
@@ -1031,28 +1268,28 @@ program test_bort
         call cobfl_c( filnam, 'r' )
         open(unit = 31, file = '/dev/null')
         call openbf(31, 'INUL', 31)
-        call crbmg_c(bfmg, 200000, msgl, iret)
+        call crbmg_c(bfmg, mxmb, msgl4, iret4)
         bfmg(1) = 'C'
         call readerme(ibfmg, 31, char_val_8, jdate, iret)
      endif
   elseif (sub_name == 'readlc') then
      if (test_case == '7') then
         open(unit = 11, file = 'testfiles/OUT_1', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call readns(11, char_val_8, jdate, iret)
         call readlc(11, char_1, 'ACRN')
      endif
      open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      open(unit = 12, file = 'testfiles/IN_2_bufrtab', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
         call openbf(11, 'IN', 11)
         call readlc(12, char_val_8, char_val_8)
      elseif (test_case == '2') then
         open(unit = 13, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(13, 'OUT', 12)
         call readlc(13, char_val_8, char_val_8)
      elseif (test_case == '3') then
@@ -1074,22 +1311,22 @@ program test_bort
   elseif (sub_name == 'readmg') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 12)
         call readmg(12, char_val_8, jdate, iret)
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call readmg(11, char_val_8, jdate, iret)
      endif
   elseif (sub_name == 'rdmems') then
      open(unit = 11, file = 'testfiles/IN_6_infile1', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      call ufbmem(11, 0, iret, iunit)
      if (test_case == '1') then
         call rdmems(11, jret)
@@ -1097,46 +1334,46 @@ program test_bort
   elseif (sub_name == 'readns') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 12)
         call readns(12, char_val_8, jdate, iret)
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call readns(11, char_val_8, jdate, iret)
      endif
   elseif (sub_name == 'readsb') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call readsb(11, iret)
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call readsb(11, iret)
      endif
   elseif (sub_name == 'reads3') then
      if (test_case == '1') then
-        if (isetprm('MXCNEM',1) /= 0) stop 3
+        if (isetprm('MXCNEM',1) /= 0) stop 0
         open(unit = 31, file = '/dev/null')
         call openbf(31, 'SEC3', 31)
         call mtinfo('../tables', 80, 81)
         filnam = 'testfiles/IN_1'
         call cobfl_c( filnam, 'r' )
-        call crbmg_c(bfmg, 200000, msgl, iret)
+        call crbmg_c(bfmg, mxmb, msgl4, iret4)
         call readerme(ibfmg, 31, char_val_8, jdate, iret)
         filnam = 'testfiles/IN_4'
         call cobfl_c( filnam, 'r' )
-        call crbmg_c(bfmg, 200000, msgl, iret)
+        call crbmg_c(bfmg, mxmb, msgl4, iret4)
         ! Make it look like the message uses version 14 of the WMO master tables.
         ibit = 168
         call pkb(14, 8, ibfmg, ibit)
@@ -1144,9 +1381,9 @@ program test_bort
      endif
   elseif (sub_name == 'rewnbf') then
      open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      open(unit = 12, file = 'testfiles/IN_2_bufrtab', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
         call openbf(11, 'IN', 12)
         call readns(11, char_val_8, jdate, iret)
@@ -1173,32 +1410,32 @@ program test_bort
   elseif (sub_name == 'rtrcpt') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call rtrcpt(11, iyr, imo, idy, ihr, imi, iret)
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call rtrcpt(11, iyr, imo, idy, ihr, imi, iret)
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call rtrcpt(11, iyr, imo, idy, ihr, imi, iret)
      endif
   elseif (sub_name == 'seqsdx') then
      open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if ((test_case == '14') .or. (test_case == '15')) then
-        if (isetprm('MAXCD',22) /= 0) stop 3
+        if (isetprm('MAXCD',22) /= 0) stop 0
         open(unit = 12, file = 'testfiles/OUT_6_bufrtab', iostat = ios)
      else
         open(unit = 12, file = 'testfiles/OUT_2_bufrtab', iostat = ios)
      endif
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      call openbf(11, 'OUT', 12)
      if (test_case == '1') then
         card = '| DUMMYD   |                                                                   |'
@@ -1257,9 +1494,9 @@ program test_bort
      call cobfl_c( filnam, 'r' )
      open(unit = 31, file = '/dev/null')
      if (test_case == '1') then
-        if (isetprm('MXNAF',1) /= 0) stop 3
+        if (isetprm('MXNAF',1) /= 0) stop 0
         call openbf(31, 'SEC3', 31)
-        call crbmg_c(bfmg, 200000, msgl, iret)
+        call crbmg_c(bfmg, mxmb, msgl4, iret4)
         ! Make Section 3 of the message look like it contains two consecutive occurrences of descriptor 3-03-021.
         ibit = 296
         call pkb(195, 8, ibfmg, ibit)
@@ -1268,7 +1505,7 @@ program test_bort
         call pkb(21, 8, ibfmg, ibit)
      elseif (test_case == '2') then
         call openbf(31, 'SEC3', 31)
-        call crbmg_c(bfmg, 200000, msgl, iret)
+        call crbmg_c(bfmg, mxmb, msgl4, iret4)
         ! Make Section 3 of the message look like it contains one occurrence of descriptor 3-03-021 followed
         ! by two occurrences of descriptor 2-04-000.
         ibit = 296
@@ -1281,7 +1518,7 @@ program test_bort
         call pkb(0, 8, ibfmg, ibit)
      elseif (test_case == '3') then
         call openbf(31, 'SEC3', 31)
-        call crbmg_c(bfmg, 200000, msgl, iret)
+        call crbmg_c(bfmg, mxmb, msgl4, iret4)
         ! Make Section 3 of the message look like it contains an occurrence of replication descriptor 1-03-000
         ! without a following delayed descriptor replication factor.
         ibit = 296
@@ -1316,22 +1553,22 @@ program test_bort
         open(unit = 12, file = '/dev/null')
      elseif (test_case == '4') then
         open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         char_85 = '             0-05-001                                                                '
         write (12,'(A)') char_85
         close (12)
         open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
      elseif (test_case == '5') then
         open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         char_85 = '           | 0-05-001 >                                                              '
         write (12,'(A)') char_85
         char_85 = '           | 0-06-300                                                                '
         write (12,'(A)') char_85
         close (12)
         open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
      endif
      jret = 0
      call openbf(12, 'FIRST', 12)
@@ -1341,52 +1578,52 @@ program test_bort
         open(unit = 12, file = '/dev/null')
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         card = '            0-01-031,0-01-033,0-01-035=176                                      '
         write (12,'(A)') card
         close (12)
         open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         card = '          | 0-01-031,0-01-033,0-01-035 176                                      '
         write (12,'(A)') card
         close (12)
         open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
      elseif (test_case == '4') then
         open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         card = '          |                           =176                                      '
         write (12,'(A)') card
         close (12)
         open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
      elseif (test_case == '5') then
         open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         card = '          | 0-01-331,0-01-033,0-01-035=176                                      '
         write (12,'(A)') card
         close (12)
         open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
      elseif (test_case == '6') then
         open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         card = '          | 0-01-031,0-01-033,0-01-035=                                         '
         write (12,'(A)') card
         close (12)
         open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
      elseif (test_case == '7') then
         open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         card = '          | 0-01-031,0-01-033,0-01-035=17T                                      '
         write (12,'(A)') card
         close (12)
         open(unit = 12, file = 'testfiles/test_bort_master', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
      endif
      call openbf(12, 'FIRST', 12)
      call sntbfe(12, 288)
@@ -1397,43 +1634,43 @@ program test_bort
   elseif (sub_name == 'stndrd') then
      filnam = 'testfiles/IN_11'
      call cobfl_c ( filnam, 'r' )
-     call crbmg_c ( bfmg, 200000, msgl, iret )
-     if ( iret /= 0 ) stop 3
+     call crbmg_c ( bfmg, mxmb, msgl4, iret4 )
+     if ( iret4 /= 0 ) stop 0
      call ccbfl_c ()
      open ( unit = 21, file = filnam, form = 'unformatted', iostat = ios )
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      open ( unit = 22, file = 'testfiles/IN_11_bufrtab', iostat = ios )
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      call openbf ( 21, 'IN', 22 )
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call stndrd(12, int_1d, 1, int_1d_2)
      elseif (test_case == '2') then
         bfmg(7) = '3'
-        call stndrd ( 21, ibfmg, 50000, ibfmg2 )
+        call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
      elseif (test_case == '3') then
         bfmg(188210) = '8'
-        call stndrd ( 21, ibfmg, 50000, ibfmg2 )
+        call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
      elseif (test_case == '4') then
         bfmg(46) = '8'
-        call stndrd ( 21, ibfmg, 50000, ibfmg2 )
+        call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
      elseif (test_case == '5') then
         bfmg(17468) = 'z'
         bfmg(17469) = 'z'
         bfmg(17470) = 'z'
-        call stndrd ( 21, ibfmg, 50000, ibfmg2 )
+        call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
      elseif (test_case == '6') then
         call stndrd ( 21, ibfmg, 5000, ibfmg2 )
      endif
   elseif (sub_name == 'stntbia') then
      open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '1') then
        card = '| NC007200 | A54124 | MTYPE 007-200                                            |'
        write (12,'(A)') card
@@ -1447,11 +1684,11 @@ program test_bort
      endif
      close (12)
      open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      call openbf(11, 'OUT', 12)
   elseif (sub_name == 'strtbfe') then
      if (test_case == '1') then
-       if (isetprm('MXMTBF',100) /= 0) stop 3
+       if (isetprm('MXMTBF',100) /= 0) stop 0
        open(unit = 11, file = 'testfiles/IN_4', iostat = ios)
        call openbf(11, 'SEC3', 11)
        call mtinfo('../tables', 80, 81)
@@ -1460,7 +1697,7 @@ program test_bort
      endif
   elseif (sub_name == 'strbtm') then
      if (test_case == '1') then
-       if (isetprm('MXBTMSE',8) /= 0) stop 3
+       if (isetprm('MXBTMSE',8) /= 0) stop 0
        open(unit = 11, file = 'testfiles/IN_4', iostat = ios)
        call openbf(11, 'SEC3', 11)
        call mtinfo('../tables', 80, 81)
@@ -1472,7 +1709,7 @@ program test_bort
      endif
   elseif (sub_name == 'string') then
      open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      call openbf(11, 'IN', 11)
      if (test_case == '1') then
        call string('012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789', 1, 1, 0)
@@ -1483,25 +1720,25 @@ program test_bort
      endif
   elseif (sub_name == 'tabent') then
      if (test_case == '1') then
-       if (isetprm('MXNRV',1) /= 0) stop 3
+       if (isetprm('MXNRV',1) /= 0) stop 0
        open(unit = 11, file = 'testfiles/IN_7', form = 'UNFORMATTED', iostat = ios)
-       if (ios /= 0) stop 3
+       if (ios /= 0) stop 0
        open(unit = 12, file = 'testfiles/IN_7_bufrtab', iostat = ios)
-       if (ios /= 0) stop 3
+       if (ios /= 0) stop 0
        call openbf(11, 'IN', 12)
        open(unit = 13, file = 'testfiles/OUT_1', form = 'UNFORMATTED', iostat = ios)
-       if (ios /= 0) stop 3
+       if (ios /= 0) stop 0
        call openbf(13, 'IN', 13)
      endif
   elseif (sub_name == 'tabsub') then
      if (test_case == '11') then
-       if (isetprm('MXTCO',3) /= 0) stop 3
+       if (isetprm('MXTCO',3) /= 0) stop 0
        open(unit = 11, file = 'testfiles/IN_4', iostat = ios)
        call openbf(11, 'SEC3', 11)
        call mtinfo('../tables', 80, 81)
        call readns(11, char_val_8, jdate, iret)
      elseif (test_case == '12') then
-       if (isetprm('MXTAMC',1) /= 0) stop 3
+       if (isetprm('MXTAMC',1) /= 0) stop 0
        open(unit = 11, file = 'testfiles/IN_4', iostat = ios)
        call openbf(11, 'SEC3', 11)
        call mtinfo('../tables', 80, 81)
@@ -1510,7 +1747,7 @@ program test_bort
        call openbf(13, 'IN', 13)
      else
        open(unit = 12, file = 'testfiles/test_bort_DX', iostat = ios)
-       if (ios /= 0) stop 3
+       if (ios /= 0) stop 0
        card = '| NC007200 | A54124 | MTYPE 007-200                                            |'
        write (12,'(A)') card
        if (test_case == '1') then
@@ -1600,74 +1837,74 @@ program test_bort
      if (test_case == '1') then
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbcnt(11, 1, 1)
      endif
   elseif (sub_name == 'ufbcpy') then
      if (test_case == '1') then
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbcpy(11, 0)
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call ufbcpy(12, 0)
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 10)
         call ufbcpy(12, 0)
      elseif (test_case == '4') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call readns(11, char_val_8, jdate, iret)
         call ufbcpy(11, 12)
      elseif (test_case == '5') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2_bufrtab', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 12)
         call readns(11, char_val_8, jdate, iret)
         open(unit = 13, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbcpy(11, 13)
      elseif (test_case == '6') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2_bufrtab', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 12)
         call readns(11, char_val_8, jdate, iret)
         open(unit = 13, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(13, 'IN', 12)
         call ufbcpy(11, 13)
      elseif (test_case == '7') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2_bufrtab', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 12)
         call readns(11, char_val_8, jdate, iret)
         open(unit = 13, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(13, 'OUT', 12)
         call ufbcpy(11, 13)
      elseif (test_case == '8') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2_bufrtab', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 12)
         call readns(11, char_val_8, jdate, iret)
         open(unit = 13, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 14, file = 'testfiles/IN_7_bufrtab', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(13, 'OUT', 14)
         call openmb(13, 'NC008023', 2021022312)
         call ufbcpy(11, 13)
@@ -1676,16 +1913,16 @@ program test_bort
      if (test_case == '1') then
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbcup(11, 0)
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call ufbcup(12, 0)
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 10)
         call ufbcup(12, 0)
      elseif (test_case == '4') then
@@ -1723,16 +1960,16 @@ program test_bort
      if (test_case == '1') then
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbdmp(11, 0)
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call ufbdmp(12, 0)
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 10)
         call ufbdmp(12, 0)
      endif
@@ -1740,16 +1977,16 @@ program test_bort
      if (test_case == '1') then
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbevn(11, real_2d, 1, 2, 3, iret, 'c')
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call ufbevn(12, real_2d, 1, 2, 3, iret, 'c')
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 10)
         call ufbevn(12, real_2d, 1, 2, 3, iret, 'c')
      endif
@@ -1757,16 +1994,16 @@ program test_bort
      if (test_case == '1') then
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbget(11, real_1d, 1, iret, 's')
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call ufbget(12, real_1d, 1, iret, 's')
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 10)
         call ufbget(12, real_1d, 1, iret, 's')
      endif
@@ -1774,100 +2011,100 @@ program test_bort
      if (test_case == '1') then
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbint(11, real_2d, 1, 2, iret, 'c')
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 10)
         call ufbint(12, real_2d, 1, 2, iret, 'c')
      endif
   elseif (sub_name == 'ufbinx') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call ufbinx(11, 999, 999, 1, 1, iret, 'c')
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call ufbinx(11, 1, 999, 1, 1, iret, 'c')
      endif
   elseif (sub_name == 'ufbmms') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbmem(11, 0, iret, iunit)
-        if (iret /= 5 .or. iunit /= 11) stop 200
+        if (iret /= 5 .or. iunit /= 11) stop 0
         call ufbmms(1, 999, char_val_8, jdate)
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbmem(11, 0, iret, iunit)
-        if (iret /= 5 .or. iunit /= 11) stop 200
+        if (iret /= 5 .or. iunit /= 11) stop 0
         call ufbmms(0, 999, char_val_8, jdate)
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbmem(11, 0, iret, iunit)
-        if (iret /= 5 .or. iunit /= 11) stop 200
+        if (iret /= 5 .or. iunit /= 11) stop 0
         call ufbmms(999, 999, char_val_8, jdate)
      endif
   elseif (sub_name == 'ufbmns') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbmem(11, 0, iret, iunit)
-        if (iret /= 5 .or. iunit /= 11) stop 200
+        if (iret /= 5 .or. iunit /= 11) stop 0
         call ufbmns(9999, char_val_8, jdate)
      endif
   elseif (sub_name == 'ufbovr') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call ufbovr(11, real_2d, 1, 1, iret, 'c')
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 10)
         call ufbovr(11, real_2d, 1, 1, iret, 'c')
      elseif (test_case == '3') then
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbovr(11, real_2d, 1, 1, iret, 'c')
      endif
   elseif (sub_name == 'ufbpos') then
      if (test_case == '1') then
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbpos(11, 1, 1, char_val_8, jdate)
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 10)
         call ufbpos(11, 1, 1, char_val_8, jdate)
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 10)
         call ufbpos(11, 0, 1, char_val_8, jdate)
      elseif (test_case == '4') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 10)
         call ufbpos(11, 999, 1, char_val_8, jdate)
      elseif (test_case == '5') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 10)
         call ufbpos(11, 1, 9999, char_val_8, jdate)
      elseif (test_case == '6') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 10)
         call ufbpos(11, 1, 0, char_val_8, jdate)
      endif
@@ -1875,16 +2112,16 @@ program test_bort
      if (test_case == '1') then
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbqcd(11, 'c', iqcd)
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 10)
         call ufbqcd(11, 'c', iqcd)
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_5', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call readns(11, char_val_8, jdate, iret)
         call ufbqcd(11, 'ADPUPA', iqcd)
@@ -1893,25 +2130,25 @@ program test_bort
      if (test_case == '1') then
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbqcp(11, 0, 'c')
      endif
   elseif (sub_name == 'ufbrep') then
      if (test_case == '1') then
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbrep(11, real_2d, 1, 2, iret, 'c')
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 10)
         call ufbrep(12, real_2d, 1, 2, iret, 'c')
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 11, file = 'testfiles/IN_7_bufrtab', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'OUT', 11)
         call openmb(12, 'NC008023', 2021022312)
         call ufbrep(12, real_2d, 1, 2, iret, 'TOST')
@@ -1919,46 +2156,46 @@ program test_bort
   elseif (sub_name == 'ufbrms') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbmem(11, 0, iret, iunit)
-        if (iret /= 5 .or. iunit /= 11) stop 200
+        if (iret /= 5 .or. iunit /= 11) stop 0
         call ufbrms(999, 1, real_2d, 1, 1, iret, 'c')
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbmem(11, 0, iret, iunit)
-        if (iret /= 5 .or. iunit /= 11) stop 200
+        if (iret /= 5 .or. iunit /= 11) stop 0
         call ufbrms(1, 9999, real_2d, 1, 1, iret, 'c')
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbmem(11, 0, iret, iunit)
-        if (iret /= 5 .or. iunit /= 11) stop 200
+        if (iret /= 5 .or. iunit /= 11) stop 0
         call ufbrms(0, 9999, real_2d, 1, 1, iret, 'c')
      endif
   elseif (sub_name == 'ufbstp') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call ufbstp(11, real_2d, 1, 1, iret, 'LALALA')
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call ufbstp(11, real_2d, 1, 1, iret, 'LALALA')
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call ufbstp(11, real_2d, 1, 1, iret, 'LALAL1')
      elseif (test_case == '4') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 11, file = 'testfiles/IN_7_bufrtab', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'OUT', 11)
         call openmb(12, 'NC008023', 2021022312)
         call ufbstp(12, real_2d, 1, 2, iret, 'TOST')
@@ -1967,58 +2204,58 @@ program test_bort
      if (test_case == '1') then
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call ufbseq(11, real_2d, 1, 1, iret, 'c')
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 10)
         call ufbseq(12, real_2d, 1, 1, iret, 'c')
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 12)
         call readns(12, char_val_8, jdate, iret)
-        if (iret /= 0) stop 3
+        if (iret /= 0) stop 0
         call ufbseq(12, real_2d, 1, 1, iret, ' ')
      elseif (test_case == '4') then
         open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 12)
         call readns(12, char_val_8, jdate, iret)
-        if (iret /= 0) stop 3
+        if (iret /= 0) stop 0
         call ufbseq(12, real_2d, 1, 1, iret, 'YEAR MNTH')
      elseif (test_case == '5') then
         open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 12)
         call readns(12, char_val_8, jdate, iret)
-        if (iret /= 0) stop 3
+        if (iret /= 0) stop 0
         call ufbseq(12, real_2d, 1, 1, iret, 'YEAR')
      elseif (test_case == '6') then
         open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 12)
         call readns(12, char_val_8, jdate, iret)
-        if (iret /= 0) stop 3
+        if (iret /= 0) stop 0
         call ufbseq(12, real_2d, 1, 1, iret, 'UARID')
      endif
   elseif (sub_name == 'ufdump') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call ufdump(11, 11)
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call ufdump(11, 12)
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call ufdump(11, 12)
      endif
@@ -2029,15 +2266,15 @@ program test_bort
   elseif (sub_name == 'upds3') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_1', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
-        if (isetprm('MAXNC',6) /= 0) stop 3
+        if (ios /= 0) stop 0
+        if (isetprm('MAXNC',6) /= 0) stop 0
         call openbf(11, 'SEC3', 11)
         call mtinfo('../tables', 80, 81)
         call readmg(11, char_val_8, jdate, iret)
      endif
   elseif (sub_name == 'upftbv') then
      open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      real_1d(1) = 1.0
      if (test_case == '1') then
         call openbf(11, 'IN', 11)
@@ -2058,13 +2295,13 @@ program test_bort
   elseif (sub_name == 'uptdd') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/OUT_5_infile', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call uptdd(65, 1, 20, iret)
      endif
   elseif (sub_name == 'usrtpl') then
      open(unit = 11, file = 'testfiles/OUT_5_infile', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      call openbf(11, 'IN', 11)
      call readns(11, char_val_8, jdate, iret)
      if (test_case == '1') then
@@ -2081,21 +2318,21 @@ program test_bort
         else
           char_val_8 = 'MAXSS   '
         endif
-        if (isetprm(char_val_8,10) /= 0) stop 3
+        if (isetprm(char_val_8,10) /= 0) stop 0
         call openmg(12, 'NC001103', 2021022312)
      endif
   elseif (sub_name == 'wrcmps') then
      open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      open(unit = 12, file = 'testfiles/IN_2_bufrtab', iostat = ios)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      if (test_case == '2') then
-       if (isetprm('MXCDV',20) /= 0) stop 3
+       if (isetprm('MXCDV',20) /= 0) stop 0
      endif
      call openbf(11, 'IN', 12)
      open(unit = 13, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
      call openbf(13, 'OUT', 12)
-     if (ios /= 0) stop 3
+     if (ios /= 0) stop 0
      call readns(11, char_val_8, jdate, iret)
      call openmb(13, char_val_8, jdate)
      call ufbcpy(11, 13)
@@ -2115,10 +2352,10 @@ program test_bort
   elseif (sub_name == 'wrdesc') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_3', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
-        if (isetprm('MAXNC',20) /= 0) stop 3
+        if (ios /= 0) stop 0
+        if (isetprm('MAXNC',20) /= 0) stop 0
         call openbf(11, 'IN', 11)
         call openbf(12, 'OUT', 11)
         call readmg(11, char_val_8, jdate, iret)
@@ -2128,19 +2365,19 @@ program test_bort
   elseif (sub_name == 'wrdxtb') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call wrdxtb(11, 11)
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call wrdxtb(11, 12)
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call wrdxtb(11, 12)
      endif
@@ -2151,21 +2388,21 @@ program test_bort
   elseif (sub_name == 'writlc') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call writlc(11, char_val_8, char_val_8)
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 12)
         call writlc(11, char_val_8, char_val_8)
      else
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2_bufrtab', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         if (test_case == '2') then
           call writlc(11, char_val_8, char_val_8)
@@ -2185,38 +2422,38 @@ program test_bort
   elseif (sub_name == 'writsa') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call writsa(11, lmsgt, msgt, msgl)
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call writsa(11, lmsgt, msgt, msgl)
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 12)
         call writsa(11, lmsgt, msgt, msgl)
      endif
   elseif (sub_name == 'writsb') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call writsb(11)
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call writsb(11)
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 12)
         call writsb(11)
      endif
@@ -2231,7 +2468,7 @@ program test_bort
         call wtstat(1, 1, 0, -1)
      elseif (test_case == '5') then
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
-        if (ios /= 0) stop 3
+        if (ios /= 0) stop 0
         call openbf(12, 'IN', 12)
         call wtstat(2, 1, 0, 1)
      endif
