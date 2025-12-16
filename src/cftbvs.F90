@@ -93,7 +93,7 @@ recursive subroutine upftbv(lunit,nemo,val,mxib,ibit,nib)
     call x84(lunit,my_lunit,1)
     call x84(mxib,my_mxib,1)
     call upftbv(my_lunit,nemo,val,my_mxib*2,ibit,nib)
-    call x48(ibit(1),ibit(1),nib)
+    if (nib>0 .and. nib<=my_mxib*2) call x48(ibit(1),ibit(1),nib)
     call x48(nib,nib,1)
     im8b=.true.
     return
@@ -107,6 +107,8 @@ recursive subroutine upftbv(lunit,nemo,val,mxib,ibit,nib)
     call bort_target_unset
     return
   endif
+
+  nib = 0
 
   ! Perform some sanity checks.
 
@@ -125,7 +127,6 @@ recursive subroutine upftbv(lunit,nemo,val,mxib,ibit,nib)
 
   ! Figure out which bits are set.
 
-  nib = 0
   r8val = val
   call strnum(tabb(n,lun)(110:112),nbits,iersn)
   do i=(nbits-1),0,-1

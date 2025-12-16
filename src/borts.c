@@ -420,7 +420,10 @@ void
 catch_bort_readlc(int lunit, char *cstr, int cstr_len, char *chr, int chr_len, int *nchr)
 {
     /* Set the target location to which to return if a bort error is caught. */
-    if ( setjmp(context) == 1 ) return;
+    if ( setjmp(context) == 1 ) {
+        *nchr = 1;
+        return;
+    }
 
     /* Add a trailing null to cstr, for use with get_c_string_length inside of readlc_f. */
     cstr[cstr_len] = '\0';
@@ -515,7 +518,10 @@ void
 catch_bort_ufbqcp(int lunit, int iqcp, char *cnemo, int cnemo_len, int *ncn)
 {
     /* Set the target location to which to return if a bort error is caught. */
-    if (setjmp(context) == 1) return;
+    if ( setjmp(context) == 1 ) {
+        *ncn = 1;
+        return;
+    }
 
     /* Recursively call the subroutine. */
     ufbqcp_f(lunit, iqcp, cnemo, cnemo_len);
@@ -545,7 +551,10 @@ catch_bort_getcfmng(int lunit, char *cnemoi, int lcni, int ivali, char *cnemod, 
                     char *cmeang_c, int lcmgc, int *lnmng, int *iret)
 {
     /* Set the target location to which to return if a bort error is caught. */
-    if (setjmp(context) == 1) return;
+    if ( setjmp(context) == 1 ) {
+        *lnmng = 1;
+        return;
+    }
 
     /* Add trailing nulls to input strings, for use with get_c_string_length inside of getcfmng_f. */
     cnemoi[lcni] = '\0';
@@ -1478,7 +1487,10 @@ catch_bort_gettagpr(int lunit, char *tagch, int tagch_len, int ntagch,
                     char *tagpr, int tagpr_len, int *ntpchr, int *iret)
 {
     /* Set the target location to which to return if a bort error is caught. */
-    if ( setjmp(context) == 1 ) return;
+    if ( setjmp(context) == 1 ) {
+        *ntpchr = 1;
+        return;
+    }
 
     /* Add a trailing null to tagch, for use with get_c_string_length inside of gettagpr_f. */
     tagch[tagch_len] = '\0';
@@ -1509,7 +1521,10 @@ catch_bort_gettagre(int lunit, char *tagi, int tagi_len, int ntagi,
                     char *tagre, int tagre_len, int *ntagre, int *ntrchr, int *iret)
 {
     /* Set the target location to which to return if a bort error is caught. */
-    if ( setjmp(context) == 1 ) return;
+    if ( setjmp(context) == 1 ) {
+        *ntrchr = 1;
+        return;
+    }
 
     /* Add a trailing null to tagi, for use with get_c_string_length inside of gettagre_f. */
     tagi[tagi_len] = '\0';

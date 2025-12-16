@@ -46,6 +46,7 @@ program test_bort
   integer lmsgt, msgt(100), msgl
   integer nseq, irps(20), knts(20)
   integer imt, imtv, iogce, iltv
+  integer lun, il, im, kmsg, ksub
   integer*8 nval
   character*400 errstr
   integer errstr_len
@@ -1009,8 +1010,17 @@ program test_bort
      if (test_case == '1') then
         call openbf(11, 'IN', 11)
         call openmg(11, 'F5FCMESG', 2021022312)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'OPENMG - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '2') then
         call openmg(11, 'F5FCMESG', 2021022312)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'OPENMG - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'openmb') then
      open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
@@ -1018,8 +1028,17 @@ program test_bort
      if (test_case == '1') then
         call openbf(11, 'IN', 11)
         call openmb(11, 'F5FCMESG', 2021022312)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'OPENMB - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '2') then
         call openmb(11, 'F5FCMESG', 2021022312)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'OPENMB - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'pad') then
      if (test_case == '1') then
@@ -1104,6 +1123,10 @@ program test_bort
      call crbmg_c(bfmg, mxmb, msgl4, iret4)
      if (test_case == '1') then
         call pkbs1(88, ibfmg, 'DUMMY')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PKBS1 - CANNOT OVERWRITE LOCATION CORRESPONDING TO MNEMONIC (DUMMY)' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'pkvs01') then
      if (test_case == '1') then
@@ -1112,6 +1135,10 @@ program test_bort
         call pkvs01('OGCE', 88)
         call pkvs01('OGCE', 84) ! test the overwrite logic too
         call pkvs01('USN', 2)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PKVS01 - CANNOT OVERWRITE MORE THAN  1 DIFFERENT LOCATION' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'posapx') then
      if (test_case == '1') then
@@ -1130,8 +1157,16 @@ program test_bort
      if (ios /= 0) stop 0
      if (test_case == '1') then
         call rdmgsb(11, 3, 1)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'RDMGSB - HIT END OF FILE BEFORE READING REQUESTED MESSAGE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         call rdmgsb(11, 1, 3)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'RDMGSB - ALL SUBSETS READ BEFORE READING REQ. SUBSET' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'rdmtbb') then
      open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
@@ -1256,6 +1291,10 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 12)
         call readerme(int_1d, 12, char_val_8, jdate, iret)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'READERME - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -1263,6 +1302,11 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call readerme(int_1d, 11, char_val_8, jdate, iret)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'READERME - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '3') then
         filnam = 'testfiles/data/debufr_3'
         call cobfl_c( filnam, 'r' )
@@ -1271,6 +1315,10 @@ program test_bort
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
         bfmg(1) = 'C'
         call readerme(ibfmg, 31, char_val_8, jdate, iret)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'BUFRLIB: READERME - FIRST 4 BYTES READ FROM RECORD NOT "BUFR"' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'readlc') then
      if (test_case == '7') then
@@ -1287,22 +1335,44 @@ program test_bort
      if (test_case == '1') then
         call openbf(11, 'IN', 11)
         call readlc(12, char_val_8, char_val_8)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'READLC - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 13, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(13, 'OUT', 12)
         call readlc(13, char_val_8, char_val_8)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'READLC - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '3') then
         call openbf(11, 'IN', 11)
         call readlc(11, char_val_8, char_val_8)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'READLC - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '4') then
         call openbf(11, 'IN', 12)
         call readns(11, char_val_8, jdate, iret)
         call readlc(11, char_val_8, 'YEAR MNTH')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'READLC - THERE CANNOT BE MORE THAN ONE MNEMONIC IN THE INPUT STRING' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '5') then
         call openbf(11, 'IN', 12)
         call readns(11, char_val_8, jdate, iret)
         call readlc(11, char_val_8, 'YEAR')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'READLC - MNEMONIC YEAR           DOES NOT REPRESENT A CHARACTER ELEMENT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '6') then
         call openbf(11, 'IN', 12)
         call readns(11, char_val_8, jdate, iret)
@@ -1316,6 +1386,10 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 12)
         call readmg(12, char_val_8, jdate, iret)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'READMG - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -1323,6 +1397,11 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call readmg(11, char_val_8, jdate, iret)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'READMG - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      endif
   elseif (sub_name == 'rdmems') then
      open(unit = 11, file = 'testfiles/IN_6_infile1', form = 'UNFORMATTED', iostat = ios)
@@ -1330,6 +1409,10 @@ program test_bort
      call ufbmem(11, 0, iret, iunit)
      if (test_case == '1') then
         call rdmems(11, jret)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'RDMEMS - A MEMORY MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'readns') then
      if (test_case == '1') then
@@ -1339,6 +1422,10 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 12)
         call readns(12, char_val_8, jdate, iret)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'READNS - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -1346,6 +1433,11 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call readns(11, char_val_8, jdate, iret)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'READNS - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      endif
   elseif (sub_name == 'readsb') then
      if (test_case == '1') then
@@ -1355,11 +1447,20 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call readsb(11, iret)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'READSB - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call readsb(11, iret)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'READSB - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'reads3') then
      if (test_case == '1') then
@@ -1413,6 +1514,10 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call rtrcpt(11, iyr, imo, idy, ihr, imi, iret)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'RTRCPT - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE; NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -1420,11 +1525,20 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call rtrcpt(11, iyr, imo, idy, ihr, imi, iret)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'RTRCPT - INPUT BUFR FILE IS OPEN FOR OUTPUT; IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call rtrcpt(11, iyr, imo, idy, ihr, imi, iret)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'RTRCPT - INPUT BUFR FILE IS CLOSED; IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'seqsdx') then
      open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
@@ -1485,9 +1599,17 @@ program test_bort
      endif
   elseif (sub_name == 'status') then
      if (test_case == '1') then
-        call status(0, 0, 0, 0)
+        call status(0, lun, il, im)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'STATUS - INPUT UNIT NUMBER (  0) OUTSIDE LEGAL RANGE OF 1-99' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
-        call status(100, 0, 0, 0)
+        call status(100, lun, il, im)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'STATUS - INPUT UNIT NUMBER (100) OUTSIDE LEGAL RANGE OF 1-99' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'stseq') then
      filnam = 'testfiles/IN_1'
@@ -1630,6 +1752,10 @@ program test_bort
   elseif (sub_name == 'stdmsg') then
      if (test_case == '1') then
         call stdmsg('W')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'STDMSG - INPUT ARGUMENT IS W, IT MUST BE EITHER Y, y, N OR n' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'stndrd') then
      filnam = 'testfiles/IN_11'
@@ -1649,22 +1775,46 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call stndrd(12, int_1d, 1, int_1d_2)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'STNDRD - BUFR FILE IS CLOSED, IT MUST BE OPEN' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         bfmg(7) = '3'
         call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'STNDRD - INPUT MESSAGE LENGTH FROM SECTION 01' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '3') then
         bfmg(188210) = '8'
         call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'STNDRD - INPUT MESSAGE DOES NOT END WITH "7777"' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '4') then
         bfmg(46) = '8'
         call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'STNDRD - TABLE A SUBSET DESCRIPTOR NOT FOUND' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '5') then
         bfmg(17468) = 'z'
         bfmg(17469) = 'z'
         bfmg(17470) = 'z'
         call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'STNDRD - BIT MISMATCH COPYING SECTION 4 FROM INPUT TO OUTPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '6') then
         call stndrd ( 21, ibfmg, 5000, ibfmg2 )
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'STNDRD - OVERFLOW OF OUTPUT (STANDARD) MESSAGE ARRAY' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'stntbia') then
      open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
@@ -1838,7 +1988,12 @@ program test_bort
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
-        call ufbcnt(11, 1, 1)
+        call ufbcnt(11, kmsg, ksub)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBCNT - BUFR FILE IS CLOSED, IT MUST BE OPEN FOR EITHER INPUT OR OUTPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbcpy') then
      if (test_case == '1') then
@@ -1846,22 +2001,40 @@ program test_bort
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call ufbcpy(11, 0)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBCPY - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call ufbcpy(12, 0)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBCPY - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'IN', 10)
         call ufbcpy(12, 0)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBCPY - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '4') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call readns(11, char_val_8, jdate, iret)
         call ufbcpy(11, 12)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBCPY - LOCATION OF INTERNAL TABLE FOR INPUT BUFR FILE DOES NOT AGREE' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '5') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -1872,6 +2045,10 @@ program test_bort
         open(unit = 13, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call ufbcpy(11, 13)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBCPY - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '6') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -1883,6 +2060,11 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(13, 'IN', 12)
         call ufbcpy(11, 13)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBCPY - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '7') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -1894,6 +2076,10 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(13, 'OUT', 12)
         call ufbcpy(11, 13)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBCPY - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '8') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -1908,6 +2094,11 @@ program test_bort
         call openbf(13, 'OUT', 14)
         call openmb(13, 'NC008023', 2021022312)
         call ufbcpy(11, 13)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBCPY - INPUT AND OUTPUT BUFR FILES MUST HAVE THE SAME INTERNAL TABLES' ) /= 0 ) &
+          stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbcup') then
      if (test_case == '1') then
@@ -1915,16 +2106,29 @@ program test_bort
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call ufbcup(11, 0)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBCUP - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call ufbcup(12, 0)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBCUP - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'IN', 10)
         call ufbcup(12, 0)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBCUP - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '4') then
         open(unit = 11, file = 'testfiles/IN_9', form ='unformatted')
         call openbf(11, 'IN', 11)
@@ -1932,6 +2136,11 @@ program test_bort
         call openbf(12, 'IN', 11)
         call readmg(11, char_val_8, jdate, iret)
         call ufbcup(11, 12)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBCUP - LOCATION OF INTERNAL TABLE FOR INPUT BUFR FILE DOES NOT AGREE' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '5') then
         open(unit = 11, file = 'testfiles/IN_9', form ='unformatted')
         call openbf(11, 'IN', 11)
@@ -1939,6 +2148,10 @@ program test_bort
         call readmg(11, char_val_8, jdate, iret)
         call readsb(11, iret)
         call ufbcup(11, 12)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBCUP - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '6') then
         open(unit = 11, file = 'testfiles/IN_9', form ='unformatted')
         call openbf(11, 'IN', 11)
@@ -1947,6 +2160,11 @@ program test_bort
         call readmg(11, char_val_8, jdate, iret)
         call readsb(11, iret)
         call ufbcup(11, 12)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBCUP - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '7') then
         open(unit = 11, file = 'testfiles/IN_9', form ='unformatted')
         call openbf(11, 'IN', 11)
@@ -1955,6 +2173,10 @@ program test_bort
         call readmg(11, char_val_8, jdate, iret)
         call readsb(11, iret)
         call ufbcup(11, 12)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBCUP - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbdmp') then
      if (test_case == '1') then
@@ -1962,16 +2184,29 @@ program test_bort
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call ufbdmp(11, 0)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBDMP - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call ufbdmp(12, 0)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBDMP - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'IN', 10)
         call ufbdmp(12, 0)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBDMP - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbevn') then
      if (test_case == '1') then
@@ -1979,16 +2214,29 @@ program test_bort
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call ufbevn(11, real_2d, 1, 2, 3, iret, 'c')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBEVN - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call ufbevn(12, real_2d, 1, 2, 3, iret, 'c')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBEVN - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'IN', 10)
         call ufbevn(12, real_2d, 1, 2, 3, iret, 'c')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBEVN - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbget') then
      if (test_case == '1') then
@@ -1996,16 +2244,29 @@ program test_bort
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call ufbget(11, real_1d, 1, iret, 's')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBGET - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call ufbget(12, real_1d, 1, iret, 's')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBGET - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'IN', 10)
         call ufbget(12, real_1d, 1, iret, 's')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBGET - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbint') then
      if (test_case == '1') then
@@ -2013,23 +2274,39 @@ program test_bort
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call ufbint(11, real_2d, 1, 2, iret, 'c')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBINT - BUFR FILE IS CLOSED, IT MUST BE OPEN' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'IN', 10)
         call ufbint(12, real_2d, 1, 2, iret, 'c')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBINT - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbinx') then
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
-        call ufbinx(11, 999, 999, 1, 1, iret, 'c')
+        call ufbinx(11, 999, 999, real_2d, 1, 2, iret, 'c')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBINX - HIT END OF FILE BEFORE READING REQUESTED MESSAGE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
-        call ufbinx(11, 1, 999, 1, 1, iret, 'c')
+        call ufbinx(11, 1, 999, real_2d, 1, 2, iret, 'c')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBINX - ALL SUBSETS READ BEFORE READING REQ. SUBSET' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbmms') then
      if (test_case == '1') then
@@ -2038,18 +2315,31 @@ program test_bort
         call ufbmem(11, 0, iret, iunit)
         if (iret /= 5 .or. iunit /= 11) stop 0
         call ufbmms(1, 999, char_val_8, jdate)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBMMS - REQ. SUBSET NUMBER TO READ IN (999) EXCEEDS THE NUMBER OF SUBSETS' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call ufbmem(11, 0, iret, iunit)
         if (iret /= 5 .or. iunit /= 11) stop 0
         call ufbmms(0, 999, char_val_8, jdate)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBMMS - REQUESTED MEMORY MESSAGE NUMBER TO READ IN IS ZERO' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call ufbmem(11, 0, iret, iunit)
         if (iret /= 5 .or. iunit /= 11) stop 0
         call ufbmms(999, 999, char_val_8, jdate)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBMMS - REQUESTED MEMORY MESSAGE NUMBER TO READ IN (  999) EXCEEDS' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbmns') then
      if (test_case == '1') then
@@ -2058,6 +2348,11 @@ program test_bort
         call ufbmem(11, 0, iret, iunit)
         if (iret /= 5 .or. iunit /= 11) stop 0
         call ufbmns(9999, char_val_8, jdate)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBMNS - REQ. SUBSET NO. TO READ IN ( 9999) EXCEEDS TOTAL NO. OF SUBSETS' ) /= 0 ) &
+          stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbovr') then
      if (test_case == '1') then
@@ -2065,16 +2360,29 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call ufbovr(11, real_2d, 1, 1, iret, 'c')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBOVR - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(11, 'OUT', 10)
         call ufbovr(11, real_2d, 1, 1, iret, 'c')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBOVR - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '3') then
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call ufbovr(11, real_2d, 1, 1, iret, 'c')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBOVR - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbpos') then
      if (test_case == '1') then
@@ -2082,31 +2390,56 @@ program test_bort
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call ufbpos(11, 1, 1, char_val_8, jdate)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBPOS - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(11, 'OUT', 10)
         call ufbpos(11, 1, 1, char_val_8, jdate)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBPOS - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 10)
         call ufbpos(11, 0, 1, char_val_8, jdate)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBPOS - REQUESTED MESSAGE NUMBER TO READ IN (    0) IS NOT VALID' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '4') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 10)
         call ufbpos(11, 999, 1, char_val_8, jdate)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBPOS - REQUESTED MESSAGE NUMBER TO READ IN (  999) EXCEEDS' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '5') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 10)
         call ufbpos(11, 1, 9999, char_val_8, jdate)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBPOS - REQ. SUBSET NUMBER TO READ IN ( 9999) EXCEEDS' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '6') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 10)
         call ufbpos(11, 1, 0, char_val_8, jdate)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBPOS - REQUESTED SUBSET NUMBER TO READ IN (    0) IS NOT VALID' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbqcd') then
      if (test_case == '1') then
@@ -2114,24 +2447,40 @@ program test_bort
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call ufbqcd(11, 'c', iqcd)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBQCD - BUFR FILE IS CLOSED, IT MUST BE OPEN' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 10)
         call ufbqcd(11, 'c', iqcd)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBQCD - INPUT MNEMONIC c NOT DEFINED AS A SEQUENCE DESCRIPTOR' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_5', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call readns(11, char_val_8, jdate, iret)
         call ufbqcd(11, 'ADPUPA', iqcd)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBQCD - BUFR TABLE SEQ. DESCRIPTOR ASSOC. WITH INPUT MNEMONIC' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbqcp') then
      if (test_case == '1') then
         call openbf(12, 'FIRST', 11)
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
-        call ufbqcp(11, 0, 'c')
+        call ufbqcp(11, 0, char_val_8)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBQCP - BUFR FILE IS CLOSED, IT MUST BE OPEN' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbrep') then
      if (test_case == '1') then
@@ -2139,11 +2488,19 @@ program test_bort
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call ufbrep(11, real_2d, 1, 2, iret, 'c')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBREP - BUFR FILE IS CLOSED, IT MUST BE OPEN' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'IN', 10)
         call ufbrep(12, real_2d, 1, 2, iret, 'c')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBREP - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -2152,6 +2509,10 @@ program test_bort
         call openbf(12, 'OUT', 11)
         call openmb(12, 'NC008023', 2021022312)
         call ufbrep(12, real_2d, 1, 2, iret, 'TOST')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBREP - MNEMONIC STRING READ IN IS: TOST' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbrms') then
      if (test_case == '1') then
@@ -2160,18 +2521,30 @@ program test_bort
         call ufbmem(11, 0, iret, iunit)
         if (iret /= 5 .or. iunit /= 11) stop 0
         call ufbrms(999, 1, real_2d, 1, 1, iret, 'c')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBRMS - REQUESTED MEMORY MESSAGE NUMBER TO READ IN (  999) EXCEEDS' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call ufbmem(11, 0, iret, iunit)
         if (iret /= 5 .or. iunit /= 11) stop 0
         call ufbrms(1, 9999, real_2d, 1, 1, iret, 'c')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBRMS - REQ. SUBSET NUMBER TO READ IN (***) EXCEEDS' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call ufbmem(11, 0, iret, iunit)
         if (iret /= 5 .or. iunit /= 11) stop 0
         call ufbrms(0, 9999, real_2d, 1, 1, iret, 'c')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBRMS - REQUESTED MEMORY MESSAGE NUMBER TO READ IN IS ZERO' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbstp') then
      if (test_case == '1') then
@@ -2179,6 +2552,10 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call ufbstp(11, real_2d, 1, 1, iret, 'LALALA')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBSTP - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -2186,11 +2563,19 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call ufbstp(11, real_2d, 1, 1, iret, 'LALALA')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBSTP - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call ufbstp(11, real_2d, 1, 1, iret, 'LALAL1')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBSTP - BUFR FILE IS CLOSED, IT MUST BE OPEN' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '4') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -2199,6 +2584,10 @@ program test_bort
         call openbf(12, 'OUT', 11)
         call openmb(12, 'NC008023', 2021022312)
         call ufbstp(12, real_2d, 1, 2, iret, 'TOST')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBSTP - MNEMONIC STRING READ IN IS: TOST' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbseq') then
      if (test_case == '1') then
@@ -2206,11 +2595,19 @@ program test_bort
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call ufbseq(11, real_2d, 1, 1, iret, 'c')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBSEQ - BUFR FILE IS CLOSED, IT MUST BE OPEN' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'IN', 10)
         call ufbseq(12, real_2d, 1, 1, iret, 'c')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBSEQ - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -2218,6 +2615,10 @@ program test_bort
         call readns(12, char_val_8, jdate, iret)
         if (iret /= 0) stop 0
         call ufbseq(12, real_2d, 1, 1, iret, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBSEQ - THE INPUT STRING ( ) DOES NOT CONTAIN ANY MNEMONICS' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '4') then
         open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -2225,6 +2626,10 @@ program test_bort
         call readns(12, char_val_8, jdate, iret)
         if (iret /= 0) stop 0
         call ufbseq(12, real_2d, 1, 1, iret, 'YEAR MNTH')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBSEQ - THERE CANNOT BE MORE THAN ONE MNEMONIC IN THE INPUT STRING' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '5') then
         open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -2232,6 +2637,10 @@ program test_bort
         call readns(12, char_val_8, jdate, iret)
         if (iret /= 0) stop 0
         call ufbseq(12, real_2d, 1, 1, iret, 'YEAR')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBSEQ - INPUT MNEMONIC YEAR       MUST BE A SEQUENCE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '6') then
         open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -2239,6 +2648,10 @@ program test_bort
         call readns(12, char_val_8, jdate, iret)
         if (iret /= 0) stop 0
         call ufbseq(12, real_2d, 1, 1, iret, 'UARID')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBSEQ - INPUT SEQ. MNEM. UARID      CONSISTS OF   5 TABLE B MNEM' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufdump') then
      if (test_case == '1') then
@@ -2246,6 +2659,10 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call ufdump(11, 11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFDUMP - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -2253,11 +2670,20 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call ufdump(11, 12)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFDUMP - INPUT BUFR FILE IS OPEN FOR OUTPUT, IT MUST BE OPEN FOR INPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call ufdump(11, 12)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFDUMP - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'upb8') then
      if (test_case == '1') then
@@ -2271,6 +2697,10 @@ program test_bort
         call openbf(11, 'SEC3', 11)
         call mtinfo('../tables', 80, 81)
         call readmg(11, char_val_8, jdate, iret)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UPDS3 - OVERFLOW OF OUTPUT DESCRIPTOR ARRAY' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'upftbv') then
      open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
@@ -2279,18 +2709,34 @@ program test_bort
      if (test_case == '1') then
         call openbf(11, 'IN', 11)
         call upftbv(11, 'n', real_1d(1), 20, irps, ierr)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UPFTBV - MNEMONIC n NOT FOUND IN TABLE B' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '2') then
         call openbf(12, 'FIRST', 11)
         call upftbv(11, 'n', real_1d(1), 20, irps, ierr)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UPFTBV - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR INPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/IN_2_bufrtab')
         call openbf(11, 'IN', 12)
         call upftbv(11, 'SSNX', real_1d(1), 20, irps, ierr)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UPFTBV - MNEMONIC SSNX IS NOT A FLAG TABLE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '4') then
         open(unit = 12, file = 'testfiles/IN_2_bufrtab')
         call openbf(11, 'IN', 12)
-        real_1d(1) = 4194306.0
+        real_1d(1) = 4194314.0
         call upftbv(11, 'SIDP', real_1d(1), 1, int_1d, ierr)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UPFTBV - IBIT ARRAY OVERFLOW' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'uptdd') then
      if (test_case == '1') then
@@ -2368,6 +2814,11 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call wrdxtb(11, 11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'WRDXTB - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -2375,11 +2826,19 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call wrdxtb(11, 12)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'WRDXTB - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'OUT', 10)
         call wrdxtb(11, 12)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'WRDXTB - DX TABLE FILE IS CLOSED, IT MUST BE OPEN' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'writdx') then
      if (test_case == '1') then
@@ -2391,6 +2850,11 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call writlc(11, char_val_8, char_val_8)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'WRITLC - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -2398,6 +2862,10 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(12, 'IN', 12)
         call writlc(11, char_val_8, char_val_8)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'WRITLC - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
+        stop 0
      else
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -2406,17 +2874,36 @@ program test_bort
         call openbf(11, 'OUT', 12)
         if (test_case == '2') then
           call writlc(11, char_val_8, char_val_8)
+          call check_for_bort( errstr, errstr_len )
+          if ( errstr_len > 0 .and. &
+            index( errstr(1:errstr_len), 'WRITLC - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+          stop 0
         elseif (test_case == '4') then
           call openmb(11, 'NC005065', 20240512)
           call writlc(11, char_val_8, 'BORG BBB')
+          call check_for_bort( errstr, errstr_len )
+          if ( errstr_len > 0 .and. &
+            index( errstr(1:errstr_len), 'WRITLC - THERE CANNOT BE MORE THAN  ONE MNEMONIC IN THE INPUT STRING' ) /= 0 ) &
+            stop 88
+          stop 0
         elseif (test_case == '5') then
           call openmb(11, 'NC005065', 20240512)
           call writsb(11)
           call writlc(11, char_val_8, 'SAID')
+          call check_for_bort( errstr, errstr_len )
+          if ( errstr_len > 0 .and. &
+            index( errstr(1:errstr_len), 'WRITLC - MNEMONIC SAID       DOES NOT REPRESENT A CHARACTER ELEMENT' ) /= 0 ) &
+            stop 88
+          stop 0
         elseif (test_case == '6') then
           call openmb(11, 'NC005065', 20240512)
           call writcp(11)
           call writlc(11, char_val_8, 'SAID')
+          call check_for_bort( errstr, errstr_len )
+          if ( errstr_len > 0 .and. &
+            index( errstr(1:errstr_len), 'WRITLC - MNEMONIC SAID       DOES NOT REPRESENT A CHARACTER ELEMENT' ) /= 0 ) &
+            stop 88
+          stop 0
         endif
      endif
   elseif (sub_name == 'writsa') then
@@ -2425,11 +2912,20 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call writsa(11, lmsgt, msgt, msgl)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'WRITSA - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call writsa(11, lmsgt, msgt, msgl)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'WRITSA - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -2437,6 +2933,10 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(12, 'IN', 12)
         call writsa(11, lmsgt, msgt, msgl)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'WRITSA - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'writsb') then
      if (test_case == '1') then
@@ -2444,11 +2944,20 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call writsb(11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'WRITSB - OUTPUT BUFR FILE IS OPEN FOR INPUT, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) &
+          stop 88
+        stop 0
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(11, 'OUT', 12)
         call writsb(11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'WRITSB - A MESSAGE MUST BE OPEN IN OUTPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
+        stop 0
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
@@ -2456,6 +2965,10 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(12, 'IN', 12)
         call writsb(11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'WRITSB - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'wtstat') then
      if (test_case == '1') then

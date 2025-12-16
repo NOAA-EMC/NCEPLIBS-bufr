@@ -1137,7 +1137,7 @@ recursive subroutine gettagpr ( lunit, tagch, ntagch, tagpr, iret )
 
   integer, intent(in) :: lunit, ntagch
   integer, intent(out) :: iret
-  integer my_lunit, my_ntagch, lun, il, im, nch, lch, ntpchr, bort_target_set
+  integer my_lunit, my_ntagch, lun, il, im, nch, lch, ntpchr, ltp, bort_target_set
 
   character*(*), intent(in) :: tagch
   character*(*), intent(out) :: tagpr
@@ -1162,7 +1162,8 @@ recursive subroutine gettagpr ( lunit, tagch, ntagch, tagpr, iret )
   if ( bort_target_set() == 1 ) then
     call strsuc( tagch, ctagch, lch )
     call catch_bort_gettagpr_c( lunit, ctagch, lch, ntagch, ctagpr, len(ctagpr), ntpchr, iret )
-    tagpr(1:ntpchr) = ctagpr(1:ntpchr)
+    ltp = min( len(tagpr), ntpchr )
+    tagpr(1:ltp) = ctagpr(1:ltp)
     call bort_target_unset
     return
   endif

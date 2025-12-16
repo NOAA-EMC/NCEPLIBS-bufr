@@ -707,6 +707,206 @@ for kind in "4" "8"; do
     (./test_bort_$kind openbf 2 catch) && exit 1
     (./test_bort_$kind openbf 3 catch) && exit 1
 
+    # Check openmg().
+    (./test_bort_$kind openmg 1 catch) && exit 1
+    (./test_bort_$kind openmg 2 catch) && exit 1
+
+    # Check openmb().
+    (./test_bort_$kind openmb 1 catch) && exit 1
+    (./test_bort_$kind openmb 2 catch) && exit 1
+
+    # Check pkbs1().
+    (./test_bort_$kind pkbs1 1 catch) && exit 1
+
+    # Check pkvs01().
+    (./test_bort_$kind pkvs01 1 catch) && exit 1
+
+    # Check rdmgsb().
+    (./test_bort_$kind rdmgsb 1 catch) && exit 1
+    (./test_bort_$kind rdmgsb 2 catch) && exit 1
+
+    # Check readerme().
+    (./test_bort_$kind readerme 1 catch) && exit 1
+    (./test_bort_$kind readerme 2 catch) && exit 1
+    (./test_bort_$kind readerme 3 catch) && exit 1
+
+    # Check readlc().
+    (./test_bort_$kind readlc 1 catch) && exit 1
+    (./test_bort_$kind readlc 2 catch) && exit 1
+    (./test_bort_$kind readlc 3 catch) && exit 1
+    (./test_bort_$kind readlc 4 catch) && exit 1
+    (./test_bort_$kind readlc 5 catch) && exit 1
+
+    # Check readmg().
+    (./test_bort_$kind readmg 1 catch) && exit 1
+    (./test_bort_$kind readmg 2 catch) && exit 1
+
+    # Check rdmems().
+    (./test_bort_$kind rdmems 1 catch) && exit 1
+
+    # Check readns().
+    (./test_bort_$kind readns 1 catch) && exit 1
+    (./test_bort_$kind readns 2 catch) && exit 1
+
+    # Check readsb().
+    (./test_bort_$kind readsb 1 catch) && exit 1
+    (./test_bort_$kind readsb 2 catch) && exit 1
+
+    # Check rtrcpt().
+    (./test_bort_$kind rtrcpt 1 catch) && exit 1
+    (./test_bort_$kind rtrcpt 2 catch) && exit 1
+    (./test_bort_$kind rtrcpt 3 catch) && exit 1
+
+    # Check status().
+    (./test_bort_$kind status 1 catch) && exit 1
+    (./test_bort_$kind status 2 catch) && exit 1
+
+    # Check stdmsg().
+    (./test_bort_$kind stdmsg 1 catch) && exit 1
+
+    # Check stndrd().
+    (./test_bort_$kind stndrd 1 catch) && exit 1
+    (./test_bort_$kind stndrd 2 catch) && exit 1
+    (./test_bort_$kind stndrd 3 catch) && exit 1
+    (./test_bort_$kind stndrd 4 catch) && exit 1
+    (./test_bort_$kind stndrd 5 catch) && exit 1
+    (./test_bort_$kind stndrd 6 catch) && exit 1
+
+    # Check ufbcnt().
+    (./test_bort_$kind ufbcnt 1 catch) && exit 1
+
+    # Check ufbcpy().
+    (./test_bort_$kind ufbcpy 1 catch) && exit 1
+    (./test_bort_$kind ufbcpy 2 catch) && exit 1
+    (./test_bort_$kind ufbcpy 3 catch) && exit 1
+    (./test_bort_$kind ufbcpy 4 catch) && exit 1
+    (./test_bort_$kind ufbcpy 5 catch) && exit 1
+    (./test_bort_$kind ufbcpy 6 catch) && exit 1
+    (./test_bort_$kind ufbcpy 7 catch) && exit 1
+    (./test_bort_$kind ufbcpy 8 catch) && exit 1
+
+    # Check ufbcup().
+    (./test_bort_$kind ufbcup 1 catch) && exit 1
+    (./test_bort_$kind ufbcup 2 catch) && exit 1
+    (./test_bort_$kind ufbcup 3 catch) && exit 1
+    (./test_bort_$kind ufbcup 4 catch) && exit 1
+    (./test_bort_$kind ufbcup 5 catch) && exit 1
+    (./test_bort_$kind ufbcup 6 catch) && exit 1
+    (./test_bort_$kind ufbcup 7 catch) && exit 1
+
+    # Check ufbdmp().
+    (./test_bort_$kind ufbdmp 1 catch) && exit 1
+    (./test_bort_$kind ufbdmp 2 catch) && exit 1
+    (./test_bort_$kind ufbdmp 3 catch) && exit 1
+
+    # Check ufbevn().
+    (./test_bort_$kind ufbevn 1 catch) && exit 1
+    (./test_bort_$kind ufbevn 2 catch) && exit 1
+    (./test_bort_$kind ufbevn 3 catch) && exit 1
+
+    # Check ufbget().
+    (./test_bort_$kind ufbget 1 catch) && exit 1
+    (./test_bort_$kind ufbget 2 catch) && exit 1
+    (./test_bort_$kind ufbget 3 catch) && exit 1
+
+    # Check ufbint().
+    (./test_bort_$kind ufbint 1 catch) && exit 1
+    (./test_bort_$kind ufbint 2 catch) && exit 1
+
+    # Check ufbinx().
+    (./test_bort_$kind ufbinx 1 catch) && exit 1
+    (./test_bort_$kind ufbinx 2 catch) && exit 1
+
+    # Check ufbmms().
+    (./test_bort_$kind ufbmms 1 catch) && exit 1
+    (./test_bort_$kind ufbmms 2 catch) && exit 1
+    (./test_bort_$kind ufbmms 3 catch) && exit 1
+
+    # Check ufbmns().
+    (./test_bort_$kind ufbmns 1 catch) && exit 1
+
+    # Check ufbovr().
+    (./test_bort_$kind ufbovr 1 catch) && exit 1
+    (./test_bort_$kind ufbovr 2 catch) && exit 1
+    (./test_bort_$kind ufbovr 3 catch) && exit 1
+
+    # Check ufbpos().
+    (./test_bort_$kind ufbpos 1 catch) && exit 1
+    (./test_bort_$kind ufbpos 2 catch) && exit 1
+    (./test_bort_$kind ufbpos 3 catch) && exit 1
+    (./test_bort_$kind ufbpos 4 catch) && exit 1
+    (./test_bort_$kind ufbpos 5 catch) && exit 1
+    (./test_bort_$kind ufbpos 6 catch) && exit 1
+
+    # Check ufbqcd().
+    (./test_bort_$kind ufbqcd 1 catch) && exit 1
+    (./test_bort_$kind ufbqcd 2 catch) && exit 1
+    (./test_bort_$kind ufbqcd 3 catch) && exit 1
+
+    # Check ufbqcp().
+    (./test_bort_$kind ufbqcp 1 catch) && exit 1
+
+    # Check ufbrep().
+    (./test_bort_$kind ufbrep 1 catch) && exit 1
+    (./test_bort_$kind ufbrep 2 catch) && exit 1
+    (./test_bort_$kind ufbrep 3 catch) && exit 1
+
+    # Check ufbrms().
+    (./test_bort_$kind ufbrms 1 catch) && exit 1
+    (./test_bort_$kind ufbrms 2 catch) && exit 1
+    (./test_bort_$kind ufbrms 3 catch) && exit 1
+
+    # Check ufbstp().
+    (./test_bort_$kind ufbstp 1 catch) && exit 1
+    (./test_bort_$kind ufbstp 2 catch) && exit 1
+    (./test_bort_$kind ufbstp 3 catch) && exit 1
+    (./test_bort_$kind ufbstp 4 catch) && exit 1
+
+    # Check ufbseq().
+    (./test_bort_$kind ufbseq 1 catch) && exit 1
+    (./test_bort_$kind ufbseq 2 catch) && exit 1
+    (./test_bort_$kind ufbseq 3 catch) && exit 1
+    (./test_bort_$kind ufbseq 4 catch) && exit 1
+    (./test_bort_$kind ufbseq 5 catch) && exit 1
+    (./test_bort_$kind ufbseq 6 catch) && exit 1
+
+    # Check ufdump().
+    (./test_bort_$kind ufdump 1 catch) && exit 1
+    (./test_bort_$kind ufdump 2 catch) && exit 1
+    (./test_bort_$kind ufdump 3 catch) && exit 1
+
+    # Check upds3().
+    (./test_bort_$kind upds3 1 catch) && exit 1
+
+    # Check upftbv().
+    (./test_bort_$kind upftbv 1 catch) && exit 1
+    (./test_bort_$kind upftbv 2 catch) && exit 1
+    (./test_bort_$kind upftbv 3 catch) && exit 1
+    (./test_bort_$kind upftbv 4 catch) && exit 1
+
+    # Check wrdxtb().
+    (./test_bort_$kind wrdxtb 1 catch) && exit 1
+    (./test_bort_$kind wrdxtb 2 catch) && exit 1
+    (./test_bort_$kind wrdxtb 3 catch) && exit 1
+
+    # Check writlc().
+    (./test_bort_$kind writlc 1 catch) && exit 1
+    (./test_bort_$kind writlc 2 catch) && exit 1
+    (./test_bort_$kind writlc 3 catch) && exit 1
+    (./test_bort_$kind writlc 4 catch) && exit 1
+    (./test_bort_$kind writlc 5 catch) && exit 1
+    (./test_bort_$kind writlc 6 catch) && exit 1
+
+    # Check writsa().
+    (./test_bort_$kind writsa 1 catch) && exit 1
+    (./test_bort_$kind writsa 2 catch) && exit 1
+    (./test_bort_$kind writsa 3 catch) && exit 1
+
+    # Check writsb().
+    (./test_bort_$kind writsb 1 catch) && exit 1
+    (./test_bort_$kind writsb 2 catch) && exit 1
+    (./test_bort_$kind writsb 3 catch) && exit 1
+
 done
 
 # If we made it here, all error codes were correctly returned, and the

@@ -120,7 +120,7 @@ recursive subroutine gettagre ( lunit, tagi, ntagi, tagre, ntagre, iret )
 
   integer, intent(in) :: lunit, ntagi
   integer, intent(out) :: iret, ntagre
-  integer my_lunit, my_ntagi, lun, il, im, ni, nre, ltre, ii, lci, ntrchr, bort_target_set
+  integer my_lunit, my_ntagi, lun, il, im, ni, nre, ltre, ii, lci, ntrchr, ltr, bort_target_set
 
   character*(*), intent(in) :: tagi
   character*(*), intent(out) :: tagre
@@ -146,7 +146,8 @@ recursive subroutine gettagre ( lunit, tagi, ntagi, tagre, ntagre, iret )
   if ( bort_target_set() == 1 ) then
     call strsuc( tagi, ctagi, lci )
     call catch_bort_gettagre_c( lunit, ctagi, lci, ntagi, ctagre, len(ctagre), ntagre, ntrchr, iret )
-    tagre(1:ntrchr) = ctagre(1:ntrchr)
+    ltr = min( len(tagre), ntrchr )
+    tagre(1:ltr) = ctagre(1:ltr)
     call bort_target_unset
     return
   endif
