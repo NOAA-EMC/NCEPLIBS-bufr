@@ -18,9 +18,9 @@
 void arallocc(void);
 void ardllocc(void);
 void dlloctbf(void);
-void openrb(int nfile, char *ufile);
-void openwb(int nfile, char *ufile);
-void openab(int nfile, char *ufile);
+void openrb(int nfile, const char *ufile);
+void openwb(int nfile, const char *ufile);
+void openab(int nfile, const char *ufile);
 void backbufr(int nfile);
 void cewind(int nfile);
 void closfb(int nfile);
@@ -28,10 +28,10 @@ int crdbufr(int nfile, int *bufr, int mxwrd);
 void cwrbufr(int nfile, int *bufr, int nwrd);
 int icvidx(int ii, int jj, int numjj);
 void restd(int lunb, int tddesc, int *nctddesc, int *ctddesc);
-void stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncdesc);
-void catch_bort_cobfl(char *bfl, char io);
+void stseq(int lun, int *irepct, int idn, const char *nemo, const char *cseq, int *cdesc, int ncdesc);
+void catch_bort_cobfl(const char *bfl, char io);
 void catch_bort_crbmg(char *bmg, int mxmb, int *nmb, int *iret);
-void catch_bort_cwbmg(char *bmg, int nmb, int *iret);
+void catch_bort_cwbmg(const char *bmg, int nmb, int *iret);
 
 /** Size of a character string needed to store an FXY value. */
 #define FXY_STR_LEN 6
@@ -101,7 +101,7 @@ void cadn30_f(int idn, char *adn, int adn_str_len);
  *
  * @author J. Ator @date 2009-03-23
  */
-int igetntbi_f(int lun, char *table_type);
+int igetntbi_f(int lun, const char *table_type);
 
 /**
  * Decode the scale factor, reference value, bit width, and units from a Table B
@@ -114,7 +114,7 @@ int igetntbi_f(int lun, char *table_type);
  *
  * @author J. Ator @date 2003-11-04
  */
-void elemdx_f(char *card, int lun);
+void elemdx_f(const char *card, int lun);
 
 /**
  * Search for a Table B or Table D descriptor within the internal DX BUFR tables.
@@ -144,7 +144,7 @@ void numtbd_f(int lun, int idn, char *nemo, int nemo_str_len, char *tab, int *ir
  *
  * @author J. Ator @date 2023-04-07
  */
-int ifxy_f(char *cfxy);
+int ifxy_f(const char *cfxy);
 
 /**
  * Get the WMO bit-wise representation of the FXY value corresponding
@@ -177,7 +177,7 @@ void uptdd_f(int id, int lun, int ient, int *iret);
  *
  * @author J. Ator @date 2016-05-04
  */
-int imrkopr_f(char *nemo);
+int imrkopr_f(const char *nemo);
 
 /**
  * Check whether a descriptor is WMO-standard.
@@ -205,7 +205,7 @@ int istdesc_f(int idn);
  *
  * @author J. Ator @date 2003-11-04
  */
-void strnum_f(char *str, int *num, int *iret);
+void strnum_f(const char *str, int *num, int *iret);
 
 /**
  * Store a new entry within the internal BUFR Table B or D.
@@ -220,7 +220,7 @@ void strnum_f(char *str, int *num, int *iret);
  *
  * @author J. Ator @date 2009-03-23
  */
-void stntbi_f(int n, int lun, char *numb, char *nemo, char *celsq);
+void stntbi_f(int n, int lun, const char *numb, const char *nemo, const char *celsq);
 
 /**
  * Get the next usable Table D index for the current master table, or
@@ -263,7 +263,7 @@ void pktdd_f(int id, int lun, int idn, int *iret);
  *
  * @author J. Ator @date 2023-04-07
  */
-void bort_f(char *errstr);
+void bort_f(const char *errstr);
 
 /**
  * Sets a new bort target, if bort catching is enabled and such a target doesn't already exist.

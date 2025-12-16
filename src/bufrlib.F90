@@ -441,6 +441,19 @@ module bufrlib
       character(kind=c_char), intent(inout) :: subset(*)
     end subroutine catch_bort_openmg_c
 
+    !> @fn bufrlib::catch_bort_closmg_c::catch_bort_closmg_c(lunit)
+    !> Catch any bort error inside of subroutine closmg().
+    !>
+    !> Wraps catch_bort_closmg() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_closmg_c(lunit) bind(C, name='catch_bort_closmg')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+    end subroutine catch_bort_closmg_c
+
     !> @fn bufrlib::catch_bort_readns_c::catch_bort_readns_c(lunit,subset,jdate,subset_str_len,iret)
     !> Catch any bort error inside of subroutine readns().
     !>
@@ -795,7 +808,7 @@ module bufrlib
       integer(c_int), value, intent(in) :: lunin, i1, i2, cstr_len
       integer(c_int), intent(inout) :: iret
       character(kind=c_char), intent(inout) :: cstr(*)
-      real(c_double), intent(inout) :: tab(i1,*)
+      real(c_double), intent(out) :: tab(i1,*)
     end subroutine catch_bort_ufbtab_c
 
     !> @fn bufrlib::catch_bort_ufbpos_c::catch_bort_ufbpos_c(lunit,irec,isub,subset,jdate,subset_str_len)
@@ -931,7 +944,7 @@ module bufrlib
       integer(c_int), value, intent(in) :: lunit, mini
     end subroutine catch_bort_minimg_c
 
-    !> @fn bufrlib::catch_bort_upds3_c::catch_bort_upds3_c(mbay,lcds3,cds3,nds3)
+    !> @fn bufrlib::catch_bort_upds3_c::catch_bort_upds3_c(mbay,lcds3,ccds3,nds3)
     !> Catch any bort error inside of subroutine upds3().
     !>
     !> Wraps catch_bort_upds3() function.
@@ -1206,6 +1219,597 @@ module bufrlib
       use iso_c_binding
       integer(c_int), value, intent(in) :: lunit, imsg, isub
     end subroutine catch_bort_rdmgsb_c
+
+    !> @fn bufrlib::catch_bort_ufbmem_c::catch_bort_ufbmem_c(lunit,inew,iret,iunit)
+    !> Catch any bort error inside of subroutine ufbmem().
+    !>
+    !> Wraps catch_bort_ufbmem() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param inew - Processing option
+    !> @param iret - Number of BUFR messages that were read and stored into internal arrays
+    !> @param iunit - File status
+    !>
+    !> @author J. Ator @date 2025-11-25
+    subroutine catch_bort_ufbmem_c(lunit,inew,iret,iunit) bind(C, name='catch_bort_ufbmem')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, inew
+      integer(c_int), intent(out) :: iret, iunit
+    end subroutine catch_bort_ufbmem_c
+
+    !> @fn bufrlib::catch_bort_ufbmex_c::catch_bort_ufbmex_c(lunit,lundx,inew,iret,mesg)
+    !> Catch any bort error inside of subroutine ufbmex().
+    !>
+    !> Wraps catch_bort_ufbmex() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param lundx - Fortran logical unit number containing DX BUFR table information
+    !> @param inew - Processing option
+    !> @param iret - Number of BUFR messages that were read and stored into internal arrays
+    !> @param mesg - Types of BUFR messages that were read and stored into internal arrays
+    !>
+    !> @author J. Ator @date 2025-11-25
+    subroutine catch_bort_ufbmex_c(lunit,lundx,inew,iret,mesg) bind(C, name='catch_bort_ufbmex')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, lundx, inew
+      integer(c_int), intent(out) :: iret, mesg(*)
+    end subroutine catch_bort_ufbmex_c
+
+    !> @fn bufrlib::catch_bort_ufbmms_c::catch_bort_ufbmms_c(imsg,isub,subset,jdate,subset_str_len)
+    !> Catch any bort error inside of subroutine ufbmms().
+    !>
+    !> Wraps catch_bort_ufbmms() function.
+    !>
+    !> @param imsg - Number of BUFR message to be read
+    !> @param isub - Number of data subset to be read from imsg
+    !> @param subset - Table A mnemonic for type of BUFR message that was read
+    !> @param jdate - Date-time stored within Section 1 of BUFR message that was read
+    !> @param subset_str_len - Allocated length of subset string
+    !>
+    !> @author J. Ator @date 2025-12-01
+    subroutine catch_bort_ufbmms_c(imsg,isub,subset,jdate,subset_str_len) bind(C, name='catch_bort_ufbmms')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: imsg, isub, subset_str_len
+      integer(c_int), intent(out) :: jdate
+      character(kind=c_char), intent(out) :: subset(*)
+    end subroutine catch_bort_ufbmms_c
+
+    !> @fn bufrlib::catch_bort_ufbmns_c::catch_bort_ufbmns_c(irep,subset,jdate,subset_str_len)
+    !> Catch any bort error inside of subroutine ufbmns().
+    !>
+    !> Wraps catch_bort_ufbmns() function.
+    !>
+    !> @param irep - Number of data subset to be read
+    !> @param subset - Table A mnemonic for type of BUFR message that was read
+    !> @param idate - Date-time stored within Section 1 of BUFR message that was read
+    !> @param subset_str_len - Allocated length of subset string
+    !>
+    !> @author J. Ator @date 2025-12-01
+    subroutine catch_bort_ufbmns_c(irep,subset,idate,subset_str_len) bind(C, name='catch_bort_ufbmns')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: irep, subset_str_len
+      integer(c_int), intent(out) :: idate
+      character(kind=c_char), intent(out) :: subset(*)
+    end subroutine catch_bort_ufbmns_c
+
+    !> @fn bufrlib::catch_bort_rdmemm_c::catch_bort_rdmemm_c(imsg,subset,jdate,subset_str_len,iret)
+    !> Catch any bort error inside of subroutine rdmemm().
+    !>
+    !> Wraps catch_bort_rdmemm() function.
+    !>
+    !> @param imsg - Number of BUFR message to be read
+    !> @param subset - Table A mnemonic for type of BUFR message that was read
+    !> @param jdate - Date-time stored within Section 1 of BUFR message that was read
+    !> @param subset_str_len - Allocated length of subset string
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-12-01
+    subroutine catch_bort_rdmemm_c(imsg,subset,jdate,subset_str_len,iret) bind(C, name='catch_bort_rdmemm')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: imsg, subset_str_len
+      character(kind=c_char), intent(out) :: subset(*)
+      integer(c_int), intent(out) :: jdate, iret
+    end subroutine catch_bort_rdmemm_c
+
+    !> @fn bufrlib::catch_bort_rdmems_c::catch_bort_rdmems_c(isub,iret)
+    !> Catch any bort error inside of subroutine rdmems().
+    !>
+    !> Wraps catch_bort_rdmems() function.
+    !>
+    !> @param isub - Number of data subset to be read
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-12-01
+    subroutine catch_bort_rdmems_c(isub,iret) bind(C, name='catch_bort_rdmems')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: isub
+      integer(c_int), intent(out) :: iret
+    end subroutine catch_bort_rdmems_c
+
+    !> @fn bufrlib::catch_bort_ufbrms_c::catch_bort_ufbrms_c(imsg,isub,usr,i1,i2,iret,cstr,cstr_len)
+    !> Catch any bort error inside of subroutine ufbrms().
+    !>
+    !> Wraps catch_bort_ufbrms() function.
+    !>
+    !> @param imsg - Number of BUFR message to be read
+    !> @param isub - Number of data subset to be read from imsg
+    !> @param usr - Data values
+    !> @param i1 - First dimension of usr
+    !> @param i2 - Second dimension of usr
+    !> @param iret - Number of replications of cstr that were read from the data subset
+    !> @param cstr - String of mnemonics to read from the data subset
+    !> @param cstr_len - Length of cstr
+    !>
+    !> @author J. Ator @date 2025-12-01
+    subroutine catch_bort_ufbrms_c(imsg,isub,usr,i1,i2,iret,cstr,cstr_len) bind(C, name='catch_bort_ufbrms')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: imsg, isub, i1, i2, cstr_len
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(inout) :: cstr(*)
+      real(c_double), intent(out) :: usr(i1,*)
+    end subroutine catch_bort_ufbrms_c
+
+    !> @fn bufrlib::catch_bort_ufbtam_c::catch_bort_ufbtam_c(tab,i1,i2,iret,cstr,cstr_len)
+    !> Catch any bort error inside of subroutine ufbtam().
+    !>
+    !> Wraps catch_bort_ufbtam() function.
+    !>
+    !> @param tab - Data values
+    !> @param i1 - First dimension of tab
+    !> @param i2 - Second dimension of tab
+    !> @param iret - Number of data subsets returned
+    !> @param cstr - String of mnemonics to read from each data subset
+    !> @param cstr_len - Length of cstr
+    !>
+    !> @author J. Ator @date 2025-12-01
+    subroutine catch_bort_ufbtam_c(tab,i1,i2,iret,cstr,cstr_len) bind(C, name='catch_bort_ufbtam')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: i1, i2, cstr_len
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(inout) :: cstr(*)
+      real(c_double), intent(out) :: tab(i1,*)
+    end subroutine catch_bort_ufbtam_c
+
+    !> @fn bufrlib::catch_bort_cpymem_c::catch_bort_cpymem_c(lunot)
+    !> Catch any bort error inside of subroutine cpymem().
+    !>
+    !> Wraps catch_bort_cpymem() function.
+    !>
+    !> @param lunot - Fortran logical unit number for target BUFR file
+    !>
+    !> @author J. Ator @date 2025-12-02
+    subroutine catch_bort_cpymem_c(lunot) bind(C, name='catch_bort_cpymem')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunot
+    end subroutine catch_bort_cpymem_c
+
+    !> @fn bufrlib::catch_bort_ufbcup_c::catch_bort_ufbcup_c(lunin,lunot)
+    !> Catch any bort error inside of subroutine ufbcup().
+    !>
+    !> Wraps catch_bort_ufbcup() function.
+    !>
+    !> @param lunin - Fortran logical unit number for source BUFR file
+    !> @param lunot - Fortran logical unit number for target BUFR file
+    !>
+    !> @author J. Ator @date 2025-12-02
+    subroutine catch_bort_ufbcup_c(lunin,lunot) bind(C, name='catch_bort_ufbcup')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunin, lunot
+    end subroutine catch_bort_ufbcup_c
+
+    !> @fn bufrlib::catch_bort_stdmsg_c::catch_bort_stdmsg_c(cf)
+    !> Catch any bort error inside of subroutine stdmsg().
+    !>
+    !> Wraps catch_bort_stdmsg() function.
+    !>
+    !> @param cf - Flag indicating whether future BUFR output messages should be WMO-standard
+    !>
+    !> @author J. Ator @date 2025-12-02
+    subroutine catch_bort_stdmsg_c(cf) bind(C, name='catch_bort_stdmsg')
+      use iso_c_binding
+      character(kind=c_char), intent(in) :: cf(*)
+    end subroutine catch_bort_stdmsg_c
+
+    !> @fn bufrlib::catch_bort_stndrd_c::catch_bort_stndrd_c(lunit,msgin,lmsgot,msgot)
+    !> Catch any bort error inside of subroutine stndrd().
+    !>
+    !> Wraps catch_bort_stndrd() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param msgin - BUFR message
+    !> @param lmsgot - Allocated length of msgot
+    !> @param msgot - Copy of msgin now fully WMO-standardized
+    !>
+    !> @author J. Ator @date 2025-12-02
+    subroutine catch_bort_stndrd_c(lunit,msgin,lmsgot,msgot) bind(C, name='catch_bort_stndrd')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, lmsgot
+      integer(c_int), intent(in) :: msgin(*)
+      integer(c_int), intent(out) :: msgot(*)
+    end subroutine catch_bort_stndrd_c
+
+    !> @fn bufrlib::catch_bort_cmpmsg_c::catch_bort_cmpmsg_c(cf)
+    !> Catch any bort error inside of subroutine cmpmsg().
+    !>
+    !> Wraps catch_bort_cmpmsg() function.
+    !>
+    !> @param cf - Flag indicating whether future BUFR output messages should be compressed
+    !>
+    !> @author J. Ator @date 2025-12-02
+    subroutine catch_bort_cmpmsg_c(cf) bind(C, name='catch_bort_cmpmsg')
+      use iso_c_binding
+      character(kind=c_char), intent(in) :: cf(*)
+    end subroutine catch_bort_cmpmsg_c
+
+    !> @fn bufrlib::catch_bort_codflg_c::catch_bort_codflg_c(cf)
+    !> Catch any bort error inside of subroutine codflg().
+    !>
+    !> Wraps catch_bort_codflg() function.
+    !>
+    !> @param cf - Flag indicating whether code and flag table information should be included
+    !> when reading from master BUFR tables
+    !>
+    !> @author J. Ator @date 2025-12-02
+    subroutine catch_bort_codflg_c(cf) bind(C, name='catch_bort_codflg')
+      use iso_c_binding
+      character(kind=c_char), intent(in) :: cf(*)
+    end subroutine catch_bort_codflg_c
+
+    !> @fn bufrlib::catch_bort_bvers_c::catch_bort_bvers_c(verstr,verstr_len)
+    !> Catch any bort error inside of subroutine bvers().
+    !>
+    !> Wraps catch_bort_bvers() function.
+    !>
+    !> @param verstr - Version string
+    !> @param verstr_len - Allocated length of verstr
+    !>
+    !> @author J. Ator @date 2025-12-02
+    subroutine catch_bort_bvers_c(verstr,verstr_len) bind(C, name='catch_bort_bvers')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: verstr_len
+      character(kind=c_char), intent(out) :: verstr(*)
+    end subroutine catch_bort_bvers_c
+
+    !> @fn bufrlib::catch_bort_gettagpr_c::catch_bort_gettagpr_c(lunit,tagch,tagch_len,ntagch,tagpr,tagpr_len,iret)
+    !> Catch any bort error inside of subroutine gettagpr().
+    !>
+    !> Wraps catch_bort_gettagpr() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param tagch - Table B or Table D mnemonic
+    !> @param tagch_len - Length of tagch string
+    !> @param ntagch - Ordinal occurrence of tagch for which tagpr is to be returned
+    !> @param tagpr - Table D mnemonic
+    !> @param tagpr_len - Allocated length of tagpr
+    !> @param ntpchr - Number of characters returned in tagpr
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-12-03
+    subroutine catch_bort_gettagpr_c(lunit,tagch,tagch_len,ntagch,tagpr,tagpr_len,ntpchr,iret) &
+        bind(C, name='catch_bort_gettagpr')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, tagch_len, ntagch, tagpr_len
+      integer(c_int), intent(out) :: ntpchr, iret
+      character(kind=c_char), intent(inout) :: tagch(*)
+      character(kind=c_char), intent(out) :: tagpr(*)
+    end subroutine catch_bort_gettagpr_c
+
+    !> @fn bufrlib::catch_bort_gettagre_c::catch_bort_gettagre_c(lunit,tagi,tagi_len,ntagi,tagre,tagre_len,ntagre,iret)
+    !> Catch any bort error inside of subroutine gettagre().
+    !>
+    !> Wraps catch_bort_gettagre() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param tagi - Table B mnemonic
+    !> @param tagi_len - Length of tagi string
+    !> @param ntagi - Ordinal occurrence of tagi for which tagre is to be returned
+    !> @param tagre - Table B mnemonic referenced by tagi via an internal bitmap
+    !> @param tagre_len - Allocated length of tagre
+    !> @param ntagre - Ordinal occurrence of tagre referenced by (ntagi)th occurrence of tagi
+    !> @param ntrchr - Number of characters returned in tagre
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-12-03
+    subroutine catch_bort_gettagre_c(lunit,tagi,tagi_len,ntagi,tagre,tagre_len,ntagre,ntrchr,iret) &
+        bind(C, name='catch_bort_gettagre')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, tagi_len, ntagi, tagre_len
+      integer(c_int), intent(out) :: ntagre, ntrchr, iret
+      character(kind=c_char), intent(inout) :: tagi(*)
+      character(kind=c_char), intent(out) :: tagre(*)
+    end subroutine catch_bort_gettagre_c
+
+    !> @fn bufrlib::catch_bort_cnved4_c::catch_bort_cnved4_c(msgin,lmsgot,msgot)
+    !> Catch any bort error inside of subroutine cnved4().
+    !>
+    !> Wraps catch_bort_cnved4() function.
+    !>
+    !> @param msgin - BUFR message
+    !> @param lmsgot - Allocated length of msgot
+    !> @param msgot - Copy of msgin now converted to edition 4
+    !>
+    !> @author J. Ator @date 2025-12-03
+    subroutine catch_bort_cnved4_c(msgin,lmsgot,msgot) bind(C, name='catch_bort_cnved4')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lmsgot
+      integer(c_int), intent(in) :: msgin(*)
+      integer(c_int), intent(out) :: msgot(*)
+    end subroutine catch_bort_cnved4_c
+
+    !> @fn bufrlib::catch_bort_lcmgdf_c::catch_bort_lcmgdf_c(lunit,subset,subset_str_len,iret)
+    !> Catch any bort error inside of function lcmgdf().
+    !>
+    !> Wraps catch_bort_lcmgdf() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param subset - Table A mnemonic for type of BUFR message to be checked
+    !> @param subset_str_len - Length of subset string
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-12-03
+    subroutine catch_bort_lcmgdf_c(lunit,subset,subset_str_len,iret) bind(C, name='catch_bort_lcmgdf')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, subset_str_len
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(inout) :: subset(*)
+    end subroutine catch_bort_lcmgdf_c
+
+    !> @fn bufrlib::catch_bort_setvalnb_c::catch_bort_setvalnb_c(lunit,tagpv,tagpv_len,ntagpv,tagnb,tagnb_len,ntagnb,r8val,iret)
+    !> Catch any bort error inside of subroutine setvalnb().
+    !>
+    !> Wraps catch_bort_setvalnb() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param tagpv - Pivot mnemonic
+    !> @param tagpv_len - Length of tagpv string
+    !> @param ntagpv - Ordinal occurrence of tagpv to search for
+    !> @param tagnb - Nearby mnemonic
+    !> @param tagnb_len - Length of tagnb string
+    !> @param ntagnb - Ordinal occurrence of tagnb to search for
+    !> @param r8val - Value to be stored
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-12-05
+    subroutine catch_bort_setvalnb_c(lunit,tagpv,tagpv_len,ntagpv,tagnb,tagnb_len,ntagnb,r8val,iret) &
+        bind(C, name='catch_bort_setvalnb')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, tagpv_len, ntagpv, tagnb_len, ntagnb
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(inout) :: tagpv(*), tagnb(*)
+      real(c_double), value, intent(in) :: r8val
+    end subroutine catch_bort_setvalnb_c
+
+    !> @fn bufrlib::catch_bort_getvalnb_c::catch_bort_getvalnb_c(lunit,tagpv,tagpv_len,ntagpv,tagnb,tagnb_len,ntagnb,r8val)
+    !> Catch any bort error inside of function getvalnb().
+    !>
+    !> Wraps catch_bort_getvalnb() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param tagpv - Pivot mnemonic
+    !> @param tagpv_len - Length of tagpv string
+    !> @param ntagpv - Ordinal occurrence of tagpv to search for
+    !> @param tagnb - Nearby mnemonic
+    !> @param tagnb_len - Length of tagnb string
+    !> @param ntagnb - Ordinal occurrence of tagnb to search for
+    !> @param r8val - Return value
+    !>
+    !> @author J. Ator @date 2025-12-05
+    subroutine catch_bort_getvalnb_c(lunit,tagpv,tagpv_len,ntagpv,tagnb,tagnb_len,ntagnb,r8val) &
+        bind(C, name='catch_bort_getvalnb')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, tagpv_len, ntagpv, tagnb_len, ntagnb
+      character(kind=c_char), intent(inout) :: tagpv(*), tagnb(*)
+      real(c_double), intent(out) :: r8val
+    end subroutine catch_bort_getvalnb_c
+
+    !> @fn bufrlib::catch_bort_getabdb_c::catch_bort_getabdb_c(lunit,itab,ctabdb,jtab)
+    !> Catch any bort error inside of subroutine getabdb().
+    !>
+    !> Wraps catch_bort_getabdb() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param itab - Allocated length of ctabdb
+    !> @param ctabdb - Internal Table B and Table D information
+    !> @param jtab - Number of entries returned in ctabdb
+    !>
+    !> @author J. Ator @date 2025-12-05
+    subroutine catch_bort_getabdb_c(lunit,itab,ctabdb,jtab) bind(C, name='catch_bort_getabdb')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, itab
+      integer(c_int), intent(out) :: jtab
+      character(kind=c_char), intent(out) :: ctabdb(128,*)
+    end subroutine catch_bort_getabdb_c
+
+    !> @fn bufrlib::catch_bort_ufbget_c::catch_bort_ufbget_c(lunit,tab,i1,iret,cstr,cstr_len)
+    !> Catch any bort error inside of subroutine ufbget().
+    !>
+    !> Wraps catch_bort_ufbget() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param tab - Data values
+    !> @param i1 - Allocated length of tab
+    !> @param iret - Return code
+    !> @param cstr - String of mnemonics to read from the data subset
+    !> @param cstr_len - Length of cstr
+    !>
+    !> @author J. Ator @date 2025-12-05
+    subroutine catch_bort_ufbget_c(lunit,tab,i1,iret,cstr,cstr_len) bind(C, name='catch_bort_ufbget')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, i1, cstr_len
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(inout) :: cstr(*)
+      real(c_double), intent(out) :: tab(*)
+    end subroutine catch_bort_ufbget_c
+
+    !> @fn bufrlib::catch_bort_ufbinx_c::catch_bort_ufbinx_c(lunit,imsg,isub,usr,i1,i2,iret,cstr,cstr_len)
+    !> Catch any bort error inside of subroutine ufbinx().
+    !>
+    !> Wraps catch_bort_ufbinx() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param imsg - Number of BUFR message to be read
+    !> @param isub - Number of data subset to be read from imsg
+    !> @param usr - Data values
+    !> @param i1 - First dimension of usr
+    !> @param i2 - Second dimension of usr
+    !> @param iret - Number of replications of cstr that were read from the data subset
+    !> @param cstr - String of mnemonics to read from the data subset
+    !> @param cstr_len - Length of cstr
+    !>
+    !> @author J. Ator @date 2025-12-05
+    subroutine catch_bort_ufbinx_c(lunit,imsg,isub,usr,i1,i2,iret,cstr,cstr_len) bind(C, name='catch_bort_ufbinx')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, i1, i2, cstr_len, imsg, isub
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(inout) :: cstr(*)
+      real(c_double), intent(out) :: usr(i1,*)
+    end subroutine catch_bort_ufbinx_c
+
+    !> @fn bufrlib::catch_bort_ufbovr_c::catch_bort_ufbovr_c(lunit,usr,i1,i2,iret,cstr,cstr_len)
+    !> Catch any bort error inside of subroutine ufbovr().
+    !>
+    !> Wraps catch_bort_ufbovr() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param usr - Data values
+    !> @param i1 - First dimension of usr
+    !> @param i2 - Second dimension of usr
+    !> @param iret - Number of replications of cstr that were written to the data subset
+    !> @param cstr - String of mnemonics to write to the data subset
+    !> @param cstr_len - Length of cstr
+    !>
+    !> @author J. Ator @date 2025-12-05
+    subroutine catch_bort_ufbovr_c(lunit,usr,i1,i2,iret,cstr,cstr_len) bind(C, name='catch_bort_ufbovr')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit, i1, i2, cstr_len
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(inout) :: cstr(*)
+      real(c_double), intent(in) :: usr(i1,*)
+    end subroutine catch_bort_ufbovr_c
+
+    !> @fn bufrlib::catch_bort_ifbget_c::catch_bort_ifbget_c(lunit,iret)
+    !> Catch any bort error inside of function ifbget().
+    !>
+    !> Wraps catch_bort_ifbget() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_ifbget_c(lunit,iret) bind(C, name='catch_bort_ifbget')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: iret
+    end subroutine catch_bort_ifbget_c
+
+    !> @fn bufrlib::catch_bort_igetsc_c::catch_bort_igetsc_c(lunit,iret)
+    !> Catch any bort error inside of function igetsc().
+    !>
+    !> Wraps catch_bort_igetsc() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param iret - Return code
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_igetsc_c(lunit,iret) bind(C, name='catch_bort_igetsc')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: iret
+    end subroutine catch_bort_igetsc_c
+
+    !> @fn bufrlib::catch_bort_wrdxtb_c::catch_bort_wrdxtb_c(lundx,lunot)
+    !> Catch any bort error inside of subroutine wrdxtb().
+    !>
+    !> Wraps catch_bort_wrdxtb() function.
+    !>
+    !> @param lundx - Fortran logical unit number containing DX BUFR table information
+    !> @param lunot - Fortran logical unit number for output file
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_wrdxtb_c(lundx,lunot) bind(C, name='catch_bort_wrdxtb')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lundx, lunot
+    end subroutine catch_bort_wrdxtb_c
+
+    !> @fn bufrlib::catch_bort_mesgbf_c::catch_bort_mesgbf_c(lunit,mesgtyp)
+    !> Catch any bort error inside of subroutine mesgbf().
+    !>
+    !> Wraps catch_bort_mesgbf() function.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param mesgtyp - Message type
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_mesgbf_c(lunit,mesgtyp) bind(C, name='catch_bort_mesgbf')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: mesgtyp
+    end subroutine catch_bort_mesgbf_c
+
+    !> @fn bufrlib::catch_bort_mesgbc_c::catch_bort_mesgbc_c(lunin,mesgtyp,icomp)
+    !> Catch any bort error inside of subroutine mesgbc().
+    !>
+    !> Wraps catch_bort_mesgbc() function.
+    !>
+    !> @param lunin - Fortran logical unit number for BUFR file
+    !> @param mesgtyp - Message type
+    !> @param icomp - Compression indicator
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_mesgbc_c(lunin,mesgtyp,icomp) bind(C, name='catch_bort_mesgbc')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lunin
+      integer(c_int), intent(out) :: mesgtyp, icomp
+    end subroutine catch_bort_mesgbc_c
+
+    !> @fn bufrlib::catch_bort_invmrg_c::catch_bort_invmrg_c(lubfi,lubfj)
+    !> Catch any bort error inside of subroutine invmrg().
+    !>
+    !> Wraps catch_bort_invmrg() function.
+    !>
+    !> @param lubfi - Fortran logical unit number for input file
+    !> @param lubfj - Fortran logical unit number for output file
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_invmrg_c(lubfi,lubfj) bind(C, name='catch_bort_invmrg')
+      use iso_c_binding
+      integer(c_int), value, intent(in) :: lubfi, lubfj
+    end subroutine catch_bort_invmrg_c
+
+    !> @fn bufrlib::catch_bort_iupm_c::catch_bort_iupm_c(cbay,nbits,iret,lcbay)
+    !> Catch any bort error inside of function iupm().
+    !>
+    !> Wraps catch_bort_iupm() function.
+    !>
+    !> @param cbay - Character string
+    !> @param nbits - Number of bits to decode from cbay
+    !> @param iret - Decoded value
+    !> @param lcbay - Length of cbay
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_iupm_c(cbay,nbits,iret,lcbay) bind(C, name='catch_bort_iupm')
+      use iso_c_binding
+      character(kind=c_char), intent(inout) :: cbay(*)
+      integer(c_int), value, intent(in) :: nbits, lcbay
+      integer(c_int), intent(out) :: iret
+    end subroutine catch_bort_iupm_c
+
+    !> @fn bufrlib::catch_bort_ipkm_c::catch_bort_ipkm_c(cbay,nbyt,ival,cbay_len)
+    !> Catch any bort error inside of function ipkm().
+    !>
+    !> Wraps catch_bort_ipkm() function.
+    !>
+    !> @param cbay - Character string
+    !> @param nbyt - Number of bytes of cbay within which to encode ival
+    !> @param ival - Value to encode
+    !> @param cbay_len - Allocated length of cbay
+    !>
+    !> @author J. Ator @date 2025-12-09
+    subroutine catch_bort_ipkm_c(cbay,nbyt,ival,cbay_len) bind(C, name='catch_bort_ipkm')
+      use iso_c_binding
+      character(kind=c_char), intent(out) :: cbay(*)
+      integer(c_int), value, intent(in) :: nbyt, ival, cbay_len
+    end subroutine catch_bort_ipkm_c
 
   end interface
 

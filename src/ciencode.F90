@@ -192,16 +192,19 @@ end subroutine pkb
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine ipkm(cbay,nbyt,n)
 
+  use bufrlib
+
   use modv_vars, only: im8b, nbytw
 
   implicit none
 
   integer, intent(in) :: n, nbyt
-  integer my_n, my_nbyt, int, irev, i
+  integer my_n, my_nbyt, int, irev, i, bort_target_set
 
   character*(*), intent(out) :: cbay
   character*128 bort_str
   character*4 cint
+  character*5 ccbay
 
   equivalence (cint,int)
 
@@ -209,12 +212,19 @@ recursive subroutine ipkm(cbay,nbyt,n)
 
   if(im8b) then
     im8b=.false.
-
     call x84(n,my_n,1)
     call x84(nbyt,my_nbyt,1)
     call ipkm(cbay,my_nbyt,my_n)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_ipkm_c(ccbay,nbyt,n,len(ccbay))
+    cbay(1:nbyt) = ccbay(1:nbyt)
+    call bort_target_unset
     return
   endif
 

@@ -26,6 +26,7 @@
 int main(int argc, char **argv)
 {
     char bmg[200];
+    char *bwmg = "BUFR";
     int nmb, iret;
 
     if (argc != 3)
@@ -48,7 +49,7 @@ int main(int argc, char **argv)
     else if (!strcmp(argv[1], "cwbmg"))
     {
         if (!strcmp(argv[2], "1"))
-            cwbmg(bmg, 1, &iret);
+            cwbmg(bwmg, 1, &iret);
     }
 
     return 0;

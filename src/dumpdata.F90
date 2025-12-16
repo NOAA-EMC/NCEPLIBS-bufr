@@ -855,6 +855,8 @@ end subroutine dxdump
 !> @author J. Ator @date 2005-11-29
 recursive subroutine getabdb(lunit,tabdb,itab,jtab)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_tababd
@@ -864,9 +866,10 @@ recursive subroutine getabdb(lunit,tabdb,itab,jtab)
 
   integer, intent(in) :: lunit, itab
   integer, intent(out) :: jtab
-  integer my_lunit, my_itab, lun, il, im, i, j, k, nseq
+  integer my_lunit, my_itab, lun, il, im, i, j, k, nseq, bort_target_set
 
   character*128, intent(out) :: tabdb(*)
+  character, allocatable :: ctabdb(:,:)
   character*8 nemo
 
   ! Check for I8 integers
@@ -878,6 +881,21 @@ recursive subroutine getabdb(lunit,tabdb,itab,jtab)
     call getabdb(my_lunit,tabdb,my_itab,jtab)
     call x48(jtab,jtab,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    allocate(ctabdb(128,itab))
+    call catch_bort_getabdb_c(lunit,itab,ctabdb,jtab)
+    do i = 1, jtab
+      do j = 1, 128
+        tabdb(i)(j:j) = ctabdb(j,i)
+      enddo
+    enddo
+    deallocate(ctabdb)
+    call bort_target_unset
     return
   endif
 

@@ -1125,6 +1125,8 @@ end subroutine fstag
 !> @author J. Ator @date 2012-09-12
 recursive subroutine gettagpr ( lunit, tagch, ntagch, tagpr, iret )
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_usrint
@@ -1135,22 +1137,33 @@ recursive subroutine gettagpr ( lunit, tagch, ntagch, tagpr, iret )
 
   integer, intent(in) :: lunit, ntagch
   integer, intent(out) :: iret
-  integer my_lunit, my_ntagch, lun, il, im, nch
+  integer my_lunit, my_ntagch, lun, il, im, nch, lch, ntpchr, bort_target_set
 
   character*(*), intent(in) :: tagch
   character*(*), intent(out) :: tagpr
+  character*9 ctagch, ctagpr
 
   ! Check for I8 integers.
 
   if(im8b) then
     im8b=.false.
-
     call x84 ( lunit, my_lunit, 1 )
     call x84 ( ntagch, my_ntagch, 1 )
     call gettagpr ( my_lunit, tagch, my_ntagch, tagpr, iret )
     call x48 ( iret, iret, 1 )
-
     im8b=.true.
+    return
+  endif
+
+  tagpr = ' '
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if ( bort_target_set() == 1 ) then
+    call strsuc( tagch, ctagch, lch )
+    call catch_bort_gettagpr_c( lunit, ctagch, lch, ntagch, ctagpr, len(ctagpr), ntpchr, iret )
+    tagpr(1:ntpchr) = ctagpr(1:ntpchr)
+    call bort_target_unset
     return
   endif
 

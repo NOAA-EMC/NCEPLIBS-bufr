@@ -186,7 +186,7 @@ srchrpsq(int maxnf, int naf, int *iafpk, int maxcd, int ncdesc, int *cdesc)
  * @author J. Ator @date 2009-03-23
 */
 void
-stseq(int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncdesc)
+stseq(int lun, int *irepct, int idn, const char *nemo, const char *cseq, int *cdesc, int ncdesc)
 {
     int i, j, nb, nd, ix, iy, iret, nbits;
     int rpidn, pkint, ilen, ipt, *rpdesc;

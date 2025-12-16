@@ -34,9 +34,9 @@
  *  @author J. Ator @date 2014-12-04
 */
 void
-cpmstabs(int nmtb, int *ibfxyn, char (*cbscl)[4], char (*cbsref)[12], char (*cbbw)[4],
-         char (*cbunit)[24], char (*cbmnem)[8], char (*cbelem)[120], int nmtd,
-         int *idfxyn, char (*cdseq)[120], char (*cdmnem)[8], int *ndelem,
+cpmstabs(int nmtb, int *ibfxyn, const char (*cbscl)[4], const char (*cbsref)[12], const char (*cbbw)[4],
+         const char (*cbunit)[24], const char (*cbmnem)[8], const char (*cbelem)[120], int nmtd,
+         int *idfxyn, const char (*cdseq)[120], const char (*cdmnem)[8], int *ndelem,
          int *idefxy, int maxcd)
 {
 

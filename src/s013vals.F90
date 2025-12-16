@@ -1539,6 +1539,8 @@ end subroutine cktaba
 !> @author D. Keyser @date 2003-11-04
 recursive subroutine mesgbc(lunin,mesgtyp,icomp)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_bitbuf
@@ -1548,7 +1550,7 @@ recursive subroutine mesgbc(lunin,mesgtyp,icomp)
 
   integer, intent(in) :: lunin
   integer, intent(out) :: mesgtyp, icomp
-  integer my_lunin, lunit, irec, ier, i, lun, il, im, iupbs01, iupbs3, idxmsg
+  integer my_lunin, lunit, irec, ier, i, lun, il, im, iupbs01, iupbs3, idxmsg, bort_target_set
 
   ! Check for I8 integers
 
@@ -1559,6 +1561,14 @@ recursive subroutine mesgbc(lunin,mesgtyp,icomp)
     call x48(mesgtyp,mesgtyp,1)
     call x48(icomp,icomp,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_mesgbc_c(lunin,mesgtyp,icomp)
+    call bort_target_unset
     return
   endif
 
@@ -1628,6 +1638,8 @@ end subroutine mesgbc
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine mesgbf(lunit,mesgtyp)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_mgwa
@@ -1636,7 +1648,7 @@ recursive subroutine mesgbf(lunit,mesgtyp)
 
   integer, intent(in) :: lunit
   integer, intent(out) :: mesgtyp
-  integer my_lunit, ier, iupbs01, idxmsg
+  integer my_lunit, ier, iupbs01, idxmsg, bort_target_set
 
   ! Check for I8 integers
 
@@ -1646,6 +1658,14 @@ recursive subroutine mesgbf(lunit,mesgtyp)
     call mesgbf(my_lunit,mesgtyp)
     call x48(mesgtyp,mesgtyp,1)
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_mesgbf_c(lunit,mesgtyp)
+    call bort_target_unset
     return
   endif
 

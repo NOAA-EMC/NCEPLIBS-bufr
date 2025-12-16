@@ -1,19 +1,22 @@
 #!/bin/sh
 # This is a test script for NCEPLIBS-bufr.
 #
-# This script tests aborts. It does this by calling the program
-# test_bort.F90 with two arguments, the subroutine name and the test
-# case (a number). The program test_bort.F90 has code for each
-# subroutine name and test case, which causes an abort. This script
-# then checks that test_bort.F90 aborted as expected.
+# This script tests aborts. It does this by calling the program test_bort.F90
+# with at least two arguments, the subroutine or function name, and the test
+# case (a number). The corresponding program test_bort.F90 has code for each
+# subroutine name and test case, and either causes an abort if only the first
+# two arguments were passed in, or else catches the abort message if an optional
+# third argument was also passed in.
 #
 # Ed Hartnett 3/12/23
 
-# Don't run on the _8 version of the library, because many of the routines
-# tested below aren't intended to ever be called directly by users, and
-# therefore those routines aren't configured to handle the passing of
+# Don't run the following loop on the _8 version of the library, because many
+# of the routines in this loop aren't intended to ever be called directly by
+# users, and therefore they aren't configured to handle the passing of
 # 8-byte integer arguments.
 for kind in "4" "d"; do
+    # All of the tests in this loop should cause an actual abort.
+
     # Check adn30().
     (./test_bort_$kind adn30 1) && exit 1
     (./test_bort_$kind adn30 2) && exit 1
@@ -184,7 +187,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind mtfnam 1) && exit 1
     # For the next test, we need to temporarily create a dummy placeholder file
     # in the current working directory.
-    touch bufrtab.TableB_STD_999_15
+    (touch bufrtab.TableB_STD_999_15) || exit 1
     (./test_bort_$kind mtfnam 2) && exit 1
 
     # Check nemtba().
@@ -607,6 +610,104 @@ done
 (./test_c_bort crbmg 1) && exit 1
 
 (./test_c_bort cwbmg 1) && exit 1
+
+# All of the following tests should catch the expected abort message rather than
+# actually aborting.  Also, all of these routines are designed to be called directly
+# by users, which in turn means we can test the _8 version of the library on them.
+for kind in "4" "8"; do
+
+    # Check atrcpt().
+    (./test_bort_$kind atrcpt 1 catch) && exit 1
+
+    # Check closmg().
+    (./test_bort_$kind closmg 1 catch) && exit 1
+    (./test_bort_$kind closmg 2 catch) && exit 1
+
+    # Check cnved4().
+    (./test_bort_$kind cnved4 2 catch) && exit 1
+
+    # Check codflg().
+    (./test_bort_$kind codflg 1 catch) && exit 1
+
+    # Check copybf().
+    (./test_bort_$kind copybf 1 catch) && exit 1
+    (./test_bort_$kind copybf 2 catch) && exit 1
+
+    # Check copymg().
+    (./test_bort_$kind copymg 1 catch) && exit 1
+    (./test_bort_$kind copymg 2 catch) && exit 1
+    (./test_bort_$kind copymg 3 catch) && exit 1
+    (./test_bort_$kind copymg 4 catch) && exit 1
+    (./test_bort_$kind copymg 5 catch) && exit 1
+
+    # Check copysb().
+    (./test_bort_$kind copysb 1 catch) && exit 1
+    (./test_bort_$kind copysb 2 catch) && exit 1
+    (./test_bort_$kind copysb 3 catch) && exit 1
+    (./test_bort_$kind copysb 4 catch) && exit 1
+    (./test_bort_$kind copysb 5 catch) && exit 1
+    (./test_bort_$kind copysb 6 catch) && exit 1
+    (./test_bort_$kind copysb 7 catch) && exit 1
+
+    # Check cpymem().
+    (./test_bort_$kind cpymem 1 catch) && exit 1
+    (./test_bort_$kind cpymem 2 catch) && exit 1
+    (./test_bort_$kind cpymem 3 catch) && exit 1
+    (./test_bort_$kind cpymem 4 catch) && exit 1
+
+    # Check datebf().
+    (./test_bort_$kind datebf 1 catch) && exit 1
+
+    # Check datelen().
+    (./test_bort_$kind datelen 1 catch) && exit 1
+
+    # Check dumpbf().
+    (./test_bort_$kind dumpbf 1 catch) && exit 1
+
+    # Check dxdump().
+    (./test_bort_$kind dxdump 1 catch) && exit 1
+
+    # Check getcfmng().
+    (./test_bort_$kind getcfmng 1 catch) && exit 1
+    (./test_bort_$kind getcfmng 2 catch) && exit 1
+    (./test_bort_$kind getcfmng 3 catch) && exit 1
+
+    # Check ifbget().
+    (./test_bort_$kind ifbget 1 catch) && exit 1
+    (./test_bort_$kind ifbget 2 catch) && exit 1
+    (./test_bort_$kind ifbget 3 catch) && exit 1
+
+    # Check igetsc().
+    (./test_bort_$kind igetsc 1 catch) && exit 1
+
+    # Check ipkm().
+    (./test_bort_$kind ipkm 1 catch) && exit 1
+
+    # Check iupm().
+    #(./test_bort_$kind iupm 1 catch) && exit 1
+
+    # Check iupvs01().
+    (./test_bort_$kind iupvs01 1 catch) && exit 1
+    (./test_bort_$kind iupvs01 2 catch) && exit 1
+
+    # Check lcmgdf().
+    (./test_bort_$kind lcmgdf 1 catch) && exit 1
+
+    # Check minimg().
+    (./test_bort_$kind minimg 1 catch) && exit 1
+    (./test_bort_$kind minimg 2 catch) && exit 1
+
+    # Check nmsub().
+    (./test_bort_$kind nmsub 1 catch) && exit 1
+    (./test_bort_$kind nmsub 2 catch) && exit 1
+    (./test_bort_$kind nmsub 3 catch) && exit 1
+
+    # Check openbf().
+    (./test_bort_$kind openbf 1 catch) && exit 1
+    (./test_bort_$kind openbf 2 catch) && exit 1
+    (./test_bort_$kind openbf 3 catch) && exit 1
+
+done
 
 # If we made it here, all error codes were correctly returned, and the
 # test passed!

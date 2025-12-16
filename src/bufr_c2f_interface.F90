@@ -29,7 +29,10 @@ module bufr_c2f_interface
   public :: writsb_c, writsa_c, ufbstp_c, writlc_c, drfini_c, ufbcnt_c, ufbevn_c, ufbqcd_c, ufbqcp_c, getcfmng_c
   public :: upftbv_c, ufbtab_c, ufbpos_c, datelen_c, iupvs01_c, nmsub_c, pkvs01_c, datebf_c, dumpbf_c, minimg_c, upds3_c
   public :: pkbs1_c, strcpt_c, rtrcpt_c, atrcpt_c, dxdump_c, ufbdmp_c, ufdump_c, copybf_c, copymg_c, copysb_c, ufbcpy_c
-  public :: readerme_c, rdmgsb_c
+  public :: readerme_c, rdmgsb_c, ufbmem_c, ufbmex_c, ufbmms_c, ufbmns_c, rdmemm_c, rdmems_c, ufbrms_c, ufbtam_c
+  public :: cpymem_c, ufbcup_c, stdmsg_c, stndrd_c, codflg_c, gettagpr_c, gettagre_c, cnved4_c, lcmgdf_c
+  public :: setvalnb_c, getvalnb_c, getabdb_c, ufbget_c, ufbinx_c, ufbovr_c, closmg_c, ifbget_c, igetsc_c
+  public :: wrdxtb_c, mesgbf_c, mesgbc_c, invmrg_c, ipkm_c, iupm_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
@@ -1327,6 +1330,19 @@ module bufr_c2f_interface
       call openmg(bufr_unit, f_subset(1:lfs), iddate)
     end subroutine openmg_c
 
+    !> Close a BUFR message
+    !>
+    !> Wraps closmg() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to write to.
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive subroutine closmg_c(bufr_unit) bind(C, name='closmg_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+
+      call closmg(bufr_unit)
+    end subroutine closmg_c
+
     !> Get the version number of the NCEPLIBS-bufr software.
     !>
     !> Wraps bvers() subroutine.
@@ -1335,7 +1351,7 @@ module bufr_c2f_interface
     !> @param cverstr_len - Length of the version string.
     !>
     !> @author J. Ator @date 2023-04-07
-    subroutine bvers_c(cverstr, cverstr_len) bind(C, name='bvers_f')
+    recursive subroutine bvers_c(cverstr, cverstr_len) bind(C, name='bvers_f')
       character(kind=c_char), intent(out) :: cverstr(*)
       integer(c_int), value, intent(in) :: cverstr_len
       character(len=10) :: f_cverstr
@@ -1352,7 +1368,7 @@ module bufr_c2f_interface
     !> compressed ('Y' = Yes, 'N' = No).
     !>
     !> @author J. Ator @date 2023-04-07
-    subroutine cmpmsg_c(cf) bind(C, name='cmpmsg_f')
+    recursive subroutine cmpmsg_c(cf) bind(C, name='cmpmsg_f')
       character(kind=c_char), intent(in) :: cf(*)
       character :: ch
 
@@ -1557,7 +1573,7 @@ module bufr_c2f_interface
     !> @author J. Ator @date 2025-11-13
     recursive subroutine ufbtab_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbtab_f')
       integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2
-      type(c_ptr), intent(inout) ::  c_data
+      type(c_ptr), intent(out) ::  c_data
       integer(c_int), intent(inout) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
@@ -1962,5 +1978,654 @@ module bufr_c2f_interface
 
       call rdmgsb(lunit, imsg, isub)
     end subroutine rdmgsb_c
+
+    !> Read an entire BUFR file into internal arrays.
+    !>
+    !> Wraps ufbmem() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit for BUFR file
+    !> @param inew - Processing option
+    !> @param iret - Number of BUFR messages that were read and stored into internal arrays
+    !> @param iunit - File status
+    !>
+    !> @author J. Ator @date 2025-11-25
+    recursive subroutine ufbmem_c(lunit, inew, iret, iunit) bind(C, name='ufbmem_f')
+      integer(c_int), value, intent(in) :: lunit, inew
+      integer(c_int), intent(out) :: iret, iunit
+
+      call ufbmem(lunit, inew, iret, iunit)
+    end subroutine ufbmem_c
+
+    !> Read an entire BUFR file into internal arrays.
+    !>
+    !> Wraps ufbmex() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit for BUFR file
+    !> @param lundx - Fortran logical unit number containing DX BUFR table information
+    !> @param inew - Processing option
+    !> @param iret - Number of BUFR messages that were read and stored into internal arrays
+    !> @param mesg - Types of BUFR messages that were read and stored into internal arrays
+    !>
+    !> @author J. Ator @date 2025-11-25
+    recursive subroutine ufbmex_c(lunit, lundx, inew, iret, mesg) bind(C, name='ufbmex_f')
+      integer(c_int), value, intent(in) :: lunit, lundx, inew
+      integer(c_int), intent(out) :: iret, mesg(*)
+
+      call ufbmex(lunit, lundx, inew, iret, mesg)
+    end subroutine ufbmex_c
+
+    !> Read a specified data subset from internal arrays.
+    !>
+    !> Wraps ufbmms() subroutine.
+    !>
+    !> @param imsg - Number of BUFR message to be read
+    !> @param isub - Number of data subset to be read from imsg
+    !> @param c_subset - Subset string
+    !> @param jdate - Datetime of message
+    !> @param subset_str_len - Length of the subset string
+    !>
+    !> @author Jeff Ator @date 2025-12-01
+    recursive subroutine ufbmms_c(imsg, isub, c_subset, jdate, subset_str_len) bind(C, name='ufbmms_f')
+      integer(c_int), value, intent(in) :: imsg, isub, subset_str_len
+      integer(c_int), intent(out) :: jdate
+      character(kind=c_char), intent(out) :: c_subset(*)
+      character(len=10) :: f_subset
+
+      call ufbmms(imsg, isub, f_subset, jdate)
+
+      call copy_f_c_str(f_subset, c_subset, subset_str_len)
+    end subroutine ufbmms_c
+
+    !> Read a specified data subset from internal arrays.
+    !>
+    !> Wraps ufbmns() subroutine.
+    !>
+    !> @param irep - Number of data subset to be read
+    !> @param c_subset - Subset string
+    !> @param idate - Datetime of message
+    !> @param subset_str_len - Length of the subset string
+    !>
+    !> @author Jeff Ator @date 2025-12-01
+    recursive subroutine ufbmns_c(irep, c_subset, idate, subset_str_len) bind(C, name='ufbmns_f')
+      integer(c_int), value, intent(in) :: irep, subset_str_len
+      integer(c_int), intent(out) :: idate
+      character(kind=c_char), intent(out) :: c_subset(*)
+      character(len=10) :: f_subset
+
+      call ufbmns(irep, f_subset, idate)
+
+      call copy_f_c_str(f_subset, c_subset, subset_str_len)
+    end subroutine ufbmns_c
+
+    !> Read a specified message from internal arrays.
+    !>
+    !> Wraps rdmemm() subroutine.
+    !>
+    !> @param imsg - Number of BUFR message to be read
+    !> @param c_subset - Subset string
+    !> @param jdate - Datetime of message
+    !> @param subset_str_len - Length of the subset string
+    !> @param ires - Return code
+    !>
+    !> @author Jeff Ator @date 2025-12-01
+    recursive subroutine rdmemm_c(imsg, c_subset, jdate, subset_str_len, ires) bind(C, name='rdmemm_f')
+      integer(c_int), value, intent(in) :: imsg, subset_str_len
+      character(kind=c_char), intent(out) :: c_subset(*)
+      integer(c_int), intent(out) :: jdate, ires
+      character(len=10) :: f_subset
+
+      call rdmemm(imsg, f_subset, jdate, ires)
+
+      if (ires == 0) then
+        call copy_f_c_str(f_subset, c_subset, subset_str_len)
+      end if
+    end subroutine rdmemm_c
+
+    !> Read a specified data subset from internal arrays.
+    !>
+    !> Wraps rdmems() subroutine.
+    !>
+    !> @param isub - Number of data subset to be read
+    !> @param ires - Return code
+    !>
+    !> @author Jeff Ator @date 2025-12-01
+    recursive subroutine rdmems_c(isub, ires) bind(C, name='rdmems_f')
+      integer(c_int), value, intent(in) :: isub
+      integer(c_int), intent(out) :: ires
+
+      call rdmems(isub, ires)
+    end subroutine rdmems_c
+
+    !> Read one or more data values from internal arrays.
+    !>
+    !> Wraps ufbrms() subroutine.
+    !>
+    !> @param imsg - Number of BUFR message to be read
+    !> @param isub - Number of data subset to be read from imsg
+    !> @param c_data - C-style pointer to a pre-allocated buffer
+    !> @param dim_1, dim_2 - Dimensionality of data to read
+    !> @param iret - Return value, length of data read
+    !> @param table_b_mnemonic - String of mnemonics
+    !>
+    !> @author Jeff Ator @date 2025-12-01
+    recursive subroutine ufbrms_c(imsg, isub, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbrms_f')
+      integer(c_int), value, intent(in) :: imsg, isub, dim_1, dim_2
+      type(c_ptr), intent(out) ::  c_data
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(in) :: table_b_mnemonic(*)
+      character(len=90) :: str
+      real, pointer :: f_data
+      integer :: lstr
+
+      lstr = get_c_string_length(table_b_mnemonic)
+      str = transfer(table_b_mnemonic(1:lstr), str)
+      call c_f_pointer(c_data, f_data)
+      call ufbrms(imsg, isub, f_data, dim_1, dim_2, iret, str(1:lstr))
+    end subroutine ufbrms_c
+
+    !> Read one or more data values from every data subset in internal arrays.
+    !>
+    !> Wraps ufbtam() subroutine.
+    !>
+    !> @param c_data - C-style pointer to a pre-allocated buffer
+    !> @param dim_1, dim_2 - Dimensionality of data to read
+    !> @param iret - Return value, number of data subsets read
+    !> @param table_b_mnemonic - String of mnemonics to read from each data subset
+    !>
+    !> @author J. Ator @date 2025-12-01
+    recursive subroutine ufbtam_c(c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbtam_f')
+      integer(c_int), value, intent(in) :: dim_1, dim_2
+      type(c_ptr), intent(out) ::  c_data
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(in) :: table_b_mnemonic(*)
+      character(len=90) :: str
+      real, pointer :: f_data
+      integer :: lstr
+
+      lstr = get_c_string_length(table_b_mnemonic)
+      str = transfer(table_b_mnemonic(1:lstr), str)
+      call c_f_pointer(c_data, f_data)
+
+      call ufbtam(f_data, dim_1, dim_2, iret, str(1:lstr))
+    end subroutine ufbtam_c
+
+    !> Copy a message from internal arrays to a file
+    !>
+    !> Wraps cpymem() subroutine.
+    !>
+    !> @param lunot - Fortran logical unit for target BUFR file
+    !>
+    !> @author J. Ator @date 2025-12-02
+    recursive subroutine cpymem_c(lunot) bind(C, name='cpymem_f')
+      integer(c_int), value, intent(in) :: lunot
+
+      call cpymem(lunot)
+    end subroutine cpymem_c
+
+    !> Copy unique elements of a data subset from one file to another
+    !>
+    !> Wraps ufbcup() subroutine.
+    !>
+    !> @param lunin - Fortran logical unit for source BUFR file
+    !> @param lunot - Fortran logical unit for target BUFR file
+    !>
+    !> @author J. Ator @date 2025-12-02
+    recursive subroutine ufbcup_c(lunin, lunot) bind(C, name='ufbcup_f')
+      integer(c_int), value, intent(in) :: lunin, lunot
+
+      call ufbcup(lunin, lunot)
+    end subroutine ufbcup_c
+
+    !> Specify whether to standardize future output BUFR messages
+    !>
+    !> Wraps stdmsg() subroutine.
+    !>
+    !> @param cf - Flag indicating whether future BUFR output messages should be WMO-standard
+    !>
+    !> @author J. Ator @date 2025-12-02
+    recursive subroutine stdmsg_c(cf) bind(C, name='stdmsg_f')
+      character(kind=c_char), intent(in) :: cf(*)
+      character :: ch
+
+      ch = cf(1)
+      call stdmsg(ch)
+    end subroutine stdmsg_c
+
+    !> Standardize a copy of a BUFR message
+    !>
+    !> Wraps stndrd() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit for BUFR file
+    !> @param msgin - BUFR message
+    !> @param lmsgot - Allocated length of msgot
+    !> @param msgot - Copy of msgin now fully WMO-standardized
+    !>
+    !> @author J. Ator @date 2025-12-02
+    recursive subroutine stndrd_c(lunit, msgin, lmsgot, msgot) bind(C, name='stndrd_f')
+      integer(c_int), value, intent(in) :: lunit, lmsgot
+      integer(c_int), intent(in) :: msgin(*)
+      integer(c_int), intent(out) :: msgot(*)
+
+      call stndrd(lunit, msgin, lmsgot, msgot)
+    end subroutine stndrd_c
+
+    !> Specify whether to read code and flag table information from master BUFR tables
+    !>
+    !> Wraps codflg() subroutine.
+    !>
+    !> @param cf - Flag indicating whether code and flag table information should be included
+    !> when reading from master BUFR tables
+    !>
+    !> @author J. Ator @date 2025-12-02
+    recursive subroutine codflg_c(cf) bind(C, name='codflg_f')
+      character(kind=c_char), intent(in) :: cf(*)
+      character :: ch
+
+      ch = cf(1)
+      call codflg(ch)
+    end subroutine codflg_c
+
+    !> Get the parent for a specified occurrence of a Table B or Table D mnemonic
+    !>
+    !> Wraps gettagpr() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number
+    !> @param c_tagch - Table B or Table D mnemonic
+    !> @param ntagch - Ordinal occurrence of c_tagch for which c_tagpr is to be returned
+    !> @param c_tagpr - Table D mnemonic
+    !> @param tagpr_len - Allocated length of c_tagpr
+    !> @param ires - Return code
+    !>
+    !> @author J. Ator @date 2025-12-03
+    recursive subroutine gettagpr_c(bufr_unit, c_tagch, ntagch, c_tagpr, tagpr_len, ires) bind(C, name='gettagpr_f')
+      integer(c_int), value, intent(in) :: bufr_unit, ntagch, tagpr_len
+      integer(c_int), intent(out) :: ires
+      character(kind=c_char), intent(in) :: c_tagch(*)
+      character(kind=c_char), intent(out) :: c_tagpr(*)
+      character(len=10) :: f_tagch, f_tagpr
+      integer :: lfc, lfp
+
+      lfc = get_c_string_length(c_tagch)
+      f_tagch = transfer(c_tagch(1:lfc), f_tagch)
+
+      call gettagpr(bufr_unit, f_tagch(1:lfc), ntagch, f_tagpr, ires)
+
+      lfp = len(trim(f_tagpr)) + 1  ! add 1 for the null terminator
+      call copy_f_c_str(f_tagpr, c_tagpr, min(lfp, tagpr_len))
+    end subroutine gettagpr_c
+
+    !> Check whether a specified Table B mnemonic references another Table B mnemonic via an internal bitmap
+    !>
+    !> Wraps gettagre() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number
+    !> @param c_tagi - Table B mnemonic
+    !> @param ntagi - Ordinal occurrence of c_tagi for which c_tagre is to be returned
+    !> @param c_tagre - Table B mnemonic referenced by c_tagi via an internal bitmap
+    !> @param tagre_len - Allocated length of c_tagre
+    !> @param ntagre - Ordinal occurrence of tagre referenced by (ntagi)th occurrence of tagi
+    !> @param ires - Return code
+    !>
+    !> @author J. Ator @date 2025-12-03
+    recursive subroutine gettagre_c(bufr_unit, c_tagi, ntagi, c_tagre, tagre_len, ntagre, ires) bind(C, name='gettagre_f')
+      integer(c_int), value, intent(in) :: bufr_unit, ntagi, tagre_len
+      integer(c_int), intent(out) :: ntagre, ires
+      character(kind=c_char), intent(in) :: c_tagi(*)
+      character(kind=c_char), intent(out) :: c_tagre(*)
+      character(len=10) :: f_tagi, f_tagre
+      integer :: lfi, lfr
+
+      lfi = get_c_string_length(c_tagi)
+      f_tagi = transfer(c_tagi(1:lfi), f_tagi)
+
+      call gettagre(bufr_unit, f_tagi(1:lfi), ntagi, f_tagre, ntagre, ires)
+
+      lfr = len(trim(f_tagre)) + 1  ! add 1 for the null terminator
+      call copy_f_c_str(f_tagre, c_tagre, min(lfr, tagre_len))
+    end subroutine gettagre_c
+
+    !> Convert a BUFR message to edition 4
+    !>
+    !> Wraps cnved4() subroutine.
+    !>
+    !> @param msgin - BUFR message
+    !> @param lmsgot - Allocated length of msgot
+    !> @param msgot - Copy of msgin now converted to edition 4
+    !>
+    !> @author J. Ator @date 2025-12-03
+    recursive subroutine cnved4_c(msgin, lmsgot, msgot) bind(C, name='cnved4_f')
+      integer(c_int), value, intent(in) :: lmsgot
+      integer(c_int), intent(in) :: msgin(*)
+      integer(c_int), intent(out) :: msgot(*)
+
+      call cnved4(msgin, lmsgot, msgot)
+    end subroutine cnved4_c
+
+    !> Check if a subset definition contains any long character strings
+    !>
+    !> Wraps lcmgdf() function.
+    !>
+    !> @param bufr_unit - Fortran logical unit number
+    !> @param c_subset - Table A mnemonic
+    !>
+    !> @returns lcmgdf_c - Return code
+    !>
+    !> @author J. Ator @date 2025-12-03
+    recursive function lcmgdf_c(bufr_unit, c_subset) result(ires) bind(C, name='lcmgdf_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int) :: ires
+      character(kind=c_char), intent(in) :: c_subset(*)
+      character(len=8) :: f_subset
+      integer :: lcmgdf, lfs
+
+      lfs = get_c_string_length(c_subset)
+      f_subset = transfer(c_subset(1:lfs), f_subset)
+
+      ires = lcmgdf(bufr_unit, f_subset(1:lfs))
+    end function lcmgdf_c
+
+    !> Write a data value corresponding to a specific occurrence of a mnemonic
+    !>
+    !> Wraps setvalnb() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number
+    !> @param c_tagpv - Pivot mnemonic
+    !> @param ntagpv - Ordinal occurrence of c_tagpv to search for
+    !> @param c_tagnb - Nearby mnemonic
+    !> @param ntagnb - Ordinal occurrence of c_tagnb to search for
+    !> @param r8val - Value to be stored
+    !> @param ires - Return code
+    !>
+    !> @author J. Ator @date 2025-12-05
+    recursive subroutine setvalnb_c(bufr_unit, c_tagpv, ntagpv, c_tagnb, ntagnb, r8val, ires) bind(C, name='setvalnb_f')
+      integer(c_int), value, intent(in) :: bufr_unit, ntagpv, ntagnb
+      integer(c_int), intent(out) :: ires
+      character(kind=c_char), intent(in) :: c_tagpv(*), c_tagnb(*)
+      real(c_double), value, intent(in) :: r8val
+      character(len=10) :: f_tagpv, f_tagnb
+      integer :: lfp, lfn
+
+      lfp = get_c_string_length(c_tagpv)
+      f_tagpv = transfer(c_tagpv(1:lfp), f_tagpv)
+      lfn = get_c_string_length(c_tagnb)
+      f_tagnb = transfer(c_tagnb(1:lfn), f_tagnb)
+
+      call setvalnb(bufr_unit, f_tagpv(1:lfp), ntagpv, f_tagnb(1:lfn), ntagnb, r8val, ires)
+    end subroutine setvalnb_c
+
+    !> Read a data value corresponding to a specific occurrence of a mnemonic
+    !>
+    !> Wraps getvalnb() function.
+    !>
+    !> @param bufr_unit - Fortran logical unit number
+    !> @param c_tagpv - Pivot mnemonic
+    !> @param ntagpv - Ordinal occurrence of c_tagpv to search for
+    !> @param c_tagnb - Nearby mnemonic
+    !> @param ntagnb - Ordinal occurrence of c_tagnb to search for
+    !>
+    !> @returns getvalnb_c - Return value
+    !>
+    !> @author J. Ator @date 2025-12-05
+    recursive function getvalnb_c(bufr_unit, c_tagpv, ntagpv, c_tagnb, ntagnb) result(r8val) bind(C, name='getvalnb_f')
+      integer(c_int), value, intent(in) :: bufr_unit, ntagpv, ntagnb
+      character(kind=c_char), intent(in) :: c_tagpv(*), c_tagnb(*)
+      real(c_double) :: r8val
+      character(len=10) :: f_tagpv, f_tagnb
+      integer :: lfp, lfn
+      real*8 :: getvalnb
+
+      lfp = get_c_string_length(c_tagpv)
+      f_tagpv = transfer(c_tagpv(1:lfp), f_tagpv)
+      lfn = get_c_string_length(c_tagnb)
+      f_tagnb = transfer(c_tagnb(1:lfn), f_tagnb)
+
+      r8val = getvalnb(bufr_unit, f_tagpv(1:lfp), ntagpv, f_tagnb(1:lfn), ntagnb)
+    end function getvalnb_c
+
+    !> Get Table B and Table D information from the internal DX tables
+    !>
+    !> Wraps getabdb() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit number for BUFR file
+    !> @param itab - Allocated length of ctabdb
+    !> @param ctabdb - Internal Table B and Table D information
+    !> @param jtab - Number of entries returned in ctabdb
+    !>
+    !> @author Jeff Ator @date 2025-12-05
+    recursive subroutine getabdb_c(lunit, itab, ctabdb, jtab) bind(C, name='getabdb_f')
+      integer(c_int), value, intent(in) :: lunit, itab
+      integer(c_int), intent(out) :: jtab
+      character(kind=c_char), intent(out) :: ctabdb(128,*)
+      character(len=128) :: tabdb(1000)
+      integer :: ii, jj
+
+      call getabdb(lunit, tabdb, itab, jtab)
+      do ii = 1, jtab
+        do jj = 1, 128
+          ctabdb(jj,ii) = tabdb(ii)(jj:jj)
+        enddo
+      enddo
+    end subroutine getabdb_c
+
+    !> Read one or more data values from a data subset without advancing the subset pointer
+    !>
+    !> Wraps ufbget() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param tab - Data values
+    !> @param i1 - Allocated length of tab
+    !> @param iret - Return code
+    !> @param table_b_mnemonic - String of mnemonics
+    !>
+    !> @author Jeff Ator @date 2025-12-05
+    recursive subroutine ufbget_c(bufr_unit, tab, i1, iret, table_b_mnemonic) bind(C, name='ufbget_f')
+      integer(c_int), value, intent(in) :: bufr_unit, i1
+      integer(c_int), intent(out) :: iret
+      real(c_double), intent(out) :: tab(*)
+      character(kind=c_char), intent(in) :: table_b_mnemonic(*)
+      character(len=90) :: str
+      integer :: lstr
+
+      lstr = get_c_string_length(table_b_mnemonic)
+      str = transfer(table_b_mnemonic(1:lstr), str)
+
+      call ufbget(bufr_unit, tab, i1, iret, str(1:lstr))
+    end subroutine ufbget_c
+
+    !> Read one or more data values from a specified data subset
+    !>
+    !> Wraps ufbinx() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to read from
+    !> @param imsg - Number of BUFR message to be read
+    !> @param isub - Number of data subset to be read from imsg
+    !> @param c_data - C-style pointer to a pre-allocated buffer
+    !> @param dim_1, dim_2 - Dimensionality of data to read
+    !> @param iret - Return value, length of data read
+    !> @param table_b_mnemonic - String of mnemonics
+    !>
+    !> @author Jeff Ator @date 2025-12-05
+    recursive subroutine ufbinx_c(bufr_unit, imsg, isub, c_data, dim_1, dim_2, iret, table_b_mnemonic) &
+        bind(C, name='ufbinx_f')
+      integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2, imsg, isub
+      type(c_ptr), intent(out) ::  c_data
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(in) :: table_b_mnemonic(*)
+      character(len=90) :: str
+      real, pointer :: f_data
+      integer :: lstr
+
+      lstr = get_c_string_length(table_b_mnemonic)
+      str = transfer(table_b_mnemonic(1:lstr), str)
+
+      call c_f_pointer(c_data, f_data)
+      call ufbinx(bufr_unit, imsg, isub, f_data, dim_1, dim_2, iret, str(1:lstr))
+    end subroutine ufbinx_c
+
+    !> Overwrite one or more data values within a data subset
+    !>
+    !> Wraps ufbovr() subroutine.
+    !>
+    !> @param bufr_unit - Fortran logical unit number to write to
+    !> @param c_data - C-style pointer to a pre-allocated buffer
+    !> @param dim_1, dim_2 - Dimensionality of data to write
+    !> @param iret - Return value, length of data written
+    !> @param table_b_mnemonic - String of mnemonics
+    !>
+    !> @author Jeff Ator @date 2025-12-05
+    recursive subroutine ufbovr_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) &
+        bind(C, name='ufbovr_f')
+      integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2
+      type(c_ptr), intent(in) ::  c_data
+      integer(c_int), intent(out) :: iret
+      character(kind=c_char), intent(in) :: table_b_mnemonic(*)
+      character(len=90) :: str
+      real, pointer :: f_data
+      integer :: lstr
+
+      lstr = get_c_string_length(table_b_mnemonic)
+      str = transfer(table_b_mnemonic(1:lstr), str)
+
+      call c_f_pointer(c_data, f_data)
+      call ufbovr(bufr_unit, f_data, dim_1, dim_2, iret, str(1:lstr))
+    end subroutine ufbovr_c
+
+    !> Check if there are any more data subsets available within a BUFR message.
+    !>
+    !> Wraps ifbget() function.
+    !>
+    !> @param bufr_unit - Fortran logical unit number
+    !>
+    !> @returns ifbget_c - Return code
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive function ifbget_c(bufr_unit) result(ires) bind(C, name='ifbget_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int) :: ires
+      integer :: ifbget
+
+      ires = ifbget(bufr_unit)
+    end function ifbget_c
+
+    !> Check for an abnormal status code associated with the processing of a file
+    !>
+    !> Wraps igetsc() function.
+    !>
+    !> @param bufr_unit - Fortran logical unit number
+    !>
+    !> @returns igetsc_c - Return code
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive function igetsc_c(bufr_unit) result(ires) bind(C, name='igetsc_f')
+      integer(c_int), value, intent(in) :: bufr_unit
+      integer(c_int) :: ires
+      integer :: igetsc
+
+      ires = igetsc(bufr_unit)
+    end function igetsc_c
+
+    !> Generate DX BUFR table messages and write them to a output file
+    !>
+    !> Wraps wrdxtb() subroutine.
+    !>
+    !> @param lundx - Fortran logical unit number containing DX BUFR table information
+    !> @param lunot - Fortran logical unit number to write to
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive subroutine wrdxtb_c(lundx, lunot) bind(C, name='wrdxtb_f')
+      integer(c_int), value, intent(in) :: lundx, lunot
+
+      call wrdxtb(lundx, lunot)
+    end subroutine wrdxtb_c
+
+    !> Get information from the first data message in a BUFR file
+    !>
+    !> Wraps mesgbf() subroutine.
+    !>
+    !> @param lunit - Fortran logical unit number
+    !> @param mesgtyp - Message type
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive subroutine mesgbf_c(lunit, mesgtyp) bind(C, name='mesgbf_f')
+      integer(c_int), value, intent(in) :: lunit
+      integer(c_int), intent(out) :: mesgtyp
+
+      call mesgbf(lunit, mesgtyp)
+    end subroutine mesgbf_c
+
+    !> Get information from the first data message in a BUFR file
+    !>
+    !> Wraps mesgbc() subroutine.
+    !>
+    !> @param lunin - Fortran logical unit number
+    !> @param mesgtyp - Message type
+    !> @param icomp - Compression indicator
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive subroutine mesgbc_c(lunin, mesgtyp, icomp) bind(C, name='mesgbc_f')
+      integer(c_int), value, intent(in) :: lunin
+      integer(c_int), intent(out) :: mesgtyp, icomp
+
+      call mesgbc(lunin, mesgtyp, icomp)
+    end subroutine mesgbc_c
+
+    !> Merge parts of data subsets
+    !>
+    !> Wraps invmrg() subroutine.
+    !>
+    !> @param lubfi - Fortran logical unit number for input file
+    !> @param lubfj - Fortran logical unit number for output file
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive subroutine invmrg_c(lubfi, lubfj) bind(C, name='invmrg_f')
+      integer(c_int), value, intent(in) :: lubfi, lubfj
+
+      call invmrg(lubfi, lubfj)
+    end subroutine invmrg_c
+
+    !> Decode an integer from a character string
+    !>
+    !> Wraps iupm() function.
+    !>
+    !> @param cbay - Character string
+    !> @param nbits - Number of bits to decode from cbay
+    !> @param lcbay - Length of cbay
+    !>
+    !> @returns iupm_c - Decoded value
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive function iupm_c(cbay, nbits, lcbay) result(ires) bind(C, name='iupm_f')
+      character(kind=c_char), intent(in) :: cbay(*)
+      integer(c_int), value, intent(in) :: nbits, lcbay
+      integer(c_int) :: ires
+      integer :: iupm
+      character(len=8) :: f_cbay
+
+      f_cbay = transfer(cbay(1:lcbay), f_cbay)
+
+      ires = iupm(f_cbay(1:lcbay), nbits)
+    end function iupm_c
+
+    !> Encode an integer into a character string
+    !>
+    !> Wraps ipkm() subroutine.
+    !>
+    !> @param cbay - Character string
+    !> @param nbyt - Number of bytes of cbay within which to encode ival
+    !> @param ival - Value to encode
+    !> @param cbay_len - Allocated length of cbay
+    !>
+    !> @author J. Ator @date 2025-12-09
+    recursive subroutine ipkm_c(cbay, nbyt, ival, cbay_len) bind(C, name='ipkm_f')
+      character(kind=c_char), intent(out) :: cbay(*)
+      integer(c_int), value, intent(in) :: nbyt, ival, cbay_len
+      character(len=8) :: f_cbay
+      integer :: nbytp1
+
+      call ipkm(f_cbay, nbyt, ival)
+
+      nbytp1 = nbyt + 1  ! add 1 for the null terminator
+      call copy_f_c_str(f_cbay, cbay, min(nbytp1, cbay_len))
+    end subroutine ipkm_c
 
 end module bufr_c2f_interface

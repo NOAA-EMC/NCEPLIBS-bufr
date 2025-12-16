@@ -343,11 +343,9 @@ recursive integer function icopysb(lunin,lunot) result(iret)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunin,my_lunin,1)
     call x84(lunot,my_lunot,1)
     iret=icopysb(my_lunin,my_lunot)
-
     im8b=.true.
     return
   endif
@@ -456,6 +454,8 @@ end function iok2cpy
 !> @author J. Woollen @date 1994-01-06
 recursive subroutine cpymem(lunot)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_msgcwd
@@ -466,7 +466,7 @@ recursive subroutine cpymem(lunot)
   implicit none
 
   integer, intent(in) :: lunot
-  integer my_lunot, lin, lot, il, im, mtyp, msbt, inod, mbym, iupbs01, iok2cpy
+  integer my_lunot, lin, lot, il, im, mtyp, msbt, inod, mbym, iupbs01, iok2cpy, bort_target_set
 
   character*8  subset
 
@@ -474,11 +474,17 @@ recursive subroutine cpymem(lunot)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lunot,my_lunot,1)
     call cpymem(my_lunot)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_cpymem_c(lunot)
+    call bort_target_unset
     return
   endif
 
@@ -796,6 +802,8 @@ end subroutine mvb
 !> @author Woollen @date 1994-01-06
 recursive subroutine ufbcup(lubin,lubot)
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_usrint
@@ -806,7 +814,7 @@ recursive subroutine ufbcup(lubin,lubot)
   implicit none
 
   integer, intent(in) :: lubin, lubot
-  integer my_lubin, my_lubot, lui, luo, il, im, ntag, ni, no, nv, nin
+  integer my_lubin, my_lubot, lui, luo, il, im, ntag, ni, no, nv, nin, bort_target_set
 
   character*10 tago
 
@@ -820,6 +828,15 @@ recursive subroutine ufbcup(lubin,lubot)
     im8b=.true.
     return
   endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_ufbcup_c(lubin,lubot)
+    call bort_target_unset
+    return
+  endif
+
 
   ! Check the file statuses and inode
 

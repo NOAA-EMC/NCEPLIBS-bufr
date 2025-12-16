@@ -836,6 +836,8 @@ end subroutine writdx
 !> @author J. Ator @date 2009-03-23
 recursive subroutine wrdxtb(lundx,lunot)
 
+  use bufrlib
+
   use modv_vars, only: im8b, idxv
 
   use moda_tababd
@@ -846,7 +848,7 @@ recursive subroutine wrdxtb(lundx,lunot)
 
   integer, intent(in) :: lundx, lunot
   integer nxstr, ldxa, ldxb, ldxd, ld30, my_lundx, my_lunot, ldx, lot, il, im, lda, ldb, ldd, l30, nseq, &
-    mbit, mbyt, mby4, mbya, mbyb, mbyd, i, j, jj, idn, lend, len0, len1, len2, l3, l4, l5, iupb, iupm
+    mbit, mbyt, mby4, mbya, mbyb, mbyd, i, j, jj, idn, lend, len0, len1, len2, l3, l4, l5, iupb, iupm, bort_target_set
 
   common /dxtab/ nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
 
@@ -859,12 +861,18 @@ recursive subroutine wrdxtb(lundx,lunot)
 
   if(im8b) then
     im8b=.false.
-
     call x84(lundx,my_lundx,1)
     call x84(lunot,my_lunot,1)
     call wrdxtb(my_lundx,my_lunot)
-
     im8b=.true.
+    return
+  endif
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if (bort_target_set() == 1) then
+    call catch_bort_wrdxtb_c(lundx,lunot)
+    call bort_target_unset
     return
   endif
 

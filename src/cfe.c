@@ -177,7 +177,7 @@ cmpstia2(const void *pe1, const void *pe2)
  *  @author J. Ator  @date 2017-11-13
  */
 void
-strtbfe(int ifxyn, int ival, char *meaning, int lmeaning, int idfxy, int idval)
+strtbfe(int ifxyn, int ival, const char *meaning, int lmeaning, int idfxy, int idval)
 {
     unsigned int mnlen;
 

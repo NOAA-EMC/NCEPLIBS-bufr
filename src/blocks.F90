@@ -140,10 +140,8 @@ recursive subroutine setblock(iblk)
 
   if(im8b) then
     im8b=.false.
-
     call x84(iblk,my_iblk,1)
     call setblock(my_iblk)
-
     im8b=.true.
     return
   endif

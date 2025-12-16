@@ -76,10 +76,8 @@ recursive integer function icbfms ( str, lstr ) result ( iret )
 
   if ( im8b ) then
     im8b = .false.
-
     call x84 ( lstr, my_lstr, 1 )
     iret = icbfms ( str, my_lstr )
-
     im8b = .true.
     return
   end if

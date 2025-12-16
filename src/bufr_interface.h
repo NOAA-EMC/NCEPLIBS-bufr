@@ -12,9 +12,9 @@
 
 #pragma once
 
-void cobfl(char *bfl, char io);
+void cobfl(const char *bfl, char io);
 void crbmg(char *bmg, int mxmb, int *nmb, int *iret);
-void cwbmg(char *bmg, int nmb, int *iret);
+void cwbmg(const char *bmg, int nmb, int *iret);
 void ccbfl(void);
 
 /** Size of a character string needed to store a library version number. */
@@ -510,7 +510,7 @@ void delete_table_data_f();
  *
  *  @author J. Ator @date 2023-04-07
  */
-int iupbs01_f(int *bufr, char *mnemonic);
+int iupbs01_f(int *bufr, const char *mnemonic);
 
 /**
  * Get the current value of a parameter.
@@ -521,7 +521,7 @@ int iupbs01_f(int *bufr, char *mnemonic);
  *
  * @author J. Ator @date 2023-04-07
  */
-int igetprm_f(char *cprmnm);
+int igetprm_f(const char *cprmnm);
 
 /**
  * Define a customized parameter value for dynamic allocation.
@@ -533,7 +533,7 @@ int igetprm_f(char *cprmnm);
  *
  * @author J. Ator @date 2023-04-07
  */
-int isetprm_f(char *cprmnm, int ipval);
+int isetprm_f(const char *cprmnm, int ipval);
 
 /**
  * Define a customized maximum length for output BUFR messages.
@@ -650,7 +650,7 @@ int ibfms_f(double r8val);
  *
  * @author J. Ator @date 2023-04-07
  */
-void openmb_f(int bufr_unit, char *c_subset, int iddate);
+void openmb_f(int bufr_unit, const char *c_subset, int iddate);
 
 /**
  * Open a new message for output in a BUFR file that was previously
@@ -664,7 +664,18 @@ void openmb_f(int bufr_unit, char *c_subset, int iddate);
  *
  * @author J. Ator @date 2025-10-20
  */
-void openmg_f(int bufr_unit, char *c_subset, int iddate);
+void openmg_f(int bufr_unit, const char *c_subset, int iddate);
+
+/**
+ * Close a BUFR message
+ *
+ * Wraps closmg() subroutine.
+ *
+ * @param bufr_unit - Fortran logical unit number to write to.
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+void closmg_f(int bufr_unit);
 
 /**
  * Get the version number of the NCEPLIBS-bufr software.
@@ -688,7 +699,7 @@ void bvers_f(char *cverstr, int cverstr_len);
  *
  * @author J. Ator @date 2023-04-07
  */
-void cmpmsg_f(char *cf);
+void cmpmsg_f(const char *cf);
 
 /**
  * Specify the use of compression when writing BUFR messages.
@@ -702,7 +713,7 @@ void cmpmsg_f(char *cf);
  *
  * @author J. Ator @date 2025-10-15
  */
-int catch_borts_f(char *cf);
+int catch_borts_f(const char *cf);
 
 /**
  * Check whether a bort error was caught during a previous call to a library
@@ -741,7 +752,7 @@ void ufbcnt_f(int lunit, int *kmsg, int *ksub);
  *
  * @author J. Ator @date 2025-11-05
 */
-void ufbqcd_f(int lunit, char *cnemo, int *iqcd);
+void ufbqcd_f(int lunit, const char *cnemo, int *iqcd);
 
 /**
  * Return a mnemonic corresponding to a prepbufr program code.
@@ -773,7 +784,8 @@ void ufbqcp_f(int lunit, int iqcp, char *cnemo, int cnemo_len);
  *
  * @author J. Ator @date 2025-11-05
 */
-void getcfmng_f(int lunit, char *cnemoi, int ivali, char *cnemod, int ivald, char *cmeang_c, int lcmgc, int *iret);
+void getcfmng_f(int lunit, const char *cnemoi, int ivali, const char *cnemod, int ivald,
+                char *cmeang_c, int lcmgc, int *iret);
 
 /**
  * Get the bit settings equivalent to a given numerical value for a flag table mnemonic.
@@ -789,7 +801,7 @@ void getcfmng_f(int lunit, char *cnemoi, int ivali, char *cnemod, int ivald, cha
  *
  * @author J. Ator @date 2025-11-05
 */
-void upftbv_f(int lunit, char *cnemo, double val, int *ibit, int mxib, int *nib);
+void upftbv_f(int lunit, const char *cnemo, double val, int *ibit, int mxib, int *nib);
 
 /**
  * Read one or more data values from every data subset in a BUFR file.
@@ -849,7 +861,7 @@ void datelen_f(int len);
  *
  * @author Jeff Ator @date 2025-11-14
  */
-int iupvs01_f(int bufr_unit, char *c_s01m);
+int iupvs01_f(int bufr_unit, const char *c_s01m);
 
 /**
  * Get the total number of data subsets available within a BUFR message
@@ -874,7 +886,7 @@ int nmsub_f(int bufr_unit);
  *
  * @author Jeff Ator @date 2025-11-14
  */
-void pkvs01_f(char *c_s01m, int ival);
+void pkvs01_f(const char *c_s01m, int ival);
 
 /**
  * Get the Section 1 date-time from the first data message of a BUFR file.
@@ -942,7 +954,7 @@ void upds3_f(int *mbay, int lcds3, char (*ccds3)[6], int *nds3);
  *
  * @author Jeff Ator @date 2025-11-18
  */
-void pkbs1_f(int ival, int *mbay, char *c_s1m);
+void pkbs1_f(int ival, int *mbay, const char *c_s1m);
 
 /**
  * Specify a tank receipt time to be written into Section 1 of all future BUFR messages
@@ -958,7 +970,7 @@ void pkbs1_f(int ival, int *mbay, char *c_s1m);
  *
  * @author Jeff Ator @date 2025-11-20
  */
-void strcpt_f(char *cf, int iyr, int imo, int idy, int ihr, int imi);
+void strcpt_f(const char *cf, int iyr, int imo, int idy, int ihr, int imi);
 
 /**
  * Get the tank receipt time from Section 1 of a BUFR message
@@ -1103,6 +1115,448 @@ void readerme_f(int *mesg, int bufr_unit, char *subset, int *iddate, int subset_
  * @author Jeff Ator @date 2025-11-25
  */
 void rdmgsb_f(int lunit, int imsg, int isub);
+
+/**
+ * Read an entire BUFR file into internal arrays.
+ *
+ * Wraps ufbmem() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param inew - Processing option
+ * @param iret - Number of BUFR messages that were read and stored into internal arrays
+ * @param iunit - File status
+ *
+ * @author Jeff Ator @date 2025-11-25
+ */
+void ufbmem_f(int lunit, int inew, int *iret, int *iunit);
+
+/**
+ * Read an entire BUFR file into internal arrays.
+ *
+ * Wraps ufbmex() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param lundx - Fortran logical unit number containing DX BUFR table information
+ * @param inew - Processing option
+ * @param iret - Number of BUFR messages that were read and stored into internal arrays
+ * @param mesg - Types of BUFR messages that were read and stored into internal arrays
+ *
+ * @author Jeff Ator @date 2025-11-25
+ */
+void ufbmex_f(int lunit, int lundx, int inew, int *iret, int *mesg);
+
+/**
+ * Read a specified data subset from internal arrays.
+ *
+ * Wraps ufbmms() subroutine.
+ *
+ * @param imsg - Number of BUFR message to be read
+ * @param isub - Number of data subset to be read from imsg
+ * @param subset - Table A mnemonic for type of BUFR message that was read
+ * @param jdate - Date-time stored within Section 1 of BUFR message that was read
+ * @param subset_len - Allocated length of subset string
+ *
+ * @author Jeff Ator @date 2025-12-01
+ */
+void ufbmms_f(int imsg, int isub, char *subset, int *jdate, int subset_len);
+
+/**
+ * Read a specified data subset from internal arrays.
+ *
+ * Wraps ufbmns() subroutine.
+ *
+ * @param irep - Number of data subset to be read
+ * @param subset - Table A mnemonic for type of BUFR message that was read
+ * @param idate - Date-time stored within Section 1 of BUFR message that was read
+ * @param subset_len - Allocated length of subset string
+ *
+ * @author Jeff Ator @date 2025-12-01
+ */
+void ufbmns_f(int irep, char *subset, int *idate, int subset_len);
+
+/**
+ * Read a specified message from internal arrays.
+ *
+ * Wraps rdmemm() subroutine.
+ *
+ * @param imsg - Number of BUFR message to be read
+ * @param subset - Table A mnemonic for type of BUFR message that was read
+ * @param jdate - Date-time stored within Section 1 of BUFR message that was read
+ * @param subset_len - Allocated length of subset string
+ * @param iret - Return code
+ *
+ * @author Jeff Ator @date 2025-12-01
+ */
+void rdmemm_f(int imsg, char *subset, int *jdate, int subset_len, int *iret);
+
+/**
+ * Read a specified data subset from internal arrays.
+ *
+ * Wraps rdmems() subroutine.
+ *
+ * @param isub - Number of data subset to be read
+ * @param iret - Return code
+ *
+ * @author Jeff Ator @date 2025-12-01
+ */
+void rdmems_f(int isub, int *iret);
+
+/**
+ * Read one or more data values from internal arrays.
+ *
+ * Wraps ufbrms() subroutine.
+ *
+ * @param imsg - Number of BUFR message to be read
+ * @param isub - Number of data subset to be read from imsg
+ * @param c_data - pointer to a pointer to a pre-allocated buffer.
+ * @param dim_1 - dimensionality of data to read or write.
+ * @param dim_2 - dimensionality of data to read or write.
+ * @param iret - return value, length of data read or written.
+ * @param table_b_mnemonic - string of mnemonics.
+ *
+ * @author Jeff Ator @date 2025-12-01
+ */
+void ufbrms_f(int imsg, int isub, void **c_data, int dim_1, int dim_2,
+              int *iret, const char *table_b_mnemonic);
+
+/**
+ * Read one or more data values from every data subset in internal arrays.
+ *
+ * Wraps ufbtam() subroutine.
+ *
+ * @param c_data - pointer to a pointer to a pre-allocated buffer.
+ * @param dim_1 - dimensionality of data to read
+ * @param dim_2 - dimensionality of data to read
+ * @param iret - return value, number of data subsets read
+ * @param table_b_mnemonic - String of mnemonics to read from each data subset
+ *
+ * @author J. Ator @date 2025-12-01
+ */
+void ufbtam_f(void **c_data, int dim_1, int dim_2,
+              int *iret, const char *table_b_mnemonic);
+
+/**
+ * Copy a message from internal arrays to a file
+ *
+ * Wraps cpymem() subroutine.
+ *
+ * @param lunot - Fortran logical unit number for target BUFR file
+ *
+ * @author Jeff Ator @date 2025-12-02
+ */
+void cpymem_f(int lunot);
+
+/**
+ * Copy unique elements of a data subset from one file to another
+ *
+ * Wraps ufbcup() subroutine.
+ *
+ * @param lunin - Fortran logical unit number for source BUFR file
+ * @param lunot - Fortran logical unit number for target BUFR file
+ *
+ * @author Jeff Ator @date 2025-12-02
+ */
+void ufbcup_f(int lunin, int lunot);
+
+/**
+ * Specify whether to standardize future output BUFR messages
+ *
+ * Wraps stdmsg() subroutine.
+ *
+ * @param cf - Flag indicating whether future BUFR output messages should be WMO-standard
+ *
+ * @author Jeff Ator @date 2025-12-02
+ */
+void stdmsg_f(const char *cf);
+
+/**
+ * Standardize a copy of a BUFR message
+ *
+ * Wraps stndrd() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param msgin - BUFR message
+ * @param lmsgot - Allocated length of msgot
+ * @param msgot - Copy of msgin now fully WMO-standardized
+ *
+ * @author Jeff Ator @date 2025-12-02
+ */
+void stndrd_f(int lunit, int *msgin, int lmsgot, int *msgot);
+
+/**
+ * Specify whether to read code and flag table information from master BUFR tables
+ *
+ * Wraps codflg() subroutine.
+ *
+ * @param cf - Flag indicating whether code and flag table information should be included
+ * when reading from master BUFR tables
+ *
+ * @author Jeff Ator @date 2025-12-02
+ */
+void codflg_f(const char *cf);
+
+/**
+ * Get the parent for a specified occurrence of a Table B or Table D mnemonic
+ *
+ * Wraps gettagpr() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param tagch - Table B or Table D mnemonic
+ * @param ntagch - Ordinal occurrence of tagch for which tagpr is to be returned
+ * @param tagpr - Table D mnemonic
+ * @param tagpr_len - Allocated length of tagpr
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-12-03
+ */
+void gettagpr_f(int lunit, const char *tagch, int ntagch, char *tagpr, int tagpr_len, int *iret);
+
+/**
+ * Get the parent for a specified occurrence of a Table B or Table D mnemonic
+ *
+ * Wraps gettagre() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param tagi - Table B mnemonic
+ * @param ntagi - Ordinal occurrence of tagi for which tagre is to be returned
+ * @param tagre - Table B mnemonic referenced by tagi via an internal bitmap
+ * @param tagre_len - Allocated length of tagre
+ * @param ntagre - Ordinal occurrence of tagre referenced by (ntagi)th occurrence of tagi
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-12-03
+ */
+void gettagre_f(int lunit, const char *tagi, int ntagi, char *tagre, int tagre_len, int *ntagre, int *iret);
+
+/**
+ * Convert a BUFR message to edition 4
+ *
+ * Wraps cnved4() subroutine.
+ *
+ * @param msgin - BUFR message
+ * @param lmsgot - Allocated length of msgot
+ * @param msgot - Copy of msgin now converted to edition 4
+ *
+ * @author Jeff Ator @date 2025-12-03
+ */
+void cnved4_f(int *msgin, int lmsgot, int *msgot);
+
+/**
+ * Check if a subset definition contains any long character strings
+ *
+ * Wraps lcmgdf() function.
+ *
+ * @param bufr_unit - Fortran logical unit number
+ * @param c_subset - Table A mnemonic
+ *
+ * @returns Return code
+ *
+ * @author Jeff Ator @date 2025-12-03
+ */
+int lcmgdf_f(int bufr_unit, const char *c_subset);
+
+/**
+ * Write a data value corresponding to a specific occurrence of a mnemonic
+ *
+ * Wraps setvalnb() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param tagpv - Pivot mnemonic
+ * @param ntagpv - Ordinal occurrence of tagpv to search for
+ * @param tagnb - Nearby mnemonic
+ * @param ntagnb - Ordinal occurrence of tagnb to search for
+ * @param r8val - Value to be stored
+ * @param iret - Return code
+ *
+ * @author J. Ator @date 2025-12-05
+ */
+void setvalnb_f(int lunit, const char *tagpv, int ntagpv, const char *tagnb, int ntagnb, double r8val, int *iret);
+
+/**
+ * Read a data value corresponding to a specific occurrence of a mnemonic
+ *
+ * Wraps getvalnb() function.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param tagpv - Pivot mnemonic
+ * @param ntagpv - Ordinal occurrence of tagpv to search for
+ * @param tagnb - Nearby mnemonic
+ * @param ntagnb - Ordinal occurrence of tagnb to search for
+ *
+ * @returns Return value
+ *
+ * @author J. Ator @date 2025-12-05
+ */
+double getvalnb_f(int lunit, const char *tagpv, int ntagpv, const char *tagnb, int ntagnb);
+
+/**
+ * Get Table B and Table D information from the internal DX tables
+ *
+ * Wraps getabdb() subroutine.
+ *
+ * @param lunit - Fortran logical unit number for BUFR file
+ * @param itab - Allocated length of ctabdb
+ * @param ctabdb - Internal Table B and Table D information
+ * @param jtab - Number of entries returned in ctabdb
+ *
+ * @author J. Ator @date 2025-12-05
+ */
+void getabdb_f(int lunit, int itab, char (*ctabdb)[128], int *jtab);
+
+/**
+ * Read one or more data values from a data subset without advancing the subset pointer
+ *
+ * Wraps ufbget() subroutine.
+ *
+ * @param bufr_unit - Fortran logical unit number to read from
+ * @param tab - Data values
+ * @param i1 - Allocated length of tab
+ * @param iret - Return code
+ * @param table_b_mnemonic - String of mnemonics to read from the data subset
+ *
+ * @author J. Ator @date 2025-12-05
+ */
+void ufbget_f(int bufr_unit, double *tab, int i1, int *iret, const char *table_b_mnemonic);
+
+/**
+ * Read one or more data values from a specified data subset
+ *
+ * Wraps ufbinx() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to read from
+ * @param imsg - Number of BUFR message to be read
+ * @param isub - Number of data subset to be read from imsg
+ * @param c_data - pointer to a pointer to a pre-allocated buffer.
+ * @param dim_1 - dimensionality of data to read
+ * @param dim_2 - dimensionality of data to read
+ * @param iret - return value, length of data read
+ * @param table_b_mnemonic - string of mnemonics.
+ *
+ * @author J. Ator @date 2025-12-05
+ */
+void ufbinx_f(int bufr_unit, int imsg, int isub, void **c_data, int dim_1, int dim_2,
+              int *iret, const char *table_b_mnemonic);
+
+/**
+ * Overwrite one or more data values within a data subset
+ *
+ * Wraps ufbovr() subroutine.
+ *
+ * @param bufr_unit - the Fortran logical unit number to write to
+ * @param c_data - pointer to a pointer to a pre-allocated buffer.
+ * @param dim_1 - dimensionality of data to write
+ * @param dim_2 - dimensionality of data to write
+ * @param iret - return value, length of data written
+ * @param table_b_mnemonic - string of mnemonics.
+ *
+ * @author J. Ator @date 2025-12-05
+ */
+void ufbovr_f(int bufr_unit, void **c_data, int dim_1, int dim_2,
+              int *iret, const char *table_b_mnemonic);
+
+/**
+ * Check if there are any more data subsets available within a BUFR message
+ *
+ * Wraps ifbget() function.
+ *
+ * @param bufr_unit - Fortran logical unit number
+ *
+ * @returns Return code
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+int ifbget_f(int bufr_unit);
+
+/**
+ * Check for an abnormal status code associated with the processing of a file
+ *
+ * Wraps igetsc() function.
+ *
+ * @param bufr_unit - Fortran logical unit number
+ *
+ * @returns Return code
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+int igetsc_f(int bufr_unit);
+
+/**
+ * Generate DX BUFR table messages and write them to a output file
+ *
+ * Wraps wrdxtb() subroutine.
+ *
+ * @param lundx - Fortran logical unit number containing DX BUFR table information
+ * @param lunot - Fortran logical unit number for output file
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+void wrdxtb_f(int lundx, int lunot);
+
+/**
+ * Get information from the first data message in a BUFR file
+ *
+ * Wraps mesgbf() subroutine.
+ *
+ * @param lunit - Fortran logical unit number
+ * @param mesgtyp - Message type
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+void mesgbf_f(int lunit, int *mesgtyp);
+
+/**
+ * Get information from the first data message in a BUFR file
+ *
+ * Wraps mesgbc() subroutine.
+ *
+ * @param lunin - Fortran logical unit number
+ * @param mesgtyp - Message type
+ * @param icomp - Compression indicator
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+void mesgbc_f(int lunin, int *mesgtyp, int *icomp);
+
+/**
+ * Merge parts of data subsets
+ *
+ * Wraps invmrg() subroutine.
+ *
+ * @param lubfi - Fortran logical unit number for input file
+ * @param lubfj - Fortran logical unit number for output file
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+void invmrg_f(int lubfi, int lubfj);
+
+/**
+ * Decode an integer from a character string
+ *
+ * Wraps iupm() function.
+ *
+ * @param cbay - Character string
+ * @param nbits - Number of bits to decode from cbay
+ * @param lcbay - Length of cbay
+ *
+ * @returns Decoded value
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+int iupm_f(const char *cbay, int nbits, int lcbay);
+
+/**
+ * Encode an integer into a character string
+ *
+ * Wraps ipkm() subroutine.
+ *
+ * @param cbay - Character string
+ * @param nbyt - Number of bytes of cbay within which to encode ival
+ * @param ival - Value to encode
+ * @param cbay_len - Allocated length of cbay
+ *
+ * @author J. Ator @date 2025-12-09
+ */
+void ipkm_f(char *cbay, int nbyt, int ival, int cbay_len);
 
 #ifdef __cplusplus
 }

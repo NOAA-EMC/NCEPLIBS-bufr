@@ -108,6 +108,8 @@ end subroutine strbtm
 !> @author J. Ator @date 2016-06-07
 recursive subroutine gettagre ( lunit, tagi, ntagi, tagre, ntagre, iret )
 
+  use bufrlib
+
   use modv_vars, only: im8b
 
   use moda_usrint
@@ -118,11 +120,11 @@ recursive subroutine gettagre ( lunit, tagi, ntagi, tagre, ntagre, iret )
 
   integer, intent(in) :: lunit, ntagi
   integer, intent(out) :: iret, ntagre
-  integer my_lunit, my_ntagi, lun, il, im, ni, nre, ltre, ii
+  integer my_lunit, my_ntagi, lun, il, im, ni, nre, ltre, ii, lci, ntrchr, bort_target_set
 
   character*(*), intent(in) :: tagi
   character*(*), intent(out) :: tagre
-  character*10 tagtmp
+  character*10 tagtmp, ctagi, ctagre
 
   ! Check for I8 integers.
 
@@ -134,6 +136,18 @@ recursive subroutine gettagre ( lunit, tagi, ntagi, tagre, ntagre, iret )
     call x48(ntagre,ntagre,1)
     call x48(iret,iret,1)
     im8b=.true.
+    return
+  endif
+
+  tagre = ' '
+
+  ! If we're catching bort errors, set a target return location if one doesn't already exist.
+
+  if ( bort_target_set() == 1 ) then
+    call strsuc( tagi, ctagi, lci )
+    call catch_bort_gettagre_c( lunit, ctagi, lci, ntagi, ctagre, len(ctagre), ntagre, ntrchr, iret )
+    tagre(1:ntrchr) = ctagre(1:ntrchr)
+    call bort_target_unset
     return
   endif
 
