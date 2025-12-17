@@ -2025,10 +2025,10 @@ program test_bort
           index( errstr(1:errstr_len), 'UFBCPY - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
         stop 0
      elseif (test_case == '4') then
-        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
-        call readns(11, char_val_8, jdate, iret)
+        call readmg(11, char_val_8, jdate, iret)
         call ufbcpy(11, 12)
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
