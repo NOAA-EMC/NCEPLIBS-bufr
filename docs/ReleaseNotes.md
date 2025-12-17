@@ -2,6 +2,40 @@
 # Release Notes
 @brief Detailed description of changes included within each new release.
 
+## Version 12.3.0 - December 18, 2025
+
+* Upgraded sinv utility to handle BUFR satellite data files of any size, including a corresponding update to
+subroutine ufbtab() to allow for partial reading of BUFR files.
+[[Issue #579](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/579)]
+
+* Fixed a bug in subroutine seqsdx() to allow an 8-character sequence mnemonic to be replicated up to 255 times.
+[[Issue #652](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/652)]
+
+* Fixed a bug in subroutine readns() which could return a 10-digit date-time even if subroutine datelen()
+was never called.
+[[Issue #673](https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/673)]
+
+* Fixed bugs in subroutines ufbint(), ufbrep(), and ufbstp() to prevent returning a higher replication count
+than was allocated for reading within an application program.
+[[Issue #676](https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/676)]
+
+* Added more subroutine wrappers within the Python API.
+[[Issue #654](https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/654)]
+[[Issue #658](https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/658)]
+[[Issue #660](https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/660)]
+[[Issue #679](https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/679)]
+
+* Added a new capability to optionally catch and return bort messages to an application program, to allow for
+more controlled exits or error handling from within an application program in the event of a library error.
+This new capability is activated via a call to function catch_borts(), and after which the application program
+can then call subroutine check_for_bort() after any subsequent call to any other library function or subroutine,
+in order to determine whether an internal error occurred during that call and then potentially take corrective
+action. If this new capability is never activated, then by default any such bort error will directly abort the
+application program with the same error message, as per current practice.
+[[Issue #340](https://github.com/NOAA-EMC/NCEPLIBS-bufr/discussions/340)]
+[[Issue #673](https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/673)]
+[[Issue #675](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/675)]
+
 ## Version 12.2.0 - February 19, 2025
 
 * Removed subprograms ufbin3 and nevn from the library. These subprograms had previously been used to support
