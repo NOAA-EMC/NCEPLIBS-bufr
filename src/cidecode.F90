@@ -269,7 +269,7 @@ recursive integer function iupm(cbay,nbits) result(iret)
 
   character*(*), intent(in) :: cbay
   character*4 cint
-  character*5 ccbay
+  character*16 ccbay
   character*128 bort_str
 
   integer, intent(in) :: nbits
@@ -287,11 +287,14 @@ recursive integer function iupm(cbay,nbits) result(iret)
     return
   endif
 
+  lcbay = len(cbay)
+
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
   if (bort_target_set() == 1) then
     lccb = nbits/8
     if (mod(nbits,8)/=0) lccb = lccb + 1
+    lccb = min(lccb,lcbay,len(ccbay))
     ccbay(1:lccb) = cbay(1:lccb)
     call catch_bort_iupm_c(ccbay,nbits,iret,lccb)
     call bort_target_unset
@@ -304,7 +307,6 @@ recursive integer function iupm(cbay,nbits) result(iret)
       ', NBITS (",I4,"), IS > THE INTEGER WORD LENGTH ON THIS MACHINE, NBITW (",I3,")")') nbits,nbitw
     call bort(bort_str)
   endif
-  lcbay = len(cbay)
   cint(1:lcbay) = cbay(1:lcbay)
   int = irev(int)
   iret = ishft(int,nbits-nbitw)

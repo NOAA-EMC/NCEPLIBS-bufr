@@ -2784,7 +2784,7 @@ module bufr_c2f_interface
       integer(c_int), value, intent(in) :: nbits, lcbay
       integer(c_int) :: ires
       integer :: iupm
-      character(len=8) :: f_cbay
+      character(len=16) :: f_cbay
 
       f_cbay = transfer(cbay(1:lcbay), f_cbay)
 

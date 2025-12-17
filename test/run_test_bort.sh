@@ -684,7 +684,7 @@ for kind in "4" "8"; do
     (./test_bort_$kind ipkm 1 catch) && exit 1
 
     # Check iupm().
-    #(./test_bort_$kind iupm 1 catch) && exit 1
+    (./test_bort_$kind iupm 1 catch) && exit 1
 
     # Check iupvs01().
     (./test_bort_$kind iupvs01 1 catch) && exit 1

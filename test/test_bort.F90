@@ -706,10 +706,10 @@ program test_bort
   elseif (sub_name == 'iupm') then
      if (test_case == '1') then
         iret = iupm(char_8, 100)
-        !call check_for_bort( errstr, errstr_len )
-        !if ( errstr_len > 0 .and. &
-        !  index( errstr(1:errstr_len), 'IUPM - NUMBER OF BITS BEING UNPACKED, NBITS' ) /= 0 ) stop 88
-        !stop 0
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'IUPM - NUMBER OF BITS BEING UNPACKED, NBITS' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'iupvs01') then
      if (test_case == '1') then
