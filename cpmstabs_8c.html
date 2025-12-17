@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.2.0</span>
+   &#160;<span id="projectnumber">12.3.0</span>
    </div>
   </td>
  </tr>
@@ -98,9 +99,9 @@ $(document).ready(function(){initNavTree('cpmstabs_8c.html',''); initResizable()
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab993a0c7a1d8c4c04fb7006f6253025c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cpmstabs_8c.html#ab993a0c7a1d8c4c04fb7006f6253025c">cpmstabs</a> (int nmtb, int *ibfxyn, char(*cbscl)[4], char(*cbsref)[12], char(*cbbw)[4], char(*cbunit)[24], char(*cbmnem)[8], char(*cbelem)[120], int nmtd, int *idfxyn, char(*cdseq)[120], char(*cdmnem)[8], int *ndelem, int *idefxy, int maxcd)</td></tr>
-<tr class="memdesc:ab993a0c7a1d8c4c04fb7006f6253025c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy relevant information from the Fortran module <a class="el" href="namespacemoda__mstabs.html">moda_mstabs</a> arrays to new arrays within C, for use whenever arrays are dynamically allocated at run time, and in which case we can't directly access those Fortran module arrays from within C.  <a href="cpmstabs_8c.html#ab993a0c7a1d8c4c04fb7006f6253025c">More...</a><br /></td></tr>
-<tr class="separator:ab993a0c7a1d8c4c04fb7006f6253025c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79d3b561e6aabd10c8eefc3aad4fa95c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cpmstabs_8c.html#a79d3b561e6aabd10c8eefc3aad4fa95c">cpmstabs</a> (int nmtb, int *ibfxyn, const char(*cbscl)[4], const char(*cbsref)[12], const char(*cbbw)[4], const char(*cbunit)[24], const char(*cbmnem)[8], const char(*cbelem)[120], int nmtd, int *idfxyn, const char(*cdseq)[120], const char(*cdmnem)[8], int *ndelem, int *idefxy, int maxcd)</td></tr>
+<tr class="memdesc:a79d3b561e6aabd10c8eefc3aad4fa95c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy relevant information from the Fortran module <a class="el" href="namespacemoda__mstabs.html">moda_mstabs</a> arrays to new arrays within C, for use whenever arrays are dynamically allocated at run time, and in which case we can't directly access those Fortran module arrays from within C.  <a href="cpmstabs_8c.html#a79d3b561e6aabd10c8eefc3aad4fa95c">More...</a><br /></td></tr>
+<tr class="separator:a79d3b561e6aabd10c8eefc3aad4fa95c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Copy master Table B and Table D information from Fortran arrays to C arrays within internal memory. </p>
@@ -109,8 +110,8 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="cpmstabs_8c_source.html">cpmstabs.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="ab993a0c7a1d8c4c04fb7006f6253025c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab993a0c7a1d8c4c04fb7006f6253025c">&#9670;&nbsp;</a></span>cpmstabs()</h2>
+<a id="a79d3b561e6aabd10c8eefc3aad4fa95c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79d3b561e6aabd10c8eefc3aad4fa95c">&#9670;&nbsp;</a></span>cpmstabs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -130,37 +131,37 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char(*)&#160;</td>
+          <td class="paramtype">const char(*)&#160;</td>
           <td class="paramname"><em>cbscl</em>[4], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char(*)&#160;</td>
+          <td class="paramtype">const char(*)&#160;</td>
           <td class="paramname"><em>cbsref</em>[12], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char(*)&#160;</td>
+          <td class="paramtype">const char(*)&#160;</td>
           <td class="paramname"><em>cbbw</em>[4], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char(*)&#160;</td>
+          <td class="paramtype">const char(*)&#160;</td>
           <td class="paramname"><em>cbunit</em>[24], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char(*)&#160;</td>
+          <td class="paramtype">const char(*)&#160;</td>
           <td class="paramname"><em>cbmnem</em>[8], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char(*)&#160;</td>
+          <td class="paramtype">const char(*)&#160;</td>
           <td class="paramname"><em>cbelem</em>[120], </td>
         </tr>
         <tr>
@@ -178,13 +179,13 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char(*)&#160;</td>
+          <td class="paramtype">const char(*)&#160;</td>
           <td class="paramname"><em>cdseq</em>[120], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char(*)&#160;</td>
+          <td class="paramtype">const char(*)&#160;</td>
           <td class="paramname"><em>cdmnem</em>[8], </td>
         </tr>
         <tr>

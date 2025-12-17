@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.2.0</span>
+   &#160;<span id="projectnumber">12.3.0</span>
    </div>
   </td>
  </tr>
@@ -156,12 +157,27 @@ Functions</h2></td></tr>
 <tr class="memitem:ad5429d7ed327f515c880227bb795162b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#ad5429d7ed327f515c880227bb795162b">backbufr</a> (int nfile)</td></tr>
 <tr class="memdesc:ad5429d7ed327f515c880227bb795162b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Backspace a BUFR file by one BUFR message.  <a href="bufrlib_8h.html#ad5429d7ed327f515c880227bb795162b">More...</a><br /></td></tr>
 <tr class="separator:ad5429d7ed327f515c880227bb795162b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bd8daccf2564da21968a531b87bf447"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f</a> (char *errstr)</td></tr>
-<tr class="memdesc:a4bd8daccf2564da21968a531b87bf447"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log one error message and abort application program.  <a href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">More...</a><br /></td></tr>
-<tr class="separator:a4bd8daccf2564da21968a531b87bf447"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cf83529a094007fd5f9c94ad8430b2b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a4cf83529a094007fd5f9c94ad8430b2b">bort_f</a> (const char *errstr)</td></tr>
+<tr class="memdesc:a4cf83529a094007fd5f9c94ad8430b2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log one error message and abort application program.  <a href="bufrlib_8h.html#a4cf83529a094007fd5f9c94ad8430b2b">More...</a><br /></td></tr>
+<tr class="separator:a4cf83529a094007fd5f9c94ad8430b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a8aa6c70d74066b203df4ae31c432dd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a6a8aa6c70d74066b203df4ae31c432dd">bort_target_set_f</a> (void)</td></tr>
+<tr class="memdesc:a6a8aa6c70d74066b203df4ae31c432dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a new bort target, if bort catching is enabled and such a target doesn't already exist.  <a href="bufrlib_8h.html#a6a8aa6c70d74066b203df4ae31c432dd">More...</a><br /></td></tr>
+<tr class="separator:a6a8aa6c70d74066b203df4ae31c432dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c99e1c71713889be8aad0336591a0a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a1c99e1c71713889be8aad0336591a0a1">bort_target_unset_f</a> (void)</td></tr>
+<tr class="memdesc:a1c99e1c71713889be8aad0336591a0a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear any existing bort target.  <a href="bufrlib_8h.html#a1c99e1c71713889be8aad0336591a0a1">More...</a><br /></td></tr>
+<tr class="separator:a1c99e1c71713889be8aad0336591a0a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a039293342a5ca4fe52a09992db5e42c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f</a> (int idn, char *adn, int adn_str_len)</td></tr>
 <tr class="memdesc:a039293342a5ca4fe52a09992db5e42c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert an FXY value from its WMO bit-wise representation to its six-character representation.  <a href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">More...</a><br /></td></tr>
 <tr class="separator:a039293342a5ca4fe52a09992db5e42c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9030d45d08d03c1a9d0c408e58a31f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#ad9030d45d08d03c1a9d0c408e58a31f2">catch_bort_cobfl</a> (const char *bfl, char io)</td></tr>
+<tr class="memdesc:ad9030d45d08d03c1a9d0c408e58a31f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catch any bort error inside of function <a class="el" href="bufr__interface_8h.html#a4f338851a6045a9ba49700868d270381" title="Open a new file for reading or writing BUFR messages via a C language interface.">cobfl()</a>.  <a href="bufrlib_8h.html#ad9030d45d08d03c1a9d0c408e58a31f2">More...</a><br /></td></tr>
+<tr class="separator:ad9030d45d08d03c1a9d0c408e58a31f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f1144290e6c96cb4ea624bccc4d8bfd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a3f1144290e6c96cb4ea624bccc4d8bfd">catch_bort_crbmg</a> (char *bmg, int mxmb, int *nmb, int *iret)</td></tr>
+<tr class="memdesc:a3f1144290e6c96cb4ea624bccc4d8bfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catch any bort error inside of function <a class="el" href="bufr__interface_8h.html#a8e937daaf4fe2e1c74c3f8754bcce048" title="Read the next BUFR message from the file that was opened via the most recent call to function cobfl()...">crbmg()</a>.  <a href="bufrlib_8h.html#a3f1144290e6c96cb4ea624bccc4d8bfd">More...</a><br /></td></tr>
+<tr class="separator:a3f1144290e6c96cb4ea624bccc4d8bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbf741ad6c4c0870efd71747d406dd7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#acbf741ad6c4c0870efd71747d406dd7a">catch_bort_cwbmg</a> (const char *bmg, int nmb, int *iret)</td></tr>
+<tr class="memdesc:acbf741ad6c4c0870efd71747d406dd7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catch any bort error inside of function <a class="el" href="bufr__interface_8h.html#a62e8fc5b5eb98afcb5d5f10dbe210295" title="Write a BUFR message to the file that was opened via the most recent call to function cobfl() with io...">cwbmg()</a>.  <a href="bufrlib_8h.html#acbf741ad6c4c0870efd71747d406dd7a">More...</a><br /></td></tr>
+<tr class="separator:acbf741ad6c4c0870efd71747d406dd7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afffb1b48f2c7d82abebcf2564d47438a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#afffb1b48f2c7d82abebcf2564d47438a">cewind</a> (int nfile)</td></tr>
 <tr class="memdesc:afffb1b48f2c7d82abebcf2564d47438a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rewind a BUFR file back to its beginning.  <a href="bufrlib_8h.html#afffb1b48f2c7d82abebcf2564d47438a">More...</a><br /></td></tr>
 <tr class="separator:afffb1b48f2c7d82abebcf2564d47438a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -177,54 +193,54 @@ Functions</h2></td></tr>
 <tr class="memitem:a1242c4d43753a37cdb9abfb3f01e5583"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a1242c4d43753a37cdb9abfb3f01e5583">dlloctbf</a> (void)</td></tr>
 <tr class="memdesc:a1242c4d43753a37cdb9abfb3f01e5583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free all dynamically-allocated memory for internal storage of master Code/Flag table entries.  <a href="bufrlib_8h.html#a1242c4d43753a37cdb9abfb3f01e5583">More...</a><br /></td></tr>
 <tr class="separator:a1242c4d43753a37cdb9abfb3f01e5583"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39fc8b2494bb5f754c2d800c4b5a2f1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a39fc8b2494bb5f754c2d800c4b5a2f1c">elemdx_f</a> (char *card, int lun)</td></tr>
-<tr class="memdesc:a39fc8b2494bb5f754c2d800c4b5a2f1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode the scale factor, reference value, bit width, and units from a Table B mnemonic definition.  <a href="bufrlib_8h.html#a39fc8b2494bb5f754c2d800c4b5a2f1c">More...</a><br /></td></tr>
-<tr class="separator:a39fc8b2494bb5f754c2d800c4b5a2f1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adca27e1c000af76b9eaf4a2c1b3d3b3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#adca27e1c000af76b9eaf4a2c1b3d3b3a">elemdx_f</a> (const char *card, int lun)</td></tr>
+<tr class="memdesc:adca27e1c000af76b9eaf4a2c1b3d3b3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode the scale factor, reference value, bit width, and units from a Table B mnemonic definition.  <a href="bufrlib_8h.html#adca27e1c000af76b9eaf4a2c1b3d3b3a">More...</a><br /></td></tr>
+<tr class="separator:adca27e1c000af76b9eaf4a2c1b3d3b3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3b665adb5a53a4c82d3c5caadbb2c38"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#ab3b665adb5a53a4c82d3c5caadbb2c38">icvidx</a> (int ii, int jj, int numjj)</td></tr>
 <tr class="memdesc:ab3b665adb5a53a4c82d3c5caadbb2c38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a unique 1-dimensional array index from 2-dimensional indices.  <a href="bufrlib_8h.html#ab3b665adb5a53a4c82d3c5caadbb2c38">More...</a><br /></td></tr>
 <tr class="separator:ab3b665adb5a53a4c82d3c5caadbb2c38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9941f6596dafba1e4361eb2f5e173f24"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f</a> (char *cfxy)</td></tr>
-<tr class="memdesc:a9941f6596dafba1e4361eb2f5e173f24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert an FXY value from its 6 character representation to its WMO bit-wise representation.  <a href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">More...</a><br /></td></tr>
-<tr class="separator:a9941f6596dafba1e4361eb2f5e173f24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad32acb7e25a0763d1ecfa201884bc131"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#ad32acb7e25a0763d1ecfa201884bc131">igetntbi_f</a> (int lun, char *table_type)</td></tr>
-<tr class="memdesc:ad32acb7e25a0763d1ecfa201884bc131"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the next index for storing an entry within an internal DX BUFR table.  <a href="bufrlib_8h.html#ad32acb7e25a0763d1ecfa201884bc131">More...</a><br /></td></tr>
-<tr class="separator:ad32acb7e25a0763d1ecfa201884bc131"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90745019cbec7fb42c1eb10317f11609"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a90745019cbec7fb42c1eb10317f11609">ifxy_f</a> (const char *cfxy)</td></tr>
+<tr class="memdesc:a90745019cbec7fb42c1eb10317f11609"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert an FXY value from its 6 character representation to its WMO bit-wise representation.  <a href="bufrlib_8h.html#a90745019cbec7fb42c1eb10317f11609">More...</a><br /></td></tr>
+<tr class="separator:a90745019cbec7fb42c1eb10317f11609"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90c5ce85bccf40f0ced6f96ba98d57ce"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a90c5ce85bccf40f0ced6f96ba98d57ce">igetntbi_f</a> (int lun, const char *table_type)</td></tr>
+<tr class="memdesc:a90c5ce85bccf40f0ced6f96ba98d57ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the next index for storing an entry within an internal DX BUFR table.  <a href="bufrlib_8h.html#a90c5ce85bccf40f0ced6f96ba98d57ce">More...</a><br /></td></tr>
+<tr class="separator:a90c5ce85bccf40f0ced6f96ba98d57ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0320e66350174c1e05f30babd13d52c2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a0320e66350174c1e05f30babd13d52c2">igettdi_f</a> (int iflag)</td></tr>
 <tr class="memdesc:a0320e66350174c1e05f30babd13d52c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the next usable Table D index for the current master table, or reset the index.  <a href="bufrlib_8h.html#a0320e66350174c1e05f30babd13d52c2">More...</a><br /></td></tr>
 <tr class="separator:a0320e66350174c1e05f30babd13d52c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e533930a6aa9c6fc76c89d14e54cf47"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a3e533930a6aa9c6fc76c89d14e54cf47">imrkopr_f</a> (char *nemo)</td></tr>
-<tr class="memdesc:a3e533930a6aa9c6fc76c89d14e54cf47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether a specified mnemonic is a Table C marker operator.  <a href="bufrlib_8h.html#a3e533930a6aa9c6fc76c89d14e54cf47">More...</a><br /></td></tr>
-<tr class="separator:a3e533930a6aa9c6fc76c89d14e54cf47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47133374d831dc1a41cf7f82cee1b393"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a47133374d831dc1a41cf7f82cee1b393">imrkopr_f</a> (const char *nemo)</td></tr>
+<tr class="memdesc:a47133374d831dc1a41cf7f82cee1b393"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether a specified mnemonic is a Table C marker operator.  <a href="bufrlib_8h.html#a47133374d831dc1a41cf7f82cee1b393">More...</a><br /></td></tr>
+<tr class="separator:a47133374d831dc1a41cf7f82cee1b393"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af98949e6ee91a0b77a8f24509401ed2d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#af98949e6ee91a0b77a8f24509401ed2d">istdesc_f</a> (int idn)</td></tr>
 <tr class="memdesc:af98949e6ee91a0b77a8f24509401ed2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether a descriptor is WMO-standard.  <a href="bufrlib_8h.html#af98949e6ee91a0b77a8f24509401ed2d">More...</a><br /></td></tr>
 <tr class="separator:af98949e6ee91a0b77a8f24509401ed2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45c023844f35d35ee3c5e77e60fdb18a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a45c023844f35d35ee3c5e77e60fdb18a">numtbd_f</a> (int lun, int idn, char *nemo, int nemo_str_len, char *tab, int *iret)</td></tr>
 <tr class="memdesc:a45c023844f35d35ee3c5e77e60fdb18a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for a Table B or Table D descriptor within the internal DX BUFR tables.  <a href="bufrlib_8h.html#a45c023844f35d35ee3c5e77e60fdb18a">More...</a><br /></td></tr>
 <tr class="separator:a45c023844f35d35ee3c5e77e60fdb18a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8eb759a820f7f12a3b75e92473db3c78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a8eb759a820f7f12a3b75e92473db3c78">openab</a> (int nfile, char *ufile)</td></tr>
-<tr class="memdesc:a8eb759a820f7f12a3b75e92473db3c78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a new file for appending BUFR messages.  <a href="bufrlib_8h.html#a8eb759a820f7f12a3b75e92473db3c78">More...</a><br /></td></tr>
-<tr class="separator:a8eb759a820f7f12a3b75e92473db3c78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab18be8cbb2bdbdb682adce89dd1a9c69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#ab18be8cbb2bdbdb682adce89dd1a9c69">openrb</a> (int nfile, char *ufile)</td></tr>
-<tr class="memdesc:ab18be8cbb2bdbdb682adce89dd1a9c69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a new file for reading BUFR messages.  <a href="bufrlib_8h.html#ab18be8cbb2bdbdb682adce89dd1a9c69">More...</a><br /></td></tr>
-<tr class="separator:ab18be8cbb2bdbdb682adce89dd1a9c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7b36dfb6c0fe0f9a1104d34c5acfa5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#aa7b36dfb6c0fe0f9a1104d34c5acfa5e">openwb</a> (int nfile, char *ufile)</td></tr>
-<tr class="memdesc:aa7b36dfb6c0fe0f9a1104d34c5acfa5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a new file for writing BUFR messages.  <a href="bufrlib_8h.html#aa7b36dfb6c0fe0f9a1104d34c5acfa5e">More...</a><br /></td></tr>
-<tr class="separator:aa7b36dfb6c0fe0f9a1104d34c5acfa5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52938ac2b3796b8a9ee094ee37efe27c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a52938ac2b3796b8a9ee094ee37efe27c">openab</a> (int nfile, const char *ufile)</td></tr>
+<tr class="memdesc:a52938ac2b3796b8a9ee094ee37efe27c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a new file for appending BUFR messages.  <a href="bufrlib_8h.html#a52938ac2b3796b8a9ee094ee37efe27c">More...</a><br /></td></tr>
+<tr class="separator:a52938ac2b3796b8a9ee094ee37efe27c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a485556e32604f61a2857888bd60435de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a485556e32604f61a2857888bd60435de">openrb</a> (int nfile, const char *ufile)</td></tr>
+<tr class="memdesc:a485556e32604f61a2857888bd60435de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a new file for reading BUFR messages.  <a href="bufrlib_8h.html#a485556e32604f61a2857888bd60435de">More...</a><br /></td></tr>
+<tr class="separator:a485556e32604f61a2857888bd60435de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16ff1f222eb4d99c662d4153eff21dd6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a16ff1f222eb4d99c662d4153eff21dd6">openwb</a> (int nfile, const char *ufile)</td></tr>
+<tr class="memdesc:a16ff1f222eb4d99c662d4153eff21dd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a new file for writing BUFR messages.  <a href="bufrlib_8h.html#a16ff1f222eb4d99c662d4153eff21dd6">More...</a><br /></td></tr>
+<tr class="separator:a16ff1f222eb4d99c662d4153eff21dd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac68117670f91ed84a5edf1bf074bc187"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#ac68117670f91ed84a5edf1bf074bc187">pktdd_f</a> (int id, int lun, int idn, int *iret)</td></tr>
 <tr class="memdesc:ac68117670f91ed84a5edf1bf074bc187"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store information about a child mnemonic within the internal arrays.  <a href="bufrlib_8h.html#ac68117670f91ed84a5edf1bf074bc187">More...</a><br /></td></tr>
 <tr class="separator:ac68117670f91ed84a5edf1bf074bc187"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9fab66c5a028abf354d075040dde317c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a9fab66c5a028abf354d075040dde317c">restd</a> (int lunb, int tddesc, int *nctddesc, int *ctddesc)</td></tr>
 <tr class="memdesc:a9fab66c5a028abf354d075040dde317c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Standardize a local Table D descriptor.  <a href="bufrlib_8h.html#a9fab66c5a028abf354d075040dde317c">More...</a><br /></td></tr>
 <tr class="separator:a9fab66c5a028abf354d075040dde317c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d361bdabcb605e7677b9c29cf7ba10f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a6d361bdabcb605e7677b9c29cf7ba10f">stntbi_f</a> (int n, int lun, char *numb, char *nemo, char *celsq)</td></tr>
-<tr class="memdesc:a6d361bdabcb605e7677b9c29cf7ba10f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store a new entry within the internal BUFR Table B or D.  <a href="bufrlib_8h.html#a6d361bdabcb605e7677b9c29cf7ba10f">More...</a><br /></td></tr>
-<tr class="separator:a6d361bdabcb605e7677b9c29cf7ba10f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac0f5146bfdbf7042ac39e515475ba11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#aac0f5146bfdbf7042ac39e515475ba11">strnum_f</a> (char *str, int *num, int *iret)</td></tr>
-<tr class="memdesc:aac0f5146bfdbf7042ac39e515475ba11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode an integer from a character string.  <a href="bufrlib_8h.html#aac0f5146bfdbf7042ac39e515475ba11">More...</a><br /></td></tr>
-<tr class="separator:aac0f5146bfdbf7042ac39e515475ba11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f4c37daea8a69385e280d60265f9d40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a4f4c37daea8a69385e280d60265f9d40">stseq</a> (int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncdesc)</td></tr>
-<tr class="memdesc:a4f4c37daea8a69385e280d60265f9d40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store information about a Table D descriptor within internal DX BUFR tables.  <a href="bufrlib_8h.html#a4f4c37daea8a69385e280d60265f9d40">More...</a><br /></td></tr>
-<tr class="separator:a4f4c37daea8a69385e280d60265f9d40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d290a475a0db7179778e587d0a4bfb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a5d290a475a0db7179778e587d0a4bfb1">stntbi_f</a> (int n, int lun, const char *numb, const char *nemo, const char *celsq)</td></tr>
+<tr class="memdesc:a5d290a475a0db7179778e587d0a4bfb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store a new entry within the internal BUFR Table B or D.  <a href="bufrlib_8h.html#a5d290a475a0db7179778e587d0a4bfb1">More...</a><br /></td></tr>
+<tr class="separator:a5d290a475a0db7179778e587d0a4bfb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfb7519e3e5e85b9672ee8222940119f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#adfb7519e3e5e85b9672ee8222940119f">strnum_f</a> (const char *str, int *num, int *iret)</td></tr>
+<tr class="memdesc:adfb7519e3e5e85b9672ee8222940119f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode an integer from a character string.  <a href="bufrlib_8h.html#adfb7519e3e5e85b9672ee8222940119f">More...</a><br /></td></tr>
+<tr class="separator:adfb7519e3e5e85b9672ee8222940119f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0285f4b2f585a8287c5aca01c34ec17a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#a0285f4b2f585a8287c5aca01c34ec17a">stseq</a> (int lun, int *irepct, int idn, const char *nemo, const char *cseq, int *cdesc, int ncdesc)</td></tr>
+<tr class="memdesc:a0285f4b2f585a8287c5aca01c34ec17a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store information about a Table D descriptor within internal DX BUFR tables.  <a href="bufrlib_8h.html#a0285f4b2f585a8287c5aca01c34ec17a">More...</a><br /></td></tr>
+<tr class="separator:a0285f4b2f585a8287c5aca01c34ec17a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af730245754e061e8dd5f7d77f0310f8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bufrlib_8h.html#af730245754e061e8dd5f7d77f0310f8b">uptdd_f</a> (int id, int lun, int ient, int *iret)</td></tr>
 <tr class="memdesc:af730245754e061e8dd5f7d77f0310f8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the WMO bit-wise representation of the FXY value corresponding to a child mnemonic of a Table D sequence.  <a href="bufrlib_8h.html#af730245754e061e8dd5f7d77f0310f8b">More...</a><br /></td></tr>
 <tr class="separator:af730245754e061e8dd5f7d77f0310f8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -251,7 +267,7 @@ Functions</h2></td></tr>
 
 <p>Closing string of a BUFR message. </p>
 
-<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00073">73</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00076">76</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
 
 </div>
 </div>
@@ -269,7 +285,7 @@ Functions</h2></td></tr>
 
 <p>Opening string of a BUFR message. </p>
 
-<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00070">70</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00073">73</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
 
 </div>
 </div>
@@ -287,7 +303,7 @@ Functions</h2></td></tr>
 
 <p>Character string containing FXY value for short (1-bit) delayed replication factor. </p>
 
-<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00061">61</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00064">64</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
 
 </div>
 </div>
@@ -305,7 +321,7 @@ Functions</h2></td></tr>
 
 <p>Character string containing FXY value for long (16-bit) delayed replication factor. </p>
 
-<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00055">55</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00058">58</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
 
 </div>
 </div>
@@ -323,7 +339,7 @@ Functions</h2></td></tr>
 
 <p>Character string containing FXY value for medium (8-bit) delayed replication factor. </p>
 
-<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00058">58</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00061">61</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
 
 </div>
 </div>
@@ -341,7 +357,7 @@ Functions</h2></td></tr>
 
 <p>Character string containing FXY value for NCEP Table D local descriptor denoting 1-bit delayed replication of a sequence using &lt; &gt; notation. </p>
 
-<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00052">52</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00055">55</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
 
 </div>
 </div>
@@ -359,7 +375,7 @@ Functions</h2></td></tr>
 
 <p>Character string containing FXY value for NCEP Table D local descriptor denoting 16-bit delayed replication of a sequence using ( ) notation. </p>
 
-<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00046">46</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00049">49</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
 
 </div>
 </div>
@@ -377,7 +393,7 @@ Functions</h2></td></tr>
 
 <p>Character string containing FXY value for NCEP Table D local descriptor denoting 8-bit delayed replication of a sequence using { } notation. </p>
 
-<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00049">49</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00052">52</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
 
 </div>
 </div>
@@ -395,7 +411,7 @@ Functions</h2></td></tr>
 
 <p>Character string containing maximum FXY value for a Table B descriptor. </p>
 
-<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00043">43</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00046">46</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
 
 </div>
 </div>
@@ -413,7 +429,7 @@ Functions</h2></td></tr>
 
 <p>Character string containing minimum FXY value for a replication descriptor. </p>
 
-<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00037">37</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00040">40</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
 
 </div>
 </div>
@@ -431,7 +447,7 @@ Functions</h2></td></tr>
 
 <p>Character string containing minimum FXY value for a Table D descriptor. </p>
 
-<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00040">40</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00043">43</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
 
 </div>
 </div>
@@ -449,7 +465,7 @@ Functions</h2></td></tr>
 
 <p>Size of a character string needed to store an FXY value. </p>
 
-<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00034">34</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00037">37</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
 
 </div>
 </div>
@@ -467,7 +483,7 @@ Functions</h2></td></tr>
 
 <p>Size of a character string needed to store a mnemonic. </p>
 
-<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00064">64</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00067">67</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
 
 </div>
 </div>
@@ -485,7 +501,7 @@ Functions</h2></td></tr>
 
 <p>Size of a character string needed to store the units of a Table B descriptor. </p>
 
-<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00067">67</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bufrlib_8h_source.html#l00070">70</a> of file <a class="el" href="bufrlib_8h_source.html">bufrlib.h</a>.</p>
 
 </div>
 </div>
@@ -514,7 +530,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="arallocc_8c_source.html#l00030">30</a> of file <a class="el" href="arallocc_8c_source.html">arallocc.c</a>.</p>
 
-<p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, <a class="el" href="mstabs_8h.html#aa0f8eb7c3a1ca9a66a0933d97a3422ab">cbbw_c</a>, <a class="el" href="mstabs_8h.html#a19c8207a7b2c18f50438f51f066bad7b">cbelem_c</a>, <a class="el" href="mstabs_8h.html#a7c0149a5419b96753491953e92ce35b0">cbmnem_c</a>, <a class="el" href="mstabs_8h.html#a49e37dddeae6e1e71da2444d40c6d232">cbscl_c</a>, <a class="el" href="mstabs_8h.html#a1209038da13334a450146c0caa5ae9ad">cbsref_c</a>, <a class="el" href="mstabs_8h.html#a558051c0c39c5c6181019fb4231797d1">cbunit_c</a>, <a class="el" href="rpseqs_8h.html#a24aa1baebc11ce6abf3ead8256f38803">cdescs</a>, <a class="el" href="mstabs_8h.html#a309b9730283bc44b297b44f4e32db7f1">cdmnem_c</a>, <a class="el" href="mstabs_8h.html#a3e8f3bcd901b3809309c431d2825d636">cdseq_c</a>, <a class="el" href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a>, <a class="el" href="rpseqs_8h.html#a6edccabc4d438f6859856ef07e30f5d9">iafpks</a>, <a class="el" href="mstabs_8h.html#acdfc509abed04b3bc643a4171c419fa4">ibfxyn_c</a>, <a class="el" href="mstabs_8h.html#a006ec50bbb9f20fad017eb980cc7afa0">idefxy_c</a>, <a class="el" href="mstabs_8h.html#a2798d24f3443eeee2999eddf34d24c19">idfxyn_c</a>, <a class="el" href="bufr__interface_8h.html#a0b06d7dc9ae1ba6147ad0f1ea3d359bb">igetprm_f()</a>, <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, <a class="el" href="rpseqs_8h.html#a5339bc1b8006b14e4ccbf5dda327f2d7">MAX_RPSQ</a>, <a class="el" href="mstabs_8h.html#ad9af08676809848df12a73ece2a37182">ndelem_c</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
+<p class="reference">References <a class="el" href="bufrlib_8h.html#a4cf83529a094007fd5f9c94ad8430b2b">bort_f()</a>, <a class="el" href="mstabs_8h.html#aa0f8eb7c3a1ca9a66a0933d97a3422ab">cbbw_c</a>, <a class="el" href="mstabs_8h.html#a19c8207a7b2c18f50438f51f066bad7b">cbelem_c</a>, <a class="el" href="mstabs_8h.html#a7c0149a5419b96753491953e92ce35b0">cbmnem_c</a>, <a class="el" href="mstabs_8h.html#a49e37dddeae6e1e71da2444d40c6d232">cbscl_c</a>, <a class="el" href="mstabs_8h.html#a1209038da13334a450146c0caa5ae9ad">cbsref_c</a>, <a class="el" href="mstabs_8h.html#a558051c0c39c5c6181019fb4231797d1">cbunit_c</a>, <a class="el" href="rpseqs_8h.html#a24aa1baebc11ce6abf3ead8256f38803">cdescs</a>, <a class="el" href="mstabs_8h.html#a309b9730283bc44b297b44f4e32db7f1">cdmnem_c</a>, <a class="el" href="mstabs_8h.html#a3e8f3bcd901b3809309c431d2825d636">cdseq_c</a>, <a class="el" href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a>, <a class="el" href="rpseqs_8h.html#a6edccabc4d438f6859856ef07e30f5d9">iafpks</a>, <a class="el" href="mstabs_8h.html#acdfc509abed04b3bc643a4171c419fa4">ibfxyn_c</a>, <a class="el" href="mstabs_8h.html#a006ec50bbb9f20fad017eb980cc7afa0">idefxy_c</a>, <a class="el" href="mstabs_8h.html#a2798d24f3443eeee2999eddf34d24c19">idfxyn_c</a>, <a class="el" href="bufr__interface_8h.html#a366b4e8aa93d63597f7544e19af943c7">igetprm_f()</a>, <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, <a class="el" href="rpseqs_8h.html#a5339bc1b8006b14e4ccbf5dda327f2d7">MAX_RPSQ</a>, <a class="el" href="mstabs_8h.html#ad9af08676809848df12a73ece2a37182">ndelem_c</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
 
 </div>
 </div>
@@ -576,8 +592,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a4bd8daccf2564da21968a531b87bf447"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4bd8daccf2564da21968a531b87bf447">&#9670;&nbsp;</a></span>bort_f()</h2>
+<a id="a4cf83529a094007fd5f9c94ad8430b2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cf83529a094007fd5f9c94ad8430b2b">&#9670;&nbsp;</a></span>bort_f()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -585,7 +601,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void bort_f </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>errstr</em></td><td>)</td>
           <td></td>
         </tr>
@@ -593,7 +609,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Log one error message and abort application program. </p>
-<p>Wraps <a class="el" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17" title="Log an error message, then abort the application program.">bort()</a> subroutine.</p>
+<p>Wraps <a class="el" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c" title="Log an error message, then either return to or abort the application program.">bort()</a> subroutine.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">errstr</td><td>- Error message.</td></tr>
@@ -603,7 +619,58 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2023-04-07 </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28">arallocc()</a>, <a class="el" href="bufr__interface_8h.html#a1a79689096002f6f3c125abc59c2143d">cobfl()</a>, <a class="el" href="bufr__interface_8h.html#a8e937daaf4fe2e1c74c3f8754bcce048">crbmg()</a>, <a class="el" href="bufr__interface_8h.html#a3ccf1d9c69d9b23a3906d3f7b5ab743d">cwbmg()</a>, <a class="el" href="cfe_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf()</a>, <a class="el" href="stseq_8c.html#a340a16a2c0d988d37fbc2e92974b2b5e">nummtb()</a>, <a class="el" href="restd_8c.html#ad5e16b436141e02ca2b1a8def406a1d3">restd()</a>, <a class="el" href="cfe_8c.html#adae7e8dfb5a605b8e8be2c96f3e2be76">strtbfe()</a>, <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>, and <a class="el" href="restd_8c.html#ab9426972c9b597e6b7382b00416dd572">wrdesc()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="arallocc_8c.html#a98efd59b32b1d2ed2c060d2564824e28">arallocc()</a>, <a class="el" href="bufr__interface_8h.html#a4f338851a6045a9ba49700868d270381">cobfl()</a>, <a class="el" href="bufr__interface_8h.html#a8e937daaf4fe2e1c74c3f8754bcce048">crbmg()</a>, <a class="el" href="bufr__interface_8h.html#a62e8fc5b5eb98afcb5d5f10dbe210295">cwbmg()</a>, <a class="el" href="cfe_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf()</a>, <a class="el" href="stseq_8c.html#a340a16a2c0d988d37fbc2e92974b2b5e">nummtb()</a>, <a class="el" href="restd_8c.html#ad5e16b436141e02ca2b1a8def406a1d3">restd()</a>, <a class="el" href="cfe_8c.html#a7bb42028e70ac05070c8c10fc94e209c">strtbfe()</a>, <a class="el" href="stseq_8c.html#a0285f4b2f585a8287c5aca01c34ec17a">stseq()</a>, and <a class="el" href="restd_8c.html#ab9426972c9b597e6b7382b00416dd572">wrdesc()</a>.</p>
+
+</div>
+</div>
+<a id="a6a8aa6c70d74066b203df4ae31c432dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a8aa6c70d74066b203df4ae31c432dd">&#9670;&nbsp;</a></span>bort_target_set_f()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int bort_target_set_f </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a new bort target, if bort catching is enabled and such a target doesn't already exist. </p>
+<p>Wraps <a class="el" href="borts_8F90.html#ae4cfa0677f2c9133899f467ff1edad98" title="Sets a new bort target, if bort catching is enabled and such a target doesn&#39;t already exist.">bort_target_set()</a> function.</p>
+<dl class="section return"><dt>Returns</dt><dd>- 1 if a new bort target was set during this call, otherwise 0</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2025-11-05 </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="bufr__interface_8h.html#a4f338851a6045a9ba49700868d270381">cobfl()</a>, <a class="el" href="bufr__interface_8h.html#a8e937daaf4fe2e1c74c3f8754bcce048">crbmg()</a>, and <a class="el" href="bufr__interface_8h.html#a62e8fc5b5eb98afcb5d5f10dbe210295">cwbmg()</a>.</p>
+
+</div>
+</div>
+<a id="a1c99e1c71713889be8aad0336591a0a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c99e1c71713889be8aad0336591a0a1">&#9670;&nbsp;</a></span>bort_target_unset_f()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bort_target_unset_f </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clear any existing bort target. </p>
+<p>Wraps <a class="el" href="borts_8F90.html#a8fd9a01ac05bff2940ceef7479bed9cc" title="Clear any existing bort target.">bort_target_unset()</a> subroutine.</p>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2025-11-05 </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="bufr__interface_8h.html#a4f338851a6045a9ba49700868d270381">cobfl()</a>, <a class="el" href="bufr__interface_8h.html#a8e937daaf4fe2e1c74c3f8754bcce048">crbmg()</a>, and <a class="el" href="bufr__interface_8h.html#a62e8fc5b5eb98afcb5d5f10dbe210295">cwbmg()</a>.</p>
 
 </div>
 </div>
@@ -652,7 +719,163 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2004-08-18 </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a340a16a2c0d988d37fbc2e92974b2b5e">nummtb()</a>, <a class="el" href="restd_8c.html#ad5e16b436141e02ca2b1a8def406a1d3">restd()</a>, and <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a340a16a2c0d988d37fbc2e92974b2b5e">nummtb()</a>, <a class="el" href="restd_8c.html#ad5e16b436141e02ca2b1a8def406a1d3">restd()</a>, and <a class="el" href="stseq_8c.html#a0285f4b2f585a8287c5aca01c34ec17a">stseq()</a>.</p>
+
+</div>
+</div>
+<a id="ad9030d45d08d03c1a9d0c408e58a31f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9030d45d08d03c1a9d0c408e58a31f2">&#9670;&nbsp;</a></span>catch_bort_cobfl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void catch_bort_cobfl </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>bfl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>io</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Catch any bort error inside of function <a class="el" href="bufr__interface_8h.html#a4f338851a6045a9ba49700868d270381" title="Open a new file for reading or writing BUFR messages via a C language interface.">cobfl()</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bfl</td><td>- System file to be opened </td></tr>
+    <tr><td class="paramname">io</td><td>- Flag indicating how bfl is to be opened</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2025-11-05 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="borts_8c_source.html#l00604">604</a> of file <a class="el" href="borts_8c_source.html">borts.c</a>.</p>
+
+<p class="reference">References <a class="el" href="bufr__interface_8h.html#a4f338851a6045a9ba49700868d270381">cobfl()</a>, and <a class="el" href="borts_8c.html#aff20f577cfe32a50d37089375380e2c4">context</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="bufr__interface_8h.html#a4f338851a6045a9ba49700868d270381">cobfl()</a>.</p>
+
+</div>
+</div>
+<a id="a3f1144290e6c96cb4ea624bccc4d8bfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f1144290e6c96cb4ea624bccc4d8bfd">&#9670;&nbsp;</a></span>catch_bort_crbmg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void catch_bort_crbmg </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>bmg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>mxmb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>nmb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>iret</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Catch any bort error inside of function <a class="el" href="bufr__interface_8h.html#a8e937daaf4fe2e1c74c3f8754bcce048" title="Read the next BUFR message from the file that was opened via the most recent call to function cobfl()...">crbmg()</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bmg</td><td>- BUFR message </td></tr>
+    <tr><td class="paramname">mxmb</td><td>- Allocated length of bmg </td></tr>
+    <tr><td class="paramname">nmb</td><td>- Number of characters returned in bmg </td></tr>
+    <tr><td class="paramname">iret</td><td>- Return code</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2025-11-05 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="borts_8c_source.html#l00625">625</a> of file <a class="el" href="borts_8c_source.html">borts.c</a>.</p>
+
+<p class="reference">References <a class="el" href="borts_8c.html#aff20f577cfe32a50d37089375380e2c4">context</a>, and <a class="el" href="bufr__interface_8h.html#a8e937daaf4fe2e1c74c3f8754bcce048">crbmg()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="bufr__interface_8h.html#a8e937daaf4fe2e1c74c3f8754bcce048">crbmg()</a>.</p>
+
+</div>
+</div>
+<a id="acbf741ad6c4c0870efd71747d406dd7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbf741ad6c4c0870efd71747d406dd7a">&#9670;&nbsp;</a></span>catch_bort_cwbmg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void catch_bort_cwbmg </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>bmg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nmb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>iret</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Catch any bort error inside of function <a class="el" href="bufr__interface_8h.html#a62e8fc5b5eb98afcb5d5f10dbe210295" title="Write a BUFR message to the file that was opened via the most recent call to function cobfl() with io...">cwbmg()</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bmg</td><td>- BUFR message </td></tr>
+    <tr><td class="paramname">nmb</td><td>- Number of characters in bmg </td></tr>
+    <tr><td class="paramname">iret</td><td>- Return code</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2025-11-05 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="borts_8c_source.html#l00645">645</a> of file <a class="el" href="borts_8c_source.html">borts.c</a>.</p>
+
+<p class="reference">References <a class="el" href="borts_8c.html#aff20f577cfe32a50d37089375380e2c4">context</a>, and <a class="el" href="bufr__interface_8h.html#a62e8fc5b5eb98afcb5d5f10dbe210295">cwbmg()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="bufr__interface_8h.html#a62e8fc5b5eb98afcb5d5f10dbe210295">cwbmg()</a>.</p>
 
 </div>
 </div>
@@ -773,7 +996,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="cread_8c_source.html#l00114">114</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
 
-<p class="reference">References <a class="el" href="bufrlib_8h.html#a0eaedf1628e74c9cf33925349602c234">BMCSTR</a>, <a class="el" href="bufrlib_8h.html#a6cac2647154ce58c562d8bcd3ebdfd30">BMOSTR</a>, <a class="el" href="bufr__interface_8h.html#a45c55e3a4c3b8179f7e3a89714a05d7f">iupbs01_f()</a>, <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
+<p class="reference">References <a class="el" href="bufrlib_8h.html#a0eaedf1628e74c9cf33925349602c234">BMCSTR</a>, <a class="el" href="bufrlib_8h.html#a6cac2647154ce58c562d8bcd3ebdfd30">BMOSTR</a>, <a class="el" href="bufr__interface_8h.html#a1afa3dc4e5dac2e7d0a5b85e0ce18273">iupbs01_f()</a>, <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
 
 </div>
 </div>
@@ -856,8 +1079,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a39fc8b2494bb5f754c2d800c4b5a2f1c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39fc8b2494bb5f754c2d800c4b5a2f1c">&#9670;&nbsp;</a></span>elemdx_f()</h2>
+<a id="adca27e1c000af76b9eaf4a2c1b3d3b3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adca27e1c000af76b9eaf4a2c1b3d3b3a">&#9670;&nbsp;</a></span>elemdx_f()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -865,7 +1088,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void elemdx_f </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>card</em>, </td>
         </tr>
         <tr>
@@ -894,7 +1117,7 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2003-11-04 </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a0285f4b2f585a8287c5aca01c34ec17a">stseq()</a>.</p>
 
 </div>
 </div>
@@ -946,12 +1169,12 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="icvidx_8c_source.html#l00022">22</a> of file <a class="el" href="icvidx_8c_source.html">icvidx.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cpmstabs_8c.html#ab993a0c7a1d8c4c04fb7006f6253025c">cpmstabs()</a>, <a class="el" href="stseq_8c.html#a2a80851a279f9ca9c50c674da679d2f1">srchrpsq()</a>, <a class="el" href="stseq_8c.html#a059ea636d5300547db3423560ce52bd2">strrpsq()</a>, and <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cpmstabs_8c.html#a79d3b561e6aabd10c8eefc3aad4fa95c">cpmstabs()</a>, <a class="el" href="stseq_8c.html#a2a80851a279f9ca9c50c674da679d2f1">srchrpsq()</a>, <a class="el" href="stseq_8c.html#a059ea636d5300547db3423560ce52bd2">strrpsq()</a>, and <a class="el" href="stseq_8c.html#a0285f4b2f585a8287c5aca01c34ec17a">stseq()</a>.</p>
 
 </div>
 </div>
-<a id="a9941f6596dafba1e4361eb2f5e173f24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9941f6596dafba1e4361eb2f5e173f24">&#9670;&nbsp;</a></span>ifxy_f()</h2>
+<a id="a90745019cbec7fb42c1eb10317f11609"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90745019cbec7fb42c1eb10317f11609">&#9670;&nbsp;</a></span>ifxy_f()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -959,7 +1182,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int ifxy_f </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>cfxy</em></td><td>)</td>
           <td></td>
         </tr>
@@ -978,12 +1201,12 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2023-04-07 </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a340a16a2c0d988d37fbc2e92974b2b5e">nummtb()</a>, <a class="el" href="restd_8c.html#ad5e16b436141e02ca2b1a8def406a1d3">restd()</a>, and <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a340a16a2c0d988d37fbc2e92974b2b5e">nummtb()</a>, <a class="el" href="restd_8c.html#ad5e16b436141e02ca2b1a8def406a1d3">restd()</a>, and <a class="el" href="stseq_8c.html#a0285f4b2f585a8287c5aca01c34ec17a">stseq()</a>.</p>
 
 </div>
 </div>
-<a id="ad32acb7e25a0763d1ecfa201884bc131"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad32acb7e25a0763d1ecfa201884bc131">&#9670;&nbsp;</a></span>igetntbi_f()</h2>
+<a id="a90c5ce85bccf40f0ced6f96ba98d57ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90c5ce85bccf40f0ced6f96ba98d57ce">&#9670;&nbsp;</a></span>igetntbi_f()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -997,7 +1220,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>table_type</em>&#160;</td>
         </tr>
         <tr>
@@ -1021,7 +1244,7 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2009-03-23 </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a0285f4b2f585a8287c5aca01c34ec17a">stseq()</a>.</p>
 
 </div>
 </div>
@@ -1057,12 +1280,12 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2009-03-23 </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a0285f4b2f585a8287c5aca01c34ec17a">stseq()</a>.</p>
 
 </div>
 </div>
-<a id="a3e533930a6aa9c6fc76c89d14e54cf47"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e533930a6aa9c6fc76c89d14e54cf47">&#9670;&nbsp;</a></span>imrkopr_f()</h2>
+<a id="a47133374d831dc1a41cf7f82cee1b393"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47133374d831dc1a41cf7f82cee1b393">&#9670;&nbsp;</a></span>imrkopr_f()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1070,7 +1293,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int imrkopr_f </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>nemo</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1093,7 +1316,7 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2016-05-04 </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="restd_8c.html#ad5e16b436141e02ca2b1a8def406a1d3">restd()</a>, and <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="restd_8c.html#ad5e16b436141e02ca2b1a8def406a1d3">restd()</a>, and <a class="el" href="stseq_8c.html#a0285f4b2f585a8287c5aca01c34ec17a">stseq()</a>.</p>
 
 </div>
 </div>
@@ -1199,12 +1422,12 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2003-11-04 </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="restd_8c.html#ad5e16b436141e02ca2b1a8def406a1d3">restd()</a>, and <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="restd_8c.html#ad5e16b436141e02ca2b1a8def406a1d3">restd()</a>, and <a class="el" href="stseq_8c.html#a0285f4b2f585a8287c5aca01c34ec17a">stseq()</a>.</p>
 
 </div>
 </div>
-<a id="a8eb759a820f7f12a3b75e92473db3c78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8eb759a820f7f12a3b75e92473db3c78">&#9670;&nbsp;</a></span>openab()</h2>
+<a id="a52938ac2b3796b8a9ee094ee37efe27c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52938ac2b3796b8a9ee094ee37efe27c">&#9670;&nbsp;</a></span>openab()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1218,7 +1441,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>ufile</em>&#160;</td>
         </tr>
         <tr>
@@ -1246,8 +1469,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab18be8cbb2bdbdb682adce89dd1a9c69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab18be8cbb2bdbdb682adce89dd1a9c69">&#9670;&nbsp;</a></span>openrb()</h2>
+<a id="a485556e32604f61a2857888bd60435de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a485556e32604f61a2857888bd60435de">&#9670;&nbsp;</a></span>openrb()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1261,7 +1484,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>ufile</em>&#160;</td>
         </tr>
         <tr>
@@ -1289,8 +1512,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aa7b36dfb6c0fe0f9a1104d34c5acfa5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7b36dfb6c0fe0f9a1104d34c5acfa5e">&#9670;&nbsp;</a></span>openwb()</h2>
+<a id="a16ff1f222eb4d99c662d4153eff21dd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16ff1f222eb4d99c662d4153eff21dd6">&#9670;&nbsp;</a></span>openwb()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1304,7 +1527,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>ufile</em>&#160;</td>
         </tr>
         <tr>
@@ -1384,7 +1607,7 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2003-11-04 </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a0285f4b2f585a8287c5aca01c34ec17a">stseq()</a>.</p>
 
 </div>
 </div>
@@ -1443,12 +1666,12 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="restd_8c_source.html#l00073">73</a> of file <a class="el" href="restd_8c_source.html">restd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, <a class="el" href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f()</a>, <a class="el" href="bufrlib_8h.html#a59b3be3abd88311baddcaaabb93b9293">FXY_MINR</a>, <a class="el" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>, <a class="el" href="namespacemoda__bitbuf.html#a8c052fc732472f6f329209ac2db75cf9">moda_bitbuf::ibit</a>, <a class="el" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f()</a>, <a class="el" href="bufr__interface_8h.html#a0b06d7dc9ae1ba6147ad0f1ea3d359bb">igetprm_f()</a>, <a class="el" href="bufrlib_8h.html#a3e533930a6aa9c6fc76c89d14e54cf47">imrkopr_f()</a>, <a class="el" href="bufrlib_8h.html#af98949e6ee91a0b77a8f24509401ed2d">istdesc_f()</a>, <a class="el" href="bufrlib_8h.html#aaf134edc1efd697331c03effd4d056e0">NEMO_STR_LEN</a>, <a class="el" href="bufr__interface_8h.html#ac9a3eafcb7e3802e5c8a39de95b1726b">nemtbb_f()</a>, <a class="el" href="bufrlib_8h.html#a45c023844f35d35ee3c5e77e60fdb18a">numtbd_f()</a>, <a class="el" href="bufrlib_8h.html#a9043f4f41d0f9e6a276f936a03416f69">UNIT_STR_LEN</a>, <a class="el" href="bufrlib_8h.html#af730245754e061e8dd5f7d77f0310f8b">uptdd_f()</a>, and <a class="el" href="restd_8c.html#ab9426972c9b597e6b7382b00416dd572">wrdesc()</a>.</p>
+<p class="reference">References <a class="el" href="bufrlib_8h.html#a4cf83529a094007fd5f9c94ad8430b2b">bort_f()</a>, <a class="el" href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f()</a>, <a class="el" href="bufrlib_8h.html#a59b3be3abd88311baddcaaabb93b9293">FXY_MINR</a>, <a class="el" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>, <a class="el" href="namespacemoda__bitbuf.html#a8c052fc732472f6f329209ac2db75cf9">moda_bitbuf::ibit</a>, <a class="el" href="bufrlib_8h.html#a90745019cbec7fb42c1eb10317f11609">ifxy_f()</a>, <a class="el" href="bufr__interface_8h.html#a366b4e8aa93d63597f7544e19af943c7">igetprm_f()</a>, <a class="el" href="bufrlib_8h.html#a47133374d831dc1a41cf7f82cee1b393">imrkopr_f()</a>, <a class="el" href="bufrlib_8h.html#af98949e6ee91a0b77a8f24509401ed2d">istdesc_f()</a>, <a class="el" href="bufrlib_8h.html#aaf134edc1efd697331c03effd4d056e0">NEMO_STR_LEN</a>, <a class="el" href="bufr__interface_8h.html#ac9a3eafcb7e3802e5c8a39de95b1726b">nemtbb_f()</a>, <a class="el" href="bufrlib_8h.html#a45c023844f35d35ee3c5e77e60fdb18a">numtbd_f()</a>, <a class="el" href="bufrlib_8h.html#a9043f4f41d0f9e6a276f936a03416f69">UNIT_STR_LEN</a>, <a class="el" href="bufrlib_8h.html#af730245754e061e8dd5f7d77f0310f8b">uptdd_f()</a>, and <a class="el" href="restd_8c.html#ab9426972c9b597e6b7382b00416dd572">wrdesc()</a>.</p>
 
 </div>
 </div>
-<a id="a6d361bdabcb605e7677b9c29cf7ba10f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d361bdabcb605e7677b9c29cf7ba10f">&#9670;&nbsp;</a></span>stntbi_f()</h2>
+<a id="a5d290a475a0db7179778e587d0a4bfb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d290a475a0db7179778e587d0a4bfb1">&#9670;&nbsp;</a></span>stntbi_f()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1468,19 +1691,19 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>numb</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>nemo</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>celsq</em>&#160;</td>
         </tr>
         <tr>
@@ -1506,12 +1729,12 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2009-03-23 </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a0285f4b2f585a8287c5aca01c34ec17a">stseq()</a>.</p>
 
 </div>
 </div>
-<a id="aac0f5146bfdbf7042ac39e515475ba11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac0f5146bfdbf7042ac39e515475ba11">&#9670;&nbsp;</a></span>strnum_f()</h2>
+<a id="adfb7519e3e5e85b9672ee8222940119f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfb7519e3e5e85b9672ee8222940119f">&#9670;&nbsp;</a></span>strnum_f()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1519,7 +1742,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void strnum_f </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>str</em>, </td>
         </tr>
         <tr>
@@ -1555,12 +1778,12 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2003-11-04 </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a0285f4b2f585a8287c5aca01c34ec17a">stseq()</a>.</p>
 
 </div>
 </div>
-<a id="a4f4c37daea8a69385e280d60265f9d40"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f4c37daea8a69385e280d60265f9d40">&#9670;&nbsp;</a></span>stseq()</h2>
+<a id="a0285f4b2f585a8287c5aca01c34ec17a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0285f4b2f585a8287c5aca01c34ec17a">&#9670;&nbsp;</a></span>stseq()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1586,13 +1809,13 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>nemo</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>cseq</em>, </td>
         </tr>
         <tr>
@@ -1634,7 +1857,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="stseq_8c_source.html#l00189">189</a> of file <a class="el" href="stseq_8c_source.html">stseq.c</a>.</p>
 
-<p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, <a class="el" href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f()</a>, <a class="el" href="mstabs_8h.html#aa0f8eb7c3a1ca9a66a0933d97a3422ab">cbbw_c</a>, <a class="el" href="mstabs_8h.html#a19c8207a7b2c18f50438f51f066bad7b">cbelem_c</a>, <a class="el" href="mstabs_8h.html#a7c0149a5419b96753491953e92ce35b0">cbmnem_c</a>, <a class="el" href="mstabs_8h.html#a49e37dddeae6e1e71da2444d40c6d232">cbscl_c</a>, <a class="el" href="mstabs_8h.html#a1209038da13334a450146c0caa5ae9ad">cbsref_c</a>, <a class="el" href="mstabs_8h.html#a558051c0c39c5c6181019fb4231797d1">cbunit_c</a>, <a class="el" href="mstabs_8h.html#a309b9730283bc44b297b44f4e32db7f1">cdmnem_c</a>, <a class="el" href="mstabs_8h.html#a3e8f3bcd901b3809309c431d2825d636">cdseq_c</a>, <a class="el" href="bufrlib_8h.html#a39fc8b2494bb5f754c2d800c4b5a2f1c">elemdx_f()</a>, <a class="el" href="bufrlib_8h.html#a25dc173d68b3afa24cc277fd47351b08">FXY_DRF1</a>, <a class="el" href="bufrlib_8h.html#ad4c1adc1bcab5f8db9b6b05f4f3d7da0">FXY_DRF16</a>, <a class="el" href="bufrlib_8h.html#a0594bcf6e40e8c738c1b986531803103">FXY_DRF8</a>, <a class="el" href="bufrlib_8h.html#a965d697089b48eb887e65dec5fa7565c">FXY_DRP1</a>, <a class="el" href="bufrlib_8h.html#ad2fcc22b1b96013c10ae5464fe22836b">FXY_DRP16</a>, <a class="el" href="bufrlib_8h.html#aa90cf4e9894a2ec47026ae5308746dab">FXY_DRP8</a>, <a class="el" href="bufrlib_8h.html#adadd9c7831a26b7410d97b12e47d19b3">FXY_MAXTB</a>, <a class="el" href="bufrlib_8h.html#a59b3be3abd88311baddcaaabb93b9293">FXY_MINR</a>, <a class="el" href="bufrlib_8h.html#af87e679a3aed76b3e5809ddf209e2c67">FXY_MINTD</a>, <a class="el" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>, <a class="el" href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a>, <a class="el" href="icvidx_8c.html#ab3b665adb5a53a4c82d3c5caadbb2c38">icvidx()</a>, <a class="el" href="mstabs_8h.html#a006ec50bbb9f20fad017eb980cc7afa0">idefxy_c</a>, <a class="el" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f()</a>, <a class="el" href="bufrlib_8h.html#ad32acb7e25a0763d1ecfa201884bc131">igetntbi_f()</a>, <a class="el" href="bufr__interface_8h.html#a0b06d7dc9ae1ba6147ad0f1ea3d359bb">igetprm_f()</a>, <a class="el" href="bufrlib_8h.html#a0320e66350174c1e05f30babd13d52c2">igettdi_f()</a>, <a class="el" href="bufrlib_8h.html#a3e533930a6aa9c6fc76c89d14e54cf47">imrkopr_f()</a>, <a class="el" href="mstabs_8h.html#ad9af08676809848df12a73ece2a37182">ndelem_c</a>, <a class="el" href="bufrlib_8h.html#aaf134edc1efd697331c03effd4d056e0">NEMO_STR_LEN</a>, <a class="el" href="bufr__interface_8h.html#ad75bcdd935567fd79e3385c94b78284c">nemtab_f()</a>, <a class="el" href="rpseqs_8h.html#a0a77b4e5d2b40123ebff20c4154898d8">nrpsq</a>, <a class="el" href="stseq_8c.html#a340a16a2c0d988d37fbc2e92974b2b5e">nummtb()</a>, <a class="el" href="bufrlib_8h.html#a45c023844f35d35ee3c5e77e60fdb18a">numtbd_f()</a>, <a class="el" href="bufrlib_8h.html#ac68117670f91ed84a5edf1bf074bc187">pktdd_f()</a>, <a class="el" href="stseq_8c.html#a2a80851a279f9ca9c50c674da679d2f1">srchrpsq()</a>, <a class="el" href="bufrlib_8h.html#a6d361bdabcb605e7677b9c29cf7ba10f">stntbi_f()</a>, <a class="el" href="bufrlib_8h.html#aac0f5146bfdbf7042ac39e515475ba11">strnum_f()</a>, and <a class="el" href="stseq_8c.html#a059ea636d5300547db3423560ce52bd2">strrpsq()</a>.</p>
+<p class="reference">References <a class="el" href="bufrlib_8h.html#a4cf83529a094007fd5f9c94ad8430b2b">bort_f()</a>, <a class="el" href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f()</a>, <a class="el" href="mstabs_8h.html#aa0f8eb7c3a1ca9a66a0933d97a3422ab">cbbw_c</a>, <a class="el" href="mstabs_8h.html#a19c8207a7b2c18f50438f51f066bad7b">cbelem_c</a>, <a class="el" href="mstabs_8h.html#a7c0149a5419b96753491953e92ce35b0">cbmnem_c</a>, <a class="el" href="mstabs_8h.html#a49e37dddeae6e1e71da2444d40c6d232">cbscl_c</a>, <a class="el" href="mstabs_8h.html#a1209038da13334a450146c0caa5ae9ad">cbsref_c</a>, <a class="el" href="mstabs_8h.html#a558051c0c39c5c6181019fb4231797d1">cbunit_c</a>, <a class="el" href="mstabs_8h.html#a309b9730283bc44b297b44f4e32db7f1">cdmnem_c</a>, <a class="el" href="mstabs_8h.html#a3e8f3bcd901b3809309c431d2825d636">cdseq_c</a>, <a class="el" href="bufrlib_8h.html#adca27e1c000af76b9eaf4a2c1b3d3b3a">elemdx_f()</a>, <a class="el" href="bufrlib_8h.html#a25dc173d68b3afa24cc277fd47351b08">FXY_DRF1</a>, <a class="el" href="bufrlib_8h.html#ad4c1adc1bcab5f8db9b6b05f4f3d7da0">FXY_DRF16</a>, <a class="el" href="bufrlib_8h.html#a0594bcf6e40e8c738c1b986531803103">FXY_DRF8</a>, <a class="el" href="bufrlib_8h.html#a965d697089b48eb887e65dec5fa7565c">FXY_DRP1</a>, <a class="el" href="bufrlib_8h.html#ad2fcc22b1b96013c10ae5464fe22836b">FXY_DRP16</a>, <a class="el" href="bufrlib_8h.html#aa90cf4e9894a2ec47026ae5308746dab">FXY_DRP8</a>, <a class="el" href="bufrlib_8h.html#adadd9c7831a26b7410d97b12e47d19b3">FXY_MAXTB</a>, <a class="el" href="bufrlib_8h.html#a59b3be3abd88311baddcaaabb93b9293">FXY_MINR</a>, <a class="el" href="bufrlib_8h.html#af87e679a3aed76b3e5809ddf209e2c67">FXY_MINTD</a>, <a class="el" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>, <a class="el" href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a>, <a class="el" href="icvidx_8c.html#ab3b665adb5a53a4c82d3c5caadbb2c38">icvidx()</a>, <a class="el" href="mstabs_8h.html#a006ec50bbb9f20fad017eb980cc7afa0">idefxy_c</a>, <a class="el" href="bufrlib_8h.html#a90745019cbec7fb42c1eb10317f11609">ifxy_f()</a>, <a class="el" href="bufrlib_8h.html#a90c5ce85bccf40f0ced6f96ba98d57ce">igetntbi_f()</a>, <a class="el" href="bufr__interface_8h.html#a366b4e8aa93d63597f7544e19af943c7">igetprm_f()</a>, <a class="el" href="bufrlib_8h.html#a0320e66350174c1e05f30babd13d52c2">igettdi_f()</a>, <a class="el" href="bufrlib_8h.html#a47133374d831dc1a41cf7f82cee1b393">imrkopr_f()</a>, <a class="el" href="mstabs_8h.html#ad9af08676809848df12a73ece2a37182">ndelem_c</a>, <a class="el" href="bufrlib_8h.html#aaf134edc1efd697331c03effd4d056e0">NEMO_STR_LEN</a>, <a class="el" href="bufr__interface_8h.html#ad75bcdd935567fd79e3385c94b78284c">nemtab_f()</a>, <a class="el" href="rpseqs_8h.html#a0a77b4e5d2b40123ebff20c4154898d8">nrpsq</a>, <a class="el" href="stseq_8c.html#a340a16a2c0d988d37fbc2e92974b2b5e">nummtb()</a>, <a class="el" href="bufrlib_8h.html#a45c023844f35d35ee3c5e77e60fdb18a">numtbd_f()</a>, <a class="el" href="bufrlib_8h.html#ac68117670f91ed84a5edf1bf074bc187">pktdd_f()</a>, <a class="el" href="stseq_8c.html#a2a80851a279f9ca9c50c674da679d2f1">srchrpsq()</a>, <a class="el" href="bufrlib_8h.html#a5d290a475a0db7179778e587d0a4bfb1">stntbi_f()</a>, <a class="el" href="bufrlib_8h.html#adfb7519e3e5e85b9672ee8222940119f">strnum_f()</a>, and <a class="el" href="stseq_8c.html#a059ea636d5300547db3423560ce52bd2">strrpsq()</a>.</p>
 
 </div>
 </div>

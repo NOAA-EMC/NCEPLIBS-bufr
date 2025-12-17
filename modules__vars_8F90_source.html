@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.2.0</span>
+   &#160;<span id="projectnumber">12.3.0</span>
    </div>
   </td>
  </tr>
@@ -100,150 +101,152 @@ $(document).ready(function(){initNavTree('modules__vars_8F90_source.html',''); i
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a4ff59bf9f9ee31e187bf7f8ecb61f4dd">   27</a></span>&#160;  <span class="keywordtype">logical</span> :: im8b = .false.</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a8623e746f63272cf61b014607d998345">   36</a></span>&#160;  <span class="keywordtype">integer</span> :: iblock = 0</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a745e8be4bf52246db47090996854736b">   41</a></span>&#160;  real*8 :: bmiss = 10e10_8</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a7fe62694cce4c724bbd16b144adfc1bb">   51</a></span>&#160;  <span class="keywordtype">integer</span> :: iprt = 0</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a6f1f2ead234f70c8f323ba0fd5e95840">   56</a></span>&#160;  <span class="keywordtype">character*240</span> :: mtdir</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a54fd24795f00c7f2c314c7d2c7d43582">   59</a></span>&#160;  <span class="keywordtype">integer</span> :: lmtd</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a1667df28fd2399925505ff57265ad33f">   64</a></span>&#160;  <span class="keywordtype">integer</span> :: lun1 = 98</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a4b0e42e5050773c5cbe98839d9b54826">   69</a></span>&#160;  <span class="keywordtype">integer</span> :: lun2 = 99</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a6007e8a5d98440d7bb16ce63bbf007e6">   74</a></span>&#160;  <span class="keywordtype">integer</span> :: ifopbf = 0</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a7db5428bb409dc91391908e3f6005da0">   80</a></span>&#160;  <span class="keywordtype">integer</span> :: iac = 0</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a9776bd15698bdb2c211a2326f0ca61dc">   87</a></span>&#160;  <span class="keywordtype">integer</span> :: lendat = 8</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a82db11b82bf359e0fc90890e343f870a">   34</a></span>&#160;  <span class="keywordtype">logical</span> :: part = .false.</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a8623e746f63272cf61b014607d998345">   43</a></span>&#160;  <span class="keywordtype">integer</span> :: iblock = 0</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a745e8be4bf52246db47090996854736b">   48</a></span>&#160;  real*8 :: bmiss = 10e10_8</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a7fe62694cce4c724bbd16b144adfc1bb">   58</a></span>&#160;  <span class="keywordtype">integer</span> :: iprt = 0</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a6f1f2ead234f70c8f323ba0fd5e95840">   63</a></span>&#160;  <span class="keywordtype">character*240</span> :: mtdir</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a54fd24795f00c7f2c314c7d2c7d43582">   66</a></span>&#160;  <span class="keywordtype">integer</span> :: lmtd</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a1667df28fd2399925505ff57265ad33f">   71</a></span>&#160;  <span class="keywordtype">integer</span> :: lun1 = 98</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a4b0e42e5050773c5cbe98839d9b54826">   76</a></span>&#160;  <span class="keywordtype">integer</span> :: lun2 = 99</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a6007e8a5d98440d7bb16ce63bbf007e6">   81</a></span>&#160;  <span class="keywordtype">integer</span> :: ifopbf = 0</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a7db5428bb409dc91391908e3f6005da0">   87</a></span>&#160;  <span class="keywordtype">integer</span> :: iac = 0</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ae7a0cf86b71d91ae0be459a6c12fff01">   90</a></span>&#160;  <span class="keywordtype">character*4</span>, <span class="keywordtype">parameter</span> :: bmostr = <span class="stringliteral">&#39;BUFR&#39;</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a60ef50564d84f9a35ef70f9ad8b74df1">   93</a></span>&#160;  <span class="keywordtype">character*4</span>, <span class="keywordtype">parameter</span> :: bmcstr = <span class="stringliteral">&#39;7777&#39;</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#abe3de88a3bba631dd4cfc880b9d206ab">   96</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_mintd = <span class="stringliteral">&#39;300000&#39;</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#af62548bea103b35e96b23f0ca218b2b9">   99</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_minr = <span class="stringliteral">&#39;101000&#39;</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a28a7f7658d1ba1ea4609332adc148fc8">  102</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_sbyct = <span class="stringliteral">&#39;063000&#39;</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ab4ef91913d1dd7697e54730589ddbe66">  106</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_fbit = <span class="stringliteral">&#39;063255&#39;</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a9776bd15698bdb2c211a2326f0ca61dc">   94</a></span>&#160;  <span class="keywordtype">integer</span> :: lendat = 8</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ae7a0cf86b71d91ae0be459a6c12fff01">   97</a></span>&#160;  <span class="keywordtype">character*4</span>, <span class="keywordtype">parameter</span> :: bmostr = <span class="stringliteral">&#39;BUFR&#39;</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a60ef50564d84f9a35ef70f9ad8b74df1">  100</a></span>&#160;  <span class="keywordtype">character*4</span>, <span class="keywordtype">parameter</span> :: bmcstr = <span class="stringliteral">&#39;7777&#39;</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#abe3de88a3bba631dd4cfc880b9d206ab">  103</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_mintd = <span class="stringliteral">&#39;300000&#39;</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#af62548bea103b35e96b23f0ca218b2b9">  106</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_minr = <span class="stringliteral">&#39;101000&#39;</span></div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a9f70d749f5e71b996b0d76e93ff3b77b">  109</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_drf1 = <span class="stringliteral">&#39;031000&#39;</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a28a7f7658d1ba1ea4609332adc148fc8">  109</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_sbyct = <span class="stringliteral">&#39;063000&#39;</span></div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#adfabbf77cf9f5c71ccb41feacdc33c2e">  112</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_drf8 = <span class="stringliteral">&#39;031001&#39;</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ac766dd96949dc14fd798a112f230b674">  115</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_drf16 = <span class="stringliteral">&#39;031002&#39;</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a5a260aaa8fb7f7b661ed9d8f9e7d4226">  118</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_drp1 = <span class="stringliteral">&#39;360004&#39;</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a87ac1122752b49bf8beeae0fd310910d">  121</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_drp8 = <span class="stringliteral">&#39;360002&#39;</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#aadb8522cb68b9bb6eeb160615593e88d">  124</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_drp8s = <span class="stringliteral">&#39;360003&#39;</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#af6996f884a38892fd146bb24b7802b07">  127</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_drp16 = <span class="stringliteral">&#39;360001&#39;</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a5b163d0f13c16e94bdac566d2495faf7">  130</a></span>&#160;  <span class="keywordtype">character</span>, <span class="keywordtype">parameter</span> :: reps(10) =    (/      <span class="stringliteral">&#39;&quot;&#39;</span>,       <span class="stringliteral">&#39;(&#39;</span>,      <span class="stringliteral">&#39;{&#39;</span>,       <span class="stringliteral">&#39;[&#39;</span>,      <span class="stringliteral">&#39;&lt;&#39;</span>, &amp;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                                                <span class="stringliteral">&#39;&quot;&#39;</span>,       <span class="stringliteral">&#39;)&#39;</span>,      <span class="stringliteral">&#39;}&#39;</span>,       <span class="stringliteral">&#39;]&#39;</span>,      <span class="stringliteral">&#39;&gt;&#39;</span>/)</div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ab4ef91913d1dd7697e54730589ddbe66">  113</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_fbit = <span class="stringliteral">&#39;063255&#39;</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a9f70d749f5e71b996b0d76e93ff3b77b">  116</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_drf1 = <span class="stringliteral">&#39;031000&#39;</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#adfabbf77cf9f5c71ccb41feacdc33c2e">  119</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_drf8 = <span class="stringliteral">&#39;031001&#39;</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ac766dd96949dc14fd798a112f230b674">  122</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_drf16 = <span class="stringliteral">&#39;031002&#39;</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a5a260aaa8fb7f7b661ed9d8f9e7d4226">  125</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_drp1 = <span class="stringliteral">&#39;360004&#39;</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a87ac1122752b49bf8beeae0fd310910d">  128</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_drp8 = <span class="stringliteral">&#39;360002&#39;</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#aadb8522cb68b9bb6eeb160615593e88d">  131</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_drp8s = <span class="stringliteral">&#39;360003&#39;</span></div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a9d4bd8b03fd20102645f0a43d8867bff">  134</a></span>&#160;  <span class="keywordtype">character*3</span>, <span class="keywordtype">parameter</span> :: typs(10) =  (/    <span class="stringliteral">&#39;REP&#39;</span>,     <span class="stringliteral">&#39;DRP&#39;</span>,    <span class="stringliteral">&#39;DRP&#39;</span>,     <span class="stringliteral">&#39;DRS&#39;</span>,    <span class="stringliteral">&#39;DRB&#39;</span>, &amp;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                                              <span class="stringliteral">&#39;SEQ&#39;</span>,     <span class="stringliteral">&#39;RPC&#39;</span>,    <span class="stringliteral">&#39;RPC&#39;</span>,     <span class="stringliteral">&#39;RPS&#39;</span>,    <span class="stringliteral">&#39;SEQ&#39;</span>/)</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a7a129734d8b06649619e8e9ee42eca62">  138</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: adsn(10) =  (/ fxy_minr, fxy_drp16, fxy_drp8, fxy_drp8s, fxy_drp1, &amp;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                                           <span class="stringliteral">&#39;101255&#39;</span>, fxy_drf16, fxy_drf8, fxy_drf8 , fxy_drf1/)</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a181516c96f53bedb9774c83ebfeb0a23">  142</a></span>&#160;  <span class="keywordtype">integer</span> :: idnr(10)</div>
+<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#af6996f884a38892fd146bb24b7802b07">  134</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: fxy_drp16 = <span class="stringliteral">&#39;360001&#39;</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a5b163d0f13c16e94bdac566d2495faf7">  137</a></span>&#160;  <span class="keywordtype">character</span>, <span class="keywordtype">parameter</span> :: reps(10) =    (/      <span class="stringliteral">&#39;&quot;&#39;</span>,       <span class="stringliteral">&#39;(&#39;</span>,      <span class="stringliteral">&#39;{&#39;</span>,       <span class="stringliteral">&#39;[&#39;</span>,      <span class="stringliteral">&#39;&lt;&#39;</span>, &amp;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                                                <span class="stringliteral">&#39;&quot;&#39;</span>,       <span class="stringliteral">&#39;)&#39;</span>,      <span class="stringliteral">&#39;}&#39;</span>,       <span class="stringliteral">&#39;]&#39;</span>,      <span class="stringliteral">&#39;&gt;&#39;</span>/)</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a9d4bd8b03fd20102645f0a43d8867bff">  141</a></span>&#160;  <span class="keywordtype">character*3</span>, <span class="keywordtype">parameter</span> :: typs(10) =  (/    <span class="stringliteral">&#39;REP&#39;</span>,     <span class="stringliteral">&#39;DRP&#39;</span>,    <span class="stringliteral">&#39;DRP&#39;</span>,     <span class="stringliteral">&#39;DRS&#39;</span>,    <span class="stringliteral">&#39;DRB&#39;</span>, &amp;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                                              <span class="stringliteral">&#39;SEQ&#39;</span>,     <span class="stringliteral">&#39;RPC&#39;</span>,    <span class="stringliteral">&#39;RPC&#39;</span>,     <span class="stringliteral">&#39;RPS&#39;</span>,    <span class="stringliteral">&#39;SEQ&#39;</span>/)</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a3eaffbddfb28ae6f90cff4ec580463c1">  145</a></span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">parameter</span> :: lens(5) =       (/        0,        16,        8,         8,        1/)</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ae8a681bd9096d6c9a2466b3c71f6ec7e">  154</a></span>&#160;  <span class="keywordtype">integer</span> :: maxcd = 250</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ad2e54a398ee4fd5c87669a2883e7a37d">  160</a></span>&#160;  <span class="keywordtype">integer</span> :: maxjl = 96000</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ab5934a6a2f8cd3e09418203c1d3c20de">  167</a></span>&#160;  <span class="keywordtype">integer</span> :: maxmem = 50000000</div>
+<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a7a129734d8b06649619e8e9ee42eca62">  145</a></span>&#160;  <span class="keywordtype">character*6</span>, <span class="keywordtype">parameter</span> :: adsn(10) =  (/ fxy_minr, fxy_drp16, fxy_drp8, fxy_drp8s, fxy_drp1, &amp;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                                           <span class="stringliteral">&#39;101255&#39;</span>, fxy_drf16, fxy_drf8, fxy_drf8 , fxy_drf1/)</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a181516c96f53bedb9774c83ebfeb0a23">  149</a></span>&#160;  <span class="keywordtype">integer</span> :: idnr(10)</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a3eaffbddfb28ae6f90cff4ec580463c1">  152</a></span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">parameter</span> :: lens(5) =       (/        0,        16,        8,         8,        1/)</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ae8a681bd9096d6c9a2466b3c71f6ec7e">  161</a></span>&#160;  <span class="keywordtype">integer</span> :: maxcd = 250</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ad2e54a398ee4fd5c87669a2883e7a37d">  167</a></span>&#160;  <span class="keywordtype">integer</span> :: maxjl = 96000</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
-<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a61162c966b964b3039b9180818d0e7ee">  174</a></span>&#160;  <span class="keywordtype">integer</span> :: maxmsg = 200000</div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ab5934a6a2f8cd3e09418203c1d3c20de">  174</a></span>&#160;  <span class="keywordtype">integer</span> :: maxmem = 50000000</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00180"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a6c14025516cc65ace5f17fc2c4e4a9a3">  180</a></span>&#160;  <span class="keywordtype">integer</span> :: maxnc = 600</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
-<div class="line"><a name="l00187"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#adaae2c5fadf243ece139cc7e84688d75">  187</a></span>&#160;  <span class="keywordtype">integer</span> :: maxss = 120000</div>
+<div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a61162c966b964b3039b9180818d0e7ee">  181</a></span>&#160;  <span class="keywordtype">integer</span> :: maxmsg = 200000</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
+<div class="line"><a name="l00187"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a6c14025516cc65ace5f17fc2c4e4a9a3">  187</a></span>&#160;  <span class="keywordtype">integer</span> :: maxnc = 600</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
-<div class="line"><a name="l00194"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#aec19b6418a5d88f574f4b196b93a5cf5">  194</a></span>&#160;  <span class="keywordtype">integer</span> :: maxtba = 150</div>
+<div class="line"><a name="l00194"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#adaae2c5fadf243ece139cc7e84688d75">  194</a></span>&#160;  <span class="keywordtype">integer</span> :: maxss = 120000</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
-<div class="line"><a name="l00201"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a14452fc0317594bd880c9abba582ae74">  201</a></span>&#160;  <span class="keywordtype">integer</span> :: maxtbb = 500</div>
+<div class="line"><a name="l00201"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#aec19b6418a5d88f574f4b196b93a5cf5">  201</a></span>&#160;  <span class="keywordtype">integer</span> :: maxtba = 150</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
-<div class="line"><a name="l00208"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ab5fc7a78bb32e9a0fa7cbb1f402e7528">  208</a></span>&#160;  <span class="keywordtype">integer</span> :: maxtbd = 500</div>
+<div class="line"><a name="l00208"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a14452fc0317594bd880c9abba582ae74">  208</a></span>&#160;  <span class="keywordtype">integer</span> :: maxtbb = 500</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
-<div class="line"><a name="l00214"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a9c06e9ba0f47cbeecfb1e6d1972e1e4f">  214</a></span>&#160;  <span class="keywordtype">integer</span> :: mxbtm = 5</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
-<div class="line"><a name="l00220"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#aa7b24da237033a528cb05754d5736cc6">  220</a></span>&#160;  <span class="keywordtype">integer</span> :: mxbtmse = 500</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
-<div class="line"><a name="l00227"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ae330052e2bcc0a81949c5ef8d6e7cc9e">  227</a></span>&#160;  <span class="keywordtype">integer</span> :: mxcdv = 3000</div>
+<div class="line"><a name="l00215"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ab5fc7a78bb32e9a0fa7cbb1f402e7528">  215</a></span>&#160;  <span class="keywordtype">integer</span> :: maxtbd = 500</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
+<div class="line"><a name="l00221"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a9c06e9ba0f47cbeecfb1e6d1972e1e4f">  221</a></span>&#160;  <span class="keywordtype">integer</span> :: mxbtm = 5</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
+<div class="line"><a name="l00227"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#aa7b24da237033a528cb05754d5736cc6">  227</a></span>&#160;  <span class="keywordtype">integer</span> :: mxbtmse = 500</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
-<div class="line"><a name="l00234"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ad5cda585f8b55a9e6e3a81808c23630f">  234</a></span>&#160;  <span class="keywordtype">integer</span> :: mxcnem = 450</div>
+<div class="line"><a name="l00234"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ae330052e2bcc0a81949c5ef8d6e7cc9e">  234</a></span>&#160;  <span class="keywordtype">integer</span> :: mxcdv = 3000</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
-<div class="line"><a name="l00241"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a6780f1f07eeec5333e01ca17588f7d39">  241</a></span>&#160;  <span class="keywordtype">integer</span> :: mxcsb = 4000</div>
+<div class="line"><a name="l00241"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ad5cda585f8b55a9e6e3a81808c23630f">  241</a></span>&#160;  <span class="keywordtype">integer</span> :: mxcnem = 450</div>
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
-<div class="line"><a name="l00248"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a179ebe33ab923f74ef05e2851a86d33b">  248</a></span>&#160;  <span class="keywordtype">integer</span> :: mxdxts = 200</div>
+<div class="line"><a name="l00248"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a6780f1f07eeec5333e01ca17588f7d39">  248</a></span>&#160;  <span class="keywordtype">integer</span> :: mxcsb = 4000</div>
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160; </div>
-<div class="line"><a name="l00256"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a59f64f9f847d2171ecac822482b2f0a9">  256</a></span>&#160;  <span class="keywordtype">integer</span> :: mxh4wlc = 10</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
-<div class="line"><a name="l00264"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a739ea87803beaa51dd172adb95af9b86">  264</a></span>&#160;  <span class="keywordtype">integer</span> :: mxlcc = 32</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
-<div class="line"><a name="l00271"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a6062176c0f51fa9f593310f46cc14fe0">  271</a></span>&#160;  <span class="keywordtype">integer</span> :: mxmsgl = 600000</div>
+<div class="line"><a name="l00255"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a179ebe33ab923f74ef05e2851a86d33b">  255</a></span>&#160;  <span class="keywordtype">integer</span> :: mxdxts = 200</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
+<div class="line"><a name="l00263"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a59f64f9f847d2171ecac822482b2f0a9">  263</a></span>&#160;  <span class="keywordtype">integer</span> :: mxh4wlc = 10</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
+<div class="line"><a name="l00271"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a739ea87803beaa51dd172adb95af9b86">  271</a></span>&#160;  <span class="keywordtype">integer</span> :: mxlcc = 32</div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160; </div>
-<div class="line"><a name="l00274"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a5a89be3220392c5b182d4d475d22e3e1">  274</a></span>&#160;  <span class="keywordtype">integer</span> :: mxmsgld4</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160; </div>
-<div class="line"><a name="l00280"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ab2c78405872b159e107674c2fc2a12f7">  280</a></span>&#160;  <span class="keywordtype">integer</span> :: mxmtbb = 4000</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
-<div class="line"><a name="l00286"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ae0bf7b02df4e070e72a90672e3eded90">  286</a></span>&#160;  <span class="keywordtype">integer</span> :: mxmtbd = 1000</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160; </div>
-<div class="line"><a name="l00295"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a9242cd091e5ab5d3956740035f6b6207">  295</a></span>&#160;  <span class="keywordtype">integer</span> :: mxmtbf = 25000</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160; </div>
-<div class="line"><a name="l00299"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a7b92c0b0ed1fb2b80b048414fa1e54ce">  299</a></span>&#160;  <span class="keywordtype">integer</span> :: mxnaf = 4</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
-<div class="line"><a name="l00306"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a009fea23b90695d1556e33a557d4b7f1">  306</a></span>&#160;  <span class="keywordtype">integer</span> :: mxnrv = 15</div>
+<div class="line"><a name="l00278"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a6062176c0f51fa9f593310f46cc14fe0">  278</a></span>&#160;  <span class="keywordtype">integer</span> :: mxmsgl = 600000</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
+<div class="line"><a name="l00281"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a5a89be3220392c5b182d4d475d22e3e1">  281</a></span>&#160;  <span class="keywordtype">integer</span> :: mxmsgld4</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160; </div>
+<div class="line"><a name="l00287"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ab2c78405872b159e107674c2fc2a12f7">  287</a></span>&#160;  <span class="keywordtype">integer</span> :: mxmtbb = 4000</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
+<div class="line"><a name="l00293"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ae0bf7b02df4e070e72a90672e3eded90">  293</a></span>&#160;  <span class="keywordtype">integer</span> :: mxmtbd = 1000</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
+<div class="line"><a name="l00302"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a9242cd091e5ab5d3956740035f6b6207">  302</a></span>&#160;  <span class="keywordtype">integer</span> :: mxmtbf = 25000</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
+<div class="line"><a name="l00306"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a7b92c0b0ed1fb2b80b048414fa1e54ce">  306</a></span>&#160;  <span class="keywordtype">integer</span> :: mxnaf = 4</div>
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160; </div>
-<div class="line"><a name="l00313"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ae2e923a33b968adc577317f6cef8f24e">  313</a></span>&#160;  <span class="keywordtype">integer</span> :: mxrst = 50</div>
+<div class="line"><a name="l00313"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a009fea23b90695d1556e33a557d4b7f1">  313</a></span>&#160;  <span class="keywordtype">integer</span> :: mxnrv = 15</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160; </div>
-<div class="line"><a name="l00321"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a61b398d330ce6937423db44f080b93fd">  321</a></span>&#160;  <span class="keywordtype">integer</span> :: mxs01v = 10</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
-<div class="line"><a name="l00324"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a695fe6ca7714604e88e1fc4d21cc839d">  324</a></span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">parameter</span> :: mxs = 1000</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160; </div>
-<div class="line"><a name="l00327"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a656c690a79e927a6d824a1e8cef901e9">  327</a></span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">parameter</span> :: maxrcr = 100</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160; </div>
-<div class="line"><a name="l00335"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a85bed6c0b0a9aa339abd8fb7b3a136b5">  335</a></span>&#160;  <span class="keywordtype">integer</span> :: mxtamc = 15</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160; </div>
-<div class="line"><a name="l00343"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a68ea76a4751743e58280e061b43313e7">  343</a></span>&#160;  <span class="keywordtype">integer</span> :: mxtco = 30</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160; </div>
-<div class="line"><a name="l00350"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#aa9124552f5c640e47f8decc9499688d8">  350</a></span>&#160;  <span class="keywordtype">integer</span> :: nfiles = 32</div>
+<div class="line"><a name="l00320"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ae2e923a33b968adc577317f6cef8f24e">  320</a></span>&#160;  <span class="keywordtype">integer</span> :: mxrst = 50</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160; </div>
+<div class="line"><a name="l00328"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a61b398d330ce6937423db44f080b93fd">  328</a></span>&#160;  <span class="keywordtype">integer</span> :: mxs01v = 10</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160; </div>
+<div class="line"><a name="l00331"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a695fe6ca7714604e88e1fc4d21cc839d">  331</a></span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">parameter</span> :: mxs = 1000</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160; </div>
+<div class="line"><a name="l00334"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a656c690a79e927a6d824a1e8cef901e9">  334</a></span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">parameter</span> :: maxrcr = 100</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160; </div>
+<div class="line"><a name="l00342"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a85bed6c0b0a9aa339abd8fb7b3a136b5">  342</a></span>&#160;  <span class="keywordtype">integer</span> :: mxtamc = 15</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
+<div class="line"><a name="l00350"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a68ea76a4751743e58280e061b43313e7">  350</a></span>&#160;  <span class="keywordtype">integer</span> :: mxtco = 30</div>
 <div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160; </div>
-<div class="line"><a name="l00356"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a88b08b3ed35dd7342e96bb1f84b8c510">  356</a></span>&#160;  <span class="keywordtype">integer</span> :: mtv = 36</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160; </div>
-<div class="line"><a name="l00362"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a100b0bdf0829aa981d26f817a995b31c">  362</a></span>&#160;  <span class="keywordtype">integer</span> :: idxv = 1</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160; </div>
-<div class="line"><a name="l00365"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ac9e6d10f3b0bde35eeb6409ad51476c1">  365</a></span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">parameter</span> :: nby0 = 8</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160; </div>
-<div class="line"><a name="l00368"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a5c90e57dc87868bf8f5f54ac7f14d558">  368</a></span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">parameter</span> :: nby1 = 18</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160; </div>
-<div class="line"><a name="l00371"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#aa7b746f54e2897eb9651302fd656fc66">  371</a></span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">parameter</span> :: nby2 = 0</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160; </div>
-<div class="line"><a name="l00374"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a2b075e9fd04aeb24964f4f1ef7ede526">  374</a></span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">parameter</span> :: nby3 = 20</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160; </div>
-<div class="line"><a name="l00377"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a631f921eacf59866733aa6fa19a62fea">  377</a></span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">parameter</span> :: nby5 = 4</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160; </div>
-<div class="line"><a name="l00383"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a3ac85027a1a0f7fee907310e2c41356d">  383</a></span>&#160;  <span class="keywordtype">integer</span> :: lmt = -99</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160; </div>
-<div class="line"><a name="l00387"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a939f34f2833d6529b20c2ab79b082500">  387</a></span>&#160;  <span class="keywordtype">integer</span> :: lmtv</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160; </div>
-<div class="line"><a name="l00391"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a48d9286f5111bf51c0c88374984e7882">  391</a></span>&#160;  <span class="keywordtype">integer</span> :: logce</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160; </div>
-<div class="line"><a name="l00395"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a097f815622807c80c3d7f2f2794d4da4">  395</a></span>&#160;  <span class="keywordtype">integer</span> :: lmtvl</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160; </div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="keyword">end module </span>modv_vars</div>
+<div class="line"><a name="l00357"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#aa9124552f5c640e47f8decc9499688d8">  357</a></span>&#160;  <span class="keywordtype">integer</span> :: nfiles = 32</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160; </div>
+<div class="line"><a name="l00363"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a88b08b3ed35dd7342e96bb1f84b8c510">  363</a></span>&#160;  <span class="keywordtype">integer</span> :: mtv = 36</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160; </div>
+<div class="line"><a name="l00369"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a100b0bdf0829aa981d26f817a995b31c">  369</a></span>&#160;  <span class="keywordtype">integer</span> :: idxv = 1</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160; </div>
+<div class="line"><a name="l00372"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#ac9e6d10f3b0bde35eeb6409ad51476c1">  372</a></span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">parameter</span> :: nby0 = 8</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160; </div>
+<div class="line"><a name="l00375"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a5c90e57dc87868bf8f5f54ac7f14d558">  375</a></span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">parameter</span> :: nby1 = 18</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160; </div>
+<div class="line"><a name="l00378"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#aa7b746f54e2897eb9651302fd656fc66">  378</a></span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">parameter</span> :: nby2 = 0</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160; </div>
+<div class="line"><a name="l00381"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a2b075e9fd04aeb24964f4f1ef7ede526">  381</a></span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">parameter</span> :: nby3 = 20</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160; </div>
+<div class="line"><a name="l00384"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a631f921eacf59866733aa6fa19a62fea">  384</a></span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">parameter</span> :: nby5 = 4</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160; </div>
+<div class="line"><a name="l00390"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a3ac85027a1a0f7fee907310e2c41356d">  390</a></span>&#160;  <span class="keywordtype">integer</span> :: lmt = -99</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160; </div>
+<div class="line"><a name="l00394"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a939f34f2833d6529b20c2ab79b082500">  394</a></span>&#160;  <span class="keywordtype">integer</span> :: lmtv</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
+<div class="line"><a name="l00398"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a48d9286f5111bf51c0c88374984e7882">  398</a></span>&#160;  <span class="keywordtype">integer</span> :: logce</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160; </div>
+<div class="line"><a name="l00402"></a><span class="lineno"><a class="line" href="modules__vars_8F90.html#a097f815622807c80c3d7f2f2794d4da4">  402</a></span>&#160;  <span class="keywordtype">integer</span> :: lmtvl</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160; </div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="keyword">end module </span>modv_vars</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

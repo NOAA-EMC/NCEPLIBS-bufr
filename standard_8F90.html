@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.2.0</span>
+   &#160;<span id="projectnumber">12.3.0</span>
    </div>
   </td>
  </tr>
@@ -99,9 +100,9 @@ Functions/Subroutines</h2></td></tr>
 <tr class="memitem:af4f78acf5cbb9eda9a8ef03d03030aaf"><td class="memItemLeft" align="right" valign="top">integer function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="standard_8F90.html#af4f78acf5cbb9eda9a8ef03d03030aaf">istdesc</a> (idn)</td></tr>
 <tr class="memdesc:af4f78acf5cbb9eda9a8ef03d03030aaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given the WMO bit-wise representation of an FXY value for a descriptor, check whether the descriptor is WMO-standard.  <a href="standard_8F90.html#af4f78acf5cbb9eda9a8ef03d03030aaf">More...</a><br /></td></tr>
 <tr class="separator:af4f78acf5cbb9eda9a8ef03d03030aaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f7f89920afdd318ec3ff39559c42ecd"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="standard_8F90.html#a1f7f89920afdd318ec3ff39559c42ecd">stdmsg</a> (cf)</td></tr>
-<tr class="memdesc:a1f7f89920afdd318ec3ff39559c42ecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify whether BUFR messages output by future calls to <a class="el" href="index.html#hierarchy">message-writing subroutines</a> and <a class="el" href="index.html#hierarchy">subset-writing subroutines</a> should be internally reformatted to remove all NCEPLIBS-bufr software extensions to the WMO standard, prior to actually writing each message.  <a href="standard_8F90.html#a1f7f89920afdd318ec3ff39559c42ecd">More...</a><br /></td></tr>
-<tr class="separator:a1f7f89920afdd318ec3ff39559c42ecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a952cbe795bfe75b3b66fdc46579bc97c"><td class="memItemLeft" align="right" valign="top">recursive subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="standard_8F90.html#a952cbe795bfe75b3b66fdc46579bc97c">stdmsg</a> (cf)</td></tr>
+<tr class="memdesc:a952cbe795bfe75b3b66fdc46579bc97c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify whether BUFR messages output by future calls to <a class="el" href="index.html#hierarchy">message-writing subroutines</a> and <a class="el" href="index.html#hierarchy">subset-writing subroutines</a> should be internally reformatted to remove all NCEPLIBS-bufr software extensions to the WMO standard, prior to actually writing each message.  <a href="standard_8F90.html#a952cbe795bfe75b3b66fdc46579bc97c">More...</a><br /></td></tr>
+<tr class="separator:a952cbe795bfe75b3b66fdc46579bc97c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a543c53880e96f04934213352ea77a7ab"><td class="memItemLeft" align="right" valign="top">recursive subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="standard_8F90.html#a543c53880e96f04934213352ea77a7ab">stndrd</a> (lunit, msgin, lmsgot, msgot)</td></tr>
 <tr class="memdesc:a543c53880e96f04934213352ea77a7ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Standardize a BUFR message.  <a href="standard_8F90.html#a543c53880e96f04934213352ea77a7ab">More...</a><br /></td></tr>
 <tr class="separator:a543c53880e96f04934213352ea77a7ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,7 +146,7 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2004-08-18 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="standard_8F90_source.html#l00297">297</a> of file <a class="el" href="standard_8F90_source.html">standard.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="standard_8F90_source.html#l00316">316</a> of file <a class="el" href="standard_8F90_source.html">standard.F90</a>.</p>
 
 <p class="reference">References <a class="el" href="fxy_8F90.html#af1ec2f8fc15418f1238413201f3e075c">adn30()</a>, and <a class="el" href="misc_8F90.html#a1bc01a10f226d09971ab1a3b0d3734bf">iokoper()</a>.</p>
 
@@ -153,16 +154,16 @@ Functions/Subroutines</h2></td></tr>
 
 </div>
 </div>
-<a id="a1f7f89920afdd318ec3ff39559c42ecd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f7f89920afdd318ec3ff39559c42ecd">&#9670;&nbsp;</a></span>stdmsg()</h2>
+<a id="a952cbe795bfe75b3b66fdc46579bc97c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a952cbe795bfe75b3b66fdc46579bc97c">&#9670;&nbsp;</a></span>stdmsg()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">subroutine stdmsg </td>
+          <td class="memname">recursive subroutine stdmsg </td>
           <td>(</td>
-          <td class="paramtype">character*1, intent(in)&#160;</td>
+          <td class="paramtype">character, intent(in)&#160;</td>
           <td class="paramname"><em>cf</em></td><td>)</td>
           <td></td>
         </tr>
@@ -175,8 +176,8 @@ Functions/Subroutines</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cf</td><td>- Flag indicating whether future BUFR output messages are to be standardized:<ul>
-<li>'N' = No (the default)</li>
-<li>'Y' = Yes</li>
+<li>'N' (or 'n') = No (the default)</li>
+<li>'Y' (or 'y') = Yes</li>
 </ul>
 </td></tr>
   </table>
@@ -187,7 +188,9 @@ Functions/Subroutines</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="standard_8F90_source.html#l00035">35</a> of file <a class="el" href="standard_8F90_source.html">standard.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort()</a>, <a class="el" href="misc_8F90.html#abb1e33496bab2eb5a1c93f44173f57ea">capit()</a>, and <a class="el" href="namespacemoda__msgstd.html#a23356dfd7172ae4d2ff05d657234d6ab">moda_msgstd::csmf</a>.</p>
+<p class="reference">References <a class="el" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort()</a>, <a class="el" href="borts_8F90.html#ae4cfa0677f2c9133899f467ff1edad98">bort_target_set()</a>, <a class="el" href="borts_8F90.html#a8fd9a01ac05bff2940ceef7479bed9cc">bort_target_unset()</a>, <a class="el" href="misc_8F90.html#abb1e33496bab2eb5a1c93f44173f57ea">capit()</a>, and <a class="el" href="namespacemoda__msgstd.html#a23356dfd7172ae4d2ff05d657234d6ab">moda_msgstd::csmf</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="namespacebufr__c2f__interface.html#a8491b50e51a6d7b51c1fcdc438352e18">bufr_c2f_interface::stdmsg_c()</a>.</p>
 
 </div>
 </div>
@@ -230,7 +233,7 @@ Functions/Subroutines</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Standardize a BUFR message. </p>
-<p>This subroutine performs the same function as subroutine <a class="el" href="standard_8F90.html#a1f7f89920afdd318ec3ff39559c42ecd" title="Specify whether BUFR messages output by future calls to message-writing subroutines and subset-writin...">stdmsg()</a>, except that it operates on a BUFR message passed in via a memory array and returns its output via a separate memory array, whereas <a class="el" href="standard_8F90.html#a1f7f89920afdd318ec3ff39559c42ecd" title="Specify whether BUFR messages output by future calls to message-writing subroutines and subset-writin...">stdmsg()</a> operates on BUFR messages stored internally within the software.</p>
+<p>This subroutine performs the same function as subroutine <a class="el" href="standard_8F90.html#a952cbe795bfe75b3b66fdc46579bc97c" title="Specify whether BUFR messages output by future calls to message-writing subroutines and subset-writin...">stdmsg()</a>, except that it operates on a BUFR message passed in via a memory array and returns its output via a separate memory array, whereas <a class="el" href="standard_8F90.html#a952cbe795bfe75b3b66fdc46579bc97c" title="Specify whether BUFR messages output by future calls to message-writing subroutines and subset-writin...">stdmsg()</a> operates on BUFR messages stored internally within the software.</p>
 <dl class="section remark"><dt>Remarks</dt><dd><ul>
 <li>msgin and msgot must be separate arrays</li>
 <li>Standardized messages are usually longer in length than their non-standard counterparts, so it's a good idea to allow for extra space when allocating msgot within the application program</li>
@@ -248,11 +251,11 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2004-08-18 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="standard_8F90_source.html#l00072">72</a> of file <a class="el" href="standard_8F90_source.html">standard.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="standard_8F90_source.html#l00086">86</a> of file <a class="el" href="standard_8F90_source.html">standard.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort()</a>, <a class="el" href="readwritemg_8F90.html#ab6c6c3d1925977e2c4013b3da342dc37">getlens()</a>, <a class="el" href="namespacemoda__s3list.html#a07f44b4772abffacaba7e9be5fbb7fda">moda_s3list::ids3</a>, <a class="el" href="standard_8F90.html#af4f78acf5cbb9eda9a8ef03d03030aaf">istdesc()</a>, <a class="el" href="cidecode_8F90.html#a73f371d0af1f65ff546e0484ee97238f">iupb()</a>, <a class="el" href="s013vals_8F90.html#a28944a4d73587a3943964a95619cb8a2">iupbs01()</a>, <a class="el" href="s013vals_8F90.html#a6060b7b617646ee396097f20317e2f4d">iupbs3()</a>, <a class="el" href="copydata_8F90.html#a4ced98b23d03cd8718d81b357ee4e2c5">mvb()</a>, <a class="el" href="dxtable_8F90.html#a8ea33660d62d74dee92cf7bf9541c1cd">nemtbax()</a>, <a class="el" href="fxy_8F90.html#ab6ec8c0148ab5d70923831667277b14e">numtab()</a>, <a class="el" href="ciencode_8F90.html#a8f795cd39c8f939b486407c65d8959c0">pkb()</a>, <a class="el" href="ciencode_8F90.html#a52ae4b28f79718d9b6631d2f7a5a7160">pkc()</a>, <a class="el" href="openclosebf_8F90.html#abceda08f9c29378d3ddadeb46e823d00">status()</a>, <a class="el" href="cidecode_8F90.html#a07dda20577f7480095dff261d11241f8">upb()</a>, <a class="el" href="cidecode_8F90.html#afef1c199ce8e69b085435b74d68cd337">upc()</a>, and <a class="el" href="x4884_8F90.html#aa1e012dbd8da45797592cc65a399d71d">x84()</a>.</p>
+<p class="reference">References <a class="el" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort()</a>, <a class="el" href="borts_8F90.html#ae4cfa0677f2c9133899f467ff1edad98">bort_target_set()</a>, <a class="el" href="borts_8F90.html#a8fd9a01ac05bff2940ceef7479bed9cc">bort_target_unset()</a>, <a class="el" href="readwritemg_8F90.html#ab6c6c3d1925977e2c4013b3da342dc37">getlens()</a>, <a class="el" href="namespacemoda__s3list.html#a07f44b4772abffacaba7e9be5fbb7fda">moda_s3list::ids3</a>, <a class="el" href="standard_8F90.html#af4f78acf5cbb9eda9a8ef03d03030aaf">istdesc()</a>, <a class="el" href="cidecode_8F90.html#a73f371d0af1f65ff546e0484ee97238f">iupb()</a>, <a class="el" href="s013vals_8F90.html#a28944a4d73587a3943964a95619cb8a2">iupbs01()</a>, <a class="el" href="s013vals_8F90.html#a6060b7b617646ee396097f20317e2f4d">iupbs3()</a>, <a class="el" href="copydata_8F90.html#a4ced98b23d03cd8718d81b357ee4e2c5">mvb()</a>, <a class="el" href="dxtable_8F90.html#a8ea33660d62d74dee92cf7bf9541c1cd">nemtbax()</a>, <a class="el" href="fxy_8F90.html#ab6ec8c0148ab5d70923831667277b14e">numtab()</a>, <a class="el" href="ciencode_8F90.html#a8f795cd39c8f939b486407c65d8959c0">pkb()</a>, <a class="el" href="ciencode_8F90.html#a52ae4b28f79718d9b6631d2f7a5a7160">pkc()</a>, <a class="el" href="openclosebf_8F90.html#abceda08f9c29378d3ddadeb46e823d00">status()</a>, <a class="el" href="cidecode_8F90.html#a07dda20577f7480095dff261d11241f8">upb()</a>, <a class="el" href="cidecode_8F90.html#afef1c199ce8e69b085435b74d68cd337">upc()</a>, and <a class="el" href="x4884_8F90.html#aa1e012dbd8da45797592cc65a399d71d">x84()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="readwritemg_8F90.html#af49a08bdf36b69217da7571dcfc90624">msgwrt()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="readwritemg_8F90.html#af49a08bdf36b69217da7571dcfc90624">msgwrt()</a>, and <a class="el" href="namespacebufr__c2f__interface.html#af9bec24d0cde02dba4cd218f836e0ad1">bufr_c2f_interface::stndrd_c()</a>.</p>
 
 </div>
 </div>

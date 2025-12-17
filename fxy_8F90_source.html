@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.2.0</span>
+   &#160;<span id="projectnumber">12.3.0</span>
    </div>
   </td>
  </tr>
@@ -101,8 +102,8 @@ $(document).ready(function(){initNavTree('fxy_8F90_source.html',''); initResizab
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keywordtype">character*(*)</span> <a class="code" href="fxy_8F90.html#af1ec2f8fc15418f1238413201f3e075c">adn30</a></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keywordtype">character*128</span> bort_str</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordflow">if</span>(len(<a class="code" href="fxy_8F90.html#af1ec2f8fc15418f1238413201f3e075c">adn30</a>)&lt;ldn) <span class="keyword">call </span><a class="code" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort</a>(<span class="stringliteral">&#39;BUFRLIB: ADN30 - FUNCTION RETURN STRING TOO SHORT&#39;</span>)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keywordflow">if</span>(idn&lt;0 .or. idn&gt;65535) <span class="keyword">call </span><a class="code" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort</a>(<span class="stringliteral">&#39;BUFRLIB: ADN30 - INTEGER REPRESENTATION OF DESCRIPTOR OUT OF 16-BIT RANGE&#39;</span>)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordflow">if</span>(len(<a class="code" href="fxy_8F90.html#af1ec2f8fc15418f1238413201f3e075c">adn30</a>)&lt;ldn) <span class="keyword">call </span><a class="code" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort</a>(<span class="stringliteral">&#39;BUFRLIB: ADN30 - FUNCTION RETURN STRING TOO SHORT&#39;</span>)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keywordflow">if</span>(idn&lt;0 .or. idn&gt;65535) <span class="keyword">call </span><a class="code" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort</a>(<span class="stringliteral">&#39;BUFRLIB: ADN30 - INTEGER REPRESENTATION OF DESCRIPTOR OUT OF 16-BIT RANGE&#39;</span>)</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keywordflow">if</span>(ldn==5) <span class="keywordflow">then</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">write</span>(<a class="code" href="fxy_8F90.html#af1ec2f8fc15418f1238413201f3e075c">adn30</a>,<span class="stringliteral">&#39;(i5)&#39;</span>) idn</div>
@@ -113,7 +114,7 @@ $(document).ready(function(){initNavTree('fxy_8F90_source.html',''); initResizab
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">write</span>(<a class="code" href="fxy_8F90.html#af1ec2f8fc15418f1238413201f3e075c">adn30</a>,<span class="stringliteral">&#39;(i1,i2,i3)&#39;</span>) idf,idx,idy</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">write</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: ADN30 - CHARACTER LENGTH (&quot;,I4,&quot;) MUST BE EITHER 5 OR 6&quot;)&#39;</span>) ldn</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">call </span><a class="code" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort</a>(bort_str)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">call </span><a class="code" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort</a>(bort_str)</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keywordflow">  endif</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordflow">do</span> i=1,ldn</div>
@@ -153,7 +154,7 @@ $(document).ready(function(){initNavTree('fxy_8F90_source.html',''); initResizab
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="keywordflow">if</span>(len(adn)&lt;ldn) <span class="keywordflow">then</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keyword">write</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: IDN30 - FUNCTION INPUT STRING &quot;,A,&quot; CHARACTER LENGTH (&quot;,I4,&quot;) IS TOO SHORT (&lt; LDN,&quot;,I5)&#39;</span>) &amp;</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;          adn, len(adn), ldn</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keyword">call </span><a class="code" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort</a>(bort_str)</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keyword">call </span><a class="code" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort</a>(bort_str)</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keywordflow">  endif</span></div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="keywordflow">if</span>(ldn==5) <span class="keywordflow">then</span></div>
@@ -161,14 +162,14 @@ $(document).ready(function(){initNavTree('fxy_8F90_source.html',''); initResizab
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">if</span>(iret&lt;0 .or. iret&gt;65535) <span class="keywordflow">then</span></div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;      <span class="keyword">write</span>(bort_str, &amp;</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="stringliteral">&#39;(&quot;BUFRLIB: IDN30 - DESCRIPTOR INTEGER REPRESENTATION, IDN30 (&quot;,I8,&quot;), IS OUTSIDE 16-BIT RANGE (0-65535)&quot;)&#39;</span>) iret</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <span class="keyword">call </span><a class="code" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort</a>(bort_str)</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <span class="keyword">call </span><a class="code" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort</a>(bort_str)</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="keywordflow">    endif</span></div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <span class="keywordflow">elseif</span>(ldn==6) <span class="keywordflow">then</span></div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    iret = <a class="code" href="fxy_8F90.html#ae3b70fcfea3c6201ad415fad4c4d375e">ifxy</a>(adn)</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keyword">write</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: IDN30 - FUNCTION INPUT STRING &quot;,A,&quot; CHARACTER LENGTH (&quot;,I4,&quot;) MUST BE EITHER 5 OR 6&quot;)&#39;</span>) &amp;</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;          adn,ldn</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">call </span><a class="code" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort</a>(bort_str)</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">call </span><a class="code" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort</a>(bort_str)</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="keywordflow">  endif</span></div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="keywordflow">return</span></div>
@@ -441,7 +442,7 @@ $(document).ready(function(){initNavTree('fxy_8F90_source.html',''); initResizab
 <div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160; </div>
 <div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;  <span class="keywordflow">return</span></div>
 <div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;<span class="keyword">end subroutine </span><a class="code" href="fxy_8F90.html#a01efa3bb871b451a8d53bd6d841bb297">nemtab</a></div>
-<div class="ttc" id="aborts_8F90_html_adc4659c5e9171f22248cf61e054ddd17"><div class="ttname"><a href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort</a></div><div class="ttdeci">subroutine bort(str)</div><div class="ttdoc">Log an error message, then abort the application program.</div><div class="ttdef"><b>Definition:</b> <a href="borts_8F90_source.html#l00014">borts.F90:15</a></div></div>
+<div class="ttc" id="aborts_8F90_html_a21e8e28b70a9ffa60a66e2fb3965307c"><div class="ttname"><a href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort</a></div><div class="ttdeci">recursive subroutine bort(str)</div><div class="ttdoc">Log an error message, then either return to or abort the application program.</div><div class="ttdef"><b>Definition:</b> <a href="borts_8F90_source.html#l00014">borts.F90:15</a></div></div>
 <div class="ttc" id="afxy_8F90_html_a01efa3bb871b451a8d53bd6d841bb297"><div class="ttname"><a href="fxy_8F90.html#a01efa3bb871b451a8d53bd6d841bb297">nemtab</a></div><div class="ttdeci">subroutine nemtab(lun, nemo, idn, tab, iret)</div><div class="ttdoc">Get information about a descriptor, based on a mnemonic.</div><div class="ttdef"><b>Definition:</b> <a href="fxy_8F90_source.html#l00433">fxy.F90:434</a></div></div>
 <div class="ttc" id="afxy_8F90_html_a11357abe01c36dc3472be03e950e8fe3"><div class="ttname"><a href="fxy_8F90.html#a11357abe01c36dc3472be03e950e8fe3">numbck</a></div><div class="ttdeci">integer function numbck(numb)</div><div class="ttdoc">Check an FXY number for validity.</div><div class="ttdef"><b>Definition:</b> <a href="fxy_8F90_source.html#l00236">fxy.F90:237</a></div></div>
 <div class="ttc" id="afxy_8F90_html_a438b8634d4f1308ee086a8f323662d2c"><div class="ttname"><a href="fxy_8F90.html#a438b8634d4f1308ee086a8f323662d2c">cadn30</a></div><div class="ttdeci">subroutine cadn30(idn, adn)</div><div class="ttdoc">Convert an FXY value from its WMO bit-wise representation to its 6 character representation.</div><div class="ttdef"><b>Definition:</b> <a href="fxy_8F90_source.html#l00064">fxy.F90:65</a></div></div>

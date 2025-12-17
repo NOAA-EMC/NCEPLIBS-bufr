@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.2.0</span>
+   &#160;<span id="projectnumber">12.3.0</span>
    </div>
   </td>
  </tr>
@@ -111,9 +112,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a059ea636d5300547db3423560ce52bd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stseq_8c.html#a059ea636d5300547db3423560ce52bd2">strrpsq</a> (int rpidn, int maxnf, int naf, int *<a class="el" href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a>, int maxcd, int ncdesc, int *cdesc)</td></tr>
 <tr class="memdesc:a059ea636d5300547db3423560ce52bd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store a new entry in the internal replication sequences cache.  <a href="stseq_8c.html#a059ea636d5300547db3423560ce52bd2">More...</a><br /></td></tr>
 <tr class="separator:a059ea636d5300547db3423560ce52bd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f4c37daea8a69385e280d60265f9d40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq</a> (int lun, int *irepct, int idn, char *nemo, char *cseq, int *cdesc, int ncdesc)</td></tr>
-<tr class="memdesc:a4f4c37daea8a69385e280d60265f9d40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store information about a Table D descriptor within internal DX BUFR tables.  <a href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">More...</a><br /></td></tr>
-<tr class="separator:a4f4c37daea8a69385e280d60265f9d40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0285f4b2f585a8287c5aca01c34ec17a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stseq_8c.html#a0285f4b2f585a8287c5aca01c34ec17a">stseq</a> (int lun, int *irepct, int idn, const char *nemo, const char *cseq, int *cdesc, int ncdesc)</td></tr>
+<tr class="memdesc:a0285f4b2f585a8287c5aca01c34ec17a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store information about a Table D descriptor within internal DX BUFR tables.  <a href="stseq_8c.html#a0285f4b2f585a8287c5aca01c34ec17a">More...</a><br /></td></tr>
+<tr class="separator:a0285f4b2f585a8287c5aca01c34ec17a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Store information about a Table D descriptor within internal DX BUFR tables. </p>
@@ -219,9 +220,9 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="stseq_8c_source.html#l00054">54</a> of file <a class="el" href="stseq_8c_source.html">stseq.c</a>.</p>
 
-<p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, <a class="el" href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f()</a>, <a class="el" href="stseq_8c.html#afe9ff1cb9d09192a6d0c76f58c2e3f29">cmpia()</a>, <a class="el" href="bufrlib_8h.html#af87e679a3aed76b3e5809ddf209e2c67">FXY_MINTD</a>, <a class="el" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>, <a class="el" href="mstabs_8h.html#acdfc509abed04b3bc643a4171c419fa4">ibfxyn_c</a>, <a class="el" href="mstabs_8h.html#a2798d24f3443eeee2999eddf34d24c19">idfxyn_c</a>, <a class="el" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f()</a>, <a class="el" href="mstabs_8h.html#ad93c9a8906bf4b63fba3143c8d9d5da5">nmtb_c</a>, and <a class="el" href="mstabs_8h.html#aaa17913e195f9e3cf457d748d2c8f60e">nmtd_c</a>.</p>
+<p class="reference">References <a class="el" href="bufrlib_8h.html#a4cf83529a094007fd5f9c94ad8430b2b">bort_f()</a>, <a class="el" href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f()</a>, <a class="el" href="stseq_8c.html#afe9ff1cb9d09192a6d0c76f58c2e3f29">cmpia()</a>, <a class="el" href="bufrlib_8h.html#af87e679a3aed76b3e5809ddf209e2c67">FXY_MINTD</a>, <a class="el" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>, <a class="el" href="mstabs_8h.html#acdfc509abed04b3bc643a4171c419fa4">ibfxyn_c</a>, <a class="el" href="mstabs_8h.html#a2798d24f3443eeee2999eddf34d24c19">idfxyn_c</a>, <a class="el" href="bufrlib_8h.html#a90745019cbec7fb42c1eb10317f11609">ifxy_f()</a>, <a class="el" href="mstabs_8h.html#ad93c9a8906bf4b63fba3143c8d9d5da5">nmtb_c</a>, and <a class="el" href="mstabs_8h.html#aaa17913e195f9e3cf457d748d2c8f60e">nmtd_c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a0285f4b2f585a8287c5aca01c34ec17a">stseq()</a>.</p>
 
 </div>
 </div>
@@ -299,7 +300,7 @@ Functions</h2></td></tr>
 
 <p class="reference">References <a class="el" href="rpseqs_8h.html#a24aa1baebc11ce6abf3ead8256f38803">cdescs</a>, <a class="el" href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a>, <a class="el" href="rpseqs_8h.html#a6edccabc4d438f6859856ef07e30f5d9">iafpks</a>, <a class="el" href="icvidx_8c.html#ab3b665adb5a53a4c82d3c5caadbb2c38">icvidx()</a>, <a class="el" href="rpseqs_8h.html#aacd54dfde836a1cda39a9ea008e53a74">nafs</a>, <a class="el" href="rpseqs_8h.html#a4128b549a5bd62aaf4a65704cb9e1a00">ncdescs</a>, <a class="el" href="rpseqs_8h.html#a0a77b4e5d2b40123ebff20c4154898d8">nrpsq</a>, and <a class="el" href="rpseqs_8h.html#a70ce7476c9911bf1ca05a3417c6c38cc">rpidns</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a0285f4b2f585a8287c5aca01c34ec17a">stseq()</a>.</p>
 
 </div>
 </div>
@@ -379,12 +380,12 @@ Functions</h2></td></tr>
 
 <p class="reference">References <a class="el" href="rpseqs_8h.html#a24aa1baebc11ce6abf3ead8256f38803">cdescs</a>, <a class="el" href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a>, <a class="el" href="rpseqs_8h.html#a6edccabc4d438f6859856ef07e30f5d9">iafpks</a>, <a class="el" href="icvidx_8c.html#ab3b665adb5a53a4c82d3c5caadbb2c38">icvidx()</a>, <a class="el" href="rpseqs_8h.html#a5339bc1b8006b14e4ccbf5dda327f2d7">MAX_RPSQ</a>, <a class="el" href="rpseqs_8h.html#aacd54dfde836a1cda39a9ea008e53a74">nafs</a>, <a class="el" href="rpseqs_8h.html#a4128b549a5bd62aaf4a65704cb9e1a00">ncdescs</a>, <a class="el" href="rpseqs_8h.html#a0a77b4e5d2b40123ebff20c4154898d8">nrpsq</a>, and <a class="el" href="rpseqs_8h.html#a70ce7476c9911bf1ca05a3417c6c38cc">rpidns</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a4f4c37daea8a69385e280d60265f9d40">stseq()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="stseq_8c.html#a0285f4b2f585a8287c5aca01c34ec17a">stseq()</a>.</p>
 
 </div>
 </div>
-<a id="a4f4c37daea8a69385e280d60265f9d40"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f4c37daea8a69385e280d60265f9d40">&#9670;&nbsp;</a></span>stseq()</h2>
+<a id="a0285f4b2f585a8287c5aca01c34ec17a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0285f4b2f585a8287c5aca01c34ec17a">&#9670;&nbsp;</a></span>stseq()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -410,13 +411,13 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>nemo</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>cseq</em>, </td>
         </tr>
         <tr>
@@ -458,7 +459,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="stseq_8c_source.html#l00189">189</a> of file <a class="el" href="stseq_8c_source.html">stseq.c</a>.</p>
 
-<p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, <a class="el" href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f()</a>, <a class="el" href="mstabs_8h.html#aa0f8eb7c3a1ca9a66a0933d97a3422ab">cbbw_c</a>, <a class="el" href="mstabs_8h.html#a19c8207a7b2c18f50438f51f066bad7b">cbelem_c</a>, <a class="el" href="mstabs_8h.html#a7c0149a5419b96753491953e92ce35b0">cbmnem_c</a>, <a class="el" href="mstabs_8h.html#a49e37dddeae6e1e71da2444d40c6d232">cbscl_c</a>, <a class="el" href="mstabs_8h.html#a1209038da13334a450146c0caa5ae9ad">cbsref_c</a>, <a class="el" href="mstabs_8h.html#a558051c0c39c5c6181019fb4231797d1">cbunit_c</a>, <a class="el" href="mstabs_8h.html#a309b9730283bc44b297b44f4e32db7f1">cdmnem_c</a>, <a class="el" href="mstabs_8h.html#a3e8f3bcd901b3809309c431d2825d636">cdseq_c</a>, <a class="el" href="bufrlib_8h.html#a39fc8b2494bb5f754c2d800c4b5a2f1c">elemdx_f()</a>, <a class="el" href="bufrlib_8h.html#a25dc173d68b3afa24cc277fd47351b08">FXY_DRF1</a>, <a class="el" href="bufrlib_8h.html#ad4c1adc1bcab5f8db9b6b05f4f3d7da0">FXY_DRF16</a>, <a class="el" href="bufrlib_8h.html#a0594bcf6e40e8c738c1b986531803103">FXY_DRF8</a>, <a class="el" href="bufrlib_8h.html#a965d697089b48eb887e65dec5fa7565c">FXY_DRP1</a>, <a class="el" href="bufrlib_8h.html#ad2fcc22b1b96013c10ae5464fe22836b">FXY_DRP16</a>, <a class="el" href="bufrlib_8h.html#aa90cf4e9894a2ec47026ae5308746dab">FXY_DRP8</a>, <a class="el" href="bufrlib_8h.html#adadd9c7831a26b7410d97b12e47d19b3">FXY_MAXTB</a>, <a class="el" href="bufrlib_8h.html#a59b3be3abd88311baddcaaabb93b9293">FXY_MINR</a>, <a class="el" href="bufrlib_8h.html#af87e679a3aed76b3e5809ddf209e2c67">FXY_MINTD</a>, <a class="el" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>, <a class="el" href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a>, <a class="el" href="icvidx_8c.html#ab3b665adb5a53a4c82d3c5caadbb2c38">icvidx()</a>, <a class="el" href="mstabs_8h.html#a006ec50bbb9f20fad017eb980cc7afa0">idefxy_c</a>, <a class="el" href="bufrlib_8h.html#a9941f6596dafba1e4361eb2f5e173f24">ifxy_f()</a>, <a class="el" href="bufrlib_8h.html#ad32acb7e25a0763d1ecfa201884bc131">igetntbi_f()</a>, <a class="el" href="bufr__interface_8h.html#a0b06d7dc9ae1ba6147ad0f1ea3d359bb">igetprm_f()</a>, <a class="el" href="bufrlib_8h.html#a0320e66350174c1e05f30babd13d52c2">igettdi_f()</a>, <a class="el" href="bufrlib_8h.html#a3e533930a6aa9c6fc76c89d14e54cf47">imrkopr_f()</a>, <a class="el" href="mstabs_8h.html#ad9af08676809848df12a73ece2a37182">ndelem_c</a>, <a class="el" href="bufrlib_8h.html#aaf134edc1efd697331c03effd4d056e0">NEMO_STR_LEN</a>, <a class="el" href="bufr__interface_8h.html#ad75bcdd935567fd79e3385c94b78284c">nemtab_f()</a>, <a class="el" href="rpseqs_8h.html#a0a77b4e5d2b40123ebff20c4154898d8">nrpsq</a>, <a class="el" href="stseq_8c.html#a340a16a2c0d988d37fbc2e92974b2b5e">nummtb()</a>, <a class="el" href="bufrlib_8h.html#a45c023844f35d35ee3c5e77e60fdb18a">numtbd_f()</a>, <a class="el" href="bufrlib_8h.html#ac68117670f91ed84a5edf1bf074bc187">pktdd_f()</a>, <a class="el" href="stseq_8c.html#a2a80851a279f9ca9c50c674da679d2f1">srchrpsq()</a>, <a class="el" href="bufrlib_8h.html#a6d361bdabcb605e7677b9c29cf7ba10f">stntbi_f()</a>, <a class="el" href="bufrlib_8h.html#aac0f5146bfdbf7042ac39e515475ba11">strnum_f()</a>, and <a class="el" href="stseq_8c.html#a059ea636d5300547db3423560ce52bd2">strrpsq()</a>.</p>
+<p class="reference">References <a class="el" href="bufrlib_8h.html#a4cf83529a094007fd5f9c94ad8430b2b">bort_f()</a>, <a class="el" href="bufrlib_8h.html#a039293342a5ca4fe52a09992db5e42c9">cadn30_f()</a>, <a class="el" href="mstabs_8h.html#aa0f8eb7c3a1ca9a66a0933d97a3422ab">cbbw_c</a>, <a class="el" href="mstabs_8h.html#a19c8207a7b2c18f50438f51f066bad7b">cbelem_c</a>, <a class="el" href="mstabs_8h.html#a7c0149a5419b96753491953e92ce35b0">cbmnem_c</a>, <a class="el" href="mstabs_8h.html#a49e37dddeae6e1e71da2444d40c6d232">cbscl_c</a>, <a class="el" href="mstabs_8h.html#a1209038da13334a450146c0caa5ae9ad">cbsref_c</a>, <a class="el" href="mstabs_8h.html#a558051c0c39c5c6181019fb4231797d1">cbunit_c</a>, <a class="el" href="mstabs_8h.html#a309b9730283bc44b297b44f4e32db7f1">cdmnem_c</a>, <a class="el" href="mstabs_8h.html#a3e8f3bcd901b3809309c431d2825d636">cdseq_c</a>, <a class="el" href="bufrlib_8h.html#adca27e1c000af76b9eaf4a2c1b3d3b3a">elemdx_f()</a>, <a class="el" href="bufrlib_8h.html#a25dc173d68b3afa24cc277fd47351b08">FXY_DRF1</a>, <a class="el" href="bufrlib_8h.html#ad4c1adc1bcab5f8db9b6b05f4f3d7da0">FXY_DRF16</a>, <a class="el" href="bufrlib_8h.html#a0594bcf6e40e8c738c1b986531803103">FXY_DRF8</a>, <a class="el" href="bufrlib_8h.html#a965d697089b48eb887e65dec5fa7565c">FXY_DRP1</a>, <a class="el" href="bufrlib_8h.html#ad2fcc22b1b96013c10ae5464fe22836b">FXY_DRP16</a>, <a class="el" href="bufrlib_8h.html#aa90cf4e9894a2ec47026ae5308746dab">FXY_DRP8</a>, <a class="el" href="bufrlib_8h.html#adadd9c7831a26b7410d97b12e47d19b3">FXY_MAXTB</a>, <a class="el" href="bufrlib_8h.html#a59b3be3abd88311baddcaaabb93b9293">FXY_MINR</a>, <a class="el" href="bufrlib_8h.html#af87e679a3aed76b3e5809ddf209e2c67">FXY_MINTD</a>, <a class="el" href="bufrlib_8h.html#a320fb202c17784943f8223593c9123dd">FXY_STR_LEN</a>, <a class="el" href="mstabs_8h.html#aaa7c3e504e98938c63caeb866c071c59">iafpk</a>, <a class="el" href="icvidx_8c.html#ab3b665adb5a53a4c82d3c5caadbb2c38">icvidx()</a>, <a class="el" href="mstabs_8h.html#a006ec50bbb9f20fad017eb980cc7afa0">idefxy_c</a>, <a class="el" href="bufrlib_8h.html#a90745019cbec7fb42c1eb10317f11609">ifxy_f()</a>, <a class="el" href="bufrlib_8h.html#a90c5ce85bccf40f0ced6f96ba98d57ce">igetntbi_f()</a>, <a class="el" href="bufr__interface_8h.html#a366b4e8aa93d63597f7544e19af943c7">igetprm_f()</a>, <a class="el" href="bufrlib_8h.html#a0320e66350174c1e05f30babd13d52c2">igettdi_f()</a>, <a class="el" href="bufrlib_8h.html#a47133374d831dc1a41cf7f82cee1b393">imrkopr_f()</a>, <a class="el" href="mstabs_8h.html#ad9af08676809848df12a73ece2a37182">ndelem_c</a>, <a class="el" href="bufrlib_8h.html#aaf134edc1efd697331c03effd4d056e0">NEMO_STR_LEN</a>, <a class="el" href="bufr__interface_8h.html#ad75bcdd935567fd79e3385c94b78284c">nemtab_f()</a>, <a class="el" href="rpseqs_8h.html#a0a77b4e5d2b40123ebff20c4154898d8">nrpsq</a>, <a class="el" href="stseq_8c.html#a340a16a2c0d988d37fbc2e92974b2b5e">nummtb()</a>, <a class="el" href="bufrlib_8h.html#a45c023844f35d35ee3c5e77e60fdb18a">numtbd_f()</a>, <a class="el" href="bufrlib_8h.html#ac68117670f91ed84a5edf1bf074bc187">pktdd_f()</a>, <a class="el" href="stseq_8c.html#a2a80851a279f9ca9c50c674da679d2f1">srchrpsq()</a>, <a class="el" href="bufrlib_8h.html#a5d290a475a0db7179778e587d0a4bfb1">stntbi_f()</a>, <a class="el" href="bufrlib_8h.html#adfb7519e3e5e85b9672ee8222940119f">strnum_f()</a>, and <a class="el" href="stseq_8c.html#a059ea636d5300547db3423560ce52bd2">strrpsq()</a>.</p>
 
 </div>
 </div>

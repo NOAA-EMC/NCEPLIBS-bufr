@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.2.0</span>
+   &#160;<span id="projectnumber">12.3.0</span>
    </div>
   </td>
  </tr>
@@ -105,7 +106,7 @@ Modules</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:abd70421a18d899bec6fbdade1262dd0b"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debufr_8F90.html#abd70421a18d899bec6fbdade1262dd0b">fdebufr_c</a> (ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps, basic, forcemt, cfms)</td></tr>
-<tr class="memdesc:abd70421a18d899bec6fbdade1262dd0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine reads, decodes, and generates a verbose output listing of the contents of every BUFR message from within the input file that was previously opened via a call to function <a class="el" href="bufr__interface_8h.html#a1a79689096002f6f3c125abc59c2143d" title="Open a new file for reading or writing BUFR messages via a C language interface.">cobfl()</a> with io = 'r'.  <a href="debufr_8F90.html#abd70421a18d899bec6fbdade1262dd0b">More...</a><br /></td></tr>
+<tr class="memdesc:abd70421a18d899bec6fbdade1262dd0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine reads, decodes, and generates a verbose output listing of the contents of every BUFR message from within the input file that was previously opened via a call to function <a class="el" href="bufr__interface_8h.html#a4f338851a6045a9ba49700868d270381" title="Open a new file for reading or writing BUFR messages via a C language interface.">cobfl()</a> with io = 'r'.  <a href="debufr_8F90.html#abd70421a18d899bec6fbdade1262dd0b">More...</a><br /></td></tr>
 <tr class="separator:abd70421a18d899bec6fbdade1262dd0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8dbba5dc66c2e09ccdd8065dda184f89"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debufr_8F90.html#a8dbba5dc66c2e09ccdd8065dda184f89">openbt</a> (lundx, mtyp)</td></tr>
 <tr class="memdesc:a8dbba5dc66c2e09ccdd8065dda184f89"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine overrides the placeholder subroutine of the same name within the NCEPLIBS-bufr distribution package.  <a href="debufr_8F90.html#a8dbba5dc66c2e09ccdd8065dda184f89">More...</a><br /></td></tr>
@@ -210,7 +211,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This subroutine reads, decodes, and generates a verbose output listing of the contents of every BUFR message from within the input file that was previously opened via a call to function <a class="el" href="bufr__interface_8h.html#a1a79689096002f6f3c125abc59c2143d" title="Open a new file for reading or writing BUFR messages via a C language interface.">cobfl()</a> with io = 'r'. </p>
+<p>This subroutine reads, decodes, and generates a verbose output listing of the contents of every BUFR message from within the input file that was previously opened via a call to function <a class="el" href="bufr__interface_8h.html#a4f338851a6045a9ba49700868d270381" title="Open a new file for reading or writing BUFR messages via a C language interface.">cobfl()</a> with io = 'r'. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ofile</td><td>- File to contain verbose output listing of contents of each decoded BUFR message </td></tr>
@@ -255,7 +256,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="debufr_8F90_source.html#l00054">54</a> of file <a class="el" href="debufr_8F90_source.html">debufr.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="mastertable_8F90.html#a4721c745ebeb6be54c825cd1f53ec107">codflg()</a>, <a class="el" href="s013vals_8F90.html#aadd84c217cf5fab0d94564da3f377ebe">datelen()</a>, <a class="el" href="dumpdata_8F90.html#ac693ae3d5af0a71505d5f9305c86fdb8">dxdump()</a>, <a class="el" href="cftbvs_8F90.html#af113e7ee7e2023cd466c2b28616cd64a">getcfmng()</a>, <a class="el" href="namespaceshare__table__info.html#a9cb558bc60eed8b777532f56fff8a08c">share_table_info::ltbd</a>, <a class="el" href="namespaceshare__table__info.html#a88fbe3e8e14e3810e1dc3f1560d1c51f">share_table_info::ludx</a>, <a class="el" href="mastertable_8F90.html#abf69490965212318f1dfee9b0bc4890c">mtinfo()</a>, <a class="el" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d">openbf()</a>, <a class="el" href="strings_8F90.html#a1d493e7de1c23739a0fcd06089139f35">parstr()</a>, <a class="el" href="readwritemg_8F90.html#aa2a7bf49cad422b474a24edd3a1cb232">readerme()</a>, <a class="el" href="tankrcpt_8F90.html#a9ae992beefc572ef3ae02a330b221ffa">rtrcptb()</a>, <a class="el" href="misc_8F90.html#a93d704d3c84005bb12c261225445a99e">strnum()</a>, <a class="el" href="misc_8F90.html#ab18db8197d0e5256ff5dfd2f26304d28">strsuc()</a>, <a class="el" href="dumpdata_8F90.html#a20fa33f6e0fcb0816c4b070c73362539">ufdump()</a>, and <a class="el" href="s013vals_8F90.html#a7bf4d22f9bb27412a9d041f7a5d7bca6">upds3()</a>.</p>
+<p class="reference">References <a class="el" href="mastertable_8F90.html#a0a8ccd46d91e7158ff328bead1e38f17">codflg()</a>, <a class="el" href="s013vals_8F90.html#aadd84c217cf5fab0d94564da3f377ebe">datelen()</a>, <a class="el" href="dumpdata_8F90.html#ac693ae3d5af0a71505d5f9305c86fdb8">dxdump()</a>, <a class="el" href="cftbvs_8F90.html#af113e7ee7e2023cd466c2b28616cd64a">getcfmng()</a>, <a class="el" href="namespaceshare__table__info.html#a9cb558bc60eed8b777532f56fff8a08c">share_table_info::ltbd</a>, <a class="el" href="namespaceshare__table__info.html#a88fbe3e8e14e3810e1dc3f1560d1c51f">share_table_info::ludx</a>, <a class="el" href="mastertable_8F90.html#abf69490965212318f1dfee9b0bc4890c">mtinfo()</a>, <a class="el" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d">openbf()</a>, <a class="el" href="strings_8F90.html#a1d493e7de1c23739a0fcd06089139f35">parstr()</a>, <a class="el" href="readwritemg_8F90.html#aa2a7bf49cad422b474a24edd3a1cb232">readerme()</a>, <a class="el" href="tankrcpt_8F90.html#a9ae992beefc572ef3ae02a330b221ffa">rtrcptb()</a>, <a class="el" href="misc_8F90.html#a93d704d3c84005bb12c261225445a99e">strnum()</a>, <a class="el" href="misc_8F90.html#ab18db8197d0e5256ff5dfd2f26304d28">strsuc()</a>, <a class="el" href="dumpdata_8F90.html#a20fa33f6e0fcb0816c4b070c73362539">ufdump()</a>, and <a class="el" href="s013vals_8F90.html#a7bf4d22f9bb27412a9d041f7a5d7bca6">upds3()</a>.</p>
 
 </div>
 </div>

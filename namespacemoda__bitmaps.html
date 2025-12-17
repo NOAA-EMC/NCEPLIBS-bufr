@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.2.0</span>
+   &#160;<span id="projectnumber">12.3.0</span>
    </div>
   </td>
  </tr>
@@ -113,7 +114,7 @@ Variables</h2></td></tr>
 <tr class="memdesc:a2648b6b58fd6cf4c983b5c4c23b29574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of bitmap (total number of entries, whether "set" (set to a value of 0) or not).  <a href="namespacemoda__bitmaps.html#a2648b6b58fd6cf4c983b5c4c23b29574">More...</a><br /></td></tr>
 <tr class="separator:a2648b6b58fd6cf4c983b5c4c23b29574"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd6cd1e5190bdc17381e81624a7e2e80"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__bitmaps.html#acd6cd1e5190bdc17381e81624a7e2e80">linbtm</a></td></tr>
-<tr class="memdesc:acd6cd1e5190bdc17381e81624a7e2e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">true if a bitmap is in the process of being read for the current data subset; false otherwise.  <a href="namespacemoda__bitmaps.html#acd6cd1e5190bdc17381e81624a7e2e80">More...</a><br /></td></tr>
+<tr class="memdesc:acd6cd1e5190bdc17381e81624a7e2e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set to .true.  <a href="namespacemoda__bitmaps.html#acd6cd1e5190bdc17381e81624a7e2e80">More...</a><br /></td></tr>
 <tr class="separator:acd6cd1e5190bdc17381e81624a7e2e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a352a33aaf989dcaab7646f86aa41e27d"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemoda__bitmaps.html#a352a33aaf989dcaab7646f86aa41e27d">lstnod</a></td></tr>
 <tr class="memdesc:a352a33aaf989dcaab7646f86aa41e27d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Most recent jump/link table entry that was processed by function <a class="el" href="bitmaps_8F90.html#a2dd600ba6cd71e06a19d88956337781b" title="Check whether a subset element refers to a previous element within the same subset via an internal bi...">igetrfel()</a> and whose corresponding value type was either numeric or CCITT IA5.  <a href="namespacemoda__bitmaps.html#a352a33aaf989dcaab7646f86aa41e27d">More...</a><br /></td></tr>
@@ -272,7 +273,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>true if a bitmap is in the process of being read for the current data subset; false otherwise. </p>
+<p>Set to .true. </p>
+<p>ff a bitmap is in the process of being read for the current data subset. Otherwise set to .false. </p>
 
 <p class="definition">Definition at line <a class="el" href="modules__arrs_8F90_source.html#l00049">49</a> of file <a class="el" href="modules__arrs_8F90_source.html">modules_arrs.F90</a>.</p>
 

@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.2.0</span>
+   &#160;<span id="projectnumber">12.3.0</span>
    </div>
   </td>
  </tr>
@@ -113,15 +114,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a95bc32869561911e9ca020628802edc5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8c.html#a95bc32869561911e9ca020628802edc5">cwrbufr</a> (int nfile, int *bufr, int nwrd)</td></tr>
 <tr class="memdesc:a95bc32869561911e9ca020628802edc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a BUFR message into a file that was previously opened for writing.  <a href="cread_8c.html#a95bc32869561911e9ca020628802edc5">More...</a><br /></td></tr>
 <tr class="separator:a95bc32869561911e9ca020628802edc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8eb759a820f7f12a3b75e92473db3c78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8c.html#a8eb759a820f7f12a3b75e92473db3c78">openab</a> (int nfile, char *ufile)</td></tr>
-<tr class="memdesc:a8eb759a820f7f12a3b75e92473db3c78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a new file for appending BUFR messages.  <a href="cread_8c.html#a8eb759a820f7f12a3b75e92473db3c78">More...</a><br /></td></tr>
-<tr class="separator:a8eb759a820f7f12a3b75e92473db3c78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab18be8cbb2bdbdb682adce89dd1a9c69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8c.html#ab18be8cbb2bdbdb682adce89dd1a9c69">openrb</a> (int nfile, char *ufile)</td></tr>
-<tr class="memdesc:ab18be8cbb2bdbdb682adce89dd1a9c69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a new file for reading BUFR messages.  <a href="cread_8c.html#ab18be8cbb2bdbdb682adce89dd1a9c69">More...</a><br /></td></tr>
-<tr class="separator:ab18be8cbb2bdbdb682adce89dd1a9c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7b36dfb6c0fe0f9a1104d34c5acfa5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8c.html#aa7b36dfb6c0fe0f9a1104d34c5acfa5e">openwb</a> (int nfile, char *ufile)</td></tr>
-<tr class="memdesc:aa7b36dfb6c0fe0f9a1104d34c5acfa5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a new file for writing BUFR messages.  <a href="cread_8c.html#aa7b36dfb6c0fe0f9a1104d34c5acfa5e">More...</a><br /></td></tr>
-<tr class="separator:aa7b36dfb6c0fe0f9a1104d34c5acfa5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52938ac2b3796b8a9ee094ee37efe27c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8c.html#a52938ac2b3796b8a9ee094ee37efe27c">openab</a> (int nfile, const char *ufile)</td></tr>
+<tr class="memdesc:a52938ac2b3796b8a9ee094ee37efe27c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a new file for appending BUFR messages.  <a href="cread_8c.html#a52938ac2b3796b8a9ee094ee37efe27c">More...</a><br /></td></tr>
+<tr class="separator:a52938ac2b3796b8a9ee094ee37efe27c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a485556e32604f61a2857888bd60435de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8c.html#a485556e32604f61a2857888bd60435de">openrb</a> (int nfile, const char *ufile)</td></tr>
+<tr class="memdesc:a485556e32604f61a2857888bd60435de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a new file for reading BUFR messages.  <a href="cread_8c.html#a485556e32604f61a2857888bd60435de">More...</a><br /></td></tr>
+<tr class="separator:a485556e32604f61a2857888bd60435de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16ff1f222eb4d99c662d4153eff21dd6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cread_8c.html#a16ff1f222eb4d99c662d4153eff21dd6">openwb</a> (int nfile, const char *ufile)</td></tr>
+<tr class="memdesc:a16ff1f222eb4d99c662d4153eff21dd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a new file for writing BUFR messages.  <a href="cread_8c.html#a16ff1f222eb4d99c662d4153eff21dd6">More...</a><br /></td></tr>
+<tr class="separator:a16ff1f222eb4d99c662d4153eff21dd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>C language interface for reading or writing BUFR messages. </p>
@@ -281,7 +282,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="cread_8c_source.html#l00114">114</a> of file <a class="el" href="cread_8c_source.html">cread.c</a>.</p>
 
-<p class="reference">References <a class="el" href="bufrlib_8h.html#a0eaedf1628e74c9cf33925349602c234">BMCSTR</a>, <a class="el" href="bufrlib_8h.html#a6cac2647154ce58c562d8bcd3ebdfd30">BMOSTR</a>, <a class="el" href="bufr__interface_8h.html#a45c55e3a4c3b8179f7e3a89714a05d7f">iupbs01_f()</a>, <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
+<p class="reference">References <a class="el" href="bufrlib_8h.html#a0eaedf1628e74c9cf33925349602c234">BMCSTR</a>, <a class="el" href="bufrlib_8h.html#a6cac2647154ce58c562d8bcd3ebdfd30">BMOSTR</a>, <a class="el" href="bufr__interface_8h.html#a1afa3dc4e5dac2e7d0a5b85e0ce18273">iupbs01_f()</a>, <a class="el" href="cread_8h.html#af3681883f8ef0fe1771afc9aeb072eb0">lstpos</a>, and <a class="el" href="cread_8h.html#a58db779a0b3c7250a119069bd2e5106c">pb</a>.</p>
 
 </div>
 </div>
@@ -335,8 +336,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8eb759a820f7f12a3b75e92473db3c78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8eb759a820f7f12a3b75e92473db3c78">&#9670;&nbsp;</a></span>openab()</h2>
+<a id="a52938ac2b3796b8a9ee094ee37efe27c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52938ac2b3796b8a9ee094ee37efe27c">&#9670;&nbsp;</a></span>openab()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -350,7 +351,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>ufile</em>&#160;</td>
         </tr>
         <tr>
@@ -378,8 +379,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab18be8cbb2bdbdb682adce89dd1a9c69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab18be8cbb2bdbdb682adce89dd1a9c69">&#9670;&nbsp;</a></span>openrb()</h2>
+<a id="a485556e32604f61a2857888bd60435de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a485556e32604f61a2857888bd60435de">&#9670;&nbsp;</a></span>openrb()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -393,7 +394,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>ufile</em>&#160;</td>
         </tr>
         <tr>
@@ -421,8 +422,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aa7b36dfb6c0fe0f9a1104d34c5acfa5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7b36dfb6c0fe0f9a1104d34c5acfa5e">&#9670;&nbsp;</a></span>openwb()</h2>
+<a id="a16ff1f222eb4d99c662d4153eff21dd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16ff1f222eb4d99c662d4153eff21dd6">&#9670;&nbsp;</a></span>openwb()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -436,7 +437,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>ufile</em>&#160;</td>
         </tr>
         <tr>

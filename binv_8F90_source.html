@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.2.0</span>
+   &#160;<span id="projectnumber">12.3.0</span>
    </div>
   </td>
  </tr>
@@ -136,7 +137,7 @@ $(document).ready(function(){initNavTree('binv_8F90_source.html',''); initResiza
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">if</span>(subset==sub(i)) isub = i</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keywordflow">     enddo</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;     <span class="keywordflow">if</span>(isub==0) <span class="keywordflow">then</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">if</span>(nsub+1&gt;maxsub) <span class="keyword">call </span><a class="code" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort</a>(<span class="stringliteral">&#39;NSUB TOO BIG&#39;</span>)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">if</span>(nsub+1&gt;maxsub) <span class="keyword">call </span><a class="code" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort</a>(<span class="stringliteral">&#39;NSUB TOO BIG&#39;</span>)</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        sub(nsub+1) = subset</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        nsub = nsub+1</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        isub = nsub</div>
@@ -169,11 +170,11 @@ $(document).ready(function(){initNavTree('binv_8F90_source.html',''); initResiza
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  stop</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keyword">end program </span><a class="code" href="binv_8F90.html#a7633b528a2b5299a4e2aa1c6f7e6e2e5">binv</a></div>
 <div class="ttc" id="abinv_8F90_html_a7633b528a2b5299a4e2aa1c6f7e6e2e5"><div class="ttname"><a href="binv_8F90.html#a7633b528a2b5299a4e2aa1c6f7e6e2e5">binv</a></div><div class="ttdeci">program binv</div><div class="ttdoc">Usage: binv &lt;bufrfile&gt; will print bufrfile inventory by message type.</div><div class="ttdef"><b>Definition:</b> <a href="binv_8F90_source.html#l00011">binv.F90:11</a></div></div>
-<div class="ttc" id="aborts_8F90_html_adc4659c5e9171f22248cf61e054ddd17"><div class="ttname"><a href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort</a></div><div class="ttdeci">subroutine bort(str)</div><div class="ttdoc">Log an error message, then abort the application program.</div><div class="ttdef"><b>Definition:</b> <a href="borts_8F90_source.html#l00014">borts.F90:15</a></div></div>
-<div class="ttc" id="aopenclosebf_8F90_html_a9dc7e4fb476a5528a958ee132ee6392d"><div class="ttname"><a href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d">openbf</a></div><div class="ttdeci">recursive subroutine openbf(lunit, io, lundx)</div><div class="ttdoc">Connect a new file to the NCEPLIBS-bufr software for input or output operations, or initialize the li...</div><div class="ttdef"><b>Definition:</b> <a href="openclosebf_8F90_source.html#l00167">openclosebf.F90:168</a></div></div>
-<div class="ttc" id="areadwritemg_8F90_html_a7430cdcec381d86f72a4b60a6a7db982"><div class="ttname"><a href="readwritemg_8F90.html#a7430cdcec381d86f72a4b60a6a7db982">nmsub</a></div><div class="ttdeci">recursive integer function nmsub(lunit)</div><div class="ttdoc">Get the total number of data subsets available within the BUFR message that was most recently opened ...</div><div class="ttdef"><b>Definition:</b> <a href="readwritemg_8F90_source.html#l01071">readwritemg.F90:1072</a></div></div>
-<div class="ttc" id="areadwritemg_8F90_html_ae023a7cc381f488ac7669dc3e3ee8236"><div class="ttname"><a href="readwritemg_8F90.html#ae023a7cc381f488ac7669dc3e3ee8236">ireadmg</a></div><div class="ttdeci">recursive integer function ireadmg(lunit, subset, idate)</div><div class="ttdoc">Call subroutine readmg() and pass back its return code as the function value.</div><div class="ttdef"><b>Definition:</b> <a href="readwritemg_8F90_source.html#l00141">readwritemg.F90:142</a></div></div>
-<div class="ttc" id="as013vals_8F90_html_a3b1a6e580f306826c680ff0a71d883f8"><div class="ttname"><a href="s013vals_8F90.html#a3b1a6e580f306826c680ff0a71d883f8">iupvs01</a></div><div class="ttdeci">recursive integer function iupvs01(lunit, s01mnem)</div><div class="ttdoc">Read a specified value from within Section 0 or 1 of a BUFR message.</div><div class="ttdef"><b>Definition:</b> <a href="s013vals_8F90_source.html#l00441">s013vals.F90:442</a></div></div>
+<div class="ttc" id="aborts_8F90_html_a21e8e28b70a9ffa60a66e2fb3965307c"><div class="ttname"><a href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort</a></div><div class="ttdeci">recursive subroutine bort(str)</div><div class="ttdoc">Log an error message, then either return to or abort the application program.</div><div class="ttdef"><b>Definition:</b> <a href="borts_8F90_source.html#l00014">borts.F90:15</a></div></div>
+<div class="ttc" id="aopenclosebf_8F90_html_a9dc7e4fb476a5528a958ee132ee6392d"><div class="ttname"><a href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d">openbf</a></div><div class="ttdeci">recursive subroutine openbf(lunit, io, lundx)</div><div class="ttdoc">Connect a new file to the NCEPLIBS-bufr software for input or output operations, or initialize the li...</div><div class="ttdef"><b>Definition:</b> <a href="openclosebf_8F90_source.html#l00163">openclosebf.F90:164</a></div></div>
+<div class="ttc" id="areadwritemg_8F90_html_a7430cdcec381d86f72a4b60a6a7db982"><div class="ttname"><a href="readwritemg_8F90.html#a7430cdcec381d86f72a4b60a6a7db982">nmsub</a></div><div class="ttdeci">recursive integer function nmsub(lunit)</div><div class="ttdoc">Get the total number of data subsets available within the BUFR message that was most recently opened ...</div><div class="ttdef"><b>Definition:</b> <a href="readwritemg_8F90_source.html#l01115">readwritemg.F90:1116</a></div></div>
+<div class="ttc" id="areadwritemg_8F90_html_ae023a7cc381f488ac7669dc3e3ee8236"><div class="ttname"><a href="readwritemg_8F90.html#ae023a7cc381f488ac7669dc3e3ee8236">ireadmg</a></div><div class="ttdeci">recursive integer function ireadmg(lunit, subset, idate)</div><div class="ttdoc">Call subroutine readmg() and pass back its return code as the function value.</div><div class="ttdef"><b>Definition:</b> <a href="readwritemg_8F90_source.html#l00149">readwritemg.F90:150</a></div></div>
+<div class="ttc" id="as013vals_8F90_html_a3b1a6e580f306826c680ff0a71d883f8"><div class="ttname"><a href="s013vals_8F90.html#a3b1a6e580f306826c680ff0a71d883f8">iupvs01</a></div><div class="ttdeci">recursive integer function iupvs01(lunit, s01mnem)</div><div class="ttdoc">Read a specified value from within Section 0 or 1 of a BUFR message.</div><div class="ttdef"><b>Definition:</b> <a href="s013vals_8F90_source.html#l00435">s013vals.F90:436</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

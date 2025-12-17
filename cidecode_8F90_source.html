@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.2.0</span>
+   &#160;<span id="projectnumber">12.3.0</span>
    </div>
   </td>
  </tr>
@@ -143,7 +144,7 @@ $(document).ready(function(){initNavTree('cidecode_8F90_source.html',''); initRe
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  equivalence(nval8,nvals)</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keywordflow">if</span>(nbits&lt;0) <span class="keywordflow">then</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;     <span class="keyword">call </span><a class="code" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort</a>(<span class="stringliteral">&#39;BUFRLIB: UPB8 - nbits &lt; zero !!!!!&#39;</span>)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;     <span class="keyword">call </span><a class="code" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort</a>(<span class="stringliteral">&#39;BUFRLIB: UPB8 - nbits &lt; zero !!!!!&#39;</span>)</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keywordflow">elseif</span>(nbits&lt;=32) <span class="keywordflow">then</span></div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;     jbit=ibit; ival=0</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;     <span class="keyword">call </span><a class="code" href="cidecode_8F90.html#a07dda20577f7480095dff261d11241f8">upb</a>(ival,nbits,ibay,jbit)</div>
@@ -232,111 +233,128 @@ $(document).ready(function(){initNavTree('cidecode_8F90_source.html',''); initRe
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;  <span class="keywordflow">if</span>(im8b) <span class="keywordflow">then</span></div>
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    im8b=.false.</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keyword">call </span><a class="code" href="x4884_8F90.html#aa1e012dbd8da45797592cc65a399d71d">x84</a>(nbyt,my_nbyt,1)</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keyword">call </span><a class="code" href="x4884_8F90.html#aa1e012dbd8da45797592cc65a399d71d">x84</a>(nbit,my_nbit,1)</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    iret = <a class="code" href="cidecode_8F90.html#a73f371d0af1f65ff546e0484ee97238f">iupb</a>(mbay,my_nbyt,my_nbit)</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    im8b=.true.</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="keywordflow">  endif</span></div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;  mbit = (nbyt-1)*8</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;  <span class="keyword">call </span><a class="code" href="cidecode_8F90.html#a07dda20577f7480095dff261d11241f8">upb</a>(iret,nbit,mbay,mbit)</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160; </div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;  <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="keyword">end function </span><a class="code" href="cidecode_8F90.html#a73f371d0af1f65ff546e0484ee97238f">iupb</a></div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
-<div class="line"><a name="l00264"></a><span class="lineno"><a class="line" href="cidecode_8F90.html#a79f34b3a9df0eedb64115bca8c65ebaa">  264</a></span>&#160;<span class="keywordtype">recursive</span> <span class="keyword">integer </span><span class="keyword">function </span><a class="code" href="cidecode_8F90.html#a79f34b3a9df0eedb64115bca8c65ebaa">iupm</a>(cbay,nbits) <span class="keyword">result</span>(iret)</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keyword">call </span><a class="code" href="x4884_8F90.html#aa1e012dbd8da45797592cc65a399d71d">x84</a>(nbyt,my_nbyt,1)</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keyword">call </span><a class="code" href="x4884_8F90.html#aa1e012dbd8da45797592cc65a399d71d">x84</a>(nbit,my_nbit,1)</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    iret = <a class="code" href="cidecode_8F90.html#a73f371d0af1f65ff546e0484ee97238f">iupb</a>(mbay,my_nbyt,my_nbit)</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    im8b=.true.</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="keywordflow">  endif</span></div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;  mbit = (nbyt-1)*8</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;  <span class="keyword">call </span><a class="code" href="cidecode_8F90.html#a07dda20577f7480095dff261d11241f8">upb</a>(iret,nbit,mbay,mbit)</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;  <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="keyword">end function </span><a class="code" href="cidecode_8F90.html#a73f371d0af1f65ff546e0484ee97238f">iupb</a></div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
+<div class="line"><a name="l00262"></a><span class="lineno"><a class="line" href="cidecode_8F90.html#a79f34b3a9df0eedb64115bca8c65ebaa">  262</a></span>&#160;<span class="keywordtype">recursive</span> <span class="keyword">integer </span><span class="keyword">function </span><a class="code" href="cidecode_8F90.html#a79f34b3a9df0eedb64115bca8c65ebaa">iupm</a>(cbay,nbits) <span class="keyword">result</span>(iret)</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;  <span class="keywordtype">use </span><a class="code" href="namespacebufrlib.html">bufrlib</a></div>
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
 <div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;  <span class="keywordtype">use </span>modv_vars, <span class="keywordtype">only</span>: im8b, nbitw</div>
 <div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
 <div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;  <span class="keywordtype">implicit none</span></div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160; </div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;  <span class="keywordtype">character*4</span>, <span class="keywordtype">intent(in)</span> :: cbay</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;  <span class="keywordtype">character*(*)</span>, <span class="keywordtype">intent(in)</span> :: cbay</div>
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;  <span class="keywordtype">character*4</span> cint</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;  <span class="keywordtype">character*128</span> bort_str</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">intent(in)</span> :: nbits</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;  <span class="keywordtype">integer</span> my_nbits, int, <a class="code" href="misc_8F90.html#a1cd5e68cc460b388986ba7273abdd689">irev</a></div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;  equivalence(cint,int)</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160; </div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;  <span class="comment">! Check for I8 integers.</span></div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160; </div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;  <span class="keywordflow">if</span>(im8b) <span class="keywordflow">then</span></div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    im8b=.false.</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160; </div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;  <span class="keywordtype">character*16</span> ccbay</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;  <span class="keywordtype">character*128</span> bort_str</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">intent(in)</span> :: nbits</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;  <span class="keywordtype">integer</span> my_nbits, int, <a class="code" href="misc_8F90.html#a1cd5e68cc460b388986ba7273abdd689">irev</a>, lcbay, lccb, <a class="code" href="borts_8F90.html#ae4cfa0677f2c9133899f467ff1edad98">bort_target_set</a></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160; </div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;  equivalence(cint,int)</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;  <span class="comment">! Check for I8 integers.</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;  <span class="keywordflow">if</span>(im8b) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    im8b=.false.</div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="keyword">call </span><a class="code" href="x4884_8F90.html#aa1e012dbd8da45797592cc65a399d71d">x84</a>(nbits,my_nbits,1)</div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    iret = <a class="code" href="cidecode_8F90.html#a79f34b3a9df0eedb64115bca8c65ebaa">iupm</a>(cbay,my_nbits)</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160; </div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    im8b=.true.</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;<span class="keywordflow">  endif</span></div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160; </div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;  iret = 0</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;  <span class="keywordflow">if</span>(nbits&gt;nbitw) <span class="keywordflow">then</span></div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <span class="keyword">write</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: IUPM - NUMBER OF BITS BEING UNPACKED&#39;</span>// &amp;</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;      <span class="stringliteral">&#39;, NBITS (&quot;,I4,&quot;), IS &gt; THE INTEGER WORD LENGTH ON THIS MACHINE, NBITW (&quot;,I3,&quot;)&quot;)&#39;</span>) nbits,nbitw</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="keyword">call </span><a class="code" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort</a>(bort_str)</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="keywordflow">  endif</span></div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;  cint = cbay</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;  int = <a class="code" href="misc_8F90.html#a1cd5e68cc460b388986ba7273abdd689">irev</a>(int)</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;  iret = ishft(int,nbits-nbitw)</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;  <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<span class="keyword">end function </span><a class="code" href="cidecode_8F90.html#a79f34b3a9df0eedb64115bca8c65ebaa">iupm</a></div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    im8b=.true.</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="keywordflow">  endif</span></div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;  lcbay = len(cbay)</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;  <span class="comment">! If we&#39;re catching bort errors, set a target return location if one doesn&#39;t already exist.</span></div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160; </div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="borts_8F90.html#ae4cfa0677f2c9133899f467ff1edad98">bort_target_set</a>() == 1) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    lccb = nbits/8</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keywordflow">if</span> (mod(nbits,8)/=0) lccb = lccb + 1</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    lccb = min(lccb,lcbay,len(ccbay))</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    ccbay(1:lccb) = cbay(1:lccb)</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <span class="keyword">call </span><a class="code" href="interfacebufrlib_1_1catch__bort__iupm__c.html">catch_bort_iupm_c</a>(ccbay,nbits,iret,lccb)</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="keyword">call </span><a class="code" href="borts_8F90.html#a8fd9a01ac05bff2940ceef7479bed9cc">bort_target_unset</a></div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<span class="keywordflow">  endif</span></div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
-<div class="line"><a name="l00318"></a><span class="lineno"><a class="line" href="cidecode_8F90.html#a414b81ace5368c9bb43fdd19442ebaa5">  318</a></span>&#160;<span class="keyword">real*8 </span><span class="keyword">function </span><a class="code" href="cidecode_8F90.html#a414b81ace5368c9bb43fdd19442ebaa5">ups</a>(ival,node) <span class="keyword">result</span>(r8ret)</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;  <span class="keywordtype">use </span><a class="code" href="namespacemoda__tables.html">moda_tables</a></div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;  <span class="keywordtype">use </span><a class="code" href="namespacemoda__nrv203.html">moda_nrv203</a></div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;  <span class="keywordtype">implicit none</span></div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160; </div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;  <span class="keywordtype">integer*8</span>, <span class="keywordtype">intent(in)</span> :: ival</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;  <span class="keywordtype">integer*8</span> imask</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">intent(in)</span> :: node</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;  <span class="keywordtype">integer</span> jj</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160; </div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;  real*8, <span class="keywordtype">parameter</span> :: ten = 10.</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160; </div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;  r8ret = ( ival + <a class="code" href="namespacemoda__tables.html#a17c04e8d3d8d361463e3f2fc0b3dd599">irf</a>(node) ) * ten**(-<a class="code" href="namespacemoda__tables.html#a1c370e229cc62002283ca2462296273e">isc</a>(node))</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160; </div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;  <span class="keywordflow">if</span> ( <a class="code" href="namespacemoda__nrv203.html#a7f37665c0422638e65824c8b9183169e">nnrv</a> &gt; 0 ) <span class="keywordflow">then</span></div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    <span class="comment">! There are redefined reference values in the jump/link table, so we need to check if this node is affected by any of them.</span></div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <span class="keywordflow">do</span> jj = 1, <a class="code" href="namespacemoda__nrv203.html#a7f37665c0422638e65824c8b9183169e">nnrv</a></div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;      <span class="keywordflow">if</span> ( node == <a class="code" href="namespacemoda__nrv203.html#ad4299c9b916b83272f07cba8d2d22d4f">inodnrv</a>(jj) ) <span class="keywordflow">then</span></div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        <span class="comment">! This node contains a redefined reference value.  Per the rules of BUFR, negative values may be encoded as positive</span></div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        <span class="comment">! integers with the left-most bit set to 1.</span></div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        imask = 2_8**(<a class="code" href="namespacemoda__tables.html#a1ff254e3c0f169340a16225a17c5a2c2">ibt</a>(node)-1)</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        <span class="keywordflow">if</span> ( iand(ival,imask) &gt; 0 ) <span class="keywordflow">then</span></div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;          <a class="code" href="namespacemoda__nrv203.html#a9c4d7ff754fd79feb908c6858f7e4e5f">nrv</a>(jj) = (-1) * ( ival - imask )</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;          <a class="code" href="namespacemoda__nrv203.html#a9c4d7ff754fd79feb908c6858f7e4e5f">nrv</a>(jj) = ival</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;<span class="keywordflow">        end if</span></div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;        r8ret = <a class="code" href="namespacemoda__nrv203.html#a9c4d7ff754fd79feb908c6858f7e4e5f">nrv</a>(jj)</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;        <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;      <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ( <a class="code" href="namespacemoda__tables.html#a5f03be0ecd3fa7e059b9c74fb67cd4e4">tag</a>(node)(1:8) == <a class="code" href="namespacemoda__nrv203.html#a5f80cd868154c06f202e5886d40750de">tagnrv</a>(jj) ) .and. ( node &gt;= <a class="code" href="namespacemoda__nrv203.html#a61eaac2cb0e3dd6de4d02e9986cab602">isnrv</a>(jj) ) .and. ( node &lt;= <a class="code" href="namespacemoda__nrv203.html#a2784f03b6c19452c601b1377a3ed59a1">ienrv</a>(jj) ) ) <span class="keywordflow">then</span></div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;        <span class="comment">! The corresponding redefinded reference value needs to be used when decoding this value.</span></div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        r8ret = ( ival + <a class="code" href="namespacemoda__nrv203.html#a9c4d7ff754fd79feb908c6858f7e4e5f">nrv</a>(jj) ) * ten**(-<a class="code" href="namespacemoda__tables.html#a1c370e229cc62002283ca2462296273e">isc</a>(node))</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="keywordflow">      end if</span></div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="keywordflow">    end do</span></div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="keywordflow">  end if</span></div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160; </div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;  <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="keyword">end function </span><a class="code" href="cidecode_8F90.html#a414b81ace5368c9bb43fdd19442ebaa5">ups</a></div>
-<div class="ttc" id="aborts_8F90_html_adc4659c5e9171f22248cf61e054ddd17"><div class="ttname"><a href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort</a></div><div class="ttdeci">subroutine bort(str)</div><div class="ttdoc">Log an error message, then abort the application program.</div><div class="ttdef"><b>Definition:</b> <a href="borts_8F90_source.html#l00014">borts.F90:15</a></div></div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;  iret = 0</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;  <span class="keywordflow">if</span>(nbits&gt;nbitw) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    <span class="keyword">write</span>(bort_str,<span class="stringliteral">&#39;(&quot;BUFRLIB: IUPM - NUMBER OF BITS BEING UNPACKED&#39;</span>// &amp;</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;      <span class="stringliteral">&#39;, NBITS (&quot;,I4,&quot;), IS &gt; THE INTEGER WORD LENGTH ON THIS MACHINE, NBITW (&quot;,I3,&quot;)&quot;)&#39;</span>) nbits,nbitw</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keyword">call </span><a class="code" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort</a>(bort_str)</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="keywordflow">  endif</span></div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;  cint(1:lcbay) = cbay(1:lcbay)</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;  int = <a class="code" href="misc_8F90.html#a1cd5e68cc460b388986ba7273abdd689">irev</a>(int)</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;  iret = ishft(int,nbits-nbitw)</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160; </div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;  <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="keyword">end function </span><a class="code" href="cidecode_8F90.html#a79f34b3a9df0eedb64115bca8c65ebaa">iupm</a></div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160; </div>
+<div class="line"><a name="l00331"></a><span class="lineno"><a class="line" href="cidecode_8F90.html#a414b81ace5368c9bb43fdd19442ebaa5">  331</a></span>&#160;<span class="keyword">real*8 </span><span class="keyword">function </span><a class="code" href="cidecode_8F90.html#a414b81ace5368c9bb43fdd19442ebaa5">ups</a>(ival,node) <span class="keyword">result</span>(r8ret)</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160; </div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;  <span class="keywordtype">use </span><a class="code" href="namespacemoda__tables.html">moda_tables</a></div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;  <span class="keywordtype">use </span><a class="code" href="namespacemoda__nrv203.html">moda_nrv203</a></div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160; </div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;  <span class="keywordtype">implicit none</span></div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160; </div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;  <span class="keywordtype">integer*8</span>, <span class="keywordtype">intent(in)</span> :: ival</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;  <span class="keywordtype">integer*8</span> imask</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;  <span class="keywordtype">integer</span>, <span class="keywordtype">intent(in)</span> :: node</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;  <span class="keywordtype">integer</span> jj</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160; </div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;  real*8, <span class="keywordtype">parameter</span> :: ten = 10.</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160; </div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;  r8ret = ( ival + <a class="code" href="namespacemoda__tables.html#a17c04e8d3d8d361463e3f2fc0b3dd599">irf</a>(node) ) * ten**(-<a class="code" href="namespacemoda__tables.html#a1c370e229cc62002283ca2462296273e">isc</a>(node))</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;  <span class="keywordflow">if</span> ( <a class="code" href="namespacemoda__nrv203.html#a7f37665c0422638e65824c8b9183169e">nnrv</a> &gt; 0 ) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="comment">! There are redefined reference values in the jump/link table, so we need to check if this node is affected by any of them.</span></div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    <span class="keywordflow">do</span> jj = 1, <a class="code" href="namespacemoda__nrv203.html#a7f37665c0422638e65824c8b9183169e">nnrv</a></div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;      <span class="keywordflow">if</span> ( node == <a class="code" href="namespacemoda__nrv203.html#ad4299c9b916b83272f07cba8d2d22d4f">inodnrv</a>(jj) ) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        <span class="comment">! This node contains a redefined reference value.  Per the rules of BUFR, negative values may be encoded as positive</span></div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        <span class="comment">! integers with the left-most bit set to 1.</span></div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        imask = 2_8**(<a class="code" href="namespacemoda__tables.html#a1ff254e3c0f169340a16225a17c5a2c2">ibt</a>(node)-1)</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;        <span class="keywordflow">if</span> ( iand(ival,imask) &gt; 0 ) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;          <a class="code" href="namespacemoda__nrv203.html#a9c4d7ff754fd79feb908c6858f7e4e5f">nrv</a>(jj) = (-1) * ( ival - imask )</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;          <a class="code" href="namespacemoda__nrv203.html#a9c4d7ff754fd79feb908c6858f7e4e5f">nrv</a>(jj) = ival</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<span class="keywordflow">        end if</span></div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        r8ret = <a class="code" href="namespacemoda__nrv203.html#a9c4d7ff754fd79feb908c6858f7e4e5f">nrv</a>(jj)</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;      <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( ( <a class="code" href="namespacemoda__tables.html#a5f03be0ecd3fa7e059b9c74fb67cd4e4">tag</a>(node)(1:8) == <a class="code" href="namespacemoda__nrv203.html#a5f80cd868154c06f202e5886d40750de">tagnrv</a>(jj) ) .and. ( node &gt;= <a class="code" href="namespacemoda__nrv203.html#a61eaac2cb0e3dd6de4d02e9986cab602">isnrv</a>(jj) ) .and. ( node &lt;= <a class="code" href="namespacemoda__nrv203.html#a2784f03b6c19452c601b1377a3ed59a1">ienrv</a>(jj) ) ) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;        <span class="comment">! The corresponding redefinded reference value needs to be used when decoding this value.</span></div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        r8ret = ( ival + <a class="code" href="namespacemoda__nrv203.html#a9c4d7ff754fd79feb908c6858f7e4e5f">nrv</a>(jj) ) * ten**(-<a class="code" href="namespacemoda__tables.html#a1c370e229cc62002283ca2462296273e">isc</a>(node))</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;<span class="keywordflow">      end if</span></div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="keywordflow">    end do</span></div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="keywordflow">  end if</span></div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160; </div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;  <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;<span class="keyword">end function </span><a class="code" href="cidecode_8F90.html#a414b81ace5368c9bb43fdd19442ebaa5">ups</a></div>
+<div class="ttc" id="aborts_8F90_html_a21e8e28b70a9ffa60a66e2fb3965307c"><div class="ttname"><a href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort</a></div><div class="ttdeci">recursive subroutine bort(str)</div><div class="ttdoc">Log an error message, then either return to or abort the application program.</div><div class="ttdef"><b>Definition:</b> <a href="borts_8F90_source.html#l00014">borts.F90:15</a></div></div>
+<div class="ttc" id="aborts_8F90_html_a8fd9a01ac05bff2940ceef7479bed9cc"><div class="ttname"><a href="borts_8F90.html#a8fd9a01ac05bff2940ceef7479bed9cc">bort_target_unset</a></div><div class="ttdeci">subroutine bort_target_unset</div><div class="ttdoc">Clear any existing bort target.</div><div class="ttdef"><b>Definition:</b> <a href="borts_8F90_source.html#l00179">borts.F90:180</a></div></div>
+<div class="ttc" id="aborts_8F90_html_ae4cfa0677f2c9133899f467ff1edad98"><div class="ttname"><a href="borts_8F90.html#ae4cfa0677f2c9133899f467ff1edad98">bort_target_set</a></div><div class="ttdeci">integer function bort_target_set()</div><div class="ttdoc">Sets a new bort target, if bort catching is enabled and such a target doesn't already exist.</div><div class="ttdef"><b>Definition:</b> <a href="borts_8F90_source.html#l00159">borts.F90:160</a></div></div>
 <div class="ttc" id="acidecode_8F90_html_a07dda20577f7480095dff261d11241f8"><div class="ttname"><a href="cidecode_8F90.html#a07dda20577f7480095dff261d11241f8">upb</a></div><div class="ttdeci">subroutine upb(nval, nbits, ibay, ibit)</div><div class="ttdoc">Decode an integer value from within a specified number of bits of an integer array,...</div><div class="ttdef"><b>Definition:</b> <a href="cidecode_8F90_source.html#l00201">cidecode.F90:202</a></div></div>
 <div class="ttc" id="acidecode_8F90_html_a243e1ab84f5a36179c0ac05056574257"><div class="ttname"><a href="cidecode_8F90.html#a243e1ab84f5a36179c0ac05056574257">upbb</a></div><div class="ttdeci">subroutine upbb(nval, nbits, ibit, ibay)</div><div class="ttdoc">Decode an integer value from within a specified number of bits of an integer array,...</div><div class="ttdef"><b>Definition:</b> <a href="cidecode_8F90_source.html#l00153">cidecode.F90:154</a></div></div>
 <div class="ttc" id="acidecode_8F90_html_a25ce428c1ae2bcb567fc2762fabf4317"><div class="ttname"><a href="cidecode_8F90.html#a25ce428c1ae2bcb567fc2762fabf4317">upb8</a></div><div class="ttdeci">subroutine upb8(nval, nbits, ibit, ibay)</div><div class="ttdoc">Decode an 8-byte integer value from within a specified number of bits of an integer array,...</div><div class="ttdef"><b>Definition:</b> <a href="cidecode_8F90_source.html#l00079">cidecode.F90:80</a></div></div>
-<div class="ttc" id="acidecode_8F90_html_a414b81ace5368c9bb43fdd19442ebaa5"><div class="ttname"><a href="cidecode_8F90.html#a414b81ace5368c9bb43fdd19442ebaa5">ups</a></div><div class="ttdeci">real *8 function ups(ival, node)</div><div class="ttdoc">Unpack a real*8 value from an integer by applying the proper scale and reference values.</div><div class="ttdef"><b>Definition:</b> <a href="cidecode_8F90_source.html#l00318">cidecode.F90:319</a></div></div>
+<div class="ttc" id="acidecode_8F90_html_a414b81ace5368c9bb43fdd19442ebaa5"><div class="ttname"><a href="cidecode_8F90.html#a414b81ace5368c9bb43fdd19442ebaa5">ups</a></div><div class="ttdeci">real *8 function ups(ival, node)</div><div class="ttdoc">Unpack a real*8 value from an integer by applying the proper scale and reference values.</div><div class="ttdef"><b>Definition:</b> <a href="cidecode_8F90_source.html#l00331">cidecode.F90:332</a></div></div>
 <div class="ttc" id="acidecode_8F90_html_a73f371d0af1f65ff546e0484ee97238f"><div class="ttname"><a href="cidecode_8F90.html#a73f371d0af1f65ff546e0484ee97238f">iupb</a></div><div class="ttdeci">recursive integer function iupb(mbay, nbyt, nbit)</div><div class="ttdoc">Decode an integer value from within a specified number of bits of an integer array,...</div><div class="ttdef"><b>Definition:</b> <a href="cidecode_8F90_source.html#l00225">cidecode.F90:226</a></div></div>
-<div class="ttc" id="acidecode_8F90_html_a79f34b3a9df0eedb64115bca8c65ebaa"><div class="ttname"><a href="cidecode_8F90.html#a79f34b3a9df0eedb64115bca8c65ebaa">iupm</a></div><div class="ttdeci">recursive integer function iupm(cbay, nbits)</div><div class="ttdoc">Decode an integer value from within a specified number of bits of a character string,...</div><div class="ttdef"><b>Definition:</b> <a href="cidecode_8F90_source.html#l00264">cidecode.F90:265</a></div></div>
+<div class="ttc" id="acidecode_8F90_html_a79f34b3a9df0eedb64115bca8c65ebaa"><div class="ttname"><a href="cidecode_8F90.html#a79f34b3a9df0eedb64115bca8c65ebaa">iupm</a></div><div class="ttdeci">recursive integer function iupm(cbay, nbits)</div><div class="ttdoc">Decode an integer value from within a specified number of bits of a character string,...</div><div class="ttdef"><b>Definition:</b> <a href="cidecode_8F90_source.html#l00262">cidecode.F90:263</a></div></div>
 <div class="ttc" id="acidecode_8F90_html_a9934a3d9c66ea78c7c132066798583f9"><div class="ttname"><a href="cidecode_8F90.html#a9934a3d9c66ea78c7c132066798583f9">up8</a></div><div class="ttdeci">subroutine up8(nval, nbits, ibay, ibit)</div><div class="ttdoc">Decode an 8-byte integer value from within a specified number of bits of an integer array,...</div><div class="ttdef"><b>Definition:</b> <a href="cidecode_8F90_source.html#l00127">cidecode.F90:128</a></div></div>
 <div class="ttc" id="acidecode_8F90_html_afef1c199ce8e69b085435b74d68cd337"><div class="ttname"><a href="cidecode_8F90.html#afef1c199ce8e69b085435b74d68cd337">upc</a></div><div class="ttdeci">subroutine upc(chr, nchr, ibay, ibit, cnvnull)</div><div class="ttdoc">Decode a character string from within a specified number of bytes of an integer array,...</div><div class="ttdef"><b>Definition:</b> <a href="cidecode_8F90_source.html#l00025">cidecode.F90:26</a></div></div>
+<div class="ttc" id="ainterfacebufrlib_1_1catch__bort__iupm__c_html"><div class="ttname"><a href="interfacebufrlib_1_1catch__bort__iupm__c.html">bufrlib::catch_bort_iupm_c</a></div><div class="ttdef"><b>Definition:</b> <a href="bufrlib_8F90_source.html#l01790">bufrlib.F90:1790</a></div></div>
 <div class="ttc" id="amisc_8F90_html_a1cd5e68cc460b388986ba7273abdd689"><div class="ttname"><a href="misc_8F90.html#a1cd5e68cc460b388986ba7273abdd689">irev</a></div><div class="ttdeci">integer function irev(n)</div><div class="ttdoc">Return a copy of an integer value with the bytes possibly reversed.</div><div class="ttdef"><b>Definition:</b> <a href="misc_8F90_source.html#l00235">misc.F90:236</a></div></div>
+<div class="ttc" id="anamespacebufrlib_html"><div class="ttname"><a href="namespacebufrlib.html">bufrlib</a></div><div class="ttdoc">Wrap C NCEPLIBS-bufr functions so they can be called from within the Fortran part of the library.</div><div class="ttdef"><b>Definition:</b> <a href="bufrlib_8F90_source.html#l00011">bufrlib.F90:11</a></div></div>
 <div class="ttc" id="anamespacemoda__nrv203_html"><div class="ttname"><a href="namespacemoda__nrv203.html">moda_nrv203</a></div><div class="ttdoc">Declare arrays and variables for use with any 2-03-YYY (change reference value) operators present wit...</div><div class="ttdef"><b>Definition:</b> <a href="modules__arrs_8F90_source.html#l00463">modules_arrs.F90:463</a></div></div>
 <div class="ttc" id="anamespacemoda__nrv203_html_a2784f03b6c19452c601b1377a3ed59a1"><div class="ttname"><a href="namespacemoda__nrv203.html#a2784f03b6c19452c601b1377a3ed59a1">moda_nrv203::ienrv</a></div><div class="ttdeci">integer, dimension(:), allocatable ienrv</div><div class="ttdoc">End of entry range in jump/link table, within which the corresponding new reference value in nrv will...</div><div class="ttdef"><b>Definition:</b> <a href="modules__arrs_8F90_source.html#l00490">modules_arrs.F90:490</a></div></div>
 <div class="ttc" id="anamespacemoda__nrv203_html_a5f80cd868154c06f202e5886d40750de"><div class="ttname"><a href="namespacemoda__nrv203.html#a5f80cd868154c06f202e5886d40750de">moda_nrv203::tagnrv</a></div><div class="ttdeci">character *8, dimension(:), allocatable tagnrv</div><div class="ttdoc">Table B mnemonic to which the corresponding new reference value in nrv applies.</div><div class="ttdef"><b>Definition:</b> <a href="modules__arrs_8F90_source.html#l00478">modules_arrs.F90:478</a></div></div>

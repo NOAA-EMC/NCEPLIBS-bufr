@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.2.0</span>
+   &#160;<span id="projectnumber">12.3.0</span>
    </div>
   </td>
  </tr>
@@ -96,9 +97,9 @@ $(document).ready(function(){initNavTree('mastertable_8F90.html',''); initResiza
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
-<tr class="memitem:a4721c745ebeb6be54c825cd1f53ec107"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mastertable_8F90.html#a4721c745ebeb6be54c825cd1f53ec107">codflg</a> (cf)</td></tr>
-<tr class="memdesc:a4721c745ebeb6be54c825cd1f53ec107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify whether or not code and flag table information should be included during all future reads of master BUFR tables.  <a href="mastertable_8F90.html#a4721c745ebeb6be54c825cd1f53ec107">More...</a><br /></td></tr>
-<tr class="separator:a4721c745ebeb6be54c825cd1f53ec107"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a8ccd46d91e7158ff328bead1e38f17"><td class="memItemLeft" align="right" valign="top">recursive subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mastertable_8F90.html#a0a8ccd46d91e7158ff328bead1e38f17">codflg</a> (cf)</td></tr>
+<tr class="memdesc:a0a8ccd46d91e7158ff328bead1e38f17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify whether or not code and flag table information should be included during all future reads of master BUFR tables.  <a href="mastertable_8F90.html#a0a8ccd46d91e7158ff328bead1e38f17">More...</a><br /></td></tr>
+<tr class="separator:a0a8ccd46d91e7158ff328bead1e38f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57b7efae38f8e79ba76fe5c8fff18f2a"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mastertable_8F90.html#a57b7efae38f8e79ba76fe5c8fff18f2a">getntbe</a> (lunt, ifxyn, line, iret)</td></tr>
 <tr class="memdesc:a57b7efae38f8e79ba76fe5c8fff18f2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the first line of the next entry from the specified ASCII master table B, table D or table F (Code/Flag) file.  <a href="mastertable_8F90.html#a57b7efae38f8e79ba76fe5c8fff18f2a">More...</a><br /></td></tr>
 <tr class="separator:a57b7efae38f8e79ba76fe5c8fff18f2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,14 +153,14 @@ Functions/Subroutines</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
-<a id="a4721c745ebeb6be54c825cd1f53ec107"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4721c745ebeb6be54c825cd1f53ec107">&#9670;&nbsp;</a></span>codflg()</h2>
+<a id="a0a8ccd46d91e7158ff328bead1e38f17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a8ccd46d91e7158ff328bead1e38f17">&#9670;&nbsp;</a></span>codflg()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">subroutine codflg </td>
+          <td class="memname">recursive subroutine codflg </td>
           <td>(</td>
           <td class="paramtype">character, intent(in)&#160;</td>
           <td class="paramname"><em>cf</em></td><td>)</td>
@@ -172,8 +173,8 @@ Functions/Subroutines</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cf</td><td>- Flag indicating whether or not to include code and flag table information during all future reads of master BUFR tables:<ul>
-<li>'N' = No (the default)</li>
-<li>'Y' = Yes</li>
+<li>'N' (or 'n') = No (the default)</li>
+<li>'Y' (or 'y') = Yes</li>
 </ul>
 </td></tr>
   </table>
@@ -185,11 +186,11 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2017-10-13 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l01195">1195</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l01193">1193</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort()</a>, <a class="el" href="misc_8F90.html#abb1e33496bab2eb5a1c93f44173f57ea">capit()</a>, and <a class="el" href="namespacemoda__tablef.html#a61847a8129d1a6c6909c2ea4727d67f6">moda_tablef::cdmf</a>.</p>
+<p class="reference">References <a class="el" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort()</a>, <a class="el" href="borts_8F90.html#ae4cfa0677f2c9133899f467ff1edad98">bort_target_set()</a>, <a class="el" href="borts_8F90.html#a8fd9a01ac05bff2940ceef7479bed9cc">bort_target_unset()</a>, <a class="el" href="misc_8F90.html#abb1e33496bab2eb5a1c93f44173f57ea">capit()</a>, and <a class="el" href="namespacemoda__tablef.html#a61847a8129d1a6c6909c2ea4727d67f6">moda_tablef::cdmf</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="debufr_8F90.html#abd70421a18d899bec6fbdade1262dd0b">fdebufr_c()</a>, and <a class="el" href="sinv_8F90.html#add80e304e2ffa251811ac6a19162f807">sinv()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="namespacebufr__c2f__interface.html#a1e427bda55cc33913995eae80f59c071">bufr_c2f_interface::codflg_c()</a>, <a class="el" href="debufr_8F90.html#abd70421a18d899bec6fbdade1262dd0b">fdebufr_c()</a>, and <a class="el" href="sinv_8F90.html#add80e304e2ffa251811ac6a19162f807">sinv()</a>.</p>
 
 </div>
 </div>
@@ -249,9 +250,9 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2007-01-19 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l01134">1134</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l01132">1132</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="borts_8F90.html#afef28b5a86909cc8999fad7d98b11f00">bort2()</a>, and <a class="el" href="strings_8F90.html#a1d493e7de1c23739a0fcd06089139f35">parstr()</a>.</p>
+<p class="reference">References <a class="el" href="borts_8F90.html#aa0e4eeb0681b0707dca1ecc286057040">bort2()</a>, and <a class="el" href="strings_8F90.html#a1d493e7de1c23739a0fcd06089139f35">parstr()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mastertable_8F90.html#a62d8d7c9946282d7797030e67c737543">rdmtbb()</a>, <a class="el" href="mastertable_8F90.html#a2def0dba3a44cc77e6dd716ad8aa238f">rdmtbd()</a>, and <a class="el" href="mastertable_8F90.html#acc76006ba6b47ca59a5343caacb12af9">rdmtbf()</a>.</p>
 
@@ -346,9 +347,9 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2007-01-19 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l01058">1058</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l01056">1056</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort()</a>, <a class="el" href="strings_8F90.html#a1d493e7de1c23739a0fcd06089139f35">parstr()</a>, and <a class="el" href="misc_8F90.html#a93d704d3c84005bb12c261225445a99e">strnum()</a>.</p>
+<p class="reference">References <a class="el" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort()</a>, <a class="el" href="strings_8F90.html#a1d493e7de1c23739a0fcd06089139f35">parstr()</a>, and <a class="el" href="misc_8F90.html#a93d704d3c84005bb12c261225445a99e">strnum()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mastertable_8F90.html#a62d8d7c9946282d7797030e67c737543">rdmtbb()</a>, <a class="el" href="mastertable_8F90.html#a2def0dba3a44cc77e6dd716ad8aa238f">rdmtbd()</a>, and <a class="el" href="mastertable_8F90.html#acc76006ba6b47ca59a5343caacb12af9">rdmtbf()</a>.</p>
 
@@ -396,7 +397,7 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2007-01-19 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00979">979</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00977">977</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
 
 </div>
 </div>
@@ -435,9 +436,9 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2009-03-23 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l01014">1014</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l01012">1012</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort()</a>.</p>
+<p class="reference">References <a class="el" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="namespacebufr__c2f__interface.html#a606519361d6b6db6e153fd809387399d">bufr_c2f_interface::igettdi_c()</a>.</p>
 
@@ -476,9 +477,9 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2009-03-23 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00170">170</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00168">168</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="borts_8F90.html#afef28b5a86909cc8999fad7d98b11f00">bort2()</a>, <a class="el" href="namespacemoda__mstabs.html#a31164f84ab9d27493a19afee2fda502a">moda_mstabs::cbbw</a>, <a class="el" href="namespacemoda__mstabs.html#aa842e38ba6243a4ff1ab1e56404c2cb7">moda_mstabs::cbelem</a>, <a class="el" href="namespacemoda__mstabs.html#a4c761088ff4243b661ec78773c07adaa">moda_mstabs::cbmnem</a>, <a class="el" href="namespacemoda__mstabs.html#aab2cc4c7c57e7c7d111f49187aff44ea">moda_mstabs::cbscl</a>, <a class="el" href="namespacemoda__mstabs.html#ac34001b0c39f1c7b156214adaf3381d0">moda_mstabs::cbsref</a>, <a class="el" href="namespacemoda__mstabs.html#a0ccfcc43067ef6debce2218ad50abb0b">moda_mstabs::cbunit</a>, <a class="el" href="namespacemoda__tablef.html#a61847a8129d1a6c6909c2ea4727d67f6">moda_tablef::cdmf</a>, <a class="el" href="namespacemoda__mstabs.html#ab2e77035e8e8a5f8e6a2f544279ab168">moda_mstabs::cdmnem</a>, <a class="el" href="namespacemoda__s3list.html#a2ceee9741718460b614f37fb6b976259">moda_s3list::cds3</a>, <a class="el" href="namespacemoda__mstabs.html#a37a325646f12fe6d0dd3ae3c341f20d7">moda_mstabs::cdseq</a>, <a class="el" href="namespacemoda__rdmtb.html#a1152389e5fc9eadddbea89bd76abc653">moda_rdmtb::ceelem</a>, <a class="el" href="namespacemoda__rdmtb.html#a21983afeacfaf7e7755271343aca9055">moda_rdmtb::cmdscb</a>, <a class="el" href="namespacemoda__rdmtb.html#ab8fe0a01ea7ba06916fd450273c1c38f">moda_rdmtb::cmdscd</a>, <a class="el" href="errwrt_8F90.html#a9c4c22af6c77235db8ddd7f41594f543">errwrt()</a>, <a class="el" href="namespacemoda__mstabs.html#af0d2b78411b01dc1aabe9baf6c946b38">moda_mstabs::ibfxyn</a>, <a class="el" href="namespacemoda__mstabs.html#aeabc918978c598efc0231fc59d2bfd24">moda_mstabs::idefxy</a>, <a class="el" href="namespacemoda__mstabs.html#a089cf80d582ff75c6596063d0ed8c049">moda_mstabs::idfxyn</a>, <a class="el" href="namespacemoda__rdmtb.html#ab26bcc9dccfa0b250af20392755adf93">moda_rdmtb::iefxyn</a>, <a class="el" href="fxy_8F90.html#ae3b70fcfea3c6201ad415fad4c4d375e">ifxy()</a>, <a class="el" href="namespacemoda__sc3bfr.html#ac3bbd45f25c8071e161bf7898230695a">moda_sc3bfr::isc3</a>, <a class="el" href="standard_8F90.html#af4f78acf5cbb9eda9a8ef03d03030aaf">istdesc()</a>, <a class="el" href="s013vals_8F90.html#a28944a4d73587a3943964a95619cb8a2">iupbs01()</a>, <a class="el" href="namespacemoda__bitbuf.html#aad8a1595878ac1a9907c708067c4c050">moda_bitbuf::mbay</a>, <a class="el" href="mastertable_8F90.html#a3c167cbcb11e3c1ec0a9abc584e27a57">mtfnam()</a>, <a class="el" href="namespacemoda__mstabs.html#a5f77a3f33df1fc46f007160428b674d1">moda_mstabs::ndelem</a>, <a class="el" href="namespacemoda__mstabs.html#a2861db4fcd6083b5f6d194c92e873c95">moda_mstabs::nmtb</a>, <a class="el" href="namespacemoda__mstabs.html#ae8e13371b82ad223284aeac9d6ad9aae">moda_mstabs::nmtd</a>, <a class="el" href="mastertable_8F90.html#a62d8d7c9946282d7797030e67c737543">rdmtbb()</a>, <a class="el" href="mastertable_8F90.html#a2def0dba3a44cc77e6dd716ad8aa238f">rdmtbd()</a>, <a class="el" href="mastertable_8F90.html#acc76006ba6b47ca59a5343caacb12af9">rdmtbf()</a>, and <a class="el" href="s013vals_8F90.html#a7bf4d22f9bb27412a9d041f7a5d7bca6">upds3()</a>.</p>
+<p class="reference">References <a class="el" href="borts_8F90.html#aa0e4eeb0681b0707dca1ecc286057040">bort2()</a>, <a class="el" href="namespacemoda__mstabs.html#a31164f84ab9d27493a19afee2fda502a">moda_mstabs::cbbw</a>, <a class="el" href="namespacemoda__mstabs.html#aa842e38ba6243a4ff1ab1e56404c2cb7">moda_mstabs::cbelem</a>, <a class="el" href="namespacemoda__mstabs.html#a4c761088ff4243b661ec78773c07adaa">moda_mstabs::cbmnem</a>, <a class="el" href="namespacemoda__mstabs.html#aab2cc4c7c57e7c7d111f49187aff44ea">moda_mstabs::cbscl</a>, <a class="el" href="namespacemoda__mstabs.html#ac34001b0c39f1c7b156214adaf3381d0">moda_mstabs::cbsref</a>, <a class="el" href="namespacemoda__mstabs.html#a0ccfcc43067ef6debce2218ad50abb0b">moda_mstabs::cbunit</a>, <a class="el" href="namespacemoda__tablef.html#a61847a8129d1a6c6909c2ea4727d67f6">moda_tablef::cdmf</a>, <a class="el" href="namespacemoda__mstabs.html#ab2e77035e8e8a5f8e6a2f544279ab168">moda_mstabs::cdmnem</a>, <a class="el" href="namespacemoda__s3list.html#a2ceee9741718460b614f37fb6b976259">moda_s3list::cds3</a>, <a class="el" href="namespacemoda__mstabs.html#a37a325646f12fe6d0dd3ae3c341f20d7">moda_mstabs::cdseq</a>, <a class="el" href="namespacemoda__rdmtb.html#a1152389e5fc9eadddbea89bd76abc653">moda_rdmtb::ceelem</a>, <a class="el" href="namespacemoda__rdmtb.html#a21983afeacfaf7e7755271343aca9055">moda_rdmtb::cmdscb</a>, <a class="el" href="namespacemoda__rdmtb.html#ab8fe0a01ea7ba06916fd450273c1c38f">moda_rdmtb::cmdscd</a>, <a class="el" href="errwrt_8F90.html#a9c4c22af6c77235db8ddd7f41594f543">errwrt()</a>, <a class="el" href="namespacemoda__mstabs.html#af0d2b78411b01dc1aabe9baf6c946b38">moda_mstabs::ibfxyn</a>, <a class="el" href="namespacemoda__mstabs.html#aeabc918978c598efc0231fc59d2bfd24">moda_mstabs::idefxy</a>, <a class="el" href="namespacemoda__mstabs.html#a089cf80d582ff75c6596063d0ed8c049">moda_mstabs::idfxyn</a>, <a class="el" href="namespacemoda__rdmtb.html#ab26bcc9dccfa0b250af20392755adf93">moda_rdmtb::iefxyn</a>, <a class="el" href="fxy_8F90.html#ae3b70fcfea3c6201ad415fad4c4d375e">ifxy()</a>, <a class="el" href="namespacemoda__sc3bfr.html#ac3bbd45f25c8071e161bf7898230695a">moda_sc3bfr::isc3</a>, <a class="el" href="standard_8F90.html#af4f78acf5cbb9eda9a8ef03d03030aaf">istdesc()</a>, <a class="el" href="s013vals_8F90.html#a28944a4d73587a3943964a95619cb8a2">iupbs01()</a>, <a class="el" href="namespacemoda__bitbuf.html#aad8a1595878ac1a9907c708067c4c050">moda_bitbuf::mbay</a>, <a class="el" href="mastertable_8F90.html#a3c167cbcb11e3c1ec0a9abc584e27a57">mtfnam()</a>, <a class="el" href="namespacemoda__mstabs.html#a5f77a3f33df1fc46f007160428b674d1">moda_mstabs::ndelem</a>, <a class="el" href="namespacemoda__mstabs.html#a2861db4fcd6083b5f6d194c92e873c95">moda_mstabs::nmtb</a>, <a class="el" href="namespacemoda__mstabs.html#ae8e13371b82ad223284aeac9d6ad9aae">moda_mstabs::nmtd</a>, <a class="el" href="mastertable_8F90.html#a62d8d7c9946282d7797030e67c737543">rdmtbb()</a>, <a class="el" href="mastertable_8F90.html#a2def0dba3a44cc77e6dd716ad8aa238f">rdmtbd()</a>, <a class="el" href="mastertable_8F90.html#acc76006ba6b47ca59a5343caacb12af9">rdmtbf()</a>, and <a class="el" href="s013vals_8F90.html#a7bf4d22f9bb27412a9d041f7a5d7bca6">upds3()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="cftbvs_8F90.html#af113e7ee7e2023cd466c2b28616cd64a">getcfmng()</a>, and <a class="el" href="dumpdata_8F90.html#a20fa33f6e0fcb0816c4b070c73362539">ufdump()</a>.</p>
 
@@ -562,9 +563,9 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2017-10-16 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00083">83</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00081">81</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="borts_8F90.html#afef28b5a86909cc8999fad7d98b11f00">bort2()</a>, <a class="el" href="errwrt_8F90.html#a9c4c22af6c77235db8ddd7f41594f543">errwrt()</a>, and <a class="el" href="misc_8F90.html#ab18db8197d0e5256ff5dfd2f26304d28">strsuc()</a>.</p>
+<p class="reference">References <a class="el" href="borts_8F90.html#aa0e4eeb0681b0707dca1ecc286057040">bort2()</a>, <a class="el" href="errwrt_8F90.html#a9c4c22af6c77235db8ddd7f41594f543">errwrt()</a>, and <a class="el" href="misc_8F90.html#ab18db8197d0e5256ff5dfd2f26304d28">strsuc()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mastertable_8F90.html#adde6acff18af3673cd9ef45b7ec12833">ireadmt()</a>.</p>
 
@@ -658,7 +659,7 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>1994-01-06 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l01227">1227</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l01239">1239</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
 
 </div>
 </div>
@@ -810,9 +811,9 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2007-01-19 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00355">355</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00353">353</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort()</a>, <a class="el" href="mastertable_8F90.html#a57b7efae38f8e79ba76fe5c8fff18f2a">getntbe()</a>, <a class="el" href="mastertable_8F90.html#ab8f682eb706037e99550eeedb3e8c963">gettbh()</a>, and <a class="el" href="mastertable_8F90.html#a4bc18eda6239cb2cd797dc63e12060d6">sntbbe()</a>.</p>
+<p class="reference">References <a class="el" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort()</a>, <a class="el" href="mastertable_8F90.html#a57b7efae38f8e79ba76fe5c8fff18f2a">getntbe()</a>, <a class="el" href="mastertable_8F90.html#ab8f682eb706037e99550eeedb3e8c963">gettbh()</a>, and <a class="el" href="mastertable_8F90.html#a4bc18eda6239cb2cd797dc63e12060d6">sntbbe()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mastertable_8F90.html#adde6acff18af3673cd9ef45b7ec12833">ireadmt()</a>.</p>
 
@@ -966,9 +967,9 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2007-01-19 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00433">433</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00431">431</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort()</a>, <a class="el" href="mastertable_8F90.html#a57b7efae38f8e79ba76fe5c8fff18f2a">getntbe()</a>, <a class="el" href="mastertable_8F90.html#ab8f682eb706037e99550eeedb3e8c963">gettbh()</a>, and <a class="el" href="mastertable_8F90.html#a07132e14b98ae1942199d2f9f89f1dfd">sntbde()</a>.</p>
+<p class="reference">References <a class="el" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort()</a>, <a class="el" href="mastertable_8F90.html#a57b7efae38f8e79ba76fe5c8fff18f2a">getntbe()</a>, <a class="el" href="mastertable_8F90.html#ab8f682eb706037e99550eeedb3e8c963">gettbh()</a>, and <a class="el" href="mastertable_8F90.html#a07132e14b98ae1942199d2f9f89f1dfd">sntbde()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mastertable_8F90.html#adde6acff18af3673cd9ef45b7ec12833">ireadmt()</a>.</p>
 
@@ -1012,9 +1013,9 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2017-10-17 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00492">492</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00490">490</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort()</a>, <a class="el" href="mastertable_8F90.html#a57b7efae38f8e79ba76fe5c8fff18f2a">getntbe()</a>, <a class="el" href="mastertable_8F90.html#ab8f682eb706037e99550eeedb3e8c963">gettbh()</a>, and <a class="el" href="mastertable_8F90.html#a13fd8c1d3695fab378b46cd2a6c23d4c">sntbfe()</a>.</p>
+<p class="reference">References <a class="el" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort()</a>, <a class="el" href="mastertable_8F90.html#a57b7efae38f8e79ba76fe5c8fff18f2a">getntbe()</a>, <a class="el" href="mastertable_8F90.html#ab8f682eb706037e99550eeedb3e8c963">gettbh()</a>, and <a class="el" href="mastertable_8F90.html#a13fd8c1d3695fab378b46cd2a6c23d4c">sntbfe()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mastertable_8F90.html#adde6acff18af3673cd9ef45b7ec12833">ireadmt()</a>.</p>
 
@@ -1127,9 +1128,9 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2007-01-19 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00564">564</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00562">562</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort()</a>, <a class="el" href="borts_8F90.html#afef28b5a86909cc8999fad7d98b11f00">bort2()</a>, <a class="el" href="strings_8F90.html#a1d493e7de1c23739a0fcd06089139f35">parstr()</a>, and <a class="el" href="mastertable_8F90.html#a1a035df49f8cbaee159153af0d3fb818">sntbestr()</a>.</p>
+<p class="reference">References <a class="el" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort()</a>, <a class="el" href="borts_8F90.html#aa0e4eeb0681b0707dca1ecc286057040">bort2()</a>, <a class="el" href="strings_8F90.html#a1d493e7de1c23739a0fcd06089139f35">parstr()</a>, and <a class="el" href="mastertable_8F90.html#a1a035df49f8cbaee159153af0d3fb818">sntbestr()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mastertable_8F90.html#a62d8d7c9946282d7797030e67c737543">rdmtbb()</a>.</p>
 
@@ -1249,9 +1250,9 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2007-01-19 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00709">709</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00707">707</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort()</a>, <a class="el" href="borts_8F90.html#afef28b5a86909cc8999fad7d98b11f00">bort2()</a>, <a class="el" href="strings_8F90.html#a1d493e7de1c23739a0fcd06089139f35">parstr()</a>, and <a class="el" href="mastertable_8F90.html#a1a035df49f8cbaee159153af0d3fb818">sntbestr()</a>.</p>
+<p class="reference">References <a class="el" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort()</a>, <a class="el" href="borts_8F90.html#aa0e4eeb0681b0707dca1ecc286057040">bort2()</a>, <a class="el" href="strings_8F90.html#a1d493e7de1c23739a0fcd06089139f35">parstr()</a>, and <a class="el" href="mastertable_8F90.html#a1a035df49f8cbaee159153af0d3fb818">sntbestr()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mastertable_8F90.html#a2def0dba3a44cc77e6dd716ad8aa238f">rdmtbd()</a>.</p>
 
@@ -1301,7 +1302,7 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2024-04-15 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00953">953</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00951">951</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mastertable_8F90.html#a4bc18eda6239cb2cd797dc63e12060d6">sntbbe()</a>, <a class="el" href="mastertable_8F90.html#a07132e14b98ae1942199d2f9f89f1dfd">sntbde()</a>, and <a class="el" href="mastertable_8F90.html#a13fd8c1d3695fab378b46cd2a6c23d4c">sntbfe()</a>.</p>
 
@@ -1344,9 +1345,9 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2017-11-02 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00822">822</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mastertable_8F90_source.html#l00820">820</a> of file <a class="el" href="mastertable_8F90_source.html">mastertable.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="borts_8F90.html#afef28b5a86909cc8999fad7d98b11f00">bort2()</a>, <a class="el" href="strings_8F90.html#a1d493e7de1c23739a0fcd06089139f35">parstr()</a>, <a class="el" href="mastertable_8F90.html#a1a035df49f8cbaee159153af0d3fb818">sntbestr()</a>, and <a class="el" href="misc_8F90.html#a93d704d3c84005bb12c261225445a99e">strnum()</a>.</p>
+<p class="reference">References <a class="el" href="borts_8F90.html#aa0e4eeb0681b0707dca1ecc286057040">bort2()</a>, <a class="el" href="strings_8F90.html#a1d493e7de1c23739a0fcd06089139f35">parstr()</a>, <a class="el" href="mastertable_8F90.html#a1a035df49f8cbaee159153af0d3fb818">sntbestr()</a>, and <a class="el" href="misc_8F90.html#a93d704d3c84005bb12c261225445a99e">strnum()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mastertable_8F90.html#acc76006ba6b47ca59a5343caacb12af9">rdmtbf()</a>.</p>
 

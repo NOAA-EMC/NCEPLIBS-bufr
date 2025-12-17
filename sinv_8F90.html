@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.2.0</span>
+   &#160;<span id="projectnumber">12.3.0</span>
    </div>
   </td>
  </tr>
@@ -168,7 +169,7 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J Woollen </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2010 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="sinv_8F90_source.html#l00117">117</a> of file <a class="el" href="sinv_8F90_source.html">sinv.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sinv_8F90_source.html#l00123">123</a> of file <a class="el" href="sinv_8F90_source.html">sinv.F90</a>.</p>
 
 <p class="reference">References <a class="el" href="cftbvs_8F90.html#af113e7ee7e2023cd466c2b28616cd64a">getcfmng()</a>.</p>
 
@@ -190,13 +191,14 @@ Functions/Subroutines</h2></td></tr>
 
 <p>Usage: sinv satbufrfile &lt;tabledir&gt; will print an inventory of satellites in the satbufrfile by platform and instrument. </p>
 <p>The optional tabledir argument can be used to specify a custom directory for the master BUFR tables.</p>
+<p>Use of part mode of subroutine ufbtab has been implemented in this utility to ensure all data from the target file is obtained via successive calls to ufbrep. See operational details of using ufbtab part mode in the docblock of bufrlib subroutine setpart.</p>
 <dl class="section return"><dt>Returns</dt><dd>0 for success, error message otherwise.</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>J Woollen </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2010 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="sinv_8F90_source.html#l00013">13</a> of file <a class="el" href="sinv_8F90_source.html">sinv.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sinv_8F90_source.html#l00018">18</a> of file <a class="el" href="sinv_8F90_source.html">sinv.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort()</a>, <a class="el" href="mastertable_8F90.html#a4721c745ebeb6be54c825cd1f53ec107">codflg()</a>, <a class="el" href="mastertable_8F90.html#abf69490965212318f1dfee9b0bc4890c">mtinfo()</a>, <a class="el" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d">openbf()</a>, <a class="el" href="readwritemg_8F90.html#aad947e23951efbcba54930d6f309e0a8">readmg()</a>, <a class="el" href="sinv_8F90.html#a4ab4fad455062f4d66f23adb61d13c7c">satcode()</a>, and <a class="el" href="openclosebf_8F90.html#ae88bf9794ed98ec79e9de0faff0093af">ufbtab()</a>.</p>
+<p class="reference">References <a class="el" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort()</a>, <a class="el" href="mastertable_8F90.html#a0a8ccd46d91e7158ff328bead1e38f17">codflg()</a>, <a class="el" href="mastertable_8F90.html#abf69490965212318f1dfee9b0bc4890c">mtinfo()</a>, <a class="el" href="openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d">openbf()</a>, <a class="el" href="readwritemg_8F90.html#aad947e23951efbcba54930d6f309e0a8">readmg()</a>, <a class="el" href="sinv_8F90.html#a4ab4fad455062f4d66f23adb61d13c7c">satcode()</a>, <a class="el" href="openclosebf_8F90.html#aa4082da6d0709b1f6c6e9ce564fb2a07">setpart()</a>, and <a class="el" href="openclosebf_8F90.html#ae88bf9794ed98ec79e9de0faff0093af">ufbtab()</a>.</p>
 
 </div>
 </div>

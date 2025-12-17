@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.2.0</span>
+   &#160;<span id="projectnumber">12.3.0</span>
    </div>
   </td>
  </tr>
@@ -123,9 +124,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aba549e6acf16abcbe89193cb72d94287"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cfe_8c.html#aba549e6acf16abcbe89193cb72d94287">srchtbf</a> (int ifxyi, int ivali, int *ifxyd, int mxfxyd, int ivald, char *meaning, int mxmng, int *lnmng, int *iret)</td></tr>
 <tr class="memdesc:aba549e6acf16abcbe89193cb72d94287"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for a specified master Code/Flag table entry.  <a href="cfe_8c.html#aba549e6acf16abcbe89193cb72d94287">More...</a><br /></td></tr>
 <tr class="separator:aba549e6acf16abcbe89193cb72d94287"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adae7e8dfb5a605b8e8be2c96f3e2be76"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cfe_8c.html#adae7e8dfb5a605b8e8be2c96f3e2be76">strtbfe</a> (int ifxyn, int ival, char *meaning, int lmeaning, int idfxy, int idval)</td></tr>
-<tr class="memdesc:adae7e8dfb5a605b8e8be2c96f3e2be76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store a new master Code/Flag table entry.  <a href="cfe_8c.html#adae7e8dfb5a605b8e8be2c96f3e2be76">More...</a><br /></td></tr>
-<tr class="separator:adae7e8dfb5a605b8e8be2c96f3e2be76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bb42028e70ac05070c8c10fc94e209c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cfe_8c.html#a7bb42028e70ac05070c8c10fc94e209c">strtbfe</a> (int ifxyn, int ival, const char *meaning, int lmeaning, int idfxy, int idval)</td></tr>
+<tr class="memdesc:a7bb42028e70ac05070c8c10fc94e209c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store a new master Code/Flag table entry.  <a href="cfe_8c.html#a7bb42028e70ac05070c8c10fc94e209c">More...</a><br /></td></tr>
+<tr class="separator:a7bb42028e70ac05070c8c10fc94e209c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -316,7 +317,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00053">53</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
 
-<p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, <a class="el" href="cfe_8c.html#ac86272345dff43f22ed1365dbc9f1e16">cfe</a>, <a class="el" href="bufr__interface_8h.html#a0b06d7dc9ae1ba6147ad0f1ea3d359bb">igetprm_f()</a>, <a class="el" href="cfe_8c.html#ada229859d4369f2b51b268c2a3bf4ea2">mxmtbf</a>, and <a class="el" href="cfe_8c.html#aeade079cc5207ec44fe26e6a90c38d3b">nmtf</a>.</p>
+<p class="reference">References <a class="el" href="bufrlib_8h.html#a4cf83529a094007fd5f9c94ad8430b2b">bort_f()</a>, <a class="el" href="cfe_8c.html#ac86272345dff43f22ed1365dbc9f1e16">cfe</a>, <a class="el" href="bufr__interface_8h.html#a366b4e8aa93d63597f7544e19af943c7">igetprm_f()</a>, <a class="el" href="cfe_8c.html#ada229859d4369f2b51b268c2a3bf4ea2">mxmtbf</a>, and <a class="el" href="cfe_8c.html#aeade079cc5207ec44fe26e6a90c38d3b">nmtf</a>.</p>
 
 </div>
 </div>
@@ -449,8 +450,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="adae7e8dfb5a605b8e8be2c96f3e2be76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adae7e8dfb5a605b8e8be2c96f3e2be76">&#9670;&nbsp;</a></span>strtbfe()</h2>
+<a id="a7bb42028e70ac05070c8c10fc94e209c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bb42028e70ac05070c8c10fc94e209c">&#9670;&nbsp;</a></span>strtbfe()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -470,7 +471,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>meaning</em>, </td>
         </tr>
         <tr>
@@ -516,7 +517,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00180">180</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
 
-<p class="reference">References <a class="el" href="bufrlib_8h.html#a4bd8daccf2564da21968a531b87bf447">bort_f()</a>, <a class="el" href="cfe_8c.html#ac86272345dff43f22ed1365dbc9f1e16">cfe</a>, <a class="el" href="namespacemoda__ival.html#a354161b574c84bfd3401bc0b287335c7">moda_ival::ival</a>, <a class="el" href="cfe_8c.html#a655e9465dd48c1e8a068b4689748e509">MAX_MEANING_LEN</a>, <a class="el" href="cfe_8c.html#ada229859d4369f2b51b268c2a3bf4ea2">mxmtbf</a>, and <a class="el" href="cfe_8c.html#aeade079cc5207ec44fe26e6a90c38d3b">nmtf</a>.</p>
+<p class="reference">References <a class="el" href="bufrlib_8h.html#a4cf83529a094007fd5f9c94ad8430b2b">bort_f()</a>, <a class="el" href="cfe_8c.html#ac86272345dff43f22ed1365dbc9f1e16">cfe</a>, <a class="el" href="namespacemoda__ival.html#a354161b574c84bfd3401bc0b287335c7">moda_ival::ival</a>, <a class="el" href="cfe_8c.html#a655e9465dd48c1e8a068b4689748e509">MAX_MEANING_LEN</a>, <a class="el" href="cfe_8c.html#ada229859d4369f2b51b268c2a3bf4ea2">mxmtbf</a>, and <a class="el" href="cfe_8c.html#aeade079cc5207ec44fe26e6a90c38d3b">nmtf</a>.</p>
 
 </div>
 </div>
@@ -537,7 +538,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00034">34</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cfe_8c.html#a1242c4d43753a37cdb9abfb3f01e5583">dlloctbf()</a>, <a class="el" href="cfe_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf()</a>, <a class="el" href="cfe_8c.html#af9bdd990bf256341aa36e1f0611132de">sorttbf()</a>, <a class="el" href="cfe_8c.html#aba549e6acf16abcbe89193cb72d94287">srchtbf()</a>, and <a class="el" href="cfe_8c.html#adae7e8dfb5a605b8e8be2c96f3e2be76">strtbfe()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cfe_8c.html#a1242c4d43753a37cdb9abfb3f01e5583">dlloctbf()</a>, <a class="el" href="cfe_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf()</a>, <a class="el" href="cfe_8c.html#af9bdd990bf256341aa36e1f0611132de">sorttbf()</a>, <a class="el" href="cfe_8c.html#aba549e6acf16abcbe89193cb72d94287">srchtbf()</a>, and <a class="el" href="cfe_8c.html#a7bb42028e70ac05070c8c10fc94e209c">strtbfe()</a>.</p>
 
 </div>
 </div>
@@ -557,7 +558,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00041">41</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cfe_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf()</a>, and <a class="el" href="cfe_8c.html#adae7e8dfb5a605b8e8be2c96f3e2be76">strtbfe()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cfe_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf()</a>, and <a class="el" href="cfe_8c.html#a7bb42028e70ac05070c8c10fc94e209c">strtbfe()</a>.</p>
 
 </div>
 </div>
@@ -577,7 +578,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="cfe_8c_source.html#l00044">44</a> of file <a class="el" href="cfe_8c_source.html">cfe.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cfe_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf()</a>, <a class="el" href="cfe_8c.html#af9bdd990bf256341aa36e1f0611132de">sorttbf()</a>, <a class="el" href="cfe_8c.html#aba549e6acf16abcbe89193cb72d94287">srchtbf()</a>, and <a class="el" href="cfe_8c.html#adae7e8dfb5a605b8e8be2c96f3e2be76">strtbfe()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cfe_8c.html#aa06057bdd5b8456df9b33ec96a5cc57e">inittbf()</a>, <a class="el" href="cfe_8c.html#af9bdd990bf256341aa36e1f0611132de">sorttbf()</a>, <a class="el" href="cfe_8c.html#aba549e6acf16abcbe89193cb72d94287">srchtbf()</a>, and <a class="el" href="cfe_8c.html#a7bb42028e70ac05070c8c10fc94e209c">strtbfe()</a>.</p>
 
 </div>
 </div>

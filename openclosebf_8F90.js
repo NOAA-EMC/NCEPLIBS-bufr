@@ -6,6 +6,7 @@ var openclosebf_8F90 =
     [ "openbf", "openclosebf_8F90.html#a9dc7e4fb476a5528a958ee132ee6392d", null ],
     [ "posapx", "openclosebf_8F90.html#aeef6f5d08d9631dbe92c1821a9d02903", null ],
     [ "rewnbf", "openclosebf_8F90.html#a56b33c6538a8c0abf1b6a31584c68494", null ],
+    [ "setpart", "openclosebf_8F90.html#aa4082da6d0709b1f6c6e9ce564fb2a07", null ],
     [ "status", "openclosebf_8F90.html#abceda08f9c29378d3ddadeb46e823d00", null ],
     [ "ufbcnt", "openclosebf_8F90.html#aac1b87fbbb688e4f5e2120012eaee382", null ],
     [ "ufbtab", "openclosebf_8F90.html#ae88bf9794ed98ec79e9de0faff0093af", null ],

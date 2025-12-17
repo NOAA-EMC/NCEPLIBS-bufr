@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.2.0</span>
+   &#160;<span id="projectnumber">12.3.0</span>
    </div>
   </td>
  </tr>
@@ -315,6 +316,9 @@ Variables</h2></td></tr>
 <tr class="memitem:aa9124552f5c640e47f8decc9499688d8"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modules__vars_8F90.html#aa9124552f5c640e47f8decc9499688d8">modv_vars::nfiles</a> = 32</td></tr>
 <tr class="memdesc:aa9124552f5c640e47f8decc9499688d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of BUFR files that can be connected to the NCEPLIBS-bufr software (for reading or writing) at any one time.  <a href="modules__vars_8F90.html#aa9124552f5c640e47f8decc9499688d8">More...</a><br /></td></tr>
 <tr class="separator:aa9124552f5c640e47f8decc9499688d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82db11b82bf359e0fc90890e343f870a"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modules__vars_8F90.html#a82db11b82bf359e0fc90890e343f870a">modv_vars::part</a> = .false.</td></tr>
+<tr class="memdesc:a82db11b82bf359e0fc90890e343f870a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status indicator to keep track of whether all future calls to subroutine <a class="el" href="openclosebf_8F90.html#ae88bf9794ed98ec79e9de0faff0093af" title="Read through every data subset in a BUFR file and return one or more specified data values from each ...">ufbtab()</a> should attempt to read through the entire BUFR file (the default), or whether they should attempt to return partial results from the file across multiple successive calls to the subroutine.  <a href="modules__vars_8F90.html#a82db11b82bf359e0fc90890e343f870a">More...</a><br /></td></tr>
+<tr class="separator:a82db11b82bf359e0fc90890e343f870a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b163d0f13c16e94bdac566d2495faf7"><td class="memItemLeft" align="right" valign="top">character, dimension(10), parameter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modules__vars_8F90.html#a5b163d0f13c16e94bdac566d2495faf7">modv_vars::reps</a> = (/ '&quot;', '(', '{', '[', '&lt;', '&quot;', ')', '}', ']', '&gt;'/)</td></tr>
 <tr class="memdesc:a5b163d0f13c16e94bdac566d2495faf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replication indicators used in DX BUFR tables.  <a href="modules__vars_8F90.html#a5b163d0f13c16e94bdac566d2495faf7">More...</a><br /></td></tr>
 <tr class="separator:a5b163d0f13c16e94bdac566d2495faf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -343,7 +347,7 @@ Variables</h2></td></tr>
 
 <p>FXY values corresponding to reps. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00138">138</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00145">145</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -361,7 +365,7 @@ Variables</h2></td></tr>
 
 <p>Closing string of a BUFR message. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00093">93</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00100">100</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -379,7 +383,7 @@ Variables</h2></td></tr>
 
 <p>Current placeholder value to represent "missing" data when reading from or writing to BUFR files; this value can be changed at any time via a call to subroutine <a class="el" href="missing_8F90.html#a65fba06ac4fb69670084ee11746bdd9f" title="Specify a customized value to represent &quot;missing&quot; data when reading from or writing to BUFR files.">setbmiss()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00041">41</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00048">48</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -397,7 +401,7 @@ Variables</h2></td></tr>
 
 <p>Opening string of a BUFR message. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00090">90</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00097">97</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -415,7 +419,7 @@ Variables</h2></td></tr>
 
 <p>FXY value for short (1-bit) delayed replication factor. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00109">109</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00116">116</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -433,7 +437,7 @@ Variables</h2></td></tr>
 
 <p>FXY value for long (16-bit) delayed replication factor. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00115">115</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00122">122</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -451,7 +455,7 @@ Variables</h2></td></tr>
 
 <p>FXY value for medium (8-bit) delayed replication factor. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00112">112</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00119">119</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -469,7 +473,7 @@ Variables</h2></td></tr>
 
 <p>FXY value for NCEP Table D local descriptor denoting 1-bit delayed replication of a sequence using &lt; &gt; notation. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00118">118</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00125">125</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -487,7 +491,7 @@ Variables</h2></td></tr>
 
 <p>FXY value for NCEP Table D local descriptor denoting 16-bit delayed replication of a sequence using ( ) notation. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00127">127</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00134">134</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -505,7 +509,7 @@ Variables</h2></td></tr>
 
 <p>FXY value for NCEP Table D local descriptor denoting 8-bit delayed replication of a sequence using { } notation. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00121">121</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00128">128</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -523,7 +527,7 @@ Variables</h2></td></tr>
 
 <p>FXY value for NCEP Table D local descriptor denoting 8-bit delayed replication of a sequence using [ ] notation. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00124">124</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00131">131</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -542,7 +546,7 @@ Variables</h2></td></tr>
 <p>FXY value for NCEP Table B local descriptor containing a fill bit. </p>
 <p>This is also the maximum FXY value for a Table B descriptor. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00106">106</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00113">113</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -560,7 +564,7 @@ Variables</h2></td></tr>
 
 <p>Minimum FXY value for a replication descriptor. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00099">99</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00106">106</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -578,7 +582,7 @@ Variables</h2></td></tr>
 
 <p>Minimum FXY value for a Table D descriptor. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00096">96</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00103">103</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -596,7 +600,7 @@ Variables</h2></td></tr>
 
 <p>FXY value for NCEP Table B local descriptor containing a subset byte count. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00102">102</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00109">109</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -618,7 +622,7 @@ Variables</h2></td></tr>
 <li>1 = Yes </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00080">80</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00087">87</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -641,7 +645,7 @@ Variables</h2></td></tr>
 <li>1 = Yes, using big-endian control words </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00036">36</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00043">43</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -659,7 +663,7 @@ Variables</h2></td></tr>
 
 <p>WMO bit-wise representations of FXY values corresponding to reps. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00142">142</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00149">149</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -678,7 +682,7 @@ Variables</h2></td></tr>
 <p>Local table version number to be encoded in output BUFR messages. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to subroutine <a class="el" href="s013vals_8F90.html#ac8fa984389323f08dd1cbd3aa6b57da9" title="Specify a value to be written into a specified location within Section 0 or Section 1 of all BUFR mes...">pkvs01()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00362">362</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00369">369</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -700,7 +704,7 @@ Variables</h2></td></tr>
 <li>1 = Yes </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00074">74</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00081">81</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -780,7 +784,7 @@ Variables</h2></td></tr>
 <li>3 = all warning, info and debug messages are printed </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00051">51</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00058">58</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -799,7 +803,7 @@ Variables</h2></td></tr>
 <p>Length of Section 1 date-time values to be output by all future calls to message-reading subroutines. </p>
 <p>The default value is 8, meaning that future date-time values will be output in YYMMDDHH (2-digit year) format. However, this value can be changed to 10 via a call to subroutine <a class="el" href="s013vals_8F90.html#aadd84c217cf5fab0d94564da3f377ebe" title="Specify the format of Section 1 date-time values that will be output by future calls to any of the NC...">datelen()</a>, and in which case future date-time values will be output in YYYYMMDDHH (4-digit year) format. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00087">87</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00094">94</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -817,7 +821,7 @@ Variables</h2></td></tr>
 
 <p>Lengths of delayed replication factors corresponding to each type of replication in reps. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00145">145</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00152">152</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -836,7 +840,7 @@ Variables</h2></td></tr>
 <p>Master table for the last BUFR message that was read from a logical unit where Section 3 decoding is being used. </p>
 <p>This value is initialized to an artificially low number, in order to ensure that new master tables will be read in during the first internal call to subroutine <a class="el" href="mastertable_8F90.html#adde6acff18af3673cd9ef45b7ec12833" title="Check the most recent BUFR message that was read via a call to one of the message-reading subroutines...">ireadmt()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00383">383</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00390">390</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -854,7 +858,7 @@ Variables</h2></td></tr>
 
 <p>Length (in bytes) of directory on local file system containing master BUFR tables. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00059">59</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00066">66</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -872,7 +876,7 @@ Variables</h2></td></tr>
 
 <p>Master table version number for the last BUFR message that was read from a logical unit where Section 3 decoding is being used. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00387">387</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00394">394</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -890,7 +894,7 @@ Variables</h2></td></tr>
 
 <p>Local table version number for the last BUFR message that was read from a logical unit where Section 3 decoding is being used. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00395">395</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00402">402</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -908,7 +912,7 @@ Variables</h2></td></tr>
 
 <p>Originating center for the last BUFR message that was read from a logical unit where Section 3 decoding is being used. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00391">391</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00398">398</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -927,7 +931,7 @@ Variables</h2></td></tr>
 <p>First of two Fortran logical unit numbers to use when reading master BUFR tables from the local file system. </p>
 <p>The default value is 98, but it can be changed at any time via a call to subroutine <a class="el" href="mastertable_8F90.html#abf69490965212318f1dfee9b0bc4890c" title="Specify the directory location and Fortran logical unit numbers to be used when reading master BUFR t...">mtinfo()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00064">64</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00071">71</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -946,7 +950,7 @@ Variables</h2></td></tr>
 <p>Second of two Fortran logical unit numbers to use when reading master BUFR tables from the local file system. </p>
 <p>The default value is 99, but it can be changed at any time via a call to subroutine <a class="el" href="mastertable_8F90.html#abf69490965212318f1dfee9b0bc4890c" title="Specify the directory location and Fortran logical unit numbers to be used when reading master BUFR t...">mtinfo()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00069">69</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00076">76</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -965,7 +969,7 @@ Variables</h2></td></tr>
 <p>Maximum number of child descriptors that can be included within the sequence definition of a Table D descriptor, not counting the recursive resolution of any child descriptors which may themselves be Table D descriptors. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00154">154</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00161">161</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -984,7 +988,7 @@ Variables</h2></td></tr>
 <p>Maximum number of entries in the internal jump/link table. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00160">160</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00167">167</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1003,7 +1007,7 @@ Variables</h2></td></tr>
 <p>Maximum number of bytes that can be used to store BUFR messages within internal memory. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00167">167</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00174">174</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1022,7 +1026,7 @@ Variables</h2></td></tr>
 <p>Maximum number of BUFR messages that can be stored within internal memory. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00174">174</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00181">181</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1041,7 +1045,7 @@ Variables</h2></td></tr>
 <p>Maximum number of descriptors within Section 3 of a BUFR message. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00180">180</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00187">187</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1059,7 +1063,7 @@ Variables</h2></td></tr>
 
 <p>Maximum number of recursion levels when expanding a subset template. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00327">327</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00334">334</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1078,7 +1082,7 @@ Variables</h2></td></tr>
 <p>Maximum number of data values that can be read from or written into a data subset by the NCEPLIBS-bufr software. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00187">187</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00194">194</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1097,7 +1101,7 @@ Variables</h2></td></tr>
 <p>Maximum number of entries in the internal BUFR Table A for each BUFR file that is connected to the NCEPLIBS-bufr software. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00194">194</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00201">201</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1116,7 +1120,7 @@ Variables</h2></td></tr>
 <p>Maximum number of entries in the internal BUFR Table B for each BUFR file that is connected to the NCEPLIBS-bufr software. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00201">201</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00208">208</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1135,7 +1139,7 @@ Variables</h2></td></tr>
 <p>Maximum number of entries in the internal BUFR Table D for each BUFR file that is connected to the NCEPLIBS-bufr software. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00208">208</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00215">215</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1154,7 +1158,7 @@ Variables</h2></td></tr>
 <p>Directory on local file system containing master BUFR tables. </p>
 <p>This is set to a default value within subroutine <a class="el" href="misc_8F90.html#ab3f045cc170403305543e34e30b87001" title="Initialize numerous global variables and arrays within internal modules and common blocks throughout ...">bfrini()</a>, but it can be changed at any time via a call to subroutine <a class="el" href="mastertable_8F90.html#abf69490965212318f1dfee9b0bc4890c" title="Specify the directory location and Fortran logical unit numbers to be used when reading master BUFR t...">mtinfo()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00056">56</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00063">63</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1173,7 +1177,7 @@ Variables</h2></td></tr>
 <p>Master table version number to be encoded in output BUFR messages. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to subroutine <a class="el" href="s013vals_8F90.html#ac8fa984389323f08dd1cbd3aa6b57da9" title="Specify a value to be written into a specified location within Section 0 or Section 1 of all BUFR mes...">pkvs01()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00356">356</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00363">363</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1192,7 +1196,7 @@ Variables</h2></td></tr>
 <p>Maximum number of bitmaps that can be stored internally for a data subset. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00214">214</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00221">221</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1211,7 +1215,7 @@ Variables</h2></td></tr>
 <p>Maximum number of "set" entries (set to a value of 0) within a bitmap. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00220">220</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00227">227</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1230,7 +1234,7 @@ Variables</h2></td></tr>
 <p>Maximum number of data values that can be written into a data subset of a compressed BUFR message by the NCEPLIBS-bufr software. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00227">227</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00234">234</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1249,7 +1253,7 @@ Variables</h2></td></tr>
 <p>Maximum number of entries in the internal Table A mnemonic cache that is used for Section 3 decoding of BUFR messages. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00234">234</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00241">241</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1268,7 +1272,7 @@ Variables</h2></td></tr>
 <p>Maximum number of data subsets that can be written into a compressed BUFR message by the NCEPLIBS-bufr software. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00241">241</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00248">248</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1287,7 +1291,7 @@ Variables</h2></td></tr>
 <p>Maximum number of dictionary tables that can be stored for use with BUFR messages in internal memory. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00248">248</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00255">255</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1306,7 +1310,7 @@ Variables</h2></td></tr>
 <p>Maximum number of long character strings that can be held for writing into an uncompressed BUFR subset by future internal calls to subroutine <a class="el" href="readwriteval_8F90.html#aecfa08f631e1af46b472c007b93b2955" title="Write a long character string (greater than 8 bytes) to a data subset.">writlc()</a>. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00256">256</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00263">263</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1325,7 +1329,7 @@ Variables</h2></td></tr>
 <p>Maximum length (in bytes) of a character string that can be written into a data subset of a compressed BUFR message by the NCEPLIBS-bufr software. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00264">264</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00271">271</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1344,7 +1348,7 @@ Variables</h2></td></tr>
 <p>Maximum length (in bytes) of a BUFR message that can be read or written by the NCEPLIBS-bufr software. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00271">271</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00278">278</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1362,7 +1366,7 @@ Variables</h2></td></tr>
 
 <p>The value of mxmsgl divided by 4. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00274">274</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00281">281</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1381,7 +1385,7 @@ Variables</h2></td></tr>
 <p>Maximum number of entries in a master BUFR Table B. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00280">280</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00287">287</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1400,7 +1404,7 @@ Variables</h2></td></tr>
 <p>Maximum number of entries in a master BUFR Table D. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00286">286</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00293">293</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1419,7 +1423,7 @@ Variables</h2></td></tr>
 <p>Maximum number of entries in a master BUFR Code/Flag table, counting across all individual Code/Flag tables, and counting each defined code figure (within each individual Code table) or defined bit number (within each individual Flag table) as a separate entry. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00295">295</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00302">302</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1437,7 +1441,7 @@ Variables</h2></td></tr>
 
 <p>Maximum number of associated fields that can be in effect at any given time for a Table B descriptor. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00299">299</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00306">306</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1456,7 +1460,7 @@ Variables</h2></td></tr>
 <p>Maximum number of entries in the internal jump/link table that can contain new reference values. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00306">306</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00313">313</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1475,7 +1479,7 @@ Variables</h2></td></tr>
 <p>Maximum number of "long" character strings (greater than 8 bytes) that can be read from a data subset of a compressed BUFR message. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00313">313</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00320">320</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1493,7 +1497,7 @@ Variables</h2></td></tr>
 
 <p>Maximum number of entries in the internal string cache. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00324">324</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00331">331</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1512,7 +1516,7 @@ Variables</h2></td></tr>
 <p>Maximum number of default Section 0 or Section 1 values that can be overwritten within an output BUFR message by the NCEPLIBS-bufr software. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00321">321</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00328">328</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1531,7 +1535,7 @@ Variables</h2></td></tr>
 <p>Maximum number of Table A mnemonics in the internal jump/link table which contain at least one Table C operator with an XX value of 21 or greater in their definition. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00335">335</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00342">342</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1550,7 +1554,7 @@ Variables</h2></td></tr>
 <p>Maximum number of Table C operators with an XX value of 21 or greater that can appear within the data subset definition of a Table A mnemonic. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00343">343</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00350">350</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1586,7 +1590,7 @@ Variables</h2></td></tr>
 
 <p>Number of bytes in Section 0 of a BUFR message. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00365">365</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00372">372</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1604,7 +1608,7 @@ Variables</h2></td></tr>
 
 <p>Number of bytes in Section 1 of a BUFR message. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00368">368</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00375">375</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1622,7 +1626,7 @@ Variables</h2></td></tr>
 
 <p>Number of bytes in Section 2 of a BUFR message. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00371">371</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00378">378</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1640,7 +1644,7 @@ Variables</h2></td></tr>
 
 <p>Number of bytes in Section 3 of a BUFR message. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00374">374</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00381">381</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1658,7 +1662,7 @@ Variables</h2></td></tr>
 
 <p>Number of bytes in Section 5 of a BUFR message. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00377">377</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00384">384</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1695,7 +1699,26 @@ Variables</h2></td></tr>
 <p>Maximum number of BUFR files that can be connected to the NCEPLIBS-bufr software (for reading or writing) at any one time. </p>
 <p>This variable is initialized to a default value which can be overridden by a subsequent call to function <a class="el" href="arallocf_8F90.html#a4a77f5d91e7900692757350632f71ff0" title="Set a specified parameter to a specified value for use in dynamically allocating one or more internal...">isetprm()</a> within the application program. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00350">350</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00357">357</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+
+</div>
+</div>
+<a id="a82db11b82bf359e0fc90890e343f870a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82db11b82bf359e0fc90890e343f870a">&#9670;&nbsp;</a></span>part</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">logical modv_vars::part = .false.</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Status indicator to keep track of whether all future calls to subroutine <a class="el" href="openclosebf_8F90.html#ae88bf9794ed98ec79e9de0faff0093af" title="Read through every data subset in a BUFR file and return one or more specified data values from each ...">ufbtab()</a> should attempt to read through the entire BUFR file (the default), or whether they should attempt to return partial results from the file across multiple successive calls to the subroutine. </p>
+<p>This value can be changed at any time via a call to subroutine <a class="el" href="openclosebf_8F90.html#aa4082da6d0709b1f6c6e9ce564fb2a07" title="Specify whether future calls to subroutine ufbtab() should attempt to return full or partial results.">setpart()</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00034">34</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1713,7 +1736,7 @@ Variables</h2></td></tr>
 
 <p>Replication indicators used in DX BUFR tables. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00130">130</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00137">137</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>
@@ -1731,7 +1754,7 @@ Variables</h2></td></tr>
 
 <p>Replication tags corresponding to reps. </p>
 
-<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00134">134</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="modules__vars_8F90_source.html#l00141">141</a> of file <a class="el" href="modules__vars_8F90_source.html">modules_vars.F90</a>.</p>
 
 </div>
 </div>

@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">NCEPLIBS-bufr
-   &#160;<span id="projectnumber">12.2.0</span>
+   &#160;<span id="projectnumber">12.3.0</span>
    </div>
   </td>
  </tr>
@@ -190,7 +191,7 @@ Functions/Subroutines</h2></td></tr>
         <tr>
           <td class="memname">recursive integer function iupm </td>
           <td>(</td>
-          <td class="paramtype">character*4, intent(in)&#160;</td>
+          <td class="paramtype">character*(*), intent(in)&#160;</td>
           <td class="paramname"><em>cbay</em>, </td>
         </tr>
         <tr>
@@ -220,11 +221,11 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Woollen </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>1994-01-06 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cidecode_8F90_source.html#l00264">264</a> of file <a class="el" href="cidecode_8F90_source.html">cidecode.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cidecode_8F90_source.html#l00262">262</a> of file <a class="el" href="cidecode_8F90_source.html">cidecode.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort()</a>, <a class="el" href="misc_8F90.html#a1cd5e68cc460b388986ba7273abdd689">irev()</a>, and <a class="el" href="x4884_8F90.html#aa1e012dbd8da45797592cc65a399d71d">x84()</a>.</p>
+<p class="reference">References <a class="el" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort()</a>, <a class="el" href="borts_8F90.html#ae4cfa0677f2c9133899f467ff1edad98">bort_target_set()</a>, <a class="el" href="borts_8F90.html#a8fd9a01ac05bff2940ceef7479bed9cc">bort_target_unset()</a>, <a class="el" href="misc_8F90.html#a1cd5e68cc460b388986ba7273abdd689">irev()</a>, and <a class="el" href="x4884_8F90.html#aa1e012dbd8da45797592cc65a399d71d">x84()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="missing_8F90.html#a5f3cd824b4ddd60e635ec591d285b23f">icbfms()</a>, and <a class="el" href="dxtable_8F90.html#a81ea6d2408950b5728790bc8f8c80261">wrdxtb()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="missing_8F90.html#a5f3cd824b4ddd60e635ec591d285b23f">icbfms()</a>, <a class="el" href="namespacebufr__c2f__interface.html#a79905a0da1d042fc6568163b54ae351e">bufr_c2f_interface::iupm_c()</a>, and <a class="el" href="dxtable_8F90.html#a81ea6d2408950b5728790bc8f8c80261">wrdxtb()</a>.</p>
 
 </div>
 </div>
@@ -416,7 +417,7 @@ Functions/Subroutines</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="cidecode_8F90_source.html#l00079">79</a> of file <a class="el" href="cidecode_8F90_source.html">cidecode.F90</a>.</p>
 
-<p class="reference">References <a class="el" href="borts_8F90.html#adc4659c5e9171f22248cf61e054ddd17">bort()</a>, and <a class="el" href="cidecode_8F90.html#a07dda20577f7480095dff261d11241f8">upb()</a>.</p>
+<p class="reference">References <a class="el" href="borts_8F90.html#a21e8e28b70a9ffa60a66e2fb3965307c">bort()</a>, and <a class="el" href="cidecode_8F90.html#a07dda20577f7480095dff261d11241f8">upb()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="readwritesb_8F90.html#a1dab1c658cb8511cfd1cc6a360221da8">rdtree()</a>, <a class="el" href="readwriteval_8F90.html#aee2899967d88055f73e4d5ad954d7b5a">ufbget()</a>, <a class="el" href="openclosebf_8F90.html#ae88bf9794ed98ec79e9de0faff0093af">ufbtab()</a>, <a class="el" href="memmsgs_8F90.html#aef5cd104e2b7ce86e852e4878c8efc9d">ufbtam()</a>, and <a class="el" href="cidecode_8F90.html#a9934a3d9c66ea78c7c132066798583f9">up8()</a>.</p>
 
@@ -595,7 +596,7 @@ Functions/Subroutines</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>J. Ator </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2012-03-02 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cidecode_8F90_source.html#l00318">318</a> of file <a class="el" href="cidecode_8F90_source.html">cidecode.F90</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cidecode_8F90_source.html#l00331">331</a> of file <a class="el" href="cidecode_8F90_source.html">cidecode.F90</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacemoda__tables.html#a1ff254e3c0f169340a16225a17c5a2c2">moda_tables::ibt</a>, <a class="el" href="namespacemoda__nrv203.html#a2784f03b6c19452c601b1377a3ed59a1">moda_nrv203::ienrv</a>, <a class="el" href="namespacemoda__nrv203.html#ad4299c9b916b83272f07cba8d2d22d4f">moda_nrv203::inodnrv</a>, <a class="el" href="namespacemoda__tables.html#a17c04e8d3d8d361463e3f2fc0b3dd599">moda_tables::irf</a>, <a class="el" href="namespacemoda__tables.html#a1c370e229cc62002283ca2462296273e">moda_tables::isc</a>, <a class="el" href="namespacemoda__nrv203.html#a61eaac2cb0e3dd6de4d02e9986cab602">moda_nrv203::isnrv</a>, <a class="el" href="namespacemoda__nrv203.html#a7f37665c0422638e65824c8b9183169e">moda_nrv203::nnrv</a>, <a class="el" href="namespacemoda__nrv203.html#a9c4d7ff754fd79feb908c6858f7e4e5f">moda_nrv203::nrv</a>, <a class="el" href="namespacemoda__tables.html#a5f03be0ecd3fa7e059b9c74fb67cd4e4">moda_tables::tag</a>, and <a class="el" href="namespacemoda__nrv203.html#a5f80cd868154c06f202e5886d40750de">moda_nrv203::tagnrv</a>.</p>
 
