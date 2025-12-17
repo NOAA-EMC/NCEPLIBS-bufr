@@ -2,6 +2,7 @@
 
 ## Documentation for Previous Versions of NCEPLIBS-bufr
 
+* [NCEPLIBS-bufr-12.2.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v12.2.0/index.html)
 * [NCEPLIBS-bufr-12.1.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v12.1.0/index.html)
 * [NCEPLIBS-bufr-12.0.1](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v12.0.1/index.html)
 * [NCEPLIBS-bufr-12.0.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v12.0.0/index.html)
