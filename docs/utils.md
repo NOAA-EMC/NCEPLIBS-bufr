@@ -296,22 +296,24 @@ Usage:
 
 See the source code at sinv.F90
 
-Sample output for: `sinv gdas.20200812/00/gdas.t00z.satwnd.tm00.bufr_d`
+Sample output for: `sinv gdas.20260126/00/atmos/gdas.t00z.gpsro.tm00.bufr_d`
 ~~~
-003  METOP-1           7220
-004  METOP-2           8911
-055  METEOSAT-8      172430
-070  METEOSAT-1      176712
-173  Himawari-8      133715
-209  NOAA-18            147
-223  NOAA-19           1565
-224  NPP              41006  NOAA Imaging multi-spectral radiometer (vis/IR) VIIRS (Visible/infrared imager r
-225  NOAA-20          47747  NOAA Imaging multi-spectral radiometer (vis/IR) VIIRS (Visible/infrared imager r
-270  GOES-16        1156231  NOAA Imaging multi-spectral radiometer ABI (Advanced baseline imager)
-271  GOES-17        1890729  NOAA Imaging multi-spectral radiometer ABI (Advanced baseline imager)
-471  INSAT-3D         24108
-473  INSAT-3DR        79427
-784  AQUA              2850
+  id  satellite                    subsets    id  instrument
+
+   3  METOP-1 (Metop-B)                146   202  ESA/EUMETSAT Radiometer GRAS (GNSS receiver for atmospheric sounding)
+   5  METOP-3 (Metop-C)                156   202  ESA/EUMETSAT Radiometer GRAS (GNSS receiver for atmospheric sounding)
+  44  PAZ                                3   103  DLR Radiometer IGOR (Integrated GPS and Occultation Receiver)
+  66  Sentinel 6A                      252   104  NASA GNSS occultation sounder Tri-G (Triple-G (GPS, Galileo, GLONASS))
+ 267  PlanetiQ GNOMES-A               1336   534  PlanetiQ GNSS occultationsounder Pyxis-A (PlanetiQ Pyxis GNSS occultation receiver A)
+ 269  Spire Lemur 3U Cubesat          1195   530  Spire GNSS occultation sounder SGNOS-A (Spire global navigation satellite system occultation sounder A)
+ 750  COSMIC-2 E1                      224   104  NASA GNSS occultation sounder Tri-G (Triple-G (GPS, Galileo, GLONASS))
+ 751  COSMIC-2 E2                      167   104  NASA GNSS occultation sounder Tri-G (Triple-G (GPS, Galileo, GLONASS))
+ 753  COSMIC-2 E4                      247   104  NASA GNSS occultation sounder Tri-G (Triple-G (GPS, Galileo, GLONASS))
+ 754  COSMIC-2 E5                      222   104  NASA GNSS occultation sounder Tri-G (Triple-G (GPS, Galileo, GLONASS))
+ 755  COSMIC-2 E6                      310   104  NASA GNSS occultation sounder Tri-G (Triple-G (GPS, Galileo, GLONASS))
+ 825  KOMPSAT-5                          9   103  DLR Radiometer IGOR (Integrated GPS and Occultation Receiver)
+
+                                      4267
 ~~~
 
 <br>
