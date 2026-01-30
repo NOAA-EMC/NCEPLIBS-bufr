@@ -619,6 +619,9 @@ for kind in "4" "8"; do
     # Check atrcpt().
     (./test_bort_$kind atrcpt 1 catch) && exit 1
 
+    # Check bvers().
+    (./test_bort_$kind bvers 1 catch) && exit 1
+
     # Check closmg().
     (./test_bort_$kind closmg 1 catch) && exit 1
     (./test_bort_$kind closmg 2 catch) && exit 1

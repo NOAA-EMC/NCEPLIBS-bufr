@@ -25,6 +25,15 @@ extern "C" {
 #endif
 
 /**
+ * Deallocate one or more previously-allocated local variables.
+ *
+ * @param subpname - Name of local routine for which to deallocate variables
+ *
+ * @author Jeff Ator @date 2026-01-28
+ */
+void dealloc_vars_f(const char *subpname);
+
+/**
  * Open a Fortran file from a C program.
  *
  * @param unit - the integer to use as the Fortran logical unit.

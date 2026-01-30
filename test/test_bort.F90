@@ -125,6 +125,10 @@ program test_bort
   elseif (sub_name == 'bvers') then
      if (test_case == '1') then
         call bvers(char_short)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'BVERS - INPUT STRING MUST CONTAIN SPACE FOR AT LEAST' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'chekstab') then
      open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)

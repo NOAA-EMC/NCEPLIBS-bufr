@@ -1462,7 +1462,10 @@ void
 catch_bort_bvers(char *verstr, int verstr_len)
 {
     /* Set the target location to which to return if a bort error is caught. */
-    if ( setjmp(context) == 1 ) return;
+    if ( setjmp(context) == 1 ) {
+        dealloc_vars_f("bvers_f");
+        return;
+    }
 
     /* Recursively call the subroutine. */
     bvers_f(verstr, verstr_len);
