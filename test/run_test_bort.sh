@@ -739,6 +739,8 @@ for kind in "4" "8"; do
     (./test_bort_$kind readlc 3 catch) && exit 1
     (./test_bort_$kind readlc 4 catch) && exit 1
     (./test_bort_$kind readlc 5 catch) && exit 1
+    (./test_bort_$kind readlc 6 catch) && exit 1
+    (./test_bort_$kind readlc 7 catch) && exit 1
 
     # Check readmg().
     (./test_bort_$kind readmg 1 catch) && exit 1

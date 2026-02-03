@@ -421,6 +421,7 @@ catch_bort_readlc(int lunit, char *cstr, int cstr_len, char *chr, int chr_len, i
 {
     /* Set the target location to which to return if a bort error is caught. */
     if ( setjmp(context) == 1 ) {
+        dealloc_vars_f("readlc_f");
         *nchr = 1;
         return;
     }

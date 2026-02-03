@@ -1331,6 +1331,10 @@ program test_bort
         call openbf(11, 'IN', 11)
         call readns(11, char_val_8, jdate, iret)
         call readlc(11, char_1, 'ACRN')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'READLC - MNEMONIC ACRN           IS A CHARACTER STRING OF LENGTH  10' ) /= 0 ) stop 88
+        stop 0
      endif
      open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
      if (ios /= 0) stop 0
@@ -1381,6 +1385,10 @@ program test_bort
         call openbf(11, 'IN', 12)
         call readns(11, char_val_8, jdate, iret)
         call readlc(11, char_1, 'BULTIM')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'READLC - MNEMONIC BULTIM         IS A CHARACTER STRING OF LENGTH   6' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'readmg') then
      if (test_case == '1') then

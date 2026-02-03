@@ -39,6 +39,7 @@ module bufr_c2f_interface
   character(len=3), allocatable, target, save :: typ_f(:)
 
   character*(:), allocatable, save :: bvers_fstr_outer, bvers_fstr_inner
+  character*(:), allocatable, save :: readlc_fchr_outer, readlc_fchr_inner
 
   contains
 
@@ -129,6 +130,12 @@ module bufr_c2f_interface
             deallocate(bvers_fstr_inner)
           else
             deallocate(bvers_fstr_outer)
+          end if
+        case ('readlc_f')
+          if (allocated(readlc_fchr_inner)) then
+            deallocate(readlc_fchr_inner)
+          else
+            deallocate(readlc_fchr_outer)
           end if
       end select
     end subroutine dealloc_vars_c
@@ -507,7 +514,7 @@ module bufr_c2f_interface
     !> @param iret - Return value. 0 indicates success -1 indicates failure.
     !>
     !> @author Ronald McLaren @date 2022-08-08
-    subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str_len, iret) &
+    recursive subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str_len, iret) &
             bind(C, name='nemdefs_f')
       integer(c_int), value, intent(in) :: file_unit, unit_str_len, desc_str_len
       character(kind=c_char), intent(in) :: mnemonic(*)
@@ -551,7 +558,7 @@ module bufr_c2f_interface
     !> @param iret - Return value. 0 indicates success -1 indicates failure.
     !>
     !> @author Ronald McLaren  @date 2022-08-08
-    subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits, iret) &
+    recursive subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits, iret) &
             bind(C, name='nemspecs_f')
       integer(c_int), value, intent(in) :: file_unit, mnemonic_idx
       character(kind=c_char), intent(in) :: mnemonic(*)
@@ -827,17 +834,16 @@ module bufr_c2f_interface
     !> @param lunit - Fortran logical unit.
     !> @param str_id - Mnemonic for the string for the source field plus the index number
     !>                 (ex: 'IDMN#2')
-    !> @param output_str - The pre-allocated result string
-    !> @param output_str_len - Size of the result string buffer
+    !> @param cchr - The pre-allocated result string
+    !> @param cchr_len - Size of the result string buffer
     !>
     !> @author Ronald McLaren @date 2023-07-03
-    recursive subroutine readlc_c(lunit, str_id, output_str, output_str_len) bind(C, name='readlc_f')
-      integer(c_int), value, intent(in) :: lunit, output_str_len
+    recursive subroutine readlc_c(lunit, str_id, cchr, cchr_len) bind(C, name='readlc_f')
+      integer(c_int), value, intent(in) :: lunit, cchr_len
       character(kind=c_char), intent(in) :: str_id(*)
-      character(kind=c_char), intent(out) :: output_str(*)
-      character(len=256) :: output_str_f
+      character(kind=c_char), intent(out) :: cchr(*)
       character(len=14) :: str
-      integer :: output_str_len_f, lstr
+      integer :: lchr, lstr, flen
 
       lstr = get_c_string_length(str_id)
       if (lstr == 0) then
@@ -847,10 +853,26 @@ module bufr_c2f_interface
         str = transfer(str_id(1:lstr), str)
       endif
 
-      call readlc(lunit, output_str_f, str(1:lstr))
+      ! Strings allocated within this subroutine will be for use in Fortran, so we won't need
+      ! space for a trailing null and can therefore subtract 1 from cchr_len.
+      flen = max(1,cchr_len-1)
 
-      output_str_len_f = len(trim(output_str_f)) + 1  ! add 1 for the null terminator
-      call copy_f_c_str(output_str_f, output_str, min(output_str_len_f, output_str_len))
+      if (allocated(readlc_fchr_outer)) then
+        ! A previous call was directly made to this subroutine from within a C application
+        ! program with bort catching enabled.  So we now need to allocate a separate "inner"
+        ! string and recursively call readlc() again with that string.
+        allocate(character*(flen) :: readlc_fchr_inner)
+        call readlc(lunit, readlc_fchr_inner, str(1:lstr))
+        lchr = len(trim(readlc_fchr_inner)) + 1  ! add 1 for the null terminator
+        call copy_f_c_str(readlc_fchr_inner, cchr, min(lchr, cchr_len))
+        deallocate(readlc_fchr_inner)
+      else
+        allocate(character*(flen) :: readlc_fchr_outer)
+        call readlc(lunit, readlc_fchr_outer, str(1:lstr))
+        lchr = len(trim(readlc_fchr_outer)) + 1  ! add 1 for the null terminator
+        call copy_f_c_str(readlc_fchr_outer, cchr, min(lchr, cchr_len))
+        deallocate(readlc_fchr_outer)
+      end if
     end subroutine readlc_c
 
     !> Write a long string to the BUFR file.

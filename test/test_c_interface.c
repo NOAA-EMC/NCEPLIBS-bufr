@@ -116,10 +116,14 @@ void test_basicInterface()
 void test_longStrings()
 {
     static const int LONG_STR_LEN = 120;
+    static const int SHORT_STR_LEN = 7;
+    static const int BORT_STRING_LEN = 200;
+
     const char* mnemonic = "SOFTV";
 
-    int iddate;
+    int iddate, iret;
     char msg_subset[SUBSET_STRING_LEN];
+    char bort_string[BORT_STRING_LEN];
 
     open_f(BUFR_FILE_UNIT, INPUT_FILE_LONG_STR);
     openbf_f(BUFR_FILE_UNIT, "IN", BUFR_FILE_UNIT);
@@ -128,6 +132,10 @@ void test_longStrings()
     int il, im; // throw away
 
     char long_str[LONG_STR_LEN];
+    char short_str[SHORT_STR_LEN];
+
+    /* Turn on bort catching. */
+    if ( ( iret = catch_borts_f("Y") ) != 0 ) exit(1);
 
     int subset_idx = 0;
     while (ireadmg_f(BUFR_FILE_UNIT, msg_subset, &iddate, SUBSET_STRING_LEN) == 0)
@@ -135,6 +143,13 @@ void test_longStrings()
         while ((ireadsb_f(BUFR_FILE_UNIT) == 0) && (subset_idx < MAX_SUBSETS))
         {
             status_f(BUFR_FILE_UNIT, &bufrLoc, &il, &im);
+            readlc_f(BUFR_FILE_UNIT, mnemonic, short_str, SHORT_STR_LEN);
+            check_for_bort_f( bort_string, BORT_STRING_LEN );
+            if ( ( strlen( bort_string ) == 0 ) ||
+                 ( strncmp( bort_string, "BUFRLIB: READLC - MNEMONIC SOFTV          IS A CHARACTER STRING OF LENGTH  12", 77 ) != 0 ) ) {
+                printf( "%s\n", "readlc check_for_bort short_str check FAILED!" );
+                exit(1);
+            }
             readlc_f(BUFR_FILE_UNIT, mnemonic, long_str, LONG_STR_LEN);
             break;
         }
