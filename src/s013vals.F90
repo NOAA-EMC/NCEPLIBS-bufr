@@ -72,123 +72,124 @@ recursive subroutine gets1loc(s1mnem,iben,isbyt,iwid,iret)
   iret = 0
   iwid = 8
 
-  if(s1mnem=='LEN1') then
-    isbyt = 1
-    iwid = 24
-  else if(s1mnem=='BMT') then
-    isbyt = 4
-  else if(s1mnem=='OGCE') then
-    if(iben==3) then
-      isbyt = 6
-    else
-      ! Note that this location is actually the same for both edition 2 and edition 4 of BUFR
-      isbyt = 5
-      iwid = 16
-    endif
-  else if(s1mnem=='GSES') then
-    if(iben==3) then
-      isbyt = 5
-    else if(iben==4) then
-      isbyt = 7
-      iwid = 16
-    else
+  select case (s1mnem)
+    case ('LEN1')
+      isbyt = 1
+      iwid = 24
+    case ('BMT')
+      isbyt = 4
+    case ('OGCE')
+      if(iben == 3) then
+        isbyt = 6
+      else
+        ! Note that this location is actually the same for both edition 2 and edition 4 of BUFR
+        isbyt = 5
+        iwid = 16
+      endif
+    case ('GSES')
+      if(iben == 3) then
+        isbyt = 5
+      else if(iben == 4) then
+        isbyt = 7
+        iwid = 16
+      else
+        iret = -1
+      endif
+    case ('USN')
+      if(iben == 4) then
+        isbyt = 9
+      else
+        isbyt = 7
+      endif
+    case ('ISC2')
+      iwid = 1
+      if(iben == 4) then
+        isbyt = 10
+      else
+        isbyt = 8
+      endif
+    case ('MTYP')
+      if(iben == 4) then
+        isbyt = 11
+      else
+        isbyt = 9
+      endif
+    case ('MSBTI')
+      if(iben == 4) then
+        isbyt = 12
+      else
+        iret = -1
+      endif
+    case ('MSBT')
+      if(iben == 4) then
+        isbyt = 13
+      else
+        isbyt = 10
+      endif
+    case ('MTV')
+      if(iben == 4) then
+        isbyt = 14
+      else
+        isbyt = 11
+      endif
+    case ('MTVL')
+      if(iben == 4) then
+        isbyt = 15
+      else
+        isbyt = 12
+      endif
+    case ('YEAR')
+      if(iben == 4) then
+        isbyt = 16
+        iwid = 16
+      else
+        iret = -1
+      endif
+    case ('YCEN')
+      if(iben < 4) then
+        isbyt = 13
+      else
+        iret = -1
+      endif
+    case ('CENT')
+      if(iben < 4) then
+        isbyt = 18
+      else
+        iret = -1
+      endif
+    case ('MNTH')
+      if(iben == 4) then
+        isbyt = 18
+      else
+        isbyt = 14
+      endif
+    case ('DAYS')
+      if(iben == 4) then
+        isbyt = 19
+      else
+        isbyt = 15
+      endif
+    case ('HOUR')
+      if(iben == 4) then
+        isbyt = 20
+      else
+        isbyt = 16
+      endif
+    case ('MINU')
+      if(iben == 4) then
+        isbyt = 21
+      else
+        isbyt = 17
+      endif
+    case ('SECO')
+      if(iben == 4) then
+        isbyt = 22
+      else
+        iret = -1
+      endif
+    case default
       iret = -1
-    endif
-  else if(s1mnem=='USN') then
-    if(iben==4) then
-      isbyt = 9
-    else
-      isbyt = 7
-    endif
-  else if(s1mnem=='ISC2') then
-    iwid = 1
-    if(iben==4) then
-      isbyt = 10
-    else
-      isbyt = 8
-    endif
-  else if(s1mnem=='MTYP') then
-    if(iben==4) then
-      isbyt = 11
-    else
-      isbyt = 9
-    endif
-  else if(s1mnem=='MSBTI') then
-    if(iben==4) then
-      isbyt = 12
-    else
-      iret = -1
-    endif
-  else if(s1mnem=='MSBT') then
-    if(iben==4) then
-      isbyt = 13
-    else
-      isbyt = 10
-    endif
-  else if(s1mnem=='MTV') then
-    if(iben==4) then
-      isbyt = 14
-    else
-      isbyt = 11
-    endif
-  else if(s1mnem=='MTVL') then
-    if(iben==4) then
-      isbyt = 15
-    else
-      isbyt = 12
-    endif
-  else if(s1mnem=='YEAR') then
-    if(iben==4) then
-      isbyt = 16
-      iwid = 16
-    else
-      iret = -1
-    endif
-  else if(s1mnem=='YCEN') then
-    if(iben<4) then
-      isbyt = 13
-    else
-      iret = -1
-    endif
-  else if(s1mnem=='CENT') then
-    if(iben<4) then
-      isbyt = 18
-    else
-      iret = -1
-    endif
-  else if(s1mnem=='MNTH') then
-    if(iben==4) then
-      isbyt = 18
-    else
-      isbyt = 14
-    endif
-  else if(s1mnem=='DAYS') then
-    if(iben==4) then
-      isbyt = 19
-    else
-      isbyt = 15
-    endif
-  else if(s1mnem=='HOUR') then
-    if(iben==4) then
-      isbyt = 20
-    else
-      isbyt = 16
-    endif
-  else if(s1mnem=='MINU') then
-    if(iben==4) then
-      isbyt = 21
-    else
-      isbyt = 17
-    endif
-  else if(s1mnem=='SECO') then
-    if(iben==4) then
-      isbyt = 22
-    else
-      iret = -1
-    endif
-  else
-    iret = -1
-  endif
+  end select
 
   return
 end subroutine gets1loc
