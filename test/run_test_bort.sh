@@ -627,6 +627,7 @@ for kind in "4" "8"; do
     (./test_bort_$kind closmg 2 catch) && exit 1
 
     # Check cnved4().
+    (./test_bort_$kind cnved4 1 catch) && exit 1
     (./test_bort_$kind cnved4 2 catch) && exit 1
 
     # Check codflg().
@@ -674,6 +675,11 @@ for kind in "4" "8"; do
     (./test_bort_$kind getcfmng 1 catch) && exit 1
     (./test_bort_$kind getcfmng 2 catch) && exit 1
     (./test_bort_$kind getcfmng 3 catch) && exit 1
+    (./test_bort_$kind getcfmng 4 catch) && exit 1
+    (./test_bort_$kind getcfmng 5 catch) && exit 1
+    (./test_bort_$kind getcfmng 6 catch) && exit 1
+    (./test_bort_$kind getcfmng 7 catch) && exit 1
+    (./test_bort_$kind getcfmng 8 catch) && exit 1
 
     # Check ifbget().
     (./test_bort_$kind ifbget 1 catch) && exit 1

@@ -190,7 +190,7 @@ program test_bort
      call readerme(ibfmg, 31, char_val_8, jdate, iret)
      call cnved4(ibfmg, 1, ibay)
      call check_for_bort( errstr, errstr_len )
-     if (test_case == '2' .and. errstr_len > 0 .and. &
+     if ( errstr_len > 0 .and. &
        index( errstr(1:errstr_len), 'CNVED4 - OVERFLOW OF OUTPUT (EDITION 4) MESSAGE ARRAY' ) /= 0 ) stop 88
      stop 0
   elseif (sub_name == 'codflg') then
@@ -507,26 +507,46 @@ program test_bort
        call openbf(11, 'SEC3', 11)
        call readns(11, char_val_8, jdate, iret)
        call getcfmng(11, 'GCLONG', 254, ' ', -1, char_30, len, iret)
+       call check_for_bort( errstr, errstr_len )
+       if ( errstr_len > 0 .and. &
+         index( errstr(1:errstr_len), 'GETCFMNG - TO USE THIS SUBROUTINE, MUST FIRST CALL SUBROUTINE CODFLG' ) /= 0 ) stop 88
+       stop 0
      elseif (test_case == '5') then
        call openbf(11, 'SEC3', 11)
        call readns(11, char_val_8, jdate, iret)
        call codflg('Y')
        call getcfmng(11, 'GXLONG', 254, ' ', -1, char_30, len, iret)
+       call check_for_bort( errstr, errstr_len )
+       if ( errstr_len > 0 .and. &
+         index( errstr(1:errstr_len), 'GETCFMNG - MNEMONIC GXLONG   NOT FOUND IN TABLE B' ) /= 0 ) stop 88
+       stop 0
      elseif (test_case == '6') then
        call openbf(11, 'SEC3', 11)
        call readns(11, char_val_8, jdate, iret)
        call codflg('Y')
        call getcfmng(11, 'SSNY', 254, ' ', -1, char_30, len, iret)
+       call check_for_bort( errstr, errstr_len )
+       if ( errstr_len > 0 .and. &
+         index( errstr(1:errstr_len), 'GETCFMNG - MNEMONIC SSNY     IS NOT A CODE OR FLAG TABLE' ) /= 0 ) stop 88
+       stop 0
      elseif (test_case == '7') then
        call openbf(11, 'SEC3', 11)
        call readns(11, char_val_8, jdate, iret)
        call codflg('Y')
        call getcfmng(11, 'SAID', 254, 'GXES', 7, char_30, len, iret)
+       call check_for_bort( errstr, errstr_len )
+       if ( errstr_len > 0 .and. &
+         index( errstr(1:errstr_len), 'GETCFMNG - MNEMONIC GXES     NOT FOUND IN TABLE B' ) /= 0 ) stop 88
+       stop 0
      elseif (test_case == '8') then
        call openbf(11, 'SEC3', 11)
        call readns(11, char_val_8, jdate, iret)
        call codflg('Y')
        call getcfmng(11, 'SAID', 254, 'SSNX', 7, char_30, len, iret)
+       call check_for_bort( errstr, errstr_len )
+       if ( errstr_len > 0 .and. &
+         index( errstr(1:errstr_len), 'GETCFMNG - MNEMONIC SSNX     IS NOT A CODE OR FLAG TABLE' ) /= 0 ) stop 88
+       stop 0
      endif
   elseif (sub_name == 'getntbe') then
      open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)

@@ -129,7 +129,7 @@ void test_longStrings()
     openbf_f(BUFR_FILE_UNIT, "IN", BUFR_FILE_UNIT);
 
     int bufrLoc;
-    int il, im; // throw away
+    int il, im;
 
     char long_str[LONG_STR_LEN];
     char short_str[SHORT_STR_LEN];
@@ -165,6 +165,14 @@ void test_longStrings()
     if (strncmp(long_str, "MW41 2.17.0", 11) != 0)
     {
         printf("%s", "Didn't read the correct long string for SOFTV.");
+        exit(1);
+    }
+
+    getcfmng_f(BUFR_FILE_UNIT, "GCLONG", 254, " ", -1, long_str, LONG_STR_LEN, &il);
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( ( strlen( bort_string ) == 0 ) ||
+         ( strncmp( bort_string, "BUFRLIB: GETCFMNG - TO USE THIS SUBROUTINE, MUST FIRST CALL SUBROUTINE CODFLG", 77 ) != 0 ) ) {
+        printf( "%s\n", "getcfmng check_for_bort check FAILED!" );
         exit(1);
     }
 

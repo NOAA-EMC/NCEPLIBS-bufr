@@ -40,6 +40,7 @@ module bufr_c2f_interface
 
   character*(:), allocatable, save :: bvers_fstr_outer, bvers_fstr_inner
   character*(:), allocatable, save :: readlc_fchr_outer, readlc_fchr_inner
+  character*(:), allocatable, save :: getcfmng_cmng_outer, getcfmng_cmng_inner
 
   contains
 
@@ -136,6 +137,12 @@ module bufr_c2f_interface
             deallocate(readlc_fchr_inner)
           else
             deallocate(readlc_fchr_outer)
+          end if
+        case ('getcfmng_f')
+          if (allocated(getcfmng_cmng_inner)) then
+            deallocate(getcfmng_cmng_inner)
+          else
+            deallocate(getcfmng_cmng_outer)
           end if
       end select
     end subroutine dealloc_vars_c
@@ -843,7 +850,7 @@ module bufr_c2f_interface
       character(kind=c_char), intent(in) :: str_id(*)
       character(kind=c_char), intent(out) :: cchr(*)
       character(len=14) :: str
-      integer :: lchr, lstr, flen
+      integer :: lchr, lstr, lallc
 
       lstr = get_c_string_length(str_id)
       if (lstr == 0) then
@@ -855,22 +862,22 @@ module bufr_c2f_interface
 
       ! Strings allocated within this subroutine will be for use in Fortran, so we won't need
       ! space for a trailing null and can therefore subtract 1 from cchr_len.
-      flen = max(1,cchr_len-1)
+      lallc = max(1,cchr_len-1)
 
       if (allocated(readlc_fchr_outer)) then
         ! A previous call was directly made to this subroutine from within a C application
         ! program with bort catching enabled.  So we now need to allocate a separate "inner"
         ! string and recursively call readlc() again with that string.
-        allocate(character*(flen) :: readlc_fchr_inner)
+        allocate(character*(lallc) :: readlc_fchr_inner)
         call readlc(lunit, readlc_fchr_inner, str(1:lstr))
         lchr = len(trim(readlc_fchr_inner)) + 1  ! add 1 for the null terminator
-        call copy_f_c_str(readlc_fchr_inner, cchr, min(lchr, cchr_len))
+        call copy_f_c_str(readlc_fchr_inner, cchr, lchr)
         deallocate(readlc_fchr_inner)
       else
-        allocate(character*(flen) :: readlc_fchr_outer)
+        allocate(character*(lallc) :: readlc_fchr_outer)
         call readlc(lunit, readlc_fchr_outer, str(1:lstr))
         lchr = len(trim(readlc_fchr_outer)) + 1  ! add 1 for the null terminator
-        call copy_f_c_str(readlc_fchr_outer, cchr, min(lchr, cchr_len))
+        call copy_f_c_str(readlc_fchr_outer, cchr, lchr)
         deallocate(readlc_fchr_outer)
       end if
     end subroutine readlc_c
@@ -1494,22 +1501,22 @@ module bufr_c2f_interface
     recursive subroutine bvers_c(cverstr, cverstr_len) bind(C, name='bvers_f')
       character(kind=c_char), intent(out) :: cverstr(*)
       integer(c_int), value, intent(in) :: cverstr_len
-      integer :: flen
+      integer :: lallc
 
       ! Strings allocated within this subroutine will be for use in Fortran, so we won't need
       ! space for a trailing null and can therefore subtract 1 from cverstr_len.
-      flen = max(1,cverstr_len-1)
+      lallc = max(1,cverstr_len-1)
 
       if (allocated(bvers_fstr_outer)) then
         ! A previous call was directly made to this subroutine from within a C application
         ! program with bort catching enabled.  So we now need to allocate a separate "inner"
         ! string and recursively call bvers() again with that string.
-        allocate(character*(flen) :: bvers_fstr_inner)
+        allocate(character*(lallc) :: bvers_fstr_inner)
         call bvers(bvers_fstr_inner)
         call copy_f_c_str(bvers_fstr_inner, cverstr, cverstr_len)
         deallocate(bvers_fstr_inner)
       else
-        allocate(character*(flen) :: bvers_fstr_outer)
+        allocate(character*(lallc) :: bvers_fstr_outer)
         call bvers(bvers_fstr_outer)
         call copy_f_c_str(bvers_fstr_outer, cverstr, cverstr_len)
         deallocate(bvers_fstr_outer)
@@ -1681,9 +1688,8 @@ module bufr_c2f_interface
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: cnemoi(*), cnemod(*)
       character(kind=c_char), intent(out) :: cmeang_c(*)
-      character(len=600) :: cmeang
       character(len=8) :: nemoi, nemod
-      integer :: lcni, lcnd, lcmg
+      integer :: lcni, lcnd, lcmg, lallc
 
       lcni = get_c_string_length(cnemoi)
       if (lcni == 0) then
@@ -1700,10 +1706,26 @@ module bufr_c2f_interface
         nemod = transfer(cnemod(1:lcnd), nemod)
       endif
 
-      call getcfmng(lunit, nemoi(1:lcni), ivali, nemod(1:lcnd), ivald, cmeang(1:min(len(cmeang), lcmgc)), lcmg, iret)
+      ! Strings allocated within this subroutine will be for use in Fortran, so we won't need
+      ! space for a trailing null and can therefore subtract 1 from lcmgc.
+      lallc = max(1,lcmgc-1)
 
-      lcmg = lcmg + 1  ! add 1 for the null terminator
-      call copy_f_c_str(cmeang, cmeang_c, min(lcmg, lcmgc))
+      if (allocated(getcfmng_cmng_outer)) then
+        ! A previous call was directly made to this subroutine from within a C application
+        ! program with bort catching enabled.  So we now need to allocate a separate "inner"
+        ! string and recursively call getcfmng() again with that string.
+        allocate(character*(lallc) :: getcfmng_cmng_inner)
+        call getcfmng(lunit, nemoi(1:lcni), ivali, nemod(1:lcnd), ivald, getcfmng_cmng_inner, lcmg, iret)
+        lcmg = lcmg + 1  ! add 1 for the null terminator
+        call copy_f_c_str(getcfmng_cmng_inner, cmeang_c, lcmg)
+        deallocate(getcfmng_cmng_inner)
+      else
+        allocate(character*(lallc) :: getcfmng_cmng_outer)
+        call getcfmng(lunit, nemoi(1:lcni), ivali, nemod(1:lcnd), ivald, getcfmng_cmng_outer, lcmg, iret)
+        lcmg = lcmg + 1  ! add 1 for the null terminator
+        call copy_f_c_str(getcfmng_cmng_outer, cmeang_c, lcmg)
+        deallocate(getcfmng_cmng_outer)
+      end if
     end subroutine getcfmng_c
 
     !> Get the bit settings equivalent to a given numerical value for a flag table mnemonic.

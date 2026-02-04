@@ -553,6 +553,7 @@ catch_bort_getcfmng(int lunit, char *cnemoi, int lcni, int ivali, char *cnemod, 
 {
     /* Set the target location to which to return if a bort error is caught. */
     if ( setjmp(context) == 1 ) {
+        dealloc_vars_f("getcfmng_f");
         *lnmng = 1;
         return;
     }
