@@ -38,7 +38,7 @@ within the first of the above cmake commands.  Otherwise the corresponding defau
 | Option | Description | Default Value |
 |--------|-------------|---------------|
 | CMAKE_INSTALL_PREFIX | Installation path | /usr/local |
-| MASTER_TABLE_DIR | Installation path of master tables | $CMAKE_INSTALL_PREFIX |
+| MASTER_TABLE_DIR | Installation path of master tables | $CMAKE_INSTALL_PREFIX/tables |
 | CMAKE_POSITION_INDEPENDENT_CODE | Enable position-independent code (PIC) for static build | OFF |
 | ENABLE_DOCS | Enable generation of doxygen-based documentation. | OFF |
 | ENABLE_PYTHON | Enable building python module 'ncepbufr' | OFF |

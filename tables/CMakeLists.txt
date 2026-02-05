@@ -3,7 +3,7 @@
 #
 # Jeff Ator
 
-# This is the list of tables.
+# This is the list of master BUFR tables.
 foreach(type "TableB" "TableD" "CodeFlag")
   foreach(version RANGE 13 45)
     list(APPEND bufr_tables bufrtab.${type}_STD_0_${version})
@@ -11,12 +11,12 @@ foreach(type "TableB" "TableD" "CodeFlag")
   list(APPEND bufr_tables bufrtab.${type}_LOC_0_7_1)
 endforeach()
 
-# Link BUFR tables in the build area
+# Link the tables in the build area
 foreach(FILENAME ${bufr_tables})
   execute_process( COMMAND ${CMAKE_COMMAND} -E create_symlink
                    ${CMAKE_CURRENT_SOURCE_DIR}/${FILENAME}
                    ${CMAKE_CURRENT_BINARY_DIR}/${FILENAME} )
 endforeach(FILENAME)
 
-# Install BUFR tables during installation
-install(FILES ${bufr_tables} DESTINATION ${MASTER_TABLE_DIR})
+# Install the tables during configuration, so they're available for use with ctest
+file(COPY ${bufr_tables} DESTINATION ${MASTER_TABLE_DIR})
