@@ -25,6 +25,15 @@ extern "C" {
 #endif
 
 /**
+ * Deallocate one or more previously-allocated local variables.
+ *
+ * @param subpname - Name of local routine for which to deallocate variables
+ *
+ * @author Jeff Ator @date 2026-01-28
+ */
+void dealloc_vars_f(const char *subpname);
+
+/**
  * Open a Fortran file from a C program.
  *
  * @param unit - the integer to use as the Fortran logical unit.
@@ -472,12 +481,12 @@ void get_inv_f(int lun, int **inv_ptr, int *inv_size);
  * @param lunit - Fortran logical unit.
  * @param str_id - Mnemonic for the string for the source field plus the index number
  *                  (ex: 'IDMN#2')
- * @param output_str - The pre-allocated result string
- * @param output_str_len - Size of the result string buffer
+ * @param cchr - The pre-allocated result string
+ * @param cchr_len - Size of the result string buffer
  *
  * @author Ronald McLaren @date 2023-07-03
  */
-void readlc_f(int lunit, const char *str_id, char *output_str, int output_str_len);
+void readlc_f(int lunit, const char *str_id, char *cchr, int cchr_len);
 
 /**
  * Write a long string to the BUFR file.

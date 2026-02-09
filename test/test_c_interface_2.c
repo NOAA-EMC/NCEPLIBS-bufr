@@ -28,6 +28,7 @@ int main() {
     int iddate;
     char msg_subset[SUBSET_STRING_LEN];
     char bort_string[BORT_STRING_LEN];
+    char bv_short[3], bv_normal[9];
 
     double r8arr[180][15];
     double* r8arr_ptr = &r8arr[0][0];
@@ -42,6 +43,22 @@ int main() {
 
     /* Turn on bort catching. */
     if ( ( iret = catch_borts_f("Y") ) != 0 ) exit(1);
+
+    /* Test catching a bort from bvers by intentionally passing in a short string. */
+    bvers_f( bv_short, sizeof(bv_short) );
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( ( strlen( bort_string ) == 0 ) ||
+         ( strcmp( bort_string, "BUFRLIB: BVERS - INPUT STRING MUST CONTAIN SPACE FOR AT LEAST 8 CHARACTERS" ) != 0 ) ) {
+        printf( "%s\n", "bvers check_for_bort short check FAILED!" );
+        exit(1);
+    }
+    /* Now pass in a properly-sized string. */
+    bvers_f( bv_normal, sizeof(bv_normal) );
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( strlen( bort_string ) != 0 ) {
+        printf( "%s\n", "bvers check_for_bort normal check FAILED!" );
+        exit(1);
+    }
 
     /* Open the input file to the library. */
     openbf_f( BUFR_INPUT_FILE_UNIT, "SEC3", BUFR_INPUT_FILE_UNIT );

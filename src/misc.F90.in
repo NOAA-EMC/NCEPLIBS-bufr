@@ -363,21 +363,26 @@ recursive subroutine bvers (cverstr)
   implicit none
 
   character*(*), intent(out) :: cverstr
-  character*9 c_cverstr
+  character*(:), allocatable :: c_cverstr
 
-  integer cvslen, bort_target_set
+  integer lcvs, lccvs, bort_target_set
+
+  cverstr = ' '
+  lcvs = len(cverstr)
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 
   if (bort_target_set() == 1) then
-    call catch_bort_bvers_c(c_cverstr,len(c_cverstr))
-    cvslen = min(len(cverstr),8)
-    cverstr(1:cvslen) = c_cverstr(1:cvslen)
+    lccvs = lcvs + 1  ! Allow extra byte in c_cverstr for the trailing null in C
+    allocate(character*(lccvs) :: c_cverstr)
+    call catch_bort_bvers_c(c_cverstr,lccvs)
+    cverstr(1:lcvs) = c_cverstr(1:lcvs)
+    deallocate(c_cverstr)
     call bort_target_unset
     return
   endif
 
-  if (len(cverstr)<8) call bort('BUFRLIB: BVERS - INPUT STRING MUST CONTAIN SPACE FOR AT LEAST 8 CHARACTERS')
+  if (lcvs<8) call bort('BUFRLIB: BVERS - INPUT STRING MUST CONTAIN SPACE FOR AT LEAST 8 CHARACTERS')
 
   cverstr = '@PROJECT_VERSION@'
 

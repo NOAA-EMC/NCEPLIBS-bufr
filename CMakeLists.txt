@@ -31,7 +31,7 @@ set(TEST_FILE_DIR "." CACHE STRING "Check this directory for test files before u
 message(STATUS "Finding test data files in directory ${TEST_FILE_DIR}.")
 
 set(MASTER_TABLE_DIR "${CMAKE_INSTALL_PREFIX}/tables" CACHE STRING "Installation location of Master BUFR Tables")
-
+message(STATUS "Storing master tables into directory ${MASTER_TABLE_DIR}.")
 string(LENGTH "${MASTER_TABLE_DIR}" _lenmtd)
 set(_lenslmax 60)  # max number of chars of ${MASTER_TABLE_DIR} to store on a single line of a Fortran90 or C source code file
 if(${_lenmtd} LESS_EQUAL ${_lenslmax})

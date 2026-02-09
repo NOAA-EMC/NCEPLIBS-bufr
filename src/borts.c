@@ -421,6 +421,7 @@ catch_bort_readlc(int lunit, char *cstr, int cstr_len, char *chr, int chr_len, i
 {
     /* Set the target location to which to return if a bort error is caught. */
     if ( setjmp(context) == 1 ) {
+        dealloc_vars_f("readlc_f");
         *nchr = 1;
         return;
     }
@@ -552,6 +553,7 @@ catch_bort_getcfmng(int lunit, char *cnemoi, int lcni, int ivali, char *cnemod, 
 {
     /* Set the target location to which to return if a bort error is caught. */
     if ( setjmp(context) == 1 ) {
+        dealloc_vars_f("getcfmng_f");
         *lnmng = 1;
         return;
     }
@@ -1462,7 +1464,10 @@ void
 catch_bort_bvers(char *verstr, int verstr_len)
 {
     /* Set the target location to which to return if a bort error is caught. */
-    if ( setjmp(context) == 1 ) return;
+    if ( setjmp(context) == 1 ) {
+        dealloc_vars_f("bvers_f");
+        return;
+    }
 
     /* Recursively call the subroutine. */
     bvers_f(verstr, verstr_len);

@@ -1018,69 +1018,71 @@ recursive integer function isetprm ( cprmnm, ipval ) result ( iret )
   endif
 
   iret = 0
-  if ( cprmnm == 'MAXSS' ) then
-    maxss = ipval
-  else if ( cprmnm == 'NFILES' ) then
-    nfiles = ipval
-  else if ( cprmnm == 'MXMSGL' ) then
-    mxmsgl = ipval
-  else if ( cprmnm == 'MXDXTS' ) then
-    mxdxts = ipval
-  else if ( cprmnm == 'MAXMSG' ) then
-    maxmsg = ipval
-  else if ( cprmnm == 'MAXMEM' ) then
-    maxmem = ipval
-  else if ( cprmnm == 'MAXTBA' ) then
-    maxtba = ipval
-  else if ( cprmnm == 'MAXTBB' ) then
-    maxtbb = ipval
-  else if ( cprmnm == 'MAXTBD' ) then
-    maxtbd = ipval
-  else if ( cprmnm == 'MAXJL' ) then
-    maxjl = ipval
-  else if ( cprmnm == 'MXCDV' ) then
-    mxcdv = ipval
-  else if ( cprmnm == 'MXLCC' ) then
-    mxlcc = ipval
-  else if ( cprmnm == 'MXCSB' ) then
-    mxcsb = ipval
-  else if ( cprmnm == 'MXMTBB' ) then
-    mxmtbb = ipval
-  else if ( cprmnm == 'MXMTBD' ) then
-    mxmtbd = ipval
-  else if ( cprmnm == 'MXMTBF' ) then
-    mxmtbf = ipval
-  else if ( cprmnm == 'MAXCD' ) then
-    maxcd = ipval
-  else if ( cprmnm == 'MXS01V' ) then
-    mxs01v = ipval
-  else if ( cprmnm == 'MXBTM' ) then
-    mxbtm = ipval
-  else if ( cprmnm == 'MXBTMSE' ) then
-    mxbtmse = ipval
-  else if ( cprmnm == 'MXTAMC' ) then
-    mxtamc = ipval
-  else if ( cprmnm == 'MXTCO' ) then
-    mxtco = ipval
-  else if ( cprmnm == 'MXNRV' ) then
-    mxnrv = ipval
-  else if ( cprmnm == 'MXRST' ) then
-    mxrst = ipval
-  else if ( cprmnm == 'MXH4WLC' ) then
-    mxh4wlc = ipval
-  else if ( cprmnm == 'MXCNEM' ) then
-    mxcnem = ipval
-  else if ( cprmnm == 'MAXNC' ) then
-    maxnc = ipval
-  else if ( cprmnm == 'MXNAF' ) then
-    mxnaf = ipval
-  else
-    iret = -1
-    call errwrt('++++++++++++++++++WARNING+++++++++++++++++++')
-    errstr = 'BUFRLIB: ISETPRM - UNKNOWN INPUT PARAMETER '// cprmnm // ' -- NO ACTION WAS TAKEN'
-    call errwrt(errstr)
-    call errwrt('++++++++++++++++++WARNING+++++++++++++++++++')
-  endif
+
+  select case ( cprmnm )
+    case ('MAXSS')
+      maxss = ipval
+    case ('NFILES')
+      nfiles = ipval
+    case ('MXMSGL')
+      mxmsgl = ipval
+    case ('MXDXTS')
+      mxdxts = ipval
+    case ('MAXMSG')
+      maxmsg = ipval
+    case ('MAXMEM')
+      maxmem = ipval
+    case ('MAXTBA')
+      maxtba = ipval
+    case ('MAXTBB')
+      maxtbb = ipval
+    case ('MAXTBD')
+      maxtbd = ipval
+    case ('MAXJL')
+      maxjl = ipval
+    case ('MXCDV')
+      mxcdv = ipval
+    case ('MXLCC')
+      mxlcc = ipval
+    case ('MXCSB')
+      mxcsb = ipval
+    case ('MXMTBB')
+      mxmtbb = ipval
+    case ('MXMTBD')
+      mxmtbd = ipval
+    case ('MXMTBF')
+      mxmtbf = ipval
+    case ('MAXCD')
+      maxcd = ipval
+    case ('MXS01V')
+      mxs01v = ipval
+    case ('MXBTM')
+      mxbtm = ipval
+    case ('MXBTMSE')
+      mxbtmse = ipval
+    case ('MXTAMC')
+      mxtamc = ipval
+    case ('MXTCO')
+      mxtco = ipval
+    case ('MXNRV')
+      mxnrv = ipval
+    case ('MXRST')
+      mxrst = ipval
+    case ('MXH4WLC')
+      mxh4wlc = ipval
+    case ('MXCNEM')
+      mxcnem = ipval
+    case ('MAXNC')
+      maxnc = ipval
+    case ('MXNAF')
+      mxnaf = ipval
+    case default
+      iret = -1
+      call errwrt('++++++++++++++++++WARNING+++++++++++++++++++')
+      errstr = 'BUFRLIB: ISETPRM - UNKNOWN INPUT PARAMETER '// cprmnm // ' -- NO ACTION WAS TAKEN'
+      call errwrt(errstr)
+      call errwrt('++++++++++++++++++WARNING+++++++++++++++++++')
+  end select
 
   return
 end function isetprm
@@ -1135,69 +1137,70 @@ integer function igetprm ( cprmnm ) result ( iret )
 
   character*64 errstr
 
-  if ( cprmnm == 'MAXSS' ) then
-    iret = maxss
-  else if ( cprmnm == 'NFILES' ) then
-    iret = nfiles
-  else if ( cprmnm == 'MXMSGL' ) then
-    iret = mxmsgl
-  else if ( cprmnm == 'MXDXTS' ) then
-    iret = mxdxts
-  else if ( cprmnm == 'MAXMSG' ) then
-    iret = maxmsg
-  else if ( cprmnm == 'MAXMEM' ) then
-    iret = maxmem
-  else if ( cprmnm == 'MAXTBA' ) then
-    iret = maxtba
-  else if ( cprmnm == 'MAXTBB' ) then
-    iret = maxtbb
-  else if ( cprmnm == 'MAXTBD' ) then
-    iret = maxtbd
-  else if ( cprmnm == 'MAXJL' ) then
-    iret = maxjl
-  else if ( cprmnm == 'MXCDV' ) then
-    iret = mxcdv
-  else if ( cprmnm == 'MXLCC' ) then
-    iret = mxlcc
-  else if ( cprmnm == 'MXCSB' ) then
-    iret = mxcsb
-  else if ( cprmnm == 'MXMTBB' ) then
-    iret = mxmtbb
-  else if ( cprmnm == 'MXMTBD' ) then
-    iret = mxmtbd
-  else if ( cprmnm == 'MXMTBF' ) then
-    iret = mxmtbf
-  else if ( cprmnm == 'MAXCD' ) then
-    iret = maxcd
-  else if ( cprmnm == 'MXS01V' ) then
-    iret = mxs01v
-  else if ( cprmnm == 'MXBTM' ) then
-    iret = mxbtm
-  else if ( cprmnm == 'MXBTMSE' ) then
-    iret = mxbtmse
-  else if ( cprmnm == 'MXTAMC' ) then
-    iret = mxtamc
-  else if ( cprmnm == 'MXTCO' ) then
-    iret = mxtco
-  else if ( cprmnm == 'MXNRV' ) then
-    iret = mxnrv
-  else if ( cprmnm == 'MXRST' ) then
-    iret = mxrst
-  else if ( cprmnm == 'MXH4WLC' ) then
-    iret = mxh4wlc
-  else if ( cprmnm == 'MXCNEM' ) then
-    iret = mxcnem
-  else if ( cprmnm == 'MAXNC' ) then
-    iret = maxnc
-  else if ( cprmnm == 'MXNAF' ) then
-    iret = mxnaf
-  else
-    iret = -1
-    call errwrt('++++++++++++++++++WARNING+++++++++++++++++++')
-    errstr = 'BUFRLIB: IGETPRM - UNKNOWN INPUT PARAMETER '// cprmnm
-    call errwrt(errstr)
-    call errwrt('++++++++++++++++++WARNING+++++++++++++++++++')
-  endif
+  select case ( cprmnm )
+    case ('MAXSS')
+      iret = maxss
+    case ('NFILES')
+      iret = nfiles
+    case ('MXMSGL')
+      iret = mxmsgl
+    case ('MXDXTS')
+      iret = mxdxts
+    case ('MAXMSG')
+      iret = maxmsg
+    case ('MAXMEM')
+      iret = maxmem
+    case ('MAXTBA')
+      iret = maxtba
+    case ('MAXTBB')
+      iret = maxtbb
+    case ('MAXTBD')
+      iret = maxtbd
+    case ('MAXJL')
+      iret = maxjl
+    case ('MXCDV')
+      iret = mxcdv
+    case ('MXLCC')
+      iret = mxlcc
+    case ('MXCSB')
+      iret = mxcsb
+    case ('MXMTBB')
+      iret = mxmtbb
+    case ('MXMTBD')
+      iret = mxmtbd
+    case ('MXMTBF')
+      iret = mxmtbf
+    case ('MAXCD')
+      iret = maxcd
+    case ('MXS01V')
+      iret = mxs01v
+    case ('MXBTM')
+      iret = mxbtm
+    case ('MXBTMSE')
+      iret = mxbtmse
+    case ('MXTAMC')
+      iret = mxtamc
+    case ('MXTCO')
+      iret = mxtco
+    case ('MXNRV')
+      iret = mxnrv
+    case ('MXRST')
+      iret = mxrst
+    case ('MXH4WLC')
+      iret = mxh4wlc
+    case ('MXCNEM')
+      iret = mxcnem
+    case ('MAXNC')
+      iret = maxnc
+    case ('MXNAF')
+      iret = mxnaf
+    case default
+      iret = -1
+      call errwrt('++++++++++++++++++WARNING+++++++++++++++++++')
+      errstr = 'BUFRLIB: IGETPRM - UNKNOWN INPUT PARAMETER '// cprmnm
+      call errwrt(errstr)
+      call errwrt('++++++++++++++++++WARNING+++++++++++++++++++')
+  end select
 
   return
 end function igetprm

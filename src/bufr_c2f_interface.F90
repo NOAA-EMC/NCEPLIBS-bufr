@@ -32,11 +32,15 @@ module bufr_c2f_interface
   public :: readerme_c, rdmgsb_c, ufbmem_c, ufbmex_c, ufbmms_c, ufbmns_c, rdmemm_c, rdmems_c, ufbrms_c, ufbtam_c
   public :: cpymem_c, ufbcup_c, stdmsg_c, stndrd_c, codflg_c, gettagpr_c, gettagre_c, cnved4_c, lcmgdf_c
   public :: setvalnb_c, getvalnb_c, getabdb_c, ufbget_c, ufbinx_c, ufbovr_c, closmg_c, ifbget_c, igetsc_c
-  public :: wrdxtb_c, mesgbf_c, mesgbc_c, invmrg_c, ipkm_c, iupm_c
+  public :: wrdxtb_c, mesgbf_c, mesgbc_c, invmrg_c, ipkm_c, iupm_c, dealloc_vars_c
 
   integer, allocatable, target, save :: isc_f(:), link_f(:), itp_f(:), jmpb_f(:), irf_f(:)
   character(len=10), allocatable, target, save :: tag_f(:)
   character(len=3), allocatable, target, save :: typ_f(:)
+
+  character*(:), allocatable, save :: bvers_fstr_outer, bvers_fstr_inner
+  character*(:), allocatable, save :: readlc_fchr_outer, readlc_fchr_inner
+  character*(:), allocatable, save :: getcfmng_cmng_outer, getcfmng_cmng_inner
 
   contains
 
@@ -93,12 +97,55 @@ module bufr_c2f_interface
       integer :: ii
 
       if (c_str_len /= 0) then
-        do ii = 1, c_str_len
-          c_str(ii) = f_str(ii:ii)
-        enddo
+        if (c_str_len > 1) then
+          do ii = 1, c_str_len-1
+            c_str(ii) = f_str(ii:ii)
+          enddo
+        end if
         c_str(c_str_len) = c_null_char
       end if
     end subroutine copy_f_c_str
+
+    !> Deallocate one or more previously-allocated local variables.
+    !>
+    !> This subroutine is called from C immediately following a caught bort error, in order to
+    !> explicitly deallocate any Fortran memory within subpname that otherwise wouldn't get
+    !> deallocated because of the direct jump to the bort target location.
+    !>
+    !> @param subpname - Name of local routine for which to deallocate variables
+    !>
+    !> @author Jeff Ator @date 2026-01-28
+    subroutine dealloc_vars_c(subpname) bind(C, name='dealloc_vars_f')
+      character(kind=c_char), intent(in) :: subpname(*)
+
+      select case (c_f_string(subpname))
+        ! Explicitly deallocate the inner-most allocated variables within subpname.
+        ! These will be the "inner" variables if a previous call was directly made to
+        ! subpname from a C application program; otherwise, it will be the "outer"
+        ! variables.  In any case, the inner-most variables will always be the
+        ! most-recently allocated ones, so they're the ones which will always be
+        ! active when a bort error is caught, and therefore the only ones which should
+        ! ever be explicitly deallocated within this subroutine.
+        case ('bvers_f')
+          if (allocated(bvers_fstr_inner)) then
+            deallocate(bvers_fstr_inner)
+          else
+            deallocate(bvers_fstr_outer)
+          end if
+        case ('readlc_f')
+          if (allocated(readlc_fchr_inner)) then
+            deallocate(readlc_fchr_inner)
+          else
+            deallocate(readlc_fchr_outer)
+          end if
+        case ('getcfmng_f')
+          if (allocated(getcfmng_cmng_inner)) then
+            deallocate(getcfmng_cmng_inner)
+          else
+            deallocate(getcfmng_cmng_outer)
+          end if
+      end select
+    end subroutine dealloc_vars_c
 
     !> Open a Fortran file from a C program.
     !>
@@ -474,7 +521,7 @@ module bufr_c2f_interface
     !> @param iret - Return value. 0 indicates success -1 indicates failure.
     !>
     !> @author Ronald McLaren @date 2022-08-08
-    subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str_len, iret) &
+    recursive subroutine nemdefs_c(file_unit, mnemonic, unit_c, unit_str_len, desc_c, desc_str_len, iret) &
             bind(C, name='nemdefs_f')
       integer(c_int), value, intent(in) :: file_unit, unit_str_len, desc_str_len
       character(kind=c_char), intent(in) :: mnemonic(*)
@@ -518,7 +565,7 @@ module bufr_c2f_interface
     !> @param iret - Return value. 0 indicates success -1 indicates failure.
     !>
     !> @author Ronald McLaren  @date 2022-08-08
-    subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits, iret) &
+    recursive subroutine nemspecs_c(file_unit, mnemonic, mnemonic_idx, scale, reference, bits, iret) &
             bind(C, name='nemspecs_f')
       integer(c_int), value, intent(in) :: file_unit, mnemonic_idx
       character(kind=c_char), intent(in) :: mnemonic(*)
@@ -794,17 +841,16 @@ module bufr_c2f_interface
     !> @param lunit - Fortran logical unit.
     !> @param str_id - Mnemonic for the string for the source field plus the index number
     !>                 (ex: 'IDMN#2')
-    !> @param output_str - The pre-allocated result string
-    !> @param output_str_len - Size of the result string buffer
+    !> @param cchr - The pre-allocated result string
+    !> @param cchr_len - Size of the result string buffer
     !>
     !> @author Ronald McLaren @date 2023-07-03
-    recursive subroutine readlc_c(lunit, str_id, output_str, output_str_len) bind(C, name='readlc_f')
-      integer(c_int), value, intent(in) :: lunit, output_str_len
+    recursive subroutine readlc_c(lunit, str_id, cchr, cchr_len) bind(C, name='readlc_f')
+      integer(c_int), value, intent(in) :: lunit, cchr_len
       character(kind=c_char), intent(in) :: str_id(*)
-      character(kind=c_char), intent(out) :: output_str(*)
-      character(len=256) :: output_str_f
+      character(kind=c_char), intent(out) :: cchr(*)
       character(len=14) :: str
-      integer :: output_str_len_f, lstr
+      integer :: lchr, lstr, lallc
 
       lstr = get_c_string_length(str_id)
       if (lstr == 0) then
@@ -814,10 +860,26 @@ module bufr_c2f_interface
         str = transfer(str_id(1:lstr), str)
       endif
 
-      call readlc(lunit, output_str_f, str(1:lstr))
+      ! Strings allocated within this subroutine will be for use in Fortran, so we won't need
+      ! space for a trailing null and can therefore subtract 1 from cchr_len.
+      lallc = max(1,cchr_len-1)
 
-      output_str_len_f = len(trim(output_str_f)) + 1  ! add 1 for the null terminator
-      call copy_f_c_str(output_str_f, output_str, min(output_str_len_f, output_str_len))
+      if (allocated(readlc_fchr_outer)) then
+        ! A previous call was directly made to this subroutine from within a C application
+        ! program with bort catching enabled.  So we now need to allocate a separate "inner"
+        ! string and recursively call readlc() again with that string.
+        allocate(character*(lallc) :: readlc_fchr_inner)
+        call readlc(lunit, readlc_fchr_inner, str(1:lstr))
+        lchr = len(trim(readlc_fchr_inner)) + 1  ! add 1 for the null terminator
+        call copy_f_c_str(readlc_fchr_inner, cchr, lchr)
+        deallocate(readlc_fchr_inner)
+      else
+        allocate(character*(lallc) :: readlc_fchr_outer)
+        call readlc(lunit, readlc_fchr_outer, str(1:lstr))
+        lchr = len(trim(readlc_fchr_outer)) + 1  ! add 1 for the null terminator
+        call copy_f_c_str(readlc_fchr_outer, cchr, lchr)
+        deallocate(readlc_fchr_outer)
+      end if
     end subroutine readlc_c
 
     !> Write a long string to the BUFR file.
@@ -1439,10 +1501,26 @@ module bufr_c2f_interface
     recursive subroutine bvers_c(cverstr, cverstr_len) bind(C, name='bvers_f')
       character(kind=c_char), intent(out) :: cverstr(*)
       integer(c_int), value, intent(in) :: cverstr_len
-      character(len=10) :: f_cverstr
+      integer :: lallc
 
-      call bvers(f_cverstr)
-      call copy_f_c_str(f_cverstr, cverstr, cverstr_len)
+      ! Strings allocated within this subroutine will be for use in Fortran, so we won't need
+      ! space for a trailing null and can therefore subtract 1 from cverstr_len.
+      lallc = max(1,cverstr_len-1)
+
+      if (allocated(bvers_fstr_outer)) then
+        ! A previous call was directly made to this subroutine from within a C application
+        ! program with bort catching enabled.  So we now need to allocate a separate "inner"
+        ! string and recursively call bvers() again with that string.
+        allocate(character*(lallc) :: bvers_fstr_inner)
+        call bvers(bvers_fstr_inner)
+        call copy_f_c_str(bvers_fstr_inner, cverstr, cverstr_len)
+        deallocate(bvers_fstr_inner)
+      else
+        allocate(character*(lallc) :: bvers_fstr_outer)
+        call bvers(bvers_fstr_outer)
+        call copy_f_c_str(bvers_fstr_outer, cverstr, cverstr_len)
+        deallocate(bvers_fstr_outer)
+      end if
     end subroutine bvers_c
 
     !> Specify the use of compression when writing BUFR messages.
@@ -1610,9 +1688,8 @@ module bufr_c2f_interface
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: cnemoi(*), cnemod(*)
       character(kind=c_char), intent(out) :: cmeang_c(*)
-      character(len=600) :: cmeang
       character(len=8) :: nemoi, nemod
-      integer :: lcni, lcnd, lcmg
+      integer :: lcni, lcnd, lcmg, lallc
 
       lcni = get_c_string_length(cnemoi)
       if (lcni == 0) then
@@ -1629,10 +1706,26 @@ module bufr_c2f_interface
         nemod = transfer(cnemod(1:lcnd), nemod)
       endif
 
-      call getcfmng(lunit, nemoi(1:lcni), ivali, nemod(1:lcnd), ivald, cmeang(1:min(len(cmeang), lcmgc)), lcmg, iret)
+      ! Strings allocated within this subroutine will be for use in Fortran, so we won't need
+      ! space for a trailing null and can therefore subtract 1 from lcmgc.
+      lallc = max(1,lcmgc-1)
 
-      lcmg = lcmg + 1  ! add 1 for the null terminator
-      call copy_f_c_str(cmeang, cmeang_c, min(lcmg, lcmgc))
+      if (allocated(getcfmng_cmng_outer)) then
+        ! A previous call was directly made to this subroutine from within a C application
+        ! program with bort catching enabled.  So we now need to allocate a separate "inner"
+        ! string and recursively call getcfmng() again with that string.
+        allocate(character*(lallc) :: getcfmng_cmng_inner)
+        call getcfmng(lunit, nemoi(1:lcni), ivali, nemod(1:lcnd), ivald, getcfmng_cmng_inner, lcmg, iret)
+        lcmg = lcmg + 1  ! add 1 for the null terminator
+        call copy_f_c_str(getcfmng_cmng_inner, cmeang_c, lcmg)
+        deallocate(getcfmng_cmng_inner)
+      else
+        allocate(character*(lallc) :: getcfmng_cmng_outer)
+        call getcfmng(lunit, nemoi(1:lcni), ivali, nemod(1:lcnd), ivald, getcfmng_cmng_outer, lcmg, iret)
+        lcmg = lcmg + 1  ! add 1 for the null terminator
+        call copy_f_c_str(getcfmng_cmng_outer, cmeang_c, lcmg)
+        deallocate(getcfmng_cmng_outer)
+      end if
     end subroutine getcfmng_c
 
     !> Get the bit settings equivalent to a given numerical value for a flag table mnemonic.
