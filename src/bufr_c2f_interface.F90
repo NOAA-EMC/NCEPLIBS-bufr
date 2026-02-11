@@ -41,6 +41,7 @@ module bufr_c2f_interface
   character*(:), allocatable, save :: bvers_fstr_outer, bvers_fstr_inner
   character*(:), allocatable, save :: readlc_fchr_outer, readlc_fchr_inner
   character*(:), allocatable, save :: getcfmng_cmng_outer, getcfmng_cmng_inner
+  character*128, allocatable, save :: getabdb_tabdb_outer(:), getabdb_tabdb_inner(:)
 
   contains
 
@@ -143,6 +144,12 @@ module bufr_c2f_interface
             deallocate(getcfmng_cmng_inner)
           else
             deallocate(getcfmng_cmng_outer)
+          end if
+        case ('getabdb_f')
+          if (allocated(getabdb_tabdb_inner)) then
+            deallocate(getabdb_tabdb_inner)
+          else
+            deallocate(getabdb_tabdb_outer)
           end if
       end select
     end subroutine dealloc_vars_c
@@ -2659,15 +2666,30 @@ module bufr_c2f_interface
       integer(c_int), value, intent(in) :: lunit, itab
       integer(c_int), intent(out) :: jtab
       character(kind=c_char), intent(out) :: ctabdb(128,*)
-      character(len=128) :: tabdb(1000)
       integer :: ii, jj
 
-      call getabdb(lunit, tabdb, itab, jtab)
-      do ii = 1, jtab
-        do jj = 1, 128
-          ctabdb(jj,ii) = tabdb(ii)(jj:jj)
+      if (allocated(getabdb_tabdb_outer)) then
+        ! A previous call was directly made to this subroutine from within a C application
+        ! program with bort catching enabled.  So we now need to allocate a separate "inner"
+        ! array and recursively call getabdb() again with that array.
+        allocate(getabdb_tabdb_inner(itab))
+        call getabdb(lunit, getabdb_tabdb_inner, itab, jtab)
+        do ii = 1, jtab
+          do jj = 1, 128
+            ctabdb(jj,ii) = getabdb_tabdb_inner(ii)(jj:jj)
+          enddo
         enddo
-      enddo
+        deallocate(getabdb_tabdb_inner)
+      else
+        allocate(getabdb_tabdb_outer(itab))
+        call getabdb(lunit, getabdb_tabdb_outer, itab, jtab)
+        do ii = 1, jtab
+          do jj = 1, 128
+            ctabdb(jj,ii) = getabdb_tabdb_outer(ii)(jj:jj)
+          enddo
+        enddo
+        deallocate(getabdb_tabdb_outer)
+      end if
     end subroutine getabdb_c
 
     !> Read one or more data values from a data subset without advancing the subset pointer

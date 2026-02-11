@@ -1655,7 +1655,10 @@ void
 catch_bort_getabdb(int lunit, int itab, char (*ctabdb)[128], int *jtab)
 {
     /* Set the target location to which to return if a bort error is caught. */
-    if ( setjmp(context) == 1 ) return;
+    if ( setjmp(context) == 1 ) {
+        dealloc_vars_f("getabdb_f");
+        return;
+    }
 
     /* Recursively call the subroutine. */
     getabdb_f(lunit, itab, ctabdb, jtab);

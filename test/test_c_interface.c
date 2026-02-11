@@ -124,6 +124,7 @@ void test_longStrings()
     int iddate, iret;
     char msg_subset[SUBSET_STRING_LEN];
     char bort_string[BORT_STRING_LEN];
+    char tabdb[700][128];
 
     open_f(BUFR_FILE_UNIT, INPUT_FILE_LONG_STR);
     openbf_f(BUFR_FILE_UNIT, "IN", BUFR_FILE_UNIT);
@@ -168,11 +169,35 @@ void test_longStrings()
         exit(1);
     }
 
+    /* Run some checks on getcfmng_f */
     getcfmng_f(BUFR_FILE_UNIT, "GCLONG", 254, " ", -1, long_str, LONG_STR_LEN, &il);
     check_for_bort_f( bort_string, BORT_STRING_LEN );
     if ( ( strlen( bort_string ) == 0 ) ||
          ( strncmp( bort_string, "BUFRLIB: GETCFMNG - TO USE THIS SUBROUTINE, MUST FIRST CALL SUBROUTINE CODFLG", 77 ) != 0 ) ) {
-        printf( "%s\n", "getcfmng check_for_bort check FAILED!" );
+        printf( "%s\n", "getcfmng check_for_bort check #1 FAILED!" );
+        exit(1);
+    }
+    codflg_f("Y");
+    getcfmng_f(BUFR_FILE_UNIT, "GCLONG", 254, " ", -1, long_str, LONG_STR_LEN, &il);
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( ( strlen( bort_string ) != 0 ) || ( strcmp( long_str, "EUMETSAT Operation Centre" ) != 0 ) ) {
+        printf( "%s\n", "getcfmng check_for_bort check #2 FAILED!" );
+        exit(1);
+    }
+    codflg_f("N");
+
+    /* Run some checks on getabdb_f */
+    getabdb_f(112, 700, tabdb, &il);
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( ( strlen( bort_string ) == 0 ) ||
+         ( strcmp( bort_string, "BUFRLIB: STATUS - INPUT UNIT NUMBER (112) OUTSIDE LEGAL RANGE OF 1-99" ) != 0 ) ) {
+        printf( "%s\n", "getabdb check_for_bort check #1 FAILED!" );
+        exit(1);
+    }
+    getabdb_f(BUFR_FILE_UNIT, 700, tabdb, &il);
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( ( strlen( bort_string ) != 0 ) || ( il != 266 ) ) {
+        printf( "%s\n", "getabdb check_for_bort check #2 FAILED!" );
         exit(1);
     }
 
