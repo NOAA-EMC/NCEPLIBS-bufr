@@ -1604,13 +1604,19 @@ module bufr_c2f_interface
     subroutine check_for_bort_c(error_str, error_str_len) bind(C, name='check_for_bort_f')
       integer(c_int), value, intent(in) :: error_str_len
       character(kind=c_char), intent(out) :: error_str(*)
-      character(len=310) :: error_str_f
-      integer :: error_str_len_f
+      character(len=:), allocatable :: error_str_f
+      integer :: error_str_len_f, lallc
 
+      ! Strings allocated within this subroutine will be for use in Fortran, so we won't need
+      ! space for a trailing null and can therefore subtract 1 from error_str_len.
+      lallc = max(1,error_str_len-1)
+
+      allocate(character(len=lallc) :: error_str_f)
       call check_for_bort(error_str_f, error_str_len_f)
-
+      if (error_str_len_f == -1) error_str_len_f = 0  ! return empty string if catch_borts() wasn't previously called
       error_str_len_f = error_str_len_f + 1  ! add 1 for the null terminator
-      call copy_f_c_str(error_str_f, error_str, min(error_str_len_f, error_str_len))
+      call copy_f_c_str(error_str_f, error_str, error_str_len_f)
+      deallocate(error_str_f)
     end subroutine check_for_bort_c
 
     !> Get the current location of the file pointer within a BUFR file.

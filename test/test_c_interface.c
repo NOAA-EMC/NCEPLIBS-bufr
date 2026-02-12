@@ -128,6 +128,12 @@ void test_longStrings()
 
     open_f(BUFR_FILE_UNIT, INPUT_FILE_LONG_STR);
     openbf_f(BUFR_FILE_UNIT, "IN", BUFR_FILE_UNIT);
+    /* The following call should return an empty string since we haven't turned on bort catching yet. */
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( strlen( bort_string ) != 0 ) {
+        printf("%s", "openbf check_for_bort check FAILED!");
+        exit(1);
+    }
 
     int bufrLoc;
     int il, im;
