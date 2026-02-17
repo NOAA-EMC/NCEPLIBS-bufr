@@ -483,17 +483,19 @@ module bufr_c2f_interface
     subroutine mtinfo_c(path, file_unit_1, file_unit_2) bind(C, name='mtinfo_f')
       character(kind=c_char), intent(in) :: path(*)
       integer(c_int), value, intent(in) :: file_unit_1, file_unit_2
-      character(len=240) :: mtdir
+      character(len=:), allocatable :: mtdir
       integer :: lmtdir
 
       lmtdir = get_c_string_length(path)
       if (lmtdir == 0) then
-        mtdir(1:1) = ' '
-        lmtdir = 1
+        call mtinfo(' ', file_unit_1, file_unit_2)
       else
+        allocate(character(len=lmtdir) :: mtdir)
         mtdir = transfer(path(1:lmtdir), mtdir)
+        call mtinfo(mtdir(1:lmtdir), file_unit_1, file_unit_2)
+        deallocate(mtdir)
       endif
-      call mtinfo(mtdir(1:lmtdir), file_unit_1, file_unit_2)
+
     end subroutine mtinfo_c
 
     !> Check whether a file is connected to the library.
@@ -877,13 +879,13 @@ module bufr_c2f_interface
         ! string and recursively call readlc() again with that string.
         allocate(character*(lallc) :: readlc_fchr_inner)
         call readlc(lunit, readlc_fchr_inner, str(1:lstr))
-        lchr = len(trim(readlc_fchr_inner)) + 1  ! add 1 for the null terminator
+        lchr = len_trim(readlc_fchr_inner) + 1  ! add 1 for the null terminator
         call copy_f_c_str(readlc_fchr_inner, cchr, lchr)
         deallocate(readlc_fchr_inner)
       else
         allocate(character*(lallc) :: readlc_fchr_outer)
         call readlc(lunit, readlc_fchr_outer, str(1:lstr))
-        lchr = len(trim(readlc_fchr_outer)) + 1  ! add 1 for the null terminator
+        lchr = len_trim(readlc_fchr_outer) + 1  ! add 1 for the null terminator
         call copy_f_c_str(readlc_fchr_outer, cchr, lchr)
         deallocate(readlc_fchr_outer)
       end if
@@ -1679,7 +1681,7 @@ module bufr_c2f_interface
 
       call ufbqcp(lunit, iqcp, nemo)
 
-      lnm = len(trim(nemo)) + 1  ! add 1 for the null terminator
+      lnm = len_trim(nemo) + 1  ! add 1 for the null terminator
       call copy_f_c_str(nemo, cnemo, min(lnm, cnemo_len))
     end subroutine ufbqcp_c
 
@@ -2496,7 +2498,7 @@ module bufr_c2f_interface
 
       call gettagpr(bufr_unit, f_tagch(1:lfc), ntagch, f_tagpr, ires)
 
-      lfp = len(trim(f_tagpr)) + 1  ! add 1 for the null terminator
+      lfp = len_trim(f_tagpr) + 1  ! add 1 for the null terminator
       call copy_f_c_str(f_tagpr, c_tagpr, min(lfp, tagpr_len))
     end subroutine gettagpr_c
 
@@ -2531,7 +2533,7 @@ module bufr_c2f_interface
 
       call gettagre(bufr_unit, f_tagi(1:lfi), ntagi, f_tagre, ntagre, ires)
 
-      lfr = len(trim(f_tagre)) + 1  ! add 1 for the null terminator
+      lfr = len_trim(f_tagre) + 1  ! add 1 for the null terminator
       call copy_f_c_str(f_tagre, c_tagre, min(lfr, tagre_len))
     end subroutine gettagre_c
 
@@ -2933,5 +2935,21 @@ module bufr_c2f_interface
       nbytp1 = nbyt + 1  ! add 1 for the null terminator
       call copy_f_c_str(f_cbay, cbay, min(nbytp1, cbay_len))
     end subroutine ipkm_c
+
+    !> Rewind a file to the beginning, or restore the previous status.
+    !>
+    !> Wraps rewnbf() subroutine.
+    !>
+    !> @param file_unit - Fortran logical unit number of file.
+    !> @param isr - Switch:
+    !>   - 0 = Save current file status, then rewind file to beginning with read status
+    !>   - 1 = Restore file to previous saved status
+    !>
+    !> @author Jeff Ator @date 2026-02-13
+    recursive subroutine rewnbf_c(file_unit, isr) bind(C, name='rewnbf_f')
+      integer(c_int), value, intent(in) :: file_unit, isr
+
+      call rewnbf(file_unit, isr)
+    end subroutine rewnbf_c
 
 end module bufr_c2f_interface

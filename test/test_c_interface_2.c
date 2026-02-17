@@ -13,6 +13,7 @@
 
 static const int BUFR_INPUT_FILE_UNIT = 11;
 static const int BUFR_OUTPUT_FILE_UNIT = 51;
+static const int BUFR_DXTABLE_FILE_UNIT = 12;
 static const int TABLE_1_FILE_UNIT = 90;
 static const int TABLE_2_FILE_UNIT = 91;
 static const int SUBSET_STRING_LEN = 12;
@@ -20,6 +21,7 @@ static const int BORT_STRING_LEN = 200;
 
 static const char* INPUT_FILE = "testfiles/IN_4";
 static const char* OUTPUT_FILE = "testfiles/test_c_interface_2.out";
+static const char* DXTABLE_FILE = "testfiles/OUT_6_bufrtab";
 
 int main() {
 
@@ -33,9 +35,10 @@ int main() {
     double r8arr[180][15];
     double* r8arr_ptr = &r8arr[0][0];
 
-    /* Assign Fortran logical unit numbers to the input and output files. */
+    /* Assign Fortran logical unit numbers to the input, output and DX table files. */
     open_f( BUFR_INPUT_FILE_UNIT, INPUT_FILE );
     open_f( BUFR_OUTPUT_FILE_UNIT, OUTPUT_FILE );
+    open_f( BUFR_DXTABLE_FILE_UNIT, DXTABLE_FILE );
 
     /* Set and confirm a global library parameter. */
     if ( ( iret = isetprm_f( "NFILES" ,5 ) ) != 0 ) exit(1);
@@ -62,10 +65,11 @@ int main() {
 
     /* Open the input file to the library. */
     openbf_f( BUFR_INPUT_FILE_UNIT, "SEC3", BUFR_INPUT_FILE_UNIT );
-
-    /* Set and confirm the maximum output message size. */
-    maxout_f( 25000 );
-    if ( ( iret = igetmxby_f() ) != 25000 ) exit(1);
+    status_f( BUFR_INPUT_FILE_UNIT, &lun, &il, &im );
+    if ( il != -1 || im != 0 ) {
+        printf( "%s\n", "status check #1 FAILED!" );
+        exit(1);
+    }
 
     /* Define the location of the master BUFR tables. */
     mtinfo_f( "../tables", TABLE_1_FILE_UNIT, TABLE_2_FILE_UNIT );
@@ -133,18 +137,45 @@ int main() {
         }
     }
 
-    /* Open the output file to the library, using the same DX table information in the input file. */
-    openbf_f( BUFR_OUTPUT_FILE_UNIT, "NODX", BUFR_INPUT_FILE_UNIT );
+    /* Rewind the input file and then re-read the same BUFR message from the file. */
+    rewnbf_f( BUFR_INPUT_FILE_UNIT, 0 );
 
-    /* Open a new compressed BUFR message for output, and check that it was successful. */
-    cmpmsg_f( "Y" );
-    openmb_f( BUFR_OUTPUT_FILE_UNIT, "MSTTB001", 2023051015 );
-    status_f( BUFR_OUTPUT_FILE_UNIT, &lun, &il, &im );
-    if ( il != 1 || im != 1 ) {
-        printf( "%s\n", "status check FAILED!" );
+    /* Test catching a bort from ireadmg by passing an empty pathname to mtinfo. */
+    mtinfo_f( "", TABLE_1_FILE_UNIT, TABLE_2_FILE_UNIT );
+    iret = ireadmg_f( BUFR_INPUT_FILE_UNIT, msg_subset, &iddate, SUBSET_STRING_LEN );
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( ( strlen( bort_string ) == 0 ) ||
+         ( strncmp( bort_string, "BUFRLIB: MTFNAM - COULD NOT FIND STANDARD FILE:", 47 ) != 0 ) ) {
+        printf( "%s\n", "ireadmg check_for_bort check FAILED!" );
         exit(1);
     }
 
-    /* Disconnect the library, deallocate memory, and close all open logical units. */
+    /* The preceding bort error was caught several levels down within the internal call stack, which
+     * means there's a good possibility that the library is no longer in a useable state.  So if we
+     * want to proceed with any further use of the library, then we should fully reset it just to be safe. */
     exitbufr_f();
+
+    /* Open an output file to the library. */
+    openbf_f( BUFR_OUTPUT_FILE_UNIT, "NODX", BUFR_DXTABLE_FILE_UNIT );
+
+    /* Turn on bort catching again. */
+    if ( ( iret = catch_borts_f("Y") ) != 0 ) exit(1);
+
+    /* Set and confirm the maximum output message size. */
+    maxout_f( 25000 );
+    if ( ( iret = igetmxby_f() ) != 25000 ) exit(1);
+
+    /* Open a new compressed BUFR message for output, and check that it was successful. */
+    cmpmsg_f( "Y" );
+    openmb_f( BUFR_OUTPUT_FILE_UNIT, "F5FCMESG", 2023051015 );
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( strlen( bort_string ) != 0 ) {
+        printf( "%s\n", "openmb check_for_bort check FAILED!" );
+        exit(1);
+    }
+    status_f( BUFR_OUTPUT_FILE_UNIT, &lun, &il, &im );
+    if ( il != 1 || im != 1 ) {
+        printf( "%s\n", "status check #2 FAILED!" );
+        exit(1);
+    }
 }

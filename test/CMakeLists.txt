@@ -25,7 +25,7 @@ endif()
 # their machines, and save the time of downloading them every time.
 if(NOT ${TEST_FILE_DIR} STREQUAL ".")
   if (EXISTS ${TEST_FILE_DIR}/${BUFR_TAR})
-    message(STATUS "Copying file ${TEST_FILE_DIR}/${BUFR_TAR} to test data directory.")
+    message(STATUS "Copying file ${TEST_FILE_DIR}/${BUFR_TAR} to test data directory")
     FILE(COPY ${TEST_FILE_DIR}/${BUFR_TAR}
       DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
   endif()
@@ -100,24 +100,6 @@ function(create_test name kind num)
   endif()
 endfunction()
 
-# This is for testing bort().
-foreach(kind ${test_kinds})
-  add_executable(test_bort_${kind} test_bort.F90)
-  # Need to include -Wno-character-truncation flag for test_bort, so it can do stupid things needed to fail.
-  set_target_properties(test_bort_${kind} PROPERTIES COMPILE_FLAGS "${fortran_${kind}_flags} -Wno-character-truncation")
-  target_compile_definitions(test_bort_${kind} PUBLIC -DKIND_${kind})
-  target_link_libraries(test_bort_${kind} PRIVATE bufr_4)
-  add_dependencies(test_bort_${kind} bufr_4)
-endforeach()
-
-# Test the borts. This runs test script run_test_bort.sh, which
-# repeatedly calls program test_bort, and expects each time for the
-# program to be aborted.
-file(COPY "${CMAKE_SOURCE_DIR}/test/run_test_bort.sh"
-    DESTINATION ${CMAKE_BINARY_DIR}/test
-    FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
-add_test(NAME run_test_bort COMMAND ${CMAKE_BINARY_DIR}/test/run_test_bort.sh)
-
 # These are the C API tests.
 list(APPEND test_c_interface_srcs
   test_c_interface.c
@@ -166,13 +148,6 @@ foreach(kind ${test_kinds})
   endforeach()
 endforeach()
 
-# The C bort test is not run as a regular test, because it fails.
-set(test_name test_c_bort)
-add_executable(${test_name} ${test_name}.c)
-add_dependencies(${test_name} bufr_4)
-target_link_libraries(${test_name} PRIVATE bufr::bufr_4)
-target_include_directories(${test_name} PRIVATE "${CMAKE_BINARY_DIR}/src")
-
 # c_interface tests
 foreach(test_src ${test_c_interface_srcs})
   string(REPLACE ".c" "" testPref ${test_src})
@@ -203,3 +178,28 @@ if(BUILD_UTILS)
     add_test(NAME ${test} COMMAND ${CMAKE_BINARY_DIR}/bin/${test}.sh)
   endforeach()
 endif()
+
+# This is for testing bort().
+foreach(kind ${test_kinds})
+  add_executable(test_bort_${kind} test_bort.F90)
+  # Need to include -Wno-character-truncation flag for test_bort, so it can do stupid things needed to fail.
+  set_target_properties(test_bort_${kind} PROPERTIES COMPILE_FLAGS "${fortran_${kind}_flags} -Wno-character-truncation")
+  target_compile_definitions(test_bort_${kind} PUBLIC -DKIND_${kind})
+  target_link_libraries(test_bort_${kind} PRIVATE bufr_4)
+  add_dependencies(test_bort_${kind} bufr_4)
+endforeach()
+
+# Test the borts. This runs test script run_test_bort.sh, which
+# repeatedly calls program test_bort, and expects each time for the
+# program to be aborted.
+file(COPY "${CMAKE_SOURCE_DIR}/test/run_test_bort.sh"
+    DESTINATION ${CMAKE_BINARY_DIR}/test
+    FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+add_test(NAME run_test_bort COMMAND ${CMAKE_BINARY_DIR}/test/run_test_bort.sh)
+
+# The C bort test is not run as a regular test, because it fails.
+set(test_name test_c_bort)
+add_executable(${test_name} ${test_name}.c)
+add_dependencies(${test_name} bufr_4)
+target_link_libraries(${test_name} PRIVATE bufr::bufr_4)
+target_include_directories(${test_name} PRIVATE "${CMAKE_BINARY_DIR}/src")

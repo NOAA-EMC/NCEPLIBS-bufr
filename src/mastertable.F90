@@ -33,7 +33,7 @@
 !> @author J. Ator @date 2009-03-23
 recursive subroutine mtinfo ( cmtdir, lunmt1, lunmt2 )
 
-  use modv_vars, only: im8b, lun1, lun2, mtdir, lmtd
+  use modv_vars, only: im8b, lun1, lun2, mtdir, lmtd, lmt
 
   implicit none
 
@@ -53,9 +53,18 @@ recursive subroutine mtinfo ( cmtdir, lunmt1, lunmt2 )
   endif
 
   call strsuc ( cmtdir, mtdir, lmtd )
+  if (lmtd == 0) then
+    lmtd = 1
+    mtdir(1:lmtd) = ' '
+  endif
 
   lun1 = lunmt1
   lun2 = lunmt2
+
+  !> We've now reset the internal values of mtdir, lmtd, lun1 and lun2. But we also need to reset the internal
+  !> value of lmt to an artificially low number, in order to ensure that new master tables will be read in using
+  !> these new mtdir, lmtd, lun1 and lun2 values during the next internal call to subroutine ireadmt().
+  lmt = -99
 
   return
 end subroutine mtinfo
