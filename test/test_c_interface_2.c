@@ -28,9 +28,12 @@ int main() {
     int jj, lun, il, im;
     int iret;
     int iddate;
+    int ibufrmg[1250];
+    char bufrmg[5000];
     char msg_subset[SUBSET_STRING_LEN];
     char bort_string[BORT_STRING_LEN];
     char bv_short[3], bv_normal[9];
+    char cds3_toosmall[20][6], cds3[60][6];
 
     double r8arr[180][15];
     double* r8arr_ptr = &r8arr[0][0];
@@ -198,6 +201,39 @@ int main() {
     check_for_bort_f( bort_string, BORT_STRING_LEN );
     if ( strlen( bort_string ) != 0 ) {
         printf( "%s\n", "writlc check_for_bort single mnemonic check FAILED!" );
+        exit(1);
+    }
+
+    /* Reopen the same input file as before, but now using cobfl. */
+    cobfl( INPUT_FILE, 'r' );
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( strlen( bort_string ) != 0 ) {
+        printf( "%s\n", "cobfl check_for_bort check FAILED!" );
+        exit(1);
+    }
+
+    /* Read the first message of the file into a character array in memory. */
+    crbmg( bufrmg, 5000, &il, &im );
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( ( strlen( bort_string ) != 0 ) || ( il != 3588 ) || ( im != 0 ) ) {
+        printf( "%s\n", "crbmg check_for_bort check FAILED!" );
+        exit(1);
+    }
+    /* Copy the message into an integer array for use in upds3. */
+    memmove( ibufrmg, bufrmg, il );
+    /* Test catching a bort from upds3 by passing in an output array that's too small. */
+    upds3_f( ibufrmg, 20, cds3_toosmall, &im );
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( ( strlen( bort_string ) == 0 ) ||
+         ( strncmp( bort_string, "BUFRLIB: UPDS3 - OVERFLOW OF OUTPUT DESCRIPTOR ARRAY", 52 ) != 0 ) ) {
+        printf( "%s\n", "upds3 check_for_bort toosmall check FAILED!" );
+        exit(1);
+    }
+    /* Now pass in an output array that's large enough to hold the descriptor list. */
+    upds3_f( ibufrmg, 60, cds3, &im );
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( ( strlen( bort_string ) != 0 ) || ( im != 51 ) ) {
+        printf( "%s\n", "upds3 check_for_bort check FAILED!" );
         exit(1);
     }
 

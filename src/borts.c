@@ -859,7 +859,10 @@ void
 catch_bort_upds3(int *mbay, int lcds3, char (*ccds3)[6], int *nds3)
 {
     /* Set the target location to which to return if a bort error is caught. */
-    if ( setjmp(context) == 1 ) return;
+    if ( setjmp(context) == 1 ) {
+        dealloc_vars_f("upds3_f");
+        return;
+    }
 
     /* Recursively call the subroutine. */
     upds3_f(mbay, lcds3, ccds3, nds3);

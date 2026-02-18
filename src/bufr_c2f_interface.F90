@@ -43,6 +43,7 @@ module bufr_c2f_interface
   character*(:), allocatable, save :: getcfmng_cmng_outer, getcfmng_cmng_inner
   character*128, allocatable, save :: getabdb_tabdb_outer(:), getabdb_tabdb_inner(:)
   character*(:), allocatable, save :: writlc_fchr_outer, writlc_fchr_inner
+  character*6, allocatable, save :: upds3_cds3_outer(:), upds3_cds3_inner(:)
 
   contains
 
@@ -157,6 +158,12 @@ module bufr_c2f_interface
             deallocate(writlc_fchr_inner)
           else
             deallocate(writlc_fchr_outer)
+          end if
+        case ('upds3_f')
+          if (allocated(upds3_cds3_inner)) then
+            deallocate(upds3_cds3_inner)
+          else
+            deallocate(upds3_cds3_outer)
           end if
       end select
     end subroutine dealloc_vars_c
@@ -1989,15 +1996,30 @@ module bufr_c2f_interface
       integer(c_int), intent(in) :: mbay(*)
       integer(c_int), intent(out) :: nds3
       character(kind=c_char), intent(out) :: ccds3(6,*)
-      character(len=6) :: cds3(600)
       integer :: ii, jj
 
-      call upds3(mbay, lcds3, cds3, nds3)
-      do ii = 1, nds3
-        do jj = 1, 6
-          ccds3(jj,ii) = cds3(ii)(jj:jj)
+      if (allocated(upds3_cds3_outer)) then
+        ! A previous call was directly made to this subroutine from within a C application
+        ! program with bort catching enabled.  So we now need to allocate a separate "inner"
+        ! array and recursively call upds3() again with that array.
+        allocate(upds3_cds3_inner(lcds3))
+        call upds3(mbay, lcds3, upds3_cds3_inner, nds3)
+        do ii = 1, nds3
+          do jj = 1, 6
+            ccds3(jj,ii) = upds3_cds3_inner(ii)(jj:jj)
+          enddo
         enddo
-      enddo
+        deallocate(upds3_cds3_inner)
+      else
+        allocate(upds3_cds3_outer(lcds3))
+        call upds3(mbay, lcds3, upds3_cds3_outer, nds3)
+        do ii = 1, nds3
+          do jj = 1, 6
+            ccds3(jj,ii) = upds3_cds3_outer(ii)(jj:jj)
+          enddo
+        enddo
+        deallocate(upds3_cds3_outer)
+      end if
     end subroutine upds3_c
 
     !> Specify a value to be written into Section 1 of a BUFR message
