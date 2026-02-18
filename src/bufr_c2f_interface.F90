@@ -42,6 +42,7 @@ module bufr_c2f_interface
   character*(:), allocatable, save :: readlc_fchr_outer, readlc_fchr_inner
   character*(:), allocatable, save :: getcfmng_cmng_outer, getcfmng_cmng_inner
   character*128, allocatable, save :: getabdb_tabdb_outer(:), getabdb_tabdb_inner(:)
+  character*(:), allocatable, save :: writlc_fchr_outer, writlc_fchr_inner
 
   contains
 
@@ -150,6 +151,12 @@ module bufr_c2f_interface
             deallocate(getabdb_tabdb_inner)
           else
             deallocate(getabdb_tabdb_outer)
+          end if
+        case ('writlc_f')
+          if (allocated(writlc_fchr_inner)) then
+            deallocate(writlc_fchr_inner)
+          else
+            deallocate(writlc_fchr_outer)
           end if
       end select
     end subroutine dealloc_vars_c
@@ -903,7 +910,6 @@ module bufr_c2f_interface
       integer(c_int), value, intent(in) :: lunit
       character(kind=c_char), intent(in) :: str(*), chr(*)
       character(len=14) :: my_str
-      character(len=255) :: my_chr
       integer :: lstr, lchr
 
       lstr = get_c_string_length(str)
@@ -916,13 +922,21 @@ module bufr_c2f_interface
 
       lchr = get_c_string_length(chr)
       if (lchr == 0) then
-        my_chr(1:1) = ' '
-        lchr = 1
+        call writlc(lunit, ' ', my_str(1:lstr))
+      else if (allocated(writlc_fchr_outer)) then
+        ! A previous call was directly made to this subroutine from within a C application
+        ! program with bort catching enabled.  So we now need to allocate a separate "inner"
+        ! string and recursively call writlc() again with that string.
+        allocate(character(len=lchr) :: writlc_fchr_inner)
+        writlc_fchr_inner = transfer(chr(1:lchr), writlc_fchr_inner)
+        call writlc(lunit, writlc_fchr_inner(1:lchr), my_str(1:lstr))
+        deallocate(writlc_fchr_inner)
       else
-        my_chr = transfer(chr(1:lchr), my_chr)
+        allocate(character(len=lchr) :: writlc_fchr_outer)
+        writlc_fchr_outer = transfer(chr(1:lchr), writlc_fchr_outer)
+        call writlc(lunit, writlc_fchr_outer(1:lchr), my_str(1:lstr))
+        deallocate(writlc_fchr_outer)
       endif
-
-      call writlc(lunit, my_chr(1:lchr), my_str(1:lstr))
     end subroutine writlc_c
 
     !> Deletes the copies of the moda_tables arrays.

@@ -450,7 +450,10 @@ void
 catch_bort_writlc(int lunit, char *cstr, int cstr_len, char *cchr, int cchr_len)
 {
     /* Set the target location to which to return if a bort error is caught. */
-    if ( setjmp(context) == 1 ) return;
+    if ( setjmp(context) == 1 ) {
+        dealloc_vars_f("writlc_f");
+        return;
+    }
 
     /* Add a trailing null to cstr, for use with get_c_string_length inside of writlc_f. */
     cstr[cstr_len] = '\0';

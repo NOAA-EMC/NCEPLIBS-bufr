@@ -178,4 +178,27 @@ int main() {
         printf( "%s\n", "status check #2 FAILED!" );
         exit(1);
     }
+    writsb_f( BUFR_OUTPUT_FILE_UNIT );
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( strlen( bort_string ) != 0 ) {
+        printf( "%s\n", "writsb check_for_bort check FAILED!" );
+        exit(1);
+    }
+
+    /* Test catching a bort from writlc by incorrectly passing in two mnemonics. */
+    writlc_f( BUFR_OUTPUT_FILE_UNIT, "HOUR PTIDC", "300534061608630" );
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( ( strlen( bort_string ) == 0 ) ||
+         ( strncmp( bort_string, "BUFRLIB: WRITLC - THERE CANNOT BE MORE THAN  ONE MNEMONIC IN THE INPUT STRING", 77 ) != 0 ) ) {
+        printf( "%s\n", "writlc check_for_bort two mnemonic check FAILED!" );
+        exit(1);
+    }
+    /* Now correctly pass in a single mnemonic. */
+    writlc_f( BUFR_OUTPUT_FILE_UNIT, "PTIDC", "300534061608630" );
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( strlen( bort_string ) != 0 ) {
+        printf( "%s\n", "writlc check_for_bort single mnemonic check FAILED!" );
+        exit(1);
+    }
+
 }
