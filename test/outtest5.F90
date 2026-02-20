@@ -8,9 +8,9 @@ program outtest5
 
   integer*4 ireadns, catch_borts
 
-  integer jdate(5), jdump(5), ii, jtab, nsub, imgdt
+  integer jdate(5), jdump(5), ii, jtab, nsub, imgdt, errstr_len
 
-  character cmgtag*8, tabdb(1000)*128
+  character cmgtag*8, tabdb(1000)*128, errstr*400
 
   print *, 'Testing writing OUT_5 using DUMPBF, GETABDB, UFDUMP, UFBDMP, and DXDUMP'
 
@@ -49,9 +49,13 @@ program outtest5
   call openbf ( 11, 'IN', 11 )
 
   write ( 13, fmt = '(///,A)' ) '------------ GETABDB -----------'
-  ! First do a quick sanity check to confirm that getabdb properly handles a bad input parameter.
+  ! First do some quick sanity checks to confirm that getabdb properly handles bad input parameters.
   call getabdb ( 11, tabdb, 0, jtab )
   if (jtab /= 0) stop 1
+  call getabdb ( 111, tabdb, 1000, jtab )
+  call check_for_bort(errstr, errstr_len)
+  if ( errstr_len <= 0 .or. &
+    index( errstr(1:errstr_len), 'STATUS - INPUT UNIT NUMBER (111) OUTSIDE LEGAL RANGE OF 1-99') == 0 ) stop 2
   ! Now go ahead and call getabdb to get the expected output.
   call getabdb ( 11, tabdb, 1000, jtab )
   do ii = 1, jtab

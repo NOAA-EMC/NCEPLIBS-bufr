@@ -154,9 +154,11 @@ module bufr_c2f_interface
             deallocate(getabdb_tabdb_outer)
           end if
         case ('writlc_f')
+          ! It is possible for writlc_f to have previously called writlc without
+          ! allocating any memory, so we need to explicitly check for that.
           if (allocated(writlc_fchr_inner)) then
             deallocate(writlc_fchr_inner)
-          else
+          else if (allocated(writlc_fchr_outer)) then
             deallocate(writlc_fchr_outer)
           end if
         case ('upds3_f')
