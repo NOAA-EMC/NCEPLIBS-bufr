@@ -49,6 +49,10 @@ program outtest5
   call openbf ( 11, 'IN', 11 )
 
   write ( 13, fmt = '(///,A)' ) '------------ GETABDB -----------'
+  ! First do a quick sanity check to confirm that getabdb properly handles a bad input parameter.
+  call getabdb ( 11, tabdb, 0, jtab )
+  if (jtab /= 0) stop 1
+  ! Now go ahead and call getabdb to get the expected output.
   call getabdb ( 11, tabdb, 1000, jtab )
   do ii = 1, jtab
     write ( 13, fmt = '(A,I4,2A)' ) 'tabdb entry #', ii, ":", tabdb(ii)

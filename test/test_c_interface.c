@@ -125,6 +125,7 @@ void test_longStrings()
     char msg_subset[SUBSET_STRING_LEN];
     char bort_string[BORT_STRING_LEN];
     char tabdb[700][128];
+    char empty_string[] = "";
 
     open_f(BUFR_FILE_UNIT, INPUT_FILE_LONG_STR);
     openbf_f(BUFR_FILE_UNIT, "IN", BUFR_FILE_UNIT);
@@ -132,6 +133,12 @@ void test_longStrings()
     check_for_bort_f( bort_string, BORT_STRING_LEN );
     if ( strlen( bort_string ) != 0 ) {
         printf("%s", "openbf check_for_bort check FAILED!");
+        exit(1);
+    }
+    /* Test passing in an empty string to check_for_bort_f. */
+    check_for_bort_f( empty_string, sizeof(empty_string) );
+    if ( strlen( empty_string ) != 0 ) {
+        printf("%s", "check_for_bort empty_string sanity check FAILED!");
         exit(1);
     }
 
@@ -204,6 +211,12 @@ void test_longStrings()
     check_for_bort_f( bort_string, BORT_STRING_LEN );
     if ( ( strlen( bort_string ) != 0 ) || ( il != 266 ) ) {
         printf( "%s\n", "getabdb check_for_bort check #2 FAILED!" );
+        exit(1);
+    }
+    getabdb_f(BUFR_FILE_UNIT, 0, tabdb, &il);
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( ( strlen( bort_string ) != 0 ) || ( il != 0 ) ) {
+        printf( "%s\n", "getabdb sanity check with bad input parameter FAILED!" );
         exit(1);
     }
 
