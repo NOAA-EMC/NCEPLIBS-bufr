@@ -193,7 +193,7 @@ end subroutine bort_target_unset
 !> This subroutine should only be called if a prior call was made to function
 !> catch_borts() from an application program with cbc set to 'Y'
 !>
-!> @param bort_str - Error string, if such a bort error occurred; otherwise empty.
+!> @param bort_str - Error string, if a bort error occurred
 !> @param bort_str_len - Length of bort_str:
 !>  - -1 = Subroutine catch_borts() was not previously called
 !>  -  0 = No bort error occurred
@@ -228,12 +228,9 @@ recursive subroutine check_for_bort(bort_str, bort_str_len)
       call errwrt('+++++++++++++++++++++WARNING+++++++++++++++++++++++')
     endif
     bort_str_len = -1
-  else if (caught_str_len == 0) then
-    bort_str_len = 0
-    bort_str = ' '
   else
     bort_str_len = min(len(bort_str),caught_str_len)
-    bort_str = caught_str(1:bort_str_len)
+    if (bort_str_len > 0) bort_str = caught_str(1:bort_str_len)
   endif
 
   return

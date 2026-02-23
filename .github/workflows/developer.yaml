@@ -17,8 +17,8 @@ jobs:
   developer:
     runs-on: ubuntu-22.04
     env:
-      FC: gfortran-11
-      CC: gcc-11
+      FC: gfortran-12
+      CC: gcc-12
 
     steps:
     - name: install-deps
@@ -60,7 +60,7 @@ jobs:
       run: |
         cd bufr/build
         ctest --verbose --output-on-failure --rerun-failed
-        gcovr --root .. -v  --html-details --exclude ../test --exclude CMakeFiles --print-summary --exclude-unreachable-branches --exclude-throw-branches --decisions --gcov-ignore-parse-errors=suspicious_hits.warn_once_per_file -o test-coverage.html
+        gcovr --gcov-executable gcov-12 --root .. -v  --html-details --exclude ../test --exclude CMakeFiles --print-summary --exclude-unreachable-branches --exclude-throw-branches --decisions --gcov-ignore-parse-errors=suspicious_hits.warn_once_per_file -o test-coverage.html
 
     - name: cache-data
       if: steps.cache-data.outputs.cache-hit != 'true'

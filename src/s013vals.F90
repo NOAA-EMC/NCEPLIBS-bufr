@@ -898,8 +898,8 @@ recursive subroutine upds3(mbay,lcds3,cds3,nds3)
 
   nds3 = 0
   do jj = 8,(len3-1),2
+   if(nds3+1>lcds3) call bort('BUFRLIB: UPDS3 - OVERFLOW OF OUTPUT DESCRIPTOR ARRAY; TRY A LARGER DIMENSION FOR THIS ARRAY')
    nds3 = nds3 + 1
-   if(nds3>lcds3) call bort('BUFRLIB: UPDS3 - OVERFLOW OF OUTPUT DESCRIPTOR ARRAY; TRY A LARGER DIMENSION FOR THIS ARRAY')
    cds3(nds3) = adn30(iupb(mbay,ipt+jj,16),6)
   enddo
 

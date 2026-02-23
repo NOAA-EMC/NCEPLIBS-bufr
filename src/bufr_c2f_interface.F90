@@ -41,6 +41,9 @@ module bufr_c2f_interface
   character*(:), allocatable, save :: bvers_fstr_outer, bvers_fstr_inner
   character*(:), allocatable, save :: readlc_fchr_outer, readlc_fchr_inner
   character*(:), allocatable, save :: getcfmng_cmng_outer, getcfmng_cmng_inner
+  character*128, allocatable, save :: getabdb_tabdb_outer(:), getabdb_tabdb_inner(:)
+  character*(:), allocatable, save :: writlc_fchr_outer, writlc_fchr_inner
+  character*6, allocatable, save :: upds3_cds3_outer(:), upds3_cds3_inner(:)
 
   contains
 
@@ -143,6 +146,26 @@ module bufr_c2f_interface
             deallocate(getcfmng_cmng_inner)
           else
             deallocate(getcfmng_cmng_outer)
+          end if
+        case ('getabdb_f')
+          if (allocated(getabdb_tabdb_inner)) then
+            deallocate(getabdb_tabdb_inner)
+          else
+            deallocate(getabdb_tabdb_outer)
+          end if
+        case ('writlc_f')
+          ! It is possible for writlc_f to have previously called writlc without
+          ! allocating any memory, so we need to explicitly check for that.
+          if (allocated(writlc_fchr_inner)) then
+            deallocate(writlc_fchr_inner)
+          else if (allocated(writlc_fchr_outer)) then
+            deallocate(writlc_fchr_outer)
+          end if
+        case ('upds3_f')
+          if (allocated(upds3_cds3_inner)) then
+            deallocate(upds3_cds3_inner)
+          else
+            deallocate(upds3_cds3_outer)
           end if
       end select
     end subroutine dealloc_vars_c
@@ -476,17 +499,19 @@ module bufr_c2f_interface
     subroutine mtinfo_c(path, file_unit_1, file_unit_2) bind(C, name='mtinfo_f')
       character(kind=c_char), intent(in) :: path(*)
       integer(c_int), value, intent(in) :: file_unit_1, file_unit_2
-      character(len=240) :: mtdir
+      character(len=:), allocatable :: mtdir
       integer :: lmtdir
 
       lmtdir = get_c_string_length(path)
       if (lmtdir == 0) then
-        mtdir(1:1) = ' '
-        lmtdir = 1
+        call mtinfo(' ', file_unit_1, file_unit_2)
       else
+        allocate(character(len=lmtdir) :: mtdir)
         mtdir = transfer(path(1:lmtdir), mtdir)
+        call mtinfo(mtdir(1:lmtdir), file_unit_1, file_unit_2)
+        deallocate(mtdir)
       endif
-      call mtinfo(mtdir(1:lmtdir), file_unit_1, file_unit_2)
+
     end subroutine mtinfo_c
 
     !> Check whether a file is connected to the library.
@@ -870,13 +895,13 @@ module bufr_c2f_interface
         ! string and recursively call readlc() again with that string.
         allocate(character*(lallc) :: readlc_fchr_inner)
         call readlc(lunit, readlc_fchr_inner, str(1:lstr))
-        lchr = len(trim(readlc_fchr_inner)) + 1  ! add 1 for the null terminator
+        lchr = len_trim(readlc_fchr_inner) + 1  ! add 1 for the null terminator
         call copy_f_c_str(readlc_fchr_inner, cchr, lchr)
         deallocate(readlc_fchr_inner)
       else
         allocate(character*(lallc) :: readlc_fchr_outer)
         call readlc(lunit, readlc_fchr_outer, str(1:lstr))
-        lchr = len(trim(readlc_fchr_outer)) + 1  ! add 1 for the null terminator
+        lchr = len_trim(readlc_fchr_outer) + 1  ! add 1 for the null terminator
         call copy_f_c_str(readlc_fchr_outer, cchr, lchr)
         deallocate(readlc_fchr_outer)
       end if
@@ -894,7 +919,6 @@ module bufr_c2f_interface
       integer(c_int), value, intent(in) :: lunit
       character(kind=c_char), intent(in) :: str(*), chr(*)
       character(len=14) :: my_str
-      character(len=255) :: my_chr
       integer :: lstr, lchr
 
       lstr = get_c_string_length(str)
@@ -907,13 +931,21 @@ module bufr_c2f_interface
 
       lchr = get_c_string_length(chr)
       if (lchr == 0) then
-        my_chr(1:1) = ' '
-        lchr = 1
+        call writlc(lunit, ' ', my_str(1:lstr))
+      else if (allocated(writlc_fchr_outer)) then
+        ! A previous call was directly made to this subroutine from within a C application
+        ! program with bort catching enabled.  So we now need to allocate a separate "inner"
+        ! string and recursively call writlc() again with that string.
+        allocate(character(len=lchr) :: writlc_fchr_inner)
+        writlc_fchr_inner = transfer(chr(1:lchr), writlc_fchr_inner)
+        call writlc(lunit, writlc_fchr_inner(1:lchr), my_str(1:lstr))
+        deallocate(writlc_fchr_inner)
       else
-        my_chr = transfer(chr(1:lchr), my_chr)
+        allocate(character(len=lchr) :: writlc_fchr_outer)
+        writlc_fchr_outer = transfer(chr(1:lchr), writlc_fchr_outer)
+        call writlc(lunit, writlc_fchr_outer(1:lchr), my_str(1:lstr))
+        deallocate(writlc_fchr_outer)
       endif
-
-      call writlc(lunit, my_chr(1:lchr), my_str(1:lstr))
     end subroutine writlc_c
 
     !> Deletes the copies of the moda_tables arrays.
@@ -1597,13 +1629,23 @@ module bufr_c2f_interface
     subroutine check_for_bort_c(error_str, error_str_len) bind(C, name='check_for_bort_f')
       integer(c_int), value, intent(in) :: error_str_len
       character(kind=c_char), intent(out) :: error_str(*)
-      character(len=310) :: error_str_f
+      character(len=:), allocatable :: error_str_f
       integer :: error_str_len_f
 
-      call check_for_bort(error_str_f, error_str_len_f)
-
-      error_str_len_f = error_str_len_f + 1  ! add 1 for the null terminator
-      call copy_f_c_str(error_str_f, error_str, min(error_str_len_f, error_str_len))
+      if (error_str_len <= 1) then
+        ! Any writeable string passed in from a C routine will always contain at least one byte for a trailing null,
+        ! even if it's an empty string!
+        error_str(1) = c_null_char
+      else
+        ! The following allocated string will be for use in Fortran, so we won't need space for a trailing null and can
+        ! therefore subtract 1 from error_str_len.
+        allocate(character(len=error_str_len-1) :: error_str_f)
+        call check_for_bort(error_str_f, error_str_len_f)
+        if (error_str_len_f == -1) error_str_len_f = 0  ! return empty string if catch_borts() wasn't previously called
+        error_str_len_f = error_str_len_f + 1  ! add 1 for the null terminator
+        call copy_f_c_str(error_str_f, error_str, error_str_len_f)
+        deallocate(error_str_f)
+      endif
     end subroutine check_for_bort_c
 
     !> Get the current location of the file pointer within a BUFR file.
@@ -1666,7 +1708,7 @@ module bufr_c2f_interface
 
       call ufbqcp(lunit, iqcp, nemo)
 
-      lnm = len(trim(nemo)) + 1  ! add 1 for the null terminator
+      lnm = len_trim(nemo) + 1  ! add 1 for the null terminator
       call copy_f_c_str(nemo, cnemo, min(lnm, cnemo_len))
     end subroutine ufbqcp_c
 
@@ -1960,15 +2002,30 @@ module bufr_c2f_interface
       integer(c_int), intent(in) :: mbay(*)
       integer(c_int), intent(out) :: nds3
       character(kind=c_char), intent(out) :: ccds3(6,*)
-      character(len=6) :: cds3(600)
       integer :: ii, jj
 
-      call upds3(mbay, lcds3, cds3, nds3)
-      do ii = 1, nds3
-        do jj = 1, 6
-          ccds3(jj,ii) = cds3(ii)(jj:jj)
+      if (allocated(upds3_cds3_outer)) then
+        ! A previous call was directly made to this subroutine from within a C application
+        ! program with bort catching enabled.  So we now need to allocate a separate "inner"
+        ! array and recursively call upds3() again with that array.
+        allocate(upds3_cds3_inner(lcds3))
+        call upds3(mbay, lcds3, upds3_cds3_inner, nds3)
+        do ii = 1, nds3
+          do jj = 1, 6
+            ccds3(jj,ii) = upds3_cds3_inner(ii)(jj:jj)
+          enddo
         enddo
-      enddo
+        deallocate(upds3_cds3_inner)
+      else
+        allocate(upds3_cds3_outer(lcds3))
+        call upds3(mbay, lcds3, upds3_cds3_outer, nds3)
+        do ii = 1, nds3
+          do jj = 1, 6
+            ccds3(jj,ii) = upds3_cds3_outer(ii)(jj:jj)
+          enddo
+        enddo
+        deallocate(upds3_cds3_outer)
+      end if
     end subroutine upds3_c
 
     !> Specify a value to be written into Section 1 of a BUFR message
@@ -2483,7 +2540,7 @@ module bufr_c2f_interface
 
       call gettagpr(bufr_unit, f_tagch(1:lfc), ntagch, f_tagpr, ires)
 
-      lfp = len(trim(f_tagpr)) + 1  ! add 1 for the null terminator
+      lfp = len_trim(f_tagpr) + 1  ! add 1 for the null terminator
       call copy_f_c_str(f_tagpr, c_tagpr, min(lfp, tagpr_len))
     end subroutine gettagpr_c
 
@@ -2518,7 +2575,7 @@ module bufr_c2f_interface
 
       call gettagre(bufr_unit, f_tagi(1:lfi), ntagi, f_tagre, ntagre, ires)
 
-      lfr = len(trim(f_tagre)) + 1  ! add 1 for the null terminator
+      lfr = len_trim(f_tagre) + 1  ! add 1 for the null terminator
       call copy_f_c_str(f_tagre, c_tagre, min(lfr, tagre_len))
     end subroutine gettagre_c
 
@@ -2659,15 +2716,32 @@ module bufr_c2f_interface
       integer(c_int), value, intent(in) :: lunit, itab
       integer(c_int), intent(out) :: jtab
       character(kind=c_char), intent(out) :: ctabdb(128,*)
-      character(len=128) :: tabdb(1000)
       integer :: ii, jj
 
-      call getabdb(lunit, tabdb, itab, jtab)
-      do ii = 1, jtab
-        do jj = 1, 128
-          ctabdb(jj,ii) = tabdb(ii)(jj:jj)
+      if (itab <= 0) then
+        jtab = 0
+      else if (allocated(getabdb_tabdb_outer)) then
+        ! A previous call was directly made to this subroutine from within a C application
+        ! program with bort catching enabled.  So we now need to allocate a separate "inner"
+        ! array and recursively call getabdb() again with that array.
+        allocate(getabdb_tabdb_inner(itab))
+        call getabdb(lunit, getabdb_tabdb_inner, itab, jtab)
+        do ii = 1, jtab
+          do jj = 1, 128
+            ctabdb(jj,ii) = getabdb_tabdb_inner(ii)(jj:jj)
+          enddo
         enddo
-      enddo
+        deallocate(getabdb_tabdb_inner)
+      else
+        allocate(getabdb_tabdb_outer(itab))
+        call getabdb(lunit, getabdb_tabdb_outer, itab, jtab)
+        do ii = 1, jtab
+          do jj = 1, 128
+            ctabdb(jj,ii) = getabdb_tabdb_outer(ii)(jj:jj)
+          enddo
+        enddo
+        deallocate(getabdb_tabdb_outer)
+      end if
     end subroutine getabdb_c
 
     !> Read one or more data values from a data subset without advancing the subset pointer
@@ -2905,5 +2979,21 @@ module bufr_c2f_interface
       nbytp1 = nbyt + 1  ! add 1 for the null terminator
       call copy_f_c_str(f_cbay, cbay, min(nbytp1, cbay_len))
     end subroutine ipkm_c
+
+    !> Rewind a file to the beginning, or restore the previous status.
+    !>
+    !> Wraps rewnbf() subroutine.
+    !>
+    !> @param file_unit - Fortran logical unit number of file.
+    !> @param isr - Switch:
+    !>   - 0 = Save current file status, then rewind file to beginning with read status
+    !>   - 1 = Restore file to previous saved status
+    !>
+    !> @author Jeff Ator @date 2026-02-13
+    recursive subroutine rewnbf_c(file_unit, isr) bind(C, name='rewnbf_f')
+      integer(c_int), value, intent(in) :: file_unit, isr
+
+      call rewnbf(file_unit, isr)
+    end subroutine rewnbf_c
 
 end module bufr_c2f_interface

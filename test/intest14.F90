@@ -15,6 +15,7 @@ program intest14
   character errstr*400, subset*8
   character bmg*1000
   character*20 filnam / 'testfiles/IN_1' /
+  character(len=:), allocatable :: empty_string
 
   real*8 r8arr(18, 2)
 
@@ -80,6 +81,12 @@ program intest14
   call crbmg_c(bmg, mxmb, nmb, ierr)
   call check_for_bort(errstr, errstr_len)
   if ( errstr_len <= 0 .or. index( errstr(1:errstr_len), 'CRBMG - NO FILE IS OPEN FOR READING') == 0 ) stop 11
+
+  ! Test passing in an empty string to check_for_bort.
+  empty_string = ''
+  call check_for_bort(empty_string, errstr_len)
+  if (errstr_len /= 0) stop 12
+  deallocate(empty_string)
 
   call closbf(lunit)
 

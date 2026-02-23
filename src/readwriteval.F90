@@ -242,14 +242,14 @@ recursive subroutine writlc(lunit,chr,str)
 
   integer, intent(in) :: lunit
   integer my_lunit, maxtg, lun, il, im, ntg, nnod, kon, ii, n, node, ioid, ival, mbit, nbit, nbmp, nchr, nbyt, nsubs, &
-    itagct, len0, len1, len2, len3, l4, l5, mbyte, iupbs3, lcstr, lcchr, bort_target_set
+    itagct, len0, len1, len2, len3, l4, l5, mbyte, iupbs3, lchr, lcstr, bort_target_set
 
   character*(*), intent(in) :: chr, str
   character*128 bort_str, errstr
   character*10 ctag
   character*14 tgs(10)
   character*15 cstr
-  character*256 cchr
+  character*(:), allocatable :: cchr
 
   real roid
 
@@ -264,11 +264,15 @@ recursive subroutine writlc(lunit,chr,str)
     return
   endif
 
+  lchr=len(chr)
+
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
   if (bort_target_set() == 1) then
     call strsuc(str,cstr,lcstr)
-    call strsuc(chr,cchr,lcchr)
-    call catch_bort_writlc_c(lunit,cstr,lcstr,cchr,lcchr)
+    allocate(character*(lchr+1) :: cchr)  ! Allow extra byte in cchr for the trailing null in C
+    cchr(1:lchr) = chr(1:lchr)
+    call catch_bort_writlc_c(lunit,cstr,lcstr,cchr,lchr)
+    deallocate(cchr)
     call bort_target_unset
     return
   endif
@@ -325,7 +329,7 @@ recursive subroutine writlc(lunit,chr,str)
           catx(n,ncol)=' '
           ! The following statement enforces a limit of mxlcc characters per long character string when writing
           ! compressed messages. This limit keeps the array catx to a reasonable dimensioned size.
-          nchr=min(mxlcc,len(chr),ibt(node)/8)
+          nchr=min(mxlcc,lchr,ibt(node)/8)
           catx(n,ncol)=chr(1:nchr)
           call usrtpl(lun,1,1)
           return

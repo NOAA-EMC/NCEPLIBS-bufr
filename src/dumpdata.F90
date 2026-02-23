@@ -912,8 +912,8 @@ recursive subroutine getabdb(lunit,tabdb,itab,jtab)
     nemo = tabd(i,lun)(7:14)
     call nemtbd(lun,i,nseq,nem(1,1),irp(1,1),krp(1,1))
     do j=1,nseq,10
-      jtab = jtab+1
-      if(jtab<=itab) then
+      if(jtab<itab) then
+        jtab = jtab+1
         write(tabdb(jtab),fmt='(A,A8,10(1X,A10))') 'D ', nemo, (nem(k,1),k=j,min(j+9,nseq))
       endif
     enddo
@@ -922,8 +922,8 @@ recursive subroutine getabdb(lunit,tabdb,itab,jtab)
   ! Add the Table B entries
 
   do i=1,ntbb(lun)
-    jtab = jtab+1
-    if(jtab<=itab) then
+    if(jtab<itab) then
+      jtab = jtab+1
       write(tabdb(jtab),fmt='(A,A8,1X,A42)') 'B ', tabb(i,lun)(7:14), tabb(i,lun)(71:112)
     endif
   enddo

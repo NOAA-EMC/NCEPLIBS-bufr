@@ -1567,6 +1567,20 @@ int iupm_f(const char *cbay, int nbits, int lcbay);
  */
 void ipkm_f(char *cbay, int nbyt, int ival, int cbay_len);
 
+/**
+ * Rewind a file to the beginning, or restore the previous status.
+ *
+ * Wraps rewnbf() subroutine.
+ *
+ * @param file_unit - Fortran logical unit number of file.
+ * @param isr - Switch:
+ *   - 0 = Save current file status, then rewind file to beginning with read status
+ *   - 1 = Restore file to previous saved status
+ *
+ * @author Jeff Ator @date 2026-02-13
+ */
+void rewnbf_f(int file_unit, int isr);
+
 #ifdef __cplusplus
 }
 #endif

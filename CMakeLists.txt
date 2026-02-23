@@ -18,7 +18,7 @@ if(CMAKE_Fortran_COMPILER_ID STREQUAL "IntelLLVM")
 endif()
 
 # Handle user options.
-option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
+option(ENABLE_DOCS "Enable generation of doxygen-based documentation" OFF)
 option(ENABLE_PYTHON "Enable building python module 'ncepbufr'" OFF)
 option(BUILD_SHARED_LIBS "Enable building shared libraries" OFF)
 option(BUILD_UTILS "Enable building utilities" ON)
@@ -27,11 +27,11 @@ option(BUILD_TESTING "Enable automated testing" ON)
 # Developers can use this option to specify a local directory which
 # holds the test files. They will be copied instead of fetching the
 # files via FTP.
-set(TEST_FILE_DIR "." CACHE STRING "Check this directory for test files before using FTP.")
-message(STATUS "Finding test data files in directory ${TEST_FILE_DIR}.")
+set(TEST_FILE_DIR "." CACHE STRING "Check this directory for test files before using FTP")
+message(STATUS "Finding test data files in directory ${TEST_FILE_DIR}")
 
 set(MASTER_TABLE_DIR "${CMAKE_INSTALL_PREFIX}/tables" CACHE STRING "Installation location of Master BUFR Tables")
-message(STATUS "Storing master tables into directory ${MASTER_TABLE_DIR}.")
+message(STATUS "Storing master tables into directory ${MASTER_TABLE_DIR}")
 string(LENGTH "${MASTER_TABLE_DIR}" _lenmtd)
 set(_lenslmax 60)  # max number of chars of ${MASTER_TABLE_DIR} to store on a single line of a Fortran90 or C source code file
 if(${_lenmtd} LESS_EQUAL ${_lenslmax})
@@ -57,7 +57,7 @@ else() # generate source code lines in chunks of ${_lenslmax} chars each
 endif()
 
 if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
-  message(STATUS "Setting build type to 'Release' as none was specified.")
+  message(STATUS "Setting build type to 'Release' as none was specified")
   set(CMAKE_BUILD_TYPE
       "Release"
       CACHE STRING "Choose the type of build." FORCE)

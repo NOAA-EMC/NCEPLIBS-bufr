@@ -124,9 +124,23 @@ void test_longStrings()
     int iddate, iret;
     char msg_subset[SUBSET_STRING_LEN];
     char bort_string[BORT_STRING_LEN];
+    char tabdb[700][128];
+    char empty_string[] = "";
 
     open_f(BUFR_FILE_UNIT, INPUT_FILE_LONG_STR);
     openbf_f(BUFR_FILE_UNIT, "IN", BUFR_FILE_UNIT);
+    /* The following call should return an empty string since we haven't turned on bort catching yet. */
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( strlen( bort_string ) != 0 ) {
+        printf("%s", "openbf check_for_bort check FAILED!");
+        exit(1);
+    }
+    /* Test passing in an empty string to check_for_bort_f. */
+    check_for_bort_f( empty_string, sizeof(empty_string) );
+    if ( strlen( empty_string ) != 0 ) {
+        printf("%s", "check_for_bort empty_string sanity check FAILED!");
+        exit(1);
+    }
 
     int bufrLoc;
     int il, im;
@@ -168,11 +182,41 @@ void test_longStrings()
         exit(1);
     }
 
+    /* Run some checks on getcfmng_f */
     getcfmng_f(BUFR_FILE_UNIT, "GCLONG", 254, " ", -1, long_str, LONG_STR_LEN, &il);
     check_for_bort_f( bort_string, BORT_STRING_LEN );
     if ( ( strlen( bort_string ) == 0 ) ||
          ( strncmp( bort_string, "BUFRLIB: GETCFMNG - TO USE THIS SUBROUTINE, MUST FIRST CALL SUBROUTINE CODFLG", 77 ) != 0 ) ) {
-        printf( "%s\n", "getcfmng check_for_bort check FAILED!" );
+        printf( "%s\n", "getcfmng check_for_bort check #1 FAILED!" );
+        exit(1);
+    }
+    codflg_f("Y");
+    getcfmng_f(BUFR_FILE_UNIT, "GCLONG", 254, " ", -1, long_str, LONG_STR_LEN, &il);
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( ( strlen( bort_string ) != 0 ) || ( strcmp( long_str, "EUMETSAT Operation Centre" ) != 0 ) ) {
+        printf( "%s\n", "getcfmng check_for_bort check #2 FAILED!" );
+        exit(1);
+    }
+    codflg_f("N");
+
+    /* Run some checks on getabdb_f */
+    getabdb_f(112, 700, tabdb, &il);
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( ( strlen( bort_string ) == 0 ) ||
+         ( strcmp( bort_string, "BUFRLIB: STATUS - INPUT UNIT NUMBER (112) OUTSIDE LEGAL RANGE OF 1-99" ) != 0 ) ) {
+        printf( "%s\n", "getabdb check_for_bort check #1 FAILED!" );
+        exit(1);
+    }
+    getabdb_f(BUFR_FILE_UNIT, 700, tabdb, &il);
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( ( strlen( bort_string ) != 0 ) || ( il != 266 ) ) {
+        printf( "%s\n", "getabdb check_for_bort check #2 FAILED!" );
+        exit(1);
+    }
+    getabdb_f(BUFR_FILE_UNIT, 0, tabdb, &il);
+    check_for_bort_f( bort_string, BORT_STRING_LEN );
+    if ( ( strlen( bort_string ) != 0 ) || ( il != 0 ) ) {
+        printf( "%s\n", "getabdb sanity check with bad input parameter FAILED!" );
         exit(1);
     }
 

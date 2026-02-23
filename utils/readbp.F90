@@ -85,7 +85,7 @@ program readbp
       call get_command_argument(iarg,file)
       if(file(1:1)=='-') then
          if(file(2:2)=='s') then
-           iarg=iarg+1; call get_command_argument(iarg,sta); nsta=len(trim(sta))
+           iarg=iarg+1; call get_command_argument(iarg,sta); nsta=len_trim(sta)
          elseif(file(2:2)=='w') then
            iarg=iarg+1; call get_command_argument(iarg,val); read(val,*)x1
            iarg=iarg+1; call get_command_argument(iarg,val); read(val,*)x2
@@ -220,7 +220,7 @@ program readbp
          stop
       elseif(optarg(1:1)=='s') then
          read(optarg(2:50),*) sta
-         nsta=len(trim(sta))
+         nsta=len_trim(sta)
       elseif(optarg(1:1)=='w') then
          read(optarg(2:50),*) x1,x2,y1,y2
          window=.true.

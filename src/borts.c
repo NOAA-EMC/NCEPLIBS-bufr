@@ -450,7 +450,10 @@ void
 catch_bort_writlc(int lunit, char *cstr, int cstr_len, char *cchr, int cchr_len)
 {
     /* Set the target location to which to return if a bort error is caught. */
-    if ( setjmp(context) == 1 ) return;
+    if ( setjmp(context) == 1 ) {
+        dealloc_vars_f("writlc_f");
+        return;
+    }
 
     /* Add a trailing null to cstr, for use with get_c_string_length inside of writlc_f. */
     cstr[cstr_len] = '\0';
@@ -856,7 +859,10 @@ void
 catch_bort_upds3(int *mbay, int lcds3, char (*ccds3)[6], int *nds3)
 {
     /* Set the target location to which to return if a bort error is caught. */
-    if ( setjmp(context) == 1 ) return;
+    if ( setjmp(context) == 1 ) {
+        dealloc_vars_f("upds3_f");
+        return;
+    }
 
     /* Recursively call the subroutine. */
     upds3_f(mbay, lcds3, ccds3, nds3);
@@ -1655,7 +1661,10 @@ void
 catch_bort_getabdb(int lunit, int itab, char (*ctabdb)[128], int *jtab)
 {
     /* Set the target location to which to return if a bort error is caught. */
-    if ( setjmp(context) == 1 ) return;
+    if ( setjmp(context) == 1 ) {
+        dealloc_vars_f("getabdb_f");
+        return;
+    }
 
     /* Recursively call the subroutine. */
     getabdb_f(lunit, itab, ctabdb, jtab);
