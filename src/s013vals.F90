@@ -879,11 +879,13 @@ recursive subroutine upds3(mbay,lcds3,cds3,nds3)
   if (bort_target_set() == 1) then
     allocate(ccds3(6,lcds3))
     call catch_bort_upds3_c(mbay,lcds3,ccds3,nds3)
-    do ii = 1, nds3
-      do jj = 1, 6
-        cds3(ii)(jj:jj) = ccds3(jj,ii)
+    if (nds3>0) then
+      do ii = 1, nds3
+        do jj = 1, 6
+          cds3(ii)(jj:jj) = ccds3(jj,ii)
+        enddo
       enddo
-    enddo
+    endif
     deallocate(ccds3)
     call bort_target_unset
     return

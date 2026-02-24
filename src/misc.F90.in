@@ -367,8 +367,8 @@ recursive subroutine bvers (cverstr)
 
   integer lcvs, lccvs, bort_target_set
 
-  cverstr = ' '
   lcvs = len(cverstr)
+  if (lcvs > 0) cverstr = ' '
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 

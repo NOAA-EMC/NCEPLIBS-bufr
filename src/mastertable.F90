@@ -609,7 +609,7 @@ subroutine sntbbe ( ifxyn, line, mxmtbb, nmtbb, imfxyn, cmscl, cmsref, cmbw, cmu
   endif
   tags(2)(1:4) = adjustr( tags(2)(1:4) )
   do ii = 1, 4
-    cmscl ( ii, nmtbb ) = tags(2)(II:II)
+    cmscl ( ii, nmtbb ) = tags(2)(ii:ii)
   enddo
 
   ! Reference value.
@@ -622,7 +622,7 @@ subroutine sntbbe ( ifxyn, line, mxmtbb, nmtbb, imfxyn, cmscl, cmsref, cmbw, cmu
   endif
   tags(3)(1:12) = adjustr( tags(3)(1:12) )
   do ii = 1, 12
-    cmsref ( ii, nmtbb ) = tags(3)(II:II)
+    cmsref ( ii, nmtbb ) = tags(3)(ii:ii)
   enddo
 
   ! Bit width.
@@ -635,7 +635,7 @@ subroutine sntbbe ( ifxyn, line, mxmtbb, nmtbb, imfxyn, cmscl, cmsref, cmbw, cmu
   endif
   tags(4)(1:4) = adjustr( tags(4)(1:4) )
   do ii = 1, 4
-    cmbw ( ii, nmtbb ) = tags(4)(II:II)
+    cmbw ( ii, nmtbb ) = tags(4)(ii:ii)
   end do
 
   ! Units.  Note that this field is allowed to be blank.
@@ -643,7 +643,7 @@ subroutine sntbbe ( ifxyn, line, mxmtbb, nmtbb, imfxyn, cmscl, cmsref, cmbw, cmu
   if ( ntag > 4 ) then
     tags(5) = adjustl( tags(5) )
     do ii = 1, 24
-      cmunit ( ii, nmtbb ) = tags(5)(II:II)
+      cmunit ( ii, nmtbb ) = tags(5)(ii:ii)
     enddo
   else
     do ii = 1, 24
@@ -685,7 +685,7 @@ subroutine sntbbe ( ifxyn, line, mxmtbb, nmtbb, imfxyn, cmscl, cmsref, cmbw, cmu
       ! The third additional field contains the element name.
       tags(3) = adjustl( tags(3) )
       do ii = 1, 120
-        cmelem ( ii, nmtbb ) = tags(3)(II:II)
+        cmelem ( ii, nmtbb ) = tags(3)(ii:ii)
       enddo
     endif
   endif

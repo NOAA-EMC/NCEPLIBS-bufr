@@ -489,8 +489,8 @@ recursive subroutine readlc(lunit,chr,str)
     return
   endif
 
-  chr = ' '
   lchr=len(chr)
+  if (lchr > 0) chr = ' '
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
   if (bort_target_set() == 1) then

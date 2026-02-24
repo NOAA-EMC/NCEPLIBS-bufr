@@ -13,9 +13,9 @@ program intest11
 
   integer, parameter :: mxbfd4 = mxbf/4
   integer ibfmg(mxbfd4), ibfmg2(mxbfd4), imesg(50)
-  integer ios1, ios2, ncds3, iret, imgdt
+  integer ios1, ios2, ncds3, iret, imgdt, errstr_len
 
-  character bfmg(mxbf), cds3(5)*6, cmgtag*8
+  character bfmg(mxbf), cds3(5)*6, cmgtag*8, errstr*400
   character filnam*25 / 'testfiles/IN_11' /
 
   equivalence ( bfmg(1), ibfmg(1) )
@@ -57,6 +57,11 @@ program intest11
   if ( iret /= 0 .or. cmgtag /= 'NC003010') stop 6
   call rdmems ( 8, iret )
   if ( iret /= 0 ) stop 7
+
+  ! Do a quick sanity check to confirm that upds3 properly handles a bad input parameter.
+  call upds3 ( ibfmg2, 0, cds3, ncds3 )
+  call check_for_bort(errstr, errstr_len)
+  if ( errstr_len /= 0 .or. ncds3 /= 0 ) stop 8
 
   print *, 'SUCCESS!'
 end program intest11

@@ -263,8 +263,8 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
     return
   endif
 
-  cmeang = ' '
   lcmg = len ( cmeang )
+  if (lcmg > 0) cmeang = ' '
 
   ! If we're catching bort errors, set a target return location if one doesn't already exist.
 

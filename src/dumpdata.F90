@@ -889,11 +889,13 @@ recursive subroutine getabdb(lunit,tabdb,itab,jtab)
   if (bort_target_set() == 1) then
     allocate(ctabdb(128,itab))
     call catch_bort_getabdb_c(lunit,itab,ctabdb,jtab)
-    do i = 1, jtab
-      do j = 1, 128
-        tabdb(i)(j:j) = ctabdb(j,i)
+    if (jtab>0) then
+      do i = 1, jtab
+        do j = 1, 128
+          tabdb(i)(j:j) = ctabdb(j,i)
+        enddo
       enddo
-    enddo
+    endif
     deallocate(ctabdb)
     call bort_target_unset
     return

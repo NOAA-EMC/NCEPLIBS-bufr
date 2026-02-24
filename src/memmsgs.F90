@@ -595,7 +595,7 @@ recursive subroutine rdmemm(imsg,subset,jdate,iret)
       if (ii==ndxm) then
         nwrd = ldxm - ipdxm(ii) + 1
       else
-        nwrd = ipdxm(ii+1) - ipdxm(II)
+        nwrd = ipdxm(ii+1) - ipdxm(ii)
       endif
       do kk = 1, nwrd
         mgwa(kk) = mdx(ipdxm(ii)+kk-1)
