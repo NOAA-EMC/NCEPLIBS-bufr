@@ -59,18 +59,13 @@ recursive integer function icbfms ( str, lstr ) result ( iret )
   implicit none
 
   character*(*), intent(in) :: str
-  character*8 strz
   character*16 zz
   character*16, parameter :: zm_be = '202020E076483742'   ! 10E10 stored as hexadecimal on a big-endian system
   character*16, parameter :: zm_le = '42374876E8000000'   ! 10E10 stored as hexadecimal on a little-endian system
 
-  real*8 rl8z
-
   integer, intent(in) :: lstr
   integer my_lstr, numchr, ii, iupm
   integer*8 il8z
-
-  equivalence(strz,rl8z)
 
   ! Check for I8 integers.
 
@@ -92,10 +87,7 @@ recursive integer function icbfms ( str, lstr ) result ( iret )
   ! the following logic attempts to identify some of these earlier cases, at least for strings between 4 and 8 bytes in length.
 
   if ( numchr>=4 .and. numchr<=8 ) then
-    do ii = 1, numchr
-      strz(ii:ii) = str(ii:ii)
-    end do
-    write (zz,'(z16.16)') transfer(rl8z,il8z)
+    write (zz,'(z16.16)') transfer(str(1:numchr),il8z)
     ii = 2*(8-numchr)+1
     if ( zz(ii:16)==zm_be(ii:16) .or. zz(ii:16)==zm_le(ii:16) ) then
       iret = 1
@@ -107,8 +99,7 @@ recursive integer function icbfms ( str, lstr ) result ( iret )
   ! to 1, including those encoded by NCEPLIBS-bufr version 10.2.0 or later.
 
   do ii=1,numchr
-    strz(1:1) = str(ii:ii)
-    if ( iupm(strz(1:1),8)/=255 ) return
+    if ( iupm(str(ii:ii),8)/=255 ) return
   enddo
 
   iret = 1

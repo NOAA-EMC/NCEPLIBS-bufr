@@ -2718,11 +2718,9 @@ recursive subroutine ufbget(lunit,tab,i1,iret,str)
   character*8 cval
 
   real*8, intent(out) :: tab(i1)
-  real*8 rval, ups
+  real*8 ups
 
   common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
-
-  equivalence (cval,rval)
 
   ! Check for I8 integers
 
@@ -2800,7 +2798,7 @@ recursive subroutine ufbget(lunit,tab,i1,iret,str)
         cval = ' '
         kbit = mbit(invn)
         call upc(cval,nbit(invn)/8,mbay(1,lun),kbit,.true.)
-        tab(i) = rval
+        tab(i) = transfer(cval,tab(i))
       endif
     else
       tab(i) = bmiss

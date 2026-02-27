@@ -24,11 +24,8 @@ program readbp
       character(8)   ::  sid,sta,subset,msg,cmc(17)
       character(3)   ::  vars(8)
       integer        ::  iostat
-      real(8)        ::  hdr(10),obs(10,255),qms(10,255),qmc(17),xob,yob
+      real(8)        ::  hdr(10),obs(10,255),qms(10,255),xob,yob
       logical        ::  window,steam,level,dump,hedr,exist
-
-      equivalence    (hdr(1),sid)
-      equivalence    (qmc,cmc)
 
       data hstr/'SID XOB YOB DHR ELV T29 ITP TYP SRC PRG '/
       data ostr/'CAT POB QOB TOB ZOB UOB VOB PSL         '/
@@ -149,6 +146,7 @@ program readbp
 !  --------------------------------------
 
       call ufbint(lubfr,hdr,10,  1,iret,hstr)
+      sid = transfer(hdr(1),sid)
       xob = hdr(2)
       yob = hdr(3)
       jrt = nint(hdr(6))
@@ -198,7 +196,7 @@ program readbp
           iqm = nint(qms(i,l))
           if(iqm<0)iqm=10e8
           iqm = min(iqm,16)
-          qms(i,l) = qmc(iqm+1)
+          qms(i,l) = transfer(cmc(iqm+1),qms(1,1))
         enddo
       enddo
 

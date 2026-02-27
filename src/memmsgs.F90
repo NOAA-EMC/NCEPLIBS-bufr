@@ -1169,11 +1169,9 @@ recursive subroutine ufbtam(tab,i1,i2,iret,str)
     kbit, mbit, nbit, n, node, imsg, kmsg, nrep, ntg, nbyt, nbmp, nmsub, lcstr, bort_target_set
 
   real*8, intent(out) :: tab(i1,i2)
-  real*8 rval, ups
+  real*8 ups
 
   common /usrstr/ nnod,ncon,nods(20),nodc(10),ivls(10),kons(10)
-
-  equivalence (cval,rval)
 
   data maxtg /100/
 
@@ -1295,7 +1293,7 @@ recursive subroutine ufbtam(tab,i1,i2,iret,str)
               cval = ' '
               kbit = mbit
               call upc(cval,nbit/8,mbay(1,lun),kbit,.true.)
-              tab(i,iret) = rval
+              tab(i,iret) = transfer(cval,tab(i,iret))
             endif
             nods(i) = -nods(I)
             cycle inner

@@ -44,7 +44,6 @@ program test_misc
   character*120 char_120(1), char_120_2(2), char_120_2d(2,5)
   integer int_1d(1), int_1d_2(2), int_1d_3(2), int_2d(2,5)
   integer imt, imtv, iogce, iltv
-  equivalence ( bfmg(1), ibfmg(1) )
 #endif
 
   print *, 'Testing misc subroutines, ignore warnings.'
@@ -324,6 +323,7 @@ program test_misc
     call crbmg_c ( bfmg, 15000, lenmg, ierrb )
     if ( ierrb /= 0 ) stop 20
   enddo
+  ibfmg = transfer ( bfmg(1:lenmg), ibfmg )
   if ( iupbs3( ibfmg, 'DUMMY' ) /= -1 ) stop 21
   ibit = 200
   call pkb(30, 8, ibfmg, ibit) ! overwrite the century byte with a bogus value

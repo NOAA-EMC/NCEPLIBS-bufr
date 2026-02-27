@@ -47,8 +47,6 @@ program intest10
   character cmgtag*8, filnam*25
   character bfmg(mxbf)
 
-  equivalence ( bfmg(1), ibfmg(1) )
-
   print *, 'Testing reading IN_10 to test ERRWRT branches in ARALLOCF, STATUS, UFBMEM, UFBMEX, and OPENBT'
 
 #ifdef KIND_8
@@ -130,6 +128,7 @@ program intest10
   do ii = 1, 4
       call crbmg_c ( bfmg, mxbf, lenmg, ierrb )
       if ( ierrb /= 0 ) stop 14
+      ibfmg = transfer ( bfmg(1:lenmg), ibfmg )
       call readerme ( ibfmg, 31, cmgtag, idate, iret )
       if ( ii == 4 .and. index( errstr(1:errstr_len), 'READERME - STORED NEW DX TABLE' ) == 0 ) stop 15
   enddo

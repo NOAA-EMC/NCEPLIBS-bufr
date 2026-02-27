@@ -18,8 +18,6 @@ program intest11
   character bfmg(mxbf), cds3(5)*6, cmgtag*8, errstr*400
   character filnam*25 / 'testfiles/IN_11' /
 
-  equivalence ( bfmg(1), ibfmg(1) )
-
   print *, 'Testing reading IN_11 using STNDRD and RDMEMS'
 
 #ifdef KIND_8
@@ -34,6 +32,7 @@ program intest11
   call cobfl_c ( filnam, 'r' )
   call crbmg_c ( bfmg, mxbf, lenmg, ierrb )
   if ( ierrb /= 0 ) stop 1
+  ibfmg = transfer ( bfmg(1:lenmg), ibfmg )
   call ccbfl_c ()
 
   ! Re-open the file for reading via openbf, then pass the array message into stndrd and check some values.

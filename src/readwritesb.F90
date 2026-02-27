@@ -1047,9 +1047,7 @@ subroutine rdtree(lun,iret)
 
   character*8 cval
 
-  real*8 rval, ups
-
-  equivalence (cval,rval)
+  real*8 ups
 
   iret = 0
 
@@ -1080,9 +1078,8 @@ subroutine rdtree(lun,iret)
         val(n,lun) = bmiss
       endif
     elseif(itp(node)==3) then
-      ! The value is a character string, so unpack it using an equivalenced real*8 value.  Note that a maximum of 8 characters
-      ! will be unpacked here, so a separate subsequent call to subroutine readlc() will be needed to fully unpack any string
-      ! longer than 8 characters.
+      ! The unpacked value is a character string.  A maximum of 8 characters will be unpacked here, so a separate
+      ! subsequent call to subroutine readlc() will be needed to fully unpack any string longer than 8 characters.
       cval = ' '
       kbit = mbit(n)
       nbt = min(8,nbit(n)/8)
@@ -1090,7 +1087,7 @@ subroutine rdtree(lun,iret)
       if (nbit(n)<=64 .and. icbfms(cval,nbt)/=0) then
         val(n,lun) = bmiss
       else
-        val(n,lun) = rval
+        val(n,lun) = transfer(cval,val(n,lun))
       endif
     endif
   enddo
@@ -1124,10 +1121,6 @@ subroutine wrtree(lun)
 
   character*120 lstr
   character*8 cval
-
-  real*8 rval
-
-  equivalence (cval,rval)
 
   ! Convert user numbers into scaled integers
 
@@ -1170,8 +1163,7 @@ subroutine wrtree(lun)
         call readlc(luncpy(lun),lstr,tag(node))
         call pkc(lstr,ncr,ibay,ibit)
       else
-        rval = val(n,lun)
-        if(ibfms(rval)/=0) then
+        if(ibfms(val(n,lun))/=0) then
           ! The value is "missing", so set all bits to 1 before packing the field as a character string.
           numchr = min(ncr,len(lstr))
           do jj = 1, numchr
@@ -1179,10 +1171,10 @@ subroutine wrtree(lun)
           enddo
           call pkc(lstr,numchr,ibay,ibit)
         else
-          ! The value is not "missing", so pack the equivalenced character string.  Note that a maximum of 8 characters
-          ! will be packed here, so a separate subsequent call to subroutine writlc() will be needed to fully encode any
-          ! string longer than 8 characters.
-          call pkc(cval,ncr,ibay,ibit)
+          ! The value is not "missing", so pack the field as a character string.  A maximum of 8 characters will be packed
+          ! here, so a separate subsequent call to subroutine writlc() will be needed to fully encode any string longer
+          ! than 8 characters.
+          call pkc(transfer(val(n,lun),cval),ncr,ibay,ibit)
         endif
       endif
     endif

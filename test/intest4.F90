@@ -30,8 +30,6 @@ program intest4
   character*20 filnam / 'testfiles/IN_4' /
   character filost / 'r' /
 
-  equivalence (bfmg (1), ibfmg (1))
-
   print *, 'Testing reading IN_4, using CRBMG_C with OPENBF IO = SEC3, and using bitmap and marker operators.'
 
 #ifdef KIND_8
@@ -63,10 +61,11 @@ program intest4
   ! Read the BUFR message from the BUFR file.
   call crbmg_c(bfmg, mxbf, nbyt, ierr)
   if (ierr /= 0) stop 1
+  ibfmg = transfer(bfmg(1:nbyt), ibfmg)
 
   ! Check some values in Section 1 of the message.
   if (iupbs01(ibfmg, 'MTYP') /= 5 .or. iupbs01(ibfmg, 'MTV' ) /= 12 &
-       .or. iupbs01(ibfmg, 'LENM') /= 3588) stop 2
+       .or. nbyt /= 3588) stop 2
 
   ! Check some values in Section 3 of the message.
   if (iupbs3(ibfmg, 'NSUB') /= 31 .or. iupbs3(ibfmg, 'ICMP') /= 1) stop 3

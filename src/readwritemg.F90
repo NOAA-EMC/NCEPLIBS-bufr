@@ -240,8 +240,6 @@ recursive subroutine readerme(mesg,lunit,subset,jdate,iret)
 
   logical endtbl
 
-  equivalence (sec0,iec0)
-
   ! Check for I8 integers
 
   if(im8b) then
@@ -276,6 +274,7 @@ recursive subroutine readerme(mesg,lunit,subset,jdate,iret)
 
   iec0(1) = mesg(1)
   iec0(2) = mesg(2)
+  sec0 = transfer(iec0, sec0)
   lnmsg = lmsg(sec0)
   if(lnmsg*nbytw>mxmsgl) then
     write(bort_str,'("BUFRLIB: READERME - INPUT BUFR MESSAGE LENGTH",1X,I6," BYTES) IS LARGER THAN '// &
@@ -1209,11 +1208,8 @@ integer function lmsg(sec0) result(iret)
   integer msec0(2), nmwrd
 
   character*8, intent(in) :: sec0
-  character*8 csec0
 
-  equivalence(msec0,csec0)
-
-  csec0 = sec0
+  msec0 = transfer(sec0, msec0)
   iret = nmwrd(msec0)
 
   return

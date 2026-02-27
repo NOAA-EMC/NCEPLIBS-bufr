@@ -59,7 +59,6 @@ program test_bort
   character*25 filnam
   character bfmg(mxmb)
   integer ibfmg(mxmbd4), ibfmg2(mxmbd4)
-  equivalence (bfmg(1),ibfmg(1))
 
 #ifdef KIND_8
   call setim8b(.true.)
@@ -107,6 +106,7 @@ program test_bort
         call cobfl_c ( filnam, 'r' )
         call crbmg_c ( bfmg, mxmb, msgl4, iret4 )
         if ( iret4 /= 0 ) stop 0
+        ibfmg = transfer ( bfmg(1:msgl4), ibfmg )
         call ccbfl_c ()
         call atrcpt ( ibfmg, 5000, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
@@ -187,6 +187,7 @@ program test_bort
      endif
      call cobfl_c( filnam, 'r' )
      call crbmg_c(bfmg, mxmb, msgl4, iret4)
+     ibfmg = transfer ( bfmg(1:msgl4), ibfmg )
      call readerme(ibfmg, 31, char_val_8, jdate, iret)
      call cnved4(ibfmg, 1, ibay)
      call check_for_bort( errstr, errstr_len )
@@ -672,6 +673,7 @@ program test_bort
      open(unit = 31, file = '/dev/null')
      call openbf(31, 'SEC3', 31)
      call crbmg_c(bfmg, mxmb, msgl4, iret4)
+     ibfmg = transfer(bfmg(1:msgl4), ibfmg)
      if (test_case == '1') then
         ! Change the last 2-37-000 operator in Section 3 to 2-35-000, so that the bitmap can't be located
         ! for any of the subsequent marker operators.
@@ -829,6 +831,7 @@ program test_bort
      open(unit = 31, file = '/dev/null')
      call openbf(31, 'INUL', 31)
      call crbmg_c(bfmg, mxmb, msgl4, iret4)
+     ibfmg = transfer(bfmg(1:msgl4), ibfmg)
      if (test_case == '1') then
         ibit = 64
         call pkb(25, 24, ibfmg, ibit)
@@ -1145,6 +1148,7 @@ program test_bort
      filnam = 'testfiles/IN_2'
      call cobfl_c( filnam, 'r' )
      call crbmg_c(bfmg, mxmb, msgl4, iret4)
+     ibfmg = transfer(bfmg(1:msgl4), ibfmg)
      if (test_case == '1') then
         call pkbs1(88, ibfmg, 'DUMMY')
         call check_for_bort( errstr, errstr_len )
@@ -1338,6 +1342,7 @@ program test_bort
         call openbf(31, 'INUL', 31)
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
         bfmg(1) = 'C'
+        ibfmg = transfer(bfmg(1:msgl4), ibfmg)
         call readerme(ibfmg, 31, char_val_8, jdate, iret)
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
@@ -1503,10 +1508,12 @@ program test_bort
         filnam = 'testfiles/IN_1'
         call cobfl_c( filnam, 'r' )
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
+        ibfmg = transfer(bfmg(1:msgl4), ibfmg)
         call readerme(ibfmg, 31, char_val_8, jdate, iret)
         filnam = 'testfiles/IN_4'
         call cobfl_c( filnam, 'r' )
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
+        ibfmg = transfer(bfmg(1:msgl4), ibfmg)
         ! Make it look like the message uses version 14 of the WMO master tables.
         ibit = 168
         call pkb(14, 8, ibfmg, ibit)
@@ -1651,6 +1658,7 @@ program test_bort
         if (isetprm('MXNAF',1) /= 0) stop 0
         call openbf(31, 'SEC3', 31)
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
+        ibfmg = transfer(bfmg(1:msgl4), ibfmg)
         ! Make Section 3 of the message look like it contains two consecutive occurrences of descriptor 3-03-021.
         ibit = 296
         call pkb(195, 8, ibfmg, ibit)
@@ -1660,6 +1668,7 @@ program test_bort
      elseif (test_case == '2') then
         call openbf(31, 'SEC3', 31)
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
+        ibfmg = transfer(bfmg(1:msgl4), ibfmg)
         ! Make Section 3 of the message look like it contains one occurrence of descriptor 3-03-021 followed
         ! by two occurrences of descriptor 2-04-000.
         ibit = 296
@@ -1673,6 +1682,7 @@ program test_bort
      elseif (test_case == '3') then
         call openbf(31, 'SEC3', 31)
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
+        ibfmg = transfer(bfmg(1:msgl4), ibfmg)
         ! Make Section 3 of the message look like it contains an occurrence of replication descriptor 1-03-000
         ! without a following delayed descriptor replication factor.
         ibit = 296
@@ -1813,6 +1823,7 @@ program test_bort
         stop 0
      elseif (test_case == '2') then
         bfmg(7) = '3'
+        ibfmg = transfer ( bfmg(1:msgl4), ibfmg )
         call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
@@ -1820,6 +1831,7 @@ program test_bort
         stop 0
      elseif (test_case == '3') then
         bfmg(188210) = '8'
+        ibfmg = transfer ( bfmg(1:msgl4), ibfmg )
         call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
@@ -1827,6 +1839,7 @@ program test_bort
         stop 0
      elseif (test_case == '4') then
         bfmg(46) = '8'
+        ibfmg = transfer ( bfmg(1:msgl4), ibfmg )
         call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
@@ -1836,12 +1849,14 @@ program test_bort
         bfmg(17468) = 'z'
         bfmg(17469) = 'z'
         bfmg(17470) = 'z'
+        ibfmg = transfer ( bfmg(1:msgl4), ibfmg )
         call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'STNDRD - BIT MISMATCH COPYING SECTION 4 FROM INPUT TO OUTPUT' ) /= 0 ) stop 88
         stop 0
      elseif (test_case == '6') then
+        ibfmg = transfer ( bfmg(1:msgl4), ibfmg )
         call stndrd ( 21, ibfmg, 5000, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &

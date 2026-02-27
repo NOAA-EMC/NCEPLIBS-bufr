@@ -239,21 +239,18 @@ integer function irev(n) result(iret)
 
   integer, intent(in) :: n
 
-  integer int, jnt, i
+  integer i
 
-  character*8 cint,dint
-
-  equivalence(cint,int)
-  equivalence(dint,jnt)
+  character*4 cint,fint
 
 #ifdef BIG_ENDIAN
   iret = n
 #else
-  int = n
+  cint = transfer(n,cint)
   do i=1,nbytw
-    dint(i:i) = cint(iordle(i):iordle(i))
+    fint(i:i) = cint(iordle(i):iordle(i))
   enddo
-  iret = jnt
+  iret = transfer(fint,n)
 #endif
 
   return

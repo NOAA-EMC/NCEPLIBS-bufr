@@ -60,8 +60,6 @@ recursive subroutine ufbdmp(lunin,luprt)
 
   real*8 vl
 
-  equivalence (vl,vc)
-
   data pmiss /'             MISSING'/
   data you /'Y'/
 
@@ -181,7 +179,7 @@ recursive subroutine ufbdmp(lunin,luprt)
         if(ibfms(vl)/=0) then
           lchr = pmiss
         else
-          lchr = vc
+          lchr = transfer(vl,vc)
         endif
       endif
       if ( nchr<=20 .or. lchr==pmiss ) then
@@ -260,8 +258,6 @@ recursive subroutine ufdump(lunit,luprt)
     seqnam(mxseq)*10, lsnemo(mxls)*10, nemod*8, cval*8, fmtf*7, numb*6, type*3, tab, you
 
   logical track, found, rdrv
-
-  equivalence (rval,cval)
 
   data pmiss /'             MISSING'/
   data you /'Y'/
@@ -516,7 +512,7 @@ recursive subroutine ufdump(lunit,luprt)
       if(ibfms(rval)/=0) then
         lchr = pmiss
       else if(nchr<=8) then
-        lchr = cval
+        lchr = transfer(rval,cval)
       else
         ! Track the number of occurrences of this long character string, so that we can properly output each one.
         ii = 1

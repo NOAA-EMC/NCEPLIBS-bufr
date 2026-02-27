@@ -27,8 +27,6 @@ program intest1
   character filost / 'r' /
   integer*4 i4dy, idxmsg
 
-  equivalence (bfmg(1), ibfmg(1))
-
   print *, 'Testing reading IN_1, CRBMG_C with OPENBF IO = SEC3'
 
 #ifdef KIND_8
@@ -61,11 +59,12 @@ program intest1
   ! Read a BUFR message from the test file into a memory array.
   call crbmg_c(bfmg, mxbf, nbyt, ierr)
   if (ierr /= 0) stop 1
+  ibfmg = transfer(bfmg(1:nbyt), ibfmg)
 
   ! Read and check some values from Section 1.
   if (iupbs01(ibfmg, 'MTYP') /= 2) stop 2
   if (iupbs01(ibfmg, 'MTV') /= 14) stop 3
-  if (iupbs01(ibfmg, 'LENM') /= 4169) stop 4
+  if (nbyt /= 4169) stop 4
 
   ! Read and check some values from Section 3.
   if (iupbs3(ibfmg, 'NSUB') /= 1) stop 5

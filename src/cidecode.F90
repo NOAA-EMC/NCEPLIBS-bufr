@@ -37,8 +37,6 @@ subroutine upc(chr,nchr,ibay,ibit,cnvnull)
 
   logical, intent(in) :: cnvnull
 
-  equivalence (cval,ival)
-
   ! Set lb to point to the "low-order" (i.e. least significant) byte within a machine word.
 
 #ifdef BIG_ENDIAN
@@ -52,6 +50,7 @@ subroutine upc(chr,nchr,ibay,ibit,cnvnull)
   numchr = min(nchr,len(chr))
   do i=1,numchr
     call upb(ival(1),8,ibay,ibit)
+    cval = transfer(ival,cval)
     if((ival(1)==0).and.(cnvnull)) then
       chr(i:i) = ' '
     else
@@ -86,9 +85,6 @@ subroutine upb8(nval,nbits,ibit,ibay)
   integer*8, intent(out) :: nval
 
   integer :: nvals(2), jbit, ival
-  integer*8 :: nval8
-
-  equivalence (nval8,nvals)
 
   if(nbits<0) then
      call bort('BUFRLIB: UPB8 - nbits < zero !!!!!')
@@ -100,7 +96,7 @@ subroutine upb8(nval,nbits,ibit,ibay)
      jbit=ibit; nvals=0
      call upb(nvals(2),max(nbits-nbitw,0),ibay,jbit)
      call upb(nvals(1),min(nbitw,nbits),ibay,jbit)
-     nval=nval8
+     nval=transfer(nvals,nval)
   else
      nval=0
   endif
@@ -268,14 +264,11 @@ recursive integer function iupm(cbay,nbits) result(iret)
   implicit none
 
   character*(*), intent(in) :: cbay
-  character*4 cint
-  character*16 ccbay
+  character*8 ccbay
   character*128 bort_str
 
   integer, intent(in) :: nbits
-  integer my_nbits, int, irev, lcbay, lccb, bort_target_set
-
-  equivalence (cint,int)
+  integer my_nbits, cint, irev, lcbay, lccb, bort_target_set
 
   ! Check for I8 integers.
 
@@ -307,9 +300,9 @@ recursive integer function iupm(cbay,nbits) result(iret)
       ', NBITS (",I4,"), IS > THE INTEGER WORD LENGTH ON THIS MACHINE, NBITW (",I3,")")') nbits,nbitw
     call bort(bort_str)
   endif
-  cint(1:lcbay) = cbay(1:lcbay)
-  int = irev(int)
-  iret = ishft(int,nbits-nbitw)
+  cint = transfer(cbay(1:lcbay),cint)
+  cint = irev(cint)
+  iret = ishft(cint,nbits-nbitw)
 
   return
 end function iupm
