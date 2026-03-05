@@ -22,7 +22,7 @@ program test_bort
   character*30 char_30
   character*8 tags(5)
   character*4 char_4(1)
-  character*8 char_8(1), char_val_8, nems(20)
+  character*8 char_8(1), char_val_8, nems(20), sec0
   character*12 char_12(1)
   character*24 char_24(1)
   character*85 char_85
@@ -43,7 +43,7 @@ program test_bort
   integer mear, mmon, mday, mour, idate
   integer iyr, imo, idy, ihr, imi
   integer jdate1(5), jdump1(5)
-  integer lmsgt, msgt(100), msgl
+  integer lmsgt, msgt(100), msgl, nwrd
   integer nseq, irps(20), knts(20)
   integer imt, imtv, iogce, iltv
   integer lun, il, im, kmsg, ksub
@@ -51,7 +51,7 @@ program test_bort
   character*400 errstr
   integer errstr_len
 
-  integer*4 isize, iupm, iupvs01, isetprm, nmsub, igettdi, igetsc, lcmgdf, catch_borts
+  integer*4 isize, iupm, iupvs01, isetprm, nmsub, igettdi, igetsc, lcmgdf, catch_borts, lmsg
   integer*4 msgl4, iret4
   integer*4, parameter :: mxmb = 200000
   integer, parameter :: mxmbd4 = mxmb/4
@@ -106,7 +106,8 @@ program test_bort
         call cobfl_c ( filnam, 'r' )
         call crbmg_c ( bfmg, mxmb, msgl4, iret4 )
         if ( iret4 /= 0 ) stop 0
-        ibfmg = transfer ( bfmg(1:msgl4), ibfmg )
+        nwrd = min ( lmsg(transfer(bfmg(1:8),sec0)), mxmbd4 )
+        ibfmg(1:nwrd) = transfer ( bfmg(1:nwrd*4), ibfmg, nwrd )
         call ccbfl_c ()
         call atrcpt ( ibfmg, 5000, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
@@ -187,7 +188,8 @@ program test_bort
      endif
      call cobfl_c( filnam, 'r' )
      call crbmg_c(bfmg, mxmb, msgl4, iret4)
-     ibfmg = transfer ( bfmg(1:msgl4), ibfmg )
+     nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+     ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
      call readerme(ibfmg, 31, char_val_8, jdate, iret)
      call cnved4(ibfmg, 1, ibay)
      call check_for_bort( errstr, errstr_len )
@@ -673,7 +675,8 @@ program test_bort
      open(unit = 31, file = '/dev/null')
      call openbf(31, 'SEC3', 31)
      call crbmg_c(bfmg, mxmb, msgl4, iret4)
-     ibfmg = transfer(bfmg(1:msgl4), ibfmg)
+     nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+     ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
      if (test_case == '1') then
         ! Change the last 2-37-000 operator in Section 3 to 2-35-000, so that the bitmap can't be located
         ! for any of the subsequent marker operators.
@@ -831,7 +834,8 @@ program test_bort
      open(unit = 31, file = '/dev/null')
      call openbf(31, 'INUL', 31)
      call crbmg_c(bfmg, mxmb, msgl4, iret4)
-     ibfmg = transfer(bfmg(1:msgl4), ibfmg)
+     nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+     ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
      if (test_case == '1') then
         ibit = 64
         call pkb(25, 24, ibfmg, ibit)
@@ -1148,7 +1152,8 @@ program test_bort
      filnam = 'testfiles/IN_2'
      call cobfl_c( filnam, 'r' )
      call crbmg_c(bfmg, mxmb, msgl4, iret4)
-     ibfmg = transfer(bfmg(1:msgl4), ibfmg)
+     nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+     ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
      if (test_case == '1') then
         call pkbs1(88, ibfmg, 'DUMMY')
         call check_for_bort( errstr, errstr_len )
@@ -1342,7 +1347,8 @@ program test_bort
         call openbf(31, 'INUL', 31)
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
         bfmg(1) = 'C'
-        ibfmg = transfer(bfmg(1:msgl4), ibfmg)
+        nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+        ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
         call readerme(ibfmg, 31, char_val_8, jdate, iret)
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
@@ -1508,12 +1514,14 @@ program test_bort
         filnam = 'testfiles/IN_1'
         call cobfl_c( filnam, 'r' )
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
-        ibfmg = transfer(bfmg(1:msgl4), ibfmg)
+        nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+        ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
         call readerme(ibfmg, 31, char_val_8, jdate, iret)
         filnam = 'testfiles/IN_4'
         call cobfl_c( filnam, 'r' )
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
-        ibfmg = transfer(bfmg(1:msgl4), ibfmg)
+        nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+        ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
         ! Make it look like the message uses version 14 of the WMO master tables.
         ibit = 168
         call pkb(14, 8, ibfmg, ibit)
@@ -1658,7 +1666,8 @@ program test_bort
         if (isetprm('MXNAF',1) /= 0) stop 0
         call openbf(31, 'SEC3', 31)
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
-        ibfmg = transfer(bfmg(1:msgl4), ibfmg)
+        nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+        ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
         ! Make Section 3 of the message look like it contains two consecutive occurrences of descriptor 3-03-021.
         ibit = 296
         call pkb(195, 8, ibfmg, ibit)
@@ -1668,7 +1677,8 @@ program test_bort
      elseif (test_case == '2') then
         call openbf(31, 'SEC3', 31)
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
-        ibfmg = transfer(bfmg(1:msgl4), ibfmg)
+        nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+        ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
         ! Make Section 3 of the message look like it contains one occurrence of descriptor 3-03-021 followed
         ! by two occurrences of descriptor 2-04-000.
         ibit = 296
@@ -1682,7 +1692,8 @@ program test_bort
      elseif (test_case == '3') then
         call openbf(31, 'SEC3', 31)
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
-        ibfmg = transfer(bfmg(1:msgl4), ibfmg)
+        nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+        ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
         ! Make Section 3 of the message look like it contains an occurrence of replication descriptor 1-03-000
         ! without a following delayed descriptor replication factor.
         ibit = 296
@@ -1823,7 +1834,8 @@ program test_bort
         stop 0
      elseif (test_case == '2') then
         bfmg(7) = '3'
-        ibfmg = transfer ( bfmg(1:msgl4), ibfmg )
+        nwrd = min( lmsg( transfer (bfmg(1:8), sec0) ), mxmbd4 )
+        ibfmg(1:nwrd) = transfer( bfmg(1:nwrd*4), ibfmg, nwrd )
         call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
@@ -1831,7 +1843,8 @@ program test_bort
         stop 0
      elseif (test_case == '3') then
         bfmg(188210) = '8'
-        ibfmg = transfer ( bfmg(1:msgl4), ibfmg )
+        nwrd = min( lmsg( transfer (bfmg(1:8), sec0) ), mxmbd4 )
+        ibfmg(1:nwrd) = transfer( bfmg(1:nwrd*4), ibfmg, nwrd )
         call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
@@ -1839,7 +1852,8 @@ program test_bort
         stop 0
      elseif (test_case == '4') then
         bfmg(46) = '8'
-        ibfmg = transfer ( bfmg(1:msgl4), ibfmg )
+        nwrd = min( lmsg( transfer (bfmg(1:8), sec0) ), mxmbd4 )
+        ibfmg(1:nwrd) = transfer( bfmg(1:nwrd*4), ibfmg, nwrd )
         call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
@@ -1849,14 +1863,16 @@ program test_bort
         bfmg(17468) = 'z'
         bfmg(17469) = 'z'
         bfmg(17470) = 'z'
-        ibfmg = transfer ( bfmg(1:msgl4), ibfmg )
+        nwrd = min( lmsg( transfer (bfmg(1:8), sec0) ), mxmbd4 )
+        ibfmg(1:nwrd) = transfer( bfmg(1:nwrd*4), ibfmg, nwrd )
         call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'STNDRD - BIT MISMATCH COPYING SECTION 4 FROM INPUT TO OUTPUT' ) /= 0 ) stop 88
         stop 0
      elseif (test_case == '6') then
-        ibfmg = transfer ( bfmg(1:msgl4), ibfmg )
+        nwrd = min( lmsg( transfer (bfmg(1:8), sec0) ), mxmbd4 )
+        ibfmg(1:nwrd) = transfer( bfmg(1:nwrd*4), ibfmg, nwrd )
         call stndrd ( 21, ibfmg, 5000, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &

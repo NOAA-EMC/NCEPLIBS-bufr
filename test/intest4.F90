@@ -13,7 +13,7 @@ program intest4
   integer*4 mxbf, nbyt, ierr
 
   integer ier, imgdt, nds3, ii
-  integer nr8lv, ntag
+  integer nr8lv, ntag, nwrd
 
   integer mxbfd4, mxds3, mxr8lv, mxr8pm
   parameter (mxbf = 20000)
@@ -61,7 +61,9 @@ program intest4
   ! Read the BUFR message from the BUFR file.
   call crbmg_c(bfmg, mxbf, nbyt, ierr)
   if (ierr /= 0) stop 1
-  ibfmg = transfer(bfmg(1:nbyt), ibfmg)
+  sec0 = transfer(bfmg(1:8), sec0)
+  nwrd = min(lmsg(sec0), mxbfd4)
+  ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
 
   ! Check some values in Section 1 of the message.
   if (iupbs01(ibfmg, 'MTYP') /= 5 .or. iupbs01(ibfmg, 'MTV' ) /= 12 &
@@ -102,9 +104,6 @@ program intest4
   if ( ier /= 0 .or. ntag /= 10 .or. tag /= 'RDNE    ' ) stop 12
 
   ! Check the output from lmsg, nmwrd, ipkm, and iupm.
-  do ii = 1, 8
-    sec0(ii:ii) = bfmg(ii)
-  end do
   if ( lmsg(sec0) /= 898 ) stop 13
   if ( nmwrd(ibfmg) /= 898 ) stop 14
   call ipkm(cbay,3,3588)

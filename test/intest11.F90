@@ -9,13 +9,13 @@ program intest11
   implicit none
 
   integer*4, parameter :: mxbf = 200000
-  integer*4 lenmg, ierrb, catch_borts
+  integer*4 lenmg, ierrb, catch_borts, lmsg
 
   integer, parameter :: mxbfd4 = mxbf/4
   integer ibfmg(mxbfd4), ibfmg2(mxbfd4), imesg(50)
-  integer ios1, ios2, ncds3, iret, imgdt, errstr_len
+  integer ios1, ios2, ncds3, iret, imgdt, errstr_len, nwrd
 
-  character bfmg(mxbf), cds3(5)*6, cmgtag*8, errstr*400
+  character bfmg(mxbf), cds3(5)*6, cmgtag*8, sec0*8, errstr*400
   character filnam*25 / 'testfiles/IN_11' /
 
   print *, 'Testing reading IN_11 using STNDRD and RDMEMS'
@@ -32,7 +32,8 @@ program intest11
   call cobfl_c ( filnam, 'r' )
   call crbmg_c ( bfmg, mxbf, lenmg, ierrb )
   if ( ierrb /= 0 ) stop 1
-  ibfmg = transfer ( bfmg(1:lenmg), ibfmg )
+  nwrd = min ( lmsg(transfer(bfmg(1:8),sec0)), mxbfd4 )
+  ibfmg(1:nwrd) = transfer ( bfmg(1:nwrd*4), ibfmg, nwrd )
   call ccbfl_c ()
 
   ! Re-open the file for reading via openbf, then pass the array message into stndrd and check some values.

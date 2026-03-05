@@ -9,11 +9,11 @@ program intest1
 
   implicit none
 
-  integer mxbfd4, mxds3, nds3, ierme, imgdt
+  integer mxbfd4, mxds3, nds3, ierme, imgdt, nwrd
   integer ierndv, iernds, mxr8pm, mxr8lv, iertgp, nr8lv
   integer len0, len1, len2, len3, len4, len5
   integer*4 mxbf, nbyt, ierr
-  integer*4 iupbs01, iupbs3, ireadsb, ibfms, catch_borts
+  integer*4 iupbs01, iupbs3, ireadsb, ibfms, catch_borts, lmsg
   parameter (mxbf = 20000)
   parameter (mxbfd4 = mxbf/4)
   parameter (mxds3 = 20)
@@ -21,7 +21,7 @@ program intest1
   parameter (mxr8lv = 255)
   real*8 r8arr(mxr8pm, mxr8lv)
   integer ibfmg(mxbfd4)
-  character smidstg*9, softvstg*12, cmgtag*8, &
+  character smidstg*9, softvstg*12, cmgtag*8, sec0*8, &
        bfmg(mxbf), cds3(mxds3)*6, tagpr*8, celem*60, cunit*22
   character*20 filnam / 'testfiles/IN_1' /
   character filost / 'r' /
@@ -59,7 +59,8 @@ program intest1
   ! Read a BUFR message from the test file into a memory array.
   call crbmg_c(bfmg, mxbf, nbyt, ierr)
   if (ierr /= 0) stop 1
-  ibfmg = transfer(bfmg(1:nbyt), ibfmg)
+  nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxbfd4)
+  ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
 
   ! Read and check some values from Section 1.
   if (iupbs01(ibfmg, 'MTYP') /= 2) stop 2

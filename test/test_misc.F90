@@ -27,18 +27,16 @@ program test_misc
   character*5 adn30
   character*6 adn_char
   integer a, idn30, idn, i, ibit
-  integer ierr, nemock
-  integer numbck
+  integer ierr, nemock, numbck, nwrd
   integer mtyp, msbt, inod
-  integer*4 igetprm, invcon, invtag, iupbs01, iupbs3
-  integer*4 imrkopr
+  integer*4 igetprm, invcon, invtag, iupbs01, iupbs3, lmsg, imrkopr
   character bfmg(15000)
   integer ibfmg(3750)
   integer*4 lenmg, ierrb
   character*30 filnam
   character*7 prms(15)
   character*4 char_4(1), char_4_2(2)
-  character*8 char_8(1), char_8_2(2)
+  character*8 char_8(1), char_8_2(2), sec0
   character*12 char_12(1)
   character*24 char_24(1)
   character*120 char_120(1), char_120_2(2), char_120_2d(2,5)
@@ -323,7 +321,8 @@ program test_misc
     call crbmg_c ( bfmg, 15000, lenmg, ierrb )
     if ( ierrb /= 0 ) stop 20
   enddo
-  ibfmg = transfer ( bfmg(1:lenmg), ibfmg )
+  nwrd = min ( lmsg(transfer(bfmg(1:8),sec0)), 3750 )
+  ibfmg(1:nwrd) = transfer ( bfmg(1:nwrd*4), ibfmg, nwrd )
   if ( iupbs3( ibfmg, 'DUMMY' ) /= -1 ) stop 21
   ibit = 200
   call pkb(30, 8, ibfmg, ibit) ! overwrite the century byte with a bogus value

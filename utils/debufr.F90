@@ -71,20 +71,20 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
   integer(c_int), value, intent(in) :: lenof, lentd, lentf, lenps
 
-  integer*4 :: isetprm, idxmsg, iupbs01, iupbs3, ireadsb
+  integer*4 :: isetprm, idxmsg, iupbs01, iupbs3, ireadsb, lmsg
   integer*4 :: nbyt, ierr
 
   logical exists
 
   character*120 cmorgc, cmgses, cmmtyp, cmmsbt, cmmsbti
   character*20  ptag ( mxprms ), pvtag(2), cprmnm
-  character*8   cmgtag
+  character*8   cmgtag, sec0
   character*6   cds3 ( mxds3 )
   character     opened, usemt, bfmg ( mxbf ), basic_f, forcemt_f, cfms_f
 
   integer ibfmg ( mxbfd4 ), lunit, nmsg, nsub, nsubt, ii, jj, nds3, nptag, npvtag, ipval, lcprmnm, ier, imgdt, ierme, &
           iogce, lcmorgc, ierorgc, igses, lcmgses, iergses, iryr, irmo, irdy, irhr, irmi, irtret, &
-          mtyp, lcmmtyp, iermtyp, msbt, lcmmsbt, iermsbt, msbti, lcmmsbti, iermsbti, iersn
+          mtyp, lcmmtyp, iermtyp, msbt, lcmmsbt, iermsbt, msbti, lcmmsbti, iermsbti, iersn, nwrd
 
   save bfmg, ibfmg
 
@@ -158,7 +158,8 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
     ! Copy the message into an integer array.
 
-    ibfmg = transfer ( bfmg(1:nbyt), ibfmg )
+    nwrd = min ( lmsg(transfer(bfmg(1:8),sec0)), mxbfd4 )
+    ibfmg(1:nwrd) = transfer ( bfmg(1:nwrd*4), ibfmg, nwrd )
 
     if ( opened == 'N' ) then
 
