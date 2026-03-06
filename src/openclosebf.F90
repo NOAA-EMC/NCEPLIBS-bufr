@@ -181,15 +181,13 @@ recursive subroutine openbf(lunit,io,lundx)
   character*(*), intent(in) :: io
   character*255 filename, fileacc
   character*128 bort_str, errstr
-  character*28 cprint(0:4)
   character*6 cio
-
-  data cprint/ &
-    ' (only aborts)              ', &
-    ' (limited -default)         ', &
-    ' (all warnings)             ', &
-    ' (all warnings+infos)       ', &
-    ' (all warnings+infos+debugs)'/
+  character*28, parameter :: cprint(0:4) = &
+    (/ ' (only aborts)              ', &
+       ' (limited -default)         ', &
+       ' (all warnings)             ', &
+       ' (all warnings+infos)       ', &
+       ' (all warnings+infos+debugs)' /)
 
   ! Check for i8 integers
 

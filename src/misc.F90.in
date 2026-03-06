@@ -28,8 +28,12 @@ subroutine bfrini
 
   implicit none
 
-  integer ndndx(10), nldxa(10), nldxb(10), nldxd(10), nld30(10), nxstr, ldxa, ldxb, ldxd, ld30, &
-    i, j, i1, ifxy
+  integer nxstr, ldxa, ldxb, ldxd, ld30, i, j, i1, ifxy
+  integer, parameter :: ndndx(10) = (/ 25,  15, 0, 0, 0, 0, 0, 0, 0, 0 /)
+  integer, parameter :: nldxa(10) = (/ 35,  67, 0, 0, 0, 0, 0, 0, 0, 0 /)
+  integer, parameter :: nldxb(10) = (/ 80, 112, 0, 0, 0, 0, 0, 0, 0, 0 /)
+  integer, parameter :: nldxd(10) = (/ 38,  70, 0, 0, 0, 0, 0, 0, 0, 0 /)
+  integer, parameter :: nld30(10) = (/  5,   6, 0, 0, 0, 0, 0, 0, 0, 0 /)
 
   character*240 cmtdir
   character*56 dxstr
@@ -46,12 +50,6 @@ subroutine bfrini
     '103000','031001','000001','000002','000003', &
     '101000','031001','300004', &
     '105000','031001','300003','205064','101000','031001','000030'/
-
-  data ndndx /  25 ,  15 , 8*0 /
-  data nldxa /  35 ,  67 , 8*0 /
-  data nldxb /  80 , 112 , 8*0 /
-  data nldxd /  38 ,  70 , 8*0 /
-  data nld30 /   5 ,   6 , 8*0 /
 
   ! Initialize module @ref moda_bitbuf
 

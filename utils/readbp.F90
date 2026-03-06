@@ -17,35 +17,22 @@
 !-----------------------------------------------------------------------
 program readbp
 
-      character(120) ::  file
-      character(50)  ::  optarg
-      character(40)  ::  hstr,ostr,qstr
-      character(10)  ::  val
-      character(8)   ::  sid,sta,subset,msg,cmc(17)
-      character(3)   ::  vars(8)
-      integer        ::  iostat
-      real(8)        ::  hdr(10),obs(10,255),qms(10,255),xob,yob
-      logical        ::  window,steam,level,dump,hedr,exist
+      character(120) :: file
+      character(50) :: optarg
+      character(10) :: val
+      character(8)  :: sid, sta = ' ', subset, msg = ' '
+      character(8), parameter :: cmc(17) = (/'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','*'/)
+      character(3), parameter :: vars(8) = (/'LVL','CAT','POB','SPH','TOB','ZOB','UOB','VOB'/)
+      character*(*), parameter :: hstr = 'SID XOB YOB DHR ELV T29 ITP TYP SRC PRG'
+      character*(*), parameter :: ostr = 'CAT POB QOB TOB ZOB UOB VOB PSL'
+      character*(*), parameter :: qstr = 'PQM QQM TQM ZQM WQM PSQ'
 
-      data hstr/'SID XOB YOB DHR ELV T29 ITP TYP SRC PRG '/
-      data ostr/'CAT POB QOB TOB ZOB UOB VOB PSL         '/
-      data qstr/'PQM QQM TQM ZQM WQM PSQ                 '/
+      integer :: iostat, irt = 0, itp = 0, ikx = 0
+      integer, parameter :: lubfr = 8
 
-      data vars/'LVL','CAT','POB','SPH','TOB','ZOB','UOB','VOB'/
-      data cmc /'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','*'/
+      real(8) :: hdr(10),obs(10,255),qms(10,255),xob,yob
 
-      data lubfr  /8    /
-      data sta    /'   '/
-      data msg    /'   '/
-      data pob    /0/
-      data irt    /0/
-      data itp    /0/
-      data ikx    /0/
-      data window /.false./
-      data steam  /.false./
-      data level  /.false./
-      data dump   /.false./
-      data hedr   /.false./
+      logical :: exist, window = .false., steam = .false., dump = .false., hedr = .false.
 
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------

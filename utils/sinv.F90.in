@@ -19,6 +19,7 @@ program sinv
 
   parameter (maxa=16000000)
   parameter (maxs=1000)
+  parameter (lunbf=20)
 
   character(255) file
   character(240) cmtdir,tbldir
@@ -27,8 +28,6 @@ program sinv
   dimension      isat(0:maxs,0:maxs)
   real(8)        said(2,maxa)
   logical        exist
-
-  data lunbf  /20/
 
   !-----------------------------------------------------------------------
   !-----------------------------------------------------------------------

@@ -11,27 +11,25 @@
 program cmpbqm
 
   character*255 file
-  character*50 headr,obstr,qmstr
-  character*20 vars(7)
+  character*20, parameter :: vars(7) = &
+    (/ 'PRESSURE            ', &
+       'SPECIFIC HUMIDTY    ', &
+       'TEMPERATURE         ', &
+       'HEIGHT              ', &
+       'WIND COMPONENTS     ', &
+       'PRECIPITABLE H2O    ', &
+       'RELATIVE HUMIDTY    ' /)
   character*8  subset,date
   dimension    knt(300,7,0:17),hdr(5),obs(8,255),qms(8,255)
   logical      exist
   real*8       hdr,obs,qms
+  real*8, parameter :: vmax = 10E10
 
-  data headr /'SID XOB YOB DHR TYP              '/
-  data obstr /'POB QOB TOB ZOB UOB PWO RHO VOB  '/
-  data qmstr /'PQM QQM TQM ZQM WQM PWQ RHQ      '/
+  integer, parameter :: lubfr = 8
 
-  data vars   /'PRESSURE        ',&
-       'SPECIFIC HUMIDTY',&
-       'TEMPERATURE     ',&
-       'HEIGHT          ',&
-       'WIND COMPONENTS ',&
-       'PRECIPITABLE H2O',&
-       'RELATIVE HUMIDTY'/
-
-  data lubfr /8    /
-  data vmax  /10E10/
+  character*(*), parameter :: headr = 'SID XOB YOB DHR TYP'
+  character*(*), parameter :: obstr = 'POB QOB TOB ZOB UOB PWO RHO VOB'
+  character*(*), parameter :: qmstr = 'PQM QQM TQM ZQM WQM PWQ RHQ'
 
   !-----------------------------------------------------------------------
   !-----------------------------------------------------------------------

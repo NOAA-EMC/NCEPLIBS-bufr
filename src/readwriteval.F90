@@ -241,19 +241,18 @@ recursive subroutine writlc(lunit,chr,str)
   implicit none
 
   integer, intent(in) :: lunit
-  integer my_lunit, maxtg, lun, il, im, ntg, nnod, kon, ii, n, node, ioid, ival, mbit, nbit, nbmp, nchr, nbyt, nsubs, &
+  integer, parameter :: maxtg = 10
+  integer my_lunit, lun, il, im, ntg, nnod, kon, ii, n, node, ioid, ival, mbit, nbit, nbmp, nchr, nbyt, nsubs, &
     itagct, len0, len1, len2, len3, l4, l5, mbyte, iupbs3, lchr, lcstr, bort_target_set
 
   character*(*), intent(in) :: chr, str
   character*128 bort_str, errstr
   character*10 ctag
-  character*14 tgs(10)
+  character*14 tgs(maxtg)
   character*15 cstr
   character*(:), allocatable :: cchr
 
   real roid
-
-  data maxtg /10/
 
   ! Check for I8 integers
   if(im8b) then
@@ -464,7 +463,8 @@ recursive subroutine readlc(lunit,chr,str)
   implicit none
 
   integer, intent(in) :: lunit
-  integer my_lunit, maxtg, lchr, lun, il, im, ntg, nnod, kon, ii, n, nod, ioid, itagct, nchr, kbit, lcstr, lcchr, ncchr, &
+  integer, parameter :: maxtg = 10
+  integer my_lunit, lchr, lun, il, im, ntg, nnod, kon, ii, n, nod, ioid, itagct, nchr, kbit, lcstr, lcchr, ncchr, &
     bort_target_set
 
   character*(*), intent(in) :: str
@@ -472,13 +472,11 @@ recursive subroutine readlc(lunit,chr,str)
 
   character*128 bort_str, errstr
   character*10 ctag
-  character*14 tgs(10)
+  character*14 tgs(maxtg)
   character*15 cstr
   character*(:), allocatable :: cchr
 
   real roid
-
-  data maxtg /10/
 
   ! Check for I8 integers
   if(im8b) then
@@ -719,14 +717,12 @@ recursive subroutine ufbint(lunin,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
-  integer nnod, ncon, nods, nodc, ivls, kons, ifirst1, ifirst2, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, lcstr, &
-    bort_target_set
+  integer :: nnod, ncon, nods, nodc, ivls, kons, ifirst1 = 0, ifirst2 = 0, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, &
+    lcstr, bort_target_set
 
   real*8, intent(inout) :: usr(i1,i2)
 
   common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
-
-  data ifirst1 /0/, ifirst2 /0/
 
   save ifirst1, ifirst2
 
@@ -979,11 +975,9 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
-  integer ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, iac_prev, lcstr, bort_target_set
+  integer :: ifirst1 = 0, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, iac_prev, lcstr, bort_target_set
 
   real*8, intent(inout) :: usr(i1,i2)
-
-  data ifirst1 /0/
 
   save ifirst1
 
@@ -1210,11 +1204,9 @@ recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
-  integer ifirst1, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, lcstr, bort_target_set
+  integer :: ifirst1 = 0, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, lcstr, bort_target_set
 
   real*8, intent(inout) :: usr(i1,i2)
-
-  data ifirst1 /0/
 
   save ifirst1
 
@@ -1447,8 +1439,8 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
   integer, intent(in) :: lunin, i1, i2
   integer, intent(out) :: iret
   integer, parameter :: mtag = 10
-  integer ifirst1, ifirst2, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, i, j, ntag, node, nods, ins1, ins2, insx, &
-    nseq, isq, ityp, invwin, invtag, lcstr, bort_target_set
+  integer :: ifirst1 = 0, ifirst2 = 0, my_lunin, my_i1, my_i2, lunit, lun, il, im, io, i, j, ntag, node, nods, ins1, ins2, &
+    insx, nseq, isq, ityp, invwin, invtag, lcstr, bort_target_set
 
   real*8, intent(inout) :: usr(i1,i2)
 
@@ -1457,8 +1449,6 @@ recursive subroutine ufbseq(lunin,usr,i1,i2,iret,str)
   character*128 errstr
   character*90 cstr
   character*10 tags(mtag)
-
-  data ifirst1 /0/, ifirst2 /0/
 
   save ifirst1, ifirst2
 
@@ -2263,15 +2253,13 @@ recursive subroutine ufbovr(lunit,usr,i1,i2,iret,str)
 
   integer, intent(in) :: lunit, i1, i2
   integer, intent(out) :: iret
-  integer ifirst1, my_lunit, my_i1, my_i2, lun, il, im, io, lcstr, bort_target_set
+  integer :: ifirst1 = 0, my_lunit, my_i1, my_i2, lun, il, im, io, lcstr, bort_target_set
 
   character*(*), intent(in) :: str
   character*128 bort_str1, bort_str2, errstr
   character*90 cstr
 
   real*8, intent(inout) :: usr(i1,i2)
-
-  data ifirst1 /0/
 
   save ifirst1
 

@@ -412,12 +412,10 @@ subroutine wrcmps(lunix)
   character*8 subset
   character czero
 
-  logical first, kmiss, edge4, msgfull, cmpres
+  logical :: first = .true., kmiss, edge4, msgfull, cmpres
 
   real, parameter :: rln2 = 1./log(2.)
   real range
-
-  data first /.true./
 
   save first, ibyt, jbit, subset, edge4
 

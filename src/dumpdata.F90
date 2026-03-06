@@ -56,12 +56,11 @@ recursive subroutine ufbdmp(lunin,luprt)
   integer ifv(mxfv), my_lunin, my_luprt, luout, lunit, lun, il, im, nv, nd, it, ib, is, ir, jp, lk, jb, &
     idn, nifv, nchr, n, ii, ipt, isz, isize, ibfms, icbfms, bort_target_set
 
-  character lchr2*120, lchr*20, pmiss*20, bits*14, tg*10, tg_rj*10, vc*8, fmtf*7, tp*3, tab, you
+  character :: lchr2*120, lchr*20, bits*14, tg*10, tg_rj*10, vc*8, fmtf*7, tp*3, tab, you = 'Y'
+
+  character*(*), parameter :: pmiss = '             MISSING'
 
   real*8 vl
-
-  data pmiss /'             MISSING'/
-  data you /'Y'/
 
   ! Check for I8 integers
 
@@ -254,13 +253,12 @@ recursive subroutine ufdump(lunit,luprt)
 
   real*8 rval
 
-  character cfmeang*120, lchr2*120, fmt*80, desc*64, unit*24, lchr*20, pmiss*20, nemo3*15, nemo*10, nemo2*10, tagrfe*10, &
-    seqnam(mxseq)*10, lsnemo(mxls)*10, nemod*8, cval*8, fmtf*7, numb*6, type*3, tab, you
+  character :: cfmeang*120, lchr2*120, fmt*80, desc*64, unit*24, lchr*20, nemo3*15, nemo*10, nemo2*10, tagrfe*10, &
+    seqnam(mxseq)*10, lsnemo(mxls)*10, nemod*8, cval*8, fmtf*7, numb*6, type*3, tab, you = 'Y'
+
+  character*(*), parameter :: pmiss = '             MISSING'
 
   logical track, found, rdrv
-
-  data pmiss /'             MISSING'/
-  data you /'Y'/
 
   ! Check for I8 integers
 
@@ -606,14 +604,14 @@ recursive subroutine dxdump(lunit,ldxot)
   integer, intent(in) :: lunit, ldxot
   integer my_lunit, my_ldxot, lun, il, im, n, na, nc, nch, ic, icms, nseq, bort_target_set
 
-  character card*80, cardi1*80, cardi2*80, cardi3*80, cardi4*80, cmstr*20, wrk3*10, wrk1*8, wrk2*8, adn*6
+  character card*80, cmstr*20, wrk3*10, wrk1*8, wrk2*8, adn*6
 
   logical tbskip, tdskip, xtrci1
 
-  data cardi1  /'|          |        |                                                          |'/
-  data cardi2  /'|          |                                                                   |'/
-  data cardi3  /'|          |      |             |     |                          |-------------|'/
-  data cardi4  /'|------------------------------------------------------------------------------|'/
+  character*(*), parameter :: cardi1 = '|          |        |                                                          |'
+  character*(*), parameter :: cardi2 = '|          |                                                                   |'
+  character*(*), parameter :: cardi3 = '|          |      |             |     |                          |-------------|'
+  character*(*), parameter :: cardi4 = '|------------------------------------------------------------------------------|'
 
   ! Statement functions
   tbskip(adn) = ((adn==fxy_sbyct).or.(adn==fxy_fbit).or.(adn==fxy_drf16).or.(adn==fxy_drf8).or.(adn==fxy_drf1))

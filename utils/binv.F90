@@ -11,6 +11,7 @@
 program binv
 
   parameter (maxsub=100)
+  parameter (lunbf=20)
 
   character*255 file
   character*8   subset
@@ -18,8 +19,6 @@ program binv
   integer*8     ninv(3,maxsub)
   real*8        xsub, xmsg
   logical       exist
-
-  data lunbf  /20/
 
   !-----------------------------------------------------------------------
   nmbyt(lunit)= iupvs01(lunit,'LENM')
