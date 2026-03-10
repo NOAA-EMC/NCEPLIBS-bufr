@@ -1,7 +1,7 @@
 # This is the cmake build file for the python directory of the
 # NCEPLIBS-bufr project.
 #
-# Alex Richert, Rahul Mahajan
+# Alex Richert, Rahul Mahajan, Shiyi Li, Jeff Ator
 
 set(_PYVER "${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}")
 
@@ -26,8 +26,7 @@ set(BUFR_LIB_DIR "${CMAKE_BINARY_DIR}/src")
 set(BUFR_LIB_NAME "bufr_4")
 
 # Build Python extension module
-if(NUMPY_VERSION VERSION_GREATER_EQUAL "2.0.0")
-  # NumPy 2.0+ with meson backend
+if( (NUMPY_VERSION VERSION_GREATER_EQUAL "2.0.0") OR (${_PYVER} VERSION_GREATER_EQUAL "3.12") )
   message(STATUS "Using meson backend for f2py")
 
   # Set environment variables for meson to find the library
@@ -43,24 +42,10 @@ if(NUMPY_VERSION VERSION_GREATER_EQUAL "2.0.0")
     COMMENT "Building Python module _bufrlib with f2py (meson backend)"
   )
 else()
-  # NumPy < 2.0 with distutils backend
   message(STATUS "Using distutils backend for f2py")
 
-  find_program(F2PY_EXECUTABLE
-    NAMES f2py f2py${_PYVER} f2py${Python3_VERSION_MAJOR}
-    DOC "f2py executable"
-  )
-
-  if(F2PY_EXECUTABLE)
-    message(STATUS "Found f2py: ${F2PY_EXECUTABLE}")
-    set(F2PY_COMMAND ${F2PY_EXECUTABLE})
-  else()
-    message(STATUS "Using python -m numpy.f2py")
-    set(F2PY_COMMAND ${Python3_EXECUTABLE} -m numpy.f2py)
-  endif()
-
   add_custom_target(python_mod ALL
-    COMMAND ${F2PY_COMMAND}
+    COMMAND ${Python3_EXECUTABLE} -m numpy.f2py
             -c "${CMAKE_CURRENT_SOURCE_DIR}/_bufrlib.pyf"
             -m _bufrlib
             -L${BUFR_LIB_DIR}
