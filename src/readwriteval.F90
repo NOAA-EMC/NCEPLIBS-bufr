@@ -1046,14 +1046,14 @@ recursive subroutine ufbrep(lunin,usr,i1,i2,iret,str)
     return
   endif
 
-  ! Initialize usr array preceeding an input operation
-  if(io==0) usr(1:i1,1:i2) = bmiss
-
   ! Parse or recall the input string
   iac_prev = iac
   iac = 1
   call string(str,lun,i1,io)
   iac = iac_prev
+
+  ! Initialize usr array preceeding an input operation
+  if(io==0) usr(1:i1,1:i2) = bmiss
 
   ! Call the mnemonic reader/writer
   call ufbrp(lun,usr,i1,i2,io,iret)
@@ -1275,11 +1275,11 @@ recursive subroutine ufbstp(lunin,usr,i1,i2,iret,str)
     return
   endif
 
-  ! Initialize usr array preceeding an input operation
-  if(io==0) usr(1:i1,1:i2) = bmiss
-
   ! Parse or recall the input string
   call string(str,lun,i1,io)
+
+  ! Initialize usr array preceeding an input operation
+  if(io==0) usr(1:i1,1:i2) = bmiss
 
   ! Call the mnemonic reader/writer
   call ufbsp(lun,usr,i1,i2,io,iret)

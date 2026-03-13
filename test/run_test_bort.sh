@@ -465,6 +465,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufbevn 1) && exit 1
     (./test_bort_$kind ufbevn 2) && exit 1
     (./test_bort_$kind ufbevn 3) && exit 1
+    (./test_bort_$kind ufbevn 4) && exit 1
 
     # Check ufbget().
     (./test_bort_$kind ufbget 1) && exit 1
@@ -474,10 +475,12 @@ for kind in "4" "d"; do
     # Check ufbint().
     (./test_bort_$kind ufbint 1) && exit 1
     (./test_bort_$kind ufbint 2) && exit 1
+    (./test_bort_$kind ufbint 3) && exit 1
 
     # Check ufbinx().
     (./test_bort_$kind ufbinx 1) && exit 1
     (./test_bort_$kind ufbinx 2) && exit 1
+    (./test_bort_$kind ufbinx 3) && exit 1
 
     # Check ufbmms().
     (./test_bort_$kind ufbmms 1) && exit 1
@@ -512,6 +515,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufbrep 1) && exit 1
     (./test_bort_$kind ufbrep 2) && exit 1
     (./test_bort_$kind ufbrep 3) && exit 1
+    (./test_bort_$kind ufbrep 4) && exit 1
 
     # Check ufbrms().
     (./test_bort_$kind ufbrms 1) && exit 1
@@ -531,6 +535,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufbstp 2) && exit 1
     (./test_bort_$kind ufbstp 3) && exit 1
     (./test_bort_$kind ufbstp 4) && exit 1
+    (./test_bort_$kind ufbstp 5) && exit 1
 
     # Check ufdump().
     (./test_bort_$kind ufdump 1) && exit 1
@@ -814,6 +819,7 @@ for kind in "4" "8"; do
     (./test_bort_$kind ufbevn 1 catch) && exit 1
     (./test_bort_$kind ufbevn 2 catch) && exit 1
     (./test_bort_$kind ufbevn 3 catch) && exit 1
+    (./test_bort_$kind ufbevn 4 catch) && exit 1
 
     # Check ufbget().
     (./test_bort_$kind ufbget 1 catch) && exit 1
@@ -823,10 +829,12 @@ for kind in "4" "8"; do
     # Check ufbint().
     (./test_bort_$kind ufbint 1 catch) && exit 1
     (./test_bort_$kind ufbint 2 catch) && exit 1
+    (./test_bort_$kind ufbint 3 catch) && exit 1
 
     # Check ufbinx().
     (./test_bort_$kind ufbinx 1 catch) && exit 1
     (./test_bort_$kind ufbinx 2 catch) && exit 1
+    (./test_bort_$kind ufbinx 3 catch) && exit 1
 
     # Check ufbmms().
     (./test_bort_$kind ufbmms 1 catch) && exit 1
@@ -861,6 +869,7 @@ for kind in "4" "8"; do
     (./test_bort_$kind ufbrep 1 catch) && exit 1
     (./test_bort_$kind ufbrep 2 catch) && exit 1
     (./test_bort_$kind ufbrep 3 catch) && exit 1
+    (./test_bort_$kind ufbrep 4 catch) && exit 1
 
     # Check ufbrms().
     (./test_bort_$kind ufbrms 1 catch) && exit 1
@@ -872,6 +881,7 @@ for kind in "4" "8"; do
     (./test_bort_$kind ufbstp 2 catch) && exit 1
     (./test_bort_$kind ufbstp 3 catch) && exit 1
     (./test_bort_$kind ufbstp 4 catch) && exit 1
+    (./test_bort_$kind ufbstp 5 catch) && exit 1
 
     # Check ufbseq().
     (./test_bort_$kind ufbseq 1 catch) && exit 1

@@ -2300,6 +2300,18 @@ program test_bort
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UFBEVN - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
         stop 0
+     elseif (test_case == '4') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(12, 'IN', 12)
+        call readns(12, char_val_8, jdate, iret)
+        if (iret /= 0) stop 0
+        call ufbevn(12, real_2d, 1, 2, 3, iret, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PARUSR - INPUT STRING ( ) HAS                  NO STORE NODES' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbget') then
      if (test_case == '1') then
@@ -2350,6 +2362,18 @@ program test_bort
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UFBINT - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE' ) /= 0 ) stop 88
         stop 0
+     elseif (test_case == '3') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(12, 'IN', 12)
+        call readns(12, char_val_8, jdate, iret)
+        if (iret /= 0) stop 0
+        call ufbint(12, real_2d, 1, 2, iret, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PARUSR - INPUT STRING ( ) HAS                  NO STORE NODES' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbinx') then
      if (test_case == '1') then
@@ -2369,6 +2393,16 @@ program test_bort
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UFBINX - ALL SUBSETS READ BEFORE READING REQ. SUBSET' ) /= 0 ) stop 88
+        stop 0
+     elseif (test_case == '3') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(11, 'IN', 11)
+        call ufbinx(11, 1, 50, real_2d, 1, 2, iret, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PARUSR - INPUT STRING ( ) HAS                  NO STORE NODES' ) /= 0 ) stop 88
         stop 0
      endif
   elseif (sub_name == 'ufbmms') then
@@ -2576,6 +2610,18 @@ program test_bort
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UFBREP - MNEMONIC STRING READ IN IS: TOST' ) /= 0 ) stop 88
         stop 0
+     elseif (test_case == '4') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(12, 'IN', 12)
+        call readns(12, char_val_8, jdate, iret)
+        if (iret /= 0) stop 0
+        call ufbrep(12, real_2d, 1, 2, iret, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PARUSR - INPUT STRING ( ) HAS                  NO STORE NODES' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbrms') then
      if (test_case == '1') then
@@ -2650,6 +2696,18 @@ program test_bort
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UFBSTP - MNEMONIC STRING READ IN IS: TOST' ) /= 0 ) stop 88
+        stop 0
+     elseif (test_case == '5') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(12, 'IN', 12)
+        call readns(12, char_val_8, jdate, iret)
+        if (iret /= 0) stop 0
+        call ufbstp(12, real_2d, 1, 2, iret, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PARUSR - INPUT STRING ( ) HAS                  NO STORE NODES' ) /= 0 ) stop 88
         stop 0
      endif
   elseif (sub_name == 'ufbseq') then

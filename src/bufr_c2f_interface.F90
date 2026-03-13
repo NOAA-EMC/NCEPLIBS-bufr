@@ -492,7 +492,7 @@ module bufr_c2f_interface
     !> @author J. Ator @date 2025-11-05
     recursive subroutine ufbevn_c(bufr_unit, c_data, dim_1, dim_2, dim_3, iret, table_b_mnemonic) bind(C, name='ufbevn_f')
       integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2, dim_3
-      type(c_ptr), intent(out) ::  c_data
+      type(c_ptr), intent(inout) ::  c_data
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
@@ -1848,7 +1848,7 @@ module bufr_c2f_interface
     !> @author J. Ator @date 2025-11-13
     recursive subroutine ufbtab_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbtab_f')
       integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2
-      type(c_ptr), intent(out) ::  c_data
+      type(c_ptr), intent(inout) ::  c_data
       integer(c_int), intent(inout) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
@@ -2413,7 +2413,7 @@ module bufr_c2f_interface
     !> @author Jeff Ator @date 2025-12-01
     recursive subroutine ufbrms_c(imsg, isub, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbrms_f')
       integer(c_int), value, intent(in) :: imsg, isub, dim_1, dim_2
-      type(c_ptr), intent(out) ::  c_data
+      type(c_ptr), intent(inout) ::  c_data
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
@@ -2443,7 +2443,7 @@ module bufr_c2f_interface
     !> @author J. Ator @date 2025-12-01
     recursive subroutine ufbtam_c(c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbtam_f')
       integer(c_int), value, intent(in) :: dim_1, dim_2
-      type(c_ptr), intent(out) ::  c_data
+      type(c_ptr), intent(inout) ::  c_data
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
@@ -2809,7 +2809,7 @@ module bufr_c2f_interface
     recursive subroutine ufbinx_c(bufr_unit, imsg, isub, c_data, dim_1, dim_2, iret, table_b_mnemonic) &
         bind(C, name='ufbinx_f')
       integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2, imsg, isub
-      type(c_ptr), intent(out) ::  c_data
+      type(c_ptr), intent(inout) ::  c_data
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
