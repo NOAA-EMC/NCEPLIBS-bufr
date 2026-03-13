@@ -1034,6 +1034,15 @@ program test_bort
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'OPENBF - THERE ARE ALREADY 32 BUFR FILES OPENED' ) /= 0 ) stop 88
         stop 0
+     elseif (test_case == '4') then
+        ! Test the inputting of an empty io string
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(11, ' ', 11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'OPENBF - ILLEGAL SECOND (INPUT) ARGUMENT' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'openmg') then
      open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
@@ -2342,6 +2351,18 @@ program test_bort
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UFBGET - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
         stop 0
+     elseif (test_case == '4') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(12, 'IN', 12)
+        call readns(12, char_val_8, jdate, iret)
+        if (iret /= 0) stop 0
+        call ufbget(12, real_1d, 1, iret, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PARUSR - INPUT STRING ( ) HAS                  NO STORE NODES' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbint') then
      if (test_case == '1') then
@@ -2653,6 +2674,30 @@ program test_bort
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UFBRMS - REQUESTED MEMORY MESSAGE NUMBER TO READ IN IS ZERO' ) /= 0 ) stop 88
+        stop 0
+     elseif (test_case == '4') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call ufbmem(11, 0, iret, iunit)
+        if (iret /= 5 .or. iunit /= 11) stop 0
+        call ufbrms(1, 50, real_2d, 1, 1, iret, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PARUSR - INPUT STRING ( ) HAS                  NO STORE NODES' ) /= 0 ) stop 88
+        stop 0
+     endif
+  elseif (sub_name == 'ufbtam') then
+     if (test_case == '1') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call ufbmem(11, 0, iret, iunit)
+        if (iret /= 5 .or. iunit /= 11) stop 0
+        call ufbtam(real_2d, 1, 1, iret, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PARUSR - INPUT STRING ( ) HAS                  NO STORE NODES' ) /= 0 ) stop 88
         stop 0
      endif
   elseif (sub_name == 'ufbstp') then
