@@ -228,10 +228,12 @@ for kind in "4" "d"; do
     # Check openmg().
     (./test_bort_$kind openmg 1) && exit 1
     (./test_bort_$kind openmg 2) && exit 1
+    (./test_bort_$kind openmg 3) && exit 1
 
     # Check openmb().
     (./test_bort_$kind openmb 1) && exit 1
     (./test_bort_$kind openmb 2) && exit 1
+    (./test_bort_$kind openmb 3) && exit 1
 
     # Check pad().
     (./test_bort_$kind pad 1) && exit 1
@@ -731,10 +733,12 @@ for kind in "4" "8"; do
     # Check openmg().
     (./test_bort_$kind openmg 1 catch) && exit 1
     (./test_bort_$kind openmg 2 catch) && exit 1
+    (./test_bort_$kind openmg 3 catch) && exit 1
 
     # Check openmb().
     (./test_bort_$kind openmb 1 catch) && exit 1
     (./test_bort_$kind openmb 2 catch) && exit 1
+    (./test_bort_$kind openmb 3 catch) && exit 1
 
     # Check pkbs1().
     (./test_bort_$kind pkbs1 1 catch) && exit 1

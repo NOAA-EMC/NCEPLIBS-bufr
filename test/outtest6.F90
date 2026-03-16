@@ -40,6 +40,13 @@ program outtest6
   r8wind ( 2, 1 ) = 6.5
   call ufbint ( 11, r8wind, 2, 1, nlv, 'WDIR WSPD' )
 
+  ! Test the behavior of setvalnb with empty input strings.
+  r8val = 99.
+  call setvalnb ( 11, ' ', 1, 'HOUR', 1, r8val, iersvb )
+  if ( iersvb /= -1 ) stop 1
+  call setvalnb ( 11, 'WDIR', 1, ' ', 1, r8val, iersvb )
+  if ( iersvb /= -1 ) stop 2
+  ! Now use setvalnb to set some actual values in the message.
   r8val = 17.
   call setvalnb ( 11, 'WDIR', 1, 'HOUR', 1, r8val, iersvb )
   r8val = 16.

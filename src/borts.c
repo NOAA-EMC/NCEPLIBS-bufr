@@ -1101,7 +1101,10 @@ catch_bort_nemdefs(int lunit, char *cnemo, int lcn, char *ccelem, int ccelem_str
                    char *ccunit, int ccunit_str_len, int *iret)
 {
     /* Set the target location to which to return if a bort error is caught. */
-    if ( setjmp(context) == 1 ) return;
+    if ( setjmp(context) == 1 ) {
+        *iret = -1;
+        return;
+    }
 
     /* Add a trailing null to cnemo, for use with get_c_string_length inside of nemdefs_f. */
     cnemo[lcn] = '\0';

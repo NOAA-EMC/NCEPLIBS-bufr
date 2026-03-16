@@ -13,7 +13,7 @@ program intest1
   integer ierndv, iernds, mxr8pm, mxr8lv, iertgp, nr8lv
   integer len0, len1, len2, len3, len4, len5
   integer*4 mxbf, nbyt, ierr
-  integer*4 iupbs01, iupbs3, ireadsb, ibfms, catch_borts, lmsg
+  integer*4 iupbs01, iupbs3, ireadsb, ibfms, catch_borts, lmsg, iupvs01, i4dy
   parameter (mxbf = 20000)
   parameter (mxbfd4 = mxbf/4)
   parameter (mxds3 = 20)
@@ -25,7 +25,6 @@ program intest1
        bfmg(mxbf), cds3(mxds3)*6, tagpr*8, celem*60, cunit*22
   character*20 filnam / 'testfiles/IN_1' /
   character filost / 'r' /
-  integer*4 i4dy, idxmsg
 
   print *, 'Testing reading IN_1, CRBMG_C with OPENBF IO = SEC3'
 
@@ -130,8 +129,11 @@ program intest1
   ! Test the i4dy() function.
   if (i4dy(80123023) /= 1980123023) stop 19
 
-  ! Test idxmsg().
-  if (idxmsg(1) /= 0) stop 20
+  ! Test iupbs01(), iupvs01() and nemdefs() with empty mnemonic strings.
+  if (iupbs01(ibfmg, ' ') /= -1) stop 20
+  if (iupvs01(11, ' ') /= -1) stop 21
+  call nemdefs(11, ' ', celem, cunit, ierndv)
+  if (ierndv /= -1) stop 22
 
   print *, 'SUCCESS!'
 end program intest1

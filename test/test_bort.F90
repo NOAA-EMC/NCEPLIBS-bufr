@@ -1061,6 +1061,18 @@ program test_bort
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'OPENMG - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
         stop 0
+     elseif (test_case == '3') then
+        ! Test the inputting of an empty subset string
+        open(unit = 13, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        open(unit = 14, file = 'testfiles/IN_7_bufrtab', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(13, 'OUT', 14)
+        call openmg(13, ' ', 2021022312)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'BUFRLIB: NEMTBA - CAN''T FIND MNEMONIC' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'openmb') then
      open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
@@ -1078,6 +1090,18 @@ program test_bort
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'OPENMB - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
+        stop 0
+     elseif (test_case == '3') then
+        ! Test the inputting of an empty subset string
+        open(unit = 13, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        open(unit = 14, file = 'testfiles/IN_7_bufrtab', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(13, 'OUT', 14)
+        call openmb(13, ' ', 2021022312)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'BUFRLIB: NEMTBA - CAN''T FIND MNEMONIC' ) /= 0 ) stop 88
         stop 0
      endif
   elseif (sub_name == 'pad') then
