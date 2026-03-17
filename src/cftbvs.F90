@@ -245,7 +245,7 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
   character*(*), intent(out) :: cmeang
   character*128 bort_str
   character*9 cnemoi, cnemod
-  character*8 nemo, my_nemoi, my_nemod
+  character*8 nemo
   character tab
   character*(:), allocatable :: cmeang_c
 
@@ -296,16 +296,8 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
   ! types and data subtypes, since those can be reported in Section 1 of a BUFR message as well as in Section 3, so if a user
   ! requests those mnemonics we can't necessarily assume they came from within Section 3.
 
-  my_nemoi = '        '
-  do ii = 1, min ( 8, len( nemoi ) )
-    my_nemoi(ii:ii) = nemoi(ii:ii)
-  end do
-  my_nemod = '        '
-  do ii = 1, min ( 8, len( nemod ) )
-    my_nemod(ii:ii) = nemod(ii:ii)
-  end do
-  if ( my_nemoi(1:4) == 'GSES' ) then
-    if ( ( my_nemod(1:6) == 'GCLONG' ) .or. ( my_nemod(1:4) == 'OGCE' ) .or. ( my_nemod(1:5) == 'ORIGC' ) ) then
+  if ( nemoi == 'GSES' ) then
+    if ( ( nemod == 'GCLONG' ) .or. ( nemod == 'OGCE' ) .or. ( nemod == 'ORIGC' ) ) then
       ifxyi = ifxy ( '001034' )
       ifxyd(1) = ifxy ( '001035' )
     else
@@ -318,18 +310,18 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
       end if
       return
     end if
-  else if ( my_nemoi(1:6) == 'GCLONG' ) then
+  else if ( nemoi == 'GCLONG' ) then
     ifxyi = ifxy ( '001031' )
     ifxyd(1) = (-1)
-  else if ( my_nemoi(1:4) == 'OGCE' ) then
+  else if ( nemoi == 'OGCE' ) then
     ifxyi = ifxy ( '001033' )
     ifxyd(1) = (-1)
-  else if ( my_nemoi(1:5) == 'ORIGC' ) then
+  else if ( nemoi == 'ORIGC' ) then
     ifxyi = ifxy ( '001035' )
     ifxyd(1) = (-1)
-  else if ( ( my_nemoi(1:7) == 'TABLASS' ) .or. ( my_nemoi(1:7) == 'TABLASL' ) ) then
-    if ( ( my_nemod(1:6) == 'TABLAT' ) ) then
-      if ( my_nemoi(1:7) == 'TABLASS' ) then
+  else if ( ( nemoi == 'TABLASS' ) .or. ( nemoi == 'TABLASL' ) ) then
+    if ( ( nemod == 'TABLAT' ) ) then
+      if ( nemoi == 'TABLASS' ) then
         ifxyi = ifxy ( '055021' )
       else
         ifxyi = ifxy ( '055022' )
@@ -345,12 +337,12 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
       end if
       return
     end if
-  else if ( my_nemoi(1:6) == 'TABLAT' ) then
+  else if ( nemoi == 'TABLAT' ) then
     ifxyi = ifxy ( '055020' )
     ifxyd(1) = (-1)
   else
     nemo = '        '
-    call parstr ( my_nemoi, nemo, 1, ntg, ' ', .true. )
+    call parstr ( nemoi, nemo, 1, ntg, ' ', .true. )
     call nemtab ( lun, nemo, ifxyi, tab, n )
     if ( ( n == 0 ) .or. ( tab /= 'B' ) ) then
       write(bort_str,'("BUFRLIB: GETCFMNG - MNEMONIC ",A," NOT FOUND IN TABLE B")') nemo
@@ -360,8 +352,8 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
       write(bort_str,'("BUFRLIB: GETCFMNG - MNEMONIC ",A," IS NOT A CODE OR FLAG TABLE")') nemo
       call bort(bort_str)
     endif
-    if ( my_nemod(1:1) /= ' ' ) then
-      call parstr ( my_nemod, nemo, 1, ntg, ' ', .true. )
+    if ( nemod /= ' ' ) then
+      call parstr ( nemod, nemo, 1, ntg, ' ', .true. )
       call nemtab ( lun, nemo, ifxyd(1), tab, n )
       if ( ( n == 0 ) .or. ( tab /= 'B' ) ) then
         write(bort_str,'("BUFRLIB: GETCFMNG - MNEMONIC ",A," NOT FOUND IN TABLE B")') nemo
