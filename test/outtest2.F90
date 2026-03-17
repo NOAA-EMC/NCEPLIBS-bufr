@@ -125,6 +125,10 @@ program outtest2
   ! Call pkftbv with some bogus values to ensure that the "missing" value is properly returned.
   if ( nint(pkftbv(0,0)) /= nint(getbmiss()) ) stop 7
 
+  ! Test nemspecs with an empty mnemonic string.
+  call nemspecs ( 11, ' ', 1, nsc, nrf, nbt, ierns )
+  if ( ierns /= -1 ) stop 8
+
   ! Close the output file.
   call closbf ( 11 )
 

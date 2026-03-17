@@ -349,6 +349,7 @@ recursive subroutine getcfmng ( lunit, nemoi, ivali, nemod, ivald, cmeang, lnmng
     ifxyi = ifxy ( '055020' )
     ifxyd(1) = (-1)
   else
+    nemo = '        '
     call parstr ( my_nemoi, nemo, 1, ntg, ' ', .true. )
     call nemtab ( lun, nemo, ifxyi, tab, n )
     if ( ( n == 0 ) .or. ( tab /= 'B' ) ) then

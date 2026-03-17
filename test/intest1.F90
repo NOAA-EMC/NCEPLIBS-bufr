@@ -126,14 +126,16 @@ program intest1
   ! Close the test file.
   call ccbfl_c()
 
-  ! Test the i4dy() function.
+  ! Test the i4dy function.
   if (i4dy(80123023) /= 1980123023) stop 19
 
-  ! Test iupbs01(), iupvs01() and nemdefs() with empty mnemonic strings.
+  ! Test iupbs01, iupvs01, nemdefs and gettagpr with empty mnemonic strings.
   if (iupbs01(ibfmg, ' ') /= -1) stop 20
   if (iupvs01(11, ' ') /= -1) stop 21
   call nemdefs(11, ' ', celem, cunit, ierndv)
   if (ierndv /= -1) stop 22
+  call gettagpr(11, ' ', 192, tagpr, iertgp)
+  if (iertgp /= -1) stop 23
 
   print *, 'SUCCESS!'
 end program intest1

@@ -550,6 +550,16 @@ program test_bort
        if ( errstr_len > 0 .and. &
          index( errstr(1:errstr_len), 'GETCFMNG - MNEMONIC SSNX     IS NOT A CODE OR FLAG TABLE' ) /= 0 ) stop 88
        stop 0
+     elseif (test_case == '9') then
+       ! Test the inputting of an empty mnemonic string
+       call openbf(11, 'SEC3', 11)
+       call readns(11, char_val_8, jdate, iret)
+       call codflg('Y')
+       call getcfmng(11, ' ', 254, ' ', -1, char_30, len, iret)
+       call check_for_bort( errstr, errstr_len )
+       if ( errstr_len > 0 .and. &
+         index( errstr(1:errstr_len), 'GETCFMNG - MNEMONIC          NOT FOUND IN TABLE B' ) /= 0 ) stop 88
+       stop 0
      endif
   elseif (sub_name == 'getntbe') then
      open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
@@ -1192,6 +1202,13 @@ program test_bort
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'PKBS1 - CANNOT OVERWRITE LOCATION CORRESPONDING TO MNEMONIC (DUMMY)' ) /= 0 ) stop 88
+        stop 0
+     elseif (test_case == '2') then
+        ! Test the inputting of an empty mnemonic string
+        call pkbs1(88, ibfmg, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PKBS1 - CANNOT OVERWRITE LOCATION CORRESPONDING TO MNEMONIC ( )' ) /= 0 ) stop 88
         stop 0
      endif
   elseif (sub_name == 'pkvs01') then
@@ -2612,6 +2629,16 @@ program test_bort
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UFBQCD - BUFR TABLE SEQ. DESCRIPTOR ASSOC. WITH INPUT MNEMONIC' ) /= 0 ) stop 88
         stop 0
+     elseif (test_case == '4') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(11, 'IN', 10)
+        call ufbqcd(11, ' ', iqcd)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBQCD - INPUT MNEMONIC   NOT DEFINED AS A SEQUENCE DESCRIPTOR' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbqcp') then
      if (test_case == '1') then
@@ -2926,6 +2953,14 @@ program test_bort
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UPFTBV - IBIT ARRAY OVERFLOW' ) /= 0 ) stop 88
+        stop 0
+     elseif (test_case == '5') then
+        ! Test the inputting of an empty mnemonic string
+        call openbf(11, 'IN', 11)
+        call upftbv(11, ' ', real_1d(1), 20, irps, ierr)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UPFTBV - MNEMONIC   NOT FOUND IN TABLE B' ) /= 0 ) stop 88
         stop 0
      endif
   elseif (sub_name == 'uptdd') then

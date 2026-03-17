@@ -1475,12 +1475,10 @@ recursive subroutine nemdefs ( lunit, nemo, celem, cunit, iret )
   if ( bort_target_set() == 1 ) then
     call strsuc( nemo, cnemo, lcn )
     call catch_bort_nemdefs_c( lunit, cnemo, lcn, ccelem, len(ccelem), ccunit, len(ccunit), iret )
-    if ( iret == 0 ) then
-      ls = min(len(celem),55)
-      celem(1:ls) = ccelem(1:ls)
-      ls = min(len(cunit),24)
-      cunit(1:ls) = ccunit(1:ls)
-    endif
+    ls = min(len(celem),55)
+    celem(1:ls) = ccelem(1:ls)
+    ls = min(len(cunit),24)
+    cunit(1:ls) = ccunit(1:ls)
     call bort_target_unset
     return
   endif

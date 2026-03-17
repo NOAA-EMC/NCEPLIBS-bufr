@@ -112,6 +112,10 @@ program intest4
   end do
   if ( iupm(cbay(1:3),24) /= 3588 ) stop 16
 
+  ! Test gettagre with an empty mnemonic string.
+  call gettagre(11, ' ', 65, tag, ntag, ier)
+  if (ier /= -1) stop 17
+
   ! Close the test file.
   call ccbfl_c()
 

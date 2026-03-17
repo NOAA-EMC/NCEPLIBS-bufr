@@ -109,6 +109,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind getcfmng 6) && exit 1
     (./test_bort_$kind getcfmng 7) && exit 1
     (./test_bort_$kind getcfmng 8) && exit 1
+    (./test_bort_$kind getcfmng 9) && exit 1
 
     # Check getntbe().
     (./test_bort_$kind getntbe 1) && exit 1
@@ -266,6 +267,7 @@ for kind in "4" "d"; do
 
     # Check pkbs1().
     (./test_bort_$kind pkbs1 1) && exit 1
+    (./test_bort_$kind pkbs1 2) && exit 1
 
     # Check pkvs01().
     (./test_bort_$kind pkvs01 1) && exit 1
@@ -511,6 +513,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind ufbqcd 1) && exit 1
     (./test_bort_$kind ufbqcd 2) && exit 1
     (./test_bort_$kind ufbqcd 3) && exit 1
+    (./test_bort_$kind ufbqcd 4) && exit 1
 
     # Check ufbqcp().
     (./test_bort_$kind ufbqcp 1) && exit 1
@@ -561,6 +564,7 @@ for kind in "4" "d"; do
     (./test_bort_$kind upftbv 2) && exit 1
     (./test_bort_$kind upftbv 3) && exit 1
     (./test_bort_$kind upftbv 4) && exit 1
+    (./test_bort_$kind upftbv 5) && exit 1
 
     # Check uptdd().
     (./test_bort_$kind uptdd 1) && exit 1
@@ -693,6 +697,7 @@ for kind in "4" "8"; do
     (./test_bort_$kind getcfmng 6 catch) && exit 1
     (./test_bort_$kind getcfmng 7 catch) && exit 1
     (./test_bort_$kind getcfmng 8 catch) && exit 1
+    (./test_bort_$kind getcfmng 9 catch) && exit 1
 
     # Check ifbget().
     (./test_bort_$kind ifbget 1 catch) && exit 1
@@ -742,6 +747,7 @@ for kind in "4" "8"; do
 
     # Check pkbs1().
     (./test_bort_$kind pkbs1 1 catch) && exit 1
+    (./test_bort_$kind pkbs1 2 catch) && exit 1
 
     # Check pkvs01().
     (./test_bort_$kind pkvs01 1 catch) && exit 1
@@ -873,6 +879,7 @@ for kind in "4" "8"; do
     (./test_bort_$kind ufbqcd 1 catch) && exit 1
     (./test_bort_$kind ufbqcd 2 catch) && exit 1
     (./test_bort_$kind ufbqcd 3 catch) && exit 1
+    (./test_bort_$kind ufbqcd 4 catch) && exit 1
 
     # Check ufbqcp().
     (./test_bort_$kind ufbqcp 1 catch) && exit 1
@@ -920,6 +927,7 @@ for kind in "4" "8"; do
     (./test_bort_$kind upftbv 2 catch) && exit 1
     (./test_bort_$kind upftbv 3 catch) && exit 1
     (./test_bort_$kind upftbv 4 catch) && exit 1
+    (./test_bort_$kind upftbv 5 catch) && exit 1
 
     # Check wrdxtb().
     (./test_bort_$kind wrdxtb 1 catch) && exit 1
