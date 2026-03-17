@@ -500,6 +500,7 @@ class open:
         if len(mnemonic.split()) > 1:
             raise ValueError('only one mnemonic per call to read_long_string')
         long_string = _bufrlib.readlc(self.lunit,mnemonic)
+        result = ''
         try:
             result = str(long_string, encoding='ascii').strip()
         except UnicodeDecodeError:
