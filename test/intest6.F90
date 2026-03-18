@@ -44,11 +44,9 @@ program intest6
   parameter ( mxr8pm = 2 )
   parameter ( mxr8lv = 19000 )
 
-  real*8 r8vals (mxr8pm, mxr8lv), r8val
+  real*8 r8vals (mxr8pm, mxr8lv)
 
   character cmgtag*8, c8val*8
-
-  equivalence (r8val, c8val)
 
   print *, 'Testing reading IN_6 using UFBMEM, RDMEMM, UFBMNS, and UFBTAM'
 
@@ -110,9 +108,9 @@ program intest6
       ( nint(r8vals(1,17961)*100) /= 3070 ) .or. ( nint(r8vals(2,17961)*100) /= 10383 ) ) stop 7
   call ufbtam ( r8vals, mxr8pm, mxr8lv, nsub, 'BUHD' )
   if ( nsub /= 18447 ) stop 8
-  r8val = r8vals(1, 6314)
+  c8val = transfer(r8vals(1, 6314), c8val)
   if (c8val(1:6) /= 'IUAD01') stop 9
-  r8val = r8vals(1, 17888)
+  c8val = transfer(r8vals(1, 17888), c8val)
   if (c8val(1:6) /= 'IUSN08') stop 10
 
   ! Test an errwrt case in ufbtam.

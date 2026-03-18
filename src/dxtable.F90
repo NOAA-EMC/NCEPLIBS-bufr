@@ -602,6 +602,8 @@ end subroutine elemdx
 !> @author Woollen @date 1994-01-06
 subroutine dxinit(lun,ioi)
 
+  use bufrlib
+
   use modv_vars, only: idnr, fxy_fbit, fxy_sbyct, fxy_drf16, fxy_drf8, fxy_drf1
 
   use moda_tababd
@@ -609,24 +611,25 @@ subroutine dxinit(lun,ioi)
   implicit none
 
   integer, intent(in) :: lun, ioi
-  integer ninib, ninid, n, i, iret, ifxy
+  integer n, i, iret, ifxy
 
-  character*8 inib(6,5),inid(5)
+  integer, parameter :: ninib = 5, ninid = 5
+
   character*6 adn30
 
-  data inib  / '------','BYTCNT  ','BYTES  ','+0','+0','16', &
-               '------','BITPAD  ','NONE   ','+0','+0','1 ', &
-               fxy_drf1,'DRF1BIT ','NUMERIC','+0','+0','1 ', &
-               fxy_drf8,'DRF8BIT ','NUMERIC','+0','+0','8 ', &
-              fxy_drf16,'DRF16BIT','NUMERIC','+0','+0','16'/
-  data ninib /5/
+  character*8, parameter :: inib(6*ninib) = &
+    (/ fxy_sbyct // '  ','BYTCNT  ','BYTES   ','+0      ','+0      ','16      ', &
+       fxy_fbit  // '  ','BITPAD  ','NONE    ','+0      ','+0      ','1       ', &
+       fxy_drf1  // '  ','DRF1BIT ','NUMERIC ','+0      ','+0      ','1       ', &
+       fxy_drf8  // '  ','DRF8BIT ','NUMERIC ','+0      ','+0      ','8       ', &
+       fxy_drf16 // '  ','DRF16BIT','NUMERIC ','+0      ','+0      ','16      ' /)
 
-  data inid  /'        ', &
-              'DRP16BIT', &
-              'DRP8BIT ', &
-              'DRPSTAK ', &
-              'DRP1BIT '/
-  data ninid /5/
+  character*8, parameter :: inid(ninid) = &
+    (/ '        ', &
+       'DRP16BIT', &
+       'DRP8BIT ', &
+       'DRPSTAK ', &
+       'DRP1BIT ' /)
 
   ! Clear out a table partition
 
@@ -649,18 +652,15 @@ subroutine dxinit(lun,ioi)
 
   ! Initialize table with apriori Table B and D entries
 
-  inib(1,1) = fxy_sbyct
-  inib(1,2) = fxy_fbit
-
   do i=1,ninib
     ntbb(lun) = ntbb(lun)+1
-    idnb(i,lun) = ifxy(inib(1,i))
-    tabb(i,lun)(  1:  6) = inib(1,i)(1:6)
-    tabb(i,lun)(  7: 70) = inib(2,i)
-    tabb(i,lun)( 71: 94) = inib(3,i)
-    tabb(i,lun)( 95: 98) = inib(4,i)(1:4)
-    tabb(i,lun)( 99:109) = inib(5,i)
-    tabb(i,lun)(110:112) = inib(6,i)(1:3)
+    idnb(i,lun) = ifxy(inib(icvidx_c(i-1,1,6))(1:6))
+    tabb(i,lun)(  1:  6) = inib(icvidx_c(i-1,1,6))(1:6)
+    tabb(i,lun)(  7: 70) = inib(icvidx_c(i-1,2,6))
+    tabb(i,lun)( 71: 94) = inib(icvidx_c(i-1,3,6))
+    tabb(i,lun)( 95: 98) = inib(icvidx_c(i-1,4,6))(1:4)
+    tabb(i,lun)( 99:109) = inib(icvidx_c(i-1,5,6))
+    tabb(i,lun)(110:112) = inib(icvidx_c(i-1,6,6))(1:3)
   enddo
 
   do i=2,ninid
@@ -992,9 +992,11 @@ subroutine stbfdx(lun,mesg)
   implicit none
 
   integer, intent(in) :: lun, mesg(*)
-  integer nxstr, ldxa, ldxb, ldxd, ld30, ldxbd(10), ldxbe(10), ja, jb, idxs, i3, i, j, n, nd, ndd, idn, &
+  integer nxstr, ldxa, ldxb, ldxd, ld30, ja, jb, idxs, i3, i, j, n, nd, ndd, idn, &
     jbit, len0, len1, len2, len3, l4, l5, lda, ldb, ldd, ldbd, ldbe, l30, ia, la, ib, lb, id, ld, iret, &
     ifxy, iupb, iupbs01, igetntbi, idn30
+  integer, parameter :: ldxbd(10) = (/ 38, 70, 0, 0, 0, 0, 0, 0, 0, 0 /)
+  integer, parameter :: ldxbe(10) = (/ 42, 42, 0, 0, 0, 0, 0, 0, 0, 0 /)
 
   character*128 bort_str
   character*128 tabb1, tabb2
@@ -1006,9 +1008,6 @@ subroutine stbfdx(lun,mesg)
   character*6 numb, cidn
 
   common /dxtab/ nxstr(10), ldxa(10), ldxb(10), ldxd(10), ld30(10), dxstr(10)
-
-  data ldxbd /38, 70, 8*0/
-  data ldxbe /42, 42, 8*0/
 
   ! Statement functions
   ja(i) = ia+1+lda*(i-1)

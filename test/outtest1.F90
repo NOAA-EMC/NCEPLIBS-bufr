@@ -7,7 +7,7 @@
 program outtest1
   implicit none
 
-  real*8 r8ymd(3,1), r8ltl(2,1), r8flv(1,5), r8oth(10,1), r8acrn(1,3), r8val
+  real*8 r8ymd(3,1), r8ltl(2,1), r8flv(1,5), r8oth(10,1), r8acrn(1,3)
 
   integer*4 lcmgdf, catch_borts
 
@@ -16,8 +16,6 @@ program outtest1
   integer iertgp, jj, nlv
 
   character acrn*10, libvrsn*8, tagpr*6, c8val*8
-
-  equivalence (r8val, c8val)
 
   print *, 'Testing writing OUT_1 using OPENBF IO = OUT and LUNIN != LUNDX,'
   print *, 'and using 2-03-YYY to change reference values'
@@ -164,7 +162,7 @@ program outtest1
   call writcp ( 11 )
 
   acrn = 'TESTSWA193'
-  ! note that 'ACRN#1' is functionally equivalent to 'ACRN' in the following call
+  ! Note that 'ACRN#1' is functionally equivalent to 'ACRN' in the following call
   call writlc ( 11, acrn, 'ACRN#1' )
 
   ! Close the output file.
@@ -175,11 +173,8 @@ program outtest1
   open ( unit = 11, file = 'out1.bufr', form ='unformatted')
   call ufbtab ( 11, r8acrn, 1, 3, nlv, 'ACRN')
   if (nlv /= 3 ) stop 4
-  r8val = r8acrn(1,1)
-  if (c8val /= 'TESTUPS0') stop 5
-  r8val = r8acrn(1,2)
-  if (c8val /= 'TESTAAL2') stop 6
-  r8val = r8acrn(1,3)
-  if (c8val /= 'TESTSWA1') stop 7
+  if (transfer(r8acrn(1,1), c8val) /= 'TESTUPS0') stop 5
+  if (transfer(r8acrn(1,2), c8val) /= 'TESTAAL2') stop 6
+  if (transfer(r8acrn(1,3), c8val) /= 'TESTSWA1') stop 7
 
 end program outtest1

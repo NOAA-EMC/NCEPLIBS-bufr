@@ -181,15 +181,13 @@ recursive subroutine openbf(lunit,io,lundx)
   character*(*), intent(in) :: io
   character*255 filename, fileacc
   character*128 bort_str, errstr
-  character*28 cprint(0:4)
   character*6 cio
-
-  data cprint/ &
-    ' (only aborts)              ', &
-    ' (limited -default)         ', &
-    ' (all warnings)             ', &
-    ' (all warnings+infos)       ', &
-    ' (all warnings+infos+debugs)'/
+  character*28, parameter :: cprint(0:4) = &
+    (/ ' (only aborts)              ', &
+       ' (limited -default)         ', &
+       ' (all warnings)             ', &
+       ' (all warnings+infos)       ', &
+       ' (all warnings+infos+debugs)' /)
 
   ! Check for i8 integers
 
@@ -925,13 +923,11 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
   logical :: openit, overflow, just_count, need_node, need_newmsg
 
   real*8, intent(out) :: tab(i1,i2)
-  real*8 rval, ups
+  real*8 ups
 
   common /usrstr/ nnod, ncon, nods(20), nodc(10), ivls(10), kons(10)
 
   save lun, openit
-
-  equivalence (cval,rval)
 
   ! Statement functions
   mps(node) = 2_8**(ibt(node))-1
@@ -1071,7 +1067,7 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
                   cval = ' '
                   kbit = mbit
                   call upc(cval,nbit/8,mbay(1,lun),kbit,.true.)
-                  tab(i,iret) = rval
+                  tab(i,iret) = transfer(cval,tab(i,iret))
                 endif
                 nods(i) = -nods(i)
                 cycle inner2
@@ -1182,7 +1178,7 @@ recursive subroutine ufbtab(lunin,tab,i1,i2,iret,str)
                   call upc(cval,linc,mbay(1,lun),jbit,.true.)
                 endif
                 lret = lret+1
-                tab(i,lret) = rval
+                tab(i,lret) = transfer(cval,tab(i,lret))
               enddo
             else
               call bort('UFBTAB - INVALID ELEMENT TYPE SPECIFIED')

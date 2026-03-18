@@ -109,6 +109,29 @@ module bufr_c2f_interface
       end if
     end subroutine copy_f_c_str
 
+    !> Copy an array of fixed-length Fortran strings into an array of C strings.
+    !>
+    !> @param f_arr - Fortran string array to be copied.
+    !> @param c_arr - C string array to be copied into.
+    !> @param lenstr - Length of each string.
+    !> @param numstr - Number of strings to be copied.
+    !>
+    !> @author Jeff Ator @date 2026-02-23
+    subroutine copy_f_c_str_arr(f_arr, c_arr, lenstr, numstr)
+      integer, intent(in) :: lenstr, numstr
+      character*(lenstr), intent(in) :: f_arr(*)
+      character(kind=c_char), intent(out) :: c_arr(lenstr,*)
+      integer :: ii, jj
+
+      if (numstr > 0) then
+        do jj = 1, numstr
+          do ii = 1, lenstr
+            c_arr(ii,jj) = f_arr(jj)(ii:ii)
+          enddo
+        enddo
+      endif
+    end subroutine copy_f_c_str_arr
+
     !> Deallocate one or more previously-allocated local variables.
     !>
     !> This subroutine is called from C immediately following a caught bort error, in order to
@@ -469,7 +492,7 @@ module bufr_c2f_interface
     !> @author J. Ator @date 2025-11-05
     recursive subroutine ufbevn_c(bufr_unit, c_data, dim_1, dim_2, dim_3, iret, table_b_mnemonic) bind(C, name='ufbevn_f')
       integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2, dim_3
-      type(c_ptr), intent(out) ::  c_data
+      type(c_ptr), intent(inout) ::  c_data
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
@@ -887,9 +910,13 @@ module bufr_c2f_interface
 
       ! Strings allocated within this subroutine will be for use in Fortran, so we won't need
       ! space for a trailing null and can therefore subtract 1 from cchr_len.
-      lallc = max(1,cchr_len-1)
+      lallc = cchr_len - 1
 
-      if (allocated(readlc_fchr_outer)) then
+      if (lallc <= 0) then
+        ! Any writeable string passed in from a C routine will always contain at least one byte
+        ! for a trailing null, even if it's an empty string!
+        cchr(1) = c_null_char
+      else if (allocated(readlc_fchr_outer)) then
         ! A previous call was directly made to this subroutine from within a C application
         ! program with bort catching enabled.  So we now need to allocate a separate "inner"
         ! string and recursively call readlc() again with that string.
@@ -1537,9 +1564,13 @@ module bufr_c2f_interface
 
       ! Strings allocated within this subroutine will be for use in Fortran, so we won't need
       ! space for a trailing null and can therefore subtract 1 from cverstr_len.
-      lallc = max(1,cverstr_len-1)
+      lallc = cverstr_len - 1
 
-      if (allocated(bvers_fstr_outer)) then
+      if (lallc <= 0) then
+        ! Any writeable string passed in from a C routine will always contain at least one byte
+        ! for a trailing null, even if it's an empty string!
+        cverstr(1) = c_null_char
+      else if (allocated(bvers_fstr_outer)) then
         ! A previous call was directly made to this subroutine from within a C application
         ! program with bort catching enabled.  So we now need to allocate a separate "inner"
         ! string and recursively call bvers() again with that string.
@@ -1750,9 +1781,13 @@ module bufr_c2f_interface
 
       ! Strings allocated within this subroutine will be for use in Fortran, so we won't need
       ! space for a trailing null and can therefore subtract 1 from lcmgc.
-      lallc = max(1,lcmgc-1)
+      lallc = lcmgc - 1
 
-      if (allocated(getcfmng_cmng_outer)) then
+      if (lallc <= 0) then
+        ! Any writeable string passed in from a C routine will always contain at least one byte
+        ! for a trailing null, even if it's an empty string!
+        cmeang_c(1) = c_null_char
+      else if (allocated(getcfmng_cmng_outer)) then
         ! A previous call was directly made to this subroutine from within a C application
         ! program with bort catching enabled.  So we now need to allocate a separate "inner"
         ! string and recursively call getcfmng() again with that string.
@@ -1813,7 +1848,7 @@ module bufr_c2f_interface
     !> @author J. Ator @date 2025-11-13
     recursive subroutine ufbtab_c(bufr_unit, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbtab_f')
       integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2
-      type(c_ptr), intent(out) ::  c_data
+      type(c_ptr), intent(inout) ::  c_data
       integer(c_int), intent(inout) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
@@ -2002,28 +2037,21 @@ module bufr_c2f_interface
       integer(c_int), intent(in) :: mbay(*)
       integer(c_int), intent(out) :: nds3
       character(kind=c_char), intent(out) :: ccds3(6,*)
-      integer :: ii, jj
 
-      if (allocated(upds3_cds3_outer)) then
+      if (lcds3 <= 0) then
+        nds3 = 0
+      else if (allocated(upds3_cds3_outer)) then
         ! A previous call was directly made to this subroutine from within a C application
         ! program with bort catching enabled.  So we now need to allocate a separate "inner"
         ! array and recursively call upds3() again with that array.
         allocate(upds3_cds3_inner(lcds3))
         call upds3(mbay, lcds3, upds3_cds3_inner, nds3)
-        do ii = 1, nds3
-          do jj = 1, 6
-            ccds3(jj,ii) = upds3_cds3_inner(ii)(jj:jj)
-          enddo
-        enddo
+        call copy_f_c_str_arr(upds3_cds3_inner, ccds3, 6, nds3)
         deallocate(upds3_cds3_inner)
       else
         allocate(upds3_cds3_outer(lcds3))
         call upds3(mbay, lcds3, upds3_cds3_outer, nds3)
-        do ii = 1, nds3
-          do jj = 1, 6
-            ccds3(jj,ii) = upds3_cds3_outer(ii)(jj:jj)
-          enddo
-        enddo
+        call copy_f_c_str_arr(upds3_cds3_outer, ccds3, 6, nds3)
         deallocate(upds3_cds3_outer)
       end if
     end subroutine upds3_c
@@ -2385,7 +2413,7 @@ module bufr_c2f_interface
     !> @author Jeff Ator @date 2025-12-01
     recursive subroutine ufbrms_c(imsg, isub, c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbrms_f')
       integer(c_int), value, intent(in) :: imsg, isub, dim_1, dim_2
-      type(c_ptr), intent(out) ::  c_data
+      type(c_ptr), intent(inout) ::  c_data
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
@@ -2415,7 +2443,7 @@ module bufr_c2f_interface
     !> @author J. Ator @date 2025-12-01
     recursive subroutine ufbtam_c(c_data, dim_1, dim_2, iret, table_b_mnemonic) bind(C, name='ufbtam_f')
       integer(c_int), value, intent(in) :: dim_1, dim_2
-      type(c_ptr), intent(out) ::  c_data
+      type(c_ptr), intent(inout) ::  c_data
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
@@ -2716,7 +2744,6 @@ module bufr_c2f_interface
       integer(c_int), value, intent(in) :: lunit, itab
       integer(c_int), intent(out) :: jtab
       character(kind=c_char), intent(out) :: ctabdb(128,*)
-      integer :: ii, jj
 
       if (itab <= 0) then
         jtab = 0
@@ -2726,20 +2753,12 @@ module bufr_c2f_interface
         ! array and recursively call getabdb() again with that array.
         allocate(getabdb_tabdb_inner(itab))
         call getabdb(lunit, getabdb_tabdb_inner, itab, jtab)
-        do ii = 1, jtab
-          do jj = 1, 128
-            ctabdb(jj,ii) = getabdb_tabdb_inner(ii)(jj:jj)
-          enddo
-        enddo
+        call copy_f_c_str_arr(getabdb_tabdb_inner, ctabdb, 128, jtab)
         deallocate(getabdb_tabdb_inner)
       else
         allocate(getabdb_tabdb_outer(itab))
         call getabdb(lunit, getabdb_tabdb_outer, itab, jtab)
-        do ii = 1, jtab
-          do jj = 1, 128
-            ctabdb(jj,ii) = getabdb_tabdb_outer(ii)(jj:jj)
-          enddo
-        enddo
+        call copy_f_c_str_arr(getabdb_tabdb_outer, ctabdb, 128, jtab)
         deallocate(getabdb_tabdb_outer)
       end if
     end subroutine getabdb_c
@@ -2790,7 +2809,7 @@ module bufr_c2f_interface
     recursive subroutine ufbinx_c(bufr_unit, imsg, isub, c_data, dim_1, dim_2, iret, table_b_mnemonic) &
         bind(C, name='ufbinx_f')
       integer(c_int), value, intent(in) :: bufr_unit, dim_1, dim_2, imsg, isub
-      type(c_ptr), intent(out) ::  c_data
+      type(c_ptr), intent(inout) ::  c_data
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
@@ -2951,7 +2970,7 @@ module bufr_c2f_interface
       integer(c_int), value, intent(in) :: nbits, lcbay
       integer(c_int) :: ires
       integer :: iupm
-      character(len=16) :: f_cbay
+      character(len=8) :: f_cbay
 
       f_cbay = transfer(cbay(1:lcbay), f_cbay)
 

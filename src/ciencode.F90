@@ -33,9 +33,7 @@ subroutine pkc(chr,nchr,ibay,ibit)
   integer, intent(in) :: nchr
   integer, intent(out) :: ibay(*)
   integer, intent(inout) :: ibit
-  integer ival(2), lb, i, nwd, nbt, nbit, int, msk, irev
-
-  equivalence (cval,ival)
+  integer ival(2), lb, i, nwd, nbt, nbit, cint, msk, irev
 
   ! Set lb to point to the "low-order" (i.e. least significant) byte within a machine word.
 
@@ -57,20 +55,21 @@ subroutine pkc(chr,nchr,ibay,ibit)
 
     nwd  = ibit/nbitw + 1
     nbt  = mod(ibit,nbitw)
-    int = ishft(ival(1),nbitw-nbit)
-    int = ishft(int,-nbt)
+    ival = transfer(cval,ival)
+    cint = ishft(ival(1),nbitw-nbit)
+    cint = ishft(cint,-nbt)
     msk = ishft(  -1,nbitw-nbit)
     msk = ishft(msk,-nbt)
-    ibay(nwd) = irev(ior(iand(irev(ibay(nwd)),not(msk)),int))
+    ibay(nwd) = irev(ior(iand(irev(ibay(nwd)),not(msk)),cint))
     if(nbt+nbit>nbitw) then
 
       ! This character will not fit within the current word (i.e. array member) of ibay, because there
       ! are less than 8 bits of space left.  Store as many bits as will fit within the current
       ! word and then store the remaining bits within the next word.
 
-      int = ishft(ival(1),2*nbitw-(nbt+nbit))
+      cint = ishft(ival(1),2*nbitw-(nbt+nbit))
       msk = ishft(  -1,2*nbitw-(nbt+nbit))
-      ibay(nwd+1) = irev(ior(iand(irev(ibay(nwd+1)),not(msk)),int))
+      ibay(nwd+1) = irev(ior(iand(irev(ibay(nwd+1)),not(msk)),cint))
     endif
     ibit = ibit + nbit
   enddo
@@ -104,15 +103,12 @@ subroutine pkb8(nval,nbits,ibay,ibit)
   integer, intent(out) :: ibay(*)
   integer, intent(inout) :: ibit
 
-  integer*8 :: nval8
   integer :: nval4, nvals(2)
-
-  equivalence (nval8,nvals)
 
   if(nbits<0) call bort('bufrlib: pkb8 - nbits < zero !!!!!')
   if(nbits>64) call bort('bufrlib: pkb8 - nbits > 64   !!!!!')
 
-  nval8=nval
+  nvals=transfer(nval,nvals)
   nval4=nvals(2)
   call pkb(nval4,max(nbits-nbitw,0),ibay,ibit)
   nval4=nvals(1)
@@ -199,14 +195,12 @@ recursive subroutine ipkm(cbay,nbyt,n)
   implicit none
 
   integer, intent(in) :: n, nbyt
-  integer my_n, my_nbyt, int, irev, i, bort_target_set
+  integer my_n, my_nbyt, fint, irev, i, bort_target_set
 
   character*(*), intent(out) :: cbay
   character*128 bort_str
   character*4 cint
   character*5 ccbay
-
-  equivalence (cint,int)
 
   ! Check for I8 integers.
 
@@ -234,7 +228,8 @@ recursive subroutine ipkm(cbay,nbyt,n)
     call bort(bort_str)
   endif
 
-  int = irev(ishft(n,(nbytw-nbyt)*8))
+  fint = irev(ishft(n,(nbytw-nbyt)*8))
+  cint = transfer(fint,cint)
   do i=1,nbyt
     cbay(i:i) = cint(i:i)
   enddo

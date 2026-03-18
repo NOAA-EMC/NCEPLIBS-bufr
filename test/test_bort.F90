@@ -22,7 +22,7 @@ program test_bort
   character*30 char_30
   character*8 tags(5)
   character*4 char_4(1)
-  character*8 char_8(1), char_val_8, nems(20)
+  character*8 char_8(1), char_val_8, nems(20), sec0
   character*12 char_12(1)
   character*24 char_24(1)
   character*85 char_85
@@ -43,7 +43,7 @@ program test_bort
   integer mear, mmon, mday, mour, idate
   integer iyr, imo, idy, ihr, imi
   integer jdate1(5), jdump1(5)
-  integer lmsgt, msgt(100), msgl
+  integer lmsgt, msgt(100), msgl, nwrd
   integer nseq, irps(20), knts(20)
   integer imt, imtv, iogce, iltv
   integer lun, il, im, kmsg, ksub
@@ -51,7 +51,7 @@ program test_bort
   character*400 errstr
   integer errstr_len
 
-  integer*4 isize, iupm, iupvs01, isetprm, nmsub, igettdi, igetsc, lcmgdf, catch_borts
+  integer*4 isize, iupm, iupvs01, isetprm, nmsub, igettdi, igetsc, lcmgdf, catch_borts, lmsg
   integer*4 msgl4, iret4
   integer*4, parameter :: mxmb = 200000
   integer, parameter :: mxmbd4 = mxmb/4
@@ -59,7 +59,6 @@ program test_bort
   character*25 filnam
   character bfmg(mxmb)
   integer ibfmg(mxmbd4), ibfmg2(mxmbd4)
-  equivalence (bfmg(1),ibfmg(1))
 
 #ifdef KIND_8
   call setim8b(.true.)
@@ -107,6 +106,8 @@ program test_bort
         call cobfl_c ( filnam, 'r' )
         call crbmg_c ( bfmg, mxmb, msgl4, iret4 )
         if ( iret4 /= 0 ) stop 0
+        nwrd = min ( lmsg(transfer(bfmg(1:8),sec0)), mxmbd4 )
+        ibfmg(1:nwrd) = transfer ( bfmg(1:nwrd*4), ibfmg, nwrd )
         call ccbfl_c ()
         call atrcpt ( ibfmg, 5000, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
@@ -187,6 +188,8 @@ program test_bort
      endif
      call cobfl_c( filnam, 'r' )
      call crbmg_c(bfmg, mxmb, msgl4, iret4)
+     nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+     ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
      call readerme(ibfmg, 31, char_val_8, jdate, iret)
      call cnved4(ibfmg, 1, ibay)
      call check_for_bort( errstr, errstr_len )
@@ -547,6 +550,16 @@ program test_bort
        if ( errstr_len > 0 .and. &
          index( errstr(1:errstr_len), 'GETCFMNG - MNEMONIC SSNX     IS NOT A CODE OR FLAG TABLE' ) /= 0 ) stop 88
        stop 0
+     elseif (test_case == '9') then
+       ! Test the inputting of an empty mnemonic string
+       call openbf(11, 'SEC3', 11)
+       call readns(11, char_val_8, jdate, iret)
+       call codflg('Y')
+       call getcfmng(11, ' ', 254, ' ', -1, char_30, len, iret)
+       call check_for_bort( errstr, errstr_len )
+       if ( errstr_len > 0 .and. &
+         index( errstr(1:errstr_len), 'GETCFMNG - MNEMONIC          NOT FOUND IN TABLE B' ) /= 0 ) stop 88
+       stop 0
      endif
   elseif (sub_name == 'getntbe') then
      open(unit = 11, file = 'testfiles/test_bort_master_std', iostat = ios)
@@ -672,6 +685,8 @@ program test_bort
      open(unit = 31, file = '/dev/null')
      call openbf(31, 'SEC3', 31)
      call crbmg_c(bfmg, mxmb, msgl4, iret4)
+     nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+     ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
      if (test_case == '1') then
         ! Change the last 2-37-000 operator in Section 3 to 2-35-000, so that the bitmap can't be located
         ! for any of the subsequent marker operators.
@@ -829,6 +844,8 @@ program test_bort
      open(unit = 31, file = '/dev/null')
      call openbf(31, 'INUL', 31)
      call crbmg_c(bfmg, mxmb, msgl4, iret4)
+     nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+     ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
      if (test_case == '1') then
         ibit = 64
         call pkb(25, 24, ibfmg, ibit)
@@ -1027,6 +1044,15 @@ program test_bort
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'OPENBF - THERE ARE ALREADY 32 BUFR FILES OPENED' ) /= 0 ) stop 88
         stop 0
+     elseif (test_case == '4') then
+        ! Test the inputting of an empty io string
+        open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(11, ' ', 11)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'OPENBF - ILLEGAL SECOND (INPUT) ARGUMENT' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'openmg') then
      open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
@@ -1045,6 +1071,18 @@ program test_bort
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'OPENMG - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
         stop 0
+     elseif (test_case == '3') then
+        ! Test the inputting of an empty subset string
+        open(unit = 13, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        open(unit = 14, file = 'testfiles/IN_7_bufrtab', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(13, 'OUT', 14)
+        call openmg(13, ' ', 2021022312)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'BUFRLIB: NEMTBA - CAN''T FIND MNEMONIC' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'openmb') then
      open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
@@ -1062,6 +1100,18 @@ program test_bort
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'OPENMB - OUTPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT' ) /= 0 ) stop 88
+        stop 0
+     elseif (test_case == '3') then
+        ! Test the inputting of an empty subset string
+        open(unit = 13, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        open(unit = 14, file = 'testfiles/IN_7_bufrtab', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(13, 'OUT', 14)
+        call openmb(13, ' ', 2021022312)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'BUFRLIB: NEMTBA - CAN''T FIND MNEMONIC' ) /= 0 ) stop 88
         stop 0
      endif
   elseif (sub_name == 'pad') then
@@ -1145,11 +1195,20 @@ program test_bort
      filnam = 'testfiles/IN_2'
      call cobfl_c( filnam, 'r' )
      call crbmg_c(bfmg, mxmb, msgl4, iret4)
+     nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+     ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
      if (test_case == '1') then
         call pkbs1(88, ibfmg, 'DUMMY')
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'PKBS1 - CANNOT OVERWRITE LOCATION CORRESPONDING TO MNEMONIC (DUMMY)' ) /= 0 ) stop 88
+        stop 0
+     elseif (test_case == '2') then
+        ! Test the inputting of an empty mnemonic string
+        call pkbs1(88, ibfmg, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PKBS1 - CANNOT OVERWRITE LOCATION CORRESPONDING TO MNEMONIC ( )' ) /= 0 ) stop 88
         stop 0
      endif
   elseif (sub_name == 'pkvs01') then
@@ -1338,6 +1397,8 @@ program test_bort
         call openbf(31, 'INUL', 31)
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
         bfmg(1) = 'C'
+        nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+        ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
         call readerme(ibfmg, 31, char_val_8, jdate, iret)
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
@@ -1503,10 +1564,14 @@ program test_bort
         filnam = 'testfiles/IN_1'
         call cobfl_c( filnam, 'r' )
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
+        nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+        ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
         call readerme(ibfmg, 31, char_val_8, jdate, iret)
         filnam = 'testfiles/IN_4'
         call cobfl_c( filnam, 'r' )
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
+        nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+        ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
         ! Make it look like the message uses version 14 of the WMO master tables.
         ibit = 168
         call pkb(14, 8, ibfmg, ibit)
@@ -1651,6 +1716,8 @@ program test_bort
         if (isetprm('MXNAF',1) /= 0) stop 0
         call openbf(31, 'SEC3', 31)
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
+        nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+        ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
         ! Make Section 3 of the message look like it contains two consecutive occurrences of descriptor 3-03-021.
         ibit = 296
         call pkb(195, 8, ibfmg, ibit)
@@ -1660,6 +1727,8 @@ program test_bort
      elseif (test_case == '2') then
         call openbf(31, 'SEC3', 31)
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
+        nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+        ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
         ! Make Section 3 of the message look like it contains one occurrence of descriptor 3-03-021 followed
         ! by two occurrences of descriptor 2-04-000.
         ibit = 296
@@ -1673,6 +1742,8 @@ program test_bort
      elseif (test_case == '3') then
         call openbf(31, 'SEC3', 31)
         call crbmg_c(bfmg, mxmb, msgl4, iret4)
+        nwrd = min(lmsg(transfer(bfmg(1:8), sec0)), mxmbd4)
+        ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
         ! Make Section 3 of the message look like it contains an occurrence of replication descriptor 1-03-000
         ! without a following delayed descriptor replication factor.
         ibit = 296
@@ -1813,6 +1884,8 @@ program test_bort
         stop 0
      elseif (test_case == '2') then
         bfmg(7) = '3'
+        nwrd = min( lmsg( transfer (bfmg(1:8), sec0) ), mxmbd4 )
+        ibfmg(1:nwrd) = transfer( bfmg(1:nwrd*4), ibfmg, nwrd )
         call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
@@ -1820,6 +1893,8 @@ program test_bort
         stop 0
      elseif (test_case == '3') then
         bfmg(188210) = '8'
+        nwrd = min( lmsg( transfer (bfmg(1:8), sec0) ), mxmbd4 )
+        ibfmg(1:nwrd) = transfer( bfmg(1:nwrd*4), ibfmg, nwrd )
         call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
@@ -1827,6 +1902,8 @@ program test_bort
         stop 0
      elseif (test_case == '4') then
         bfmg(46) = '8'
+        nwrd = min( lmsg( transfer (bfmg(1:8), sec0) ), mxmbd4 )
+        ibfmg(1:nwrd) = transfer( bfmg(1:nwrd*4), ibfmg, nwrd )
         call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
@@ -1836,12 +1913,16 @@ program test_bort
         bfmg(17468) = 'z'
         bfmg(17469) = 'z'
         bfmg(17470) = 'z'
+        nwrd = min( lmsg( transfer (bfmg(1:8), sec0) ), mxmbd4 )
+        ibfmg(1:nwrd) = transfer( bfmg(1:nwrd*4), ibfmg, nwrd )
         call stndrd ( 21, ibfmg, mxmbd4, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'STNDRD - BIT MISMATCH COPYING SECTION 4 FROM INPUT TO OUTPUT' ) /= 0 ) stop 88
         stop 0
      elseif (test_case == '6') then
+        nwrd = min( lmsg( transfer (bfmg(1:8), sec0) ), mxmbd4 )
+        ibfmg(1:nwrd) = transfer( bfmg(1:nwrd*4), ibfmg, nwrd )
         call stndrd ( 21, ibfmg, 5000, ibfmg2 )
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
@@ -2269,6 +2350,18 @@ program test_bort
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UFBEVN - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
         stop 0
+     elseif (test_case == '4') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(12, 'IN', 12)
+        call readns(12, char_val_8, jdate, iret)
+        if (iret /= 0) stop 0
+        call ufbevn(12, real_2d, 1, 2, 3, iret, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PARUSR - INPUT STRING ( ) HAS                  NO STORE NODES' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbget') then
      if (test_case == '1') then
@@ -2299,6 +2392,18 @@ program test_bort
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UFBGET - A MESSAGE MUST BE OPEN IN INPUT BUFR FILE, NONE ARE' ) /= 0 ) stop 88
         stop 0
+     elseif (test_case == '4') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(12, 'IN', 12)
+        call readns(12, char_val_8, jdate, iret)
+        if (iret /= 0) stop 0
+        call ufbget(12, real_1d, 1, iret, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PARUSR - INPUT STRING ( ) HAS                  NO STORE NODES' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbint') then
      if (test_case == '1') then
@@ -2319,6 +2424,18 @@ program test_bort
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UFBINT - A MESSAGE MUST BE OPEN IN BUFR FILE, NONE ARE' ) /= 0 ) stop 88
         stop 0
+     elseif (test_case == '3') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(12, 'IN', 12)
+        call readns(12, char_val_8, jdate, iret)
+        if (iret /= 0) stop 0
+        call ufbint(12, real_2d, 1, 2, iret, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PARUSR - INPUT STRING ( ) HAS                  NO STORE NODES' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbinx') then
      if (test_case == '1') then
@@ -2338,6 +2455,16 @@ program test_bort
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UFBINX - ALL SUBSETS READ BEFORE READING REQ. SUBSET' ) /= 0 ) stop 88
+        stop 0
+     elseif (test_case == '3') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(11, 'IN', 11)
+        call ufbinx(11, 1, 50, real_2d, 1, 2, iret, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PARUSR - INPUT STRING ( ) HAS                  NO STORE NODES' ) /= 0 ) stop 88
         stop 0
      endif
   elseif (sub_name == 'ufbmms') then
@@ -2502,6 +2629,16 @@ program test_bort
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UFBQCD - BUFR TABLE SEQ. DESCRIPTOR ASSOC. WITH INPUT MNEMONIC' ) /= 0 ) stop 88
         stop 0
+     elseif (test_case == '4') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 11, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(11, 'IN', 10)
+        call ufbqcd(11, ' ', iqcd)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UFBQCD - INPUT MNEMONIC   NOT DEFINED AS A SEQUENCE DESCRIPTOR' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbqcp') then
      if (test_case == '1') then
@@ -2545,6 +2682,18 @@ program test_bort
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UFBREP - MNEMONIC STRING READ IN IS: TOST' ) /= 0 ) stop 88
         stop 0
+     elseif (test_case == '4') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(12, 'IN', 12)
+        call readns(12, char_val_8, jdate, iret)
+        if (iret /= 0) stop 0
+        call ufbrep(12, real_2d, 1, 2, iret, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PARUSR - INPUT STRING ( ) HAS                  NO STORE NODES' ) /= 0 ) stop 88
+        stop 0
      endif
   elseif (sub_name == 'ufbrms') then
      if (test_case == '1') then
@@ -2576,6 +2725,30 @@ program test_bort
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UFBRMS - REQUESTED MEMORY MESSAGE NUMBER TO READ IN IS ZERO' ) /= 0 ) stop 88
+        stop 0
+     elseif (test_case == '4') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call ufbmem(11, 0, iret, iunit)
+        if (iret /= 5 .or. iunit /= 11) stop 0
+        call ufbrms(1, 50, real_2d, 1, 1, iret, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PARUSR - INPUT STRING ( ) HAS                  NO STORE NODES' ) /= 0 ) stop 88
+        stop 0
+     endif
+  elseif (sub_name == 'ufbtam') then
+     if (test_case == '1') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 11, file = 'testfiles/IN_9', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call ufbmem(11, 0, iret, iunit)
+        if (iret /= 5 .or. iunit /= 11) stop 0
+        call ufbtam(real_2d, 1, 1, iret, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PARUSR - INPUT STRING ( ) HAS                  NO STORE NODES' ) /= 0 ) stop 88
         stop 0
      endif
   elseif (sub_name == 'ufbstp') then
@@ -2619,6 +2792,18 @@ program test_bort
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UFBSTP - MNEMONIC STRING READ IN IS: TOST' ) /= 0 ) stop 88
+        stop 0
+     elseif (test_case == '5') then
+        ! Test the inputting of an empty mnemonic string
+        open(unit = 12, file = 'testfiles/IN_6_infile2', form = 'UNFORMATTED', iostat = ios)
+        if (ios /= 0) stop 0
+        call openbf(12, 'IN', 12)
+        call readns(12, char_val_8, jdate, iret)
+        if (iret /= 0) stop 0
+        call ufbstp(12, real_2d, 1, 2, iret, ' ')
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'PARUSR - INPUT STRING ( ) HAS                  NO STORE NODES' ) /= 0 ) stop 88
         stop 0
      endif
   elseif (sub_name == 'ufbseq') then
@@ -2768,6 +2953,14 @@ program test_bort
         call check_for_bort( errstr, errstr_len )
         if ( errstr_len > 0 .and. &
           index( errstr(1:errstr_len), 'UPFTBV - IBIT ARRAY OVERFLOW' ) /= 0 ) stop 88
+        stop 0
+     elseif (test_case == '5') then
+        ! Test the inputting of an empty mnemonic string
+        call openbf(11, 'IN', 11)
+        call upftbv(11, ' ', real_1d(1), 20, irps, ierr)
+        call check_for_bort( errstr, errstr_len )
+        if ( errstr_len > 0 .and. &
+          index( errstr(1:errstr_len), 'UPFTBV - MNEMONIC   NOT FOUND IN TABLE B' ) /= 0 ) stop 88
         stop 0
      endif
   elseif (sub_name == 'uptdd') then

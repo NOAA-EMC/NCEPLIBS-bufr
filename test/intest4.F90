@@ -13,7 +13,7 @@ program intest4
   integer*4 mxbf, nbyt, ierr
 
   integer ier, imgdt, nds3, ii
-  integer nr8lv, ntag
+  integer nr8lv, ntag, nwrd
 
   integer mxbfd4, mxds3, mxr8lv, mxr8pm
   parameter (mxbf = 20000)
@@ -29,8 +29,6 @@ program intest4
   character cmgtag*8, bfmg(mxbf), cds3(mxds3)*6, tag*8, sec0*8, cbay*8
   character*20 filnam / 'testfiles/IN_4' /
   character filost / 'r' /
-
-  equivalence (bfmg (1), ibfmg (1))
 
   print *, 'Testing reading IN_4, using CRBMG_C with OPENBF IO = SEC3, and using bitmap and marker operators.'
 
@@ -63,10 +61,13 @@ program intest4
   ! Read the BUFR message from the BUFR file.
   call crbmg_c(bfmg, mxbf, nbyt, ierr)
   if (ierr /= 0) stop 1
+  sec0 = transfer(bfmg(1:8), sec0)
+  nwrd = min(lmsg(sec0), mxbfd4)
+  ibfmg(1:nwrd) = transfer(bfmg(1:nwrd*4), ibfmg, nwrd)
 
   ! Check some values in Section 1 of the message.
   if (iupbs01(ibfmg, 'MTYP') /= 5 .or. iupbs01(ibfmg, 'MTV' ) /= 12 &
-       .or. iupbs01(ibfmg, 'LENM') /= 3588) stop 2
+       .or. nbyt /= 3588) stop 2
 
   ! Check some values in Section 3 of the message.
   if (iupbs3(ibfmg, 'NSUB') /= 31 .or. iupbs3(ibfmg, 'ICMP') /= 1) stop 3
@@ -103,9 +104,6 @@ program intest4
   if ( ier /= 0 .or. ntag /= 10 .or. tag /= 'RDNE    ' ) stop 12
 
   ! Check the output from lmsg, nmwrd, ipkm, and iupm.
-  do ii = 1, 8
-    sec0(ii:ii) = bfmg(ii)
-  end do
   if ( lmsg(sec0) /= 898 ) stop 13
   if ( nmwrd(ibfmg) /= 898 ) stop 14
   call ipkm(cbay,3,3588)
@@ -113,6 +111,10 @@ program intest4
     if ( cbay(ii:ii) /= sec0(ii+4:ii+4) ) stop 15
   end do
   if ( iupm(cbay(1:3),24) /= 3588 ) stop 16
+
+  ! Test gettagre with an empty mnemonic string.
+  call gettagre(11, ' ', 65, tag, ntag, ier)
+  if (ier /= -1) stop 17
 
   ! Close the test file.
   call ccbfl_c()

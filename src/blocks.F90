@@ -43,10 +43,7 @@ subroutine blocks(mbay,mwrd)
 
   integer iint, jint, i
 
-  character*1 cint(4),dint(4)
-
-  equivalence(cint,iint)
-  equivalence(dint,jint)
+  character*1 cint(4),fint(4)
 
   if(iblock==0) return
 
@@ -56,25 +53,28 @@ subroutine blocks(mbay,mwrd)
     mbay(i+1) = mbay(i)
   enddo
 
-  ! store the endianized control word in bytes in dint/jint
+  ! store the endianized control word in bytes in fint/jint
 
   iint=mwrd*4
+  cint=transfer(iint,cint)
 
   do i=1,nbytw
     if(iblock==-1) then
 #ifdef BIG_ENDIAN
-      dint(i)=cint(iordle(i))
+      fint(i)=cint(iordle(i))
 #else
-      dint(i)=cint(i)
+      fint(i)=cint(i)
 #endif
     elseif(iblock==1) then
 #ifdef LITTLE_ENDIAN
-      dint(i)=cint(iordle(i))
+      fint(i)=cint(iordle(i))
 #else
-      dint(i)=cint(i)
+      fint(i)=cint(i)
 #endif
     endif
   enddo
+
+  jint=transfer(fint,jint)
 
   ! increment mrwd and install the control words in their proper places
 

@@ -65,5 +65,9 @@ program intest2
   if (nint(getvalnb(11,'NCTH',3,'PCCF',-1)) /= 0 .or. &
        nint(getvalnb(11,'SSNX',1,'SWCM',1)) /= 1) stop 9
 
+  ! Test the behavior of getvalnb with empty input strings.
+  if (ibfms(getvalnb(11,' ',3,'PCCF',-1)) /= 1 .or. &
+       ibfms(getvalnb(11,'SSNX',1,' ',1)) /= 1) stop 10
+
   print *, 'SUCCESS!'
 end program intest2

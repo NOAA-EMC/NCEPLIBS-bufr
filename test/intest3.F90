@@ -17,11 +17,9 @@ program intest3
         nr8lv, nr8rr, nr8rf, nr8rhr, nr8rh, nr8rdr, nr8rd
 
   real*8 r8arr(mxr8pm, mxr8lv), r8arf(mxr8pm, mxr8lv), r8arhr(1, mxr8lv), &
-       r8arh(mxr8pm, mxr8lv), r8ardr(1, mxr8lv), r8ard (mxr8pm, mxr8lv), r8val
+       r8arh(mxr8pm, mxr8lv), r8ardr(1, mxr8lv), r8ard (mxr8pm, mxr8lv)
 
   character cmgtag*8, celem*40, cunit*20, c8val*8
-
-  equivalence (r8val, c8val)
 
   print *, 'Testing reading IN_3, using nested delayed replication, OPENBF IO = IN, and LUNIN = LUNDX'
 
@@ -46,13 +44,13 @@ program intest3
        nint(r8arr(3,9)) /= 228 .or. nint(r8arr(4,9)) /= 20) stop 1
   call ufbtab(11, r8arr, mxr8pm, mxr8lv, nr8lv, 'RPID')
   if (nr8lv /= 10) stop 2
-  r8val = r8arr(1,1)
+  c8val = transfer(r8arr(1,1), c8val)
   if (c8val(1:5) /= 'HARP1') stop 3
-  r8val = r8arr(1,3)
+  c8val = transfer(r8arr(1,3), c8val)
   if (c8val(1:5) /= 'IOLK1') stop 4
-  r8val = r8arr(1,8)
+  c8val = transfer(r8arr(1,8), c8val)
   if (c8val(1:5) /= 'WLDA1') stop 5
-  r8val = r8arr(1,9)
+  c8val = transfer(r8arr(1,9), c8val)
   if (c8val(1:5) /= 'COMO2') stop 6
 
   ! (Re)open the input file for usual reading of each subset one at a time.

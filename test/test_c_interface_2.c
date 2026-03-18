@@ -34,6 +34,7 @@ int main() {
     char bort_string[BORT_STRING_LEN];
     char bv_short[3], bv_normal[9];
     char cds3_toosmall[20][6], cds3[60][6];
+    char empty_string[] = "";
 
     double r8arr[180][15];
     double* r8arr_ptr = &r8arr[0][0];
@@ -50,7 +51,13 @@ int main() {
     /* Turn on bort catching. */
     if ( ( iret = catch_borts_f("Y") ) != 0 ) exit(1);
 
-    /* Test catching a bort from bvers by intentionally passing in a short string. */
+    /* Test passing in an empty string to bvers. */
+    bvers_f( empty_string, sizeof(empty_string) );
+    if ( strlen( empty_string ) != 0 ) {
+        printf( "%s\n", "bvers empty_string sanity check FAILED!" );
+        exit(1);
+    }
+    /* Now test catching a bort from bvers by intentionally passing in a short string. */
     bvers_f( bv_short, sizeof(bv_short) );
     check_for_bort_f( bort_string, BORT_STRING_LEN );
     if ( ( strlen( bort_string ) == 0 ) ||
@@ -221,7 +228,12 @@ int main() {
     }
     /* Copy the message into an integer array for use in upds3. */
     memmove( ibufrmg, bufrmg, il );
-    /* Test catching a bort from upds3 by passing in an output array that's too small. */
+    /* Run some checks on upds3_f. */
+    upds3_f( ibufrmg, 0, cds3_toosmall, &im );
+    if ( im != 0 ) {
+        printf( "%s\n", "upds3 sanity check with bad input parameter FAILED!!" );
+        exit(1);
+    }
     upds3_f( ibufrmg, 20, cds3_toosmall, &im );
     check_for_bort_f( bort_string, BORT_STRING_LEN );
     if ( ( strlen( bort_string ) == 0 ) ||

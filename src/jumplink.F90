@@ -337,7 +337,8 @@ subroutine tabsub(lun,nemo)
   implicit none
 
   integer, intent(in) :: lun
-  integer jmp0(10), nodl(10), ntag(10,2), maxlim, node, idn, itab, nseq, limb, n, jj, iyyy, irep, iknt, jum0, iokoper
+  integer, parameter :: maxlim = 10
+  integer jmp0(10), nodl(10), ntag(10,2), node, idn, itab, nseq, limb, n, jj, iyyy, irep, iknt, jum0, iokoper
 
   character*128 bort_str
   character*8, intent(in) :: nemo
@@ -345,8 +346,6 @@ subroutine tabsub(lun,nemo)
   character*1 tab
 
   logical drop(10), ltamc
-
-  data maxlim /10/
 
   ! Check the mnemonic
 

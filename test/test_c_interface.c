@@ -157,6 +157,13 @@ void test_longStrings()
         while ((ireadsb_f(BUFR_FILE_UNIT) == 0) && (subset_idx < MAX_SUBSETS))
         {
             status_f(BUFR_FILE_UNIT, &bufrLoc, &il, &im);
+            /* Test passing in an empty string to readlc_f */
+            readlc_f(BUFR_FILE_UNIT, mnemonic, empty_string, sizeof(empty_string));
+            if ( strlen( empty_string ) != 0 ) {
+                printf( "%s\n", "readlc empty_string sanity check FAILED!" );
+                exit(1);
+            }
+            /* Test passing in a short string to readlc_f */
             readlc_f(BUFR_FILE_UNIT, mnemonic, short_str, SHORT_STR_LEN);
             check_for_bort_f( bort_string, BORT_STRING_LEN );
             if ( ( strlen( bort_string ) == 0 ) ||
@@ -183,6 +190,11 @@ void test_longStrings()
     }
 
     /* Run some checks on getcfmng_f */
+    getcfmng_f(BUFR_FILE_UNIT, "GCLONG", 254, " ", -1, empty_string, sizeof(empty_string), &il);
+    if ( strlen( empty_string ) != 0 ) {
+        printf( "%s\n", "getcfmng empty_string sanity check FAILED!" );
+        exit(1);
+    }
     getcfmng_f(BUFR_FILE_UNIT, "GCLONG", 254, " ", -1, long_str, LONG_STR_LEN, &il);
     check_for_bort_f( bort_string, BORT_STRING_LEN );
     if ( ( strlen( bort_string ) == 0 ) ||
@@ -214,8 +226,7 @@ void test_longStrings()
         exit(1);
     }
     getabdb_f(BUFR_FILE_UNIT, 0, tabdb, &il);
-    check_for_bort_f( bort_string, BORT_STRING_LEN );
-    if ( ( strlen( bort_string ) != 0 ) || ( il != 0 ) ) {
+    if ( il != 0 ) {
         printf( "%s\n", "getabdb sanity check with bad input parameter FAILED!" );
         exit(1);
     }

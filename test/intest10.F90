@@ -38,16 +38,14 @@ program intest10
 
   integer*4, parameter :: mxbf = 50000
   integer*4 lenmg, ierrb
-  integer*4 isetprm, catch_borts
+  integer*4 isetprm, catch_borts, lmsg
 
-  integer icnt, iunt, imesg(150), idate, iret, ios1, ios2, lundx, lun, il, im, imsg, ii
+  integer icnt, iunt, imesg(150), idate, iret, ios1, ios2, lundx, lun, il, im, imsg, ii, nwrd
   integer, parameter :: mxbfd4 = mxbf/4
   integer ibfmg(mxbfd4)
 
-  character cmgtag*8, filnam*25
+  character cmgtag*8, sec0*8, filnam*25
   character bfmg(mxbf)
-
-  equivalence ( bfmg(1), ibfmg(1) )
 
   print *, 'Testing reading IN_10 to test ERRWRT branches in ARALLOCF, STATUS, UFBMEM, UFBMEX, and OPENBT'
 
@@ -130,6 +128,8 @@ program intest10
   do ii = 1, 4
       call crbmg_c ( bfmg, mxbf, lenmg, ierrb )
       if ( ierrb /= 0 ) stop 14
+      nwrd = min ( lmsg(transfer(bfmg(1:8),sec0)), mxbfd4 )
+      ibfmg(1:nwrd) = transfer ( bfmg(1:nwrd*4), ibfmg, nwrd )
       call readerme ( ibfmg, 31, cmgtag, idate, iret )
       if ( ii == 4 .and. index( errstr(1:errstr_len), 'READERME - STORED NEW DX TABLE' ) == 0 ) stop 15
   enddo

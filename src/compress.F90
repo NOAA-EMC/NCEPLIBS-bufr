@@ -135,12 +135,10 @@ subroutine rdcmps(lun)
   integer*8 :: ival, lref, ninc, lps
   integer nsbs, jbit, lbit, nbit, n, node, ityp, linc, lre4, nin4, nbmp, nchr, lelm, ibsv, igetrfel, ibfms, icbfms
 
-  real*8 rval, ups
+  real*8 ups
 
   character*128 bort_str
   character*8 cref, cval
-
-  equivalence (cval,rval)
 
   ! Statement function to compute BUFR "missing value" for field of length lbit bits (all bits "on")
   lps(lbit) = max(2_8**(lbit)-1,1)
@@ -244,7 +242,7 @@ subroutine rdcmps(lun)
       if (lelm<=8 .and. icbfms(cval,nchr)/=0) then
         val(n,lun) = bmiss
       else
-        val(n,lun) = rval
+        val(n,lun) = transfer(cval,val(n,lun))
       endif
       ibit = ibit + 8*linc*msub(lun)
     endif
@@ -414,12 +412,10 @@ subroutine wrcmps(lunix)
   character*8 subset
   character czero
 
-  logical first, kmiss, edge4, msgfull, cmpres
+  logical :: first = .true., kmiss, edge4, msgfull, cmpres
 
   real, parameter :: rln2 = 1./log(2.)
   real range
-
-  data first /.true./
 
   save first, ibyt, jbit, subset, edge4
 

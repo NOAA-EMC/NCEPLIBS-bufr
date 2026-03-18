@@ -595,7 +595,7 @@ recursive subroutine rdmemm(imsg,subset,jdate,iret)
       if (ii==ndxm) then
         nwrd = ldxm - ipdxm(ii) + 1
       else
-        nwrd = ipdxm(ii+1) - ipdxm(II)
+        nwrd = ipdxm(ii+1) - ipdxm(ii)
       endif
       do kk = 1, nwrd
         mgwa(kk) = mdx(ipdxm(ii)+kk-1)
@@ -1156,26 +1156,23 @@ recursive subroutine ufbtam(tab,i1,i2,iret,str)
 
   implicit none
 
-  character*(*), intent(in) :: str
-  character*128 bort_str, errstr
-  character*90 cstr
-  character*10 tgs(100)
-  character*8 subset, cval
-
   integer*8 mps, ival
   integer, intent(in) :: i1, i2
   integer, intent(out) :: iret
-  integer maxtg, nnod, ncon, nods, nodc, ivls, kons, my_i1, my_i2, i, irec, isub, itbl, lun, il, im, jdate, mret, &
+  integer, parameter :: maxtg = 100
+  integer nnod, ncon, nods, nodc, ivls, kons, my_i1, my_i2, i, irec, isub, itbl, lun, il, im, jdate, mret, &
     kbit, mbit, nbit, n, node, imsg, kmsg, nrep, ntg, nbyt, nbmp, nmsub, lcstr, bort_target_set
 
+  character*(*), intent(in) :: str
+  character*128 bort_str, errstr
+  character*90 cstr
+  character*10 tgs(maxtg)
+  character*8 subset, cval
+
   real*8, intent(out) :: tab(i1,i2)
-  real*8 rval, ups
+  real*8 ups
 
   common /usrstr/ nnod,ncon,nods(20),nodc(10),ivls(10),kons(10)
-
-  equivalence (cval,rval)
-
-  data maxtg /100/
 
   ! Statement function
   mps(node) = 2_8**(ibt(node))-1
@@ -1295,7 +1292,7 @@ recursive subroutine ufbtam(tab,i1,i2,iret,str)
               cval = ' '
               kbit = mbit
               call upc(cval,nbit/8,mbay(1,lun),kbit,.true.)
-              tab(i,iret) = rval
+              tab(i,iret) = transfer(cval,tab(i,iret))
             endif
             nods(i) = -nods(I)
             cycle inner

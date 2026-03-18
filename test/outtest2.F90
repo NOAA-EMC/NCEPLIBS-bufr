@@ -17,8 +17,6 @@ program outtest2
 
   character libvrsn*8, cpid*8
 
-  equivalence (rpid(1,1),cpid)
-
   print *, 'Testing writing OUT_2 using OPENBF IO = APX and embedded tables'
 
 #ifdef KIND_8
@@ -110,6 +108,7 @@ program outtest2
   call ufbint ( 11, r8oth, 10, 1, nlv, 'HOUR MINU TMBRST SAID SACYLN ORBN OBQL SLHD1')
 
   cpid = 'SUBSET#2'
+  rpid(1,1) = transfer ( cpid, rpid(1,1) )
   call ufbint ( 11, rpid, 1, 1, nlv, 'RPID' )
 
   ! Confirm the "missing" value is still the same value that was set previously via the call to setxmiss.
@@ -125,6 +124,10 @@ program outtest2
 
   ! Call pkftbv with some bogus values to ensure that the "missing" value is properly returned.
   if ( nint(pkftbv(0,0)) /= nint(getbmiss()) ) stop 7
+
+  ! Test nemspecs with an empty mnemonic string.
+  call nemspecs ( 11, ' ', 1, nsc, nrf, nbt, ierns )
+  if ( ierns /= -1 ) stop 8
 
   ! Close the output file.
   call closbf ( 11 )

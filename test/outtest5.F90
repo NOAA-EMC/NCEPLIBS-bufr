@@ -51,7 +51,8 @@ program outtest5
   write ( 13, fmt = '(///,A)' ) '------------ GETABDB -----------'
   ! First do some quick sanity checks to confirm that getabdb properly handles bad input parameters.
   call getabdb ( 11, tabdb, 0, jtab )
-  if (jtab /= 0) stop 1
+  call check_for_bort(errstr, errstr_len)
+  if ( errstr_len /= 0 .or. jtab /= 0 ) stop 1
   call getabdb ( 111, tabdb, 1000, jtab )
   call check_for_bort(errstr, errstr_len)
   if ( errstr_len <= 0 .or. &

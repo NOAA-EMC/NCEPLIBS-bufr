@@ -71,22 +71,22 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
   integer(c_int), value, intent(in) :: lenof, lentd, lentf, lenps
 
-  integer*4 :: isetprm, idxmsg, iupbs01, iupbs3, ireadsb
+  integer*4 :: isetprm, idxmsg, iupbs01, iupbs3, ireadsb, lmsg
   integer*4 :: nbyt, ierr
 
   logical exists
 
   character*120 cmorgc, cmgses, cmmtyp, cmmsbt, cmmsbti
   character*20  ptag ( mxprms ), pvtag(2), cprmnm
-  character*8   cmgtag
+  character*8   cmgtag, sec0
   character*6   cds3 ( mxds3 )
   character     opened, usemt, bfmg ( mxbf ), basic_f, forcemt_f, cfms_f
 
   integer ibfmg ( mxbfd4 ), lunit, nmsg, nsub, nsubt, ii, jj, nds3, nptag, npvtag, ipval, lcprmnm, ier, imgdt, ierme, &
           iogce, lcmorgc, ierorgc, igses, lcmgses, iergses, iryr, irmo, irdy, irhr, irmi, irtret, &
-          mtyp, lcmmtyp, iermtyp, msbt, lcmmsbt, iermsbt, msbti, lcmmsbti, iermsbti, iersn
+          mtyp, lcmmtyp, iermtyp, msbt, lcmmsbt, iermsbt, msbti, lcmmsbti, iermsbti, iersn, nwrd
 
-  equivalence ( bfmg (1), ibfmg (1) )
+  save bfmg, ibfmg
 
   ! Initialize the values in the Share_Table_Info module.
 
@@ -155,6 +155,11 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
       deallocate ( prmstg_f )
       return
     end if
+
+    ! Copy the message into an integer array.
+
+    nwrd = min ( lmsg(transfer(bfmg(1:8),sec0)), mxbfd4 )
+    ibfmg(1:nwrd) = transfer ( bfmg(1:nwrd*4), ibfmg, nwrd )
 
     if ( opened == 'N' ) then
 
@@ -239,7 +244,7 @@ subroutine fdebufr_c ( ofile, lenof, tbldir, lentd, tblfil, lentf, prmstg, lenps
 
       ! Decode and output the data from Section 0.
 
-      write ( 51, fmt= '( /, A, I9 )' ) '        Message length:   ', iupbs01 ( ibfmg, 'LENM' )
+      write ( 51, fmt= '( /, A, I9 )' ) '        Message length:   ', nbyt
       write ( 51, fmt= '( A, I4 )' ) '      Section 0 length:        ', iupbs01 ( ibfmg, 'LEN0' )
       write ( 51, fmt= '( A, I4 )' ) '          BUFR edition:        ', iupbs01 ( ibfmg, 'BEN' )
 

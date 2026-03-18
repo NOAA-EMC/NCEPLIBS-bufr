@@ -22,8 +22,6 @@ program outtest8
 
   character filost / 'w' /
 
-  equivalence (bfmg(1), ibfmg(1))
-
   character cmgtag*8
 
   print *, 'Testing writing OUT_8 using UFBCPY and CWBMG_C'
@@ -67,6 +65,7 @@ program outtest8
   call cobfl_c ( filnam, filost )
 
   ! Write the output message to the output file.
+  bfmg = transfer ( ibfmg(1:lenbmg), bfmg )
 #ifdef KIND_8
   ! See issue #300.
   ! For some reason the following code line squawks with a -Wconversion warning, so for now we'll just

@@ -11,7 +11,6 @@ program test_ufbcup
   real*8 EPSILON
   parameter(EPSILON = .01)
   character*8 station
-  equivalence(station, hdr(1, 1))
   integer*4 ibfms
 
   print *, 'Testing ufbcup.'
@@ -57,7 +56,7 @@ program test_ufbcup
 
   ! Get SID, the station ID.
   call ufbint(12, hdr, 1, 1, iret, 'SID')
-  if (station /= 'CWGN    ') stop 31
+  if (transfer(hdr(1, 1), station) /= 'CWGN    ') stop 31
 
   ! Get the MISSING value.
   call ufbint(12, hdr, 1, 1, iret, 'NUL')

@@ -17,38 +17,22 @@
 !-----------------------------------------------------------------------
 program readbp
 
-      character(120) ::  file
-      character(50)  ::  optarg
-      character(40)  ::  hstr,ostr,qstr
-      character(10)  ::  val
-      character(8)   ::  sid,sta,subset,msg,cmc(17)
-      character(3)   ::  vars(8)
-      integer        ::  iostat
-      real(8)        ::  hdr(10),obs(10,255),qms(10,255),qmc(17),xob,yob
-      logical        ::  window,steam,level,dump,hedr,exist
+      character(120) :: file
+      character(50) :: optarg
+      character(10) :: val
+      character(8)  :: sid, sta = ' ', subset, msg = ' '
+      character(8), parameter :: cmc(17) = (/'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','*'/)
+      character(3), parameter :: vars(8) = (/'LVL','CAT','POB','SPH','TOB','ZOB','UOB','VOB'/)
+      character*(*), parameter :: hstr = 'SID XOB YOB DHR ELV T29 ITP TYP SRC PRG'
+      character*(*), parameter :: ostr = 'CAT POB QOB TOB ZOB UOB VOB PSL'
+      character*(*), parameter :: qstr = 'PQM QQM TQM ZQM WQM PSQ'
 
-      equivalence    (hdr(1),sid)
-      equivalence    (qmc,cmc)
+      integer :: iostat, irt = 0, itp = 0, ikx = 0
+      integer, parameter :: lubfr = 8
 
-      data hstr/'SID XOB YOB DHR ELV T29 ITP TYP SRC PRG '/
-      data ostr/'CAT POB QOB TOB ZOB UOB VOB PSL         '/
-      data qstr/'PQM QQM TQM ZQM WQM PSQ                 '/
+      real(8) :: hdr(10),obs(10,255),qms(10,255),xob,yob
 
-      data vars/'LVL','CAT','POB','SPH','TOB','ZOB','UOB','VOB'/
-      data cmc /'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','*'/
-
-      data lubfr  /8    /
-      data sta    /'   '/
-      data msg    /'   '/
-      data pob    /0/
-      data irt    /0/
-      data itp    /0/
-      data ikx    /0/
-      data window /.false./
-      data steam  /.false./
-      data level  /.false./
-      data dump   /.false./
-      data hedr   /.false./
+      logical :: exist, window = .false., steam = .false., dump = .false., hedr = .false.
 
 !-----------------------------------------------------------------------
 !-----------------------------------------------------------------------
@@ -149,6 +133,7 @@ program readbp
 !  --------------------------------------
 
       call ufbint(lubfr,hdr,10,  1,iret,hstr)
+      sid = transfer(hdr(1),sid)
       xob = hdr(2)
       yob = hdr(3)
       jrt = nint(hdr(6))
@@ -198,7 +183,7 @@ program readbp
           iqm = nint(qms(i,l))
           if(iqm<0)iqm=10e8
           iqm = min(iqm,16)
-          qms(i,l) = qmc(iqm+1)
+          qms(i,l) = transfer(cmc(iqm+1),qms(1,1))
         enddo
       enddo
 
