@@ -1,7 +1,7 @@
 Table B STD |  0 | 45
 #
 # Standard BUFR Table B, Master Table 0, Version 45
-# This file was generated: 2025/11/24 20:24:11
+# This file was generated: 2026/06/01 14:56:57
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME
@@ -1570,7 +1570,7 @@ Table B STD |  0 | 45
   0-25-136 |   3 |      -32768 |  16 | m                 | ICMS     ;     ; Ionospheric correction from model on S band
   0-25-137 |   3 |      -32768 |  16 | m                 | SBCS     ;     ; Sea state bias correction on S band
   0-25-138 |   0 |       -2048 |  12 | Numeric           | ASNR     ;     ; Average signal-to-noise ratio
-  0-25-139 |   0 |           0 |   5 | Numeric           | PROCLVL  ;     ; Processing level
+  0-25-139 |   0 |           0 |   5 | Code table        | PROCLVL  ;     ; Processing level
   0-25-140 |   0 |           0 |  14 | Numeric           | STCH     ;     ; Start channel
   0-25-141 |   0 |           0 |  14 | Numeric           | ENCH     ;     ; End channel
   0-25-142 |   0 |           0 |   6 | Numeric           | CHSF     ;     ; Channel scale factor

@@ -1,7 +1,7 @@
 Table B STD |  0 | 40
 #
 # Standard BUFR Table B, Master Table 0, Version 40
-# This file was generated: 2023/05/30 19:03:18
+# This file was generated: 2026/06/01 14:56:53
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME
@@ -446,7 +446,7 @@ Table B STD |  0 | 40
   0-07-040 |   1 |    62000000 |  22 | m                 | IMPP     ;     ; Impact parameter
   0-07-061 |   2 |           0 |  14 | m                 | DBLS     ;     ; Depth below land surface
   0-07-062 |   1 |           0 |  17 | m                 | DBSS     ;     ; Depth below sea/water surface
-  0-07-063 |   2 |           0 |  20 | m                 | DBSSX    ;     ; Depth below sea/water surface (cm)
+  0-07-063 |   2 |           0 |  20 | m                 | DBSSX    ;     ; Depth below sea/water surface
   0-07-064 |   0 |           0 |   4 | m                 | AHAC     ;     ; Representative height of sensor above station
   0-07-065 |  -3 |           0 |  17 | Pa                | WPRES    ;     ; Water pressure
   0-07-070 |   0 |           0 |  10 | m                 | DROD     ;     ; Drogue depth
@@ -1253,7 +1253,7 @@ Table B STD |  0 | 40
   0-22-043 |   2 |           0 |  15 | K                 | SST1     ;     ; Sea/water temperature
   0-22-044 |   1 |           0 |  14 | m s**-1           | SVEL     ;     ; Sound velocity
   0-22-045 |   3 |           0 |  19 | K                 | SSTH     ;     ; Sea/water temperature
-  0-22-046 |   2 |           0 |   7 | Numeric           | SIFR     ;     ; Sea ice fraction
+  0-22-046 |   2 |           0 |   7 | Numeric           | SIFR     ;     ; Sea-ice fraction
   0-22-049 |   2 |           0 |  15 | K                 | SST0     ;     ; Sea-surface temperature
   0-22-050 |   2 |           0 |   8 | K                 | SSTD     ;     ; Standard deviation sea-surface temperature
   0-22-055 |   0 |           0 |  10 | Numeric           | FCYN     ;     ; Float cycle number
@@ -1520,7 +1520,7 @@ Table B STD |  0 | 40
   0-25-136 |   3 |      -32768 |  16 | m                 | ICMS     ;     ; Ionospheric correction from model on S band
   0-25-137 |   3 |      -32768 |  16 | m                 | SBCS     ;     ; Sea state bias correction on S band
   0-25-138 |   0 |       -2048 |  12 | Numeric           | ASNR     ;     ; Average signal-to-noise ratio
-  0-25-139 |   0 |           0 |   5 | Numeric           | PROCLVL  ;     ; Processing level
+  0-25-139 |   0 |           0 |   5 | Code table        | PROCLVL  ;     ; Processing level
   0-25-140 |   0 |           0 |  14 | Numeric           | STCH     ;     ; Start channel
   0-25-141 |   0 |           0 |  14 | Numeric           | ENCH     ;     ; End channel
   0-25-142 |   0 |           0 |   6 | Numeric           | CHSF     ;     ; Channel scale factor

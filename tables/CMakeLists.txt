@@ -5,7 +5,7 @@
 
 # This is the list of master BUFR tables.
 foreach(type "TableB" "TableD" "CodeFlag")
-  foreach(version RANGE 13 45)
+  foreach(version RANGE 13 46)
     list(APPEND bufr_tables bufrtab.${type}_STD_0_${version})
   endforeach()
   list(APPEND bufr_tables bufrtab.${type}_LOC_0_7_1)

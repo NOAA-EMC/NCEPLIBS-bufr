@@ -1,7 +1,7 @@
 Table F STD |  0 | 15
 #
 # Standard BUFR Table CODE/FLAG, Master Table 0, Version 15
-# This file was generated: 2025/02/14 14:50:13
+# This file was generated: 2026/06/01 14:56:43
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -2403,10 +2403,10 @@ Table F STD |  0 | 15
               | 30   | Other
 
   0-02-099 | POLA ; CODE
-              | 0 > | HH polarisation
-              | 1 > | VV polarisation
-              | 2 > | HV polarisation real valued component
-              | 3   | HV polarisation imaginary valued component
+              | 0 > | HH polarization
+              | 1 > | VV polarization
+              | 2 > | HV polarization real valued component
+              | 3   | HV polarization imaginary valued component
 
   0-02-101 | ANTYP ; CODE
               | 0 > | Centre front fed paraboloid
@@ -3303,19 +3303,19 @@ Table F STD |  0 | 15
               | 10001 > | Methyl peroxy radical (CH3O2)
               | 10002 > | Methyl hydroperoxide (CH3O2H)
               | 10004 > | Methanol (CH3OH)
-              | 10005 > | Formic acid (CH3OOH)
+              | 10005 > | Formic acid (HCOOH)
               | 10006 > | Hydrogen Cyanide (HCN)
               | 10007 > | Aceto nitrile (CH3CN)
               | 10008 > | Ethane (C2H6)
               | 10009 > | Ethene (= Ethylene) (C2H4)
               | 10010 > | Ethyne (= Acetylene) (C2H2)
               | 10011 > | Ethanol (C2H5OH)
-              | 10012 > | Acetic acid (C2H5OOH)
+              | 10012 > | Acetic acid (CH3COOH)
               | 10013 > | Peroxyacetyl nitrate (CH3C(O)OONO2)
               | 10014 > | Propane (C3H8)
               | 10015 > | Propene (C3H6)
               | 10016 > | Butanes (C4H10)
-              | 10017 > | Isoprene (C5H10)
+              | 10017 > | Isoprene (C5H8)
               | 10018 > | Alpha pinene (C10H16)
               | 10019 > | Beta pinene (C10H16)
               | 10020 > | Limonene (C10H16)

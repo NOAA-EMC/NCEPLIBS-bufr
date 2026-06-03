@@ -1,7 +1,7 @@
 Table F STD |  0 | 45
 #
 # Standard BUFR Table CODE/FLAG, Master Table 0, Version 45
-# This file was generated: 2025/11/24 20:24:12
+# This file was generated: 2026/06/01 14:56:56
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -1884,7 +1884,7 @@ Table F STD |  0 | 45
               | 3 > | Zero-pressure balloon (ZPB)
               | 4 > | Infrared Montgolfier (MIR)
               | 5 > | Airship (airship-shaped balloon)
-              | 6   | Tetroon (NOAA tetraedric balloon
+              | 6   | Tetroon (NOAA tetraedric balloon)
 
   0-02-001 | TOST ; CODE
               | 0 > | Automatic
@@ -4287,19 +4287,19 @@ Table F STD |  0 | 45
               | 10001 > | Methyl peroxy radical (CH3OO)
               | 10002 > | Methyl hydroperoxide (CH3O2H)
               | 10004 > | Methanol (CH3OH)
-              | 10005 > | Formic acid (CH3OOH)
+              | 10005 > | Formic acid (HCOOH)
               | 10006 > | Hydrogen Cyanide (HCN)
               | 10007 > | Aceto nitrile (CH3CN)
               | 10008 > | Ethane (C2H6)
               | 10009 > | Ethene (= Ethylene) (C2H4)
               | 10010 > | Ethyne (= Acetylene) (C2H2)
               | 10011 > | Ethanol (C2H5OH)
-              | 10012 > | Acetic acid (C2H5OOH)
+              | 10012 > | Acetic acid (CH3COOH)
               | 10013 > | Peroxyacetyl nitrate (CH3C(O)OONO2)
               | 10014 > | Propane (C3H8)
               | 10015 > | Propene (C3H6)
               | 10016 > | Butanes (all isomers)
-              | 10017 > | Isoprene (C5H10)
+              | 10017 > | Isoprene (C5H8)
               | 10018 > | Alpha pinene (C10H16)
               | 10019 > | Beta pinene (C10H16)
               | 10020 > | Limonene (C10H16)
