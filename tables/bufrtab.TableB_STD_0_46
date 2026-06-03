@@ -1,7 +1,7 @@
-Table B STD |  0 | 43
+Table B STD |  0 | 46
 #
-# Standard BUFR Table B, Master Table 0, Version 43
-# This file was generated: 2026/06/01 14:56:55
+# Standard BUFR Table B, Master Table 0, Version 46
+# This file was generated: 2026/06/01 14:56:57
 #
 #========================================================================================================
 # F-XX-YYY |SCALE| REFERENCE   | BIT |      UNIT         | MNEMONIC ;DESC ;  ELEMENT NAME
@@ -126,6 +126,10 @@ Table B STD |  0 | 43
   0-01-153 |   2 |           0 |  31 | m                 | SMINARE  ;     ; Semi-minor axis of rotation ellipsoid
   0-01-154 |   0 |           0 |  12 | Numeric           | SSRI     ;     ; Sensor identifier
   0-01-155 |   0 |           0 |   8 | Code table        | RTRID    ;     ; Retrieval identifier
+  0-01-156 |   0 |           0 |  64 | CCITT IA5         | BFNUM    ;     ; Balloon flight number
+  0-01-157 |   0 |           0 |  80 | CCITT IA5         | BRNUM    ;     ; Balloon registration number or other identification
+  0-01-158 |   0 |           0 |   4 | Code table        | BENVT    ;     ; Type of balloon envelope
+  0-01-159 |   1 |           0 |  12 | m                 | BENVS    ;     ; Typical size of balloon envelope
   0-02-001 |   0 |           0 |   2 | Code table        | TOST     ;     ; Type of station
   0-02-002 |   0 |           0 |   4 | Flag table        | TIWM     ;     ; Type of instrumentation for wind measurement
   0-02-003 |   0 |           0 |   4 | Code table        | A4ME     ;     ; Type of measuring equipment used
@@ -205,6 +209,8 @@ Table B STD |  0 | 43
   0-02-090 |   9 |           0 |  16 | m                 | INWL     ;     ; Instrument wavelength
   0-02-091 |   4 |           0 |  10 | A                 | ETYS     ;     ; Entry sensor 4/20 mA
   0-02-092 |   0 |           0 |   3 | Code table        | OPCM     ;     ; Ozone profile computation method
+  0-02-093 |   2 |           0 |  14 | Pa                | PCPR     ;     ; Precision of pressure observation
+  0-02-094 |   6 |           0 |  14 | kg kg**-1         | PCMR     ;     ; Precision of mixing ratio observation
   0-02-095 |   0 |           0 |   5 | Code table        | PSENS    ;     ; Type of pressure sensor
   0-02-096 |   0 |           0 |   5 | Code table        | TSENS    ;     ; Type of temperature sensor
   0-02-097 |   0 |           0 |   5 | Code table        | RHSENS   ;     ; Type of humidity sensor
@@ -331,6 +337,7 @@ Table B STD |  0 | 43
   0-03-032 |  -6 |           0 |  26 | Hz                | CCF      ;     ; Channel centre frequency
   0-03-033 |  -6 |           0 |  26 | Hz                | CBW      ;     ; Channel bandwidth
   0-03-034 |   9 |           0 |  16 | m                 | CWL      ;     ; Channel wavelength
+  0-03-035 |   2 |           0 |  14 | Degree            | IANGL    ;     ; Incidence angle
   0-04-001 |   0 |           0 |  12 | Year              | YEAR     ;     ; Year
   0-04-002 |   0 |           0 |   4 | Month             | MNTH     ;     ; Month
   0-04-003 |   0 |           0 |   6 | Day               | DAYS     ;     ; Day
@@ -409,6 +416,7 @@ Table B STD |  0 | 43
   0-05-078 |   0 |           0 |   4 | Numeric           | HORN     ;     ; Horn number
   0-05-079 |   0 |           0 |   6 | Numeric           | BAND     ;     ; Band number
   0-05-080 |  -3 |           0 |   6 | m                 | RESRAD   ;     ; Resolution radius
+  0-05-092 |   0 |          -1 |   3 | Numeric           | STIALTR  ;     ; Side track index or along lateral track row number
   0-06-001 |   5 |   -18000000 |  26 | Degree            | CLONH    ;     ; Longitude (high accuracy)
   0-06-002 |   2 |      -18000 |  16 | Degree            | CLON     ;     ; Longitude (coarse accuracy)
   0-06-011 |   5 |   -18000000 |  26 | Degree            | LONIH    ;     ; Longitude increment (high accuracy)
@@ -447,6 +455,7 @@ Table B STD |  0 | 43
   0-07-031 |   1 |       -4000 |  17 | m                 | HBMSL    ;     ; Height of barometer above mean sea level
   0-07-032 |   2 |           0 |  16 | m                 | HSALG    ;     ; Height of sensor above local ground (or deck of marine platform)
   0-07-033 |   1 |           0 |  12 | m                 | HSAWS    ;     ; Height of sensor above water surface
+  0-07-034 |   2 |      -65000 |  17 | m                 | VDSS     ;     ; Vertical distance of sensor
   0-07-035 |   0 |           0 |  12 | Numeric           | MSZD     ;     ; Maximum size of z-dimension
   0-07-036 |   0 |           0 |  12 | Numeric           | LINZ     ;     ; Level index of z
   0-07-040 |   1 |    62000000 |  22 | m                 | IMPP     ;     ; Impact parameter
@@ -462,6 +471,7 @@ Table B STD |  0 | 43
   0-07-074 |   2 |       -9000 |  15 | Degree            | SOEVRF   ;     ; Solar elevation angle in instrument reference frame
   0-07-075 |   0 |           0 |   8 | Degree            | SCANG    ;     ; Scattering angle
   0-07-076 |   0 |           0 |   8 | Degree            | RAANG    ;     ; Relative azimuth angle
+  0-07-077 |   0 |        -400 |  12 | m                 | HSWRTS   ;     ; Height of sensor with respect to station
   0-08-001 |   0 |           0 |   7 | Flag table        | VSIG     ;     ; Vertical sounding significance
   0-08-002 |   0 |           0 |   6 | Code table        | VSSO     ;     ; Vertical significance (surface observations)
   0-08-003 |   0 |           0 |   6 | Code table        | VSAT     ;     ; Vertical significance (satellite observations)
@@ -488,6 +498,8 @@ Table B STD |  0 | 43
   0-08-024 |   0 |           0 |   6 | Code table        | DFST     ;     ; Difference statistics
   0-08-025 |   0 |           0 |   4 | Code table        | TDQL     ;     ; Time difference qualifier
   0-08-026 |   0 |           0 |   6 | Code table        | MTXSIG   ;     ; Matrix significance
+  0-08-027 |   0 |           0 |   8 | Code table        | TSSHAM   ;     ; Type of sea-surface height anomaly measurement
+  0-08-028 |   0 |           0 |  10 | Code table        | TSIGX    ;     ; Extended time significance
   0-08-029 |   0 |           0 |   8 | Code table        | RSST     ;     ; Surface type
   0-08-030 |   0 |           0 |  13 | Numeric           | CTDD     ;     ; Manual on Codes (Volume I.1, Section C) Code table from which data are derived
   0-08-031 |   0 |           0 |   8 | Numeric           | DCAT     ;     ; Data category - CREX table A
@@ -514,6 +526,7 @@ Table B STD |  0 | 43
   0-08-054 |   0 |           0 |   3 | Code table        | QWSG     ;     ; Qualifier for wind speed or wind gusts
   0-08-055 |   0 |           0 |   4 | Code table        | MCAVGWC  ;     ; Method used to calculate the average wind components after removing vortex
   0-08-060 |   0 |           0 |   4 | Code table        | SSMS     ;     ; Sample scanning mode significance
+  0-08-061 |   0 |           0 |   4 | Code table        | SFLGS    ;     ; Surface flag source
   0-08-065 |   0 |           0 |   2 | Code table        | SGIN     ;     ; Sun-glint indicator
   0-08-066 |   0 |           0 |   2 | Code table        | STIN     ;     ; Semi-transparency indicator
   0-08-070 |   0 |           0 |   4 | Code table        | TAPQ     ;     ; Vertical sounding product qualifier
@@ -542,6 +555,8 @@ Table B STD |  0 | 43
   0-08-097 |   0 |           0 |   7 | Code table        | MCAVGITM ;     ; Method used to calculate the average instrument temperature
   0-08-098 |   0 |           0 |   4 | Code table        | STMM     ;     ; Source of temperature measurement
   0-08-099 |   0 |           0 |   4 | Code table        | SDIR     ;     ; Sensing direction
+  0-08-100 |   0 |           0 |   8 | Code table        | TOFOV    ;     ; Type of following observation value
+  0-08-101 |   0 |           0 |   4 | Code table        | POBF     ;     ; Phase of balloon flight
   0-10-001 |   0 |        -400 |  15 | m                 | HOLS     ;     ; Height of land surface
   0-10-002 |  -1 |         -40 |  16 | m                 | HITE     ;     ; Height
   0-10-003 |  -1 |        -400 |  17 | m**2 s**-2        | GEOP     ;     ; Geopotential
@@ -652,6 +667,7 @@ Table B STD |  0 | 43
   0-11-075 |   2 |           0 |   8 | m**(2/3) s**-1    | MTRB     ;     ; Mean turbulence intensity (eddy dissipation rate)
   0-11-076 |   2 |           0 |   8 | m**(2/3) s**-1    | PTRB     ;     ; Peak turbulence intensity (eddy dissipation rate)
   0-11-077 |   0 |           0 |  12 | s                 | RIEDR    ;     ; Reporting interval or averaging time for eddy dissipation rate
+  0-11-080 |   0 |           0 |   3 | Numeric           | NVWR     ;     ; Number of views used for wind retrieval
   0-11-081 |   2 |           0 |  16 | Degree true       | MWD10    ;     ; Model wind direction at 10 m
   0-11-082 |   2 |           0 |  14 | m s**-1           | MWS10    ;     ; Model wind speed at 10 m
   0-11-083 |   0 |           0 |   9 | km h**-1          | WSPD2    ;     ; Wind speed
@@ -740,6 +756,7 @@ Table B STD |  0 | 43
   0-12-130 |   2 |           0 |  16 | K                 | STEMH    ;     ; Soil temperature
   0-12-131 |   2 |           0 |  16 | K                 | NTEM     ;     ; Snow temperature
   0-12-132 |   2 |           0 |  16 | K                 | ITEM     ;     ; Ice surface temperature
+  0-12-133 |   2 |           0 |  16 | K                 | ICET     ;     ; Ice temperature
   0-12-151 |   2 |           0 |  12 | K                 | STDMT    ;     ; Standard deviation of daily mean temperature
   0-12-152 |   2 |           0 |  16 | K                 | HDMTH    ;     ; Highest daily mean temperature
   0-12-153 |   2 |           0 |  16 | K                 | LDMTH    ;     ; Lowest daily mean temperature
@@ -838,8 +855,10 @@ Table B STD |  0 | 43
   0-13-116 |   4 |           0 |  10 | m                 | WFTHK    ;     ; Water film thickness
   0-13-117 |   0 |           0 |  10 | kg m**-3          | SDEN     ;     ; Snow density (liquid water content)
   0-13-118 |   3 |          -2 |  14 | m                 | DOFSH    ;     ; Depth of fresh snow (high accuracy)
+  0-13-119 |   3 |      -10000 |  15 | m                 | SNDPST   ;     ; Snow depth
   0-13-155 |   5 |          -1 |  16 | kg m**-2 s**-1    | PRATH    ;     ; Intensity of precipitation (high accuracy)
   0-13-160 |   2 |        -350 |  10 | kg m**-2          | RDLC     ;     ; Radiometer liquid content
+  0-13-161 |   0 |           0 |  14 | J kg**-1          | MUCAPE   ;     ; Most unstable convective available potential energy (CAPE)
   0-13-162 |   2 |           0 |   8 | kg m**-2          | CLWA     ;     ; Cloud liquid water
   0-13-163 |   0 |           0 |  16 | kg m**-2          | SWEMS    ;     ; Snow water equivalent
   0-13-164 |   3 |     -131072 |  18 | m                 | SIFB     ;     ; Sea ice freeboard
@@ -1132,6 +1151,7 @@ Table B STD |  0 | 43
   0-21-017 |   1 |           0 |   8 | m s**-1           | DVSW     ;     ; Doppler velocity spectral width
   0-21-018 |   1 |           0 |  10 | m s**-1           | XNQV     ;     ; Extended NYQUIST velocity
   0-21-019 |   1 |           0 |  10 | m s**-1           | HNQV     ;     ; High NYQUIST velocity
+  0-21-020 |   3 |      -65536 |  17 | Numeric           | DYACOR   ;     ; Dynamic atmospheric correction
   0-21-021 |  -3 |           0 |   4 | m                 | ECHT     ;     ; Echo tops
   0-21-022 |   1 |           0 |  14 | m                 | RNBO     ;     ; Range bin offset
   0-21-023 |   0 |           0 |  14 | m                 | RNBS     ;     ; Range bin size
@@ -1143,8 +1163,13 @@ Table B STD |  0 | 43
   0-21-029 |   2 |        -100 |   8 | Numeric           | CPCC     ;     ; Cross-polarization correlation coefficient
   0-21-030 |   0 |         -32 |   8 | dB                | STNR     ;     ; Signal to noise ratio
   0-21-031 |   0 |           0 |   7 | kg m**-2          | VILWC    ;     ; Vertically integrated liquid-water content
+  0-21-034 |   0 |           0 |  16 | Flag table        | BKSF     ;     ; Backscatter flag
   0-21-036 |   7 |           0 |  12 | m s**-1           | RRFI     ;     ; Radar rainfall intensity
+  0-21-037 |   2 |         -80 |   7 | dB degree**-1     | SLOPE    ;     ; Slope
+  0-21-038 |   4 |       -6000 |  14 | dB degree**-2     | CURVT    ;     ; Curvature
   0-21-041 |  -2 |           0 |   8 | m                 | BBHT     ;     ; Bright-band height
+  0-21-049 |   0 |           0 |  16 | Numeric           | AMPEC    ;     ; Amplitude of echo (digitizer counts)
+  0-21-050 |   3 |           0 |  16 | s                 | DTHPA    ;     ; Decay time for echo to fall to half of its peak amplitude
   0-21-051 |   0 |        -256 |   8 | dB                | SGPW     ;     ; Signal power above 1 mW
   0-21-062 |   2 |       -5000 |  13 | dB                | BKST     ;     ; Backscatter
   0-21-063 |   1 |           0 |  10 | %                 | RARE     ;     ; Radiometric resolution (noise value)
@@ -1239,6 +1264,7 @@ Table B STD |  0 | 43
   0-21-165 |   3 |           0 |  10 | Numeric           | AERFP    ;     ; ASCAT extrapolated reference function presence
   0-21-166 |   3 |           0 |  10 | Numeric           | ALFR     ;     ; Land fraction
   0-21-167 |   0 |           0 |   7 | %                 | SSFSCP   ;     ; Subsurface scattering probability
+  0-21-168 |   0 |           0 |   8 | Code table        | SCMECH   ;     ; Scattering mechanism
   0-21-169 |   0 |           0 |   2 | Code table        | IPIN     ;     ; Ice presence indicator
   0-21-170 |   2 |      -32768 |  16 | dB                | CCOB     ;     ; C band corrected ocean backscatter coefficient
   0-21-171 |   2 |      -32768 |  16 | dB                | RCCOB    ;     ; RMS C band corrected ocean backscatter coefficient
@@ -1260,6 +1286,7 @@ Table B STD |  0 | 43
   0-21-187 |   2 |           0 |   8 | dB                | RMSAGC   ;     ; RMS specific band automatic gain control
   0-21-188 |   0 |           0 |   7 | Numeric           | NVPAGC   ;     ; Number of valid points for specific band automatic gain control
   0-21-189 |   2 |      -32768 |  16 | dB                | CGBC2    ;     ; Corrected OCOG backscatter coefficient
+  0-21-190 |   0 |           0 |   4 | Numeric           | AMBIDX   ;     ; Ambiguity index
   0-22-001 |   0 |           0 |   9 | Degree true       | DOWA     ;     ; Direction of waves
   0-22-002 |   0 |           0 |   9 | Degree true       | DOWW     ;     ; Direction of wind waves
   0-22-003 |   0 |           0 |   9 | Degree true       | DOSW     ;     ; Direction of swell waves
@@ -1472,6 +1499,7 @@ Table B STD |  0 | 43
   0-25-036 |   0 |           0 |   4 | Code table        | ALME     ;     ; Atmospherics location method
   0-25-037 |   2 |        -127 |   8 | K                 | SSTB     ;     ; SST bias
   0-25-038 |   1 |        -127 |   8 | K                 | DIFSA    ;     ; Difference between SST and analysis
+  0-25-039 |   5 |           0 |  16 | dB degree**-2     | NCURVT   ;     ; Noise curvature
   0-25-040 |   0 |           0 |   4 | Code table        | CO2W     ;     ; CO2 wind product derivation
   0-25-041 |   0 |           0 |   2 | Code table        | MPDR     ;     ; Moving platform direction reporting method
   0-25-042 |   0 |           0 |   2 | Code table        | MPSR     ;     ; Moving platform speed reporting method
@@ -1673,6 +1701,9 @@ Table B STD |  0 | 43
   0-33-054 |   0 |           0 |   3 | Code table        | OQRAP    ;     ; Overall quality of retrieved atmospheric profile
   0-33-055 |   0 |           0 |  24 | Flag table        | WVQF     ;     ; Wind vector quality flag
   0-33-056 |   0 |           0 |  24 | Flag table        | SZQF     ;     ; Sigma-0 quality flag
+  0-33-057 |   0 |           0 |  16 | Flag table        | SL2ACF   ;     ; SCAT L2 applied correction flag
+  0-33-058 |   0 |           0 |  16 | Flag table        | SL2FMD   ;     ; SCAT L2 flag cause missing data
+  0-33-059 |   0 |           0 |  16 | Flag table        | SL2TF    ;     ; SCAT L2 threshold flag
   0-33-060 |   0 |           0 |   2 | Code table        | QGFQ     ;     ; GqisFlagQual - individual IASI-System quality flag
   0-33-061 |   0 |           0 |   7 | %                 | QGQI     ;     ; GqisQualIndex - indicator for instrument noise performance (contributions from spectral and radiometric calibration)
   0-33-062 |   0 |           0 |   7 | %                 | QGQIL    ;     ; GqisQualIndexLoc - indicator for geometric quality index
@@ -1728,6 +1759,10 @@ Table B STD |  0 | 43
   0-33-117 |   0 |           0 |  17 | Flag table        | INBC     ;     ; In bounds check
   0-33-118 |   2 |      -10000 |  15 | %                 | REPC     ;     ; Relative error percentage
   0-33-119 |   0 |        -100 |   8 | %                 | FEPC     ;     ; Forecast error percentage
+  0-33-120 |   0 |           0 |  14 | Flag table        | IRSSQ    ;     ; IRS spatial quality
+  0-33-121 |   0 |           0 |   5 | Flag table        | IRSDQ    ;     ; IRS detector quality
+  0-33-122 |   2 |           0 |  10 | dB                | EEBKS    ;     ; Estimated error in backscatter
+  0-33-123 |   3 |         -40 |   6 | dB degree**-1     | EESLP    ;     ; Estimated error in slope
   0-35-000 |   0 |           0 |  10 | Code table        | FMRCN    ;     ; FM and regional code number
   0-35-001 |   0 |           0 |   3 | Code table        | TFFM     ;     ; Time frame for monitoring
   0-35-011 |   0 |           0 |  14 | Numeric           | NRAR     ;     ; Number of reports actually received
@@ -1818,7 +1853,9 @@ Table B STD |  0 | 43
   0-40-075 |   0 |           0 |  21 | Numeric           | RECMH    ;     ; Retrieval error covariance matrix for humidity in principal component domain
   0-40-076 |   0 |           0 |  21 | Numeric           | RECMT    ;     ; Retrieval error covariance matrix for temperature in principal component domain
   0-40-077 |   0 |           0 |   8 | Flag table        | OPQF2    ;     ; Ocean product quality flag
+  0-40-078 |   1 |           0 |  27 | m                 | SRFB     ;     ; Satellite range to first bin
   0-40-080 |   0 |           0 |   5 | Flag table        | CTIL2    ;     ; Cloud test results for IASI-NG level 2
+  0-40-081 |   0 |           0 |  31 | Flag table        | OLCI1Q   ;     ; OLCI Level 1 classification and quality
   0-41-001 |   3 |           0 |  18 | Pa                | PCO2     ;     ; pCO2
   0-41-002 |  12 |           0 |  16 | kg l**-1          | FLRS     ;     ; Fluorescence
   0-41-003 |   3 |           0 |  17 | umol kg**-1       | DSNT     ;     ; Dissolved nitrates
