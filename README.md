@@ -75,7 +75,7 @@ If these are not desired, then they can be disabled by adding `-DBUILD_UTILS=OFF
 to the first of the above cmake commands.
 
 NCEPLIBS-bufr is also available through [Spack](https://spack.io) as
-'[bufr](https://github.com/spack/spack-packages/blob/develop/repos/spack_repo/builtin/packages/bufr/package.py)'.
+'[bufr](https://github.com/spack/spack-packages/blob/develop/repos/spack_repo/builtin/packages/bufr)'.
 
 ## References
 
@@ -104,3 +104,6 @@ Commerce. The Department of Commerce seal and logo, or the seal and
 logo of a DOC bureau, shall not be used in any manner to imply
 endorsement of any commercial product or activity by DOC or the United
 States Government.
+
+Generative AI tools are used to assist with developing this code.
+The code has been reviewed, edited, and validated by NWS staff.
