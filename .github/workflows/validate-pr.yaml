@@ -43,6 +43,6 @@ jobs:
             else {
               // 'No AI' is unchecked, and the placeholder is gone (meaning it was customized).
               // Per your instructions, the AI checkbox can be checked (reviewed) or unchecked (pending review).
-              const toolName = prBody.match(/- \[[ xX]\] \*\*(.*?)\*\* was used to assist with developing this code/)[1].trim();
+              const toolName = prBody.match(/- \[[ xX]\] (.*?) was used to assist with developing this code/)[1].trim();
               console.log(`✅ Success: AI tool specified as "${toolName}"`);
             }
