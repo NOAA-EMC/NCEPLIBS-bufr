@@ -1,0 +1,48 @@
+name: "Validate pull request"
+description: "This workflow verifies that PR descriptions contain NOAA/NWS-required generative AI usage disclosures."
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  validate-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify AI disclosure compliance
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prBody = context.payload.pull_request.body;
+            
+            if (!prBody) {
+              core.setFailed("❌ Error: PR description is empty. Please fill out the template, including the required Generative AI usage disclosure.");
+              return;
+            }
+
+            // 1. Check if the AI checkbox is marked
+            const checkedAI = /- \[[xX]\] \*\*.*?\*\* was used to assist with developing this code/.test(prBody);
+            
+            // 2. Check if the No-AI checkbox is marked
+            const checkedNoAI = /- \[[xX]\] No generative AI tools were used/.test(prBody);
+            
+            // 3. Check if the exact placeholder string still exists
+            const hasPlaceholder = prBody.includes("[Insert AI tool name]");
+
+            // Validation Logic Matrix
+            if (checkedAI && checkedNoAI) {
+              core.setFailed("❌ Error: Conflicting selections. You cannot check both the AI-assisted and no-AI boxes.");
+            } 
+            else if (checkedNoAI) {
+              console.log("✅ Success: Developer declared no AI tools were used.");
+            } 
+            else if (hasPlaceholder) {
+              // If 'No AI' isn't checked, and the placeholder is still there, they skipped the section.
+              core.setFailed("❌ Error: Compliance action required. You must either check 'No generative AI tools' OR replace '[Insert AI tool name]' with the tool you used.");
+            } 
+            else {
+              // 'No AI' is unchecked, and the placeholder is gone (meaning it was customized).
+              // Per your instructions, the AI checkbox can be checked (reviewed) or unchecked (pending review).
+              const toolName = prBody.match(/- \[[ xX]\] \*\*(.*?)\*\* was used to assist with developing this code/)[1].trim();
+              console.log(`✅ Success: AI tool specified as "${toolName}"`);
+            }
