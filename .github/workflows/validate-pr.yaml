@@ -21,7 +21,7 @@ jobs:
             }
 
             // 1. Check if the AI checkbox is marked
-            const checkedAI = /- \[[xX]\] \*\*.*?\*\* was used to assist with developing this code/.test(prBody);
+            const checkedAI = /- \[[xX]\] .*? was used to assist with developing this code/.test(prBody);
             
             // 2. Check if the No-AI checkbox is marked
             const checkedNoAI = /- \[[xX]\] No generative AI tools were used/.test(prBody);
