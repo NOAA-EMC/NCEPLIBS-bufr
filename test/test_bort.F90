@@ -217,7 +217,7 @@ program test_bort
      elseif (test_case == '2') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
-        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'IN', 12)
         call copybf(11, 12)
@@ -629,6 +629,7 @@ program test_bort
         call gettbh(11, 12, 'B', imt, imtv, iogce, iltv)
      endif
   elseif (sub_name == 'idn30') then
+    adn30_val_5 = ""
      if (test_case == '1') then
         idn30_val = idn30(adn30_val_5, 6)
      elseif (test_case == '2') then
@@ -1036,7 +1037,8 @@ program test_bort
         stop 0
      elseif (test_case == '3') then
         do u = 1, 33
-           open(unit = u+10, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+           write(filnam, '(a,i0)') 'testfiles/IN_2_', u
+           open(unit = u+10, file = filnam, form = 'UNFORMATTED', iostat = ios)
            if (ios /= 0) stop 0
            call openbf(u+10, 'IN', 11)
         end do
@@ -1121,6 +1123,7 @@ program test_bort
      endif
   elseif (sub_name == 'parstr') then
      if (test_case == '1') then
+         char_85 = ""
         call parstr(char_85, tags, 5, iret, ' ', .true.)
      elseif (test_case == '2') then
         card = 'MNEM1 MNEM2 MNEM3 MNEM4 MNEM5 MNEM6                                             '
@@ -1150,6 +1153,7 @@ program test_bort
         if (iret /= 0) stop 0
      endif
      if (test_case == '1') then
+        char_85 = ""
         call parusr(char_85, 1, 1, 1)
      elseif (test_case == '2') then
         card = 'POB>0 QOB>0 TOB>0 VOB>0 UOB>0 XOB>0 YOB>0 ELV>0 TYP>0 T29>0 ITP>0               '
@@ -1370,7 +1374,7 @@ program test_bort
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
-        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 12)
         call readerme(int_1d, 12, char_val_8, jdate, iret)
@@ -1475,7 +1479,7 @@ program test_bort
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
-        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 12)
         call readmg(12, char_val_8, jdate, iret)
@@ -1511,7 +1515,7 @@ program test_bort
      if (test_case == '1') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
-        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 12)
         call readns(12, char_val_8, jdate, iret)
@@ -3083,7 +3087,7 @@ program test_bort
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
-        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'IN', 12)
         call writlc(11, char_val_8, char_val_8)
@@ -3154,7 +3158,7 @@ program test_bort
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
-        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'IN', 12)
         call writsa(11, lmsgt, msgt, msgl)
@@ -3186,7 +3190,7 @@ program test_bort
      elseif (test_case == '3') then
         open(unit = 11, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
-        open(unit = 12, file = 'testfiles/IN_2', form = 'UNFORMATTED', iostat = ios)
+        open(unit = 12, file = 'testfiles/test_bort_OUT', form = 'UNFORMATTED', iostat = ios)
         if (ios /= 0) stop 0
         call openbf(12, 'IN', 12)
         call writsb(11)
