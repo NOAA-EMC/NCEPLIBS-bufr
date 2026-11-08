@@ -16,7 +16,7 @@ program intest11
   integer ios1, ios2, ncds3, iret, imgdt, errstr_len, nwrd
 
   character bfmg(mxbf), cds3(5)*6, cmgtag*8, sec0*8, errstr*400
-  character filnam*25 / 'testfiles/IN_11' /
+  character*25 :: filnam = 'testfiles/IN_11'
 
   print *, 'Testing reading IN_11 using STNDRD and RDMEMS'
 

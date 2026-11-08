@@ -23,8 +23,8 @@ program intest1
   integer ibfmg(mxbfd4)
   character smidstg*9, softvstg*12, cmgtag*8, sec0*8, &
        bfmg(mxbf), cds3(mxds3)*6, tagpr*8, celem*60, cunit*22
-  character*20 filnam / 'testfiles/IN_1' /
-  character filost / 'r' /
+  character*20 :: filnam = 'testfiles/IN_1'
+  character :: filost = 'r'
 
   print *, 'Testing reading IN_1, CRBMG_C with OPENBF IO = SEC3'
 

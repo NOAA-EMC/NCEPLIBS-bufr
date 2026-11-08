@@ -182,7 +182,7 @@ endif()
 # This is for testing bort().
 foreach(kind ${test_kinds})
   add_executable(test_bort_${kind} test_bort.F90)
-  if(NOT "${CMAKE_Fortran_COMPILER_ID}" MATCHES "NAG")
+  if(CMAKE_Fortran_COMPILER_ID MATCHES "^(GNU)$")
     # Need to include -Wno-character-truncation flag for test_bort, so it can do stupid things needed to fail.
     set_target_properties(test_bort_${kind} PROPERTIES COMPILE_FLAGS "${fortran_${kind}_flags} -Wno-character-truncation")
   endif()

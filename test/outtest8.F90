@@ -18,9 +18,9 @@ program outtest8
 
   character bfmg(mxbf)
 
-  character*20 filnam / 'out8.bufr' /
+  character*20 :: filnam = 'out8.bufr'
 
-  character filost / 'w' /
+  character :: filost = 'w'
 
   character cmgtag*8
 
