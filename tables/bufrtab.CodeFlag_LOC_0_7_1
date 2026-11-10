@@ -1,7 +1,7 @@
 Table F LOC |  0 | 7 |  1
 #
 # Local BUFR Table CODE/FLAG, Master Table 0, Originating Center 7, Version 1
-# This file was generated: 2026/06/01 14:56:58
+# This file was generated: 2026/10/08 16:42:58
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -4755,6 +4755,7 @@ Table F LOC |  0 | 7 |  1
               | 2 > | GOES 1x1 FOV cloud
               | 3 > | GOES 1x1 FOV sounder radiances
               | 10 > | Radio occultation
+              | 12 > | Radio occultation
               | 101 > | Polar orbiting - TOVS
               | 102 > | Polar orbiting - RTOVS
               | 104 > | Polar orbiting - ATOVS
@@ -5038,6 +5039,7 @@ Table F LOC |  0 | 7 |  1
               | 239 > | IASI radiances (direct broadcast)
               | 241 > | IASI radiances
               | 242 > | Megha-Tropiques SAPHIR L1A2 brightness temperatures
+              | 243 > | Microwave Sounder (level 1B)
               | 246 > | GMI brightness temperatures
               | 247 > | GCOM-W/Advanced Microwave Scanning Radiometer 2 (AMSR2) 1B brightness temperature data GSI 14 channel
               | 248 > | AMSR2 brightness temperatures

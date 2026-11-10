@@ -1,7 +1,7 @@
 Table F STD |  0 | 35
 #
 # Standard BUFR Table CODE/FLAG, Master Table 0, Version 35
-# This file was generated: 2026/06/01 14:56:51
+# This file was generated: 2026/11/09 21:49:32
 #
 #========================================================================================================
 # F-XX-YYY | MNEMONIC ; CODE               <-- code table definition
@@ -2228,8 +2228,8 @@ Table F STD |  0 | 35
               | 531 > | Spire GNSS occultation sounder SGNOS-B (Spire global navigation satellite system occultation sounder B)
               | 532 > | Spire GNSS occultation sounder SGNOS-C (Spire global navigation satellite system occultation sounder C)
               | 533 > | Spire GNSS occultation sounder SGNOS-D (Spire global navigation satellite system occultation sounder D)
-              | 534 > | PlanetiQ GNSS occultationsounder Pyxis-A (PlanetiQ Pyxis GNSS occultation receiver A)
-              | 535 > | PlanetiQ GNSS occultationsounder Pyxis-B (PlanetiQ Pyxis GNSS occultation receiver B)
+              | 534 > | PlanetiQ GNSS occultation sounder Pyxis-A (PlanetiQ Pyxis GNSS occultation receiver A)
+              | 535 > | PlanetiQ GNSS occultation sounder Pyxis-B (PlanetiQ Pyxis GNSS occultation receiver B)
               | 540 > | NOAA Communications DCS (NOAA) (Data-collection system (NOAA))
               | 541 > | NOAA Communications GOES Comms (Communications package on GOES)
               | 542 > | NOAA Communications LANDSAT Comms (Communications package for LANDSAT)
