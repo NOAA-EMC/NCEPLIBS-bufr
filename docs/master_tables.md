@@ -150,41 +150,60 @@ Table B files that can be downloaded and used. These are also
 available as part of the standard distribution package for the
 software, within the tables subdirectory:
 
-- [Standard Table B for Master Table 0 (WMO), Version 13](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_13)
-- [Standard Table B for Master Table 0 (WMO), Version 14](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_14)
-- [Standard Table B for Master Table 0 (WMO), Version 15](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_15)
-- [Standard Table B for Master Table 0 (WMO), Version 16](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_16)
-- [Standard Table B for Master Table 0 (WMO), Version 17](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_17)
-- [Standard Table B for Master Table 0 (WMO), Version 18](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_18)
-- [Standard Table B for Master Table 0 (WMO), Version 19](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_19)
-- [Standard Table B for Master Table 0 (WMO), Version 20](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_20)
-- [Standard Table B for Master Table 0 (WMO), Version 21](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_21)
-- [Standard Table B for Master Table 0 (WMO), Version 22](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_22)
-- [Standard Table B for Master Table 0 (WMO), Version 23](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_23)
-- [Standard Table B for Master Table 0 (WMO), Version 24](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_24)
-- [Standard Table B for Master Table 0 (WMO), Version 25](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_25)
-- [Standard Table B for Master Table 0 (WMO), Version 26](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_26)
-- [Standard Table B for Master Table 0 (WMO), Version 27](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_27)
-- [Standard Table B for Master Table 0 (WMO), Version 28](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_28)
-- [Standard Table B for Master Table 0 (WMO), Version 29](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_29)
-- [Standard Table B for Master Table 0 (WMO), Version 30](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_30)
-- [Standard Table B for Master Table 0 (WMO), Version 31](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_31)
-- [Standard Table B for Master Table 0 (WMO), Version 32](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_32)
-- [Standard Table B for Master Table 0 (WMO), Version 33](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_33)
-- [Standard Table B for Master Table 0 (WMO), Version 34](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_34)
-- [Standard Table B for Master Table 0 (WMO), Version 35](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_35)
-- [Standard Table B for Master Table 0 (WMO), Version 36](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_36)
-- [Standard Table B for Master Table 0 (WMO), Version 37](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_37)
-- [Standard Table B for Master Table 0 (WMO), Version 38](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_38)
-- [Standard Table B for Master Table 0 (WMO), Version 39](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_39)
-- [Standard Table B for Master Table 0 (WMO), Version 40](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_40)
-- [Standard Table B for Master Table 0 (WMO), Version 41](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_41)
-- [Standard Table B for Master Table 0 (WMO), Version 42](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_42)
-- [Standard Table B for Master Table 0 (WMO), Version 43](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_43)
-- [Standard Table B for Master Table 0 (WMO), Version 44](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_44)
-- [Standard Table B for Master Table 0 (WMO), Version 45](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_45)
-- [Standard Table B for Master Table 0 (WMO), Version 46](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_46)
 - [Local Table B for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_LOC_0_7_1)
+- Standard Table B for Master Table 0 (WMO):
+<table border>
+<tr>
+  <td>[Version 13](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_13)</td>
+  <td>[Version 14](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_14)</td>
+  <td>[Version 15](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_15)</td>
+  <td>[Version 16](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_16)</td>
+  <td>[Version 17](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_17)</td>
+  <td>[Version 18](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_18)</td>
+  <td>[Version 19](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_19)</td>
+  <td>[Version 20](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_20)</td>
+</tr>
+<tr>
+  <td>[Version 21](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_21)</td>
+  <td>[Version 22](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_22)</td>
+  <td>[Version 23](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_23)</td>
+  <td>[Version 24](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_24)</td>
+  <td>[Version 25](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_25)</td>
+  <td>[Version 26](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_26)</td>
+  <td>[Version 27](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_27)</td>
+  <td>[Version 28](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_28)</td>
+</tr>
+<tr>
+  <td>[Version 29](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_29)</td>
+  <td>[Version 30](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_30)</td>
+  <td>[Version 31](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_31)</td>
+  <td>[Version 32](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_32)</td>
+  <td>[Version 33](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_33)</td>
+  <td>[Version 34](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_34)</td>
+  <td>[Version 35](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_35)</td>
+  <td>[Version 36](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_36)</td>
+</tr>
+<tr>
+  <td>[Version 37](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_37)</td>
+  <td>[Version 38](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_38)</td>
+  <td>[Version 39](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_39)</td>
+  <td>[Version 40](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_40)</td>
+  <td>[Version 41](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_41)</td>
+  <td>[Version 42](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_42)</td>
+  <td>[Version 43](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_43)</td>
+  <td>[Version 44](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_44)</td>
+</tr>
+<tr>
+  <td>[Version 45](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_45)</td>
+  <td>[Version 46](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_46)</td>
+  <td>[Version 47](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableB_STD_0_47)</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+</tr>
+</table>
 
 
 ## Table D {#TableD}
@@ -285,41 +304,60 @@ characters. Here are some sample master Table D files that can be
 downloaded and used. These are also available as part of the standard
 distribution package for the software, within the tables subdirectory:
 
-- [Standard Table D for Master Table 0 (WMO), Version 13](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_13)
-- [Standard Table D for Master Table 0 (WMO), Version 14](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_14)
-- [Standard Table D for Master Table 0 (WMO), Version 15](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_15)
-- [Standard Table D for Master Table 0 (WMO), Version 16](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_16)
-- [Standard Table D for Master Table 0 (WMO), Version 17](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_17)
-- [Standard Table D for Master Table 0 (WMO), Version 18](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_18)
-- [Standard Table D for Master Table 0 (WMO), Version 19](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_19)
-- [Standard Table D for Master Table 0 (WMO), Version 20](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_20)
-- [Standard Table D for Master Table 0 (WMO), Version 21](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_21)
-- [Standard Table D for Master Table 0 (WMO), Version 22](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_22)
-- [Standard Table D for Master Table 0 (WMO), Version 23](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_23)
-- [Standard Table D for Master Table 0 (WMO), Version 24](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_24)
-- [Standard Table D for Master Table 0 (WMO), Version 25](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_25)
-- [Standard Table D for Master Table 0 (WMO), Version 26](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_26)
-- [Standard Table D for Master Table 0 (WMO), Version 27](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_27)
-- [Standard Table D for Master Table 0 (WMO), Version 28](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_28)
-- [Standard Table D for Master Table 0 (WMO), Version 29](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_29)
-- [Standard Table D for Master Table 0 (WMO), Version 30](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_30)
-- [Standard Table D for Master Table 0 (WMO), Version 31](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_31)
-- [Standard Table D for Master Table 0 (WMO), Version 32](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_32)
-- [Standard Table D for Master Table 0 (WMO), Version 33](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_33)
-- [Standard Table D for Master Table 0 (WMO), Version 34](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_34)
-- [Standard Table D for Master Table 0 (WMO), Version 35](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_35)
-- [Standard Table D for Master Table 0 (WMO), Version 36](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_36)
-- [Standard Table D for Master Table 0 (WMO), Version 37](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_37)
-- [Standard Table D for Master Table 0 (WMO), Version 38](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_38)
-- [Standard Table D for Master Table 0 (WMO), Version 39](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_39)
-- [Standard Table D for Master Table 0 (WMO), Version 40](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_40)
-- [Standard Table D for Master Table 0 (WMO), Version 41](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_41)
-- [Standard Table D for Master Table 0 (WMO), Version 42](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_42)
-- [Standard Table D for Master Table 0 (WMO), Version 43](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_43)
-- [Standard Table D for Master Table 0 (WMO), Version 44](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_44)
-- [Standard Table D for Master Table 0 (WMO), Version 45](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_45)
-- [Standard Table D for Master Table 0 (WMO), Version 46](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_46)
 - [Local Table D for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_LOC_0_7_1)
+- Standard Table D for Master Table 0 (WMO):
+<table border>
+<tr>
+  <td>[Version 13](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_13)</td>
+  <td>[Version 14](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_14)</td>
+  <td>[Version 15](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_15)</td>
+  <td>[Version 16](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_16)</td>
+  <td>[Version 17](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_17)</td>
+  <td>[Version 18](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_18)</td>
+  <td>[Version 19](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_19)</td>
+  <td>[Version 20](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_20)</td>
+</tr>
+<tr>
+  <td>[Version 21](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_21)</td>
+  <td>[Version 22](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_22)</td>
+  <td>[Version 23](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_23)</td>
+  <td>[Version 24](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_24)</td>
+  <td>[Version 25](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_25)</td>
+  <td>[Version 26](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_26)</td>
+  <td>[Version 27](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_27)</td>
+  <td>[Version 28](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_28)</td>
+</tr>
+<tr>
+  <td>[Version 29](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_29)</td>
+  <td>[Version 30](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_30)</td>
+  <td>[Version 31](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_31)</td>
+  <td>[Version 32](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_32)</td>
+  <td>[Version 33](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_33)</td>
+  <td>[Version 34](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_34)</td>
+  <td>[Version 35](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_35)</td>
+  <td>[Version 36](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_36)</td>
+</tr>
+<tr>
+  <td>[Version 37](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_37)</td>
+  <td>[Version 38](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_38)</td>
+  <td>[Version 39](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_39)</td>
+  <td>[Version 40](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_40)</td>
+  <td>[Version 41](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_41)</td>
+  <td>[Version 42](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_42)</td>
+  <td>[Version 43](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_43)</td>
+  <td>[Version 44](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_44)</td>
+</tr>
+<tr>
+  <td>[Version 45](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_45)</td>
+  <td>[Version 46](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_46)</td>
+  <td>[Version 47](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.TableD_STD_0_47)</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+</tr>
+</table>
 
 
 ## Code/Flag Tables {#CodeFlag}
@@ -512,38 +550,57 @@ table files that can be downloaded and used. These are also available
 as part of the standard distribution package for the software, within
 the tables subdirectory:
 
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 13](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_13)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 14](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_14)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 15](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_15)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 16](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_16)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 17](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_17)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 18](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_18)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 19](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_19)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 20](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_20)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 21](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_21)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 22](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_22)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 23](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_23)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 24](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_24)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 25](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_25)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 26](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_26)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 27](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_27)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 28](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_28)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 29](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_29)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 30](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_30)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 31](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_31)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 32](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_32)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 33](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_33)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 34](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_34)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 35](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_35)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 36](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_36)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 37](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_37)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 38](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_38)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 39](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_39)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 40](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_40)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 41](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_41)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 42](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_42)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 43](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_43)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 44](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_44)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 45](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_45)
-- [Standard Code/Flag Tables for Master Table 0 (WMO), Version 46](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_46)
 - [Local Code/Flag Tables for Master Table 0 (WMO), Originating Center 7 (NCEP), Version 1](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_LOC_0_7_1)
+- Standard Code/Flag Tables for Master Table 0 (WMO):
+<table border>
+<tr>
+  <td>[Version 13](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_13)</td>
+  <td>[Version 14](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_14)</td>
+  <td>[Version 15](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_15)</td>
+  <td>[Version 16](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_16)</td>
+  <td>[Version 17](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_17)</td>
+  <td>[Version 18](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_18)</td>
+  <td>[Version 19](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_19)</td>
+  <td>[Version 20](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_20)</td>
+</tr>
+<tr>
+  <td>[Version 21](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_21)</td>
+  <td>[Version 22](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_22)</td>
+  <td>[Version 23](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_23)</td>
+  <td>[Version 24](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_24)</td>
+  <td>[Version 25](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_25)</td>
+  <td>[Version 26](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_26)</td>
+  <td>[Version 27](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_27)</td>
+  <td>[Version 28](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_28)</td>
+</tr>
+<tr>
+  <td>[Version 29](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_29)</td>
+  <td>[Version 30](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_30)</td>
+  <td>[Version 31](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_31)</td>
+  <td>[Version 32](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_32)</td>
+  <td>[Version 33](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_33)</td>
+  <td>[Version 34](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_34)</td>
+  <td>[Version 35](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_35)</td>
+  <td>[Version 36](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_36)</td>
+</tr>
+<tr>
+  <td>[Version 37](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_37)</td>
+  <td>[Version 38](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_38)</td>
+  <td>[Version 39](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_39)</td>
+  <td>[Version 40](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_40)</td>
+  <td>[Version 41](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_41)</td>
+  <td>[Version 42](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_42)</td>
+  <td>[Version 43](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_43)</td>
+  <td>[Version 44](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_44)</td>
+</tr>
+<tr>
+  <td>[Version 45](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_45)</td>
+  <td>[Version 46](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_46)</td>
+  <td>[Version 47](https://github.com/NOAA-EMC/NCEPLIBS-bufr/tree/develop/tables/bufrtab.CodeFlag_STD_0_47)</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+</tr>
+</table>
