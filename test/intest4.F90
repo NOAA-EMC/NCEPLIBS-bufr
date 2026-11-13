@@ -27,8 +27,8 @@ program intest4
   integer ibfmg (mxbfd4)
 
   character cmgtag*8, bfmg(mxbf), cds3(mxds3)*6, tag*8, sec0*8, cbay*8
-  character*20 filnam / 'testfiles/IN_4' /
-  character filost / 'r' /
+  character*20 :: filnam = 'testfiles/IN_4'
+  character :: filost = 'r'
 
   print *, 'Testing reading IN_4, using CRBMG_C with OPENBF IO = SEC3, and using bitmap and marker operators.'
 

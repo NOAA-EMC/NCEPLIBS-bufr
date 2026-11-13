@@ -14,7 +14,7 @@ program intest14
 
   character errstr*400, subset*8
   character bmg*1000
-  character*20 filnam / 'testfiles/IN_1' /
+  character*20 :: filnam = 'testfiles/IN_1'
   character(len=:), allocatable :: empty_string
 
   real*8 r8arr(18, 2)
