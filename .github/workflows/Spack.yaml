@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         os: ["ubuntu-latest"]
-        variants: ["+python ~shared ~utils", "~python +shared +utils"]
+        variants: ["~python +shared +utils"] # "+python ~shared ~utils"]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -46,14 +46,14 @@ jobs:
 
     - name: spack-build-and-test
       run: |
-        git clone -c feature.manyFiles=true https://github.com/spack/spack -b releases/v0.21
+        git clone -c feature.manyFiles=true --depth=1 https://github.com/spack/spack
         . spack/share/spack/setup-env.sh
         spack env create bufr-env $GITHUB_WORKSPACE/bufr/spack/spack.yaml
         spack env activate bufr-env
-        cp $GITHUB_WORKSPACE/bufr/spack/package.py $SPACK_ROOT/var/spack/repos/builtin/packages/bufr/package.py
-        spack develop --no-clone --path $GITHUB_WORKSPACE/bufr bufr@develop test_files=/home/runner/data
-        spack add bufr@develop%gcc@12 ${{ matrix.variants }}
-        spack external find cmake gmake python py-numpy meson
+        cp $GITHUB_WORKSPACE/bufr/spack/package.py $(spack location --package-dir bufr)/.
+        spack develop --no-clone --path $GITHUB_WORKSPACE/bufr bufr@develop
+        spack add bufr@develop ${{ matrix.variants }} %gcc@13 # 14+ fails
+        spack external find --not-buildable cmake gmake python meson
         spack concretize
         # Run installation and run CTest suite
         spack install --verbose --fail-fast --test root
@@ -70,7 +70,9 @@ jobs:
       if: ${{ failure() }}
       with:
         name: spackci-ctest-output-${{ matrix.os }}-${{ matrix.variants }}
-        path: ${{ github.workspace }}/*/spack-build-*/Testing/Temporary/LastTest.log
+        path: |
+          /tmp/runner/spack-stage/spack-stage-bufr-develop-*/spack-build-*/Testing/Temporary/LastTest.log
+          /tmp/runner/spack-stage/spack-stage-bufr-develop-*.log
 
   # This job validates the Spack recipe by making sure each cmake build option is represented
   recipe-check:

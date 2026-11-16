@@ -1,9 +1,10 @@
-# Copyright 2013-2023 Lawrence Livermore National Security, LLC and other
-# Spack Project Developers. See the top-level COPYRIGHT file for details.
+# Copyright Spack Project Developers. See COPYRIGHT file for details.
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import os
+
+from spack_repo.builtin.build_systems.cmake import CMakePackage
 
 from spack.package import *
 
@@ -43,19 +44,42 @@ class Bufr(CMakePackage):
 
     variant("python", default=False, description="Enable Python interface")
     variant("shared", default=True, description="Build shared libraries", when="@11.5:")
-    variant("test_files", default="none", description="Path to test files")
-    variant("utils", default=True, description="Build utilities", when="@develop")
+    variant("utils", default=True, description="Build utilities", when="@12.1:")
 
     extends("python", when="+python")
 
+    depends_on("c", type="build")
+    depends_on("fortran", type="build")
+
     depends_on("python@3:", type=("build", "run"), when="+python")
+    depends_on("python@:3.11", type=("build", "run"), when="@:12.0 +python")
     depends_on("py-setuptools", type="build", when="+python")
+    # f2py uses Meson as its build backend with Python 3.12 and newer.
+    depends_on("meson", type="build", when="+python ^python@3.12:")
     depends_on("py-numpy", type=("build", "run"), when="+python")
     depends_on("meson", type="build", when="+python")
     depends_on("py-pip", type="build", when="+python")
     depends_on("py-wheel", type="build", when="+python")
 
     conflicts("%oneapi@:2024.1", msg="Requires oneapi 2024.2 or later")
+
+    resource(
+        name="testfiles",
+        url="https://ftp.emc.ncep.noaa.gov/static_files/public/bufr-12.2.0.tgz",
+        sha256="0ebc27f6260dc964d38c3966fb583e3ef68279a9879fc28cd4d923e2fc2ea42c",
+        when="@12.2:",
+        expand=False,
+        placement="testfiles",
+    )
+
+    resource(
+        name="testfiles",
+        url="https://ftp.emc.ncep.noaa.gov/static_files/public/bufr-12.1.0.tgz",
+        sha256="28024963cc855b85303def23f2c2c423d21545322c1eff54416229062fed013a",
+        when="@12.1",
+        expand=False,
+        placement="testfiles",
+    )
 
     def url_for_version(self, version):
         pre = "bufr_" if version < Version("12.0.1") else ""
@@ -75,10 +99,8 @@ class Bufr(CMakePackage):
             self.define("BUILD_TESTS", self.run_tests),
             self.define("BUILD_TESTING", self.run_tests),
             self.define_from_variant("BUILD_UTILS", "utils"),
+            self.define("TEST_FILE_DIR", join_path(self.stage.source_path, "testfiles")),
         ]
-
-        if not self.spec.satisfies("test_files=none"):
-            args.append(self.define_from_variant("TEST_FILE_DIR", "test_files"))
 
         return args
 
@@ -121,13 +143,17 @@ class Bufr(CMakePackage):
             pydir = join_path(os.path.dirname(lib[0]), f"python{pyver}", "site-packages")
             env.prepend_path("PYTHONPATH", pydir)
 
-    def setup_run_environment(self, env):
+    def setup_run_environment(self, env: EnvironmentModifications) -> None:
         suffixes = ["4"]
         if not self.spec.satisfies("@12:"):
             suffixes += ["8", "d"]
         for suffix in suffixes:
             self._setup_bufr_environment(env, suffix)
 
+    @on_package_attributes(run_tests=True)
+    def setup_build_environment(self, env: EnvironmentModifications) -> None:
+        env.append_path("LD_LIBRARY_PATH", join_path(self.build_directory, "src"))
+
     def check(self):
-        with working_dir(self.builder.build_directory):
+        with working_dir(self.build_directory):
             make("test")
