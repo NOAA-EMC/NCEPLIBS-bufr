@@ -20,7 +20,7 @@ defaults:
 
 jobs:
   Intel:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         compilers: ["CC=icc FC=ifort", "CC=icx FC=ifx"]
