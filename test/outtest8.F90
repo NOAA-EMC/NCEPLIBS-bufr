@@ -65,7 +65,7 @@ program outtest8
   call cobfl_c ( filnam, filost )
 
   ! Write the output message to the output file.
-  bfmg = transfer ( ibfmg(1:lenbmg), bfmg )
+  bfmg = transfer ( ibfmg, bfmg )
 #ifdef KIND_8
   ! See issue #300.
   ! For some reason the following code line squawks with a -Wconversion warning, so for now we'll just
