@@ -46,11 +46,11 @@ jobs:
 
     - name: spack-build-and-test
       run: |
-        git clone -c feature.manyFiles=true https://github.com/spack/spack -b releases/v0.21
+        git clone -c feature.manyFiles=true --depth=1 https://github.com/spack/spack
         . spack/share/spack/setup-env.sh
         spack env create bufr-env $GITHUB_WORKSPACE/bufr/spack/spack.yaml
         spack env activate bufr-env
-        cp $GITHUB_WORKSPACE/bufr/spack/package.py $SPACK_ROOT/var/spack/repos/builtin/packages/bufr/package.py
+        cp $GITHUB_WORKSPACE/bufr/spack/package.py $(spack location --package-dir bufr)/.
         spack develop --no-clone --path $GITHUB_WORKSPACE/bufr bufr@develop test_files=/home/runner/data
         spack add bufr@develop%gcc@12 ${{ matrix.variants }}
         spack external find cmake gmake python py-numpy meson
