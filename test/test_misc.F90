@@ -20,6 +20,8 @@ program test_misc
   character*6 cfxy
   character*80 card
   real*8 r8vals(10,600), r8vals2(4,100), r8vals3(3,10)
+  integer dummy
+  integer, external :: nvnwin
 
 #ifndef KIND_8
   character*5 char5
@@ -358,7 +360,7 @@ program test_misc
 
   ! Test print of warning statement in nvnwin()
   call openbf(11, 'QUIET', 1)
-  call nvnwin(0, 1, 1, 1, mbay, 2)
+  dummy = nvnwin(0, 1, 1, 1, mbay, 2)
   call openbf(11, 'QUIET', 0)
 
   ! Test invcon() and invtag()
