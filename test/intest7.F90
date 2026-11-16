@@ -192,7 +192,7 @@ program intest7
   errstr_len = 0
   call ufbtab ( 11, r8arr, mxr8pm, mxr8lv, nsub, 'CLATH' )
   idx = index(errstr(1:errstr_len), "BUFRLIB: UFBTAB - THE NO. OF DATA SUBSETS IN THE BUFR FILE IS .GT. LIMIT OF")
-  if ( (idx == 0) .or. ( nsub /= 5 ) .or. ( r8arr(1,2)*100000 /= 5012537 ) ) stop 30
+  if ( (idx == 0) .or. ( nsub /= 5 ) .or. ( int(r8arr(1,2)*100000) /= 5012537 ) ) stop 30
 
   print *, 'SUCCESS!'
 end program intest7
