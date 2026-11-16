@@ -2813,7 +2813,7 @@ module bufr_c2f_interface
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
-      real, pointer :: f_data
+      real*8, pointer :: f_data(:,:)
       integer :: lstr
 
       lstr = get_c_string_length(table_b_mnemonic)
@@ -2824,7 +2824,7 @@ module bufr_c2f_interface
         str = transfer(table_b_mnemonic(1:lstr), str)
       endif
 
-      call c_f_pointer(c_data, f_data)
+      call c_f_pointer(c_data, f_data, [dim_1,dim_2])
       call ufbinx(bufr_unit, imsg, isub, f_data, dim_1, dim_2, iret, str(1:lstr))
     end subroutine ufbinx_c
 
