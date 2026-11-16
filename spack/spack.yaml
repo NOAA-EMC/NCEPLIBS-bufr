@@ -11,6 +11,6 @@ spack:
   packages:
     py-numpy:
       externals:
-      - spec: py-numpy@1.21.5
+      - spec: py-numpy@2.3.5
         prefix: /usr
       buildable: false
