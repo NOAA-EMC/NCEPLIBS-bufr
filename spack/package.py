@@ -137,5 +137,5 @@ class Bufr(CMakePackage):
             self._setup_bufr_environment(env, suffix)
 
     def check(self):
-        with working_dir(self.builder.build_directory):
+        with working_dir(self.build_directory):
             make("test")
