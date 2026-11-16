@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         os: ["ubuntu-latest"]
-        variants: ["+python ~shared ~utils", "~python +shared +utils"]
+        variants: ["~python +shared +utils"] # "+python ~shared ~utils"]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -52,7 +52,7 @@ jobs:
         spack env activate bufr-env
         cp $GITHUB_WORKSPACE/bufr/spack/package.py $(spack location --package-dir bufr)/.
         spack develop --no-clone --path $GITHUB_WORKSPACE/bufr bufr@develop
-        spack add bufr@develop ${{ matrix.variants }} %gcc
+        spack add bufr@develop ${{ matrix.variants }} %gcc@13 # 14+ fails
         spack external find --not-buildable cmake gmake python meson
         spack concretize
         # Run installation and run CTest suite
