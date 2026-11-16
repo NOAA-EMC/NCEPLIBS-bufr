@@ -211,7 +211,7 @@ program outtest4
       if ( index( errstr(1:errstr_len), 'UFBSEQ - NO SPECIFIED VALUES WRITTEN OUT' ) == 0 ) stop 15
       call openbf ( 12, 'QUIET', -1 )
     end if
-    call drfini ( 13, nlv2, 1, '(TDWPRAOB)' )
+    call drfini ( 13, [nlv2], 1, '(TDWPRAOB)' )
     call ufbseq ( 13, r8arr2, mxval2, nlv2, nlv, 'TDWPRAOB' )
 
     call hold4wlc ( 13, smid, 'SMID' )

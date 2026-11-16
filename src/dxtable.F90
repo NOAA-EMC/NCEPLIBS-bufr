@@ -58,7 +58,7 @@ subroutine readdx(lunit,lun,lundx)
     ! Source is input BUFR file in lundx; BUFR file in lunit may be input or output
     if(iprt>=2) then
       call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
-      write ( unit=errstr, fmt='(A,A,I3,A,A,I3)' ) 'BUFRLIB: READDX - COPYING BUFR DCTY TBL FROM INTERNAL ', &
+      write ( unit=errstr, fmt='(A,A,I3,A,I3)' ) 'BUFRLIB: READDX - COPYING BUFR DCTY TBL FROM INTERNAL ', &
         'ARRAYS ASSOC. W/ INPUT UNIT ', lundx, ' TO THOSE ASSOC. W/ UNIT ', lunit
       call errwrt(errstr)
       call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
@@ -70,7 +70,7 @@ subroutine readdx(lunit,lun,lundx)
     ! Source is output BUFR file in lundx; BUFR file in lunit may be input or output
     if(iprt>=2) then
       call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
-      write ( unit=errstr, fmt='(A,A,I3,A,A,I3)' ) 'BUFRLIB: READDX - COPYING BUFR DCTY TBL FROM INTERNAL ', &
+      write ( unit=errstr, fmt='(A,A,I3,A,I3)' ) 'BUFRLIB: READDX - COPYING BUFR DCTY TBL FROM INTERNAL ', &
         'ARRAYS ASSOC. W/ OUTPUT UNIT ', lundx, ' TO THOSE ASSOC. W/ UNIT ', lunit
       call errwrt(errstr)
       call errwrt('++++++++++++BUFR ARCHIVE LIBRARY+++++++++++++++')
