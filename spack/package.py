@@ -46,7 +46,7 @@ class Bufr(CMakePackage):
     variant("python", default=False, description="Enable Python interface")
     variant("shared", default=True, description="Build shared libraries", when="@11.5:")
     variant("test_files", default="none", description="Path to test files")
-    variant("utils", default=True, description="Build utilities", when="@develop")
+    variant("utils", default=True, description="Build utilities", when="@12.1:")
 
     extends("python", when="+python")
 
@@ -54,7 +54,10 @@ class Bufr(CMakePackage):
     depends_on("fortran", type="build")
 
     depends_on("python@3:", type=("build", "run"), when="+python")
+    depends_on("python@:3.11", type=("build", "run"), when="@:12.0 +python")
     depends_on("py-setuptools", type="build", when="+python")
+    # f2py uses Meson as its build backend with Python 3.12 and newer.
+    depends_on("meson", type="build", when="+python ^python@3.12:")
     depends_on("py-numpy", type=("build", "run"), when="+python")
     depends_on("meson", type="build", when="+python")
     depends_on("py-pip", type="build", when="+python")
@@ -126,7 +129,7 @@ class Bufr(CMakePackage):
             pydir = join_path(os.path.dirname(lib[0]), f"python{pyver}", "site-packages")
             env.prepend_path("PYTHONPATH", pydir)
 
-    def setup_run_environment(self, env):
+    def setup_run_environment(self, env: EnvironmentModifications) -> None:
         suffixes = ["4"]
         if not self.spec.satisfies("@12:"):
             suffixes += ["8", "d"]
