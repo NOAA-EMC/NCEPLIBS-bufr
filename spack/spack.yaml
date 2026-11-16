@@ -7,3 +7,10 @@ spack:
   view: false
   concretizer:
     unify: true
+
+  packages:
+    py-numpy:
+      externals:
+      - spec: py-numpy@2.3.5
+        prefix: /usr
+      buildable: false

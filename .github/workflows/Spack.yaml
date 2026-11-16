@@ -53,7 +53,7 @@ jobs:
         cp $GITHUB_WORKSPACE/bufr/spack/package.py $(spack location --package-dir bufr)/.
         spack develop --no-clone --path $GITHUB_WORKSPACE/bufr bufr@develop
         spack add bufr@develop ${{ matrix.variants }} %gcc
-        spack external find --not-buildable cmake gmake python py-numpy meson
+        spack external find --not-buildable cmake gmake python meson
         spack concretize
         # Run installation and run CTest suite
         spack install --verbose --fail-fast --test root
