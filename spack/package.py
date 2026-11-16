@@ -50,6 +50,9 @@ class Bufr(CMakePackage):
 
     extends("python", when="+python")
 
+    depends_on("c", type="build")
+    depends_on("fortran", type="build")
+
     depends_on("python@3:", type=("build", "run"), when="+python")
     depends_on("py-setuptools", type="build", when="+python")
     depends_on("py-numpy", type=("build", "run"), when="+python")
