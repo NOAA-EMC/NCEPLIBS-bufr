@@ -37,7 +37,7 @@ For issues and pull requests in other repositories (e.g., ufs-weather-model) req
 ## Authors
 
 Jack Woollen, Jeff Ator, Dennis Keyser, Stacey Bender, Diane Stokes, Ed Hartnett,
-Jeff Whitaker, Rahul Mahajan, Alex Richert, Ron McLaren, Dom Heinzeller, Jack Reeves Eyre, and Daniel O'Connor.
+Jeff Whitaker, Rahul Mahajan, Alex Richert, Ron McLaren, Dom Heinzeller, Jack Reeves Eyre, Daniel O'Connor, David Davies
 
 Code manager: [Jeff Ator](mailto:jeff.ator@noaa.gov)
 

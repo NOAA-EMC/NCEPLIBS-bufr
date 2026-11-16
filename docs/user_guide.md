@@ -2,14 +2,15 @@
 
 ## Documentation for Previous Versions of NCEPLIBS-bufr
 
-* [NCEPLIBS-bufr-12.2.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v12.2.0/index.html)
-* [NCEPLIBS-bufr-12.1.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v12.1.0/index.html)
-* [NCEPLIBS-bufr-12.0.1](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v12.0.1/index.html)
-* [NCEPLIBS-bufr-12.0.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v12.0.0/index.html)
-* [NCEPLIBS-bufr-11.7.1](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v11.7.1/index.html)
-* [NCEPLIBS-bufr-11.7.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v11.7.0/index.html)
-* [NCEPLIBS-bufr-11.6.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v11.6.0/index.html)
-* [NCEPLIBS-bufr-11.5.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v11.5.0/index.html)
+* [v12.3.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v12.3.0/index.html)
+* [v12.2.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v12.2.0/index.html)
+* [v12.1.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v12.1.0/index.html)
+* [v12.0.1](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v12.0.1/index.html)
+* [v12.0.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v12.0.0/index.html)
+* [v11.7.1](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v11.7.1/index.html)
+* [v11.7.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v11.7.0/index.html)
+* [v11.6.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v11.6.0/index.html)
+* [v11.5.0](https://noaa-emc.github.io/NCEPLIBS-bufr/previous_versions/v11.5.0/index.html)
 
 ## Documentation for the Python API for NCEPLIBS-bufr
 
