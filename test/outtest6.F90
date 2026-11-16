@@ -4,6 +4,7 @@
 !
 ! J. Ator, 2/17/2023
 program outtest6
+  use, intrinsic :: ieee_arithmetic, only: ieee_quiet_nan, ieee_value
   implicit none
 
   real*8 r8f5fc(8,5), r8dbss(4,3), r8wind(2,1), r8val
@@ -55,7 +56,7 @@ program outtest6
   ! Try setting the value of the first occurrence of HOUR to NaN.
   ! It should end up getting encoded as "missing" in the output.
   r8val = -1
-  r8wind ( 1, 1 ) = sqrt( r8val )  ! r8wind(1,1) is now NaN
+  r8wind ( 1, 1 ) = ieee_value(r8wind(1,1), ieee_quiet_nan)  ! r8wind(1,1) is now NaN
   call ufbint ( 11, r8wind, 2, 1, nlv, 'HOUR' )
 
   r8dbss ( 1, 1 ) = 1.0
@@ -112,7 +113,7 @@ program outtest6
   r8f5fc ( 6, 5 ) = 0.4968
   r8f5fc ( 7, 5 ) = -0.4184
   r8f5fc ( 8, 5 ) = 3.15
-  call drfini ( 11, 5, 1, '{F5FCRSEQ}' )
+  call drfini ( 11, [5], 1, '{F5FCRSEQ}' )
   call ufbseq ( 11, r8f5fc, 8, 5, nlv, 'F5FCRSEQ' )
 
   call writsb ( 11 )

@@ -27,7 +27,8 @@ subroutine strbtm ( n, lun, ival )
 
   implicit none
 
-  integer, intent(in) :: n, lun, ival
+  integer, intent(in) :: n, lun
+  integer*8, intent(in) :: ival
   integer node, nodtam, ii, jj, lstjpb
 
   logical isbtme

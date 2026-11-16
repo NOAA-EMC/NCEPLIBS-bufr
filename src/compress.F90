@@ -209,7 +209,7 @@ subroutine rdcmps(lun)
         goto 11
       endif
       if(ival<lps(nbit)) val(n,lun) = ups(ival,node)
-      call strbtm(n,lun,ibfms(val(n,lun)))
+      call strbtm(n,lun,int(ibfms(val(n,lun)),8))
       ibit = ibit + linc*msub(lun)
     elseif(ityp==3) then
       ! This is a character element.  If there are more than 8 characters, then only the first 8 will be unpacked by this

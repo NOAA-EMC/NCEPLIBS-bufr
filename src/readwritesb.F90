@@ -1136,7 +1136,7 @@ subroutine wrtree(lun)
       else
         ival(n) = ipks(val(n,lun),node)
       endif
-      call strbtm(n,lun,int(ival(n)))
+      call strbtm(n,lun,ival(n))
     endif
   enddo
 
@@ -1298,7 +1298,7 @@ subroutine rcstpl(lun,iret)
           if(nbit(nval(lun))==1) then
             ! Check whether this is a bitmap entry
             call upbb(ivob,nbit(nval(lun)),mbit(nval(lun)),mbay(1,lun))
-            call strbtm(nval(lun),lun,ivob)
+            call strbtm(nval(lun),lun,int(ivob,8))
           endif
           ! Actual unpacked subset values are initialized here
           val(nval(lun),lun) = vutmp(j,nr)
