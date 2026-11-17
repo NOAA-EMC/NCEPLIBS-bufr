@@ -31,6 +31,7 @@ program readbp
       integer, parameter :: lubfr = 8
 
       real(8) :: hdr(10),obs(10,255),qms(10,255),xob,yob
+      integer(8) :: jrt, iqm
 
       logical :: exist, window = .false., steam = .false., dump = .false., hedr = .false.
 
@@ -136,7 +137,7 @@ program readbp
       sid = transfer(hdr(1),sid)
       xob = hdr(2)
       yob = hdr(3)
-      jrt = nint(hdr(6))
+      jrt = nint(hdr(6),8)
       jtp = nint(hdr(7))
       jkx = nint(hdr(8))
       if(sta/=' ' .and. sta/=sid(1:nsta)) cycle
@@ -165,36 +166,36 @@ program readbp
 !  ---------------------------------
 
       if(hedr) then
-        print'(a8,1x,a8,7(f8.2,1x))',subset,(hdr(i),i=1,8)
+        print '(a8,1x,a8,7(f8.2,1x))',subset,transfer(hdr(1),sid),(hdr(i),i=2,8)
         if(steam) cycle
         goto 99
       else
-        print'(80(''-''))'
-        print'(''MESSAGE: '',a8,2(2x,i4),i12 )' , subset,irec,isub,idate
-        print'(''STATION: '',a8,1x,2(f8.2,1X))' , (hdr(i),i= 1,3)
-        print'(''TIME:    '',i10,2x,f8.2     )' , idate,hdr(4)
-        print'(''ELV:     '',f8.2            )' , (hdr(5)       )
-        print'(''TYPE:    '',3(f8.0,1x)      )' , (hdr(i),i= 6,8)
-        print'(''DATA:    ''                 )'
+        print '(80(''-''))'
+        print '(''MESSAGE: '',a8,2(2x,i4),i12 )' , subset,irec,isub,idate
+        print '(''STATION: '',a8,1x,2(f8.2,1X))' , sid, hdr(2), hdr(3)
+        print '(''TIME:    '',i10,2x,f8.2     )' , idate,hdr(4)
+        print '(''ELV:     '',f8.2            )' , (hdr(5)       )
+        print '(''TYPE:    '',3(f8.0,1x)      )' , (hdr(i),i= 6,8)
+        print '(''DATA:    ''                 )'
       endif
 
       do l=1,nlev
         do i=1,7
-          iqm = nint(qms(i,l))
+          iqm = nint(qms(i,l),8)
           if(iqm<0)iqm=10e8
-          iqm = min(iqm,16)
+          iqm = min(iqm,16_8)
           qms(i,l) = transfer(cmc(iqm+1),qms(1,1))
         enddo
       enddo
 
       nlne = 7
-      print'(2(1x,a3),6(8x,a3))',vars
+      print '(2(1x,a3),6(8x,a3))',vars
       do l=1,nlev
         nlne = nlne+1
-        print 11, l,nint(obs(1,l)),(obs(i,l),qms(min(i-1,5),l),i=2,7)
+        print 11, l,nint(obs(1,l),8),(obs(i,l),transfer(qms(min(i-1,5),l),sid),i=2,7)
 11      format(2i4,6(1x,f7.1,'(',a1,')'))
       enddo
-      print'(80(''-''))'
+      print '(80(''-''))'
       if(steam) cycle
 
 !  Go to read the next subset if no 'Q'
