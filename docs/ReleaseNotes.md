@@ -2,6 +2,23 @@
 # Release Notes
 @brief Detailed description of changes included within each new release.
 
+## Version 12.4.0 - November 19, 2026
+
+* Upgraded sinv utility to increase the printable lengths of the satellite and instrument identifier numbers and
+description strings.
+[[Issue #690](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/690)]
+
+* Replaced static allocations of temporary character strings with dynamic allocations in numerous locations
+throughout the library, to improve overall memory usage and enable additional CI tests.
+[[Issue #689](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/689)]
+
+* Added wrapper to subroutine rewnbf to enable direct calling from C application programs.
+[[Issue #694](https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/694)]
+
+* Updated some Python wrappers and configuration files.
+[[Issue #697](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/697)]
+[[Issue #698](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/698)]
+
 ## Version 12.3.0 - December 18, 2025
 
 * Upgraded sinv utility to handle BUFR satellite data files of any size, including a corresponding update to
