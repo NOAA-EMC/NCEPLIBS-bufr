@@ -201,7 +201,7 @@ module bufr_c2f_interface
     !> @author Ronald McLaren @date 2020-07-29
     subroutine open_c(lunit, filepath) bind(C, name='open_f')
       integer(c_int), value, intent(in) :: lunit
-      character(kind=c_char) :: filepath
+      character(kind=c_char) :: filepath(*)
 
       open(lunit, file=c_f_string(filepath))
     end subroutine open_c
