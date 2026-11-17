@@ -33,7 +33,7 @@ program binv
   endif
 
   call get_command_argument(1,file)
-  file = trim(file)//char(0)
+  file = trim(file)
   inquire(file=file,exist=exist)
   if (.not.exist) then
      print *,trim(file)//' does not exist'
