@@ -147,7 +147,7 @@ class open:
             else:
                 self._ioflag = 'NODX'
         elif mode == 'a':
-            self._ioflag = 'APN'
+            self._ioflag = 'APX'
         else:
             raise ValueError("mode must be 'r', 's', 'w', 'n', or 'a'")
         if mode == 'r' or mode == 's' or mode == 'a':
