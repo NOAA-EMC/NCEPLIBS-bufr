@@ -141,7 +141,7 @@ end subroutine fortran_close
 !>   within the directory specified by a subsequent call to subroutine mtinfo()
 !>   - 'NODX' = same as 'OUT', except don't write DX BUFR table messages to lunit
 !>   - 'APN' = same as 'NODX', except begin writing at end of file ("append")
-!>   - 'APX' = same as 'APN', except backspace before appending
+!>   - 'APX' = same as 'APN', except read through contents of file before appending (e.g. to read any embedded DX BUFR tables)
 !>   - 'NUL' = same as 'OUT', except don't write any messages whatsoever to lunit (e.g. when subroutine writsa() is to be used)
 !>   - 'INUL' = same as 'IN', except don't read any messages whatsoever from lunit (e.g. when subroutine readerme() is to be used)
 !>   - 'QUIET' = lunit is ignored; this is an indicator that the value for module variable iprt is being reset to the
@@ -309,7 +309,7 @@ recursive subroutine openbf(lunit,io,lundx)
     call openab_c(lun,filename)
     call wtstat(lunit,lun,1,0)
     if(lunit/=lundx) call readdx(lunit,lun,lundx)
-    call posapx(lunit)
+    if(io=='APX') call posapx(lunit)
   else
     call bort('BUFRLIB: OPENBF - ILLEGAL SECOND (INPUT) ARGUMENT')
   endif
@@ -639,9 +639,6 @@ end subroutine ufbcnt
 !>
 !> Read to the end of the file pointed to by abs(lunxx) and position it for appending. The file must have
 !> already been opened for output operations.
-!>
-!< If lunxx > 0, then the file is backspaced before being positioned for append.
-!> If lunxx < 0, then the file is not backspaced before being positioned for append.
 !>
 !> @param lunxx - Absolute value is Fortran logical unit number for BUFR file
 !>

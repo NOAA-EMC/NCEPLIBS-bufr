@@ -82,7 +82,7 @@ program outtest11
   call openbf ( 13, 'IN', 13 )
 
   ! Open the output file for appending.
-  call openbf ( 50, 'APN', 13 )
+  call openbf ( 50, 'APX', 13 )
   call wrdxtb ( 13, 50 )
 
   ! Specify compression for output messages.

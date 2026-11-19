@@ -19,6 +19,11 @@ throughout the library, to improve overall memory usage and enable additional CI
 [[Issue #697](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/697)]
 [[Issue #698](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/698)]
 
+* Restored historical behavior of 'APN' option to subroutine openbf(), to re-enable the capability to append
+to an output file without first having to read through it.  The more-recent behavior, which always read through
+an entire file before positioning it for append, and which therefore had become identical to the use of the 'APX'
+option, now remains available only via the 'APX' option.
+
 ## Version 12.3.0 - December 18, 2025
 
 * Upgraded sinv utility to handle BUFR satellite data files of any size, including a corresponding update to
