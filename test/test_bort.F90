@@ -58,7 +58,8 @@ program test_bort
 
   character*25 filnam
   character bfmg(mxmb)
-  integer ibfmg(mxmbd4), ibfmg2(mxmbd4)
+  integer ibfmg(mxmbd4), ibfmg2(mxmbd4), dummy
+  integer, external :: nvnwin
 
 #ifdef KIND_8
   call setim8b(.true.)
@@ -1015,7 +1016,7 @@ program test_bort
         if (ios /= 0) stop 0
         call openbf(11, 'IN', 11)
         call readns(11, char_val_8, jdate, iret)
-        call nvnwin(1717, 1, 25, 175, jdate1, 5)
+        dummy = nvnwin(1717, 1, 25, 175, jdate1, 5)
      endif
   elseif (sub_name == 'openbf') then
      if (test_case == '1') then

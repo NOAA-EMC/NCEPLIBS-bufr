@@ -28,6 +28,7 @@ program sinv
   dimension      isat(0:maxs,0:maxs)
   real(8)        said(2,maxa)
   logical        exist
+  integer(8)     i,j
 
   !-----------------------------------------------------------------------
   !-----------------------------------------------------------------------
@@ -75,8 +76,8 @@ program sinv
   do while(nret<=0) 
      call ufbtab(lunbf,said,2,maxa,nret,'SAID SIID')
      do n=1,abs(nret)
-        i = nint(said(1,n))
-        j = nint(said(2,n))
+        i = nint(said(1,n),8)
+        j = nint(said(2,n),8)
         if(i>maxs.or.i<0) i=0
         if(j>maxs.or.j<0) j=0
         isat(i,j) = isat(i,j)+1
@@ -97,7 +98,7 @@ program sinv
      do j=0,1000
         if(isat(i,j)>0) then
            jsat=jsat+isat(i,j)
-           call satcode(lunbf,i,ci,j,cj)
+           call satcode(lunbf,int(i),ci,int(j),cj)
            write(*,'(i4,2x,a,2x,i10,2x,i4,2x,a)')i,ci,isat(i,j),j,trim(adjustl(cj))
         endif
      enddo

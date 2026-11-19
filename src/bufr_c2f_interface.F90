@@ -201,7 +201,7 @@ module bufr_c2f_interface
     !> @author Ronald McLaren @date 2020-07-29
     subroutine open_c(lunit, filepath) bind(C, name='open_f')
       integer(c_int), value, intent(in) :: lunit
-      character(kind=c_char) :: filepath
+      character(kind=c_char) :: filepath(*)
 
       open(lunit, file=c_f_string(filepath))
     end subroutine open_c
@@ -403,7 +403,7 @@ module bufr_c2f_interface
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
-      real, pointer :: f_data
+      real*8, pointer :: f_data(:,:)
       integer :: lstr
 
       lstr = get_c_string_length(table_b_mnemonic)
@@ -413,7 +413,7 @@ module bufr_c2f_interface
       else
         str = transfer(table_b_mnemonic(1:lstr), str)
       endif
-      call c_f_pointer(c_data, f_data)
+      call c_f_pointer(c_data, f_data, [dim_1,dim_2])
       call ufbint(bufr_unit, f_data, dim_1, dim_2, iret, str(1:lstr))
     end subroutine ufbint_c
 
@@ -434,7 +434,7 @@ module bufr_c2f_interface
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
-      real, pointer :: f_data
+      real*8, pointer :: f_data(:,:)
       integer :: lstr
 
       lstr = get_c_string_length(table_b_mnemonic)
@@ -444,7 +444,7 @@ module bufr_c2f_interface
       else
         str = transfer(table_b_mnemonic(1:lstr), str)
       endif
-      call c_f_pointer(c_data, f_data)
+      call c_f_pointer(c_data, f_data, [dim_1,dim_2])
       call ufbrep(bufr_unit, f_data, dim_1, dim_2, iret, str(1:lstr))
     end subroutine ufbrep_c
 
@@ -465,7 +465,7 @@ module bufr_c2f_interface
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
-      real, pointer :: f_data
+      real*8, pointer :: f_data(:,:)
       integer :: lstr
 
       lstr = get_c_string_length(table_b_mnemonic)
@@ -475,7 +475,7 @@ module bufr_c2f_interface
       else
         str = transfer(table_b_mnemonic(1:lstr), str)
       endif
-      call c_f_pointer(c_data, f_data)
+      call c_f_pointer(c_data, f_data, [dim_1,dim_2])
       call ufbstp(bufr_unit, f_data, dim_1, dim_2, iret, str(1:lstr))
     end subroutine ufbstp_c
 
@@ -496,7 +496,7 @@ module bufr_c2f_interface
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
-      real, pointer :: f_data
+      real*8, pointer :: f_data(:,:,:)
       integer :: lstr
 
       lstr = get_c_string_length(table_b_mnemonic)
@@ -506,7 +506,11 @@ module bufr_c2f_interface
       else
         str = transfer(table_b_mnemonic(1:lstr), str)
       endif
-      call c_f_pointer(c_data, f_data)
+      if (dim_1 > 0 .and. dim_2 > 0 .and. dim_3 > 0) then
+        call c_f_pointer(c_data, f_data, [dim_1,dim_2,dim_3])
+      else
+        call c_f_pointer(c_data, f_data, [0,0,0])
+      endif
       call ufbevn(bufr_unit, f_data, dim_1, dim_2, dim_3, iret, str(1:lstr))
     end subroutine ufbevn_c
 
@@ -1292,7 +1296,7 @@ module bufr_c2f_interface
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_d_mnemonic(*)
       character(len=90) :: str
-      real, pointer :: f_data
+      real*8, pointer :: f_data(:,:)
       integer :: lstr
 
       lstr = get_c_string_length(table_d_mnemonic)
@@ -1302,7 +1306,7 @@ module bufr_c2f_interface
       else
         str = transfer(table_d_mnemonic(1:lstr), str)
       endif
-      call c_f_pointer(c_data, f_data)
+      call c_f_pointer(c_data, f_data, [dim_1,dim_2])
       call ufbseq(bufr_unit, f_data, dim_1, dim_2, iret, str(1:lstr))
     end subroutine ufbseq_c
 
@@ -1852,7 +1856,7 @@ module bufr_c2f_interface
       integer(c_int), intent(inout) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
-      real, pointer :: f_data
+      real*8, pointer :: f_data(:,:)
       integer :: lstr
 
       lstr = get_c_string_length(table_b_mnemonic)
@@ -1862,7 +1866,7 @@ module bufr_c2f_interface
       else
         str = transfer(table_b_mnemonic(1:lstr), str)
       endif
-      call c_f_pointer(c_data, f_data)
+      call c_f_pointer(c_data, f_data, [dim_1,dim_2])
 
       call ufbtab(bufr_unit, f_data, dim_1, dim_2, iret, str(1:lstr))
     end subroutine ufbtab_c
@@ -2417,7 +2421,7 @@ module bufr_c2f_interface
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
-      real, pointer :: f_data
+      real*8, pointer :: f_data(:,:)
       integer :: lstr
 
       lstr = get_c_string_length(table_b_mnemonic)
@@ -2427,7 +2431,11 @@ module bufr_c2f_interface
       else
         str = transfer(table_b_mnemonic(1:lstr), str)
       endif
-      call c_f_pointer(c_data, f_data)
+      if (dim_1 > 0 .and. dim_2 > 0) then
+        call c_f_pointer(c_data, f_data, [dim_1,dim_2])
+      else
+        call c_f_pointer(c_data, f_data, [0,0])
+      endif
       call ufbrms(imsg, isub, f_data, dim_1, dim_2, iret, str(1:lstr))
     end subroutine ufbrms_c
 
@@ -2447,7 +2455,7 @@ module bufr_c2f_interface
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
-      real, pointer :: f_data
+      real*8, pointer :: f_data(:,:)
       integer :: lstr
 
       lstr = get_c_string_length(table_b_mnemonic)
@@ -2457,7 +2465,7 @@ module bufr_c2f_interface
       else
         str = transfer(table_b_mnemonic(1:lstr), str)
       endif
-      call c_f_pointer(c_data, f_data)
+      call c_f_pointer(c_data, f_data, [dim_1,dim_2])
 
       call ufbtam(f_data, dim_1, dim_2, iret, str(1:lstr))
     end subroutine ufbtam_c
@@ -2813,7 +2821,7 @@ module bufr_c2f_interface
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
-      real, pointer :: f_data
+      real*8, pointer :: f_data(:,:)
       integer :: lstr
 
       lstr = get_c_string_length(table_b_mnemonic)
@@ -2824,7 +2832,7 @@ module bufr_c2f_interface
         str = transfer(table_b_mnemonic(1:lstr), str)
       endif
 
-      call c_f_pointer(c_data, f_data)
+      call c_f_pointer(c_data, f_data, [dim_1,dim_2])
       call ufbinx(bufr_unit, imsg, isub, f_data, dim_1, dim_2, iret, str(1:lstr))
     end subroutine ufbinx_c
 
@@ -2846,7 +2854,7 @@ module bufr_c2f_interface
       integer(c_int), intent(out) :: iret
       character(kind=c_char), intent(in) :: table_b_mnemonic(*)
       character(len=90) :: str
-      real, pointer :: f_data
+      real*8, pointer :: f_data(:,:)
       integer :: lstr
 
       lstr = get_c_string_length(table_b_mnemonic)
@@ -2857,7 +2865,11 @@ module bufr_c2f_interface
         str = transfer(table_b_mnemonic(1:lstr), str)
       endif
 
-      call c_f_pointer(c_data, f_data)
+      if (dim_1 > 0 .and. dim_2 > 0) then
+        call c_f_pointer(c_data, f_data, [dim_1,dim_2])
+      else
+        call c_f_pointer(c_data, f_data, [0,0])
+      endif
       call ufbovr(bufr_unit, f_data, dim_1, dim_2, iret, str(1:lstr))
     end subroutine ufbovr_c
 
