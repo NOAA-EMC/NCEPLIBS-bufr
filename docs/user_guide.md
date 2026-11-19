@@ -20,7 +20,7 @@
 
 This library contains subroutines, functions and other [utilities](@ref utilities) that
 can be used to read (decode) and write (encode) data in BUFR, which is
-a [WMO](https://public.wmo.int) standard format for the exchange of
+a [WMO](https://wmo.int) standard format for the exchange of
 meteorological data.
 
 ## Installation
@@ -35,6 +35,7 @@ cmake --install NCEPLIBS-bufr/build
 
 Any of the following options can be used to configure the build via `-D<Option>=<Value>`
 within the first of the above cmake commands.  Otherwise the corresponding default value will be used.
+Any directory paths may be full or relative pathnames on the system, up to a limit of 240 characters in length.
 
 | Option | Description | Default Value |
 |--------|-------------|---------------|
@@ -70,12 +71,11 @@ BUFR is a table-driven format, meaning that new descriptors can be
 encoded and decoded by adding them to tables which are read in by the
 software, rather than having to modify the software itself. To that
 end, WMO periodically releases new versions of their
-[official WMO master BUFR tables](https://community.wmo.int/en/wis/latest-version),
-to facilitate the continued exchange of meteorological data throughout
-the global community.
+[official WMO master BUFR tables](https://community.wmo.int/site/knowledge-hub/programmes-and-initiatives/wmo-information-system-wis/wis-publications/about-manual-codes-volume-i2/latest-version),
+to facilitate the continued exchange of meteorological data throughout the global community.
 
 NCEPLIBS-bufr can read (decode) and write (encode) data in both
-edition 3 and edition 4 of BUFR. It consists of more than 300
+edition 3 and edition 4 of BUFR. It consists of more than 500
 different subroutines and functions; however, a typical application
 program will never directly call more than 10 to 20 of them, and the
 rest are lower-level routines that the library uses to accomplish

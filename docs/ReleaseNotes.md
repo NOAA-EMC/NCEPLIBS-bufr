@@ -12,7 +12,7 @@ description strings.
 throughout the library, to improve overall memory usage and enable additional CI tests.
 [[Issue #689](https://github.com/NOAA-EMC/NCEPLIBS-bufr/issues/689)]
 
-* Added wrapper to subroutine rewnbf to enable direct calling from C application programs.
+* Added wrapper to subroutine rewnbf() to enable direct calling from C application programs.
 [[Issue #694](https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/694)]
 
 * Updated some Python wrappers and configuration files.
