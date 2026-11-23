@@ -1115,7 +1115,7 @@ end subroutine fstag
 !>    - -1 = tagpr could not be found, or some other error occurred
 !>
 !> A data subset must already be in scope within the NCEPLIBS-bufr
-!> internal arrays for LUNIT, either via a previous call to one
+!> internal arrays for lunit, either via a previous call to one
 !> of the [subset-reading subroutines](@ref hierarchy)
 !> (when reading BUFR data subsets) or via a previous call to one
 !> of the [message-writing subroutines](@ref hierarchy)

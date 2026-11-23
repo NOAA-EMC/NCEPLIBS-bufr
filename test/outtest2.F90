@@ -1,6 +1,6 @@
 ! This is a test for NCEPLIBS-bufr.
 !
-! Writes test file 'testfiles/OUT_2' using using OPENBF IO = 'APX' and embedded tables
+! Writes test file 'testfiles/OUT_2' using using OPENBF IO = 'APN' and embedded tables
 !
 ! J. Ator, 2/16/2023
 program outtest2
@@ -17,7 +17,7 @@ program outtest2
 
   character libvrsn*8, cpid*8
 
-  print *, 'Testing writing OUT_2 using OPENBF IO = APX and embedded tables'
+  print *, 'Testing writing OUT_2 using OPENBF IO = APN and embedded tables'
 
 #ifdef KIND_8
   call setim8b (.true.)
@@ -49,7 +49,7 @@ program outtest2
   open ( unit = 12, file = 'testfiles/OUT_2_bufrtab' )
   open ( unit = 11, file = 'out2.bufr', form ='unformatted')
 
-  call openbf ( 11, 'APX', 12 )
+  call openbf ( 11, 'APN', 12 )
 
   ! Check for any abnormal internal return codes so far.
   if ( igetsc ( 11 ) /= 0 ) stop 1

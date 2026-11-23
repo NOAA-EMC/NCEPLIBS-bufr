@@ -108,7 +108,7 @@ program outtest3
   ! Open the BUFR table, and re-open the output file for append.
   open ( unit = 11, file = 'out3.bufr', form ='unformatted')
   open ( unit = 12, file = 'testfiles/OUT_3_bufrtab' )
-  call openbf ( 11, 'APX', 12 )
+  call openbf ( 11, 'APN', 12 )
 
   ! Confirm the values from the previous isetprm settings.
   if ( ( igetprm ( 'NFILES' ) /= 5 ) .or. ( igetprm ( 'MXMSGL' ) /= 12000 ) ) stop 4

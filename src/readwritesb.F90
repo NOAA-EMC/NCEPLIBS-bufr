@@ -634,7 +634,7 @@ end subroutine rdmgsb
 !> Write an uncompressed BUFR data subset.
 !>
 !> Pack up the current subset within memory (array ibay in module @ref moda_bitbuf), then try to add it to the
-!> uncompressed BUFR message that is currently open within memory for LUNIT (array mbay in module @ref moda_bitbuf).
+!> uncompressed BUFR message that is currently open within memory for lunit (array mbay in module @ref moda_bitbuf).
 !> If the subset will not fit
 !> into the currently open message, or if the subset byte count exceeds
 !> 65530 (sufficiently close to the 16-bit byte counter upper limit of

@@ -19,7 +19,7 @@
 !> file indicated by lunit, until the file is closed with closbf().
 !>
 !> @param lunit - Fortran logical unit number for BUFR file being read, written, initialized or appended
-!> @param lun - file ID associated with LUNIT
+!> @param lun - File ID associated with lunit
 !> @param lundx - Fortran logical unit number containing dictionary table information to be used in reading/writing from/to
 !> lunit (depending on the case); may be set equal to lunit if dictionary table information is already embedded in lunit
 !> (but only if lunit is being read)

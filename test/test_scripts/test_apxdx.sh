@@ -13,7 +13,7 @@ cd ${basedir}
 outfile_1=testrun/apxdx_1.out
 # Make a copy of the input BUFR file to use in this test, since the apxdx utility appends directly to its input.
 cp testfiles/data/apxdx_1 ${outfile_1}
-../utils/apxdx ${outfile_1} testfiles/IN_11_bufrtab && diff -w ${outfile_1} testfiles/testoutput/apxdx_1.out
+../utils/apxdx ${outfile_1} testfiles/IN_11_bufrtab && cmp -s ${outfile_1} testfiles/testoutput/apxdx_1.out
 [[ ${?} -ne 0 ]] && exit 1
 
 # We expect some of the following tests may return a non-zero exit code, but we don't want
