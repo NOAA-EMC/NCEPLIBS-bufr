@@ -57,7 +57,7 @@ program apxdx
   ! Open the BUFR file for append.
   cbffil = trim(cbffil) // char(0)  ! append trailing null
   open ( unit = lunot, file = cbffil, form = 'unformatted' )
-  call openbf ( lunot, 'APX', lunot )
+  call openbf ( lunot, 'APN', lunot )
 
   ! Generate DX messages from the table and append them to the BUFR file.
   call wrdxtb ( lunin, lunot )

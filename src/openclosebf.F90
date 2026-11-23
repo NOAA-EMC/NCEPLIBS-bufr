@@ -637,13 +637,13 @@ end subroutine ufbcnt
 
 !> Position an output BUFR file for appending.
 !>
-!> Read to the end of the file pointed to by abs(lunxx) and position it for appending. The file must have
+!> Read to the end of the file pointed to by lunit and position it for appending. The file must have
 !> already been opened for output operations.
 !>
-!> @param lunxx - Absolute value is Fortran logical unit number for BUFR file
+!> @param lunit - Fortran logical unit number for BUFR file
 !>
 !> @author Woollen @date 1994-01-06
-subroutine posapx(lunxx)
+subroutine posapx(lunit)
 
   use bufrlib
 
@@ -651,10 +651,8 @@ subroutine posapx(lunxx)
 
   implicit none
 
-  integer, intent(in) :: lunxx
-  integer lunit, lun, il, im, ier, idxmsg
-
-  lunit = abs(lunxx)
+  integer, intent(in) :: lunit
+  integer lun, il, im, ier, idxmsg
 
   call status(lunit,lun,il,im)
   if(il==0) call bort('BUFRLIB: POSAPX - INPUT BUFR FILE IS CLOSED, IT MUST BE OPEN FOR OUTPUT')

@@ -23,6 +23,7 @@ throughout the library, to improve overall memory usage and enable additional CI
 to an output file without first having to read through it.  The more-recent behavior, which always read through
 an entire file before positioning it for append, and which therefore had become identical to the use of the 'APX'
 option, now remains available only via the 'APX' option.
+[[Issue #720](https://github.com/NOAA-EMC/NCEPLIBS-bufr/pull/720)]
 
 ## Version 12.3.0 - December 18, 2025
 

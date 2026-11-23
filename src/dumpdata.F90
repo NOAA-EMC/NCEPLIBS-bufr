@@ -568,7 +568,7 @@ end subroutine ufdump
 !> The DX BUFR table is printed using the same ASCII format
 !> described in the documentation for
 !> [DX BUFR Tables](@ref dfbftab), so the output file is suitable
-!> for use as Fortran logical unit LUNDX in subsequent calls to
+!> for use as Fortran logical unit lundx in subsequent calls to
 !> subroutine openbf() for reading or writing additional BUFR
 !> files with the same structure.
 !>
